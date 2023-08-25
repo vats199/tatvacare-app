@@ -6,6 +6,9 @@ import ExerciseActive from '../assets/icons/exerciseActive.svg'
 import ExerciseInactive from '../assets/icons/exerciseInactive.svg'
 import ProgramActive from '../assets/icons/programActive.svg'
 import ProgramInactive from '../assets/icons/programInactive.svg'
+import MyTatvaLogo from '../assets/icons/myTatvaLogo.svg'
+import Dropdown from '../assets/icons/dropdown.svg'
+import LocationInactive from '../assets/icons/locationInactive.svg'
 
 
 export const Icons = {
@@ -17,4 +20,7 @@ export const Icons = {
     ExerciseInactive,
     ProgramActive,
     ProgramInactive,
+    MyTatvaLogo,
+    Dropdown,
+    LocationInactive
 }
