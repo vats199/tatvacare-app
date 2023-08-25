@@ -9,6 +9,7 @@ import ProgramInactive from '../assets/icons/programInactive.svg'
 import MyTatvaLogo from '../assets/icons/myTatvaLogo.svg'
 import Dropdown from '../assets/icons/dropdown.svg'
 import LocationInactive from '../assets/icons/locationInactive.svg'
+import LocationSymbol from '../assets/icons/locationSymbol.svg'
 
 
 export const Icons = {
@@ -22,5 +23,6 @@ export const Icons = {
     ProgramInactive,
     MyTatvaLogo,
     Dropdown,
-    LocationInactive
+    LocationInactive,
+    LocationSymbol
 }

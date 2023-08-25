@@ -1,17 +1,14 @@
-import { StyleSheet, Text, TextInput, TextInputProps, TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native'
+import { Animated, StyleSheet, Text, TextInput, TextInputProps, TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native'
 import React from 'react'
+import { colors } from '../../constants/colors';
+import { TapGestureHandler } from 'react-native-gesture-handler';
 
 interface InputFieldProps extends TextInputProps {
     style?: ViewStyle;
     textStyle?: TextStyle;
     label?: string;
     error?: string;
-    rightLabel?: string;
-    rightValue?: string,
     showErrorText?: boolean,
-    quantityButtons?: boolean,
-    onPlus?: () => void,
-    onMinus?: () => void
 }
 
 const InputField: React.FC<InputFieldProps> = ({
@@ -26,8 +23,6 @@ const InputField: React.FC<InputFieldProps> = ({
     keyboardType,
     maxLength,
     error,
-    rightLabel,
-    rightValue,
     numberOfLines,
     multiline,
     secureTextEntry = false,
@@ -35,60 +30,65 @@ const InputField: React.FC<InputFieldProps> = ({
     autoFocus = false,
     onFocus = () => { },
     onBlur = () => { },
-    quantityButtons = false,
-    onMinus = () => { },
-    onPlus = () => { }
 }) => {
 
     const [hidden, setHidden] = React.useState<boolean>(secureTextEntry)
 
+    const [isFocused, setIsFocused] = React.useState<boolean>(false);
+    const translateY = new Animated.Value(0);
+
+    const handleFocus = (e: any) => {
+        onFocus(e)
+        setIsFocused(true);
+        Animated.timing(translateY, {
+            toValue: -15,
+            duration: 300,
+            useNativeDriver: false,
+        }).start();
+    };
+
+    const handleBlur = (e: any) => {
+        onBlur(e)
+        setIsFocused(false);
+        Animated.timing(translateY, {
+            toValue: 0,
+            duration: 300,
+            useNativeDriver: false,
+        }).start();
+    };
+
     return (
         <>
             <View style={[styles.container, style, (error?.length ?? 0) > 0 && styles.errorContainer]}>
-                {label &&
+                {/* {label &&
                     <View style={styles.labelContainer}>
                         <Text style={styles.label}>{label}</Text>
                         {rightLabel && <Text style={styles.rightlabel}>{rightLabel} : {rightValue}</Text>}
                     </View>
-                }
-                <View style={styles.row}>
-                    {/* {quantityButtons &&
-                        <TouchableOpacity style={styles.qtyBtn} onPress={onMinus}>
-                            <Icons.Subtract />
-                        </TouchableOpacity>
-                    } */}
-                    <TextInput
-                        placeholder={placeholder}
-                        placeholderTextColor={'gray'}
-                        value={value}
-                        editable={editable}
-                        keyboardType={keyboardType}
-                        autoCapitalize={autoCapitalize}
-                        maxLength={maxLength}
-                        numberOfLines={numberOfLines}
-                        onChangeText={onChangeText}
-                        multiline={multiline}
-                        autoFocus={autoFocus}
-                        onFocus={onFocus}
-                        onBlur={onBlur}
-                        secureTextEntry={hidden}
-                        style={[editable ? styles.canEdit : styles.cannotEdit, textStyle]}
-                    />
-                    {/* {quantityButtons &&
-                        <TouchableOpacity style={styles.qtyBtn} onPress={onPlus}>
-                            <Icons.Add />
-                        </TouchableOpacity>
-                    } */}
-                    {/* {secureTextEntry &&
-                        <TouchableOpacity onPress={() => setHidden(!hidden)}>
-                            {hidden ?
-                                <Icons.EyeOn height={25} width={25} />
-                                :
-                                <Icons.EyeOff height={25} width={25} />
-                            }
-                        </TouchableOpacity>
-                    } */}
-                </View>
+                } */}
+                <TapGestureHandler onHandlerStateChange={handleFocus}>
+
+                    <Animated.View style={[styles.row]}>
+                        {(isFocused || (value?.length ?? 0) > 0) && <Animated.Text style={{ position: 'absolute', transform: [{ translateY }] }}>{placeholder}</Animated.Text>}
+                        <TextInput
+                            placeholder={!isFocused ? placeholder : ''}
+                            placeholderTextColor={colors.subTitleLightGray}
+                            value={value}
+                            editable={editable}
+                            keyboardType={keyboardType}
+                            autoCapitalize={autoCapitalize}
+                            maxLength={maxLength}
+                            numberOfLines={numberOfLines}
+                            onChangeText={onChangeText}
+                            multiline={multiline}
+                            autoFocus={autoFocus}
+                            onFocus={handleFocus}
+                            onBlur={handleBlur}
+                            secureTextEntry={hidden}
+                            style={[editable ? styles.canEdit : styles.cannotEdit, textStyle, (isFocused || (value?.length ?? 0) > 0) && { paddingTop: 15 }]}
+                        />
+                    </Animated.View>
+                </TapGestureHandler>
             </View>
             {(error?.length ?? 0) > 0 && showErrorText && <Text style={styles.error}>{error}</Text>}
         </>
@@ -122,15 +122,14 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     label: {
-        color: 'blue',
-        fontSize: 14,
+        color: colors.labelTitleDarkGray,
+        fontSize: 14
     },
     rightlabel: {
         color: 'black',
         fontSize: 10,
     },
     canEdit: {
-        color: 'black',
         padding: 0,
         flex: 1,
     },

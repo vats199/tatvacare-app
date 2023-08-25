@@ -11,6 +11,8 @@ const App = () => {
 
   const BottomSheetRef = useRef<LocationBottomSheetRef>(null)
 
+  const [locationPermission, setLocationPermission] = useState<string>('')
+
   const requestLocationPermission = async () => {
     try {
 
@@ -18,9 +20,11 @@ const App = () => {
         PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
       );
 
+      setLocationPermission(granted)
+
       if (granted === 'granted') {
         getLocation()
-      } else if (granted !== 'never_ask_again') {
+      } else {
         BottomSheetRef.current?.show()
       }
     } catch (err) {
@@ -46,9 +50,9 @@ const App = () => {
     requestLocationPermission()
   }, [])
   return (
-    <GestureHandlerRootView style={{ height: Dimensions.get('window').height - (StatusBar.currentHeight ?? 0) }}>
+    <GestureHandlerRootView style={{ height: Dimensions.get('window').height }}>
       <Router />
-      <LocationBottomSheet ref={BottomSheetRef} requestLocationPermission={requestLocationPermission} />
+      <LocationBottomSheet ref={BottomSheetRef} requestLocationPermission={requestLocationPermission} locationPermission={locationPermission} />
     </GestureHandlerRootView>
   )
 }

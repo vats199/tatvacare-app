@@ -11,7 +11,8 @@ import { colors } from '../../constants/colors';
 import InputField from '../atoms/InputField';
 
 type LocationBottomSheetProps = {
-    requestLocationPermission?: () => void
+    requestLocationPermission?: () => void,
+    locationPermission?: string
 }
 
 export type LocationBottomSheetRef = {
@@ -19,7 +20,7 @@ export type LocationBottomSheetRef = {
     hide: () => void;
 }
 
-const LocationBottomSheet = forwardRef<LocationBottomSheetRef, LocationBottomSheetProps>(({ requestLocationPermission = () => { } }, ref) => {
+const LocationBottomSheet = forwardRef<LocationBottomSheetRef, LocationBottomSheetProps>(({ requestLocationPermission = () => { }, locationPermission }, ref) => {
 
     const bottomSheetModalRef = React.useRef<BottomSheetModal>(null);
 
@@ -60,7 +61,7 @@ const LocationBottomSheet = forwardRef<LocationBottomSheetRef, LocationBottomShe
                 }
                 handleIndicatorStyle={{ backgroundColor: '#E0E0E0', width: 45, height: 4 }}
                 index={0}
-                snapPoints={[pincodeDetailsShown ? '30%' : '40%', '75%']}
+                snapPoints={[pincodeDetailsShown ? '35%' : '40%', '75%']}
                 enablePanDownToClose={false}
                 enableContentPanningGesture={false}
                 keyboardBehavior="interactive"
@@ -71,11 +72,15 @@ const LocationBottomSheet = forwardRef<LocationBottomSheetRef, LocationBottomShe
                         pincodeDetailsShown ?
                             <>
                                 <Text style={styles.locationTitleText}>Enter Location</Text>
-                                <View style={styles.pincodeInputContainer}>
-                                    <InputField label={pincode && "Enter Pincode"} value={pincode}
+                                <View style={[styles.pincodeInputContainer, { borderColor: pincode?.length ? colors.inputBoxDarkBorder : colors.inputBoxLightBorder }]}>
+                                    <InputField editable={pincode?.length <= 6} value={pincode}
                                         onChangeText={onChangePin} textStyle={styles.inputBoxStyle} placeholder='Enter Pincode' style={styles.pincodeInputStyle} keyboardType="decimal-pad" onBlur={() => bottomSheetModalRef.current?.snapToIndex(0)} onFocus={() => bottomSheetModalRef.current?.expand()} />
-                                    <TouchableOpacity disabled={false} activeOpacity={0.6}><Text style={styles.activeApplyText}>Apply</Text></TouchableOpacity>
+                                    <TouchableOpacity disabled={pincode?.length == 6 || pincode?.length == 4 ? false : true} activeOpacity={0.6}><Text style={pincode?.length == 6 || pincode?.length == 4 ? styles.activeApplyText : styles.inactiveApplyText}>Apply</Text></TouchableOpacity>
                                 </View>
+                                <TouchableOpacity onPress={requestLocationPermission} style={styles.currentLocationContainer} activeOpacity={0.6}>
+                                    <Icons.LocationSymbol />
+                                    <Text style={styles.currentLocationText}>Use Current Location</Text>
+                                </TouchableOpacity>
                             </>
                             :
                             <>
@@ -97,13 +102,11 @@ const LocationBottomSheet = forwardRef<LocationBottomSheetRef, LocationBottomShe
                                     />
                                     <Button
                                         title={'Grant'}
-                                        onPress={() => {
-                                            requestLocationPermission()
-                                        }}
+                                        onPress={requestLocationPermission}
                                         titleStyle={styles.filledButtonText}
-                                        buttonStyle={styles.filledButton}
+                                        buttonStyle={{ ...styles.filledButton, opacity: locationPermission === 'never_ask_again' ? 0.6 : 1 }}
                                         activeOpacity={0.6}
-                                        disabled={false}
+                                        disabled={locationPermission === 'never_ask_again' ? true : false}
                                     />
 
                                 </View>
@@ -136,7 +139,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     smallHeight: {
-        height: '35%',
+        height: '40%',
     },
     tallHeight: {
         height: '50%',
@@ -193,7 +196,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 12,
         paddingHorizontal: 10,
-        paddingVertical: 5,
+        paddingVertical: 0,
         elevation: 2,
     },
     locationTitleText: {
@@ -217,6 +220,17 @@ const styles = StyleSheet.create({
         color: colors.inactiveGray
     },
     inputBoxStyle: {
-
+        color: colors.inputValueDarkGray,
+        fontWeight: '600',
+        fontSize: 16
+    },
+    currentLocationContainer: {
+        flexDirection: 'row',
+        gap: 10,
+        marginRight: 'auto'
+    },
+    currentLocationText: {
+        color: colors.inputValueDarkGray,
+        fontWeight: '500'
     }
 })
