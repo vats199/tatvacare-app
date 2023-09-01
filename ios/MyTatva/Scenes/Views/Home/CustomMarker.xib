@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="CustomMarker" customModule="HappyOur" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tch-dR-I2N">
+                    <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="c88-Yu-LOj">
+                            <rect key="frame" x="4" y="4" width="32" height="32"/>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="c88-Yu-LOj" secondAttribute="bottom" constant="4" id="E1r-kk-y4e"/>
+                        <constraint firstItem="c88-Yu-LOj" firstAttribute="leading" secondItem="tch-dR-I2N" secondAttribute="leading" constant="4" id="GUF-M5-7dT"/>
+                        <constraint firstItem="c88-Yu-LOj" firstAttribute="top" secondItem="tch-dR-I2N" secondAttribute="top" constant="4" id="W1F-Xd-D47"/>
+                        <constraint firstAttribute="trailing" secondItem="c88-Yu-LOj" secondAttribute="trailing" constant="4" id="ehh-vg-eYt"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="tch-dR-I2N" secondAttribute="trailing" id="8vS-ai-oQI"/>
+                <constraint firstItem="tch-dR-I2N" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="GB7-j4-W8P"/>
+                <constraint firstItem="tch-dR-I2N" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="PRU-RR-MKC"/>
+                <constraint firstAttribute="bottom" secondItem="tch-dR-I2N" secondAttribute="bottom" id="pla-OF-1Vu"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="vwBg" destination="tch-dR-I2N" id="a3M-Hu-WgV"/>
+                <outlet property="vwImg" destination="c88-Yu-LOj" id="e0e-Ot-CES"/>
+            </connections>
+            <point key="canvasLocation" x="-433.33333333333337" y="-351.5625"/>
+        </view>
+    </objects>
+</document>

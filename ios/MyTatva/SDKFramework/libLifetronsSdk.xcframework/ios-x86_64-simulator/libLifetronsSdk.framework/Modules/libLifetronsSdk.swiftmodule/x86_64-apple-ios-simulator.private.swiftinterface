@@ -1,0 +1,79 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.8 (swiftlang-5.8.0.124.2 clang-1403.0.22.11.100)
+// swift-module-flags: -target x86_64-apple-ios9.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name libLifetronsSdk
+// swift-module-flags-ignorable: -enable-bare-slash-regex
+import Foundation
+import Swift
+import _Concurrency
+import _StringProcessing
+@_exported import libLifetronsSdk
+@_hasMissingDesignatedInitializers public class SmartScaleUtil {
+  @objc deinit
+}
+public protocol ILSBleApiDelegate : ObjectiveC.NSObject {
+  func onGetUnsteadyWeight(weight: Swift.Double)
+  func onDetecting()
+  func onConnecting()
+  func onConnectionFailed()
+  func onConnected(device: libLifetronsSdk.QNBleDevice)
+  func onDataReceived(jsonObj: Swift.String, mac: Swift.String)
+  func onDisconnecting()
+  func onDisconnected(device: libLifetronsSdk.QNBleDevice)
+  func onWrongScaleDetected(modeId: Swift.String)
+}
+@_hasMissingDesignatedInitializers public class RangeBarItem : Swift.Codable {
+  required convenience public init(from decoder: any Swift.Decoder) throws
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+@objc @_inheritsConvenienceInitializers public class LSBleApi : ObjectiveC.NSObject, libLifetronsSdk.QNBleDeviceDiscoveryListener, libLifetronsSdk.QNBleStateListener, libLifetronsSdk.QNBleConnectionChangeListener, libLifetronsSdk.QNScaleDataListener {
+  public var lsBleApiListener: (any libLifetronsSdk.ILSBleApiDelegate)?
+  public class func shared() -> libLifetronsSdk.LSBleApi
+  public func initSdk(appId: Swift.String, dataFileContent: Swift.String, completion: @escaping (_ code: Swift.Int, _ msg: Swift.String) -> ())
+  public func buildUser(userId: Swift.String, height: Swift.Int, gender: Swift.String, birthday: Foundation.Date, completion: @escaping (_ code: Swift.Int, _ msg: Swift.String) -> ())
+  public func startLSScanDevice(weightUnit: Swift.Int, completion: @escaping (_ code: Swift.Int, _ msg: Swift.String) -> ())
+  public func stopLSScanDevice(device: libLifetronsSdk.QNBleDevice?)
+  @objc public func onBleSystemState(_ state: libLifetronsSdk.QNBLEState)
+  @objc public func onDeviceDiscover(_ device: libLifetronsSdk.QNBleDevice!)
+  @objc public func onBroadcastDeviceDiscover(_ device: libLifetronsSdk.QNBleBroadcastDevice!)
+  @objc public func onScaleStateChange(_ device: libLifetronsSdk.QNBleDevice!, scaleState state: libLifetronsSdk.QNScaleState)
+  @objc public func onConnecting(_ device: libLifetronsSdk.QNBleDevice!)
+  @objc public func onConnected(_ device: libLifetronsSdk.QNBleDevice!)
+  @objc public func onServiceSearchComplete(_ device: libLifetronsSdk.QNBleDevice!)
+  @objc public func onDisconnecting(_ device: libLifetronsSdk.QNBleDevice!)
+  @objc public func onDisconnected(_ device: libLifetronsSdk.QNBleDevice!)
+  @objc public func onConnectError(_ device: libLifetronsSdk.QNBleDevice!, error: (any Swift.Error)!)
+  @objc public func onGetScaleData(_ device: libLifetronsSdk.QNBleDevice!, data scaleData: libLifetronsSdk.QNScaleData!)
+  @objc public func onGetUnsteadyWeight(_ device: libLifetronsSdk.QNBleDevice!, weight: Swift.Double)
+  @objc public func onGetStoredScale(_ device: libLifetronsSdk.QNBleDevice!, data storedDataList: [libLifetronsSdk.QNScaleStoreData]!)
+  @objc public func onGetElectric(_ electric: Swift.UInt, device: libLifetronsSdk.QNBleDevice!)
+  @objc public func onScaleEventChange(_ device: libLifetronsSdk.QNBleDevice!, scaleEvent: libLifetronsSdk.QNScaleEvent)
+  @objc override dynamic public init()
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class SdkConfig : Swift.Codable {
+  required convenience public init(from decoder: any Swift.Decoder) throws
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+@_hasMissingDesignatedInitializers public class ValidatorUtil {
+  public static func validate(config: libLifetronsSdk.SdkConfig?, bundleId: Swift.String) -> libLifetronsSdk.LSResultCallback
+  public static func getConfig(appId: Swift.String, fileData: Swift.String) -> libLifetronsSdk.SdkConfig?
+  public static func getConfig() -> Swift.String
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class AppDefaults {
+  @objc deinit
+}
+extension libLifetronsSdk.AppDefaults {
+  public var isSdkInit: Swift.Bool? {
+    get
+    set
+  }
+}
+@_hasMissingDesignatedInitializers public class CommonErrorCodes {
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class LSResultCallback {
+  @objc deinit
+}

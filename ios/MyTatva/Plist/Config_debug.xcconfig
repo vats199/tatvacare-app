@@ -1,0 +1,12 @@
+//
+//  Config_debug.xcconfig
+//  MyTatva
+//
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+WEGLicenseCode = 82617b48
+WEGEnvironment = US
+//EXCLUDED_ARCHS[sdk=iphonesimulator*] = arm64

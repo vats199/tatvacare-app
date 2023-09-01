@@ -1,10 +1,11 @@
 import 'react-native-gesture-handler';
-import { Dimensions, PermissionsAndroid, StatusBar, StyleSheet, Text, View } from 'react-native'
+import { Alert, Dimensions, PermissionsAndroid,Permission, Platform, StatusBar, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
 import Router from './src/routes/Router';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import LocationBottomSheet, { LocationBottomSheetRef } from './src/components/molecules/LocationBottomSheet';
 import Geolocation from 'react-native-geolocation-service';
+import {request, check, PERMISSIONS, RESULTS} from 'react-native-permissions';
 
 const App = () => {
   const [location, setLocation] = useState<Geolocation.GeoPosition | null>(null)
@@ -15,7 +16,8 @@ const App = () => {
 
   const requestLocationPermission = async () => {
     try {
-
+      if(Platform.OS == 'android') {
+  
       const granted = await PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
       );
@@ -27,9 +29,19 @@ const App = () => {
       } else {
         BottomSheetRef.current?.show()
       }
-    } catch (err) {
+    }
+  
+  else {
+
+    Geolocation.requestAuthorization
+    // request(PERMISSIONS.IOS.L).then((result) => {
+    //   Alert.alert(result);
+    // });
+  }
+  }catch (err) {
       BottomSheetRef.current?.show()
     }
+
   };
 
   const getLocation = () => {
