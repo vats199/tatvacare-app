@@ -1,5 +1,10 @@
 export type AppStackParamList = {
-    BottomTabs: undefined;
+    // BottomTabs: undefined;
+    DrawerScreen: DrawerParamList
+}
+
+export type DrawerParamList = {
+    HomeScreen: undefined
 }
 
 export type BottomTabParamList = {

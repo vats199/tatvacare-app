@@ -19,6 +19,19 @@ import GreenWalking from '../assets/icons/greenWalking.svg'
 import GreenMoon from '../assets/icons/greenMoon.svg'
 import WaterGlass from '../assets/icons/waterGlass.svg'
 import PEF from '../assets/icons/PEF.svg'
+import NoProfilePhotoPlaceholder from '../assets/icons/noProfilePhoto.svg'
+import ChevronRightGrey from '../assets/icons/chevronRightGrey.svg'
+import DrawerHealthRecords from '../assets/icons/drawerHealthRecords.svg'
+import DrawerBookmarks from '../assets/icons/drawerBookmarks.svg'
+import DrawerGoals from '../assets/icons/drawerGoals.svg'
+import DrawerHealthTrends from '../assets/icons/drawerHealthTrends.svg'
+import DrawerConsultations from '../assets/icons/drawerConsultations.svg'
+import DrawerLabTests from '../assets/icons/drawerHealthTrends.svg'
+import DrawerAccountSettings from '../assets/icons/drawerAccountSettings.svg'
+import DrawerHelpSupport from '../assets/icons/drawerHelpSupport.svg'
+import DrawerAboutUs from '../assets/icons/drawerAboutUs.svg'
+import DrawerShareApp from '../assets/icons/drawerShareApp.svg'
+import DrawerRateApp from '../assets/icons/drawerRateApp.svg'
 
 import HealthDiaryMedicines from '../assets/icons/healthDiaryMedicine.svg'
 import HealthDiaryDiet from '../assets/icons/healthDiaryDiet.svg'
@@ -68,5 +81,18 @@ export const Icons = {
     ServicesPhysio,
     Bookmark,
     BackIcon,
-    CloseIcon
+    CloseIcon,
+    NoProfilePhotoPlaceholder,
+    ChevronRightGrey,
+    DrawerBookmarks,
+    DrawerGoals,
+    DrawerHealthRecords,
+    DrawerHealthTrends,
+    DrawerConsultations,
+    DrawerLabTests,
+    DrawerAccountSettings,
+    DrawerHelpSupport,
+    DrawerAboutUs,
+    DrawerShareApp,
+    DrawerRateApp
 }
