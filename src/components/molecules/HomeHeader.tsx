@@ -1,6 +1,7 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { Icons } from '../../constants/icons'
+import { colors } from '../../constants/colors'
 
 type HomeHeaderProps = {
     onPressLocation: () => void,
@@ -8,13 +9,13 @@ type HomeHeaderProps = {
     onPressProfile: () => void
 }
 
-const HomeHeader: React.FC<HomeHeaderProps> = ({onPressBell, onPressLocation ,onPressProfile}) => {
+const HomeHeader: React.FC<HomeHeaderProps> = ({ onPressBell, onPressLocation, onPressProfile }) => {
     return (
         <View style={styles.rowBetween}>
             <View>
                 <Icons.MyTatvaLogo />
                 <TouchableOpacity activeOpacity={0.6} style={styles.locationContainer} onPress={onPressLocation}>
-                    <Text>Location</Text>
+                    <Text style={styles.locationText}>Location</Text>
                     <Icons.Dropdown />
                 </TouchableOpacity>
             </View>
@@ -43,6 +44,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         gap: 5
+    },
+    locationText: {
+        color: colors.subTitleLightGray
     },
     row: {
         flexDirection: 'row',

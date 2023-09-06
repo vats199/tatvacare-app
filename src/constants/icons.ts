@@ -26,6 +26,15 @@ import HealthDiaryExercise from '../assets/icons/healthDiaryExercise.svg'
 import HealthDiaryDevices from '../assets/icons/healthDiaryDevices.svg'
 import HealthDiaryMyIncidents from '../assets/icons/healthDiaryMyIncident.svg'
 
+import ServicesDevices from '../assets/icons/servicesDevices'
+import ServicesDiagnostic from '../assets/icons/servicesDiagnostic.svg'
+import ServicesNutritionist from '../assets/icons/servicesNutritionist.svg'
+import ServicesPhysio from '../assets/icons/servicesPhysio.svg'
+
+import Bookmark from '../assets/icons/bookmark.svg'
+import BackIcon from '../assets/icons/backIcon.svg'
+import CloseIcon from '../assets/icons/close.svg'
+
 export const Icons = {
     HomeActive,
     HomeInactive,
@@ -52,5 +61,12 @@ export const Icons = {
     HealthDiaryDiet,
     HealthDiaryExercise,
     HealthDiaryMedicines,
-    HealthDiaryMyIncidents
+    HealthDiaryMyIncidents,
+    ServicesDevices,
+    ServicesDiagnostic,
+    ServicesNutritionist,
+    ServicesPhysio,
+    Bookmark,
+    BackIcon,
+    CloseIcon
 }

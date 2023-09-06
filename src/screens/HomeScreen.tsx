@@ -7,13 +7,16 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { Container } from '../components/styled/Views'
 import { Icons } from '../constants/icons'
 import { colors } from '../constants/colors'
-import InputField from '../components/atoms/InputField'
+import InputField, { AnimatedInputFieldRef } from '../components/atoms/AnimatedInputField'
 import CarePlanView from '../components/organisms/CarePlanView'
 import HealthTip from '../components/organisms/HealthTip'
 import MyHealthInsights from '../components/organisms/MyHealthInsights'
 import MyHealthDiary from '../components/organisms/MyHealthDiary'
 import HomeHeader from '../components/molecules/HomeHeader'
 import CRYPTO from 'crypto-js';
+import AdditionalCareServices from '../components/organisms/AdditionalCareServices'
+import Learn from '../components/organisms/Learn'
+import SearchModal from '../components/molecules/SearchModal'
 
 type HomeScreenProps = CompositeScreenProps<
     BottomTabScreenProps<BottomTabParamList, 'HomeScreen'>,
@@ -23,6 +26,9 @@ type HomeScreenProps = CompositeScreenProps<
 const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
 
     const [search, setSearch] = React.useState<string>('')
+    const [visible, setVisible] = React.useState<boolean>(false)
+
+    const inputRef = useRef<AnimatedInputFieldRef>(null)
 
     const crypto = () => {
 
@@ -37,7 +43,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
             mode: CRYPTO.mode.CBC,
         });
 
-        var decryptedData = CRYPTO.AES.decrypt('mHseU7meqOo7S3aq/vgQmOpvmwrgUWFI0z63FEvwffP6imwite97eSgma2ah/ZAECejeQddtlWqzKep3MaGH5A==', key, {
+        var decryptedData = CRYPTO.AES.decrypt('W8kOa09DBSDw5aA97q1miUCEGIoWJugo96Mry/sqbS3OQlyi5BNCB4EYS1xlKOED', key, {
             iv: iv,
             mode: CRYPTO.mode.CBC,
         });
@@ -66,6 +72,11 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
     const onPressMedicine = () => { }
     const onPressMyIncidents = () => { }
 
+    const onPressConsultNutritionist = () => { }
+    const onPressConsultPhysio = () => { }
+    const onPressBookDiagnostic = () => { }
+    const onPressBookDevices = () => { }
+
     return (
         <Container>
             <ScrollView showsVerticalScrollIndicator={false}>
@@ -82,6 +93,8 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
                         onChangeText={e => setSearch(e)}
                         placeholder={'Find resources to manage your condition'}
                         style={styles.searchField}
+                        onFocus={() => { setVisible(true); inputRef.current?.blur() }}
+                        ref={inputRef}
                     />
                 </View>
                 <CarePlanView />
@@ -94,7 +107,15 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
                     onPressMedicine={onPressMedicine}
                     onPressMyIncidents={onPressMyIncidents}
                 />
+                <AdditionalCareServices
+                    onPressConsultNutritionist={onPressConsultNutritionist}
+                    onPressConsultPhysio={onPressConsultPhysio}
+                    onPressBookDiagnostic={onPressBookDiagnostic}
+                    onPressBookDevices={onPressBookDevices}
+                />
+                <Learn />
             </ScrollView>
+            <SearchModal visible={visible} setVisible={setVisible} search={search} setSearch={setSearch} />
         </Container>
     )
 }

@@ -1,17 +1,23 @@
 import { Animated, StyleSheet, Text, TextInput, TextInputProps, TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native'
-import React from 'react'
+import React, { forwardRef, useImperativeHandle } from 'react'
 import { colors } from '../../constants/colors';
 import { TapGestureHandler } from 'react-native-gesture-handler';
 
-interface InputFieldProps extends TextInputProps {
+interface AnimatedInputFieldProps extends TextInputProps {
     style?: ViewStyle;
     textStyle?: TextStyle;
     label?: string;
     error?: string;
     showErrorText?: boolean,
+    showAnimatedLabel?: boolean
 }
 
-const InputField: React.FC<InputFieldProps> = ({
+export type AnimatedInputFieldRef = {
+    blur: () => void;
+    focus: () => void;
+}
+
+const AnimatedInputField = forwardRef<AnimatedInputFieldRef, AnimatedInputFieldProps>(({
     label,
     textStyle,
     style,
@@ -28,9 +34,22 @@ const InputField: React.FC<InputFieldProps> = ({
     secureTextEntry = false,
     showErrorText = true,
     autoFocus = false,
+    showAnimatedLabel = false,
     onFocus = () => { },
     onBlur = () => { },
-}) => {
+}, ref) => {
+
+    const textInputRef = React.useRef<TextInput>(null);
+
+    // Expose methods using useImperativeHandle
+    useImperativeHandle(ref, () => ({
+        focus: () => {
+            textInputRef.current?.focus();
+        },
+        blur: () => {
+            textInputRef.current?.blur();
+        }
+    }));
 
     const [hidden, setHidden] = React.useState<boolean>(secureTextEntry)
 
@@ -69,9 +88,9 @@ const InputField: React.FC<InputFieldProps> = ({
                 <TapGestureHandler onHandlerStateChange={handleFocus}>
 
                     <Animated.View style={[styles.row]}>
-                        {(isFocused || (value?.length ?? 0) > 0) && <Animated.Text style={{ position: 'absolute', transform: [{ translateY }] }}>{placeholder}</Animated.Text>}
+                        {showAnimatedLabel && (isFocused || (value?.length ?? 0) > 0) && <Animated.Text style={{ position: 'absolute', transform: [{ translateY }], color: colors.subTitleLightGray }}>{placeholder}</Animated.Text>}
                         <TextInput
-                            placeholder={!isFocused ? placeholder : ''}
+                            placeholder={showAnimatedLabel || !isFocused ? placeholder : ''}
                             placeholderTextColor={colors.subTitleLightGray}
                             value={value}
                             editable={editable}
@@ -84,8 +103,9 @@ const InputField: React.FC<InputFieldProps> = ({
                             autoFocus={autoFocus}
                             onFocus={handleFocus}
                             onBlur={handleBlur}
+                            ref={textInputRef}
                             secureTextEntry={hidden}
-                            style={[editable ? styles.canEdit : styles.cannotEdit, textStyle, (isFocused || (value?.length ?? 0) > 0) && { paddingTop: 15 }]}
+                            style={[editable ? styles.canEdit : styles.cannotEdit, textStyle, showAnimatedLabel && (isFocused || (value?.length ?? 0) > 0) && { paddingTop: 15 }]}
                         />
                     </Animated.View>
                 </TapGestureHandler>
@@ -93,9 +113,9 @@ const InputField: React.FC<InputFieldProps> = ({
             {(error?.length ?? 0) > 0 && showErrorText && <Text style={styles.error}>{error}</Text>}
         </>
     )
-}
+})
 
-export default InputField
+export default AnimatedInputField
 
 const styles = StyleSheet.create({
     container: {
@@ -132,6 +152,9 @@ const styles = StyleSheet.create({
     canEdit: {
         padding: 0,
         flex: 1,
+        color: colors.inputValueDarkGray,
+        fontWeight: '600',
+        fontSize: 16
     },
     cannotEdit: {
         color: 'gray',

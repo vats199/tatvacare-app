@@ -5,6 +5,7 @@ import Router from './src/routes/Router';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import LocationBottomSheet, { LocationBottomSheetRef } from './src/components/molecules/LocationBottomSheet';
 import Geolocation from 'react-native-geolocation-service';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const App = () => {
   const [location, setLocation] = useState<Geolocation.GeoPosition | null>(null)
@@ -34,7 +35,8 @@ const App = () => {
 
   const getLocation = () => {
     Geolocation.getCurrentPosition(
-      position => {
+      async position => {
+        await AsyncStorage.setItem('location', JSON.stringify(position))
         setLocation(position);
         BottomSheetRef.current?.hide()
       },
@@ -46,13 +48,14 @@ const App = () => {
     );
   };
 
+
   useEffect(() => {
     requestLocationPermission()
   }, [])
   return (
     <GestureHandlerRootView style={{ height: Dimensions.get('window').height }}>
       <Router />
-      <LocationBottomSheet ref={BottomSheetRef} requestLocationPermission={requestLocationPermission} locationPermission={locationPermission} />
+      <LocationBottomSheet ref={BottomSheetRef} setLocation={setLocation} requestLocationPermission={requestLocationPermission} locationPermission={locationPermission} />
     </GestureHandlerRootView>
   )
 }

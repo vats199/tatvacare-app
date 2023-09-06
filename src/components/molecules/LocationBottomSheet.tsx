@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
+import React, { forwardRef, SetStateAction, useEffect, useImperativeHandle, useState } from 'react';
 import {
     BottomSheetModalProvider,
     BottomSheetModal,
@@ -8,11 +8,12 @@ import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native
 import { Icons } from '../../constants/icons';
 import Button from '../atoms/Button';
 import { colors } from '../../constants/colors';
-import InputField from '../atoms/InputField';
+import InputField from '../atoms/AnimatedInputField';
 
 type LocationBottomSheetProps = {
     requestLocationPermission?: () => void,
-    locationPermission?: string
+    locationPermission?: string,
+    setLocation?: SetStateAction<any>
 }
 
 export type LocationBottomSheetRef = {
@@ -20,7 +21,7 @@ export type LocationBottomSheetRef = {
     hide: () => void;
 }
 
-const LocationBottomSheet = forwardRef<LocationBottomSheetRef, LocationBottomSheetProps>(({ requestLocationPermission = () => { }, locationPermission }, ref) => {
+const LocationBottomSheet = forwardRef<LocationBottomSheetRef, LocationBottomSheetProps>(({ requestLocationPermission = () => { }, locationPermission, setLocation }, ref) => {
 
     const bottomSheetModalRef = React.useRef<BottomSheetModal>(null);
 
@@ -52,6 +53,22 @@ const LocationBottomSheet = forwardRef<LocationBottomSheetRef, LocationBottomShe
         }
     }
 
+    const onApplyPincode = async () => {
+        const res = await fetch(`http://postalpincode.in/api/pincode/${pincode}`, {
+            method: 'get',
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+
+        const data = await res.json();
+
+        if ((data?.PostOffice || []).length > 0) {
+            setLocation(data?.PostOffice[0])
+            bottomSheetModalRef.current?.dismiss();
+        }
+    }
+
     return (
         <BottomSheetModalProvider>
             <BottomSheetModal
@@ -73,9 +90,9 @@ const LocationBottomSheet = forwardRef<LocationBottomSheetRef, LocationBottomShe
                             <>
                                 <Text style={styles.locationTitleText}>Enter Location</Text>
                                 <View style={[styles.pincodeInputContainer, { borderColor: pincode?.length ? colors.inputBoxDarkBorder : colors.inputBoxLightBorder }]}>
-                                    <InputField editable={pincode?.length <= 6} value={pincode}
+                                    <InputField editable={pincode?.length <= 6} value={pincode} showAnimatedLabel={true}
                                         onChangeText={onChangePin} textStyle={styles.inputBoxStyle} placeholder='Enter Pincode' style={styles.pincodeInputStyle} keyboardType="decimal-pad" onBlur={() => bottomSheetModalRef.current?.snapToIndex(0)} onFocus={() => bottomSheetModalRef.current?.expand()} />
-                                    <TouchableOpacity disabled={pincode?.length == 6 || pincode?.length == 4 ? false : true} activeOpacity={0.6}><Text style={pincode?.length == 6 || pincode?.length == 4 ? styles.activeApplyText : styles.inactiveApplyText}>Apply</Text></TouchableOpacity>
+                                    <TouchableOpacity onPress={onApplyPincode} disabled={pincode?.length == 6 || pincode?.length == 4 ? false : true} activeOpacity={0.6}><Text style={pincode?.length == 6 || pincode?.length == 4 ? styles.activeApplyText : styles.inactiveApplyText}>Apply</Text></TouchableOpacity>
                                 </View>
                                 <TouchableOpacity onPress={requestLocationPermission} style={styles.currentLocationContainer} activeOpacity={0.6}>
                                     <Icons.LocationSymbol />
@@ -197,7 +214,6 @@ const styles = StyleSheet.create({
         borderRadius: 12,
         paddingHorizontal: 10,
         paddingVertical: 0,
-        elevation: 2,
     },
     locationTitleText: {
         fontSize: 18,
