@@ -1,6 +1,18 @@
 PODS:
+  - AdvancedPageControl (0.9.0)
+  - Alamofire (5.8.0)
+  - AWSCore (2.33.4)
+  - AWSS3 (2.33.4):
+    - AWSCore (= 2.33.4)
+  - AZSClient (0.2.6)
   - boost (1.76.0)
+  - Charts (4.1.0):
+    - Charts/Core (= 4.1.0)
+  - Charts/Core (4.1.0):
+    - SwiftAlgorithms (~> 1.0)
   - DoubleConversion (1.1.6)
+  - DropDown (2.3.13)
+  - DZNEmptyDataSet (1.8.1)
   - FBLazyVector (0.72.4)
   - FBReactNativeSpec (0.72.4):
     - RCT-Folly (= 2021.07.22.00)
@@ -9,8 +21,157 @@ PODS:
     - React-Core (= 0.72.4)
     - React-jsi (= 0.72.4)
     - ReactCommon/turbomodule/core (= 0.72.4)
+  - Firebase/Analytics (10.14.0):
+    - Firebase/Core
+  - Firebase/Core (10.14.0):
+    - Firebase/CoreOnly
+    - FirebaseAnalytics (~> 10.14.0)
+  - Firebase/CoreOnly (10.14.0):
+    - FirebaseCore (= 10.14.0)
+  - Firebase/Crashlytics (10.14.0):
+    - Firebase/CoreOnly
+    - FirebaseCrashlytics (~> 10.14.0)
+  - Firebase/DynamicLinks (10.14.0):
+    - Firebase/CoreOnly
+    - FirebaseDynamicLinks (~> 10.14.0)
+  - Firebase/RemoteConfig (10.14.0):
+    - Firebase/CoreOnly
+    - FirebaseRemoteConfig (~> 10.14.0)
+  - FirebaseABTesting (10.14.0):
+    - FirebaseCore (~> 10.0)
+  - FirebaseAnalytics (10.14.0):
+    - FirebaseAnalytics/AdIdSupport (= 10.14.0)
+    - FirebaseCore (~> 10.0)
+    - FirebaseInstallations (~> 10.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.11)
+    - GoogleUtilities/MethodSwizzler (~> 7.11)
+    - GoogleUtilities/Network (~> 7.11)
+    - "GoogleUtilities/NSData+zlib (~> 7.11)"
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+  - FirebaseAnalytics/AdIdSupport (10.14.0):
+    - FirebaseCore (~> 10.0)
+    - FirebaseInstallations (~> 10.0)
+    - GoogleAppMeasurement (= 10.14.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.11)
+    - GoogleUtilities/MethodSwizzler (~> 7.11)
+    - GoogleUtilities/Network (~> 7.11)
+    - "GoogleUtilities/NSData+zlib (~> 7.11)"
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+  - FirebaseCore (10.14.0):
+    - FirebaseCoreInternal (~> 10.0)
+    - GoogleUtilities/Environment (~> 7.8)
+    - GoogleUtilities/Logger (~> 7.8)
+  - FirebaseCoreExtension (10.14.0):
+    - FirebaseCore (~> 10.0)
+  - FirebaseCoreInternal (10.14.0):
+    - "GoogleUtilities/NSData+zlib (~> 7.8)"
+  - FirebaseCrashlytics (10.14.0):
+    - FirebaseCore (~> 10.5)
+    - FirebaseInstallations (~> 10.0)
+    - FirebaseSessions (~> 10.5)
+    - GoogleDataTransport (~> 9.2)
+    - GoogleUtilities/Environment (~> 7.8)
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+    - PromisesObjC (~> 2.1)
+  - FirebaseDynamicLinks (10.14.0):
+    - FirebaseCore (~> 10.0)
+  - FirebaseInstallations (10.14.0):
+    - FirebaseCore (~> 10.0)
+    - GoogleUtilities/Environment (~> 7.8)
+    - GoogleUtilities/UserDefaults (~> 7.8)
+    - PromisesObjC (~> 2.1)
+  - FirebaseRemoteConfig (10.14.0):
+    - FirebaseABTesting (~> 10.0)
+    - FirebaseCore (~> 10.0)
+    - FirebaseInstallations (~> 10.0)
+    - GoogleUtilities/Environment (~> 7.8)
+    - "GoogleUtilities/NSData+zlib (~> 7.8)"
+  - FirebaseSessions (10.14.0):
+    - FirebaseCore (~> 10.5)
+    - FirebaseCoreExtension (~> 10.0)
+    - FirebaseInstallations (~> 10.0)
+    - GoogleDataTransport (~> 9.2)
+    - GoogleUtilities/Environment (~> 7.10)
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+    - PromisesSwift (~> 2.1)
   - fmt (6.2.1)
+  - FreshchatSDK (5.9.0)
   - glog (0.3.5)
+  - GoogleAppMeasurement (10.14.0):
+    - GoogleAppMeasurement/AdIdSupport (= 10.14.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.11)
+    - GoogleUtilities/MethodSwizzler (~> 7.11)
+    - GoogleUtilities/Network (~> 7.11)
+    - "GoogleUtilities/NSData+zlib (~> 7.11)"
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+  - GoogleAppMeasurement/AdIdSupport (10.14.0):
+    - GoogleAppMeasurement/WithoutAdIdSupport (= 10.14.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.11)
+    - GoogleUtilities/MethodSwizzler (~> 7.11)
+    - GoogleUtilities/Network (~> 7.11)
+    - "GoogleUtilities/NSData+zlib (~> 7.11)"
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+  - GoogleAppMeasurement/WithoutAdIdSupport (10.14.0):
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.11)
+    - GoogleUtilities/MethodSwizzler (~> 7.11)
+    - GoogleUtilities/Network (~> 7.11)
+    - "GoogleUtilities/NSData+zlib (~> 7.11)"
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+  - GoogleDataTransport (9.2.5):
+    - GoogleUtilities/Environment (~> 7.7)
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+    - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleMaps (7.4.0):
+    - GoogleMaps/Maps (= 7.4.0)
+  - GoogleMaps/Base (7.4.0)
+  - GoogleMaps/Maps (7.4.0):
+    - GoogleMaps/Base
+  - GooglePlaces (7.4.0)
+  - GoogleUtilities/AppDelegateSwizzler (7.11.5):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Network
+  - GoogleUtilities/Environment (7.11.5):
+    - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleUtilities/Logger (7.11.5):
+    - GoogleUtilities/Environment
+  - GoogleUtilities/MethodSwizzler (7.11.5):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/Network (7.11.5):
+    - GoogleUtilities/Logger
+    - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Reachability
+  - "GoogleUtilities/NSData+zlib (7.11.5)"
+  - GoogleUtilities/Reachability (7.11.5):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/UserDefaults (7.11.5):
+    - GoogleUtilities/Logger
+  - hermes-engine (0.72.4):
+    - hermes-engine/Pre-built (= 0.72.4)
+  - hermes-engine/Pre-built (0.72.4)
+  - Hero (1.6.2)
+  - HGCircularSlider (2.2.0)
+  - ImageViewer.swift (3.3.8)
+  - IQKeyboardManagerSwift (6.5.12)
+  - KDCircularProgress (1.5.4)
+  - libevent (2.1.12)
+  - lottie-ios (4.2.0)
+  - MaterialShowcase (0.8.0)
+  - Moya (15.0.0):
+    - Moya/Core (= 15.0.0)
+  - Moya/Core (15.0.0):
+    - Alamofire (~> 5.0)
+  - nanopb (2.30909.0):
+    - nanopb/decode (= 2.30909.0)
+    - nanopb/encode (= 2.30909.0)
+  - nanopb/decode (2.30909.0)
+  - nanopb/encode (2.30909.0)
+  - PromisesObjC (2.3.1)
+  - PromisesSwift (2.3.1):
+    - PromisesObjC (= 2.3.1)
+  - QorumLogs (0.9)
+  - RangeSeekSlider (1.8.0)
+  - razorpay-pod (1.3.4)
   - RCT-Folly (2021.07.22.00):
     - boost
     - DoubleConversion
@@ -22,6 +183,12 @@ PODS:
     - DoubleConversion
     - fmt (~> 6.2.1)
     - glog
+  - RCT-Folly/Futures (2021.07.22.00):
+    - boost
+    - DoubleConversion
+    - fmt (~> 6.2.1)
+    - glog
+    - libevent
   - RCTRequired (0.72.4)
   - RCTTypeSafety (0.72.4):
     - FBLazyVector (= 0.72.4)
@@ -45,11 +212,11 @@ PODS:
     - DoubleConversion
     - FBReactNativeSpec
     - glog
+    - hermes-engine
     - RCT-Folly
     - RCTRequired
     - RCTTypeSafety
     - React-Core
-    - React-jsc
     - React-jsi
     - React-jsiexecutor
     - React-NativeModulesApple
@@ -58,10 +225,11 @@ PODS:
     - ReactCommon/turbomodule/core
   - React-Core (0.72.4):
     - glog
+    - hermes-engine
     - RCT-Folly (= 2021.07.22.00)
     - React-Core/Default (= 0.72.4)
     - React-cxxreact
-    - React-jsc
+    - React-hermes
     - React-jsi
     - React-jsiexecutor
     - React-perflogger
@@ -71,10 +239,11 @@ PODS:
     - Yoga
   - React-Core/CoreModulesHeaders (0.72.4):
     - glog
+    - hermes-engine
     - RCT-Folly (= 2021.07.22.00)
     - React-Core/Default
     - React-cxxreact
-    - React-jsc
+    - React-hermes
     - React-jsi
     - React-jsiexecutor
     - React-perflogger
@@ -84,9 +253,10 @@ PODS:
     - Yoga
   - React-Core/Default (0.72.4):
     - glog
+    - hermes-engine
     - RCT-Folly (= 2021.07.22.00)
     - React-cxxreact
-    - React-jsc
+    - React-hermes
     - React-jsi
     - React-jsiexecutor
     - React-perflogger
@@ -96,11 +266,12 @@ PODS:
     - Yoga
   - React-Core/DevSupport (0.72.4):
     - glog
+    - hermes-engine
     - RCT-Folly (= 2021.07.22.00)
     - React-Core/Default (= 0.72.4)
     - React-Core/RCTWebSocket (= 0.72.4)
     - React-cxxreact
-    - React-jsc
+    - React-hermes
     - React-jsi
     - React-jsiexecutor
     - React-jsinspector (= 0.72.4)
@@ -111,10 +282,11 @@ PODS:
     - Yoga
   - React-Core/RCTActionSheetHeaders (0.72.4):
     - glog
+    - hermes-engine
     - RCT-Folly (= 2021.07.22.00)
     - React-Core/Default
     - React-cxxreact
-    - React-jsc
+    - React-hermes
     - React-jsi
     - React-jsiexecutor
     - React-perflogger
@@ -124,10 +296,11 @@ PODS:
     - Yoga
   - React-Core/RCTAnimationHeaders (0.72.4):
     - glog
+    - hermes-engine
     - RCT-Folly (= 2021.07.22.00)
     - React-Core/Default
     - React-cxxreact
-    - React-jsc
+    - React-hermes
     - React-jsi
     - React-jsiexecutor
     - React-perflogger
@@ -137,10 +310,11 @@ PODS:
     - Yoga
   - React-Core/RCTBlobHeaders (0.72.4):
     - glog
+    - hermes-engine
     - RCT-Folly (= 2021.07.22.00)
     - React-Core/Default
     - React-cxxreact
-    - React-jsc
+    - React-hermes
     - React-jsi
     - React-jsiexecutor
     - React-perflogger
@@ -150,10 +324,11 @@ PODS:
     - Yoga
   - React-Core/RCTImageHeaders (0.72.4):
     - glog
+    - hermes-engine
     - RCT-Folly (= 2021.07.22.00)
     - React-Core/Default
     - React-cxxreact
-    - React-jsc
+    - React-hermes
     - React-jsi
     - React-jsiexecutor
     - React-perflogger
@@ -163,10 +338,11 @@ PODS:
     - Yoga
   - React-Core/RCTLinkingHeaders (0.72.4):
     - glog
+    - hermes-engine
     - RCT-Folly (= 2021.07.22.00)
     - React-Core/Default
     - React-cxxreact
-    - React-jsc
+    - React-hermes
     - React-jsi
     - React-jsiexecutor
     - React-perflogger
@@ -176,10 +352,11 @@ PODS:
     - Yoga
   - React-Core/RCTNetworkHeaders (0.72.4):
     - glog
+    - hermes-engine
     - RCT-Folly (= 2021.07.22.00)
     - React-Core/Default
     - React-cxxreact
-    - React-jsc
+    - React-hermes
     - React-jsi
     - React-jsiexecutor
     - React-perflogger
@@ -189,10 +366,11 @@ PODS:
     - Yoga
   - React-Core/RCTSettingsHeaders (0.72.4):
     - glog
+    - hermes-engine
     - RCT-Folly (= 2021.07.22.00)
     - React-Core/Default
     - React-cxxreact
-    - React-jsc
+    - React-hermes
     - React-jsi
     - React-jsiexecutor
     - React-perflogger
@@ -202,10 +380,11 @@ PODS:
     - Yoga
   - React-Core/RCTTextHeaders (0.72.4):
     - glog
+    - hermes-engine
     - RCT-Folly (= 2021.07.22.00)
     - React-Core/Default
     - React-cxxreact
-    - React-jsc
+    - React-hermes
     - React-jsi
     - React-jsiexecutor
     - React-perflogger
@@ -215,10 +394,11 @@ PODS:
     - Yoga
   - React-Core/RCTVibrationHeaders (0.72.4):
     - glog
+    - hermes-engine
     - RCT-Folly (= 2021.07.22.00)
     - React-Core/Default
     - React-cxxreact
-    - React-jsc
+    - React-hermes
     - React-jsi
     - React-jsiexecutor
     - React-perflogger
@@ -228,10 +408,11 @@ PODS:
     - Yoga
   - React-Core/RCTWebSocket (0.72.4):
     - glog
+    - hermes-engine
     - RCT-Folly (= 2021.07.22.00)
     - React-Core/Default (= 0.72.4)
     - React-cxxreact
-    - React-jsc
+    - React-hermes
     - React-jsi
     - React-jsiexecutor
     - React-perflogger
@@ -253,6 +434,7 @@ PODS:
     - boost (= 1.76.0)
     - DoubleConversion
     - glog
+    - hermes-engine
     - RCT-Folly (= 2021.07.22.00)
     - React-callinvoker (= 0.72.4)
     - React-debug (= 0.72.4)
@@ -262,19 +444,27 @@ PODS:
     - React-perflogger (= 0.72.4)
     - React-runtimeexecutor (= 0.72.4)
   - React-debug (0.72.4)
-  - React-jsc (0.72.4):
-    - React-jsc/Fabric (= 0.72.4)
-    - React-jsi (= 0.72.4)
-  - React-jsc/Fabric (0.72.4):
-    - React-jsi (= 0.72.4)
+  - React-hermes (0.72.4):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2021.07.22.00)
+    - RCT-Folly/Futures (= 2021.07.22.00)
+    - React-cxxreact (= 0.72.4)
+    - React-jsi
+    - React-jsiexecutor (= 0.72.4)
+    - React-jsinspector (= 0.72.4)
+    - React-perflogger (= 0.72.4)
   - React-jsi (0.72.4):
     - boost (= 1.76.0)
     - DoubleConversion
     - glog
+    - hermes-engine
     - RCT-Folly (= 2021.07.22.00)
   - React-jsiexecutor (0.72.4):
     - DoubleConversion
     - glog
+    - hermes-engine
     - RCT-Folly (= 2021.07.22.00)
     - React-cxxreact (= 0.72.4)
     - React-jsi (= 0.72.4)
@@ -287,6 +477,7 @@ PODS:
   - react-native-safe-area-context (4.7.1):
     - React-Core
   - React-NativeModulesApple (0.72.4):
+    - hermes-engine
     - React-callinvoker
     - React-Core
     - React-cxxreact
@@ -310,13 +501,14 @@ PODS:
     - RCTTypeSafety
     - React-Core
     - React-CoreModules
-    - React-jsc
+    - React-hermes
     - React-NativeModulesApple
     - React-RCTImage
     - React-RCTNetwork
     - React-runtimescheduler
     - ReactCommon/turbomodule/core
   - React-RCTBlob (0.72.4):
+    - hermes-engine
     - RCT-Folly (= 2021.07.22.00)
     - React-Codegen (= 0.72.4)
     - React-Core/RCTBlobHeaders (= 0.72.4)
@@ -364,6 +556,7 @@ PODS:
     - React-jsi (= 0.72.4)
   - React-runtimescheduler (0.72.4):
     - glog
+    - hermes-engine
     - RCT-Folly (= 2021.07.22.00)
     - React-callinvoker
     - React-debug
@@ -376,6 +569,7 @@ PODS:
   - ReactCommon/turbomodule/bridging (0.72.4):
     - DoubleConversion
     - glog
+    - hermes-engine
     - RCT-Folly (= 2021.07.22.00)
     - React-callinvoker (= 0.72.4)
     - React-cxxreact (= 0.72.4)
@@ -385,6 +579,7 @@ PODS:
   - ReactCommon/turbomodule/core (0.72.4):
     - DoubleConversion
     - glog
+    - hermes-engine
     - RCT-Folly (= 2021.07.22.00)
     - React-callinvoker (= 0.72.4)
     - React-cxxreact (= 0.72.4)
@@ -404,12 +599,13 @@ PODS:
     - React-Core
     - React-RCTImage
     - TOCropViewController
-  - RNPermissions (3.9.0):
+  - RNPermissions (3.8.4):
     - React-Core
   - RNReanimated (3.4.2):
     - DoubleConversion
     - FBLazyVector
     - glog
+    - hermes-engine
     - RCT-Folly
     - RCTRequired
     - RCTTypeSafety
@@ -419,6 +615,7 @@ PODS:
     - React-Core/RCTWebSocket
     - React-CoreModules
     - React-cxxreact
+    - React-hermes
     - React-jsi
     - React-jsiexecutor
     - React-jsinspector
@@ -438,16 +635,59 @@ PODS:
     - React-RCTImage
   - RNSVG (13.11.0):
     - React-Core
+  - SDWebImage (5.18.0):
+    - SDWebImage/Core (= 5.18.0)
+  - SDWebImage/Core (5.18.0)
+  - Siren (6.1.2)
+  - SkyFloatingLabelTextField (4.0.0)
   - SocketRocket (0.6.1)
+  - SurveySparrowSdk (0.3.0)
+  - SwiftAlgorithms (1.0.0)
+  - SwiftyJSON (5.0.1)
+  - SwiftyStoreKit (0.16.1)
   - TOCropViewController (2.6.1)
+  - TwilioVideo (5.5.0)
+  - WebEngage (6.4.3)
+  - WebEngageAppEx/ContentExtension (1.0.2):
+    - WebEngageAppEx/CoreApi
+  - WebEngageAppEx/CoreApi (1.0.2)
+  - WebEngageBannerPush (1.0.2):
+    - WebEngage (>= 6.4.0)
   - Yoga (1.14.0)
 
 DEPENDENCIES:
+  - AdvancedPageControl
+  - AWSCore
+  - AWSS3
+  - AZSClient
   - boost (from `../node_modules/react-native/third-party-podspecs/boost.podspec`)
+  - Charts
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
+  - DropDown
+  - DZNEmptyDataSet
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - FBReactNativeSpec (from `../node_modules/react-native/React/FBReactNativeSpec`)
+  - Firebase/Analytics
+  - Firebase/Crashlytics
+  - Firebase/DynamicLinks
+  - Firebase/RemoteConfig
+  - FreshchatSDK
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
+  - GoogleMaps
+  - GooglePlaces
+  - hermes-engine (from `../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`)
+  - Hero
+  - HGCircularSlider
+  - ImageViewer.swift
+  - IQKeyboardManagerSwift
+  - KDCircularProgress
+  - libevent (~> 2.1.12)
+  - lottie-ios
+  - MaterialShowcase
+  - Moya
+  - QorumLogs
+  - RangeSeekSlider
+  - razorpay-pod
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
   - RCTTypeSafety (from `../node_modules/react-native/Libraries/TypeSafety`)
@@ -459,7 +699,7 @@ DEPENDENCIES:
   - React-CoreModules (from `../node_modules/react-native/React/CoreModules`)
   - React-cxxreact (from `../node_modules/react-native/ReactCommon/cxxreact`)
   - React-debug (from `../node_modules/react-native/ReactCommon/react/debug`)
-  - React-jsc (from `../node_modules/react-native/ReactCommon/jsc`)
+  - React-hermes (from `../node_modules/react-native/ReactCommon/hermes`)
   - React-jsi (from `../node_modules/react-native/ReactCommon/jsi`)
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
@@ -490,13 +730,73 @@ DEPENDENCIES:
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
+  - SDWebImage
+  - Siren
+  - SkyFloatingLabelTextField
+  - SurveySparrowSdk (from `https://github.com/surveysparrow/surveysparrow-ios-sdk.git`, tag `0.3.0`)
+  - SwiftyJSON
+  - SwiftyStoreKit
+  - TwilioVideo
+  - WebEngage
+  - WebEngageAppEx/ContentExtension
+  - WebEngageBannerPush
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
   trunk:
+    - AdvancedPageControl
+    - Alamofire
+    - AWSCore
+    - AWSS3
+    - AZSClient
+    - Charts
+    - DropDown
+    - DZNEmptyDataSet
+    - Firebase
+    - FirebaseABTesting
+    - FirebaseAnalytics
+    - FirebaseCore
+    - FirebaseCoreExtension
+    - FirebaseCoreInternal
+    - FirebaseCrashlytics
+    - FirebaseDynamicLinks
+    - FirebaseInstallations
+    - FirebaseRemoteConfig
+    - FirebaseSessions
     - fmt
+    - FreshchatSDK
+    - GoogleAppMeasurement
+    - GoogleDataTransport
+    - GoogleMaps
+    - GooglePlaces
+    - GoogleUtilities
+    - Hero
+    - HGCircularSlider
+    - ImageViewer.swift
+    - IQKeyboardManagerSwift
+    - KDCircularProgress
+    - libevent
+    - lottie-ios
+    - MaterialShowcase
+    - Moya
+    - nanopb
+    - PromisesObjC
+    - PromisesSwift
+    - QorumLogs
+    - RangeSeekSlider
+    - razorpay-pod
+    - SDWebImage
+    - Siren
+    - SkyFloatingLabelTextField
     - SocketRocket
+    - SwiftAlgorithms
+    - SwiftyJSON
+    - SwiftyStoreKit
     - TOCropViewController
+    - TwilioVideo
+    - WebEngage
+    - WebEngageAppEx
+    - WebEngageBannerPush
 
 EXTERNAL SOURCES:
   boost:
@@ -509,6 +809,9 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/React/FBReactNativeSpec"
   glog:
     :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
+  hermes-engine:
+    :podspec: "../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec"
+    :tag: hermes-2023-08-07-RNv0.72.4-813b2def12bc9df02654b3e3653ae4a68d0572e0
   RCT-Folly:
     :podspec: "../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec"
   RCTRequired:
@@ -529,8 +832,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/cxxreact"
   React-debug:
     :path: "../node_modules/react-native/ReactCommon/react/debug"
-  React-jsc:
-    :path: "../node_modules/react-native/ReactCommon/jsc"
+  React-hermes:
+    :path: "../node_modules/react-native/ReactCommon/hermes"
   React-jsi:
     :path: "../node_modules/react-native/ReactCommon/jsi"
   React-jsiexecutor:
@@ -591,61 +894,121 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-screens"
   RNSVG:
     :path: "../node_modules/react-native-svg"
+  SurveySparrowSdk:
+    :git: https://github.com/surveysparrow/surveysparrow-ios-sdk.git
+    :tag: 0.3.0
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
+CHECKOUT OPTIONS:
+  SurveySparrowSdk:
+    :git: https://github.com/surveysparrow/surveysparrow-ios-sdk.git
+    :tag: 0.3.0
+
 SPEC CHECKSUMS:
+  AdvancedPageControl: 39e3b32b00b2d324c534f8e17cc6c5be9abe84b7
+  Alamofire: 0e92e751b3e9e66d7982db43919d01f313b8eb91
+  AWSCore: 83e3416d2224ba98b61d8eadcfcb1f90f48fab82
+  AWSS3: a0d31bc565dc8a6c5eaa756610ac15704c100674
+  AZSClient: efd576cabf56f97e38cb1b614739f4b0c1906392
   boost: 57d2868c099736d80fcd648bf211b4431e51a558
+  Charts: ce0768268078eee0336f122c3c4ca248e4e204c5
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
+  DropDown: 8a2116376c1981888557f72ec2ffc9a5e0e456ec
+  DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   FBLazyVector: 5d4a3b7f411219a45a6d952f77d2c0a6c9989da5
   FBReactNativeSpec: 3fc2d478e1c4b08276f9dd9128f80ec6d5d85c1f
+  Firebase: 6c1bf3f534bc422d52af2e41fe0d50bf08b6b773
+  FirebaseABTesting: e1535073fac4ff55c7537a6e041155c72d9e6906
+  FirebaseAnalytics: 5c6d58814afa4db82cf7fdbc02b0b0e2fa3d43ff
+  FirebaseCore: 6fc17ac9f03509d51c131298aacb3ee5698b4f02
+  FirebaseCoreExtension: 976638051b1a46b503afce7ec80277f9161f2040
+  FirebaseCoreInternal: d558159ee6cc4b823c2296ecc193de9f6d9a5bb3
+  FirebaseCrashlytics: 0fbfa4efa57e8a09d8bf195393b50c237e3322b5
+  FirebaseDynamicLinks: 0eaabff2d0e5d0e576c0227227b00771aa2f3aaf
+  FirebaseInstallations: f672b1eda64e6381c21d424a2f680a943fd83f3b
+  FirebaseRemoteConfig: e22a706fa7ecc64135325f4c430a15af1e795535
+  FirebaseSessions: f145e7365d36bec0d724c4574a8750e6f82fa6c8
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
+  FreshchatSDK: ce0a27f851918141e8656642211aa57040164c4f
   glog: 04b94705f318337d7ead9e6d17c019bd9b1f6b1b
+  GoogleAppMeasurement: 7fee012a868315d418f365fbc8d394d8e020e749
+  GoogleDataTransport: 54dee9d48d14580407f8f5fbf2f496e92437a2f2
+  GoogleMaps: 032f676450ba0779bd8ce16840690915f84e57ac
+  GooglePlaces: 544e908d94860bf6f8fc1865b80d2c7eb6b5f937
+  GoogleUtilities: 13e2c67ede716b8741c7989e26893d151b2b2084
+  hermes-engine: 81191603c4eaa01f5e4ae5737a9efcf64756c7b2
+  Hero: c69009dbc9e2f0472e081adc644dba05fcedae72
+  HGCircularSlider: afb1942743a2df156dcc7a3500216e523e14266b
+  ImageViewer.swift: 284cd8127d31af8e5938674fb9f8e695a4cdf6c6
+  IQKeyboardManagerSwift: 371b08cb39664fb56030f5345c815a4ffc74bbc0
+  KDCircularProgress: 98200c6b8e85d22bc04eb644721d3b1e12b0686b
+  libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
+  lottie-ios: 809ecf2d460ed650a6aed7aa88b2ec45fab4779c
+  MaterialShowcase: 0c0cef713a6504cd2a76a5d047bcb2787944a318
+  Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
+  nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
+  PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
+  PromisesSwift: 28dca69a9c40779916ac2d6985a0192a5cb4a265
+  QorumLogs: 9a484df6973a3697ac79fe2273140fde6b36dccc
+  RangeSeekSlider: 650b11fa1edcb92e1e0ede797669d98622570fb5
+  razorpay-pod: df3aa440969489d242c40ec606db9a0c7095743f
   RCT-Folly: 424b8c9a7a0b9ab2886ffe9c3b041ef628fd4fb1
   RCTRequired: c0569ecc035894e4a68baecb30fe6a7ea6e399f9
   RCTTypeSafety: e90354072c21236e0bcf1699011e39acd25fea2f
   React: a1be3c6dc0a6e949ccd3e659781aa47bbae1868f
   React-callinvoker: 1020b33f6cb1a1824f9ca2a86609fbce2a73c6ed
-  React-Codegen: 97df9239bfc44a4504c4840dfae3a200e4500afe
-  React-Core: 9df7960451a433053f30a5862728f92088a9150d
-  React-CoreModules: 21abab85d7ad9038ce2b1c33d39e3baaf7dc9244
-  React-cxxreact: 9f0bd765bbffbd2038936d1f0ba1c80ea7649e28
-  React-debug: 17366a3d5c5d2f5fc04f09101a4af38cb42b54ae
-  React-jsc: 844ccd35b8dbd105aa0430b658611a43f10ba8a5
-  React-jsi: 8c012b3699d7427e96866dd3a539ca9611fa2546
-  React-jsiexecutor: bc8a9ad812a2c88b3a41c08b5f4b3ed32d6d4766
+  React-Codegen: d3cabb5a8b9de7b0fc5928c0cf478e73a178d728
+  React-Core: 34da8c952844e21f5a69bf46438fb6bf063900d0
+  React-CoreModules: 621243df8863055ff30f3bb2ff71573ffa7b16c8
+  React-cxxreact: 4ad1cc861e32fb533dad6ff7a4ea25680fa1c994
+  React-debug: ebd7f6caea9ca66030b11181e7a46b474fedbe9f
+  React-hermes: 37377d0a56aa0cf55c65248271866ce3268cde3f
+  React-jsi: 6de8b0ccc6b765b58e4eee9ee38049dbeaf5c221
+  React-jsiexecutor: c7f826e40fa9cab5d37cab6130b1af237332b594
   React-jsinspector: aaed4cf551c4a1c98092436518c2d267b13a673f
   React-logger: da1ebe05ae06eb6db4b162202faeafac4b435e77
   react-native-geolocation-service: 608e1da71a1ac31b4de64d9ef2815f697978c55b
   react-native-safe-area-context: 9697629f7b2cda43cf52169bb7e0767d330648c2
-  React-NativeModulesApple: 759309419da76ef4c9f331968b840022ee2aa5b1
+  React-NativeModulesApple: 589a67f22880d5ea167c30ecff7dfc1f192c61d5
   React-perflogger: 496a1a3dc6737f964107cb3ddae7f9e265ddda58
   React-RCTActionSheet: 02904b932b50e680f4e26e7a686b33ebf7ef3c00
-  React-RCTAnimation: 88feaf0a85648fb8fd497ce749829774910276d6
-  React-RCTAppDelegate: b9e5fe0e4b71f30f3742225dc7085ae10681a1cd
-  React-RCTBlob: 455b680e457c36f8d98f4338b51cd3cbf48744bd
-  React-RCTImage: b111645ab901f8e59fc68fbe31f5731bdbeef087
-  React-RCTLinking: 3d719727b4c098aad3588aa3559361ee0579f5de
-  React-RCTNetwork: b44d3580be05d74556ba4efbf53570f17e38f734
-  React-RCTSettings: c0c54b330442c29874cd4dae6e94190dc11a6f6f
+  React-RCTAnimation: e44fe5053708c5be762943087c78dc5a6a3c645c
+  React-RCTAppDelegate: 75566e142d0c325f603790943a38f0e297bcbab3
+  React-RCTBlob: 5577c3542fafbd9241f505bda541f6762996b0eb
+  React-RCTImage: f48859ae6a1e5c2c8659f860efdfcb8b0cb60cde
+  React-RCTLinking: 9b145f380c6b5910e3219bef73e1d7024381ad54
+  React-RCTNetwork: 179f50a80c01fa7d6a515552a24ad2e294f341a1
+  React-RCTSettings: cdc9f538f0f8e72e6f3de7c971fb4fb2f49caff9
   React-RCTText: 9b9f5589d9b649d7246c3f336e116496df28cfe6
-  React-RCTVibration: 691c67f3beaf1d084ceed5eb5c1dddd9afa8591e
-  React-rncore: 142268f6c92e296dc079aadda3fade778562f9e4
+  React-RCTVibration: 35eec7201c8ffdaccdd908a5ec874b7055f975f3
+  React-rncore: 46133d523155fc84572338bd6a7c461c1d873efc
   React-runtimeexecutor: d465ba0c47ef3ed8281143f59605cacc2244d5c7
-  React-runtimescheduler: cbd78e16328bde1e5abac4ceb0cb635d03c359c6
-  React-utils: b79f2411931f9d3ea5781404dcbb2fa8a837e13a
-  ReactCommon: 2635a013764a291989765d6ec136513911f478c6
+  React-runtimescheduler: f9ca7ad29f4fbfa06b636c088f3fa5e39bed8d90
+  React-utils: f4699d712826046ef5b76b430d05bc08f2f7f0e2
+  ReactCommon: 26a2670b5cae1c30cbe07641f07979bd7a896c15
   RNCAsyncStorage: c913ede1fa163a71cea118ed4670bbaaa4b511bb
   RNGestureHandler: c0d04458598fcb26052494ae23dda8f8f5162b13
   RNImageCropPicker: 486e2f7e2b0461ce24321f751410dce1b3b49e6d
-  RNPermissions: e4747003c711889e3c8437d5659519b463247980
-  RNReanimated: f8379347f71248607d530a21e31e4140c5910c25
+  RNPermissions: 053329a3413dafcd6c77d64ab0e23363c8269188
+  RNReanimated: 726395a2fa2f04cea340274ba57a4e659bc0d9c1
   RNScreens: b21dc57dfa2b710c30ec600786a3fc223b1b92e7
   RNSVG: 03e4d258ca355d7836a0a5dd4d4dc63c1eb49cbb
+  SDWebImage: 182830bcddc30cde95fbc60dfe4badc3553d94ba
+  Siren: c951ae243b57160629fb2e4d2f630cbfc5d5452b
+  SkyFloatingLabelTextField: 79ddc40e4ad59707fedbb48d605417aee48bb78a
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
+  SurveySparrowSdk: 2f941e5188cf5794a7b6ca315e8da778a3f416d1
+  SwiftAlgorithms: 38dda4731d19027fdeee1125f973111bf3386b53
+  SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
+  SwiftyStoreKit: 6b9c08810269f030586dac1fae8e75871a82e84a
   TOCropViewController: edfd4f25713d56905ad1e0b9f5be3fbe0f59c863
+  TwilioVideo: 4da3eb08eb3a318584c48de58a2cf144c02dc5fd
+  WebEngage: ca7e05aac25af42ec35772d95b5daba000841951
+  WebEngageAppEx: 48ddb2095e24592e812e046a22681d497b9a20e2
+  WebEngageBannerPush: 470a5caa6978a429ba60a47ca249a90d271a7b1c
   Yoga: 3efc43e0d48686ce2e8c60f99d4e6bd349aff981
 
-PODFILE CHECKSUM: be54deb9ae1361e3aba80465c58e626064534412
+PODFILE CHECKSUM: d8afff85d084df051345f2c20397533d6b7ef6e4
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.12.0

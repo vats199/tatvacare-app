@@ -1,0 +1,73 @@
+/* 
+  Localizable.strings
+  MyTatva
+
+  
+  
+*/
+
+
+//SelectLanguageVC -------------------------------------------------
+
+"Select Your Preferred Language" = "Select Your Preferred Language";
+"Select language" = "Select language";
+"Submit" = "Submit";
+
+//LanguageListVC -------------------------------------------------
+"Submit" = "Submit";
+"Select Language" = "Select Language";
+
+//LoginWithOTPVC -------------------------------------------------
+"Login with OTP" = "Login with OTP";
+"Mobile Number" = "Mobile Number";
+"Next" = "Next";
+"OR" = "OR";
+"Login with Password" = "Login with Password";
+"Don't have an account?" = "Don't have an account?";
+
+//LoginWithPassVC -------------------------------------------------
+"Login with Password" = "Login with Password";
+"Mobile Number" = "Mobile Number";
+"Password" = "Password";
+"I agree to the" = "I agree to the";
+"terms and conditions" = "terms and conditions";
+"Submit" = "Submit";
+"Remember me" = "Remember me";
+"Forgot Password?" = "Forgot Password?";
+"Don't have Password?" = "Don't have Password?";
+"Login with OTP" = "Login with OTP";
+"Don't have an account?" = "Don't have an account?";
+"Sign Up" = "Sign Up";
+
+//LoginOTP2VC -------------------------------------------------
+"Login" = "Login";
+"Mobile Number" = "Mobile Number";
+"Mobile Number" = "Mobile Number";
+"Enter OTP" = "Enter OTP";
+"Didn't received OTP?" = "Didn't received OTP?";
+"Resend OTP" = "Resend OTP";
+"Verify" = "Verify";
+
+//ForgotPasswordVC -------------------------------------------------
+"Forgot Password" = "Forgot Password";
+"Verify your phone number via OTP and you can create a new password." = "Verify your phone number via OTP and you can create a new password.";
+"Verify your mobile number" = "Verify your mobile number";
+"Next" = "Next";
+
+//ForgotPasswordOTPVC -------------------------------------------------
+"Forgot Password" = "Forgot Password";
+"Verify your phone number via OTP and you can create a new password." = "Verify your phone number via OTP and you can create a new password.";
+"Mobile Number" = "Mobile Number";
+"Mobile Number" = "Mobile Number";
+"Enter OTP" = "Enter OTP";
+"Didn't received OTP?" = "Didn't received OTP?";
+"Resend OTP" = "Resend OTP";
+"Verify" = "Verify";
+
+//CreatePasswordVC -------------------------------------------------
+"Create Password" = "Create Password";
+"Password" = "Password";
+"Confirm Password" = "Confirm Password";
+"Create" = "Create";
+
+//BiometricVC -------------------------------------------------

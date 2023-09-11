@@ -1,94 +1,133 @@
-# # Resolve react_native_pods.rb with node to allow for hoisting
-# require Pod::Executable.execute_command('node', ['-p',
-#   'require.resolve(
-#     "react-native/scripts/react_native_pods.rb",
-#     {paths: [process.argv[1]]},
-#   )', __dir__]).strip
-def node_require(script)
-  # Resolve script with node to allow for hoisting
-  require Pod::Executable.execute_command('node', ['-p',
-    "require.resolve(
-      '#{script}',
-      {paths: [process.argv[1]]},
-    )", __dir__]).strip
-end
-  
-node_require('react-native/scripts/react_native_pods.rb')
-node_require('react-native-permissions/scripts/setup.rb')
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+require_relative '../node_modules/react-native/scripts/react_native_pods'
+require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
-platform :ios, min_ios_version_supported
-prepare_react_native_project!
-
-setup_permissions([
-  # 'AppTrackingTransparency',
-  # 'BluetoothPeripheral',
-  # 'Calendars',
-  # 'Camera',
-  # 'Contacts',
-  # 'FaceID',
-  # 'LocationAccuracy',
-  # 'LocationAlways',
-  'LocationWhenInUse'
-  # 'MediaLibrary',
-  # 'Microphone',
-  # 'Motion',
-  # 'Notifications',
-  # 'PhotoLibrary',
-  # 'PhotoLibraryAddOnly',
-  # 'Reminders',
-  # 'SpeechRecognition',
-  # 'StoreKit'
-])
-
-# If you are using a `react-native-flipper` your iOS build will fail when `NO_FLIPPER=1` is set.
-# because `react-native-flipper` depends on (FlipperKit,...) that will be excluded
-#
-# To fix this you can also exclude `react-native-flipper` using a `react-native.config.js`
-# ```js
-# module.exports = {
-#   dependencies: {
-#     ...(process.env.NO_FLIPPER ? { 'react-native-flipper': { platforms: { ios: null } } } : {}),
-# ```
-flipper_config = ENV['NO_FLIPPER'] == "1" ? FlipperConfiguration.disabled : FlipperConfiguration.enabled
-
-linkage = ENV['USE_FRAMEWORKS']
-if linkage != nil
-  Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
-  use_frameworks! :linkage => linkage.to_sym
+def shared_pods
+  # Pods for MyTatva
+#  5.2.11
+  pod 'WebEngage'
 end
 
-target 'TatvacareApp' do
+target 'MyTatva' do
+  # Comment the next line if you don't want to use dynamic frameworks
+    use_frameworks!
+    use_react_native!
+  platform :ios, '13.0'
   config = use_native_modules!
-
-  # Flags change depending on the env values.
-  flags = get_default_flags()
-
-  use_react_native!(
-    :path => config[:reactNativePath],
-    # Hermes is now enabled by default. Disable by setting this flag to false.
-    :hermes_enabled => false,
-    :fabric_enabled => false,
-    # Enables Flipper.
-    #
-    # Note that if you have use_frameworks! enabled, Flipper will not work and
-    # you should disable the next line.
-    # :flipper_configuration => flipper_config,
-    # An absolute path to your application root.
-    :app_path => "#{Pod::Config.instance.installation_root}/.."
-  )
-
-  target 'TatvacareAppTests' do
-    inherit! :complete
-    # Pods for testing
+  shared_pods
+  
+  target 'MyTatvaTests' do
+    inherit! :search_paths
+    #pods for your unit tests
   end
+  
+  target 'MyTatvaUITests' do
+  end
+    
+  pod 'AdvancedPageControl'
+  pod 'IQKeyboardManagerSwift'
+  pod 'SwiftyJSON'
+#  pod 'SimpleImageViewer'
+  pod 'Siren'
+  pod 'QorumLogs'
+  pod 'Moya'
+  pod 'SDWebImage', :modular_headers => true
 
+  pod 'lottie-ios'
+#  pod 'FittedSheets'
+  #pod 'iOSDropDown'
+  pod 'RangeSeekSlider'
+  pod 'GoogleMaps'
+  pod 'GooglePlaces'
+  pod 'AWSS3'
+  pod 'AWSCore'
+  pod 'SkyFloatingLabelTextField'
+#  pod 'PDFReader'
+
+  #pod 'FBSDKLoginKit'
+  #pod 'FBSDKCoreKit'
+  #pod 'FBSDKShareKit'
+  #pod 'GoogleSignIn'
+  #pod 'libPhoneNumber-iOS', '~> 0.9.15'
+  pod 'DZNEmptyDataSet'
+  pod 'AZSClient'
+  pod 'MaterialShowcase'
+  pod 'Hero'
+
+  pod 'TwilioVideo'
+  
+  #pod 'FirKKebase/Auth'
+  #pod 'Firebase/Firestore'
+  
+  pod 'Firebase/Analytics'
+  pod 'Firebase/DynamicLinks'
+  pod 'Firebase/Crashlytics'
+  pod 'Firebase/RemoteConfig'
+#  pod 'Firebase/Performance'
+
+#  pod 'FirebasePerformance'
+#  pod 'Charts', '~> 3.6.0'
+pod 'Charts'
+
+  pod 'DropDown'
+#  pod 'FreshchatSDK', '~> 5.4.3'
+  pod 'FreshchatSDK'
+  pod 'SwiftyStoreKit'
+  
+  pod 'SurveySparrowSdk', :git => 'https://github.com/surveysparrow/surveysparrow-ios-sdk.git', :tag => '0.3.0'
+  pod 'KDCircularProgress'
+  pod 'HGCircularSlider'
+  
+  pod 'razorpay-pod'
+  pod 'ImageViewer.swift'
+  
+#  post_install do |installer|
+#    installer.pods_project.targets.each do |target|
+#      target.build_configurations.each do |config|
+#        # Targets that do not support m1 simulator
+#        if ['WebEngage'].include? target.name
+##          config.build_settings['ARCHS[sdk=iphonesimulator*]'] = 'x86_64'
+#          config.build_settings['ARCHS[sdk=iphonesimulator*]'] = 'arm64'
+#        end
+#      end
+#    end
+#  end
   post_install do |installer|
-    # https://github.com/facebook/react-native/blob/main/packages/react-native/scripts/react_native_pods.rb#L197-L202
     react_native_post_install(
       installer,
       config[:reactNativePath],
       :mac_catalyst_enabled => false
     )
     __apply_Xcode_12_5_M1_post_install_workaround(installer)
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        # Needed for building for simulator on M1 Macs
+        config.build_settings['ONLY_ACTIVE_ARCH'] = 'NO'
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0'
+      end
+    end
   end
+  
+end
+
+
+# ServiceExtension Target
+target 'MyTatvaNotificationService' do
+  # Comment the next line if you don't want to use dynamic frameworks
+    use_frameworks!
+    
+    platform :ios, '13.0'
+    
+    pod 'WebEngageBannerPush'
+end
+
+# ContentExtension Target
+target 'NotificationViewController' do
+  # Comment the next line if you don't want to use dynamic frameworks
+    use_frameworks!
+    
+  platform :ios, '13.0'
+  
+  pod 'WebEngageAppEx/ContentExtension'
 end

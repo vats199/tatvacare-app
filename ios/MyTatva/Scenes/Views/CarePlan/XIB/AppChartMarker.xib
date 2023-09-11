@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_0" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AppChartMarker" customModule="MyTatva" customModuleProvider="target">
+            <connections>
+                <outlet property="lblDesc" destination="f05-JX-dJ0" id="DyN-bq-IKK"/>
+                <outlet property="lblTitle" destination="nts-gf-HBK" id="dyC-od-XpI"/>
+                <outlet property="lblValue" destination="XGm-L9-zMw" id="u70-lk-698"/>
+                <outlet property="vwBg" destination="6jU-Pb-It6" id="hqy-aO-Vp5"/>
+                <outlet property="vwParent" destination="iN0-l3-epB" id="0PW-hB-zaT"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="223" height="179"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6jU-Pb-It6">
+                    <rect key="frame" x="0.0" y="47" width="223" height="132"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="nU2-5K-5zU">
+                            <rect key="frame" x="2" y="1" width="219" height="130"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nts-gf-HBK">
+                                    <rect key="frame" x="17" y="0.0" width="185" height="0.0"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="1,544" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XGm-L9-zMw">
+                                    <rect key="frame" x="88.333333333333329" y="0.0" width="42.333333333333329" height="2"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="900" verticalCompressionResistancePriority="1000" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f05-JX-dJ0">
+                                    <rect key="frame" x="17" y="2" width="185" height="128"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" name="ThemeLightPurple"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="nU2-5K-5zU" secondAttribute="trailing" constant="2" id="5UV-wz-aXv"/>
+                        <constraint firstItem="nU2-5K-5zU" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6jU-Pb-It6" secondAttribute="top" constant="1" id="8f1-wD-DzY"/>
+                        <constraint firstItem="nU2-5K-5zU" firstAttribute="leading" secondItem="6jU-Pb-It6" secondAttribute="leading" constant="2" id="QVS-MF-S12"/>
+                        <constraint firstItem="nU2-5K-5zU" firstAttribute="centerY" secondItem="6jU-Pb-It6" secondAttribute="centerY" id="Qet-fY-exD"/>
+                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="nU2-5K-5zU" secondAttribute="bottom" constant="1" id="sp5-s4-VAX"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="top" secondItem="6jU-Pb-It6" secondAttribute="top" id="7gU-V1-PYe"/>
+                <constraint firstItem="6jU-Pb-It6" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Zjj-T2-Ixx"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="6jU-Pb-It6" secondAttribute="bottom" id="ahh-LP-sOd"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="6jU-Pb-It6" secondAttribute="trailing" id="tZl-ds-MKd"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-231.53846153846152" y="-512.20379146919424"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="ThemeLightPurple">
+            <color red="0.77254901960784317" green="0.49803921568627452" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

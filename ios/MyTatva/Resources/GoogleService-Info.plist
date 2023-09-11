@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>784229987778-35hnsh5e1is3pp2t4ae2slo15slh4ptq.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.784229987778-35hnsh5e1is3pp2t4ae2slo15slh4ptq</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>784229987778-qhgg5h6p7m9ru0oigblafs5h6eq7gutg.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDpw4KKiqefWEUKbOFOQA8DBjtmW5EQ9Ks</string>
+	<key>GCM_SENDER_ID</key>
+	<string>784229987778</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.mytatva.patient</string>
+	<key>PROJECT_ID</key>
+	<string>mytatva-patient</string>
+	<key>STORAGE_BUCKET</key>
+	<string>mytatva-patient.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:784229987778:ios:612573d96c7928396bd25b</string>
+</dict>
+</plist>
