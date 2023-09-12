@@ -18,6 +18,7 @@ import AdditionalCareServices from '../components/organisms/AdditionalCareServic
 import Learn from '../components/organisms/Learn'
 import SearchModal from '../components/molecules/SearchModal'
 import { DrawerScreenProps } from '@react-navigation/drawer'
+import Home from '../api/home'
 
 type HomeScreenProps = CompositeScreenProps<
     DrawerScreenProps<DrawerParamList, 'HomeScreen'>,
@@ -31,40 +32,12 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
 
     const inputRef = useRef<AnimatedInputFieldRef>(null)
 
-    const crypto = () => {
-
-        var truncHexKey = CRYPTO.SHA256('9Ddyaf6rfywpiTvTiax2iq6ykKpaxgJ6').toString().substr(0, 32); // hex encode and truncate
-
-        var key = CRYPTO.enc.Utf8.parse(truncHexKey);
-
-        var iv = CRYPTO.enc.Utf8.parse('9Ddyaf6rfywpiTvT');
-
-        var ciphertext = CRYPTO.AES.encrypt(JSON.stringify({ "otp": "1234", "contact_no": "8511449158" }), key, {
-            iv: iv,
-            mode: CRYPTO.mode.CBC,
-        });
-
-        var decryptedData = CRYPTO.AES.decrypt('W8kOa09DBSDw5aA97q1miUCEGIoWJugo96Mry/sqbS3OQlyi5BNCB4EYS1xlKOED', key, {
-            iv: iv,
-            mode: CRYPTO.mode.CBC,
-        });
-        let str = null
-        try {
-            str = decryptedData.toString(CRYPTO.enc.Utf8)
-        } catch (error) {
-            console.log(error);
-        }
-
-        return {
-            plainText: str
-        }
-
-    }
+    useEffect(() => {
+        Home.getPatientCarePlan({})
+    }, [])
 
     const onPressLocation = () => { }
     const onPressBell = () => {
-        const crypt = crypto();
-        console.log(crypt);
     }
     const onPressProfile = () => {
         navigation.toggleDrawer()
