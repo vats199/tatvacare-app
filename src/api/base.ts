@@ -11,7 +11,7 @@ const PATCH = 'patch';
 const DELETE = 'delete';
 const DEFAULT_ERROR = 'Something went wrong, Please try again later';
 
-const getEncryptedText = (data: any) => {
+export const getEncryptedText = (data: any) => {
   var truncHexKey = CRYPTO.SHA256(Config.encKey || "").toString().substr(0, 32); // hex encode and truncate
 
   var key = CRYPTO.enc.Utf8.parse(truncHexKey);
@@ -26,7 +26,7 @@ const getEncryptedText = (data: any) => {
   return ciphertext.toString();
 }
 
-const getDecryptedData = (cipher: string) => {
+export const getDecryptedData = (cipher: string) => {
   var truncHexKey = CRYPTO.SHA256(Config.encKey || "").toString().substr(0, 32); // hex encode and truncate
 
   var key = CRYPTO.enc.Utf8.parse(truncHexKey);
@@ -53,61 +53,23 @@ const getToken = async () => {
   }
 };
 
-const handleResponse = (response: any) => {
-  // const contentType = response.headers.get('Content-Type');
-  // if (contentType && contentType.indexOf('text/plain') !== -1) {
-  //   return handleResponseSuccess({ data: JSON.parse(getDecryptedData(response)), status: response?.status })
-  // } else {
-  //   return response.text();
-  // }
-  const contentType = response.headers.get('Content-Type');
-  if (contentType && contentType.indexOf('application/json') !== -1) {
-    return response.json()
-      .then((data: any) => { console.log(data); }
+const handleResponse = async (response: any) => {
 
-        // handleResponseSuccess({ ...data, status: response?.status }),
-      );
+  const contentType = response.headers.get('Content-Type');
+
+
+  if (contentType && contentType.indexOf('application/json') !== -1) {
+    const jsonRes = await response.json()
+    const parsedResponse = await JSON.parse(getDecryptedData(jsonRes))
+
+    if (parsedResponse?.code == 1) {
+      return { data: parsedResponse?.data }
+    } else {
+      return {}
+    }
   } else {
     return response.text();
   }
-};
-
-const handleResponseSuccess = async (response: any) => {
-  // if (response?.status === 200 && (response.msg === 'Token Expired' || response.msg === 'Invalid Token')) {
-
-  //   const refreshToken = await AsyncStorage.getItem('refreshToken')
-  //   const refreshData = {
-  //     refreshToken
-  //   }
-
-  //   const res = await fetch(`${config.BASE_URL}/user/seller/refresh_token`, {
-  //     method: POST,
-  //     headers: {
-  //       "Content-Type": "text/plain"
-  //     },
-  //     body: JSON.stringify(refreshData)
-  //   })
-
-  //   const response = await res.json()
-  //   if (response && response?.status === 'success') {
-  //     await AsyncStorage.setItem('accessToken', response.accessToken)
-  //   } else {
-  //     await AsyncStorage.clear()
-  //     await AsyncStorage.setItem('isLogin', 'false')
-  //     return;
-  //   }
-
-  //   return {
-  //     status: 'new token',
-  //     msg: 'New token generated',
-  //   };
-  // }
-
-  // if (response?.status === 'error') {
-  //   throw new Error(DEFAULT_ERROR);
-  // }
-
-  return response;
 };
 
 const request: any = async (
@@ -125,8 +87,9 @@ const request: any = async (
   let init = {
     method: method,
     headers: {
-      Accept: 'text/plain',
       ...headers,
+      "api-key": Config.apiKey,
+      'token': 'ILtFcw+xtbuy8IgsBCSyD6nSpgZd5AOz7T+g3N8Tef/INZi+dxwPJhnBc2kfdq2e2jxXFtZ/0Bb+YCGl+UEKiPPjaRppdP/afOSYuV55doQnLmSFSdj9cFhsQuvWHe0nvhKbB90Zbm7h6B7ZNZxQLsy1ASYvN6CovZ2uOCXQO28tCnDhC+ylOiff8g18kpsGgc+y2za+gGvZvqsEEHo2AVU8LA64WQ4pxp23aWjuBzWQQk0486HSWXTf1vbjdSA2pafpaV+IavZJb/vEdkro1IN60YqcWgvKxfit3OA+bvqKIpwX/t/AOclzPhorQeVnF4mAlD2gCcVFcSWyCtrT2kdtwRFEVYeXxKa8Us8nFAYO1+7llehG32swPJ0nC0Qafm9yEN06r4VJIPr7VrUAhDsIzhVemRZfiNa/NeLtueOWLYG8nM78RrhkKKTAgfQVTG+HLCPvYA9ii8nK4wsJZQdMKqht4NKNFihMaDza6yNTSffCyWRoUiguzJyUtLgFPAok6Bu/t4dJSolABGrK0Lup5XqTNx4+s0tMrg/DW3lvgvPdXnP52pl584KfkTg6rxiR5ybqcOOkmSwKlQJFKNX+GwudU4h0FjwnntMPJHAm+T+o8YXmAU3HfktmJlMrhTu1xtOXvyqA/TWBODV8IyIktMsMDCG0qnT1IwopXO9+lvsRu6wkBy9kquzq56mZySimBhWlyTLPDrGhriic3W2mh0lkfnL9CKGK8i/ncO+KA3mw3QFLa8b7DL3W39VEwVrF5qnl5eDqrIdsyg2JKDP08J3rQKdKHHGtKCnRPYwAzXslariXPNcxex43I+qPRJo4ZLefGErJvvkgm6wnWG83sf1GRCpfee+MrLMhASdHEgz5xCCY0EvbaI/mtEEdK2X5N1MKbD5B8yhTUCqvWw=='
     },
     body: ''
   };
@@ -135,9 +98,8 @@ const request: any = async (
       ...init,
       headers: {
         ...init.headers,
-        'Content-Type': 'text/plain',
       },
-      body: getEncryptedText(payload),
+      body: getEncryptedText(payload)
     };
   }
   // if (formData) {
@@ -162,17 +124,18 @@ const request: any = async (
     if (!json) {
       return res;
     }
+
     res = await handleResponse(res);
-    if (res?.status === 'new token') {
-      return request(route, {
-        method,
-        payload,
-        formData,
-        headers,
-        json,
-        priv,
-      });
-    }
+    // if (res?.status === 'new token') {
+    //   return request(route, {
+    //     method,
+    //     payload,
+    //     formData,
+    //     headers,
+    //     json,
+    //     priv,
+    //   });
+    // }
 
     return res;
   });

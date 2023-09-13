@@ -1,11 +1,44 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { Image, ScrollView, StyleSheet, Text, View } from 'react-native'
+import React, { useEffect } from 'react'
 import { colors } from '../../constants/colors'
 import { Icons } from '../../constants/icons'
+import { getEncryptedText } from '../../api/base'
 
-type MyHealthInsightsProps = {}
+type MyHealthInsightsProps = {
+    data: any
+}
 
-const MyHealthInsights: React.FC<MyHealthInsightsProps> = ({ }) => {
+const MyHealthInsights: React.FC<MyHealthInsightsProps> = ({ data }) => {
+
+    const [filteredData, setFilteredData] = React.useState<any>([])
+
+    useEffect(() => {
+        filterData()
+    }, [data])
+
+    const filterData = () => {
+        const combinedData = [...(data?.goal_data || []), ...(data?.readings_response || [])]
+
+        let filteredArray = []
+
+        for (let i = 0; i < combinedData.length; i = i + 2) {
+            const firstElement = combinedData[i];
+            const secondElement = combinedData[i + 1];
+            filteredArray.push([firstElement, secondElement])
+        }
+
+        setFilteredData(filteredArray)
+    }
+
+    const getValue = (val: any) => {
+
+        if (val || val == 0 && val !== '') {
+            return parseInt(val);
+        } else {
+            return '-'
+        }
+    }
+
 
     return (
         <View style={styles.container}>
@@ -16,49 +49,39 @@ const MyHealthInsights: React.FC<MyHealthInsightsProps> = ({ }) => {
                 contentContainerStyle={styles.scrollContainer}
                 bounces={false}
             >
-                <View style={styles.columnContainer}>
-                    <View style={styles.hiItemContainerTop}>
-                        <View style={styles.row}>
-                            <Icons.RedLung />
-                            <Text style={styles.hiItemTitle}>FEV1</Text>
-                        </View>
-
-                    </View>
-                    <View style={styles.hiItemContainerBottom}>
-                        <View style={styles.row}>
-                            <Icons.GreenMoon />
-                            <Text style={styles.hiItemTitle}>Sleep</Text>
-                        </View>
-                    </View>
-                </View>
-                <View style={styles.columnContainer}>
-                    <View style={styles.hiItemContainerTop}>
-                        <View style={styles.row}>
-                            <Icons.GreenWalking />
-                            <Text style={styles.hiItemTitle}>Six-Min Walk</Text>
-                        </View>
-                    </View>
-                    <View style={styles.hiItemContainerBottom}>
-                        <View style={styles.row}>
-                            <Icons.GreenWalking />
-                            <Text style={styles.hiItemTitle}>Steps</Text>
-                        </View>
-                    </View>
-                </View>
-                <View style={styles.columnContainer}>
-                    <View style={styles.hiItemContainerTop}>
-                        <View style={styles.row}>
-                            <Icons.PEF />
-                            <Text style={styles.hiItemTitle}>PEF</Text>
-                        </View>
-                    </View>
-                    <View style={styles.hiItemContainerBottom}>
-                        <View style={styles.row}>
-                            <Icons.WaterGlass />
-                            <Text style={styles.hiItemTitle}>Water</Text>
-                        </View>
-                    </View>
-                </View>
+                {
+                    filteredData?.length > 0 && filteredData.map((data: any) => {
+                        const firstRow = data[0];
+                        const secondRow = data[1];
+                        return (
+                            <View style={styles.columnContainer}>
+                                <View style={styles.hiItemContainerTop}>
+                                    <View style={styles.row}>
+                                        <Image resizeMode='contain' style={styles.imageStyle} source={{ uri: firstRow?.image_url || '' }} />
+                                        <Text style={styles.hiItemTitle}>{firstRow?.goal_name || firstRow?.reading_name || '-'}</Text>
+                                    </View>
+                                    <View style={styles.valuesRow}>
+                                        <Text style={styles.hiItemValue}>{getValue(firstRow?.goal_value || firstRow?.reading_value)}</Text>
+                                        <Text style={styles.hiItemKey}>{firstRow?.keys}</Text>
+                                    </View>
+                                </View>
+                                {
+                                    secondRow &&
+                                    <View style={styles.hiItemContainerBottom}>
+                                        <View style={styles.row}>
+                                            <Image resizeMode='contain' style={styles.imageStyle} source={{ uri: secondRow?.image_url || '' }} />
+                                            <Text style={styles.hiItemTitle}>{secondRow?.goal_name || secondRow?.reading_name || '-'}</Text>
+                                        </View>
+                                        <View style={styles.valuesRow}>
+                                            <Text style={styles.hiItemValue}>{getValue(secondRow?.goal_value || secondRow?.reading_value)}</Text>
+                                            <Text style={styles.hiItemKey}>{secondRow?.keys}</Text>
+                                        </View>
+                                    </View>
+                                }
+                            </View>
+                        )
+                    })
+                }
             </ScrollView>
         </View>
     )
@@ -108,4 +131,24 @@ const styles = StyleSheet.create({
         fontSize: 12,
         marginLeft: 5
     },
+    valuesRow: {
+        flexDirection: 'row',
+        alignItems: 'baseline',
+        marginTop: 10,
+        gap: 5
+    },
+    hiItemValue: {
+        color: colors.black,
+        fontWeight: '700',
+        fontSize: 20,
+    },
+    hiItemKey: {
+        color: colors.secondaryLabel,
+        fontWeight: '400',
+        fontSize: 12,
+    },
+    imageStyle: {
+        height: 25,
+        width: 25
+    }
 })

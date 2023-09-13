@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { colors } from '../../constants/colors'
 import { Icons } from '../../constants/icons'
@@ -8,73 +8,40 @@ type MyHealthDiaryProps = {
     onPressDiet: () => void,
     onPressExercise: () => void,
     onPressDevices: () => void,
-    onPressMyIncidents: () => void
+    onPressMyIncidents: () => void,
+    data: any
 }
 
-type HealthDiaryItem = {
-    title: 'Medicines' | 'Diet' | 'Exercises' | 'Devices' | 'My Incidents',
-    description: string,
-    onPress: () => void
-}
+const MyHealthDiary: React.FC<MyHealthDiaryProps> = ({ onPressDevices, onPressDiet, onPressExercise, onPressMedicine, onPressMyIncidents, data }) => {
 
-const MyHealthDiary: React.FC<MyHealthDiaryProps> = ({ onPressDevices, onPressDiet, onPressExercise, onPressMedicine, onPressMyIncidents }) => {
+    // const renderIcon = (title: 'Medicines' | 'Diet' | 'Exercises' | 'Devices' | 'My Incidents') => {
+    //     switch (title) {
+    //         case 'Medicines':
+    //             return <Icons.HealthDiaryMedicines />
+    //         case 'Diet':
+    //             return <Icons.HealthDiaryDiet />
+    //         case 'Exercises':
+    //             return <Icons.HealthDiaryExercise />
+    //         case 'Devices':
+    //             return <Icons.HealthDiaryDevices />
+    //         case 'My Incidents':
+    //             return <Icons.HealthDiaryMyIncidents />
+    //     }
+    // }
 
-    const options: HealthDiaryItem[] = [
-        {
-            title: 'Medicines',
-            description: 'Log and track your medicines!',
-            onPress: onPressMedicine
-        },
-        {
-            title: 'Diet',
-            description: 'Log and track your calories!',
-            onPress: onPressDiet
-        },
-        {
-            title: 'Exercises',
-            description: 'Log your exercise details!',
-            onPress: onPressExercise
-        },
-        {
-            title: 'Devices',
-            description: 'Connect and monitor your condition!',
-            onPress: onPressDevices
-        },
-        {
-            title: 'My Incidents',
-            description: 'Log your exercise details!',
-            onPress: onPressMyIncidents
-        },
-    ]
-
-    const renderIcon = (title: 'Medicines' | 'Diet' | 'Exercises' | 'Devices' | 'My Incidents') => {
-        switch (title) {
-            case 'Medicines':
-                return <Icons.HealthDiaryMedicines />
-            case 'Diet':
-                return <Icons.HealthDiaryDiet />
-            case 'Exercises':
-                return <Icons.HealthDiaryExercise />
-            case 'Devices':
-                return <Icons.HealthDiaryDevices />
-            case 'My Incidents':
-                return <Icons.HealthDiaryMyIncidents />
-        }
-    }
-
-    const renderHealthDiaryItem = (item: HealthDiaryItem, index: number) => {
-        const { title, description, onPress } = item
+    const renderHealthDiaryItem = (item: any, idx: number) => {
         return (
             <TouchableOpacity
-                key={index.toString()}
+                key={idx.toString()}
                 style={styles.healthDiaryItemContainer}
-                onPress={onPress}
+                // onPress={onPress}
                 activeOpacity={0.7}
             >
-                {renderIcon(title)}
+                <Image resizeMode='contain' source={{ uri: item?.image_url || '' }} style={styles.imageStyle} />
+                {/* {renderIcon(title)} */}
                 <View style={styles.textContainer}>
-                    <Text style={styles.text}>{title}</Text>
-                    <Text style={styles.subText}>{description}</Text>
+                    <Text style={styles.text}>{item?.goal_name || '-'}</Text>
+                    <Text style={styles.subText}>{item?.achieved_value || 0} of {item?.goal_value || 0} {item?.goal_measurement}</Text>
                 </View>
             </TouchableOpacity>
         )
@@ -83,7 +50,7 @@ const MyHealthDiary: React.FC<MyHealthDiaryProps> = ({ onPressDevices, onPressDi
     return (
         <View style={styles.container}>
             <Text style={styles.title}>My Health Diary</Text>
-            {options.map(renderHealthDiaryItem)}
+            {data.map((item: any, idx: number) => { return renderHealthDiaryItem(item, idx) })}
         </View>
     )
 }
@@ -124,4 +91,8 @@ const styles = StyleSheet.create({
         lineHeight: 16,
         color: colors.subTitleLightGray
     },
+    imageStyle: {
+        height: 40,
+        width: 40,
+    }
 })

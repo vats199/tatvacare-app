@@ -3,11 +3,15 @@ import React from 'react'
 import { colors } from '../../constants/colors'
 import { Icons } from '../../constants/icons'
 
-const HealthTip = () => {
+type HealthTipProps = {
+    tip: any
+}
+
+const HealthTip: React.FC<HealthTipProps> = ({ tip }) => {
     return (
         <View style={styles.container}>
             <Icons.LightBulb />
-            <Text style={styles.text}>Being overweight or obese can lead to health conditions, such as type 2 diabetes, certain cancers, heart disease and stroke.</Text>
+            <Text style={styles.text}>{tip?.description || '-'}</Text>
         </View>
     )
 }
@@ -15,17 +19,18 @@ const HealthTip = () => {
 export default HealthTip
 
 const styles = StyleSheet.create({
-    container:{
+    container: {
         marginVertical: 10,
         backgroundColor: colors.purple,
-        borderRadius:12,
+        borderRadius: 12,
         padding: 10,
-        flexDirection:'row'
+        flexDirection: 'row',
+        alignItems: 'center'
     },
-    text:{
+    text: {
         color: colors.white,
-        flex:1,
-        fontSize:12,
+        flex: 1,
+        fontSize: 12,
         fontWeight: '400',
         marginLeft: 10
     },

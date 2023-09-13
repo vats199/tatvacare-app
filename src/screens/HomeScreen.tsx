@@ -29,12 +29,54 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
 
     const [search, setSearch] = React.useState<string>('')
     const [visible, setVisible] = React.useState<boolean>(false)
+    const [carePlanData, setCarePlanData] = React.useState<any>({})
+    const [learnMoreData, setLearnMoreData] = React.useState<any>([])
+    const [healthInsights, setHealthInsights] = React.useState<any>({})
+    const [healthDiaries, setHealthDiaries] = React.useState<any>([])
 
     const inputRef = useRef<AnimatedInputFieldRef>(null)
 
     useEffect(() => {
-        Home.getPatientCarePlan({})
+        getHomeCarePlan()
+        getLearnMoreData()
+        getPlans()
+        getMyHealthInsights()
+        getMyHealthDiaries()
     }, [])
+
+    const getHomeCarePlan = async () => {
+
+        const homeCarePlan = await Home.getPatientCarePlan({})
+
+
+        setCarePlanData(homeCarePlan?.data)
+    }
+
+    const getLearnMoreData = async () => {
+
+        const learnMore = await Home.getLearnMoreData({});
+
+        setLearnMoreData(learnMore?.data)
+    }
+
+    const getPlans = async () => {
+
+        const allPlans = await Home.getHomePagePlans({}, { page: 0 })
+
+    }
+
+    const getMyHealthInsights = async () => {
+        const insights = await Home.getMyHealthInsights({})
+
+        setHealthInsights(insights?.data)
+
+    }
+
+    const getMyHealthDiaries = async () => {
+        const diaries = await Home.getMyHealthDiaries({});
+
+        setHealthDiaries(diaries?.data)
+    }
 
     const onPressLocation = () => { }
     const onPressBell = () => {
@@ -52,6 +94,20 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
     const onPressConsultPhysio = () => { }
     const onPressBookDiagnostic = () => { }
     const onPressBookDevices = () => { }
+
+    const onPressBookmark = async (data: any) => {
+        if (data?.bookmarked !== 'Y') {
+            const payload = {
+                content_master_id: data?.content_master_id,
+                is_active: data?.is_active
+            }
+            const resp = await Home.addBookmark({}, payload);
+
+            if (resp?.data) {
+                getLearnMoreData()
+            }
+        }
+    }
 
     return (
         <Screen>
@@ -74,15 +130,16 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
                             ref={inputRef}
                         />
                     </View>
-                    <CarePlanView />
-                    <HealthTip />
-                    <MyHealthInsights />
+                    <CarePlanView data={carePlanData} />
+                    {carePlanData?.doctor_says?.description && <HealthTip tip={carePlanData?.doctor_says} />}
+                    <MyHealthInsights data={healthInsights} />
                     <MyHealthDiary
                         onPressDevices={onPressDevices}
                         onPressDiet={onPressDiet}
                         onPressExercise={onPressExercise}
                         onPressMedicine={onPressMedicine}
                         onPressMyIncidents={onPressMyIncidents}
+                        data={healthDiaries}
                     />
                     <AdditionalCareServices
                         onPressConsultNutritionist={onPressConsultNutritionist}
@@ -90,7 +147,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
                         onPressBookDiagnostic={onPressBookDiagnostic}
                         onPressBookDevices={onPressBookDevices}
                     />
-                    <Learn />
+                    {learnMoreData?.length > 0 && <Learn onPressBookmark={onPressBookmark} data={learnMoreData} />}
                 </ScrollView>
                 <SearchModal visible={visible} setVisible={setVisible} search={search} setSearch={setSearch} />
             </Container>
@@ -105,14 +162,15 @@ const styles = StyleSheet.create({
         color: colors.black,
         fontSize: 16,
         fontWeight: '700',
-        marginVertical: 15
+        marginVertical: 15,
+        lineHeight: 20
     },
     searchContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: colors.white,
         borderWidth: 1,
-        borderColor: colors.subTitleLightGray,
+        borderColor: colors.inputBoxLightBorder,
         borderRadius: 12,
         paddingHorizontal: 10
     },

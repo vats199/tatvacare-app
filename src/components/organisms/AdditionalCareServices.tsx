@@ -10,7 +10,7 @@ type AdditionalServicesProps = {
 }
 
 type AdditionalServicesItem = {
-    title: 'Consult Nutritionist' | 'Consult Physio' | 'Book Diagnostic' | 'Book Devices',
+    title: 'Consult\nNutritionist' | 'Consult\nPhysio' | 'Book\nDiagnostic' | 'Book\nDevices' | 'Doctor\nAppointment',
     onPress: () => void
 }
 
@@ -18,33 +18,39 @@ const AdditionalCareServices: React.FC<AdditionalServicesProps> = ({ onPressCons
 
     const options: AdditionalServicesItem[] = [
         {
-            title: 'Consult Nutritionist',
+            title: 'Consult\nNutritionist',
             onPress: onPressConsultNutritionist
         },
         {
-            title: 'Consult Physio',
+            title: 'Consult\nPhysio',
             onPress: onPressConsultPhysio
         },
         {
-            title: 'Book Diagnostic',
+            title: 'Book\nDiagnostic',
             onPress: onPressBookDiagnostic
         },
         {
-            title: 'Book Devices',
+            title: 'Book\nDevices',
             onPress: onPressBookDevices
+        },
+        {
+            title: 'Doctor\nAppointment',
+            onPress: onPressConsultPhysio
         },
     ]
 
-    const renderIcon = (title: 'Consult Nutritionist' | 'Consult Physio' | 'Book Diagnostic' | 'Book Devices') => {
+    const renderIcon = (title: 'Consult\nNutritionist' | 'Consult\nPhysio' | 'Book\nDiagnostic' | 'Book\nDevices' | 'Doctor\nAppointment') => {
         switch (title) {
-            case 'Consult Nutritionist':
+            case 'Consult\nNutritionist':
                 return <Icons.ServicesNutritionist />
-            case 'Consult Physio':
+            case 'Consult\nPhysio':
                 return <Icons.ServicesPhysio />
-            case 'Book Diagnostic':
+            case 'Book\nDiagnostic':
                 return <Icons.ServicesDiagnostic />
-            case 'Book Devices':
+            case 'Book\nDevices':
                 return <Icons.ServicesDevices />
+            case 'Doctor\nAppointment':
+                return <Icons.ServicesPhysio />
         }
     }
 
@@ -68,9 +74,9 @@ const AdditionalCareServices: React.FC<AdditionalServicesProps> = ({ onPressCons
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Additional Care Services</Text>
-            <View style={styles.itemsContainer}>
+            <ScrollView horizontal style={styles.itemsContainer}>
                 {options.map(renderServiceItem)}
-            </View>
+            </ScrollView>
         </View>
     )
 }
@@ -87,14 +93,14 @@ const styles = StyleSheet.create({
         color: colors.black
     },
     itemsContainer: {
-        marginTop: 10,
-        display: 'flex',
-        flexDirection: 'row',
-        gap: 15
+        paddingVertical: 10
     },
     serviceItemContainer: {
-        flex: 1,
-        gap: 5
+        // flex: 1,
+        gap: 5,
+        marginRight: 10,
+        height: 110,
+        width: 75
     },
     iconContainer: {
         backgroundColor: colors.white,
