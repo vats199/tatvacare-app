@@ -1,4 +1,4 @@
-import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Alert, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View ,NativeModules} from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
 import { CompositeScreenProps } from '@react-navigation/native'
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs'
@@ -18,6 +18,7 @@ import AdditionalCareServices from '../components/organisms/AdditionalCareServic
 import Learn from '../components/organisms/Learn'
 import SearchModal from '../components/molecules/SearchModal'
 import { DrawerScreenProps } from '@react-navigation/drawer'
+import RNShare from '../native/RNShare'
 
 type HomeScreenProps = CompositeScreenProps<
     DrawerScreenProps<DrawerParamList, 'HomeScreen'>,
@@ -80,6 +81,17 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
     const onPressBookDiagnostic = () => { }
     const onPressBookDevices = () => { }
 
+    // const rnshare = JSON.stringify(RNShare)
+    // const rnshare = JSON.stringify(RNShare);
+// console.log(rnshare, '=--=-RNSHARE-=---');
+console.log(NativeModules.RNShare,'RNShareRNShare-->>')
+
+// RNShare.getToken().then((p:any) =>{
+// console.log(p,'promise=====>');
+
+// })
+// Alert.alert(RNShare.getToken)
+
     return (
         <Screen>
             <Container>
@@ -89,7 +101,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
                         onPressLocation={onPressLocation}
                         onPressProfile={onPressProfile}
                     />
-                    <Text style={styles.goodMorning}>Good Morning Test!</Text>
+                    <Text style={styles.goodMorning}>Good Morning</Text>
                     <View style={styles.searchContainer}>
                         <Icons.Search />
                         <InputField

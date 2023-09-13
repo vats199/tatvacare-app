@@ -1,0 +1,22 @@
+//
+//  RNShare.m
+//  MyTatva
+//
+//  Created by Macbook Pro on 13/09/23.
+//
+
+#import <Foundation/Foundation.h>
+#import <React/RCTBridgeModule.h>
+#import <React/RCTViewManager.h>
+#import <React/RCTLog.h>
+
+
+@interface RCT_EXTERN_MODULE(RNShare, NSObject)
+
+RCT_EXTERN_METHOD(getToken: (RCTPromiseResolveBlock)resolve rejecter: (RCTPromiseRejectBlock)reject)
+
++ (BOOL) requiresMainQueueSetup {
+  return YES;
+}
+
+@end

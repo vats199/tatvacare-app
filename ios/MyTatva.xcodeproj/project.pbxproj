@@ -42,6 +42,8 @@
 		40CFD7E52A53FCA60035B411 /* QuestionsStartingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CFD7E42A53FCA60035B411 /* QuestionsStartingVC.swift */; };
 		40CFD7E82A54010A0035B411 /* SetupProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CFD7E72A54010A0035B411 /* SetupProfileVC.swift */; };
 		4CF746F788778DFD35A7D544 /* BCAAddAddressVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0262DDC1C0487F7D313B7E62 /* BCAAddAddressVM.swift */; };
+		5212E84D2AB18DD300076F2C /* RNShare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5212E84C2AB18DD300076F2C /* RNShare.swift */; };
+		5212E84F2AB191D500076F2C /* RNShare.m in Sources */ = {isa = PBXBuildFile; fileRef = 5212E84E2AB191D500076F2C /* RNShare.m */; };
 		5371B1BA130E70EFA40B354A /* BCA.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAD76F3678F23771023D92FE /* BCA.storyboard */; };
 		5D07FE162A5D374000E9CD76 /* HCServicesLongestPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D07FE152A5D374000E9CD76 /* HCServicesLongestPlan.swift */; };
 		5D1C1D59272692FF00B32926 /* NotificationVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1C1D58272692FF00B32926 /* NotificationVM.swift */; };
@@ -927,6 +929,8 @@
 		40CFD7E72A54010A0035B411 /* SetupProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupProfileVC.swift; sourceTree = "<group>"; };
 		443841831242FD93403BECE1 /* BcaDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BcaDetailVC.swift; sourceTree = "<group>"; };
 		4B3C116B86010EFE794904F5 /* Pods-NotificationViewController.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationViewController.debug.xcconfig"; path = "Target Support Files/Pods-NotificationViewController/Pods-NotificationViewController.debug.xcconfig"; sourceTree = "<group>"; };
+		5212E84C2AB18DD300076F2C /* RNShare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNShare.swift; sourceTree = "<group>"; };
+		5212E84E2AB191D500076F2C /* RNShare.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNShare.m; sourceTree = "<group>"; };
 		52ADEFD0910C6B315614B875 /* BcaVitalsDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BcaVitalsDetailsViewModel.swift; sourceTree = "<group>"; };
 		5D07FE152A5D374000E9CD76 /* HCServicesLongestPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCServicesLongestPlan.swift; sourceTree = "<group>"; };
 		5D1C1D58272692FF00B32926 /* NotificationVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVM.swift; sourceTree = "<group>"; };
@@ -1962,6 +1966,15 @@
 				40C0CF532A2F1A4A0095C219 /* WalkthroughListModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		5212E84B2AB18DAF00076F2C /* ReactNativeCommon */ = {
+			isa = PBXGroup;
+			children = (
+				5212E84C2AB18DD300076F2C /* RNShare.swift */,
+				5212E84E2AB191D500076F2C /* RNShare.m */,
+			);
+			path = ReactNativeCommon;
 			sourceTree = "<group>";
 		};
 		5D1C1D56272692B900B32926 /* Notification */ = {
@@ -5806,6 +5819,7 @@
 		91A1754B26789CC500297B66 /* MyTatva */ = {
 			isa = PBXGroup;
 			children = (
+				5212E84B2AB18DAF00076F2C /* ReactNativeCommon */,
 				616E492E270EF1950072C2BA /* MyTatva.entitlements */,
 				9AADC7422A1241CA003D627D /* SDKFramework */,
 				9102763E2679237700C55C2D /* AppBase */,
@@ -6753,6 +6767,7 @@
 				61901E2F26A1DEA70050CCAC /* GEnum.swift in Sources */,
 				6198F09227D2523D00C25D3F /* VideoAppointmentVM.swift in Sources */,
 				5D07FE162A5D374000E9CD76 /* HCServicesLongestPlan.swift in Sources */,
+				5212E84D2AB18DD300076F2C /* RNShare.swift in Sources */,
 				61FEB31D269C3D130087ED58 /* AppCoordinator.swift in Sources */,
 				61A0C9C626E8A472000685D2 /* BFPaperTabBarController.m in Sources */,
 				6166369D26F4ACC000A20237 /* SuggestedDosagePopupVC.swift in Sources */,
@@ -7158,6 +7173,7 @@
 				61FEB30B269C3D130087ED58 /* GAPI.swift in Sources */,
 				9A3838FB2A0CFDA800C19AD2 /* HowToConnectVC.swift in Sources */,
 				61DC771F26A7196F00F3BC3B /* AllSetVC.swift in Sources */,
+				5212E84F2AB191D500076F2C /* RNShare.m in Sources */,
 				615122D3272A806E007EC85C /* ExerciseDetailsListVM.swift in Sources */,
 				9A45BC682A3842C1004D9C82 /* OrderReviewVC.swift in Sources */,
 				61FEB32C269C3D130087ED58 /* UILabel+FormatStyle.swift in Sources */,
