@@ -78,7 +78,9 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   };
   const onPressProfile = () => {};
   const onPressDevices = () => {};
-  const onPressDiet = () => {};
+  const onPressDiet = () => {
+    navigation.navigate('DietScreen');
+  };
   const onPressExercise = () => {};
   const onPressMedicine = () => {};
   const onPressMyIncidents = () => {};
