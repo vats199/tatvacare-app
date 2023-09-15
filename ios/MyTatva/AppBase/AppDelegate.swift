@@ -26,12 +26,18 @@ import AWSS3
 @_exported import Hero
 @_exported import libLifetronsSdk
 
+//import React
+
+//import React_debug
 import AppTrackingTransparency
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var bridge: RCTBridge!
+        let jsCodeLocation: URL = RCTBundleURLProvider.sharedSettings().jsBundleURL(forBundleRoot: "index")
+    
     
     static let shared : AppDelegate = UIApplication.shared.delegate as! AppDelegate
     private var appCoordinator: AppCoordinator!
@@ -233,3 +239,29 @@ extension AppDelegate {
 }
 
 //$(WEGLicenseCode)
+// React Component initilization
+extension AppDelegate {
+    func getVCFromModuleName(_ moduleName: String,_ initialProperties: NSDictionary?, _ launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> UIViewController {
+        var props: [NSObject : AnyObject]? = nil
+        if (initialProperties != nil) {
+            props = initialProperties! as [NSObject : AnyObject]
+        }
+        let rootView = RCTRootView(bundleURL: jsCodeLocation, moduleName: moduleName, initialProperties: props , launchOptions: launchOptions)
+        let rootViewController = UIViewController()
+        rootViewController.view = rootView
+        return rootViewController
+    }
+    
+    func navigateToRN(_ moduleName: String,_ initialProperties: NSDictionary?, _ launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {
+        let vc = getVCFromModuleName(moduleName, initialProperties, launchOptions)
+        DispatchQueue.main.async {
+            let navController = UINavigationController(rootViewController: vc)
+            navController.modalPresentationStyle = .fullScreen
+            navController.setNavigationBarHidden(true, animated: false)
+            let topController = UIApplication.topViewController()
+            topController?.present(navController, animated: true, completion: nil)
+        }
+    }
+}
+
+

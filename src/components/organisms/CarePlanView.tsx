@@ -1,22 +1,28 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { Alert, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { colors } from '../../constants/colors'
 import { Icons } from '../../constants/icons'
 import ProgressBar from '../atoms/ProgressBar'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
-type CarePlanViewProps = {}
 
-const CarePlanView: React.FC<CarePlanViewProps> = ({ }) => {
+type CarePlanViewProps = {
+    onPressCarePlan: () => void
+}
+
+const CarePlanView: React.FC<CarePlanViewProps> = ({onPressCarePlan }) => {
     return (
-        <View style={styles.container}>
-            <View style={styles.details}>
-                <Text style={styles.title}>Care Plan Name</Text>
-                <Text style={styles.subTitle}>Bundled with diagnostic tests and monitoring devices.</Text>
-                <ProgressBar progress={30}/>
-                <Text style={styles.expiry}>Expire on July 30th 2023</Text>
+        <TouchableOpacity onPress={onPressCarePlan }>
+            <View style={styles.container}>
+                    <View style={styles.details}>
+                        <Text style={styles.title}>Care Plan Name</Text>
+                        <Text style={styles.subTitle}>Bundled with diagnostic tests and monitoring devices.</Text>
+                        <ProgressBar progress={30}/>
+                        <Text style={styles.expiry}>Expire on July 30th 2023</Text>
+                    </View>
+                    <Icons.CarePlan />
             </View>
-            <Icons.CarePlan />
-        </View>
+        </TouchableOpacity>
     )
 }
 

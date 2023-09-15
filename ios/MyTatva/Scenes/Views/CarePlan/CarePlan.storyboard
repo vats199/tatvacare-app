@@ -5299,7 +5299,7 @@ an incident now?</string>
                         <leftBarButtonItems>
                             <barButtonItem image="back_ic" id="OvL-GK-RS1">
                                 <connections>
-                                    <action selector="popViewControllerWithSender:" destination="gXp-h0-fFh" id="LdO-f2-778"/>
+                                    <action selector="onGoBack:" destination="gXp-h0-fFh" id="Wkt-dd-mdk"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem style="plain" id="WZy-BX-Cg5">
@@ -11167,7 +11167,7 @@ an incident now?</string>
                                                                                                             <nil key="highlightedColor"/>
                                                                                                         </label>
                                                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow_right" translatesAutoresizingMaskIntoConstraints="NO" id="Kcu-0X-9yh">
-                                                                                                            <rect key="frame" x="331" y="15" width="15" height="11"/>
+                                                                                                            <rect key="frame" x="331" y="15" width="15" height="11.5"/>
                                                                                                             <constraints>
                                                                                                                 <constraint firstAttribute="width" constant="15" id="csT-FL-Op0"/>
                                                                                                             </constraints>
@@ -11903,7 +11903,7 @@ an incident now?</string>
         <image name="acc_setting_arrow_right" width="6.5" height="11.5"/>
         <image name="addIncident_ic" width="256" height="251"/>
         <image name="add_test" width="23" height="23"/>
-        <image name="arrow_right" width="6.5" height="11"/>
+        <image name="arrow_right" width="6.5" height="11.5"/>
         <image name="back_ic" width="9.5" height="17"/>
         <image name="back_white" width="27" height="13"/>
         <image name="call_bg" width="187" height="70"/>

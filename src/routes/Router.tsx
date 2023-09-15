@@ -10,7 +10,10 @@ import { colors } from "../constants/colors";
 import { Icons } from "../constants/icons";
 import { DrawerContentComponentProps, createDrawerNavigator } from "@react-navigation/drawer";
 import CustomDrawer from "../components/organisms/CustomDrawer";
-
+import {NativeModules} from 'react-native';
+const Navigation = NativeModules.Navigation;
+export const navigateTo = Navigation.navigateTo;
+export const goBack = Navigation.goBack();
 // const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 // const BottomTabs = () => {
 //     return (

@@ -468,6 +468,10 @@ extension LabTestListVC {
             tblView1.removeObserver(self, forKeyPath: "contentSize")
         }
     }
+    @IBAction func onGoBack(_ sender: Any) {
+            self.dismiss(animated: true, completion: nil)
+        }
+
     
 }
 

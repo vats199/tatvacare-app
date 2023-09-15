@@ -1,4 +1,4 @@
-import { Alert, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View ,NativeModules} from 'react-native'
+import { Alert, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View ,NativeModules, requireNativeComponent} from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
 import { CompositeScreenProps } from '@react-navigation/native'
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs'
@@ -19,14 +19,14 @@ import Learn from '../components/organisms/Learn'
 import SearchModal from '../components/molecules/SearchModal'
 import { DrawerScreenProps } from '@react-navigation/drawer'
 import RNShare from '../native/RNShare'
-
+import { navigateTo } from '../routes/Router'
 type HomeScreenProps = CompositeScreenProps<
     DrawerScreenProps<DrawerParamList, 'HomeScreen'>,
     NativeStackScreenProps<AppStackParamList, 'DrawerScreen'>
 >
 
 const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
-
+    // const CounterView = requireNativeComponent("CounterView")
     const [search, setSearch] = React.useState<string>('')
     const [visible, setVisible] = React.useState<boolean>(false)
 
@@ -70,27 +70,32 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
     const onPressProfile = () => {
         navigation.toggleDrawer()
     }
-    const onPressDevices = () => { }
-    const onPressDiet = () => { }
-    const onPressExercise = () => { }
+    const onPressDevices = () => {
+
+        navigateTo('SearchDeviceVC')
+     }
+    const onPressDiet = () => {
+
+        navigateTo('PlanDetailsVC');
+     }
+    const onPressExercise = () => { navigateTo('ExerciseParentVC'); }
     const onPressMedicine = () => { }
-    const onPressMyIncidents = () => { }
+    const onPressMyIncidents = () => {
+        navigateTo('IncidentHistoryListVC');
+     }
 
     const onPressConsultNutritionist = () => { }
     const onPressConsultPhysio = () => { }
-    const onPressBookDiagnostic = () => { }
-    const onPressBookDevices = () => { }
+    const onPressBookDiagnostic = () => { navigateTo('LabTestListVC');}
+    const onPressBookDevices = () => {
 
-    // const rnshare = JSON.stringify(RNShare)
-    // const rnshare = JSON.stringify(RNShare);
-// console.log(rnshare, '=--=-RNSHARE-=---');
-console.log(NativeModules.RNShare,'RNShareRNShare-->>')
+        navigateTo('SearchDeviceVC');
+        
+     }
+    const onPressCarePlan = () => {
 
-// RNShare.getToken().then((p:any) =>{
-// console.log(p,'promise=====>');
-
-// })
-// Alert.alert(RNShare.getToken)
+    navigateTo('PlanDetailsVC');
+    }
 
     return (
         <Screen>
@@ -102,6 +107,7 @@ console.log(NativeModules.RNShare,'RNShareRNShare-->>')
                         onPressProfile={onPressProfile}
                     />
                     <Text style={styles.goodMorning}>Good Morning</Text>
+                    {/* <CounterView /> */}
                     <View style={styles.searchContainer}>
                         <Icons.Search />
                         <InputField
@@ -109,11 +115,12 @@ console.log(NativeModules.RNShare,'RNShareRNShare-->>')
                             onChangeText={e => setSearch(e)}
                             placeholder={'Find resources to manage your condition'}
                             style={styles.searchField}
-                            onFocus={() => { setVisible(true); inputRef.current?.blur() }}
+                            // onFocus={() => { setVisible(true); inputRef.current?.blur(); navigateTo('GlobalSearchParentVC') }}
+                            onFocus={() => { navigateTo('GlobalSearchParentVC') }}
                             ref={inputRef}
                         />
                     </View>
-                    <CarePlanView />
+                    <CarePlanView onPressCarePlan={onPressCarePlan}/>
                     <HealthTip />
                     <MyHealthInsights />
                     <MyHealthDiary

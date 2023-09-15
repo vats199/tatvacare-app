@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -779,7 +779,7 @@
                                                                                                 </subviews>
                                                                                             </stackView>
                                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xt0-Tb-Inw">
-                                                                                                <rect key="frame" x="0.0" y="58.666666666666629" width="329" height="843.00000000000011"/>
+                                                                                                <rect key="frame" x="0.0" y="58.666666666666629" width="329" height="843"/>
                                                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                                 <nil key="textColor"/>
                                                                                                 <nil key="highlightedColor"/>
@@ -875,13 +875,13 @@
                                                                                         <rect key="frame" x="0.0" y="0.0" width="329" height="226.33333333333334"/>
                                                                                         <subviews>
                                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jBp-yB-MK9">
-                                                                                                <rect key="frame" x="0.0" y="0.0" width="26.666666666666668" height="226.33333333333334"/>
+                                                                                                <rect key="frame" x="0.0" y="0.0" width="39.666666666666664" height="226.33333333333334"/>
                                                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                                 <nil key="textColor"/>
                                                                                                 <nil key="highlightedColor"/>
                                                                                             </label>
                                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ywb-GE-NWI" customClass="LineChartView" customModule="Charts">
-                                                                                                <rect key="frame" x="26.666666666666657" y="0.0" width="302.33333333333337" height="226.33333333333334"/>
+                                                                                                <rect key="frame" x="39.666666666666657" y="0.0" width="289.33333333333337" height="226.33333333333334"/>
                                                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                                             </view>
                                                                                         </subviews>
@@ -1073,7 +1073,7 @@
                                 <rect key="frame" x="0.0" y="332.66666666666674" width="393" height="485.33333333333326"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="517-vk-D5K">
-                                        <rect key="frame" x="0.0" y="24" width="393" height="451.33333333333337"/>
+                                        <rect key="frame" x="0.0" y="24" width="393" height="451.33333333333331"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="D5z-q8-9hR">
                                                 <rect key="frame" x="0.0" y="0.0" width="393" height="60"/>

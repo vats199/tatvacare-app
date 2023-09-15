@@ -216,6 +216,9 @@ class IncidentHistoryListVC: WhiteNavigationBaseVC {
         
     }
 
+    @IBAction func onGoBack(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
 }
 
 //----------------------------------------------------------------------------
@@ -272,6 +275,8 @@ extension IncidentHistoryListVC : UITableViewDataSource, UITableViewDelegate{
                                         index: indexPath.row)
         
     }
+    
+    
 }
 
 //MARK: -------------------------- Empty TableView Methods --------------------------

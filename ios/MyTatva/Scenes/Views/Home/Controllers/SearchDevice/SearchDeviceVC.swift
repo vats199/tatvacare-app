@@ -222,6 +222,11 @@ class SearchDeviceVC : UIViewController {
         super.viewWillDisappear(animated)
         BleManager.shared.isFromScan = false
     }
+    
+    
+    @IBAction func onGoBack(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
 }
 
 extension SearchDeviceVC: UITableViewDelegate, UITableViewDataSource {
