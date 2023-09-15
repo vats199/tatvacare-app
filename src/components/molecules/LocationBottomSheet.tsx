@@ -94,7 +94,7 @@ const LocationBottomSheet = forwardRef<LocationBottomSheetRef, LocationBottomShe
                                         onChangeText={onChangePin} textStyle={styles.inputBoxStyle} placeholder='Enter Pincode' style={styles.pincodeInputStyle} keyboardType="decimal-pad" onBlur={() => bottomSheetModalRef.current?.snapToIndex(0)} onFocus={() => bottomSheetModalRef.current?.expand()} />
                                     <TouchableOpacity onPress={onApplyPincode} disabled={pincode?.length == 6 || pincode?.length == 4 ? false : true} activeOpacity={0.6}><Text style={pincode?.length == 6 || pincode?.length == 4 ? styles.activeApplyText : styles.inactiveApplyText}>Apply</Text></TouchableOpacity>
                                 </View>
-                                <TouchableOpacity onPress={() => { requestLocationPermission(['blocked', 'never_ask_again', 'denied'].includes(locationPermission || '') ? true : false) }} style={styles.currentLocationContainer} activeOpacity={0.6}>
+                                <TouchableOpacity onPress={() => { requestLocationPermission(['blocked', 'never_ask_again'].includes(locationPermission || '') ? true : false) }} style={styles.currentLocationContainer} activeOpacity={0.6}>
                                     <Icons.LocationSymbol />
                                     <Text style={styles.currentLocationText}>Use Current Location</Text>
                                 </TouchableOpacity>
@@ -119,7 +119,7 @@ const LocationBottomSheet = forwardRef<LocationBottomSheetRef, LocationBottomShe
                                     />
                                     <Button
                                         title={'Grant'}
-                                        onPress={() => { requestLocationPermission(['blocked', 'never_ask_again', 'denied'].includes(locationPermission || '') ? true : false) }}
+                                        onPress={() => { requestLocationPermission(['blocked', 'never_ask_again'].includes(locationPermission || '') ? true : false) }}
                                         titleStyle={styles.filledButtonText}
                                         buttonStyle={styles.filledButton}
                                         activeOpacity={0.6}

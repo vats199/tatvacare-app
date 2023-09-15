@@ -16,45 +16,34 @@ const App = () => {
   const requestLocationPermission = async (goToSettings: boolean) => {
 
     try {
-      if (goToSettings) {
-        // BottomSheetRef.current?.hide();
-        if (Platform.OS === 'ios') {
+      if (Platform.OS == 'android') {
+
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
+        );
+
+        setLocationPermission(granted)
+
+        if (granted === 'granted') {
+          getLocation()
+        } else if (goToSettings && ['blocked', 'never_ask_again'].includes(granted)) {
+          Linking.openSettings()
+        } else {
+          BottomSheetRef.current?.show();
+        }
+      }
+
+      else {
+
+        if (goToSettings) {
           Linking.openURL('app-settings:');
         } else {
-          Linking.openSettings();
-        }
-      } else {
-        let permissionResult = null;
-        if (Platform.OS == 'android') {
-
-          const granted = await PermissionsAndroid.request(
-            PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
-          );
-
-          setLocationPermission(granted)
-
-          if (granted === 'granted') {
-            getLocation()
-          } else {
-            permissionResult = await check(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
-          }
-
-          setLocationPermission(permissionResult);
-
-          if (permissionResult === RESULTS.GRANTED) {
-            getLocation();
-          } else {
-            BottomSheetRef.current?.show();
-          }
-        }
-
-        else {
-
           Geolocation.requestAuthorization
           // request(PERMISSIONS.IOS.L).then((result) => {
           //   Alert.alert(result);
           // });
         }
+
       }
     } catch (err) {
       BottomSheetRef.current?.show()
