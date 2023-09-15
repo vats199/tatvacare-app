@@ -50,11 +50,11 @@ const MyHealthInsights: React.FC<MyHealthInsightsProps> = ({ data }) => {
                 bounces={false}
             >
                 {
-                    filteredData?.length > 0 && filteredData.map((data: any) => {
+                    filteredData?.length > 0 && filteredData.map((data: any, idx: number) => {
                         const firstRow = data[0];
                         const secondRow = data[1];
                         return (
-                            <View style={styles.columnContainer}>
+                            <View style={styles.columnContainer} key={idx}>
                                 <View style={styles.hiItemContainerTop}>
                                     <View style={styles.row}>
                                         <Image resizeMode='contain' style={styles.imageStyle} source={{ uri: firstRow?.image_url || '' }} />

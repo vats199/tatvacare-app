@@ -44,6 +44,20 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
         getMyHealthDiaries()
     }, [])
 
+    const getGreetings = () => {
+        const currentHour = new Date().getHours();
+
+        if (currentHour > 5 && currentHour < 12) {
+            return 'Good Morning'
+        } else if (currentHour >= 12 && currentHour < 16) {
+            return 'Good Afternoon'
+        } else if (currentHour >= 16 && currentHour < 21) {
+            return 'Good Evening'
+        } else {
+            return 'Good Night'
+        }
+    }
+
     const getHomeCarePlan = async () => {
 
         const homeCarePlan = await Home.getPatientCarePlan({})
@@ -118,7 +132,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
                         onPressLocation={onPressLocation}
                         onPressProfile={onPressProfile}
                     />
-                    <Text style={styles.goodMorning}>Good Morning Test!</Text>
+                    <Text style={styles.goodMorning}>{getGreetings()} Test!</Text>
                     <View style={styles.searchContainer}>
                         <Icons.Search />
                         <InputField
