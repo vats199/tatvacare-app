@@ -1,13 +1,11 @@
 import 'react-native-gesture-handler';
-import { Dimensions, StatusBar, StyleSheet, View } from 'react-native';
-import React, { useEffect, useRef, useState } from 'react';
+import { Alert, Dimensions, PermissionsAndroid,Permission, Platform, StatusBar, StyleSheet, Text, View } from 'react-native'
+import React, { useEffect, useRef, useState } from 'react'
 import Router from './src/routes/Router';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import LocationBottomSheet, { LocationBottomSheetRef } from './src/components/molecules/LocationBottomSheet';
 import Geolocation from 'react-native-geolocation-service';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Platform } from 'react-native';
-import { check, request, PERMISSIONS, RESULTS } from 'react-native-permissions';
+import {request, check, PERMISSIONS, RESULTS} from 'react-native-permissions';
 
 const App = () => {
   const [location, setLocation] = useState<Geolocation.GeoPosition | null>(null);
@@ -17,9 +15,16 @@ const App = () => {
   const requestLocationPermission = async () => {
     try {
       let permissionResult = null;
+      if(Platform.OS == 'android') {
+  
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
+      );
 
-      if (Platform.OS === 'ios') {
-        permissionResult = await request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
+      setLocationPermission(granted)
+
+      if (granted === 'granted') {
+        getLocation()
       } else {
         permissionResult = await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
       }
@@ -31,15 +36,25 @@ const App = () => {
       } else {
         BottomSheetRef.current?.show();
       }
-    } catch (err) {
-      BottomSheetRef.current?.show();
     }
+  
+  else {
+
+    Geolocation.requestAuthorization
+    // request(PERMISSIONS.IOS.L).then((result) => {
+    //   Alert.alert(result);
+    // });
+  }
+  }catch (err) {
+      BottomSheetRef.current?.show()
+    }
+
   };
 
   const getLocation = () => {
     Geolocation.getCurrentPosition(
       async position => {
-        await AsyncStorage.setItem('location', JSON.stringify(position));
+        // await AsyncStorage.setItem('location', JSON.stringify(position));
         setLocation(position);
         BottomSheetRef.current?.hide();
       },

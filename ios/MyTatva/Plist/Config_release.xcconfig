@@ -1,0 +1,12 @@
+//
+//  Config_release.xcconfig
+//  MyTatva
+//
+
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+WEGLicenseCode = 311c4c4b
+WEGEnvironment = US

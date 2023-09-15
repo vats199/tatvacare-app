@@ -1,0 +1,13 @@
+framework module libLifetronsSdk {
+    umbrella header "libLifetronsSdk.h"
+
+    private header "QNDeviceSDK.h"
+
+    export *
+    module * { export * }
+}
+
+module libLifetronsSdk.Swift {
+  header "libLifetronsSdk-Swift.h"
+  requires objc
+}
