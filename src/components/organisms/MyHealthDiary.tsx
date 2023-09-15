@@ -50,7 +50,7 @@ const MyHealthDiary: React.FC<MyHealthDiaryProps> = ({ onPressDevices, onPressDi
     return (
         <View style={styles.container}>
             <Text style={styles.title}>My Health Diary</Text>
-            {data.map((item: any, idx: number) => { return renderHealthDiaryItem(item, idx) })}
+            {data?.map((item: any, idx: number) => { return renderHealthDiaryItem(item, idx) })}
         </View>
     )
 }

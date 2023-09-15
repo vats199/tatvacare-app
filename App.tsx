@@ -1,51 +1,62 @@
 import 'react-native-gesture-handler';
-import { Alert, Dimensions, PermissionsAndroid,Permission, Platform, StatusBar, StyleSheet, Text, View } from 'react-native'
+import { Alert, Dimensions, PermissionsAndroid, Permission, Platform, StatusBar, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
 import Router from './src/routes/Router';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import LocationBottomSheet, { LocationBottomSheetRef } from './src/components/molecules/LocationBottomSheet';
 import Geolocation from 'react-native-geolocation-service';
-import {request, check, PERMISSIONS, RESULTS} from 'react-native-permissions';
+import { request, check, PERMISSIONS, RESULTS } from 'react-native-permissions';
+import { Linking } from 'react-native';
 
 const App = () => {
   const [location, setLocation] = useState<Geolocation.GeoPosition | null>(null);
   const BottomSheetRef = useRef<LocationBottomSheetRef>(null);
   const [locationPermission, setLocationPermission] = useState<string>('');
 
-  const requestLocationPermission = async () => {
+  const requestLocationPermission = async (goToSettings: boolean) => {
+
     try {
-      let permissionResult = null;
-      if(Platform.OS == 'android') {
-  
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
-      );
-
-      setLocationPermission(granted)
-
-      if (granted === 'granted') {
-        getLocation()
+      if (goToSettings) {
+        // BottomSheetRef.current?.hide();
+        if (Platform.OS === 'ios') {
+          Linking.openURL('app-settings:');
+        } else {
+          Linking.openSettings();
+        }
       } else {
-        permissionResult = await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
+        let permissionResult = null;
+        if (Platform.OS == 'android') {
+
+          const granted = await PermissionsAndroid.request(
+            PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
+          );
+
+          setLocationPermission(granted)
+
+          if (granted === 'granted') {
+            getLocation()
+          } else {
+            permissionResult = await check(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
+          }
+
+          setLocationPermission(permissionResult);
+
+          if (permissionResult === RESULTS.GRANTED) {
+            getLocation();
+          } else {
+            BottomSheetRef.current?.show();
+          }
+        }
+
+        else {
+
+          Geolocation.requestAuthorization
+          // request(PERMISSIONS.IOS.L).then((result) => {
+          //   Alert.alert(result);
+          // });
+        }
       }
-
-      setLocationPermission(permissionResult);
-
-      if (permissionResult === RESULTS.GRANTED) {
-        getLocation();
-      } else {
-        BottomSheetRef.current?.show();
-      }
-    }
-  
-  else {
-
-    Geolocation.requestAuthorization
-    // request(PERMISSIONS.IOS.L).then((result) => {
-    //   Alert.alert(result);
-    // });
-  }
-  }catch (err) {
+    } catch (err) {
       BottomSheetRef.current?.show()
     }
 
@@ -60,7 +71,7 @@ const App = () => {
       },
       error => {
         // Handle location error here
-        requestLocationPermission();
+        requestLocationPermission(false);
       },
       { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 },
     );
