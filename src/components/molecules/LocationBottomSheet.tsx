@@ -9,11 +9,15 @@ import { Icons } from '../../constants/icons';
 import Button from '../atoms/Button';
 import { colors } from '../../constants/colors';
 import InputField from '../atoms/AnimatedInputField';
+import Home from '../../api/home';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useApp } from '../../context/app.context';
 
 type LocationBottomSheetProps = {
     requestLocationPermission?: (goToSettings: boolean) => void,
     locationPermission?: string,
-    setLocation?: SetStateAction<any>
+    setLocation?: SetStateAction<any>,
+    setLocationPermission?: SetStateAction<any>
 }
 
 export type LocationBottomSheetRef = {
@@ -21,9 +25,11 @@ export type LocationBottomSheetRef = {
     hide: () => void;
 }
 
-const LocationBottomSheet = forwardRef<LocationBottomSheetRef, LocationBottomSheetProps>(({ requestLocationPermission = () => { }, locationPermission, setLocation }, ref) => {
+const LocationBottomSheet = forwardRef<LocationBottomSheetRef, LocationBottomSheetProps>(({ requestLocationPermission = () => { }, locationPermission, setLocation, setLocationPermission }, ref) => {
 
     const bottomSheetModalRef = React.useRef<BottomSheetModal>(null);
+
+    const { setUserLocation } = useApp();
 
     // Expose methods using useImperativeHandle
     useImperativeHandle(ref, () => ({
@@ -54,7 +60,7 @@ const LocationBottomSheet = forwardRef<LocationBottomSheetRef, LocationBottomShe
     }
 
     const onApplyPincode = async () => {
-        const res = await fetch(`http://postalpincode.in/api/pincode/${pincode}`, {
+        const res = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${pincode}&key=AIzaSyD8zxk4kvKlAMGaOQrABy8xqdRKIWGBJlo`, {
             method: 'get',
             headers: {
                 "Content-Type": "application/json"
@@ -62,9 +68,26 @@ const LocationBottomSheet = forwardRef<LocationBottomSheetRef, LocationBottomShe
         })
 
         const data = await res.json();
+        
 
-        if ((data?.PostOffice || []).length > 0) {
-            setLocation(data?.PostOffice[0])
+        if ((data?.results || []).length > 0 && (data?.results[0]?.address_components || []).length > 0) {
+            const city = data?.results[0]?.address_components.find((a: any) => a?.types.includes('administrative_area_level_3'))
+            const state = data?.results[0]?.address_components.find((a: any) => a?.types.includes('administrative_area_level_1'))
+            const country = data?.results[0]?.address_components.find((a: any) => a?.types.includes('country'))
+            const locationPayload = {
+                city: city?.long_name,
+                state: state?.long_name,
+                country: country?.long_name,
+                pincode: pincode
+            }
+            
+            setLocation({
+                ...locationPayload
+            })
+            await Home.updatePatientLocation({}, locationPayload)
+            await AsyncStorage.setItem('location', JSON.stringify(locationPayload));
+            setUserLocation(locationPayload)
+            setLocationPermission('granted')
             bottomSheetModalRef.current?.dismiss();
         }
     }

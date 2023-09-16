@@ -19,6 +19,7 @@ import Learn from '../components/organisms/Learn'
 import SearchModal from '../components/molecules/SearchModal'
 import { DrawerScreenProps } from '@react-navigation/drawer'
 import Home from '../api/home'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 type HomeScreenProps = CompositeScreenProps<
     DrawerScreenProps<DrawerParamList, 'HomeScreen'>,
@@ -28,6 +29,7 @@ type HomeScreenProps = CompositeScreenProps<
 const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
 
     const [search, setSearch] = React.useState<string>('')
+    const [location, setLocation] = React.useState<object>({})
     const [visible, setVisible] = React.useState<boolean>(false)
     const [carePlanData, setCarePlanData] = React.useState<any>({})
     const [learnMoreData, setLearnMoreData] = React.useState<any>([])
@@ -37,12 +39,19 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
     const inputRef = useRef<AnimatedInputFieldRef>(null)
 
     useEffect(() => {
+        getCurrentLocation()
         getHomeCarePlan()
         getLearnMoreData()
         getPlans()
         getMyHealthInsights()
         getMyHealthDiaries()
     }, [])
+
+    const getCurrentLocation = async() => {
+        const currentLocation = await AsyncStorage.getItem('location');
+
+        setLocation(currentLocation ? JSON.parse(currentLocation) : {})
+    }
 
     const getGreetings = () => {
         const currentHour = new Date().getHours();
@@ -131,6 +140,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
                         onPressBell={onPressBell}
                         onPressLocation={onPressLocation}
                         onPressProfile={onPressProfile}
+                        userLocation={location}
                     />
                     <Text style={styles.goodMorning}>{getGreetings()} Test!</Text>
                     <View style={styles.searchContainer}>

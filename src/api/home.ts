@@ -46,6 +46,14 @@ const Home = {
             payload
         })
     },
+    updatePatientLocation: (query: object, payload: object) => {
+        const route = bindQueryParams('/patient/update_patient_location', query)
+        return Ajax.request(route, {
+            method: Ajax.POST,
+            priv: true,
+            payload
+        })
+    },
 }
 
 export default Home
