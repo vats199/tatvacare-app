@@ -20,6 +20,8 @@ import SearchModal from '../components/molecules/SearchModal'
 import { DrawerScreenProps } from '@react-navigation/drawer'
 import RNShare from '../native/RNShare'
 import { navigateTo } from '../routes/Router'
+import Home from '../api/home'
+
 type HomeScreenProps = CompositeScreenProps<
     DrawerScreenProps<DrawerParamList, 'HomeScreen'>,
     NativeStackScreenProps<AppStackParamList, 'DrawerScreen'>
@@ -29,64 +31,102 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
     // const CounterView = requireNativeComponent("CounterView")
     const [search, setSearch] = React.useState<string>('')
     const [visible, setVisible] = React.useState<boolean>(false)
+    const [carePlanData, setCarePlanData] = React.useState<any>({})
+    const [learnMoreData, setLearnMoreData] = React.useState<any>([])
+    const [healthInsights, setHealthInsights] = React.useState<any>({})
+    const [healthDiaries, setHealthDiaries] = React.useState<any>([])
 
     const inputRef = useRef<AnimatedInputFieldRef>(null)
 
-    const crypto = () => {
+    useEffect(() => {
+        getHomeCarePlan()
+        getLearnMoreData()
+        getPlans()
+        getMyHealthInsights()
+        getMyHealthDiaries()
+    }, [])
 
-        var truncHexKey = CRYPTO.SHA256('9Ddyaf6rfywpiTvTiax2iq6ykKpaxgJ6').toString().substr(0, 32); // hex encode and truncate
+    const getGreetings = () => {
+        const currentHour = new Date().getHours();
 
-        var key = CRYPTO.enc.Utf8.parse(truncHexKey);
-
-        var iv = CRYPTO.enc.Utf8.parse('9Ddyaf6rfywpiTvT');
-
-        var ciphertext = CRYPTO.AES.encrypt(JSON.stringify({ "otp": "1234", "contact_no": "8511449158" }), key, {
-            iv: iv,
-            mode: CRYPTO.mode.CBC,
-        });
-
-        var decryptedData = CRYPTO.AES.decrypt('W8kOa09DBSDw5aA97q1miUCEGIoWJugo96Mry/sqbS3OQlyi5BNCB4EYS1xlKOED', key, {
-            iv: iv,
-            mode: CRYPTO.mode.CBC,
-        });
-        let str = null
-        try {
-            str = decryptedData.toString(CRYPTO.enc.Utf8)
-        } catch (error) {
-            console.log(error);
+        if (currentHour > 5 && currentHour < 12) {
+            return 'Good Morning'
+        } else if (currentHour >= 12 && currentHour < 16) {
+            return 'Good Afternoon'
+        } else if (currentHour >= 16 && currentHour < 21) {
+            return 'Good Evening'
+        } else {
+            return 'Good Night'
         }
+    }
 
-        return {
-            plainText: str
-        }
+    const getHomeCarePlan = async () => {
+        
+        const homeCarePlan = await Home.getPatientCarePlan({})
+        console.log(homeCarePlan?.data?.patient_plans,'homeCarePlanhomeCarePlanhomeCarePlan');
+        
+
+        setCarePlanData(homeCarePlan?.data)
+    }
+
+    const getLearnMoreData = async () => {
+
+        const learnMore = await Home.getLearnMoreData({});
+        console.log('learnMorelearnMorelearnMorelearnMore');
+        
+        setLearnMoreData(learnMore?.data)
+    }
+
+    const getPlans = async () => {
+
+        const allPlans = await Home.getHomePagePlans({}, { page: 0 })
 
     }
 
-    const onPressLocation = () => { }
+    const getMyHealthInsights = async () => {
+        const insights = await Home.getMyHealthInsights({})
+        console.log(insights,'insightsinsightsinsights');
+        
+        setHealthInsights(insights?.data)
+
+    }
+
+    const getMyHealthDiaries = async () => {
+        const diaries = await Home.getMyHealthDiaries({});
+
+        setHealthDiaries(diaries?.data)
+    }
+
+    const onPressLocation = () => {  }
     const onPressBell = () => {
-        const crypt = crypto();
-        console.log(crypt);
+        navigateTo('NotificationVC');
+        
     }
     const onPressProfile = () => {
-        navigation.toggleDrawer()
+        navigation.toggleDrawer();
     }
     const onPressDevices = () => {
-
-        navigateTo('SearchDeviceVC')
+        navigateTo('SearchDeviceVC');
      }
     const onPressDiet = () => {
-
-        navigateTo('PlanDetailsVC');
+        navigateTo('FoodDiaryParentVC')
+        // navigateTo('PlanDetailsVC');
      }
     const onPressExercise = () => { navigateTo('ExerciseParentVC'); }
-    const onPressMedicine = () => { }
+    const onPressMedicine = () => {
+        navigateTo('UpdateGoalParentVC');
+     }
     const onPressMyIncidents = () => {
         navigateTo('IncidentHistoryListVC');
      }
 
-    const onPressConsultNutritionist = () => { }
-    const onPressConsultPhysio = () => { }
-    const onPressBookDiagnostic = () => { navigateTo('LabTestListVC');}
+    const onPressConsultNutritionist = () => {  navigateTo('AppointmentsHistoryVC') }
+    const onPressConsultPhysio = () => { 
+        navigateTo('AppointmentsHistoryVC')
+     }   
+    const onPressBookDiagnostic = () => {
+            navigateTo('LabTestListVC')
+         ;}
     const onPressBookDevices = () => {
 
         navigateTo('SearchDeviceVC');
@@ -94,7 +134,21 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
      }
     const onPressCarePlan = () => {
 
-    navigateTo('PlanDetailsVC');
+    navigateTo('BCPCarePlanDetailVC');
+    }
+
+    const onPressBookmark = async (data: any) => {
+        if (data?.bookmarked !== 'Y') {
+            const payload = {
+                content_master_id: data?.content_master_id,
+                is_active: data?.is_active
+            }
+            const resp = await Home.addBookmark({}, payload);
+
+            if (resp?.data) {
+                getLearnMoreData()
+            }
+        }
     }
 
     return (
@@ -106,8 +160,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
                         onPressLocation={onPressLocation}
                         onPressProfile={onPressProfile}
                     />
-                    <Text style={styles.goodMorning}>Good Morning</Text>
-                    {/* <CounterView /> */}
+                    <Text style={styles.goodMorning}>{getGreetings()} Test!</Text>
                     <View style={styles.searchContainer}>
                         <Icons.Search />
                         <InputField
@@ -120,15 +173,16 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
                             ref={inputRef}
                         />
                     </View>
-                    <CarePlanView onPressCarePlan={onPressCarePlan}/>
-                    <HealthTip />
-                    <MyHealthInsights />
+                    <CarePlanView data={carePlanData} onPressCarePlan={onPressCarePlan} />
+                    {carePlanData?.doctor_says?.description && <HealthTip tip={carePlanData?.doctor_says} />}
+                    <MyHealthInsights data={healthInsights} />
                     <MyHealthDiary
                         onPressDevices={onPressDevices}
                         onPressDiet={onPressDiet}
                         onPressExercise={onPressExercise}
                         onPressMedicine={onPressMedicine}
                         onPressMyIncidents={onPressMyIncidents}
+                        data={healthDiaries}
                     />
                     <AdditionalCareServices
                         onPressConsultNutritionist={onPressConsultNutritionist}
@@ -136,7 +190,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
                         onPressBookDiagnostic={onPressBookDiagnostic}
                         onPressBookDevices={onPressBookDevices}
                     />
-                    <Learn />
+                    {learnMoreData?.length > 0 && <Learn onPressBookmark={onPressBookmark} data={learnMoreData} />}
                 </ScrollView>
                 <SearchModal visible={visible} setVisible={setVisible} search={search} setSearch={setSearch} />
             </Container>
@@ -151,14 +205,15 @@ const styles = StyleSheet.create({
         color: colors.black,
         fontSize: 16,
         fontWeight: '700',
-        marginVertical: 15
+        marginVertical: 15,
+        lineHeight: 20
     },
     searchContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: colors.white,
         borderWidth: 1,
-        borderColor: colors.subTitleLightGray,
+        borderColor: colors.inputBoxLightBorder,
         borderRadius: 12,
         paddingHorizontal: 10
     },

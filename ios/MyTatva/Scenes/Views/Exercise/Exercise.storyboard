@@ -4584,7 +4584,7 @@ added to your daily goal count</string>
                     <navigationItem key="navigationItem" id="VVl-r2-NIW">
                         <leftBarButtonItems>
                             <barButtonItem style="plain" id="sN2-fj-nNx">
-                                <view key="customView" contentMode="scaleToFill" id="LZj-Zs-x7B">
+                                <view key="customView" contentMode="scaleToFill" ambiguous="YES" id="LZj-Zs-x7B">
                                     <rect key="frame" x="16" y="5.6666666666666679" width="83" height="33"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>

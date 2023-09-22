@@ -84,7 +84,7 @@ const LocationBottomSheet = forwardRef<LocationBottomSheetRef, LocationBottomShe
                 keyboardBehavior="interactive"
                 backgroundStyle={styles.container}
             >
-                <View style={[styles.sheetContainer, pincodeDetailsShown ? styles.smallHeight : styles.tallHeight]}>
+                <View style={[styles.sheetContainer, !pincodeDetailsShown ? styles.smallHeight : styles.tallHeight]}>
                     {
                         pincodeDetailsShown ?
                             <>

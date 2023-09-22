@@ -2,20 +2,32 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { colors } from '../../constants/colors'
 import { Icons } from '../../constants/icons'
+import { navigateTo } from '../../routes/Router'
 
 type DrawerMoreProps = {}
 
 const DrawerMore: React.FC<DrawerMoreProps> = ({ }) => {
+
+    const onAccountSettingsPress = () => {
+        navigateTo('AccountSettingVC')
+     }
+    const onHelpAndSupportPress = () => {
+        navigateTo('HelpAndSupportVC')
+     }
+
+     
+
+
     return (
         <View style={styles.container}>
             <Text style={styles.headerText}>More</Text>
-            <TouchableOpacity style={styles.itemContainer} activeOpacity={0.7}>
+            <TouchableOpacity style={styles.itemContainer} activeOpacity={0.7} onPress={onAccountSettingsPress}>
                 <View style={styles.icon}><Icons.DrawerAccountSettings /></View>
                 <View style={styles.mhdItemTextContainer}>
                     <Text style={styles.mhdItemText}>Account Settings</Text>
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.itemContainer} activeOpacity={0.7}>
+            <TouchableOpacity style={styles.itemContainer} activeOpacity={0.7} onPress={onHelpAndSupportPress}>
                 <View style={styles.icon}><Icons.DrawerHelpSupport /></View>
                 <View style={styles.mhdItemTextContainer}>
                     <Text style={styles.mhdItemText}>Help & Support</Text>

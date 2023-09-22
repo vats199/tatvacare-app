@@ -7,6 +7,7 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
+    "android:dev": "react-native run-android --variant=developmentdebug",
     "postinstall": "react-native setup-ios-permissions && pod-install",
     "test": "jest"
   },
@@ -19,8 +20,10 @@
     "@react-navigation/native-stack": "^6.9.13",
     "@types/crypto-js": "^4.1.1",
     "crypto-js": "^3.1.9-1",
+    "moment": "^2.29.4",
     "react": "18.2.0",
     "react-native": "0.72.4",
+    "react-native-config": "^1.5.1",
     "react-native-geolocation-service": "^5.3.1",
     "react-native-gesture-handler": "^2.12.1",
     "react-native-image-crop-picker": "^0.40.0",

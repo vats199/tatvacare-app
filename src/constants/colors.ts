@@ -13,5 +13,6 @@ export const colors = {
     labelDarkGray: '#313131',
     lightGrey: '#E0E0E0',
     green: '#1BB333',
-    purple: '#605AE0'
+    purple: '#605AE0',
+    secondaryLabel: '#999999'
 }

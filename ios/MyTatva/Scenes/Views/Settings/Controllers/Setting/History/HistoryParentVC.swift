@@ -412,6 +412,10 @@ class HistoryParentVC: ClearNavigationFontBlackBaseVC {
         }
     }
     
+    @IBAction func onGoBack(_ sender: Any) {
+           self.dismiss(animated: true, completion: nil)
+       }
+    
 }
 
 //extension UpdateGoalParentVC : UICollectionViewDelegate {

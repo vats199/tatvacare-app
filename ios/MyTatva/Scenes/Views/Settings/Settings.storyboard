@@ -552,7 +552,7 @@
                     <navigationItem key="navigationItem" id="qXv-Zj-wYg">
                         <leftBarButtonItems>
                             <barButtonItem style="plain" id="OTn-iC-fhg">
-                                <view key="customView" contentMode="scaleToFill" ambiguous="YES" id="awE-ZT-OcD">
+                                <view key="customView" contentMode="scaleToFill" id="awE-ZT-OcD">
                                     <rect key="frame" x="20" y="5.5" width="71" height="33"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
@@ -1098,7 +1098,7 @@
                         <leftBarButtonItems>
                             <barButtonItem image="back_ic" id="DPu-4V-abd">
                                 <connections>
-                                    <action selector="popViewControllerWithSender:" destination="SgT-mq-BZH" id="VBE-V6-lsu"/>
+                                    <action selector="onGoBack:" destination="SgT-mq-BZH" id="1uS-DI-LEw"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem style="plain" id="huI-lv-FdG">
@@ -2152,7 +2152,7 @@
                     <navigationItem key="navigationItem" id="DYW-nq-WTk">
                         <leftBarButtonItems>
                             <barButtonItem style="plain" id="UkZ-Hc-FM5">
-                                <view key="customView" contentMode="scaleToFill" ambiguous="YES" id="PXW-jW-u5W">
+                                <view key="customView" contentMode="scaleToFill" id="PXW-jW-u5W">
                                     <rect key="frame" x="20" y="5.5" width="71" height="33"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
@@ -2624,7 +2624,7 @@
                         <leftBarButtonItems>
                             <barButtonItem image="back_ic" id="gKi-aO-gjt">
                                 <connections>
-                                    <action selector="popViewControllerWithSender:" destination="w3v-ct-inM" id="jvB-wh-GSk"/>
+                                    <action selector="onGoBack:" destination="w3v-ct-inM" id="mNr-VL-ehG"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem style="plain" id="rtS-rN-cOA">
@@ -4884,7 +4884,7 @@
                         <leftBarButtonItems>
                             <barButtonItem image="back_ic" id="aCE-JY-5He">
                                 <connections>
-                                    <action selector="popViewControllerWithSender:" destination="NwK-Te-pfb" id="tFJ-Cl-4M8"/>
+                                    <action selector="onGoBack:" destination="NwK-Te-pfb" id="o3T-Xz-hQD"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem style="plain" id="mpV-qn-mOP">
@@ -5641,7 +5641,7 @@ Apt, Ahmedabad, Gujarat, 399802</string>
                         <leftBarButtonItems>
                             <barButtonItem image="back_ic" id="LhL-B8-zk3">
                                 <connections>
-                                    <action selector="popViewControllerWithSender:" destination="sZ9-yq-lM8" id="DvK-JW-zLD"/>
+                                    <action selector="onGoBack:" destination="sZ9-yq-lM8" id="Zwu-Wa-N6J"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem style="plain" id="veL-On-QIf">
@@ -6499,7 +6499,7 @@ Apt, Ahmedabad, Gujarat, 399802</string>
                         <leftBarButtonItems>
                             <barButtonItem image="back_ic" id="4yU-aS-Lns">
                                 <connections>
-                                    <action selector="popViewControllerWithSender:" destination="XUO-Px-6yq" id="F8D-fw-MJE"/>
+                                    <action selector="onGoBack:" destination="XUO-Px-6yq" id="Wvu-63-5vO"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem style="plain" id="7zl-O1-JRK">

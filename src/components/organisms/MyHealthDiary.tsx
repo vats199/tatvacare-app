@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { colors } from '../../constants/colors'
 import { Icons } from '../../constants/icons'
@@ -8,17 +8,47 @@ type MyHealthDiaryProps = {
     onPressDiet: () => void,
     onPressExercise: () => void,
     onPressDevices: () => void,
-    onPressMyIncidents: () => void
+    onPressMyIncidents: () => void,
+    data: any
 }
-
 type HealthDiaryItem = {
     title: 'Medicines' | 'Diet' | 'Exercises' | 'Devices' | 'My Incidents',
     description: string,
     onPress: () => void
 }
 
-const MyHealthDiary: React.FC<MyHealthDiaryProps> = ({ onPressDevices, onPressDiet, onPressExercise, onPressMedicine, onPressMyIncidents }) => {
+const MyHealthDiary: React.FC<MyHealthDiaryProps> = ({ onPressDevices, onPressDiet, onPressExercise, onPressMedicine, onPressMyIncidents, data }) => {
 
+ //DYNAMIC DATA FROM API //
+
+    // const renderHealthDiaryItem = (item: any, idx: number) => {
+    //     return (
+    //         <TouchableOpacity
+    //             key={idx.toString()}
+    //             style={styles.healthDiaryItemContainer}
+    //             // onPress={onPress}
+    //             activeOpacity={0.7}
+    //         >
+    //             <Image resizeMode='contain' source={{ uri: item?.image_url || '' }} style={styles.imageStyle} />
+    //             {/* {renderIcon(title)} */}
+    //             <View style={styles.textContainer}>
+    //                 <Text style={styles.text}>{item?.goal_name || '-'}</Text>
+    //                 {item?.achieved_value ? <Text style={styles.subText}>{item?.achieved_value || 0} of {item?.goal_value || 0} {item?.goal_measurement}</Text> : null}
+    //             </View>
+    //         </TouchableOpacity>
+    //     )
+    // }
+
+    // return (
+    //     <View style={styles.container}>
+    //         <Text style={styles.title}>My Health Diary</Text>
+    //         {data?.map((item: any, idx: number) => { return renderHealthDiaryItem(item, idx) })}
+
+    //     </View>
+    // )
+
+
+ //STATIC DATA //
     const options: HealthDiaryItem[] = [
         {
             title: 'Medicines',
@@ -88,6 +118,8 @@ const MyHealthDiary: React.FC<MyHealthDiaryProps> = ({ onPressDevices, onPressDi
     )
 }
 
+
+
 export default MyHealthDiary
 
 const styles = StyleSheet.create({
@@ -124,4 +156,8 @@ const styles = StyleSheet.create({
         lineHeight: 16,
         color: colors.subTitleLightGray
     },
+    imageStyle: {
+        height: 40,
+        width: 40,
+    }
 })

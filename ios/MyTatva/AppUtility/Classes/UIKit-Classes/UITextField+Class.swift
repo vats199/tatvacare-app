@@ -298,9 +298,9 @@ class ThemeFloatingTextField: SkyFloatingLabelTextField {
     
     override func titleLabelRectForBounds(_ bounds: CGRect, editing: Bool) -> CGRect {
         if editing {
-            return CGRect(x: padding.left, y: padding.top, width: titleWidth() + 10, height: titleHeight())
+            return CGRect(x: padding.left, y: padding.top, width: 10, height: titleHeight())
         }
-        return CGRect(x: padding.left, y: titleHeight(), width: titleWidth(), height: titleHeight())
+        return CGRect(x: padding.left, y: titleHeight(), width: 10, height: titleHeight())
     }
  
     /*func textFieldDidBeginEditing(_ textField: UITextField) {

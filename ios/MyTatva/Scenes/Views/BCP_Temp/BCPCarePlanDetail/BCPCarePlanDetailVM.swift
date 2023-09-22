@@ -113,7 +113,7 @@ extension BCPCarePlanDetailVM {
     func getPlanDetails(durationType:String,patientPlanRelId:String="") {
         
         let planMasterId = self.cpDetail.planDetails.planMasterId ?? ""
-        
+//        let planMasterId = "2605dfb7-3762-11ee-b5a3-1dbb567d70ba"
         GlobalAPI.shared.planDetailsAPI(plan_id: planMasterId,
                                         durationType: durationType,
                                         patientPlanRelId: patientPlanRelId,

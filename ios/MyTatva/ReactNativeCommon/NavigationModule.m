@@ -18,5 +18,8 @@
 #import <React/RCTBundleURLProvider.h>
 @interface RCT_EXTERN_MODULE(Navigation, NSObject)
 RCT_EXTERN_METHOD(navigateTo: (NSString)destination)
+RCT_EXPORT_VIEW_PROPERTY(data, NSDictionary *)
+RCT_EXTERN_METHOD(navigateToHistory: (NSString)destination)
+RCT_EXTERN_METHOD(navigateToBookmark: (NSString)destination)
 RCT_EXTERN_METHOD(goBack)
 @end

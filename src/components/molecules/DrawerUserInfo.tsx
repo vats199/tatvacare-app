@@ -3,6 +3,7 @@ import React from 'react'
 import { colors } from '../../constants/colors'
 import ImagePicker from 'react-native-image-crop-picker'
 import { Icons } from '../../constants/icons'
+import { navigateTo } from '../../routes/Router'
 
 type DrawerUserInfoProps = {
 
@@ -45,6 +46,9 @@ const DrawerUserInfo: React.FC<DrawerUserInfoProps> = () => {
             { text: 'Cancel' }
         ])
     }
+    const onPressIcon = () => {
+       navigateTo('ProfileVC')
+    }
 
     return (
         <View style={styles.container}>
@@ -59,7 +63,7 @@ const DrawerUserInfo: React.FC<DrawerUserInfoProps> = () => {
                 <Text style={styles.name}>Rashi Atry</Text>
                 <Text style={styles.number}>+91-9999999999</Text>
             </View>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={onPressIcon}>
                 <Icons.ChevronRightGrey />
             </TouchableOpacity>
         </View>

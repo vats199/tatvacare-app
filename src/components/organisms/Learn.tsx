@@ -2,10 +2,14 @@ import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'rea
 import React from 'react'
 import { colors } from '../../constants/colors'
 import { Icons } from '../../constants/icons'
+import moment from 'moment'
 
-type LearnProps = {}
+type LearnProps = {
+    data: any,
+    onPressBookmark: (data: any) => void
+}
 
-const Learn: React.FC<LearnProps> = ({ }) => {
+const Learn: React.FC<LearnProps> = ({ data, onPressBookmark }) => {
 
     return (
         <View style={styles.container}>
@@ -21,34 +25,25 @@ const Learn: React.FC<LearnProps> = ({ }) => {
                 contentContainerStyle={styles.scrollContainer}
                 bounces={false}
             >
-
-                <View style={styles.itemContainer}>
-                    <Image style={styles.imageStyle} source={require('../../assets/images/learnImage.jpg')} />
-                    <View style={styles.detailsContainer}>
-                        <Text style={styles.itemTitle}>Healthcare Design is More Than Aesthetics</Text>
-                        <Text style={styles.itemDescription}>Healthcare Design is More Than Aesthetics</Text>
-                        <View style={styles.bottomContainer}>
-                            <Text style={styles.itemDescription}>Aug 9, 2017</Text>
-                            <TouchableOpacity activeOpacity={0.6}>
-                                <Icons.Bookmark />
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                </View>
-
-                <View style={styles.itemContainer}>
-                    <Image style={styles.imageStyle} source={require('../../assets/images/learnImage.jpg')} />
-                    <View style={styles.detailsContainer}>
-                        <Text style={styles.itemTitle}>Healthcare Design is More Than Aesthetics</Text>
-                        <Text style={styles.itemDescription}>Healthcare Design is More Than Aesthetics</Text>
-                        <View style={styles.bottomContainer}>
-                            <Text style={styles.itemDescription}>Aug 9, 2017</Text>
-                            <TouchableOpacity activeOpacity={0.6}>
-                                <Icons.Bookmark />
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                </View>
+                {
+                    data.map((learnData: any, learnIdx: number) => {
+                        return (
+                            <View key={learnIdx} style={styles.itemContainer}>
+                                <Image style={styles.imageStyle} source={learnData.url ? { uri: learnData.url } : require('../../assets/images/learnImage.jpg')} />
+                                <View style={styles.detailsContainer}>
+                                    <Text style={styles.itemTitle}>{learnData?.topic_name || '-'}</Text>
+                                    <Text style={styles.itemDescription}>{learnData?.title || '-'}</Text>
+                                    <View style={styles.bottomContainer}>
+                                        <Text style={styles.itemDescription}>{learnData?.publish_date ? moment(learnData?.publish_date).format('MMM D, yyyy') : '-'}</Text>
+                                        <TouchableOpacity activeOpacity={0.6}>
+                                            <Icons.Bookmark onPress={() => { onPressBookmark(learnData) }} />
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+                            </View>
+                        )
+                    })
+                }
 
             </ScrollView>
         </View>

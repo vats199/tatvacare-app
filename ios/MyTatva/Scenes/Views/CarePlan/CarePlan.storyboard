@@ -11872,6 +11872,9 @@ an incident now?</string>
         <designable name="n8C-Nf-v9W">
             <size key="intrinsicContentSize" width="47" height="34"/>
         </designable>
+        <designable name="pDQ-QS-rft">
+            <size key="intrinsicContentSize" width="6" height="22"/>
+        </designable>
         <designable name="tbZ-4e-vA5">
             <size key="intrinsicContentSize" width="109.5" height="20.5"/>
         </designable>

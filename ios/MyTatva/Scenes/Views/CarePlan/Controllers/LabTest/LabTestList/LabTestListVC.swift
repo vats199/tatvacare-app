@@ -257,6 +257,11 @@ class LabTestListVC: WhiteNavigationBaseVC {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
     }
+    
+    @IBAction func onGoBack(_ sender: Any) {
+           self.dismiss(animated: true, completion: nil)
+       }
+
 }
 
 //MARK: -------------------------- UICollectionView Methods --------------------------
@@ -468,10 +473,6 @@ extension LabTestListVC {
             tblView1.removeObserver(self, forKeyPath: "contentSize")
         }
     }
-    @IBAction func onGoBack(_ sender: Any) {
-            self.dismiss(animated: true, completion: nil)
-        }
-
     
 }
 

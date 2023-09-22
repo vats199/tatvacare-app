@@ -13,6 +13,9 @@ import CustomDrawer from "../components/organisms/CustomDrawer";
 import {NativeModules} from 'react-native';
 const Navigation = NativeModules.Navigation;
 export const navigateTo = Navigation.navigateTo;
+export const navigateToHistory = Navigation.navigateToHistory;
+export const navigateToBookmark = Navigation.navigateToBookmark;
+
 export const goBack = Navigation.goBack();
 // const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 // const BottomTabs = () => {

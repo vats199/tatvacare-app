@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import { Alert, Dimensions, PermissionsAndroid,Permission, Platform, StatusBar, StyleSheet, Text, View } from 'react-native'
+import { Alert, Dimensions, PermissionsAndroid,Permission, Platform, StatusBar, StyleSheet, Text, View, SafeAreaView } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
 import Router from './src/routes/Router';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -41,6 +41,8 @@ const App = () => {
   else {
 
     Geolocation.requestAuthorization
+
+    getLocation()
     // request(PERMISSIONS.IOS.L).then((result) => {
     //   Alert.alert(result);
     // });
@@ -95,7 +97,7 @@ const App = () => {
   return (
     <GestureHandlerRootView style={{ height: Dimensions.get('window').height }}>
       <Router />
-      <LocationBottomSheet ref={BottomSheetRef} setLocation={setLocation} requestLocationPermission={requestLocationPermission} locationPermission={locationPermission} />
+      {/* <LocationBottomSheet ref={BottomSheetRef} setLocation={setLocation} requestLocationPermission={requestLocationPermission} locationPermission={locationPermission} /> */}
     </GestureHandlerRootView>
   );
 };

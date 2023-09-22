@@ -22,20 +22,22 @@ enum APIEnvironment {
     /// - Returns: Return IP address and API base url
     /// //http://20.204.236.180:8080/api/v1
     static func getUrl(state : APIEnvironment) -> (ip : String, baseurl : String) {
-        switch state {
-        case .live:
-            return (ip : "https://api.mytatva.in",
-                    baseurl : "https://api.mytatva.in/api/v6/")
-        case .uat:
-            return (ip : "https://api-uat.mytatva.in",
-                    baseurl : "https://api-uat.mytatva.in/api/v6/")
-        case .local:
-            return (ip : "https://api.mytatvadev.in",
-                    baseurl : "https://api.mytatvadev.in/api/v5/")
-        case .localhost:
-            return (ip : "http://3.7.8.99",
-                    baseurl : "http://3.7.8.99:9011/api/v1/")
-        }
+        return (ip : "https://api-uat.mytatva.in",
+                            baseurl : "https://api-uat.mytatva.in/api/v6/")
+//        switch state {
+//        case .live:
+//            return (ip : "https://api.mytatva.in",
+//                    baseurl : "https://api.mytatva.in/api/v6/")
+//        case .uat:
+//            return (ip : "https://api-uat.mytatva.in",
+//                    baseurl : "https://api-uat.mytatva.in/api/v6/")
+//        case .local:
+//            return (ip : "https://api.mytatvadev.in",
+//                    baseurl : "https://api.mytatvadev.in/api/v5/")
+//        case .localhost:
+//            return (ip : "http://3.7.8.99",
+//                    baseurl : "http://3.7.8.99:9011/api/v1/")
+//        }
     }
 }
 
