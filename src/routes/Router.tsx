@@ -15,6 +15,8 @@ const Navigation = NativeModules.Navigation;
 export const navigateTo = Navigation.navigateTo;
 export const navigateToHistory = Navigation.navigateToHistory;
 export const navigateToBookmark = Navigation.navigateToBookmark;
+export const navigateToPlan = Navigation.navigateToPlan;
+export const navigateToMedicines = Navigation.navigateToMedicines;
 
 export const goBack = Navigation.goBack();
 // const BottomTab = createBottomTabNavigator<BottomTabParamList>();

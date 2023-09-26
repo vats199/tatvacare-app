@@ -114,6 +114,7 @@ const MyHealthDiary: React.FC<MyHealthDiaryProps> = ({ onPressDevices, onPressDi
         <View style={styles.container}>
             <Text style={styles.title}>My Health Diary</Text>
             {options.map(renderHealthDiaryItem)}
+            {/* {data?.map((item: any, idx: number) => { return renderHealthDiaryItem(item, idx) })} */}
         </View>
     )
 }

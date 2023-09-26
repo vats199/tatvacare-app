@@ -4,16 +4,20 @@ import {
     BottomSheetModal,
     BottomSheetModalProps,
 } from '@gorhom/bottom-sheet';
-import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Icons } from '../../constants/icons';
 import Button from '../atoms/Button';
 import { colors } from '../../constants/colors';
 import InputField from '../atoms/AnimatedInputField';
+import Home from '../../api/home';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useApp } from '../../context/app.context';
 
 type LocationBottomSheetProps = {
-    requestLocationPermission?: () => void,
+    requestLocationPermission?: (goToSettings: boolean) => void,
     locationPermission?: string,
-    setLocation?: SetStateAction<any>
+    setLocation?: SetStateAction<any>,
+    setLocationPermission?: SetStateAction<any>
 }
 
 export type LocationBottomSheetRef = {
@@ -21,9 +25,11 @@ export type LocationBottomSheetRef = {
     hide: () => void;
 }
 
-const LocationBottomSheet = forwardRef<LocationBottomSheetRef, LocationBottomSheetProps>(({ requestLocationPermission = () => { }, locationPermission, setLocation }, ref) => {
+const LocationBottomSheet = forwardRef<LocationBottomSheetRef, LocationBottomSheetProps>(({ requestLocationPermission = () => { }, locationPermission, setLocation, setLocationPermission }, ref) => {
 
     const bottomSheetModalRef = React.useRef<BottomSheetModal>(null);
+
+    const { setUserLocation } = useApp();
 
     // Expose methods using useImperativeHandle
     useImperativeHandle(ref, () => ({
@@ -54,7 +60,7 @@ const LocationBottomSheet = forwardRef<LocationBottomSheetRef, LocationBottomShe
     }
 
     const onApplyPincode = async () => {
-        const res = await fetch(`http://postalpincode.in/api/pincode/${pincode}`, {
+        const res = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${pincode}&key=AIzaSyD8zxk4kvKlAMGaOQrABy8xqdRKIWGBJlo`, {
             method: 'get',
             headers: {
                 "Content-Type": "application/json"
@@ -62,9 +68,26 @@ const LocationBottomSheet = forwardRef<LocationBottomSheetRef, LocationBottomShe
         })
 
         const data = await res.json();
+        
 
-        if ((data?.PostOffice || []).length > 0) {
-            setLocation(data?.PostOffice[0])
+        if ((data?.results || []).length > 0 && (data?.results[0]?.address_components || []).length > 0) {
+            const city = data?.results[0]?.address_components.find((a: any) => a?.types.includes('administrative_area_level_3'))
+            const state = data?.results[0]?.address_components.find((a: any) => a?.types.includes('administrative_area_level_1'))
+            const country = data?.results[0]?.address_components.find((a: any) => a?.types.includes('country'))
+            const locationPayload = {
+                city: city?.long_name,
+                state: state?.long_name,
+                country: country?.long_name,
+                pincode: pincode
+            }
+            
+            setLocation({
+                ...locationPayload
+            })
+            await Home.updatePatientLocation({}, locationPayload)
+            await AsyncStorage.setItem('location', JSON.stringify(locationPayload));
+            setUserLocation(locationPayload)
+            setLocationPermission('granted')
             bottomSheetModalRef.current?.dismiss();
         }
     }
@@ -94,7 +117,7 @@ const LocationBottomSheet = forwardRef<LocationBottomSheetRef, LocationBottomShe
                                         onChangeText={onChangePin} textStyle={styles.inputBoxStyle} placeholder='Enter Pincode' style={styles.pincodeInputStyle} keyboardType="decimal-pad" onBlur={() => bottomSheetModalRef.current?.snapToIndex(0)} onFocus={() => bottomSheetModalRef.current?.expand()} />
                                     <TouchableOpacity onPress={onApplyPincode} disabled={pincode?.length == 6 || pincode?.length == 4 ? false : true} activeOpacity={0.6}><Text style={pincode?.length == 6 || pincode?.length == 4 ? styles.activeApplyText : styles.inactiveApplyText}>Apply</Text></TouchableOpacity>
                                 </View>
-                                <TouchableOpacity onPress={requestLocationPermission} style={styles.currentLocationContainer} activeOpacity={0.6}>
+                                <TouchableOpacity onPress={() => { Platform.OS =='android' ? (requestLocationPermission(['blocked', 'never_ask_again'].includes(locationPermission || '') ? true : false)) : requestLocationPermission(true) }} style={styles.currentLocationContainer} activeOpacity={0.6}>
                                     <Icons.LocationSymbol />
                                     <Text style={styles.currentLocationText}>Use Current Location</Text>
                                 </TouchableOpacity>
@@ -119,11 +142,11 @@ const LocationBottomSheet = forwardRef<LocationBottomSheetRef, LocationBottomShe
                                     />
                                     <Button
                                         title={'Grant'}
-                                        onPress={requestLocationPermission}
+                                        onPress={() => {Platform.OS =='android' ? (requestLocationPermission(['blocked', 'never_ask_again'].includes(locationPermission || '') ? true : false)) : requestLocationPermission(true)}}
                                         titleStyle={styles.filledButtonText}
-                                        buttonStyle={{ ...styles.filledButton, opacity: locationPermission === 'never_ask_again' ? 0.6 : 1 }}
+                                        buttonStyle={styles.filledButton}
                                         activeOpacity={0.6}
-                                        disabled={locationPermission === 'never_ask_again' ? true : false}
+                                    // disabled={locationPermission === 'never_ask_again' ? true : false}
                                     />
 
                                 </View>
@@ -159,7 +182,7 @@ const styles = StyleSheet.create({
         height: '40%',
     },
     tallHeight: {
-        height: '50%',
+        height: '30%',
     },
     textContainer: {
         flexDirection: 'column',

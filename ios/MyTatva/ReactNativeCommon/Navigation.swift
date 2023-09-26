@@ -18,14 +18,61 @@ class Navigation: NSObject {
         historyModelVC.selectedType = HistoryType(rawValue: selectedType as String)
         navigate(modelVC: historyModelVC)
     }
+    
     @objc
-    func navigateToBookmark(_ type: NSString) -> Void {
-        let BookmarkVC = ViewAllBookmarkVC.instantiate(fromAppStoryboard: .engage)
-        BookmarkVC.type = type as String
-//        vc.currentBookmarkType = obj.displayValue
-        navigate(modelVC: BookmarkVC)
+    func navigateToPlan(_ selectedType: NSString) -> Void {
+        
+        if let hcServiceLongestPlan = UserModel.shared.hcServicesLongestPlan {
+            let planModelVC = PurchsedCarePlanVC.instantiate(fromAppStoryboard: .BCP_temp)
+            planModelVC.viewModel.planDetails = PlanDetail(fromJson: JSON(hcServiceLongestPlan.toDictionary()))
+            planModelVC.isBack = true
+            navigate(modelVC: planModelVC)
+        }else {
+            let planModelVC = BCPCarePlanVC.instantiate(fromAppStoryboard: .BCP_temp)
+            navigate(modelVC: planModelVC)
+        }
     }
     
+    
+    @objc
+    func navigateToBookmark(_ selectedType: NSString) -> Void {
+       
+        PlanManager.shared.isAllowedByPlan(type: .book_appointments,
+                                           sub_features_id: "",
+                                           completion: { isAllow in
+            if isAllow {
+                let BookmarkVC = BookAppointmentVC.instantiate(fromAppStoryboard: .carePlan)
+                BookmarkVC.hidesBottomBarWhenPushed = true
+                self.navigate(modelVC: BookmarkVC)
+            }
+            else {
+                PlanManager.shared.alertNoSubscription()
+            }
+            
+        })
+
+        
+        }
+    
+    @objc
+    func navigateToMedicines(_ selectedType: NSString) -> Void {
+        PlanManager.shared.isAllowedByPlan(type: .add_medication,
+                                           sub_features_id: "",
+                                           completion: { isAllow in
+            if isAllow {
+                
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
+                    let vc = AddPrescriptionVC.instantiate(fromAppStoryboard: .auth)
+                    vc.isEdit = true
+                    vc.hidesBottomBarWhenPushed = true
+                    self.navigate(modelVC: vc)
+                }
+            }
+            else {
+                PlanManager.shared.alertNoSubscription()
+            }
+        })
+    }
                 
 //    @objc
 //        func showPopUpBMI(_ selectedType: NSString) -> Void {
@@ -80,7 +127,8 @@ class Navigation: NSObject {
         case "AccountSettingVC":
             modelVC = AccountSettingVC.instantiate(fromAppStoryboard: .setting)
         case "BCPCarePlanDetailVC":
-            modelVC = BCPCarePlanDetailVC.instantiate(fromAppStoryboard: .BCP_temp)
+//            modelVC = BCPCarePlanDetailVC.instantiate(fromAppStoryboard: .BCP_temp)
+             modelVC = BCPCarePlanVC.instantiate(fromAppStoryboard: .BCP_temp)
         case "FoodDiaryParentVC":
             modelVC = FoodDiaryParentVC.instantiate(fromAppStoryboard: .goal)
         case "UpdateGoalParentVC":

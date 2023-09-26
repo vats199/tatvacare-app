@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -89,11 +89,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="8Ov-HN-4AR">
                         <leftBarButtonItems>
-                            <barButtonItem image="back_ic" id="AFB-Rp-6rN">
-                                <connections>
-                                    <action selector="popViewControllerWithSender:" destination="Y6W-OH-hqX" id="hBV-QM-vRT"/>
-                                </connections>
-                            </barButtonItem>
+                            <barButtonItem image="back_ic" id="AFB-Rp-6rN"/>
                             <barButtonItem style="plain" id="sOk-m9-kOy">
                                 <view key="customView" contentMode="scaleToFill" id="8XB-lf-Q31">
                                     <rect key="frame" x="48.5" y="5.5" width="92" height="33"/>

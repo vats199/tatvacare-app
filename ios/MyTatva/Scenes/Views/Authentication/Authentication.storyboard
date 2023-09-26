@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="B0g-1c-s7h">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="B0g-1c-s7h">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -722,6 +722,7 @@
                                                                 </constraints>
                                                                 <state key="normal" image="back_ic"/>
                                                                 <connections>
+                                                                    <action selector="onGoBack:" destination="wFI-6B-liz" eventType="touchUpInside" id="ura-zG-UDO"/>
                                                                     <action selector="popViewControllerWithSender:" destination="wFI-6B-liz" eventType="touchUpInside" id="U1o-Bu-8Cn"/>
                                                                 </connections>
                                                             </button>
@@ -9620,19 +9621,19 @@ successfully created!</string>
                                                 <rect key="frame" x="0.0" y="0.0" width="374" height="667.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Setup your profile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NCz-EF-Ilf">
-                                                        <rect key="frame" x="0.0" y="16" width="374" height="70.5"/>
+                                                        <rect key="frame" x="0.0" y="16" width="374" height="70"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="d9M-WN-ly7">
-                                                        <rect key="frame" x="0.0" y="112.5" width="374" height="555"/>
+                                                        <rect key="frame" x="0.0" y="112" width="374" height="555.5"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sEh-Fx-fuM">
-                                                                <rect key="frame" x="0.0" y="0.0" width="374" height="232.5"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="374" height="233"/>
                                                                 <subviews>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="xWZ-Rm-idJ">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="374" height="232.5"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="374" height="233"/>
                                                                         <subviews>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U6i-Is-W5U">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="374" height="52.5"/>
@@ -9656,10 +9657,10 @@ successfully created!</string>
                                                                                 </constraints>
                                                                             </view>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wZp-gQ-Jxv">
-                                                                                <rect key="frame" x="0.0" y="64.5" width="374" height="168"/>
+                                                                                <rect key="frame" x="0.0" y="64.5" width="374" height="168.5"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xw4-jW-Jtj">
-                                                                                        <rect key="frame" x="4" y="0.0" width="370" height="168"/>
+                                                                                        <rect key="frame" x="4" y="0.0" width="370" height="168.5"/>
                                                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                         <nil key="textColor"/>
                                                                                         <nil key="highlightedColor"/>
@@ -9685,7 +9686,7 @@ successfully created!</string>
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eow-Qz-ZdR">
-                                                                <rect key="frame" x="0.0" y="252.5" width="374" height="230"/>
+                                                                <rect key="frame" x="0.0" y="253" width="374" height="230"/>
                                                                 <subviews>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="A1T-6n-KbS">
                                                                         <rect key="frame" x="0.0" y="0.0" width="374" height="230"/>
@@ -9740,7 +9741,7 @@ successfully created!</string>
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EJ3-Js-Fet">
-                                                                <rect key="frame" x="0.0" y="502.5" width="374" height="52.5"/>
+                                                                <rect key="frame" x="0.0" y="503" width="374" height="52.5"/>
                                                                 <subviews>
                                                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="r4G-Yo-tWk" customClass="ThemeFloatingTextField" customModule="MyTatva" customModuleProvider="target">
                                                                         <rect key="frame" x="0.0" y="0.0" width="374" height="52.5"/>
@@ -10179,25 +10180,25 @@ successfully created!</string>
                                                 <rect key="frame" x="0.0" y="0.0" width="374" height="622.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Setup your profile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kD6-rc-79F">
-                                                        <rect key="frame" x="0.0" y="16" width="374" height="383"/>
+                                                        <rect key="frame" x="0.0" y="16" width="374" height="382.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="bGy-aK-rQY">
-                                                        <rect key="frame" x="0.0" y="425" width="374" height="197.5"/>
+                                                        <rect key="frame" x="0.0" y="424.5" width="374" height="198"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xXg-0U-3qS">
-                                                                <rect key="frame" x="0.0" y="0.0" width="374" height="52.5"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="374" height="53"/>
                                                                 <subviews>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="NVy-a6-3LJ">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="374" height="52.5"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="374" height="53"/>
                                                                         <subviews>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IVG-9g-bcR">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="374" height="52.5"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="374" height="53"/>
                                                                                 <subviews>
                                                                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ql9-tr-uak" customClass="ThemeFloatingTextField" customModule="MyTatva" customModuleProvider="target">
-                                                                                        <rect key="frame" x="0.0" y="0.0" width="374" height="52.5"/>
+                                                                                        <rect key="frame" x="0.0" y="0.0" width="374" height="53"/>
                                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                                         <textInputTraits key="textInputTraits"/>
                                                                                         <userDefinedRuntimeAttributes>
@@ -10226,7 +10227,7 @@ successfully created!</string>
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mYS-ro-4P2">
-                                                                <rect key="frame" x="0.0" y="72.5" width="374" height="52.5"/>
+                                                                <rect key="frame" x="0.0" y="73" width="374" height="52.5"/>
                                                                 <subviews>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="WV0-eb-FdF">
                                                                         <rect key="frame" x="0.0" y="0.0" width="374" height="52.5"/>
@@ -10263,7 +10264,7 @@ successfully created!</string>
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nSd-Gn-fjw">
-                                                                <rect key="frame" x="0.0" y="145" width="374" height="52.5"/>
+                                                                <rect key="frame" x="0.0" y="145.5" width="374" height="52.5"/>
                                                                 <subviews>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="BF1-8c-dVn">
                                                                         <rect key="frame" x="0.0" y="0.0" width="374" height="52.5"/>

@@ -5,49 +5,50 @@ import Router from './src/routes/Router';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import LocationBottomSheet, { LocationBottomSheetRef } from './src/components/molecules/LocationBottomSheet';
 import Geolocation from 'react-native-geolocation-service';
-import {request, check, PERMISSIONS, RESULTS} from 'react-native-permissions';
+import { request, check, PERMISSIONS, RESULTS } from 'react-native-permissions';
+import { Linking } from 'react-native';
+import Home from './src/api/home';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { AppProvider } from './src/context/app.context';
 
 const App = () => {
-  const [location, setLocation] = useState<Geolocation.GeoPosition | null>(null);
+  const [location, setLocation] = useState<object>({});
   const BottomSheetRef = useRef<LocationBottomSheetRef>(null);
   const [locationPermission, setLocationPermission] = useState<string>('');
 
-  const requestLocationPermission = async () => {
+  const requestLocationPermission = async (goToSettings: boolean) => {
+
     try {
-      let permissionResult = null;
-      if(Platform.OS == 'android') {
-  
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
-      );
+      if (Platform.OS == 'android') {
 
-      setLocationPermission(granted)
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
+        );
 
-      if (granted === 'granted') {
-        getLocation()
-      } else {
-        permissionResult = await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
+        setLocationPermission(granted)
+
+        if (granted === 'granted') {
+          getLocation()
+        } else if (goToSettings && ['blocked', 'never_ask_again'].includes(granted)) {
+          Linking.openSettings()
+        } else {
+          BottomSheetRef.current?.show();
+        }
       }
 
-      setLocationPermission(permissionResult);
+      else {
 
-      if (permissionResult === RESULTS.GRANTED) {
-        getLocation();
-      } else {
-        BottomSheetRef.current?.show();
+        if (goToSettings) {
+          Linking.openURL('app-settings:');
+        } else {
+          Geolocation.requestAuthorization
+          // request(PERMISSIONS.IOS.L).then((result) => {
+          //   Alert.alert(result);
+          // });
+        }
+
       }
-    }
-  
-  else {
-
-    Geolocation.requestAuthorization
-
-    getLocation()
-    // request(PERMISSIONS.IOS.L).then((result) => {
-    //   Alert.alert(result);
-    // });
-  }
-  }catch (err) {
+    } catch (err) {
       BottomSheetRef.current?.show()
     }
 
@@ -56,17 +57,47 @@ const App = () => {
   const getLocation = () => {
     Geolocation.getCurrentPosition(
       async position => {
-        // await AsyncStorage.setItem('location', JSON.stringify(position));
-        setLocation(position);
-        BottomSheetRef.current?.hide();
+        await getLocationFromLatLng(position?.coords?.latitude, position?.coords?.longitude)
       },
       error => {
         // Handle location error here
-        requestLocationPermission();
+        requestLocationPermission(false);
       },
       { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 },
     );
   };
+
+  const getLocationFromLatLng = async (lat: any, long: any) => {
+    const res = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&key=AIzaSyD8zxk4kvKlAMGaOQrABy8xqdRKIWGBJlo`, {
+      method: 'get',
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+
+    const data = await res.json();
+
+    if ((data?.results || []).length > 0 && (data?.results[0]?.address_components || []).length > 0) {
+      const city = data?.results[0]?.address_components.find((a: any) => a?.types.includes('administrative_area_level_3'))
+      const state = data?.results[0]?.address_components.find((a: any) => a?.types.includes('administrative_area_level_1'))
+      const country = data?.results[0]?.address_components.find((a: any) => a?.types.includes('country'))
+      const pincode = data?.results[0]?.address_components.find((a: any) => a?.types.includes('postal_code'))
+
+      const locationPayload = {
+        city: city?.long_name,
+        state: state?.long_name,
+        country: country?.long_name,
+        pincode: pincode?.long_name
+      }
+
+      setLocation({
+        ...locationPayload
+      })
+      await AsyncStorage.setItem('location', JSON.stringify(locationPayload));
+      await Home.updatePatientLocation({}, locationPayload)
+      BottomSheetRef.current?.hide();
+    }
+  }
 
   useEffect(() => {
     checkLocationPermission();
@@ -96,8 +127,10 @@ const App = () => {
 
   return (
     <GestureHandlerRootView style={{ height: Dimensions.get('window').height }}>
-      <Router />
-      {/* <LocationBottomSheet ref={BottomSheetRef} setLocation={setLocation} requestLocationPermission={requestLocationPermission} locationPermission={locationPermission} /> */}
+      <AppProvider>
+        <Router />
+        <LocationBottomSheet ref={BottomSheetRef} setLocation={setLocation} requestLocationPermission={requestLocationPermission} setLocationPermission={setLocationPermission} locationPermission={locationPermission} />
+      </AppProvider>
     </GestureHandlerRootView>
   );
 };

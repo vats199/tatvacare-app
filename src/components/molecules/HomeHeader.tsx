@@ -2,20 +2,24 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { Icons } from '../../constants/icons'
 import { colors } from '../../constants/colors'
+import { useApp } from '../../context/app.context'
 
 type HomeHeaderProps = {
     onPressLocation: () => void,
     onPressBell: () => void,
-    onPressProfile: () => void
+    onPressProfile: () => void,
+    userLocation: any
 }
 
-const HomeHeader: React.FC<HomeHeaderProps> = ({ onPressBell, onPressLocation, onPressProfile }) => {
+const HomeHeader: React.FC<HomeHeaderProps> = ({ onPressBell, onPressLocation, onPressProfile, userLocation }) => {
+    const { location } = useApp();
+    
     return (
         <View style={styles.rowBetween}>
             <View>
                 <Icons.MyTatvaLogo />
                 <TouchableOpacity activeOpacity={0.6} style={styles.locationContainer} onPress={onPressLocation}>
-                    <Text style={styles.locationText}>Location</Text>
+                    <Text style={styles.locationText}>{location?.city && location?.state ? `${location?.city}, ${location?.state}` : userLocation?.city && userLocation?.state ? `${userLocation?.city}, ${userLocation?.state}` : '-'}</Text>
                     <Icons.Dropdown />
                 </TouchableOpacity>
             </View>
