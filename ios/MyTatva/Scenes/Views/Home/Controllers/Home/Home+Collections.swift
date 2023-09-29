@@ -15,7 +15,6 @@ class HomeRecommendedCell : UICollectionViewCell {
     @IBOutlet weak var vwShadow         : UIView!
     @IBOutlet weak var imgView          : UIImageView!
     @IBOutlet weak var lblTitle         : UILabel!
-    @IBOutlet weak var lblTitle         : UILabel!
     @IBOutlet weak var lblDesc          : UILabel!
     
     //MARK:- Class Variable

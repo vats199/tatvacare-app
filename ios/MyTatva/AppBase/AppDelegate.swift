@@ -36,7 +36,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var bridge: RCTBridge!
-        let jsCodeLocation: URL = RCTBundleURLProvider.sharedSettings().jsBundleURL(forBundleRoot: "index")
+    
+    
+        
+  
+    #if DEBUG
+    let jsCodeLocation: URL = RCTBundleURLProvider.sharedSettings().jsBundleURL(forBundleRoot: "index")
+    #else
+//    let jsCodeLocation: URL = NSBundle.mainBundle().resourceURL("main", withExtension : "jsbundle")
+    let jsCodeLocation = Bundle.main.url(forResource: "main", withExtension: "jsbundle")!
+
+    #endif
     
     
     static let shared : AppDelegate = UIApplication.shared.delegate as! AppDelegate

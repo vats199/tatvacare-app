@@ -795,6 +795,7 @@
 		9AF1E62629FF9C0E002CF3D8 /* SomeoneElsePopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF1E62529FF9C0E002CF3D8 /* SomeoneElsePopupVC.swift */; };
 		9AF1E62829FFA1C0002CF3D8 /* SomeoneElsePopupVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF1E62729FFA1C0002CF3D8 /* SomeoneElsePopupVM.swift */; };
 		9AF1E62A29FFA4CE002CF3D8 /* SomeoneElseDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF1E62929FFA4CE002CF3D8 /* SomeoneElseDataModel.swift */; };
+		A3F55ED32AC590EF00003395 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = A3F55ED22AC590EF00003395 /* main.jsbundle */; };
 		B8604DF02E0C2D06389976FD /* Pods_MyTatvaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8812ED21F4E5B3EE77B1ABF /* Pods_MyTatvaTests.framework */; };
 		BF33826EC9D0A0C48EE46588 /* BcaVitalsDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2509CDD5D4A1BE01B75F4BB1 /* BcaVitalsDetailsVC.swift */; };
 		BFAA0D6644207B582BFBA3CB /* Pods_MyTatvaNotificationService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF2F1970E270DDCE225DC47F /* Pods_MyTatvaNotificationService.framework */; };
@@ -1729,6 +1730,7 @@
 		9AF1E62929FFA4CE002CF3D8 /* SomeoneElseDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomeoneElseDataModel.swift; sourceTree = "<group>"; };
 		A179FD1F8E011AB49DB4344E /* Pods_MyTatva.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyTatva.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A36CD15F12E71C79351A3420 /* BcaVitalsDetailsTypeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BcaVitalsDetailsTypeVC.swift; sourceTree = "<group>"; };
+		A3F55ED22AC590EF00003395 /* main.jsbundle */ = {isa = PBXFileReference; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		A6FEE104F66D229A87C5E44C /* Pods-NotificationViewController.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationViewController.release.xcconfig"; path = "Target Support Files/Pods-NotificationViewController/Pods-NotificationViewController.release.xcconfig"; sourceTree = "<group>"; };
 		BCFDED6C635C9CBCE4693024 /* BCAAddAddressVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCAAddAddressVC.swift; sourceTree = "<group>"; };
 		BDC02DF0FBC43D6C933CAE4A /* Pods-MyTatvaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyTatvaTests.debug.xcconfig"; path = "Target Support Files/Pods-MyTatvaTests/Pods-MyTatvaTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -5799,6 +5801,7 @@
 		91A1754026789CC500297B66 = {
 			isa = PBXGroup;
 			children = (
+				A3F55ED22AC590EF00003395 /* main.jsbundle */,
 				91A1754B26789CC500297B66 /* MyTatva */,
 				6169A390272BE1D70081C3B7 /* MyTatvaNotificationService */,
 				618AFEF6272C0884003C244C /* NotificationViewController */,
@@ -6280,6 +6283,7 @@
 				FD408E2D48281F128370F981 /* [CP] Copy Pods Resources */,
 				9AADC7472A124214003D627D /* Embed Frameworks */,
 				5212E8552AB241FA00076F2C /* ShellScript */,
+				A33614192AC5880D00CF5B14 /* Bundle React Native code and image */,
 			);
 			buildRules = (
 			);
@@ -6388,6 +6392,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3F55ED32AC590EF00003395 /* main.jsbundle in Resources */,
 				61C03D5B29879E9600D4A508 /* Config_debug.xcconfig in Resources */,
 				4097D64E2A2E050500D5574B /* Gilroy-Medium.ttf in Resources */,
 				9AAA26662A53F2370050AFA9 /* AuthTemp.storyboard in Resources */,
@@ -6576,6 +6581,24 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MyTatva-MyTatvaUITests/Pods-MyTatva-MyTatvaUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		A33614192AC5880D00CF5B14 /* Bundle React Native code and image */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Bundle React Native code and image";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nexport NODE_BINARY=$(fish -c 'which node')\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
 		B4E083FC9213F0926FC2044F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -7927,7 +7950,7 @@
 				DEPLOYMENT_POSTPROCESSING = NO;
 				DEVELOPMENT_TEAM = U7V9239BVN;
 				ENABLE_BITCODE = NO;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "i386 arm64";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/WebEngage/xc11",

@@ -108,6 +108,8 @@ class TabbarVC: BFPaperTabBarController {
     }
     
     fileprivate func setTabbarViewControllers(){
+        
+#if DEBUG
         let rootView = RCTRootView(
          bundleURL: URL(string: "http://localhost:8081/index.bundle?platform=ios")!,
 //           bundleURL: URL(string: "http://192.168.1.5:8081/index.bundle?platform=ios")!,
@@ -119,6 +121,20 @@ class TabbarVC: BFPaperTabBarController {
             initialProperties: nil,
             launchOptions: nil
         )
+#else
+        let rootView = RCTRootView(
+         bundleURL: Bundle.main.url(forResource: "main", withExtension: "jsbundle")!,
+//           bundleURL: URL(string: "http://192.168.1.5:8081/index.bundle?platform=ios")!,
+//            bundleURL: URL(string: "http://192.168.1.32:8081/index.bundle?platform=ios")!,
+            
+//           bundleURL: URL(string: "http://169.254.76.56:8081/index.bundle?platform=ios")!,
+           
+            moduleName: "TatvacareApp",
+            initialProperties: nil,
+            launchOptions: nil
+        )
+#endif
+        
         let vc = UIViewController()
         vc.view = rootView
 //        let homeVC              = HomeVC.instantiate(fromAppStoryboard: .home)

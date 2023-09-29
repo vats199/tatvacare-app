@@ -1702,11 +1702,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="5T5-Po-I1N">
                         <leftBarButtonItems>
-                            <barButtonItem image="back_ic" id="84h-G7-bzH">
-                                <connections>
-                                    <action selector="popViewControllerWithSender:" destination="LsG-5Y-Mh7" id="8Fl-UE-dZ6"/>
-                                </connections>
-                            </barButtonItem>
+                            <barButtonItem image="back_ic" id="84h-G7-bzH"/>
                             <barButtonItem style="plain" id="MBP-kp-eQL">
                                 <view key="customView" contentMode="scaleToFill" id="XsA-ob-3Py">
                                     <rect key="frame" x="48.5" y="5.5" width="92" height="33"/>
