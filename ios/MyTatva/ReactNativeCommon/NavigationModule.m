@@ -27,8 +27,10 @@ RCT_EXTERN_METHOD(navigateToPlan: (NSString)destination)
 RCT_EXTERN_METHOD(navigateToMedicines: (NSString)destination)
 RCT_EXTERN_METHOD(navigateToEngagement: (NSString)destination)
 RCT_EXTERN_METHOD(navigateToIncident)
+RCT_EXTERN_METHOD(navigateToExercise)
 RCT_EXTERN_METHOD(openHealthKitSyncView)
 
-RCT_EXTERN_METHOD(openAlert: (NSArray)destination)
+RCT_EXTERN_METHOD(openUpdateReading: (NSArray)destination)
+RCT_EXTERN_METHOD(openUpdateGoal: (NSArray)destination)
 RCT_EXTERN_METHOD(goBack)
 @end

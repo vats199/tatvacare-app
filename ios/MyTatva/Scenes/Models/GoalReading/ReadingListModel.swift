@@ -67,7 +67,7 @@ class ReadingListModel: NSObject, NSCoding{
         self.duration = data["duration"]  as? Int
         self.readingRequired = data["reading_required"]  as? String
         self.totalReadingAverage = data["total_reading_average"]  as? String
-        self.defaultReading = data["default_reading"]  as? String
+        self.defaultReading = data["default_reading"]  as? String ?? ""
         self.graph = data["graph"]  as? String
         self.inRange = InRange(fromDic: data["in_range"] as? NSDictionary ?? [:])
         self.notConfigured = data["not_configured"]  as? String

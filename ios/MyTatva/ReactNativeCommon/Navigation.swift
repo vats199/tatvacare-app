@@ -20,11 +20,18 @@ class Navigation: NSObject {
     }
     @objc
     func navigateToIncident() -> Void {
-        if let carePlan = UIApplication.topViewController()?.parent?.parent as? TabbarVC {
+        if let carePlan = UIApplication.topViewController()?.parent as? TabbarVC {
             DispatchQueue.main.async {
                 carePlan.selectedIndex = 1
             }
-            
+        }
+    }
+    @objc
+    func navigateToExercise() -> Void {
+        if let carePlan = UIApplication.topViewController()?.parent as? TabbarVC {
+            DispatchQueue.main.async {
+                carePlan.selectedIndex = 3
+            }
         }
     }
     
@@ -100,9 +107,52 @@ class Navigation: NSObject {
         })
     }
     
-    
     @objc
-    func openAlert(_ selectedType: NSArray) -> Void {
+    func openUpdateGoal(_ selectedType: NSArray) {
+        let fileteredData = selectedType.firstObject as? NSDictionary
+        //print(fileteredData?["filteredData"],"===========>>")
+        //print(fileteredData?["filteredData"] as? NSArray ?? [],"+++++++++++++")
+        let key = (selectedType[1] as? NSDictionary)?["firstRow"] as? String
+        //print(key)
+        let array = fileteredData?["filteredData"] as? NSArray ?? []
+        var arrReadingList: [GoalListModel] = []
+        for data in array {
+            arrReadingList.append(GoalListModel(fromDic: data as? NSDictionary ?? [:]))
+        }
+        let selectedIndex = arrReadingList.firstIndex(where: { $0.keys == key})
+        
+        let vc = UpdateGoalParentVC.instantiate(fromAppStoryboard: .goal)
+    
+        
+        vc.selectedIndex            = selectedIndex ?? 0
+        vc.arrList                  = arrReadingList
+        vc.modalPresentationStyle   = .overFullScreen
+        vc.modalTransitionStyle     = .crossDissolve
+        
+    
+        vc.completionHandler = { obj in
+            /*if type == .Medication ||
+                type == .Pranayam {
+                
+                if obj?.count > 0 {
+                    print(obj ?? "")
+                    //self.viewModel.apiCallFromStartSummary(tblViewHome: self.tblDailySummary,colViewHome: self.colReading,withLoader: false)
+                }
+            }
+            else {
+                if obj?.count > 0 {
+                    print(obj ?? "")
+                    //object
+                    //self.viewModel.apiCallFromStartSummary(tblViewHome: self.tblDailySummary,colViewHome: self.colReading,withLoader: false)
+                }
+            }*/
+        }
+        DispatchQueue.main.async {
+            UIApplication.topViewController()?.present(vc, animated: true)
+        }
+    }
+    @objc
+    func openUpdateReading(_ selectedType: NSArray) -> Void {
         
         //let fileteredData = selectedType.firstObject as? NSDictionary
                //print(fileteredData?["filteredData"],"===========>>")
@@ -128,10 +178,10 @@ class Navigation: NSObject {
         
         
         let fileteredData = selectedType.firstObject as? NSDictionary
-        print(fileteredData?["filteredData"],"===========>>")
-        print(fileteredData?["filteredData"] as? NSArray ?? [],"+++++++++++++")
+        //print(fileteredData?["filteredData"],"===========>>")
+        //print(fileteredData?["filteredData"] as? NSArray ?? [],"+++++++++++++")
         let key = (selectedType[1] as? NSDictionary)?["firstRow"] as? String
-        print(key)
+        //print(key)
         let array = fileteredData?["filteredData"] as? NSArray ?? []
         var arrReadingList: [ReadingListModel] = []
         for data in array {
@@ -140,7 +190,7 @@ class Navigation: NSObject {
         let selectedIndex = arrReadingList.firstIndex(where: { $0.keys == key})
         let vc = UpdateReadingParentVC.instantiate(fromAppStoryboard: .goal)
         vc.selectedIndex = selectedIndex ?? 0
-        let readingListModel = ReadingListModel()
+        
         vc.arrList = arrReadingList//fileteredData?["filteredData"] as? [ReadingListModel] ?? []
         vc.modalPresentationStyle = .overFullScreen
         vc.modalTransitionStyle = .crossDissolve
@@ -240,7 +290,8 @@ class Navigation: NSObject {
             modelVC =   HelpAndSupportVC.instantiate(fromAppStoryboard: .setting)
 //        case "HistoryParentVC":
         case "MyDevices":
-            modelVC = MyDevicesVC.instantiate(fromAppStoryboard: .setting)
+            modelVC
+            = DevicesVC.instantiate(fromAppStoryboard: .home)
         default:
             return;
         }

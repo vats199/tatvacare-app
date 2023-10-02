@@ -47,6 +47,38 @@ class GoalListModel : NSObject, NSCoding {
     /**
      * Instantiate the instance using the passed json values to set the properties values
      */
+    
+    init(fromDic data: NSDictionary) {
+        self.colorCode = data["color_code"] as? String
+        self.createdAt = data["created_at"] as? String
+        self.goalDefaulVal = data["goal_defaul_val"] as? String
+        self.goalMasterId = data["goal_master_id"] as? String
+        self.goalMeasurement = data["goal_measurement"] as? String
+        self.goalName = data["goal_name"] as? String
+        self.imageUrl = data["image_url"] as? String
+        self.imgExtn = data["img_extn"] as? String
+        self.isActive = data["is_active"] as? String
+        self.isDeleted = data["is_deleted"] as? String
+        self.keys = data["keys"] as? String
+        self.mandatory = data["mandatory"] as? String
+        self.updatedAt = data["updated_at"] as? String
+        self.updatedBy = data["updated_by"] as? String
+        self.achievedDatetime = data["achieved_datetime"] as? String
+        self.endTime = data["end_time"] as? String
+        self.goalValue = "\(data["goal_value"] as? Float ?? 0)"
+        self.patientGoalRelId = data["patient_goal_rel_id"] as? String
+        self.patientSubGoalId = data["patient_sub_goal_id"] as? String
+        self.startTime = data["start_time"] as? String
+        self.endDate = data["end_date"] as? String
+        self.startDate = data["start_date"] as? String
+        self.achievedValue = data["achieved_value"] as? Int
+        self.todaysAchievedValue = "\(data["todays_achieved_value"] as? Float ?? 0)"
+        self.goalsRequired = data["goals_required"] as? String
+        self.orderNo = data["order_no"] as? Int
+        self.avgCurrent = data["avg_current"] as? Int
+        self.avgOther = data["avg_other"] as? Int
+        self.standardValue = data["standard_value"] as? String
+    }
     init(fromJson json: JSON!){
         if json.isEmpty{
             return

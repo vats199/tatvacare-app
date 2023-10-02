@@ -2408,7 +2408,7 @@ class GlobalAPI : NSObject {
                 }
             }
             
-            
+            print("result======", result)
             if let result = result{
 //               let dispatchGroup1 = DispatchGroup()
                

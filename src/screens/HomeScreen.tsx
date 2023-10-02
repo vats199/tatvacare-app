@@ -42,8 +42,9 @@ import {
   navigateToMedicines,
   navigateToEngagement,
   navigateToIncident,
-  openAlert,
+  openUpdateReading,
   openHealthKitSyncView,
+  openUpdateGoal,
 } from '../routes/Router';
 import Home from '../api/home';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -136,13 +137,13 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
     navigation.toggleDrawer();
   };
   const onPressDevices = () => {
-    navigateTo('SearchDeviceVC');
+    navigateTo('MyDevices');
   };
   const onPressDiet = () => {
     navigateTo('FoodDiaryParentVC');
   };
   const onPressExercise = () => {
-    navigateTo('ExerciseParentVC');
+    navigateTo('navigateToExercise');
   };
   const onPressMedicine = () => {
     navigateToMedicines('test');
@@ -167,10 +168,14 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
     navigateToPlan('navigateToPlan');
   };
   const onPressReading = (filteredData: any, firstRow: any) => {
-    openAlert([{filteredData: filteredData}, {firstRow: firstRow}]);
+
+    openUpdateReading([{filteredData: filteredData}, {firstRow: firstRow}]);
   };
 
-  const onPressGoal = () => {};
+  const onPressGoal = (filteredData: any, firstRow: any) => {
+
+    openUpdateGoal([{filteredData: filteredData}, {firstRow: firstRow}])
+  };
 
   const onPressLearnItem = (contentId: string, contentType: string) => {
     navigateToEngagement(contentId.toString());
