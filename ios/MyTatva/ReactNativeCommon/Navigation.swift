@@ -26,6 +26,14 @@ class Navigation: NSObject {
             }
         }
     }
+    @objc
+    func navigateToExercise() -> Void {
+        if let carePlan = UIApplication.topViewController()?.parent as? TabbarVC {
+            DispatchQueue.main.async {
+                carePlan.selectedIndex = 3
+            }
+        }
+    }
     
     @objc
     func navigateToEngagement(_ content_id : NSString) -> Void {
@@ -99,7 +107,7 @@ class Navigation: NSObject {
         })
     }
     
-    
+    @objc
     func openUpdateGoal(_ selectedType: NSArray) {
         let fileteredData = selectedType.firstObject as? NSDictionary
         //print(fileteredData?["filteredData"],"===========>>")
@@ -144,7 +152,7 @@ class Navigation: NSObject {
         }
     }
     @objc
-    func openAlert(_ selectedType: NSArray) -> Void {
+    func openUpdateReading(_ selectedType: NSArray) -> Void {
         
         //let fileteredData = selectedType.firstObject as? NSDictionary
                //print(fileteredData?["filteredData"],"===========>>")

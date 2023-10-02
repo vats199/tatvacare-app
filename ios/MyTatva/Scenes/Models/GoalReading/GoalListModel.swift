@@ -65,14 +65,14 @@ class GoalListModel : NSObject, NSCoding {
         self.updatedBy = data["updated_by"] as? String
         self.achievedDatetime = data["achieved_datetime"] as? String
         self.endTime = data["end_time"] as? String
-        self.goalValue = data["goal_value"] as? String
+        self.goalValue = "\(data["goal_value"] as? Float ?? 0)"
         self.patientGoalRelId = data["patient_goal_rel_id"] as? String
         self.patientSubGoalId = data["patient_sub_goal_id"] as? String
         self.startTime = data["start_time"] as? String
         self.endDate = data["end_date"] as? String
         self.startDate = data["start_date"] as? String
         self.achievedValue = data["achieved_value"] as? Int
-        self.todaysAchievedValue = data["todays_achieved_value"] as? String
+        self.todaysAchievedValue = "\(data["todays_achieved_value"] as? Float ?? 0)"
         self.goalsRequired = data["goals_required"] as? String
         self.orderNo = data["order_no"] as? Int
         self.avgCurrent = data["avg_current"] as? Int

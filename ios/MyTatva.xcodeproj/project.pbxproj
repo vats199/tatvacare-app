@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -6301,10 +6301,10 @@
 				91A1754526789CC500297B66 /* Sources */,
 				91A1754626789CC500297B66 /* Frameworks */,
 				91A1754726789CC500297B66 /* Resources */,
-				615D0A4A272FE20A00FB69A7 /* ShellScript */,
 				61987C4F27426C1E006DE385 /* Embed App Extensions */,
 				FFEB735D4C3DF8DC6CA111A5 /* [CP] Embed Pods Frameworks */,
 				9AADC7472A124214003D627D /* Embed Frameworks */,
+				615D0A4A272FE20A00FB69A7 /* ShellScript */,
 				5212E8552AB241FA00076F2C /* Run Script */,
 				A33614192AC5880D00CF5B14 /* Bundle React Native code and image */,
 				AB7F8DC37CA13C2EBD3D4E10 /* [CP] Copy Pods Resources */,
