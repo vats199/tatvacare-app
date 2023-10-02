@@ -6,12 +6,14 @@ import {
   Text,
   View,
   TouchableOpacity,
+  FlatList,
 } from 'react-native';
 import React from 'react';
 import {colors} from '../../constants/colors';
 import {Icons} from '../../constants/icons';
 import ProgressBar from '../atoms/ProgressBar';
 import moment from 'moment';
+import PlanItem from '../atoms/PlanItem';
 
 type CarePlanViewProps = {
   data?: any;
@@ -24,6 +26,9 @@ const CarePlanView: React.FC<CarePlanViewProps> = ({
   onPressCarePlan,
   allPlans = [],
 }) => {
+  const isFreePlan: boolean =
+    data?.patient_plans && data?.patient_plans[0]?.plan_type === 'Free';
+
   const getPlanProgress = (plan: any) => {
     if (plan?.plan_end_date && plan?.plan_start_date) {
       const planDuration = moment(plan?.plan_end_date).diff(
@@ -45,53 +50,102 @@ const CarePlanView: React.FC<CarePlanViewProps> = ({
       return 0;
     }
   };
+
+  const onPressKnowMore = (plan: any) => {};
+
+  const renderPlanItem = ({item, index}: {item: any; index: number}) => {
+    return (
+      <PlanItem plan={item} onPressKnowMore={() => onPressKnowMore(item)} />
+    );
+  };
+
   return (
-    <ScrollView
-      horizontal
-      showsHorizontalScrollIndicator={false}
-      bounces={false}>
-      {data?.patient_plans?.length > 0 &&
-        data?.patient_plans?.map((plan: any, planIdx: number) => {
-          return (
-            <TouchableOpacity onPress={onPressCarePlan}>
-              <View key={planIdx} style={styles.container}>
-                <View style={styles.details}>
-                  <Text style={styles.title}>{plan?.plan_name || '-'}</Text>
-                  <Text style={styles.subTitle}>{plan?.sub_title || '-'}</Text>
-                  <ProgressBar progress={getPlanProgress(plan) || 0} />
-                  <Text style={styles.expiry}>
-                    Expires on{' '}
-                    {plan?.plan_end_date
-                      ? moment(plan?.plan_end_date).format('MMMM Do yyyy')
-                      : '-'}
-                  </Text>
-                </View>
-                {
-                  // plan?.image_url ?
-                  //     <Image resizeMode='contain' style={styles.image} source={{ uri: plan?.image_url }} />
-                  //     :
+    <>
+      {data?.patient_plans?.length <= 0 || isFreePlan ? (
+        <View style={styles.compcontainer}>
+          <View style={styles.rowBetween}>
+            <View>
+              <Text style={styles.cp}>Care Plans for all your needs</Text>
+              <Text style={styles.subTitle}>
+                Bundled with diagnostic tests and more.
+              </Text>
+            </View>
+            <Icons.CarePlan />
+          </View>
+          <FlatList
+            data={allPlans}
+            keyExtractor={(_item, index) => index.toString()}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            renderItem={renderPlanItem}
+            ItemSeparatorComponent={() => <View style={styles.itemSep} />}
+          />
+        </View>
+      ) : (
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          bounces={false}>
+          {data?.patient_plans?.map((plan: any, planIdx: number) => {
+            return (
+              <TouchableOpacity onPress={onPressCarePlan}>
+                <View key={planIdx} style={styles.container}>
+                  <View style={styles.details}>
+                    <Text style={styles.title}>{plan?.plan_name || '-'}</Text>
+                    <Text style={styles.subTitle}>
+                      {plan?.sub_title || '-'}
+                    </Text>
+                    <ProgressBar progress={getPlanProgress(plan) || 0} />
+                    <Text style={styles.expiry}>
+                      Expires on{' '}
+                      {plan?.plan_end_date
+                        ? moment(plan?.plan_end_date).format('MMMM Do yyyy')
+                        : '-'}
+                    </Text>
+                  </View>
                   <Icons.CarePlan />
-                }
-              </View>
-            </TouchableOpacity>
-          );
-        })}
-    </ScrollView>
+                </View>
+              </TouchableOpacity>
+            );
+          })}
+        </ScrollView>
+      )}
+    </>
   );
 };
 
 export default CarePlanView;
 
 const styles = StyleSheet.create({
+  compcontainer: {
+    marginVertical: 10,
+    backgroundColor: colors.white,
+    borderRadius: 12,
+    padding: 10,
+    width: '100%',
+  },
+  rowBetween: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  itemSep: {
+    width: 10,
+  },
   container: {
     marginVertical: 10,
     backgroundColor: colors.white,
     borderRadius: 12,
     padding: 10,
-    display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    minWidth: Dimensions.get('screen').width - 45,
+    justifyContent: 'space-between',
+    width: Dimensions.get('screen').width - 45,
+  },
+  cp: {
+    color: colors.labelDarkGray,
+    fontWeight: '600',
+    fontSize: 14,
   },
   details: {
     marginRight: 5,

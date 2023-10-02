@@ -113,8 +113,13 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   };
 
   const getMyHealthInsights = async () => {
-    const insights = await Home.getMyHealthInsights({});
-    setHealthInsights(insights?.data);
+    // const insights = await Home.getMyHealthInsights({});
+    // setHealthInsights(insights?.data);
+    const goalsAndReadings = await Home.getGoalsAndReadings({
+      current_datetime: new Date().toISOString(),
+    });
+    console.log(goalsAndReadings);
+    setHealthInsights(goalsAndReadings.data);
   };
 
   const getMyHealthDiaries = async () => {
@@ -135,7 +140,6 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   };
   const onPressDiet = () => {
     navigateTo('FoodDiaryParentVC');
-    // navigateTo('PlanDetailsVC');
   };
   const onPressExercise = () => {
     navigateTo('ExerciseParentVC');
@@ -157,11 +161,9 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
     navigateTo('LabTestListVC');
   };
   const onPressBookDevices = () => {
-    // navigateTo('SearchDeviceVC');
     navigateTo('MyDevices');
   };
   const onPressCarePlan = () => {
-    // navigateTo('BCPCarePlanDetailVC');
     navigateToPlan('navigateToPlan');
   };
   const onPressReading = (filteredData: any, firstRow: any) => {
@@ -210,9 +212,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
               ref={inputRef}
             />
           </View>
-          <ScrollView
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={{paddingBottom: 70}}>
+          <ScrollView showsVerticalScrollIndicator={false}>
             <CarePlanView
               data={carePlanData}
               onPressCarePlan={onPressCarePlan}

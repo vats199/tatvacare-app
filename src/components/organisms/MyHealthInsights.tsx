@@ -23,8 +23,8 @@ const MyHealthInsights: React.FC<MyHealthInsightsProps> = ({
   onPressReading,
   onPressGoal,
 }) => {
-  const goals: any[] = data?.goal_data;
-  const readings: any[] = data?.readings_response;
+  const goals: any[] = data?.goals;
+  const readings: any[] = data?.readings;
 
   const getValue = (val: any) => {
     if (val || (val == 0 && val !== '')) {
