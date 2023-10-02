@@ -157,6 +157,10 @@ class BCPCarePlanVC: LightPurpleNavigationBase {
     }
     
     //MARK: - Button Action Methods -
+    @IBAction func onGoBack(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+
 }
 
 //MARK: UITableViewDelegate and UITableViewDataSource

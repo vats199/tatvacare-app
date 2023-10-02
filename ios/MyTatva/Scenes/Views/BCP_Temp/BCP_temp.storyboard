@@ -89,7 +89,11 @@
                     </view>
                     <navigationItem key="navigationItem" id="8Ov-HN-4AR">
                         <leftBarButtonItems>
-                            <barButtonItem image="back_ic" id="AFB-Rp-6rN"/>
+                            <barButtonItem image="back_ic" id="AFB-Rp-6rN">
+                                <connections>
+                                    <action selector="onGoBack:" destination="Y6W-OH-hqX" id="AVM-2e-uJJ"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem style="plain" id="sOk-m9-kOy">
                                 <view key="customView" contentMode="scaleToFill" id="8XB-lf-Q31">
                                     <rect key="frame" x="48.5" y="5.5" width="92" height="33"/>
@@ -2392,16 +2396,16 @@
                                                         <rect key="frame" x="0.0" y="1188" width="414" height="132.5"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ueg-UH-QdC">
-                                                                <rect key="frame" x="16" y="0.0" width="382" height="20.5"/>
+                                                                <rect key="frame" x="16" y="0.0" width="382" height="68"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9K2-bF-K0W">
-                                                                <rect key="frame" x="16" y="32.5" width="382" height="100"/>
+                                                                <rect key="frame" x="16" y="80" width="382" height="52.5"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CYz-Kt-yfL">
-                                                                        <rect key="frame" x="16" y="16" width="350" height="68"/>
+                                                                        <rect key="frame" x="16" y="16" width="350" height="20.5"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>

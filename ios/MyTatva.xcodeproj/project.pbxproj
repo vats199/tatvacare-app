@@ -796,6 +796,8 @@
 		9AF1E62829FFA1C0002CF3D8 /* SomeoneElsePopupVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF1E62729FFA1C0002CF3D8 /* SomeoneElsePopupVM.swift */; };
 		9AF1E62A29FFA4CE002CF3D8 /* SomeoneElseDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF1E62929FFA4CE002CF3D8 /* SomeoneElseDataModel.swift */; };
 		A3FAD6252AC959030026CE46 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = A3FAD6242AC959030026CE46 /* main.jsbundle */; };
+		A3FAD6282ACAA2F50026CE46 /* DevicesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FAD6272ACAA2F50026CE46 /* DevicesVC.swift */; };
+		A3FAD62B2ACABB060026CE46 /* DevicesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FAD62A2ACABB060026CE46 /* DevicesViewModel.swift */; };
 		B8604DF02E0C2D06389976FD /* Pods_MyTatvaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8812ED21F4E5B3EE77B1ABF /* Pods_MyTatvaTests.framework */; };
 		BF33826EC9D0A0C48EE46588 /* BcaVitalsDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2509CDD5D4A1BE01B75F4BB1 /* BcaVitalsDetailsVC.swift */; };
 		BFAA0D6644207B582BFBA3CB /* Pods_MyTatvaNotificationService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF2F1970E270DDCE225DC47F /* Pods_MyTatvaNotificationService.framework */; };
@@ -1732,6 +1734,8 @@
 		A309C6272AC858590095AADF /* GoogleMaps.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = GoogleMaps.xcframework; path = Pods/GoogleMaps/Maps/Frameworks/GoogleMaps.xcframework; sourceTree = "<group>"; };
 		A36CD15F12E71C79351A3420 /* BcaVitalsDetailsTypeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BcaVitalsDetailsTypeVC.swift; sourceTree = "<group>"; };
 		A3FAD6242AC959030026CE46 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
+		A3FAD6272ACAA2F50026CE46 /* DevicesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesVC.swift; sourceTree = "<group>"; };
+		A3FAD62A2ACABB060026CE46 /* DevicesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesViewModel.swift; sourceTree = "<group>"; };
 		A6FEE104F66D229A87C5E44C /* Pods-NotificationViewController.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationViewController.release.xcconfig"; path = "Target Support Files/Pods-NotificationViewController/Pods-NotificationViewController.release.xcconfig"; sourceTree = "<group>"; };
 		BCFDED6C635C9CBCE4693024 /* BCAAddAddressVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCAAddAddressVC.swift; sourceTree = "<group>"; };
 		BDC02DF0FBC43D6C933CAE4A /* Pods-MyTatvaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyTatvaTests.debug.xcconfig"; path = "Target Support Files/Pods-MyTatvaTests/Pods-MyTatvaTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -5691,6 +5695,7 @@
 		916738922678A7D3004EB2F4 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				A3FAD6262ACAA2BE0026CE46 /* Devices */,
 				61A0C9C726E8A49D000685D2 /* TabbarVC.swift */,
 				9A74865E2A0B6C88005DD835 /* ConnectDevice */,
 				9A5BE47C2A0A700C0001CBC3 /* SearchDevice */,
@@ -6065,6 +6070,23 @@
 				9A76664EB431844A7A80D0EB /* AddAddress */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		A3FAD6262ACAA2BE0026CE46 /* Devices */ = {
+			isa = PBXGroup;
+			children = (
+				A3FAD6292ACABAF90026CE46 /* viewModel */,
+				A3FAD6272ACAA2F50026CE46 /* DevicesVC.swift */,
+			);
+			path = Devices;
+			sourceTree = "<group>";
+		};
+		A3FAD6292ACABAF90026CE46 /* viewModel */ = {
+			isa = PBXGroup;
+			children = (
+				A3FAD62A2ACABB060026CE46 /* DevicesViewModel.swift */,
+			);
+			path = viewModel;
 			sourceTree = "<group>";
 		};
 		BF60EF9C47ACF52A23099721 /* VitalsDetails */ = {
@@ -6741,6 +6763,7 @@
 				61D493D828EBFA3B002EB054 /* GoogleService-Info.plist in Sources */,
 				6139C85B26EB908E00C8ACCC /* UpdateCommonReadingPopupVC.swift in Sources */,
 				61B3F2BE29D6F74C00FC005F /* ViewAllPaymentHistoryVM.swift in Sources */,
+				A3FAD6282ACAA2F50026CE46 /* DevicesVC.swift in Sources */,
 				618759BE26CFF1DB00C5C993 /* BusinessDetailModel.swift in Sources */,
 				616A883D270AC8D400C661C9 /* CarePlanPopupChartManager.swift in Sources */,
 				D2078DA72A24BD08000E3291 /* BCASelectAddressListVC.swift in Sources */,
@@ -7069,6 +7092,7 @@
 				6196E9C428EAB451001935F1 /* UpdateTotalCholesterolReadingPopupVM.swift in Sources */,
 				61B7B54E27E2117400C777B3 /* SelectLabTestAppointmentVM.swift in Sources */,
 				6139C85E26EB90AD00C8ACCC /* UpdateReadingPopupVM.swift in Sources */,
+				A3FAD62B2ACABB060026CE46 /* DevicesViewModel.swift in Sources */,
 				615122DC272A806E007EC85C /* ExerciseParentVC.swift in Sources */,
 				616DAB722720176C00D17D48 /* BookmarkListModel.swift in Sources */,
 				6183EBCC26F1C0FE001CD105 /* GoogleAnalytics.swift in Sources */,

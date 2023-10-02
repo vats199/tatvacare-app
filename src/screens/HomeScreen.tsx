@@ -116,7 +116,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
         navigation.toggleDrawer();
     }
     const onPressDevices = () => {
-        navigateTo('SearchDeviceVC');
+        navigateTo('MyDevices');
     }
     const onPressDiet = () => {
         navigateTo('FoodDiaryParentVC')
