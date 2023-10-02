@@ -41,6 +41,7 @@ import {
   openHealthKitSyncView,
   openUpdateGoal,
   navigateToExercise,
+  getHomeScreenDataStatus,
 } from '../routes/Router';
 import Home from '../api/home';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -136,6 +137,13 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
     navigateTo('NotificationVC');
   };
   const onPressProfile = () => {
+   getHomeScreenDataStatus((error:any, data:any) => {
+        if (error) { 
+           console.log(error,'error');
+        } else {
+           console.log(data,'data=========>');
+        }
+    })
     navigation.toggleDrawer();
   };
   const onPressDevices = () => {

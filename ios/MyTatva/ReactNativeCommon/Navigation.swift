@@ -7,10 +7,21 @@
 
 import Foundation
 //  Navigation.swift
+import React
 @objc(Navigation)
 class Navigation: NSObject {
     
-    
+    static var is_home_data_update_required = false
+    @objc
+    func getHomeScreenDataStatus(_ callBack: RCTResponseSenderBlock) {
+        defer {
+            Navigation.is_home_data_update_required = false
+            print("is_home_data_update_required set : ", Navigation.is_home_data_update_required)
+        }
+        callBack([Navigation.is_home_data_update_required])
+        print("is_home_data_update_required return : ", Navigation.is_home_data_update_required)
+        //return ["home_screen_status": Navigation.is_home_data_update_required]
+    }
     
     @objc
     func navigateToHistory(_ selectedType: NSString) -> Void {
@@ -141,6 +152,11 @@ class Navigation: NSObject {
         
     
         vc.completionHandler = { obj in
+            print("data waiting to updated---")
+            if obj?.count > 0 {
+                print("data updated---")
+                Navigation.is_home_data_update_required = true
+            }
             /*if type == .Medication ||
                 type == .Pranayam {
                 
@@ -165,8 +181,8 @@ class Navigation: NSObject {
     func openUpdateReading(_ selectedType: NSArray) -> Void {
         
         //let fileteredData = selectedType.firstObject as? NSDictionary
-               //print(fileteredData?["filteredData"],"===========>>")
-       //        print(fileteredData?["filteredData"] as? [ReadingListModel] ?? [],"+++++++++++++")
+        //print(fileteredData?["filteredData"],"===========>>")
+        //print(fileteredData?["filteredData"] as? [ReadingListModel] ?? [],"+++++++++++++")
         
        // let data = fileteredData?["filteredData"] as! NSDictionary
         //print(data,"+++++++++>>")
@@ -204,16 +220,17 @@ class Navigation: NSObject {
         vc.arrList = arrReadingList//fileteredData?["filteredData"] as? [ReadingListModel] ?? []
         vc.modalPresentationStyle = .overFullScreen
         vc.modalTransitionStyle = .crossDissolve
-//        vc.completionHandler = { obj in
-//            if obj?.count > 0 {
-//                print(obj ?? "")
-//                //object
-////                                    self.tblReadings.reloadData()
-//                self.viewModel.apiCallFromStart_reading(refreshControl: self.refreshControl,
-//                                                tblView: self.tblGoals,
-//                                                withLoader: true)
-//            }
-//        }
+        vc.completionHandler = { obj in
+            print("data waiting to updated---")
+            if obj?.count > 0 {
+                print("data updated---")
+                Navigation.is_home_data_update_required = true
+                //print(obj ?? "")
+                //object
+//                                    self.tblReadings.reloadData()
+                //self.viewModel.apiCallFromStart_reading(refreshControl: self.refreshControl, tblView: self.tblGoals,withLoader: true)
+            }
+        }
         DispatchQueue.main.async {
             UIApplication.topViewController()?.present(vc, animated: true)
         }

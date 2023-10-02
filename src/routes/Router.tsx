@@ -26,6 +26,8 @@ export const openUpdateReading = Navigation.openUpdateReading;
 export const navigateToExercise = Navigation.navigateToExercise;
 export const openUpdateGoal = Navigation.openUpdateGoal;
 export const openHealthKitSyncView = Navigation.openHealthKitSyncView;
+export const getHomeScreenDataStatus = Navigation.getHomeScreenDataStatus;
+
 export const goBack = Navigation.goBack();
 
 const Drawer = createDrawerNavigator<DrawerParamList>();

@@ -41,7 +41,7 @@ const MyHealthInsights: React.FC<MyHealthInsightsProps> = ({
       <TouchableOpacity
         key={index.toString()}
         style={styles.hiItemContainerBottom}
-        onPress={() => onPressReading(data?.readings_response, item.keys)}>
+        onPress={() => onPressReading(data?.readings, item.keys)}>
         <View style={styles.row}>
           <Image
             resizeMode="contain"
@@ -65,7 +65,7 @@ const MyHealthInsights: React.FC<MyHealthInsightsProps> = ({
       <TouchableOpacity
         key={index.toString()}
         style={styles.hiItemContainerTop}
-        onPress={() => onPressGoal(data?.goal_data, item.keys)}>
+        onPress={() => onPressGoal(data?.goals, item.keys)}>
         <View style={styles.row}>
           <Image
             resizeMode="contain"
