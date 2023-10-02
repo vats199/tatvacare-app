@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Alert,NativeModules } from 'react-native';
+import {Alert, NativeModules} from 'react-native';
 import config from './config';
-import Config from "react-native-config"
+import Config from 'react-native-config';
 import CRYPTO from 'crypto-js';
 
 const POST = 'post';
@@ -10,20 +10,23 @@ const PUT = 'put';
 const PATCH = 'patch';
 const DELETE = 'delete';
 const DEFAULT_ERROR = 'Something went wrong, Please try again later';
-console.log(NativeModules.RNShare.token,'RNShareRNShareRNShareRNShare==>');
+console.log(NativeModules.RNShare.token, 'RNShareRNShareRNShareRNShare==>');
 
 // BASE_URL=https://api-uat.mytatva.in/api/v6
 // encKey=9Ddyaf6rfywpiTvTiax2iq6ykKpaxgJ6
 // encIV=9Ddyaf6rfywpiTvT
 // apiKey=
 
-
 export const getEncryptedText = (data: any) => {
-  var truncHexKey = CRYPTO.SHA256(Config.encKey || "9Ddyaf6rfywpiTvTiax2iq6ykKpaxgJ6").toString().substr(0, 32); // hex encode and truncate
+  var truncHexKey = CRYPTO.SHA256(
+    Config.encKey || '9Ddyaf6rfywpiTvTiax2iq6ykKpaxgJ6',
+  )
+    .toString()
+    .substr(0, 32); // hex encode and truncate
 
   var key = CRYPTO.enc.Utf8.parse(truncHexKey);
 
-  var iv = CRYPTO.enc.Utf8.parse(Config.encIV || "9Ddyaf6rfywpiTvT");
+  var iv = CRYPTO.enc.Utf8.parse(Config.encIV || '9Ddyaf6rfywpiTvT');
 
   var ciphertext = CRYPTO.AES.encrypt(JSON.stringify(data), key, {
     iv: iv,
@@ -31,14 +34,18 @@ export const getEncryptedText = (data: any) => {
   });
 
   return ciphertext.toString();
-}
+};
 
 export const getDecryptedData = (cipher: string) => {
-  var truncHexKey = CRYPTO.SHA256(Config.encKey || "9Ddyaf6rfywpiTvTiax2iq6ykKpaxgJ6").toString().substr(0, 32); // hex encode and truncate
+  var truncHexKey = CRYPTO.SHA256(
+    Config.encKey || '9Ddyaf6rfywpiTvTiax2iq6ykKpaxgJ6',
+  )
+    .toString()
+    .substr(0, 32); // hex encode and truncate
 
   var key = CRYPTO.enc.Utf8.parse(truncHexKey);
 
-  var iv = CRYPTO.enc.Utf8.parse(Config.encIV || "9Ddyaf6rfywpiTvT");
+  var iv = CRYPTO.enc.Utf8.parse(Config.encIV || '9Ddyaf6rfywpiTvT');
 
   var decryptedData = CRYPTO.AES.decrypt(cipher, key, {
     iv: iv,
@@ -46,7 +53,7 @@ export const getDecryptedData = (cipher: string) => {
   });
 
   return decryptedData.toString(CRYPTO.enc.Utf8);
-}
+};
 
 const getToken = async () => {
   try {
@@ -61,18 +68,16 @@ const getToken = async () => {
 };
 
 const handleResponse = async (response: any) => {
-
   const contentType = response.headers.get('Content-Type');
 
-
   if (contentType && contentType.indexOf('application/json') !== -1) {
-    const jsonRes = await response.json()
-    const parsedResponse = await JSON.parse(getDecryptedData(jsonRes))
+    const jsonRes = await response.json();
+    const parsedResponse = await JSON.parse(getDecryptedData(jsonRes));
 
     if (parsedResponse?.code == 1) {
-      return { data: parsedResponse?.data }
+      return {data: parsedResponse?.data};
     } else {
-      return {}
+      return {};
     }
   } else {
     return response.text();
@@ -92,17 +97,14 @@ const request: any = async (
     priv = true,
   },
 ) => {
-  console.log(Config.apiKey,'apiKeyapiKeyapiKey');
-  console.log(NativeModules.RNShare.token,'tokentokentoken==>');
-  
   let init = {
     method: method,
     headers: {
       ...headers,
-      "api-key": 'lChjFRJce3bxmoS3TSQk5w==',
-      'token': NativeModules.RNShare.token
+      'api-key': 'lChjFRJce3bxmoS3TSQk5w==',
+      token: NativeModules.RNShare.token,
     },
-    body: ''
+    body: '',
   };
   if (payload) {
     init = {
@@ -110,7 +112,7 @@ const request: any = async (
       headers: {
         ...init.headers,
       },
-      body: getEncryptedText(payload)
+      body: getEncryptedText(payload),
     };
   }
   // if (formData) {
