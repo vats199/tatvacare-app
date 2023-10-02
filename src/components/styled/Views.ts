@@ -1,7 +1,12 @@
 import styled from "styled-components/native";
 
-export const Container = styled.View`
-    flex: 1;
+export const Screen = styled.SafeAreaView`
+    flex:1;
     background-color: #F9F8FD;
-    padding: 10px;
+`
+
+export const Container = styled.View`
+    flex:1;
+    background-color: #F9F8FD;
+    padding: 0px 20px 0px 20px;
 `
