@@ -31,6 +31,13 @@ const Home = {
       priv: true,
     });
   },
+  getHCDevicePlan: () => {
+    const route = '/patient_plans/hc_device_plan';
+    return Ajax.request(route, {
+      method: Ajax.POST,
+      priv: true,
+    });
+  },
   getGoalsAndReadings: (headers: object) => {
     const route = '/goal_readings/daily_summary';
     return Ajax.request(route, {

@@ -2,17 +2,17 @@ import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {CompositeScreenProps} from '@react-navigation/native';
 import {DrawerScreenProps} from '@react-navigation/drawer';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {
   AppStackParamList,
   DrawerParamList,
 } from '../interface/Navigation.interface';
 import {colors} from '../constants/colors';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {StackScreenProps} from '@react-navigation/stack';
 
 type AboutUsScreenProps = CompositeScreenProps<
   DrawerScreenProps<DrawerParamList, 'AboutUsScreen'>,
-  NativeStackScreenProps<AppStackParamList, 'DrawerScreen'>
+  StackScreenProps<AppStackParamList, 'DrawerScreen'>
 >;
 
 const AboutUsScreen: React.FC<AboutUsScreenProps> = ({navigation, route}) => {

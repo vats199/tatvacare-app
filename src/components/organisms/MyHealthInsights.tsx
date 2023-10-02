@@ -23,6 +23,8 @@ const MyHealthInsights: React.FC<MyHealthInsightsProps> = ({
   onPressReading,
   onPressGoal,
 }) => {
+  const myHealthDiaryItems: string[] = ['Diet', 'Medication', 'Exercise'];
+
   const goals: any[] = data?.goals;
   const readings: any[] = data?.readings;
 
@@ -57,14 +59,13 @@ const MyHealthInsights: React.FC<MyHealthInsightsProps> = ({
       </TouchableOpacity>
     );
   };
-console.log(data?.goal_data,'goal_datagoal_data');
 
   const renderGoals = ({item, index}: {item: any; index: number}) => {
     return (
       <TouchableOpacity
         key={index.toString()}
         style={styles.hiItemContainerTop}
-        onPress={() => onPressGoal(data?.goal_data,item.keys)}>
+        onPress={() => onPressGoal(data?.goal_data, item.keys)}>
         <View style={styles.row}>
           <Image
             resizeMode="contain"
@@ -95,7 +96,9 @@ console.log(data?.goal_data,'goal_datagoal_data');
           contentContainerStyle={styles.scrollContainer}
         />
         <FlatList
-          data={goals}
+          data={goals?.filter(
+            goal => !myHealthDiaryItems.includes(goal.goal_name),
+          )}
           keyExtractor={(_item, index) => index.toString()}
           renderItem={renderGoals}
           horizontal

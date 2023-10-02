@@ -4,7 +4,6 @@ import {
   AppStackParamList,
   DrawerParamList,
 } from '../interface/Navigation.interface';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
 import {
   DrawerContentComponentProps,
@@ -12,6 +11,7 @@ import {
 } from '@react-navigation/drawer';
 import CustomDrawer from '../components/organisms/CustomDrawer';
 import {NativeModules} from 'react-native';
+import {createStackNavigator} from '@react-navigation/stack';
 
 const Navigation = NativeModules.Navigation;
 export const navigateTo = Navigation.navigateTo;
@@ -24,7 +24,6 @@ export const navigateToIncident = Navigation.navigateToIncident;
 export const navigateToShareKit = Navigation.navigateToShareKit;
 export const openUpdateReading = Navigation.openUpdateReading;
 export const openUpdateGoal = Navigation.openUpdateGoal;
-//to open health kit
 export const openHealthKitSyncView = Navigation.openHealthKitSyncView;
 export const goBack = Navigation.goBack();
 
@@ -46,7 +45,7 @@ const DrawerScreen = () => {
   );
 };
 
-const AppStack = createNativeStackNavigator<AppStackParamList>();
+const AppStack = createStackNavigator<AppStackParamList>();
 const Router = () => {
   return (
     <NavigationContainer>

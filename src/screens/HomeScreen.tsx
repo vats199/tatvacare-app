@@ -12,13 +12,10 @@ import {
 } from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import {CompositeScreenProps} from '@react-navigation/native';
-import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import {
   AppStackParamList,
-  BottomTabParamList,
   DrawerParamList,
 } from '../interface/Navigation.interface';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Container, Screen} from '../components/styled/Views';
 import {Icons} from '../constants/icons';
 import {colors} from '../constants/colors';
@@ -30,12 +27,10 @@ import HealthTip from '../components/organisms/HealthTip';
 import MyHealthInsights from '../components/organisms/MyHealthInsights';
 import MyHealthDiary from '../components/organisms/MyHealthDiary';
 import HomeHeader from '../components/molecules/HomeHeader';
-import CRYPTO from 'crypto-js';
 import AdditionalCareServices from '../components/organisms/AdditionalCareServices';
 import Learn from '../components/organisms/Learn';
 import SearchModal from '../components/molecules/SearchModal';
 import {DrawerScreenProps} from '@react-navigation/drawer';
-import RNShare from '../native/RNShare';
 import {
   navigateTo,
   navigateToPlan,
@@ -48,10 +43,11 @@ import {
 } from '../routes/Router';
 import Home from '../api/home';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {StackScreenProps} from '@react-navigation/stack';
 
 type HomeScreenProps = CompositeScreenProps<
   DrawerScreenProps<DrawerParamList, 'HomeScreen'>,
-  NativeStackScreenProps<AppStackParamList, 'DrawerScreen'>
+  StackScreenProps<AppStackParamList, 'DrawerScreen'>
 >;
 
 const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
@@ -72,6 +68,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
     getLearnMoreData();
     getPlans();
     getMyHealthInsights();
+    getHCDevicePlans();
     getMyHealthDiaries();
   }, []);
 
@@ -113,13 +110,17 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
     setAllPlans(allPlans?.data ?? []);
   };
 
+  const getHCDevicePlans = async () => {
+    const hcDevicePlans = await Home.getHCDevicePlan();
+    console.log('hcDevicePlanshcDevicePlanshcDevicePlans', hcDevicePlans);
+  };
+
   const getMyHealthInsights = async () => {
     // const insights = await Home.getMyHealthInsights({});
     // setHealthInsights(insights?.data);
     const goalsAndReadings = await Home.getGoalsAndReadings({
       current_datetime: new Date().toISOString(),
     });
-    console.log(goalsAndReadings);
     setHealthInsights(goalsAndReadings.data);
   };
 
@@ -168,13 +169,11 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
     navigateToPlan('navigateToPlan');
   };
   const onPressReading = (filteredData: any, firstRow: any) => {
-
     openUpdateReading([{filteredData: filteredData}, {firstRow: firstRow}]);
   };
 
   const onPressGoal = (filteredData: any, firstRow: any) => {
-
-    openUpdateGoal([{filteredData: filteredData}, {firstRow: firstRow}])
+    openUpdateGoal([{filteredData: filteredData}, {firstRow: firstRow}]);
   };
 
   const onPressLearnItem = (contentId: string, contentType: string) => {
@@ -182,16 +181,13 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   };
 
   const onPressBookmark = async (data: any) => {
-    if (data?.bookmarked !== 'Y') {
-      const payload = {
-        content_master_id: data?.content_master_id,
-        is_active: data?.is_active,
-      };
-      const resp = await Home.addBookmark({}, payload);
-
-      if (resp?.data) {
-        getLearnMoreData();
-      }
+    const payload = {
+      content_master_id: data?.content_master_id,
+      is_active: data?.is_active === 'Y' ? 'N' : 'Y',
+    };
+    const resp = await Home.addBookmark({}, payload);
+    if (resp?.data) {
+      getLearnMoreData();
     }
   };
 
@@ -238,6 +234,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
               onPressMedicine={onPressMedicine}
               onPressMyIncidents={onPressMyIncidents}
               data={healthDiaries}
+              healthInsights={healthInsights}
             />
             <AdditionalCareServices
               onPressConsultNutritionist={onPressConsultNutritionist}
