@@ -36,6 +36,7 @@ class UpdateExercisePopupVC: ClearNavigationFontBlackBaseVC {
     @IBOutlet weak var btnAdd               : UIButton!
     @IBOutlet weak var btnAddAndNext        : UIButton!
     @IBOutlet weak var btnCancelTop         : UIButton!
+    @IBOutlet weak var btnBackTop         : UIButton!
     @IBOutlet weak var btnEditGoal          : UIButton!
     
     @IBOutlet weak var vwHKConnect          : UIView!
@@ -275,6 +276,14 @@ class UpdateExercisePopupVC: ClearNavigationFontBlackBaseVC {
         }
         
         self.btnCancelTop.addTapGestureRecognizer { [weak self] in
+            guard let self = self else { return }
+            //let obj         = JSON()
+            var obj         = JSON()
+            obj["isDone"]   = true
+            self.dismissPopUp(true, objAtIndex: obj)
+        }
+        
+        self.btnBackTop.addTapGestureRecognizer { [weak self] in
             guard let self = self else { return }
             //let obj         = JSON()
             var obj         = JSON()

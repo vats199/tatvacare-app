@@ -4,9 +4,9 @@ import {colors} from '../../constants/colors';
 import {Icons} from '../../constants/icons';
 
 type MyHealthDiaryProps = {
-  onPressMedicine: () => void;
+  onPressMedicine: (data: any) => void;
   onPressDiet: () => void;
-  onPressExercise: () => void;
+  onPressExercise: (data: any) => void;
   onPressDevices: () => void;
   onPressMyIncidents: () => void;
   data: any;
@@ -75,7 +75,7 @@ const MyHealthDiary: React.FC<MyHealthDiaryProps> = ({
         medicineObj?.achieved_value > 0
           ? `${medicineObj.achieved_value}/${medicineObj.goal_value}`
           : 'Log and track your medicines!',
-      onPress: onPressMedicine,
+      onPress: () => onPressMedicine(healthInsights.goals),
     },
     {
       title: 'Diet',
@@ -91,7 +91,7 @@ const MyHealthDiary: React.FC<MyHealthDiaryProps> = ({
         exeObj?.achieved_value > 0
           ? `${exeObj.achieved_value}/${exeObj.goal_value}`
           : 'Log your exercise details!',
-      onPress: onPressExercise,
+      onPress: () => onPressExercise(healthInsights.goals),
     },
     {
       title: 'Devices',

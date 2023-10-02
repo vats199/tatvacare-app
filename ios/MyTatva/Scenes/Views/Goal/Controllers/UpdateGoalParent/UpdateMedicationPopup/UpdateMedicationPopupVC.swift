@@ -32,6 +32,7 @@ class UpdateMedicationPopupVC: ClearNavigationFontBlackBaseVC {
     @IBOutlet weak var btnSubmit        : UIButton!
     @IBOutlet weak var btnMarkAllDone   : UIButton!
     @IBOutlet weak var btnCancelTop     : UIButton!
+    @IBOutlet weak var btnBackTop     : UIButton!
     
     @IBOutlet weak var vwHKConnect      : UIView!
     @IBOutlet weak var lblHKConnect     : UILabel!
@@ -302,6 +303,12 @@ class UpdateMedicationPopupVC: ClearNavigationFontBlackBaseVC {
                                      parameter: nil)
             self.viewModel.markAllData()
             self.tblView.reloadData()
+        }
+        
+        self.btnBackTop.addTapGestureRecognizer {
+            var obj         = JSON()
+            obj["isDone"]   = true
+            self.dismissPopUp(true, objAtIndex: obj)
         }
         
         self.btnCancelTop.addTapGestureRecognizer {

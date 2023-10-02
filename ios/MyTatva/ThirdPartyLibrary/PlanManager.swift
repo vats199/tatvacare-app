@@ -100,8 +100,10 @@ class PlanManager: NSObject {
         
         if let plans = UserModel.shared.patientPlans {
             for plan in plans {
+                print(plan.featuresRes,"feature res====>")
                 for feature in plan.featuresRes {
                     if let planType = FeatureType.init(rawValue: feature.featureKeys) {
+                        print(planType,"plantype")
                         if type == planType {
                             switch type {
                                
