@@ -61,8 +61,6 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   const [healthInsights, setHealthInsights] = React.useState<any>({});
   const [healthDiaries, setHealthDiaries] = React.useState<any>([]);
 
-  const inputRef = useRef<AnimatedInputFieldRef>(null);
-
   useEffect(() => {
     getCurrentLocation();
     getHomeCarePlan();
@@ -144,14 +142,14 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   const onPressDiet = () => {
     navigateTo('FoodDiaryParentVC');
   };
-  const onPressExercise = (filteredData : any) => {
-        // navigateToMedicines('test');
-        navigateToExercise([{filteredData: filteredData}, {firstRow: 'exercise'}])
+  const onPressExercise = (filteredData: any) => {
+    // navigateToMedicines('test');
+    navigateToExercise([{filteredData: filteredData}, {firstRow: 'exercise'}]);
     // navigateTo('navigateToExercise');
   };
-  const onPressMedicine = (filteredData : any) => {
+  const onPressMedicine = (filteredData: any) => {
     // navigateToMedicines('test');
-    openUpdateGoal([{filteredData: filteredData}, {firstRow: 'medication'}])
+    openUpdateGoal([{filteredData: filteredData}, {firstRow: 'medication'}]);
   };
   const onPressMyIncidents = () => {
     navigateToIncident();
@@ -206,17 +204,17 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
             userLocation={location}
           />
           <Text style={styles.goodMorning}>{getGreetings()} Test!</Text>
-          <View style={styles.searchContainer}>
+          <TouchableOpacity
+            style={styles.searchContainer}
+            activeOpacity={1}
+            onPress={() => {
+              navigateTo('GlobalSearchParentVC');
+            }}>
             <Icons.Search />
-            <InputField
-              value={search}
-              onChangeText={e => setSearch(e)}
-              placeholder={'Find resources to manage your condition'}
-              style={styles.searchField}
-              onFocus={() => navigateTo('GlobalSearchParentVC')}
-              ref={inputRef}
-            />
-          </View>
+            <Text style={styles.searchText}>
+              Find resources to manage your condition
+            </Text>
+          </TouchableOpacity>
           <ScrollView showsVerticalScrollIndicator={false}>
             <CarePlanView
               data={carePlanData}
@@ -256,12 +254,6 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
           </ScrollView>
         </Container>
       </Screen>
-      <SearchModal
-        visible={visible}
-        setVisible={setVisible}
-        search={search}
-        setSearch={setSearch}
-      />
     </>
   );
 };
@@ -285,6 +277,11 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     paddingHorizontal: 10,
     marginBottom: 10,
+    paddingVertical: 10,
+  },
+  searchText: {
+    color: colors.subTitleLightGray,
+    marginLeft: 10,
   },
   searchField: {
     borderWidth: 0,
