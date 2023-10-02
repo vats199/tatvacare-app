@@ -45,6 +45,7 @@ import {
   openUpdateReading,
   openHealthKitSyncView,
   openUpdateGoal,
+  navigateToExercise,
 } from '../routes/Router';
 import Home from '../api/home';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -142,11 +143,14 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   const onPressDiet = () => {
     navigateTo('FoodDiaryParentVC');
   };
-  const onPressExercise = () => {
-    navigateTo('navigateToExercise');
+  const onPressExercise = (filteredData : any) => {
+        // navigateToMedicines('test');
+        navigateToExercise([{filteredData: filteredData}, {firstRow: 'exercise'}])
+    // navigateTo('navigateToExercise');
   };
-  const onPressMedicine = () => {
-    navigateToMedicines('test');
+  const onPressMedicine = (filteredData : any) => {
+    // navigateToMedicines('test');
+    openUpdateGoal([{filteredData: filteredData}, {firstRow: 'medication'}])
   };
   const onPressMyIncidents = () => {
     navigateToIncident();
@@ -238,6 +242,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
               onPressMedicine={onPressMedicine}
               onPressMyIncidents={onPressMyIncidents}
               data={healthDiaries}
+              healthInsights={healthInsights}
             />
             <AdditionalCareServices
               onPressConsultNutritionist={onPressConsultNutritionist}

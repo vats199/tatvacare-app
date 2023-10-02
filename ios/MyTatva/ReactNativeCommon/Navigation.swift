@@ -26,14 +26,6 @@ class Navigation: NSObject {
             }
         }
     }
-    @objc
-    func navigateToExercise() -> Void {
-        if let carePlan = UIApplication.topViewController()?.parent as? TabbarVC {
-            DispatchQueue.main.async {
-                carePlan.selectedIndex = 3
-            }
-        }
-    }
     
     @objc
     func navigateToEngagement(_ content_id : NSString) -> Void {
@@ -106,6 +98,23 @@ class Navigation: NSObject {
             }
         })
     }
+    @objc
+    func navigateToExercise(_ selectedType: NSArray) -> Void {
+        PlanManager.shared.isAllowedByPlan(type: .exercise_my_routine_exercise,
+                                           sub_features_id: "",
+                                           completion: { isAllow in
+            if isAllow {
+                if let tabbarVC = UIApplication.topViewController()?.parent as? TabbarVC {
+                    DispatchQueue.main.async {
+                        tabbarVC.selectedIndex = 3
+                    }
+                }
+            }
+            else {
+                self.openUpdateGoal(selectedType)
+            }
+        })
+    }
     
     @objc
     func openUpdateGoal(_ selectedType: NSArray) {
@@ -120,6 +129,7 @@ class Navigation: NSObject {
             arrReadingList.append(GoalListModel(fromDic: data as? NSDictionary ?? [:]))
         }
         let selectedIndex = arrReadingList.firstIndex(where: { $0.keys == key})
+        
         
         let vc = UpdateGoalParentVC.instantiate(fromAppStoryboard: .goal)
     

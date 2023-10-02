@@ -23,6 +23,7 @@ export const navigateToMedicines = Navigation.navigateToMedicines;
 export const navigateToIncident = Navigation.navigateToIncident;
 export const navigateToShareKit = Navigation.navigateToShareKit;
 export const openUpdateReading = Navigation.openUpdateReading;
+export const navigateToExercise = Navigation.navigateToExercise;
 export const openUpdateGoal = Navigation.openUpdateGoal;
 //to open health kit
 export const openHealthKitSyncView = Navigation.openHealthKitSyncView;

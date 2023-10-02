@@ -4,12 +4,13 @@ import { colors } from '../../constants/colors'
 import { Icons } from '../../constants/icons'
 
 type MyHealthDiaryProps = {
-    onPressMedicine: () => void,
+    onPressMedicine: (data:any) => void,
     onPressDiet: () => void,
-    onPressExercise: () => void,
+    onPressExercise: (data:any) => void,
     onPressDevices: () => void,
     onPressMyIncidents: () => void,
     data: any
+    healthInsights: any
 }
 type HealthDiaryItem = {
     title: 'Medicines' | 'Diet' | 'Exercises' | 'Devices' | 'My Incidents',
@@ -17,7 +18,7 @@ type HealthDiaryItem = {
     onPress: () => void
 }
 
-const MyHealthDiary: React.FC<MyHealthDiaryProps> = ({ onPressDevices, onPressDiet, onPressExercise, onPressMedicine, onPressMyIncidents, data }) => {
+const MyHealthDiary: React.FC<MyHealthDiaryProps> = ({ onPressDevices, onPressDiet, onPressExercise, onPressMedicine, onPressMyIncidents, data, healthInsights }) => {
 
  //DYNAMIC DATA FROM API //
 
@@ -53,7 +54,7 @@ const MyHealthDiary: React.FC<MyHealthDiaryProps> = ({ onPressDevices, onPressDi
         {
             title: 'Medicines',
             description: 'Log and track your medicines!',
-            onPress: onPressMedicine
+            onPress:() => onPressMedicine(healthInsights.goals)
         },
         {
             title: 'Diet',
@@ -63,7 +64,7 @@ const MyHealthDiary: React.FC<MyHealthDiaryProps> = ({ onPressDevices, onPressDi
         {
             title: 'Exercises',
             description: 'Log your exercise details!',
-            onPress: onPressExercise
+            onPress:()=> onPressExercise(healthInsights.goals)
         },
         {
             title: 'Devices',
