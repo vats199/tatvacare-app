@@ -34,6 +34,12 @@ import DrawerShareApp from '../assets/icons/drawerShareApp.svg';
 import DrawerRateApp from '../assets/icons/drawerRateApp.svg';
 
 import HealthDiaryMedicines from '../assets/icons/healthDiaryMedicine.svg';
+import MedicineOmbre from '../assets/icons/medicineOmbre.svg';
+import DietOmbre from '../assets/icons/dietOmbre.svg';
+import ExerciseOmbre from '../assets/icons/exerciseOmbre.svg';
+import MedicineGreen from '../assets/icons/medicineGreen.svg';
+import DietGreen from '../assets/icons/dietGreen.svg';
+import ExerciseGreen from '../assets/icons/exerciseGreen.svg';
 import HealthDiaryDiet from '../assets/icons/healthDiaryDiet.svg';
 import HealthDiaryExercise from '../assets/icons/healthDiaryExercise.svg';
 import HealthDiaryDevices from '../assets/icons/healthDiaryDevices.svg';
@@ -73,8 +79,14 @@ export const Icons = {
   PEF,
   HealthDiaryDevices,
   HealthDiaryDiet,
+  DietGreen,
+  DietOmbre,
   HealthDiaryExercise,
+  ExerciseGreen,
+  ExerciseOmbre,
   HealthDiaryMedicines,
+  MedicineGreen,
+  MedicineOmbre,
   HealthDiaryMyIncidents,
   ServicesDevices,
   ServicesDiagnostic,

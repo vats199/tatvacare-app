@@ -110,11 +110,29 @@ const MyHealthDiary: React.FC<MyHealthDiaryProps> = ({
   ) => {
     switch (title) {
       case 'Medicines':
-        return <Icons.HealthDiaryMedicines />;
+        return medicineObj?.achieved_value === 0 ? (
+          <Icons.HealthDiaryMedicines />
+        ) : medicineObj?.achieved_value / medicineObj?.goal_value > 0.75 ? (
+          <Icons.MedicineGreen />
+        ) : (
+          <Icons.MedicineOmbre />
+        );
       case 'Diet':
-        return <Icons.HealthDiaryDiet />;
+        return dietObj?.achieved_value === 0 ? (
+          <Icons.HealthDiaryDiet />
+        ) : dietObj?.achieved_value / dietObj?.goal_value > 0.75 ? (
+          <Icons.DietGreen />
+        ) : (
+          <Icons.DietOmbre />
+        );
       case 'Exercises':
-        return <Icons.HealthDiaryExercise />;
+        return exeObj?.achieved_value === 0 ? (
+          <Icons.HealthDiaryExercise />
+        ) : exeObj?.achieved_value / exeObj?.goal_value > 0.75 ? (
+          <Icons.ExerciseGreen />
+        ) : (
+          <Icons.ExerciseOmbre />
+        );
       case 'Devices':
         return <Icons.HealthDiaryDevices />;
       case 'My Incidents':
