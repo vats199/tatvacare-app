@@ -2,7 +2,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { colors } from '../../constants/colors'
 import { Icons } from '../../constants/icons'
-import { navigateTo } from '../../routes/Router'
+import { navigateTo,navigateToShareKit } from '../../routes/Router'
 
 type DrawerMoreProps = {}
 
@@ -13,6 +13,9 @@ const DrawerMore: React.FC<DrawerMoreProps> = ({ }) => {
      }
     const onHelpAndSupportPress = () => {
         navigateTo('HelpAndSupportVC')
+     }
+    const onShareAppPress = () => {
+        navigateToShareKit()
      }
 
      
@@ -39,7 +42,7 @@ const DrawerMore: React.FC<DrawerMoreProps> = ({ }) => {
                     <Text style={styles.mhdItemText}>About Us</Text>
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.itemContainer} activeOpacity={0.7}>
+            <TouchableOpacity style={styles.itemContainer} activeOpacity={0.7} onPress={onShareAppPress}>
                 <View style={styles.icon}><Icons.DrawerShareApp /></View>
                 <View style={styles.mhdItemTextContainer}>
                     <Text style={styles.mhdItemText}>Share App</Text>

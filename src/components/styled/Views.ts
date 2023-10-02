@@ -1,8 +1,8 @@
 import styled from "styled-components/native";
 
-export const Screen = styled.View`
+export const Screen = styled.SafeAreaView`
     flex:1;
-    margin-top:15px; 
+   
     background-color: #F9F8FD;
 `
 

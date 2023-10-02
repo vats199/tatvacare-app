@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZoP-E5-uid">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZoP-E5-uid">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -2441,7 +2441,7 @@ Basics</string>
                         <leftBarButtonItems>
                             <barButtonItem image="back_ic" id="9Uf-eL-gtV">
                                 <connections>
-                                    <action selector="btnBackTappedWithSender:" destination="Ddt-a1-5M8" id="Vn2-SZ-0yN"/>
+                                    <action selector="onGoBack:" destination="Ddt-a1-5M8" id="nnp-t0-zPz"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem style="plain" id="9zu-GQ-e6A">
@@ -4698,7 +4698,7 @@ Basics</string>
                         <leftBarButtonItems>
                             <barButtonItem image="back_ic" id="Xj7-7a-OQL">
                                 <connections>
-                                    <action selector="popViewControllerWithSender:" destination="Tgb-li-uxP" id="51Y-Hm-T3c"/>
+                                    <action selector="onGoBack:" destination="Tgb-li-uxP" id="TTK-m1-5kK"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem style="plain" id="uFg-TJ-0hf">
@@ -5416,7 +5416,7 @@ Basics</string>
         <image name="more_dot" width="3" height="13"/>
         <image name="report_n" width="8" height="13"/>
         <image name="report_y" width="8" height="13"/>
-        <image name="share_ic" width="14.666666984558105" height="16"/>
+        <image name="share_ic" width="19.333333969116211" height="20.333333969116211"/>
         <image name="switch_off" width="32.333332061767578" height="21.666666030883789"/>
         <image name="switch_on" width="32.333332061767578" height="21.666666030883789"/>
         <image name="time_gray" width="14.333333015441895" height="14.333333015441895"/>

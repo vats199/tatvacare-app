@@ -41,6 +41,37 @@ class ReadingListModel: NSObject, NSCoding{
     var notConfigured : String!
     
     override init(){}
+    
+    
+    init(fromDic data: NSDictionary) {
+        self.backgroundColor = data["background_color"] as? String
+        self.imageIconUrl = data["image_icon_url"]  as? String
+        self.colorCode = data["color_code"]  as? String
+        self.createdAt = data["created_at"]  as? String
+        self.imageUrl = data["image_url"]  as? String
+        self.imgExtn = data["img_extn"]  as? String
+        self.isActive = data["is_active"]  as? String
+        self.isDeleted = data["is_deleted"]  as? String
+        self.keys = data["keys"]  as? String
+        self.mandatory = data["mandatory"]  as? String
+        self.maxLimit = data["maxLimit"]  as? String
+        self.measurements = data["measurements"]  as? String
+        self.minLimit = data["minLimit"]  as? String
+        self.readingName = data["reading_name"]  as? String
+        self.readingsMasterId = data["readings_master_id"]  as? String
+        self.updatedAt = data["updated_at"]  as? String
+        self.updatedBy = data["updated_by"]  as? String
+        self.readingDatetime = data["reading_datetime"]  as? String
+        self.readingValue = Double((data["reading_value"] as? String) ?? "0.0")  ?? 0.0
+        self.information = data["information"]  as? String
+        self.duration = data["duration"]  as? Int
+        self.readingRequired = data["reading_required"]  as? String
+        self.totalReadingAverage = data["total_reading_average"]  as? String
+        self.defaultReading = data["default_reading"]  as? String
+        self.graph = data["graph"]  as? String
+        self.inRange = InRange(fromDic: data["in_range"] as? NSDictionary ?? [:])
+        self.notConfigured = data["not_configured"]  as? String
+    }
     /**
      * Instantiate the instance using the passed json values to set the properties values
      */
@@ -362,7 +393,6 @@ class InRange{
         weight = json["weight"].stringValue
         diastolic = json["diastolic"].stringValue
         systolic = json["systolic"].stringValue
-        
         lsm = json["lsm"].stringValue
         cap = json["cap"].stringValue
         sgot = json["sgot"].stringValue
@@ -372,6 +402,24 @@ class InRange{
         ldl_cholesterol = json["ldl_cholesterol"].stringValue
         triglycerides = json["triglycerides"].stringValue
         
+    }
+    
+    init(fromDic data: NSDictionary) {
+        self.inRange = data["in_range"] as? String
+        self.fast = data["fast"] as? String
+        self.pp = data["pp"] as? String
+        self.height = data["height"] as? String
+        self.weight = data["weight"] as? String
+        self.diastolic = data["diastolic"] as? String
+        self.systolic = data["systolic"] as? String
+        self.lsm = data["lsm"] as? String
+        self.cap = data["cap"] as? String
+        self.sgot = data["sgot"] as? String
+        self.sgpt = data["sgpt"] as? String
+        self.platelet = data["platelet"] as? String
+        self.hdl_cholesterol = data["hdl_cholesterol"] as? String
+        self.ldl_cholesterol = data["ldl_cholesterol"] as? String
+        self.triglycerides = data["triglycerides"] as? String
     }
 
 }

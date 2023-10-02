@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
-import { Alert, Dimensions, PermissionsAndroid,Permission, Platform, StatusBar, StyleSheet, Text, View, SafeAreaView } from 'react-native'
+import { Alert, Dimensions, PermissionsAndroid, Permission, Platform, StatusBar, StyleSheet, Text, View, SafeAreaView } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
-import Router from './src/routes/Router';
+import Router, { openHealthKitSyncView } from './src/routes/Router';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import LocationBottomSheet, { LocationBottomSheetRef } from './src/components/molecules/LocationBottomSheet';
 import Geolocation from 'react-native-geolocation-service';
@@ -19,14 +19,9 @@ const App = () => {
   const requestLocationPermission = async (goToSettings: boolean) => {
 
     try {
-      if (Platform.OS == 'android') {
-
-        const granted = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
-        );
-
+      if (Platform.OS === 'android') {
+        const granted = await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
         setLocationPermission(granted)
-
         if (granted === 'granted') {
           getLocation()
         } else if (goToSettings && ['blocked', 'never_ask_again'].includes(granted)) {
@@ -34,24 +29,21 @@ const App = () => {
         } else {
           BottomSheetRef.current?.show();
         }
-      }
-
-      else {
-
-        if (goToSettings) {
+      } else {
+        const granted = await request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
+        setLocationPermission(granted)
+        if (granted == RESULTS.GRANTED) {
+          getLocation()
+          
+        } else if (goToSettings) {
           Linking.openURL('app-settings:');
         } else {
-          Geolocation.requestAuthorization
-          // request(PERMISSIONS.IOS.L).then((result) => {
-          //   Alert.alert(result);
-          // });
+          BottomSheetRef.current?.show();
         }
-
       }
     } catch (err) {
       BottomSheetRef.current?.show()
     }
-
   };
 
   const getLocation = () => {
@@ -118,7 +110,8 @@ const App = () => {
       if (permissionResult === RESULTS.GRANTED) {
         getLocation();
       } else {
-        BottomSheetRef.current?.show();
+        // BottomSheetRef.current?.show();
+        requestLocationPermission(false)
       }
     } catch (err) {
       BottomSheetRef.current?.show();
@@ -126,7 +119,7 @@ const App = () => {
   };
 
   return (
-    <GestureHandlerRootView style={{ height: Dimensions.get('window').height }}>
+    <GestureHandlerRootView style={{ flex:1 }}>
       <AppProvider>
         <Router />
         <LocationBottomSheet ref={BottomSheetRef} setLocation={setLocation} requestLocationPermission={requestLocationPermission} setLocationPermission={setLocationPermission} locationPermission={locationPermission} />

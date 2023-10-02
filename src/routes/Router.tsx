@@ -16,7 +16,13 @@ export const navigateTo = Navigation.navigateTo;
 export const navigateToHistory = Navigation.navigateToHistory;
 export const navigateToBookmark = Navigation.navigateToBookmark;
 export const navigateToPlan = Navigation.navigateToPlan;
+export const navigateToEngagement = Navigation.navigateToEngagement;
 export const navigateToMedicines = Navigation.navigateToMedicines;
+export const navigateToIncident = Navigation.navigateToIncident;
+export const navigateToShareKit = Navigation.navigateToShareKit;
+export const openAlert = Navigation.openAlert;
+//to open health kit
+export const openHealthKitSyncView = Navigation.openHealthKitSyncView;
 
 export const goBack = Navigation.goBack();
 // const BottomTab = createBottomTabNavigator<BottomTabParamList>();

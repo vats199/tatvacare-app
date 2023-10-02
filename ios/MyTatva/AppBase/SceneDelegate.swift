@@ -68,7 +68,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISceneDelegate {
     func sceneDidBecomeActive(_ scene: UIScene) {
         UIApplication.shared.applicationIconBadgeNumber = 0
         isAppBackgroundForGAOnce = false
-        
+        print("sceneDidBecomeActive")
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
             AppDelegate.shared.requestTrackingPermission()
         }

@@ -6,11 +6,12 @@ import moment from 'moment'
 
 type LearnProps = {
     data: any,
-    onPressBookmark: (data: any) => void
+    onPressBookmark: (data: any) => void,
+    onPressItem: (contentId: string, contentType: string) => void
 }
 
-const Learn: React.FC<LearnProps> = ({ data, onPressBookmark }) => {
-
+const Learn: React.FC<LearnProps> = ({ data, onPressBookmark, onPressItem }) => {
+    
     return (
         <View style={styles.container}>
             <View style={styles.headerContainer}>
@@ -27,8 +28,9 @@ const Learn: React.FC<LearnProps> = ({ data, onPressBookmark }) => {
             >
                 {
                     data.map((learnData: any, learnIdx: number) => {
+
                         return (
-                            <View key={learnIdx} style={styles.itemContainer}>
+                            <TouchableOpacity key={learnIdx} style={styles.itemContainer} onPress={() => onPressItem(learnData.content_master_id, learnData.content_type)}>
                                 <Image style={styles.imageStyle} source={learnData.url ? { uri: learnData.url } : require('../../assets/images/learnImage.jpg')} />
                                 <View style={styles.detailsContainer}>
                                     <Text style={styles.itemTitle}>{learnData?.topic_name || '-'}</Text>
@@ -40,7 +42,7 @@ const Learn: React.FC<LearnProps> = ({ data, onPressBookmark }) => {
                                         </TouchableOpacity>
                                     </View>
                                 </View>
-                            </View>
+                            </TouchableOpacity>
                         )
                     })
                 }

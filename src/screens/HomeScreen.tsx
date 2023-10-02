@@ -1,4 +1,4 @@
-import { Alert, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View ,NativeModules, requireNativeComponent} from 'react-native'
+import { Alert, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View, NativeModules, requireNativeComponent, SafeAreaView } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
 import { CompositeScreenProps } from '@react-navigation/native'
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs'
@@ -19,7 +19,7 @@ import Learn from '../components/organisms/Learn'
 import SearchModal from '../components/molecules/SearchModal'
 import { DrawerScreenProps } from '@react-navigation/drawer'
 import RNShare from '../native/RNShare'
-import { navigateTo, navigateToPlan,navigateToMedicines } from '../routes/Router'
+import { navigateTo, navigateToPlan, navigateToMedicines, navigateToEngagement, navigateToIncident, openAlert, openHealthKitSyncView } from '../routes/Router'
 import Home from '../api/home'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
@@ -49,10 +49,13 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
         getMyHealthDiaries()
     }, [])
 
-    const getCurrentLocation = async() => {
+    const getCurrentLocation = async () => {
         const currentLocation = await AsyncStorage.getItem('location');
 
-        setLocation(currentLocation ? JSON.parse(currentLocation) : {})
+       await setLocation(currentLocation ? JSON.parse(currentLocation) : {})
+
+          //call for health kit sync
+          await openHealthKitSyncView()
     }
 
     const getGreetings = () => {
@@ -70,10 +73,10 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
     }
 
     const getHomeCarePlan = async () => {
-        
+
         const homeCarePlan = await Home.getPatientCarePlan({})
-        console.log(homeCarePlan?.data?.patient_plans,'homeCarePlanhomeCarePlanhomeCarePlan');
-        
+        console.log(homeCarePlan?.data?.patient_plans, 'homeCarePlanhomeCarePlanhomeCarePlan');
+
 
         setCarePlanData(homeCarePlan?.data)
     }
@@ -82,7 +85,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
 
         const learnMore = await Home.getLearnMoreData({});
         console.log('learnMorelearnMorelearnMorelearnMore');
-        
+
         setLearnMoreData(learnMore?.data)
     }
 
@@ -94,10 +97,8 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
 
     const getMyHealthInsights = async () => {
         const insights = await Home.getMyHealthInsights({})
-        console.log(insights,'insightsinsightsinsights');
-        
+        console.log(insights?.data, 'insightsinsightsinsights');
         setHealthInsights(insights?.data)
-
     }
 
     const getMyHealthDiaries = async () => {
@@ -106,48 +107,60 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
         setHealthDiaries(diaries?.data)
     }
 
-    const onPressLocation = () => {  }
+    const onPressLocation = () => { }
     const onPressBell = () => {
         navigateTo('NotificationVC');
-        
+
     }
     const onPressProfile = () => {
         navigation.toggleDrawer();
     }
     const onPressDevices = () => {
         navigateTo('SearchDeviceVC');
-     }
+    }
     const onPressDiet = () => {
         navigateTo('FoodDiaryParentVC')
         // navigateTo('PlanDetailsVC');
-     }
+    }
     const onPressExercise = () => { navigateTo('ExerciseParentVC'); }
     const onPressMedicine = () => {
 
-        
-        navigateToMedicines('test');
-     }
-    const onPressMyIncidents = () => {
-        navigateTo('IncidentHistoryListVC');
-     }
 
-    const onPressConsultNutritionist = () => {  navigateTo('AppointmentsHistoryVC') }
-    const onPressConsultPhysio = () => { 
+        navigateToMedicines('test');
+    }
+    const onPressMyIncidents = () => {
+        navigateToIncident();
+    }
+
+    const onPressConsultNutritionist = () => { navigateTo('AppointmentsHistoryVC') }
+    const onPressConsultPhysio = () => {
         navigateTo('AppointmentsHistoryVC')
-     }   
+    }
     const onPressBookDiagnostic = () => {
-            navigateTo('LabTestListVC')
-         ;}
+        navigateTo('LabTestListVC')
+            ;
+    }
     const onPressBookDevices = () => {
 
-        navigateTo('SearchDeviceVC');
-        
-     }
+        // navigateTo('SearchDeviceVC');
+        navigateTo('MyDevices');
+
+    }
     const onPressCarePlan = () => {
 
-        
+
         // navigateTo('BCPCarePlanDetailVC');
         navigateToPlan('navigateToPlan');
+    }
+    const onPressRow1 = (filteredData: any, firstRow: any) => {
+
+
+        // navigateTo('BCPCarePlanDetailVC');
+        openAlert([{filteredData: filteredData},{ firstRow : firstRow}]);
+    }
+
+    const onPressLearnItem = (contentId: string, contentType:string) => {
+        navigateToEngagement(contentId.toString())
     }
 
     const onPressBookmark = async (data: any) => {
@@ -165,9 +178,9 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
     }
 
     return (
-        <Screen>
-            <Container>
-                <ScrollView showsVerticalScrollIndicator={false}>
+        <>
+            <Screen>
+                <Container>
                     <HomeHeader
                         onPressBell={onPressBell}
                         onPressLocation={onPressLocation}
@@ -183,32 +196,34 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
                             placeholder={'Find resources to manage your condition'}
                             style={styles.searchField}
                             // onFocus={() => { setVisible(true); inputRef.current?.blur(); navigateTo('GlobalSearchParentVC') }}
-                            onFocus={() => { navigateTo('GlobalSearchParentVC') }}
+                            onFocus={() => { navigateTo('GlobalSearchParentVC'), console.log('onFocus========>') }}
                             ref={inputRef}
                         />
                     </View>
-                    <CarePlanView data={carePlanData} onPressCarePlan={onPressCarePlan} />
-                    {carePlanData?.doctor_says?.description && <HealthTip tip={carePlanData?.doctor_says} />}
-                    <MyHealthInsights data={healthInsights} />
-                    <MyHealthDiary
-                        onPressDevices={onPressDevices}
-                        onPressDiet={onPressDiet}
-                        onPressExercise={onPressExercise}
-                        onPressMedicine={onPressMedicine}
-                        onPressMyIncidents={onPressMyIncidents}
-                        data={healthDiaries}
-                    />
-                    <AdditionalCareServices
-                        onPressConsultNutritionist={onPressConsultNutritionist}
-                        onPressConsultPhysio={onPressConsultPhysio}
-                        onPressBookDiagnostic={onPressBookDiagnostic}
-                        onPressBookDevices={onPressBookDevices}
-                    />
-                    {learnMoreData?.length > 0 && <Learn onPressBookmark={onPressBookmark} data={learnMoreData} />}
-                </ScrollView>
-                <SearchModal visible={visible} setVisible={setVisible} search={search} setSearch={setSearch} />
-            </Container>
-        </Screen>
+                    <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 70 }}>
+                        <CarePlanView data={carePlanData} onPressCarePlan={onPressCarePlan} />
+                        {carePlanData?.doctor_says?.description && <HealthTip tip={carePlanData?.doctor_says} />}
+                        <MyHealthInsights data={healthInsights} onPressRow1={onPressRow1} />
+                        <MyHealthDiary
+                            onPressDevices={onPressDevices}
+                            onPressDiet={onPressDiet}
+                            onPressExercise={onPressExercise}
+                            onPressMedicine={onPressMedicine}
+                            onPressMyIncidents={onPressMyIncidents}
+                            data={healthDiaries}
+                        />
+                        <AdditionalCareServices
+                            onPressConsultNutritionist={onPressConsultNutritionist}
+                            onPressConsultPhysio={onPressConsultPhysio}
+                            onPressBookDiagnostic={onPressBookDiagnostic}
+                            onPressBookDevices={onPressBookDevices}
+                        />
+                        {learnMoreData?.length > 0 && <Learn onPressBookmark={onPressBookmark} data={learnMoreData} onPressItem={onPressLearnItem} />}
+                    </ScrollView>
+                </Container>
+            </Screen>
+            <SearchModal visible={visible} setVisible={setVisible} search={search} setSearch={setSearch} />
+        </>
     )
 }
 
@@ -229,7 +244,8 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: colors.inputBoxLightBorder,
         borderRadius: 12,
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
+        marginBottom: 10
     },
     searchField: {
         borderWidth: 0,

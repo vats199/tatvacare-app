@@ -1,15 +1,18 @@
-import { Image, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useEffect } from 'react'
 import { colors } from '../../constants/colors'
 import { Icons } from '../../constants/icons'
 import { getEncryptedText } from '../../api/base'
 
 type MyHealthInsightsProps = {
-    data: any
+    data: any,
+    onPressRow1: (filteredData:any, firstRow : any) => void
 }
 
-const MyHealthInsights: React.FC<MyHealthInsightsProps> = ({ data }) => {
-
+const MyHealthInsights: React.FC<MyHealthInsightsProps> = ({ data , onPressRow1 }) => {
+    console.log(data?.readings_response,'data?.readings_responsedata?.readings_response');
+    
+    const [originalData, setOriginalData] =  React.useState<any>(data)
     const [filteredData, setFilteredData] = React.useState<any>([])
 
     useEffect(() => {
@@ -52,12 +55,17 @@ console.log(data?.readings_response,'readings_responsereadings_response');
                 bounces={false}
             >
                 {
-                    filteredData?.length > 0 && filteredData.map((data: any, idx: number) => {
-                        const firstRow = data[0];
-                        const secondRow = data[1];
+                    filteredData?.length > 0 && filteredData.map((Orgdata: any, idx: number) => {
+                        console.log();
+                        
+                        const firstRow = Orgdata[0];
+                        const secondRow = Orgdata[1];
+                        console.log(typeof filteredData,'filteredData');
+                        
                         return (
                             <View style={styles.columnContainer} key={idx}>
-                                <View style={styles.hiItemContainerTop}>
+                                <TouchableOpacity style={styles.hiItemContainerTop} onPress={()=>  { console.log(Orgdata[0],'readings_responsereadings_response=====+>');
+                                 onPressRow1(data?.readings_response, firstRow.keys)}}>
                                     <View style={styles.row}>
                                         <Image resizeMode='contain' style={styles.imageStyle} source={{ uri: firstRow?.image_url || '' }} />
                                         <Text style={styles.hiItemTitle}>{firstRow?.goal_name || firstRow?.reading_name || '-'}</Text>
@@ -66,10 +74,10 @@ console.log(data?.readings_response,'readings_responsereadings_response');
                                         <Text style={styles.hiItemValue}>{getValue(firstRow?.goal_value || firstRow?.reading_value)}</Text>
                                         <Text style={styles.hiItemKey}>{firstRow?.keys}</Text>
                                     </View>
-                                </View>
+                                </TouchableOpacity>
                                 {
                                     secondRow &&
-                                    <View style={styles.hiItemContainerBottom}>
+                                    <TouchableOpacity style={styles.hiItemContainerBottom} onPress={() => onPressRow1(data?.readings_response, secondRow.keys)}>
                                         <View style={styles.row}>
                                             <Image resizeMode='contain' style={styles.imageStyle} source={{ uri: secondRow?.image_url || '' }} />
                                             <Text style={styles.hiItemTitle}>{secondRow?.goal_name || secondRow?.reading_name || '-'}</Text>
@@ -78,7 +86,7 @@ console.log(data?.readings_response,'readings_responsereadings_response');
                                             <Text style={styles.hiItemValue}>{getValue(secondRow?.goal_value || secondRow?.reading_value)}</Text>
                                             <Text style={styles.hiItemKey}>{secondRow?.keys}</Text>
                                         </View>
-                                    </View>
+                                    </TouchableOpacity>
                                 }
                             </View>
                         )

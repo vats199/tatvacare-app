@@ -149,6 +149,10 @@ class MyDevicesVC: WhiteNavigationBaseVC {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
     }
+    @IBAction func onGoBack(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+
 
 }
 

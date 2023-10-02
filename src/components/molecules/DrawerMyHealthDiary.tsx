@@ -16,7 +16,7 @@ const DrawerMyHealthDiary: React.FC<DrawerMyHealthDiaryProps> = ({ }) => {
         navigateToHistory('Records');
      }
      const onPressBookmarks = () => {
-        navigateToBookmark('bookmarks');
+        navigateToBookmark();
      }
     
     return (

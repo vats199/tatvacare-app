@@ -5995,7 +5995,7 @@ Apt, Ahmedabad, Gujarat, 399802</string>
                         <leftBarButtonItems>
                             <barButtonItem image="back_ic" id="7oP-GD-AYk">
                                 <connections>
-                                    <action selector="popViewControllerWithSender:" destination="Yc2-us-foX" id="PAx-P6-fyA"/>
+                                    <action selector="onGoBack:" destination="Yc2-us-foX" id="H0L-45-WbI"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem style="plain" id="qdN-Yk-L35">

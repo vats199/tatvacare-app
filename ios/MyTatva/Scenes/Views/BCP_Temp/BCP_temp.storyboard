@@ -2022,7 +2022,7 @@
                         <leftBarButtonItems>
                             <barButtonItem image="back_ic" id="XiY-WS-kM3">
                                 <connections>
-                                    <action selector="btnBackTapped:" destination="vnP-V5-l62" id="ypt-JC-aBb"/>
+                                    <action selector="onGoBack:" destination="vnP-V5-l62" id="749-YH-04d"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem style="plain" id="sHz-Hj-cDR">

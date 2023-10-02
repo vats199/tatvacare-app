@@ -113,7 +113,7 @@ class TabbarVC: BFPaperTabBarController {
         let rootView = RCTRootView(
          bundleURL: URL(string: "http://localhost:8081/index.bundle?platform=ios")!,
 //           bundleURL: URL(string: "http://192.168.1.5:8081/index.bundle?platform=ios")!,
-//            bundleURL: URL(string: "http://192.168.1.32:8081/index.bundle?platform=ios")!,
+//            bundleURL: URL(string: "http://192.168.1.36:8081/index.bundle?platform=ios")!,
             
 //           bundleURL: URL(string: "http://169.254.76.56:8081/index.bundle?platform=ios")!,
            
@@ -139,7 +139,7 @@ class TabbarVC: BFPaperTabBarController {
         vc.view = rootView
 //        let homeVC              = HomeVC.instantiate(fromAppStoryboard: .home)
         
-        let homeVC              = vc
+        let homeVC              =  vc
         let carePlanVC          = CarePlanVC.instantiate(fromAppStoryboard: .carePlan)
         let engageVC            = EngageParentVC.instantiate(fromAppStoryboard: .engage)
         let exerciseVC          = ExerciseParentVC.instantiate(fromAppStoryboard: .exercise)
@@ -149,11 +149,12 @@ class TabbarVC: BFPaperTabBarController {
         if self.showEngageVC {
             arrVC       = [homeVC, carePlanVC, engageVC, exerciseVC, moreVC]
         }
-        
         self.viewControllers    = arrVC
         self.viewControllers    = arrVC.map({ (vc) in
             UINavigationController(rootViewController: vc)
         })
+        
+        self.viewControllers?[0] = homeVC
     }
     
     fileprivate func setTabTheme(){

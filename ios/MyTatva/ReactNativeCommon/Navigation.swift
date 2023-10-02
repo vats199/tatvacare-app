@@ -18,6 +18,32 @@ class Navigation: NSObject {
         historyModelVC.selectedType = HistoryType(rawValue: selectedType as String)
         navigate(modelVC: historyModelVC)
     }
+    @objc
+    func navigateToIncident() -> Void {
+        if let carePlan = UIApplication.topViewController()?.parent?.parent as? TabbarVC {
+            DispatchQueue.main.async {
+                carePlan.selectedIndex = 1
+            }
+            
+        }
+    }
+    
+    @objc
+    func navigateToEngagement(_ content_id : NSString) -> Void {
+        let engageModelVC = EngageContentDetailVC.instantiate(fromAppStoryboard: .engage)
+        engageModelVC.contentMasterId = (content_id as String)
+        navigate(modelVC: engageModelVC)
+    }
+    
+    @objc
+    func navigateToShareKit() -> Void {
+        DispatchQueue.main.async {
+            if let vc = UIApplication.topViewController() {
+                GFunction.shared.openShareSheet(this: vc, msg: "https://mytatva.page.link/Tqvv")
+            }
+        }
+    }
+    
     
     @objc
     func navigateToPlan(_ selectedType: NSString) -> Void {
@@ -35,24 +61,24 @@ class Navigation: NSObject {
     
     
     @objc
-    func navigateToBookmark(_ selectedType: NSString) -> Void {
+    func navigateToBookmark() -> Void {
        
-        PlanManager.shared.isAllowedByPlan(type: .book_appointments,
-                                           sub_features_id: "",
-                                           completion: { isAllow in
-            if isAllow {
-                let BookmarkVC = BookAppointmentVC.instantiate(fromAppStoryboard: .carePlan)
-                BookmarkVC.hidesBottomBarWhenPushed = true
-                self.navigate(modelVC: BookmarkVC)
-            }
-            else {
-                PlanManager.shared.alertNoSubscription()
-            }
+        DispatchQueue.main.async {
+            PlanManager.shared.isAllowedByPlan(type: .bookmarks,
+                                               sub_features_id: "",
+                                               completion: { isAllow in
+                if isAllow {
+                    let vc = BookmarkVC.instantiate(fromAppStoryboard: .engage)
+                    vc.hidesBottomBarWhenPushed = true
+                    self.navigate(modelVC: vc)
+                }
+                else {
+                    PlanManager.shared.alertNoSubscription()
+                }
+            })
             
-        })
-
-        
         }
+    }
     
     @objc
     func navigateToMedicines(_ selectedType: NSString) -> Void {
@@ -73,7 +99,87 @@ class Navigation: NSObject {
             }
         })
     }
+    
+    
+    @objc
+    func openAlert(_ selectedType: NSArray) -> Void {
+        
+        //let fileteredData = selectedType.firstObject as? NSDictionary
+               //print(fileteredData?["filteredData"],"===========>>")
+       //        print(fileteredData?["filteredData"] as? [ReadingListModel] ?? [],"+++++++++++++")
+        
+       // let data = fileteredData?["filteredData"] as! NSDictionary
+        //print(data,"+++++++++>>")
+       
+        
+        
+    
+        //let obj = ReadingListModel(backgroundColor: "#BE89F0", imageIconUrl: "https://admin-uat.mytatva.in/assets/azure_images/icons/pef.png", colorCode: "#BE89F0", createdAt: "2023-02-02 11:32:19", imageUrl: "https://admin-uat.mytatva.in/assets/azure_images/icons/pef.png", imgExtn: "", isActive: "", isDeleted: "0", keys: "pef", mandatory: "N", maxLimit: "1", measurements: "", minLimit: "", readingName: "pef", readingsMasterId: "", updatedAt: "", updatedBy: "", readingDatetime: "", readingValue: 0.0, information: "", duration: 2, readingRequired: "", totalReadingAverage: "", defaultReading: "", graph: "", inRange: nil, notConfigured: "")
+        /*DispatchQueue.main.async {
+            let vc = UpdateCommonReadingPopupVC.instantiate(fromAppStoryboard: .goal)
+            vc.readingType          = .FEV1Lung
+            vc.readingListModel     = readingList
+            self.navigate(modelVC: vc)
+    //        self.pages.append(vc)
+            return
+        }*/
+    
+        
+        
+        
+        let fileteredData = selectedType.firstObject as? NSDictionary
+        print(fileteredData?["filteredData"],"===========>>")
+        print(fileteredData?["filteredData"] as? NSArray ?? [],"+++++++++++++")
+        let key = (selectedType[1] as? NSDictionary)?["firstRow"] as? String
+        print(key)
+        let array = fileteredData?["filteredData"] as? NSArray ?? []
+        var arrReadingList: [ReadingListModel] = []
+        for data in array {
+            arrReadingList.append(ReadingListModel(fromDic: data as? NSDictionary ?? [:]))
+        }
+        let selectedIndex = arrReadingList.firstIndex(where: { $0.keys == key})
+        let vc = UpdateReadingParentVC.instantiate(fromAppStoryboard: .goal)
+        vc.selectedIndex = selectedIndex ?? 0
+        let readingListModel = ReadingListModel()
+        vc.arrList = arrReadingList//fileteredData?["filteredData"] as? [ReadingListModel] ?? []
+        vc.modalPresentationStyle = .overFullScreen
+        vc.modalTransitionStyle = .crossDissolve
+//        vc.completionHandler = { obj in
+//            if obj?.count > 0 {
+//                print(obj ?? "")
+//                //object
+////                                    self.tblReadings.reloadData()
+//                self.viewModel.apiCallFromStart_reading(refreshControl: self.refreshControl,
+//                                                tblView: self.tblGoals,
+//                                                withLoader: true)
+//            }
+//        }
+        DispatchQueue.main.async {
+            UIApplication.topViewController()?.present(vc, animated: true)
+        }
+        //self.navigate(modelVC: vc)
+    }
+    
+    
+    @objc
+    func openHealthKitSyncView() {
+        //if UserDefaultsConfig.isShowCoachmark {
+            if !UserDefaultsConfig.isShowHealthPermission {
+                UserDefaultsConfig.isShowHealthPermission = true
+                DispatchQueue.main.async {
+                    GFunction.shared.navigateToHealthConnect { obj in
+                        if obj?.count > 0 {
+                            //self.viewWillAppear(true)
+                        }
+                    }
+                }
                 
+                //UserDefaultsConfig.isShowCoachmark = false
+            }
+       // }
+    }
+    
+    
 //    @objc
 //        func showPopUpBMI(_ selectedType: NSString) -> Void {
 //            let vc = UpdateCommonReadingPopupVC.instantiate(fromAppStoryboard: .goal)
@@ -113,9 +219,6 @@ class Navigation: NSObject {
             modelVC = NotificationVC.instantiate(fromAppStoryboard: .setting)
         case "SettingVC":
             modelVC = SettingVC.instantiate(fromAppStoryboard: .setting)
-            
-        case "EngageContentDetailVC":
-            modelVC = EngageContentDetailVC.instantiate(fromAppStoryboard: .engage)
         case "ProfileVC":
             modelVC = ProfileVC.instantiate(fromAppStoryboard: .setting)
         case "AppointmentsHistoryVC":
@@ -136,7 +239,8 @@ class Navigation: NSObject {
         case "HelpAndSupportVC":
             modelVC =   HelpAndSupportVC.instantiate(fromAppStoryboard: .setting)
 //        case "HistoryParentVC":
-            
+        case "MyDevices":
+            modelVC = MyDevicesVC.instantiate(fromAppStoryboard: .setting)
         default:
             return;
         }

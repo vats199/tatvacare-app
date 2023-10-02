@@ -2418,6 +2418,7 @@ class GlobalAPI : NSObject {
                 let readingList     = GFunction.shared.chunked(array: arrTempReading.reversed(), into: 60)
                 let goalList        = GFunction.shared.chunked(array: arrTempGoal.reversed(), into: 60)
                 
+                
 //                updateData(arrGoal: result.goal_data, arrReading: result.reading_data) { (isDone) in
 //
 //                    completion?(isDone)
@@ -2994,7 +2995,8 @@ class GlobalAPI : NSObject {
         
         var params                  = [String : Any]()
         params["content_master_id"] = content_master_id
-        
+//        params["content_master_id"] = "9747525f-4bdb-11ee-a125-b856859b798d"
+
         ApiManager.shared.makeRequest(method: ApiEndPoints.content(.content_by_id), methodType: .post, parameter: params, withErrorAlert: true, withLoader: true, withdebugLog: true) { (result) in
             
             var data = ContentListModel()
