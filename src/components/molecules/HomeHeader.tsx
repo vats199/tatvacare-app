@@ -47,11 +47,13 @@ const HomeHeader: React.FC<HomeHeaderProps> = ({
           onPress={onPressBell}
           style={styles.bellContainer}>
           <Icons.Bell />
-          <View style={styles.notifCountBadge}>
-            <Text style={styles.notifCountBadgeText}>
-              {unreadNotificationCount}
-            </Text>
-          </View>
+          {unreadNotificationCount > 0 && (
+            <View style={styles.notifCountBadge}>
+              <Text style={styles.notifCountBadgeText}>
+                {unreadNotificationCount}
+              </Text>
+            </View>
+          )}
         </TouchableOpacity>
         {!userData?.profile_pic && (
           <TouchableOpacity
