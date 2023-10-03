@@ -1,6 +1,7 @@
 export type AppStackParamList = {
   // BottomTabs: undefined;
   DrawerScreen: DrawerParamList;
+  AuthStackScreen: AuthStackParamList;
 };
 
 export type DrawerParamList = {
@@ -13,4 +14,10 @@ export type BottomTabParamList = {
   ProgramsScreen: undefined;
   LearnScreen: undefined;
   ExerciseScreen: undefined;
+};
+
+export type AuthStackParamList = {
+  OnBoardingScreen: undefined;
+  LoginScreen : undefined;
+  OTPScreen: undefined;
 };

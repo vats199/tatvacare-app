@@ -1,8 +1,10 @@
 import HomeScreen from '../screens/HomeScreen';
 import AboutUsScreen from '../screens/AboutUsScreen';
+
 import {
   AppStackParamList,
   DrawerParamList,
+  AuthStackParamList
 } from '../interface/Navigation.interface';
 import {NavigationContainer} from '@react-navigation/native';
 import {
@@ -12,7 +14,8 @@ import {
 import CustomDrawer from '../components/organisms/CustomDrawer';
 import {NativeModules} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
-
+import LoginScreen from '../screens/Auth/LoginScreen';
+import OnBoardingScreen from '../screens/Auth/OnBoardingScreen';
 // const Navigation = NativeModules.Navigation;
 // export const navigateTo = Navigation.navigateTo;
 // export const navigateToHistory = Navigation.navigateToHistory;
@@ -46,16 +49,35 @@ const DrawerScreen = () => {
   );
 };
 
+
+const AuthStack = createStackNavigator<AuthStackParamList>();
+const AuthStackScreen = () => {
+  return (
+    <AuthStack.Navigator initialRouteName='OnBoardingScreen' screenOptions={{
+      headerShown: false,
+    }}>
+      <AuthStack.Screen  name='LoginScreen' component={LoginScreen}/>
+      <AuthStack.Screen  name='OnBoardingScreen' component={OnBoardingScreen}/>
+    </AuthStack.Navigator>
+  )
+}
+
 const AppStack = createStackNavigator<AppStackParamList>();
 const Router = () => {
   return (
     <NavigationContainer>
       <AppStack.Navigator
+      initialRouteName='AuthStackScreen'
         screenOptions={{
           headerShown: false,
         }}>
+          <AppStack.Screen name={'AuthStackScreen'} component={AuthStackScreen}/>
         <AppStack.Screen name={'DrawerScreen'} component={DrawerScreen} />
       </AppStack.Navigator>
+      
+      {/* <Stack.Navigator>
+       
+      </Stack.Navigator> */}
     </NavigationContainer>
   );
 };

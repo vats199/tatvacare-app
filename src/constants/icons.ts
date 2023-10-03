@@ -55,6 +55,7 @@ import BookmarkFilled from '../assets/icons/bookmarkFilled.svg';
 import BackIcon from '../assets/icons/backIcon.svg';
 import CloseIcon from '../assets/icons/close.svg';
 
+
 export const Icons = {
   HomeActive,
   HomeInactive,
