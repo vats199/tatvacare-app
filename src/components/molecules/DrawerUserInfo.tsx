@@ -11,10 +11,13 @@ import {colors} from '../../constants/colors';
 import ImagePicker from 'react-native-image-crop-picker';
 import {Icons} from '../../constants/icons';
 import {navigateTo} from '../../routes/Router';
+import {useApp} from '../../context/app.context';
 
 type DrawerUserInfoProps = {};
 
 const DrawerUserInfo: React.FC<DrawerUserInfoProps> = () => {
+  const {userData} = useApp();
+
   const [image, setImage] = React.useState<string | null>(null);
 
   const openPicker = () => {
@@ -52,12 +55,15 @@ const DrawerUserInfo: React.FC<DrawerUserInfoProps> = () => {
       {text: 'Cancel'},
     ]);
   };
-  const onPressIcon = () => {
+  const onPressProfile = () => {
     navigateTo('ProfileVC');
   };
 
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={onPressProfile}
+      activeOpacity={0.8}>
       {image ? (
         <Image
           source={{uri: image}}
@@ -65,21 +71,16 @@ const DrawerUserInfo: React.FC<DrawerUserInfoProps> = () => {
           resizeMode={'contain'}
         />
       ) : (
-        <TouchableOpacity
-          style={styles.image}
-          activeOpacity={0.7}
-          onPress={onPress}>
-          <Icons.NoProfilePhotoPlaceholder />
-        </TouchableOpacity>
+        <Icons.NoProfilePhotoPlaceholder />
       )}
       <View style={styles.nameContainer}>
-        <Text style={styles.name}>Rashi Atry</Text>
-        <Text style={styles.number}>+91-9999999999</Text>
+        <Text style={styles.name}>{userData?.name}</Text>
+        <Text style={styles.number}>
+          {userData?.country_code}-{userData?.contact_no}
+        </Text>
       </View>
-      <TouchableOpacity onPress={onPressIcon}>
-        <Icons.ChevronRightGrey />
-      </TouchableOpacity>
-    </View>
+      <Icons.ChevronRightGrey />
+    </TouchableOpacity>
   );
 };
 
@@ -113,7 +114,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   number: {
-    color: colors.lightGrey,
+    color: colors.subTitleLightGray,
     fontSize: 12,
     fontWeight: '300',
   },
