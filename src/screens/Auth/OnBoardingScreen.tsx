@@ -43,13 +43,13 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({ navigation, route }
     },
     {
       id: 2,
-      image: Images.OnBoard1,
+      image: Images.OnBoard2,
       title: `Personalised\n Care`,
       description: `Tailored to improve your health`
     },
     {
       id: 3,
-      image: Images.OnBoard1,
+      image: Images.OnBoard3,
       title: `Clinically validated\n approach`,
       description: `Improve your vitals and biomarkers`
     }
@@ -58,7 +58,7 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({ navigation, route }
   const renderItem = ({ item, index }: { item: any; index: number }) => {
     return (
       <View style={{ width: Matrics.screenWidth }}>
-        <Image source={Images.OnBoard1} style={styles.img} resizeMode='contain' />
+        <Image source={item.image} style={styles.img} resizeMode='contain' />
         <View style={{ alignItems: 'center' }}>
           <Text style={styles.title}>{item.title}</Text>
           <Text style={styles.desc}>{item.description}</Text>
@@ -76,6 +76,16 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({ navigation, route }
 
   }
 
+  const _onViewableItemsChanged = React.useCallback(({ viewableItems, changed }) => {
+    // console.log("Visible items are", viewableItems[0]?.index);
+    // console.log("Changed in this iteration", changed);
+    setActiveIndex(viewableItems[0]?.index)
+  }, []);
+
+  const _viewabilityConfig = {
+    itemVisiblePercentThreshold: 50
+  }
+
   return (
     <SafeAreaView edges={['bottom']} style={styles.container}>
       <View style={styles.wrapper(insets)}>
@@ -88,7 +98,24 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({ navigation, route }
           pagingEnabled
           keyExtractor={item => item.id}
           showsHorizontalScrollIndicator={false}
+          onViewableItemsChanged={_onViewableItemsChanged}
+          viewabilityConfig={_viewabilityConfig}
         />
+        {/* <View style={{ position: 'absolute', bottom: 10, alignSelf: 'center' }}>
+          {arr.map((item: any, index: number) => (
+            <View style={{ height: 6, width: 30, backgroundColor: 'gray', marginLeft: 5 }}>
+
+            </View>
+          ))}
+        </View> */}
+        <View style={styles.pagingCont}>
+          {arr.map((ele, index) => {
+            return (
+              <View style={{ height: Matrics.vs(5), width: Matrics.s(30), backgroundColor: activeIndex == index ? colors.inputBoxDarkBorder : colors.lightGrey, marginLeft: index == 0 ? 0 : Matrics.s(6), borderRadius: Matrics.mvs(1000) }}>
+              </View>
+            )
+          })}
+        </View>
       </View>
       <View style={styles.spaceView} />
       <Button
