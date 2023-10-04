@@ -43,6 +43,7 @@ import {
   openHealthKitSyncView,
   openUpdateGoal,
   navigateToExercise,
+  navigateToBookAppointment,
 } from '../routes/Router';
 import Home from '../api/home';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -67,6 +68,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   const [allPlans, setAllPlans] = React.useState<any>([]);
   const [learnMoreData, setLearnMoreData] = React.useState<any>([]);
   const [healthInsights, setHealthInsights] = React.useState<any>({});
+  const [hcDevicePlans, setHcDevicePlans] = React.useState<any>({});
   const [healthDiaries, setHealthDiaries] = React.useState<any>([]);
 
   const refetchData = () => {
@@ -121,40 +123,34 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
 
   const getHomeCarePlan = async () => {
     const homeCarePlan = await Home.getPatientCarePlan({});
-    console.log(homeCarePlan);
     setCarePlanData(homeCarePlan?.data);
     setUserData(homeCarePlan?.data);
   };
 
   const getLearnMoreData = async () => {
     const learnMore = await Home.getLearnMoreData({});
-    console.log(learnMore);
     setLearnMoreData(learnMore?.data);
   };
 
   const getPlans = async () => {
     const allPlans = await Home.getHomePagePlans({}, {page: 0});
-    console.log(allPlans);
     setAllPlans(allPlans?.data ?? []);
   };
 
   const getHCDevicePlans = async () => {
     const hcDevicePlans = await Home.getHCDevicePlan();
-    console.log(hcDevicePlans);
-    // console.log('hcDevicePlanshcDevicePlanshcDevicePlans', hcDevicePlans);
+    setHcDevicePlans(hcDevicePlans?.data);
   };
 
   const getMyHealthInsights = async () => {
     const goalsAndReadings = await Home.getGoalsAndReadings({
       current_datetime: new Date().toISOString(),
     });
-    console.log(goalsAndReadings);
     setHealthInsights(goalsAndReadings.data);
   };
 
   const getMyHealthDiaries = async () => {
     const diaries = await Home.getMyHealthDiaries({});
-    console.log(diaries);
     setHealthDiaries(diaries?.data);
   };
 
@@ -245,10 +241,11 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   };
 
   const onPressConsultNutritionist = () => {
-    navigateTo('AppointmentsHistoryVC');
+    navigateToBookAppointment('HC');
   };
-  const onPressConsultPhysio = () => {
-    navigateTo('AppointmentsHistoryVC');
+  const onPressConsultPhysio = (type: 'HC' | 'D') => {
+    console.log(type);
+    navigateToBookAppointment(type);
   };
   const onPressBookDiagnostic = () => {
     navigateTo('LabTestListVC');
@@ -338,6 +335,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
               onPressConsultPhysio={onPressConsultPhysio}
               onPressBookDiagnostic={onPressBookDiagnostic}
               onPressBookDevices={onPressBookDevices}
+              hcDevicePlans={hcDevicePlans}
             />
             {learnMoreData?.length > 0 && (
               <Learn

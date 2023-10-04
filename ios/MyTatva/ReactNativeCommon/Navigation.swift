@@ -119,6 +119,31 @@ class Navigation: NSObject {
     }
     
     @objc
+    func navigateToBookAppointment(_ selectedType: NSString) -> Void {
+        PlanManager.shared.isAllowedByPlan(type: .book_appointments,
+                                           sub_features_id: "",
+                                           completion: { isAllow in
+            if isAllow {
+                DispatchQueue.main.async {
+                    print("selected appointment:", selectedType)
+                    let vc = BookAppointmentVC.instantiate(fromAppStoryboard: .carePlan)
+                    vc.selectedFor = .D
+                    if selectedType == "HC" {
+                        vc.selectedFor = .H
+                    }
+                    vc.hidesBottomBarWhenPushed = true
+                    UIApplication.topViewController()?.navigationController?.pushViewController(vc, animated: true)
+                }
+            }
+            else {
+                DispatchQueue.main.async {
+                    PlanManager.shared.alertNoSubscription()
+                }
+            }
+        })
+    }
+    
+    @objc
     func openUpdateGoal(_ selectedType: NSArray) {
         let fileteredData = selectedType.firstObject as? NSDictionary
         //print(fileteredData?["filteredData"],"===========>>")
