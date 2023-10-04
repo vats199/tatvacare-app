@@ -93,7 +93,10 @@ const AdditionalCareServices: React.FC<AdditionalServicesProps> = ({
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Additional Care Services</Text>
-      <ScrollView horizontal style={styles.itemsContainer}>
+      <ScrollView
+        horizontal
+        style={styles.itemsContainer}
+        showsHorizontalScrollIndicator={false}>
         {options.map(renderServiceItem)}
       </ScrollView>
     </View>

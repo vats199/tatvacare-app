@@ -20,6 +20,7 @@ import GreenMoon from '../assets/icons/greenMoon.svg';
 import WaterGlass from '../assets/icons/waterGlass.svg';
 import PEF from '../assets/icons/PEF.svg';
 import NoProfilePhotoPlaceholder from '../assets/icons/noProfilePhoto.svg';
+import NoUserImage from '../assets/icons/noUserImage.svg';
 import ChevronRightGrey from '../assets/icons/chevronRightGrey.svg';
 import DrawerHealthRecords from '../assets/icons/drawerHealthRecords.svg';
 import DrawerBookmarks from '../assets/icons/drawerBookmarks.svg';
@@ -97,6 +98,7 @@ export const Icons = {
   BackIcon,
   CloseIcon,
   NoProfilePhotoPlaceholder,
+  NoUserImage,
   ChevronRightGrey,
   DrawerBookmarks,
   DrawerGoals,

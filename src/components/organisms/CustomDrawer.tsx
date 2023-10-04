@@ -20,6 +20,7 @@ const CustomDrawer = (props: DrawerContentComponentProps) => {
     <View style={styles.screen}>
       <DrawerContentScrollView
         {...props}
+        showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.container}>
         <DrawerUserInfo />
         <DrawerMyHealthDiary />
@@ -40,6 +41,7 @@ const styles = StyleSheet.create({
   },
   container: {
     backgroundColor: '#F9F9FF',
+    paddingBottom: 90,
   },
   version: {
     color: colors.inactiveGray,

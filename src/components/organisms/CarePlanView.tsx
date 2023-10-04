@@ -88,8 +88,8 @@ const CarePlanView: React.FC<CarePlanViewProps> = ({
           bounces={false}>
           {data?.patient_plans?.map((plan: any, planIdx: number) => {
             return (
-              <TouchableOpacity onPress={onPressCarePlan}>
-                <View key={planIdx} style={styles.container}>
+              <TouchableOpacity key={planIdx} onPress={onPressCarePlan}>
+                <View style={styles.container}>
                   <View style={styles.details}>
                     <Text style={styles.title}>{plan?.plan_name || '-'}</Text>
                     <Text style={styles.subTitle}>

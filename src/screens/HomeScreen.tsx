@@ -11,7 +11,8 @@ import {
   SafeAreaView,
 } from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
-import {CompositeScreenProps} from '@react-navigation/native';
+import {CompositeScreenProps, useIsFocused} from '@react-navigation/native';
+import Geolocation from 'react-native-geolocation-service';
 import {
   AppStackParamList,
   DrawerParamList,
@@ -46,6 +47,7 @@ import {
 import Home from '../api/home';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {StackScreenProps} from '@react-navigation/stack';
+import {useApp} from '../context/app.context';
 
 type HomeScreenProps = CompositeScreenProps<
   DrawerScreenProps<DrawerParamList, 'HomeScreen'>,
@@ -53,9 +55,11 @@ type HomeScreenProps = CompositeScreenProps<
 >;
 
 const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
-  const [search, setSearch] = React.useState<string>('');
+  const isFocused = useIsFocused();
+
+  const {setUserData, setUserLocation} = useApp();
+
   const [location, setLocation] = React.useState<object>({});
-  const [visible, setVisible] = React.useState<boolean>(false);
   const [carePlanData, setCarePlanData] = React.useState<any>({});
   const [allPlans, setAllPlans] = React.useState<any>([]);
   const [learnMoreData, setLearnMoreData] = React.useState<any>([]);
@@ -72,11 +76,13 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
     getMyHealthDiaries();
   }, []);
 
+  useEffect(() => {
+    onPressLocation(); //Update location on all home screen focus
+  }, [isFocused]);
+
   const getCurrentLocation = async () => {
     const currentLocation = await AsyncStorage.getItem('location');
-
-    await setLocation(currentLocation ? JSON.parse(currentLocation) : {});
-
+    setLocation(currentLocation ? JSON.parse(currentLocation) : {});
     //call for health kit sync
     await openHealthKitSyncView();
   };
@@ -98,6 +104,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   const getHomeCarePlan = async () => {
     const homeCarePlan = await Home.getPatientCarePlan({});
     setCarePlanData(homeCarePlan?.data);
+    setUserData(homeCarePlan?.data);
   };
 
   const getLearnMoreData = async () => {
@@ -112,7 +119,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
 
   const getHCDevicePlans = async () => {
     const hcDevicePlans = await Home.getHCDevicePlan();
-    console.log('hcDevicePlanshcDevicePlanshcDevicePlans', hcDevicePlans);
+    // console.log('hcDevicePlanshcDevicePlanshcDevicePlans', hcDevicePlans);
   };
 
   const getMyHealthInsights = async () => {
@@ -130,18 +137,78 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
     setHealthDiaries(diaries?.data);
   };
 
-  const onPressLocation = () => {};
+  const getLocationFromLatLng = async (lat: any, long: any) => {
+    const res = await fetch(
+      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&key=AIzaSyD8zxk4kvKlAMGaOQrABy8xqdRKIWGBJlo`,
+      {
+        method: 'get',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+
+    const data = await res.json();
+
+    if (
+      (data?.results || []).length > 0 &&
+      (data?.results[0]?.address_components || []).length > 0
+    ) {
+      const city = data?.results[0]?.address_components.find((a: any) =>
+        a?.types.includes('administrative_area_level_3'),
+      );
+      const state = data?.results[0]?.address_components.find((a: any) =>
+        a?.types.includes('administrative_area_level_1'),
+      );
+      const country = data?.results[0]?.address_components.find((a: any) =>
+        a?.types.includes('country'),
+      );
+      const pincode = data?.results[0]?.address_components.find((a: any) =>
+        a?.types.includes('postal_code'),
+      );
+
+      const locationPayload = {
+        city: city?.long_name,
+        state: state?.long_name,
+        country: country?.long_name,
+        pincode: pincode?.long_name,
+      };
+
+      setLocation({
+        ...locationPayload,
+      });
+      await AsyncStorage.setItem('location', JSON.stringify(locationPayload));
+      await Home.updatePatientLocation({}, locationPayload);
+      setUserLocation(locationPayload);
+    }
+  };
+
+  const onPressLocation = () => {
+    Geolocation.getCurrentPosition(
+      async position => {
+        await getLocationFromLatLng(
+          position?.coords?.latitude,
+          position?.coords?.longitude,
+        );
+      },
+      error => {
+        // Handle location error here
+      },
+      {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
+    );
+  };
+
   const onPressBell = () => {
     navigateTo('NotificationVC');
   };
   const onPressProfile = () => {
-   getHomeScreenDataStatus((error:any, data:any) => {
-        if (error) { 
-           console.log(error,'error');
-        } else {
-           console.log(data,'data=========>');
-        }
-    })
+    getHomeScreenDataStatus((error: any, data: any) => {
+      if (error) {
+        console.log(error, 'error');
+      } else {
+        console.log(data, 'data=========>');
+      }
+    });
     navigation.toggleDrawer();
   };
   const onPressDevices = () => {
@@ -186,6 +253,10 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
     openUpdateGoal([{filteredData: filteredData}, {firstRow: firstRow}]);
   };
 
+  const onPressViewAllLearn = () => {
+    navigation.navigate('AllLearnItemsScreen');
+  };
+
   const onPressLearnItem = (contentId: string, contentType: string) => {
     navigateToEngagement(contentId.toString());
   };
@@ -193,7 +264,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   const onPressBookmark = async (data: any) => {
     const payload = {
       content_master_id: data?.content_master_id,
-      is_active: data?.is_active === 'Y' ? 'N' : 'Y',
+      is_active: data?.bookmarked === 'Y' ? 'N' : 'Y',
     };
     const resp = await Home.addBookmark({}, payload);
     if (resp?.data) {
@@ -211,7 +282,9 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
             onPressProfile={onPressProfile}
             userLocation={location}
           />
-          <Text style={styles.goodMorning}>{getGreetings()} Test!</Text>
+          <Text style={styles.goodMorning}>
+            {getGreetings()} {carePlanData?.name}!
+          </Text>
           <TouchableOpacity
             style={styles.searchContainer}
             activeOpacity={1}
@@ -257,6 +330,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
                 onPressBookmark={onPressBookmark}
                 data={learnMoreData}
                 onPressItem={onPressLearnItem}
+                onPressViewAll={onPressViewAllLearn}
               />
             )}
           </ScrollView>
