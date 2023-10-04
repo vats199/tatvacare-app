@@ -152,7 +152,7 @@ PODS:
   - Hero (1.6.2)
   - HGCircularSlider (2.2.0)
   - ImageViewer.swift (3.3.8)
-  - IQKeyboardManagerSwift (6.5.12)
+  - IQKeyboardManagerSwift (6.5.13)
   - KDCircularProgress (1.5.4)
   - libevent (2.1.12)
   - lottie-ios (4.3.2)
@@ -953,7 +953,7 @@ SPEC CHECKSUMS:
   Hero: c69009dbc9e2f0472e081adc644dba05fcedae72
   HGCircularSlider: afb1942743a2df156dcc7a3500216e523e14266b
   ImageViewer.swift: 284cd8127d31af8e5938674fb9f8e695a4cdf6c6
-  IQKeyboardManagerSwift: 371b08cb39664fb56030f5345c815a4ffc74bbc0
+  IQKeyboardManagerSwift: 69b5fb9960edff37263d45c44fd97427e1f8c22b
   KDCircularProgress: 98200c6b8e85d22bc04eb644721d3b1e12b0686b
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   lottie-ios: 48af491639ba6e8bb7cfaf7649b8a339487da935

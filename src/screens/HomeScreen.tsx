@@ -9,6 +9,7 @@ import {
   NativeModules,
   requireNativeComponent,
   SafeAreaView,
+  NativeEventEmitter,
 } from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import {CompositeScreenProps, useIsFocused} from '@react-navigation/native';
@@ -42,12 +43,14 @@ import {
   openHealthKitSyncView,
   openUpdateGoal,
   navigateToExercise,
-  getHomeScreenDataStatus,
 } from '../routes/Router';
 import Home from '../api/home';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {StackScreenProps} from '@react-navigation/stack';
 import {useApp} from '../context/app.context';
+
+const {RNEventEmitter} = NativeModules;
+const eventEmitter = new NativeEventEmitter(RNEventEmitter);
 
 type HomeScreenProps = CompositeScreenProps<
   DrawerScreenProps<DrawerParamList, 'HomeScreen'>,
@@ -66,6 +69,10 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   const [healthInsights, setHealthInsights] = React.useState<any>({});
   const [healthDiaries, setHealthDiaries] = React.useState<any>([]);
 
+  const refetchData = () => {
+    getMyHealthInsights();
+  };
+
   useEffect(() => {
     getCurrentLocation();
     getHomeCarePlan();
@@ -74,6 +81,17 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
     getMyHealthInsights();
     getHCDevicePlans();
     getMyHealthDiaries();
+  }, []);
+
+  useEffect(() => {
+    const subscribe = eventEmitter.addListener(
+      'updatedGoalReadingSuccess',
+      refetchData,
+    );
+
+    return () => {
+      subscribe.remove();
+    };
   }, []);
 
   useEffect(() => {
@@ -103,37 +121,40 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
 
   const getHomeCarePlan = async () => {
     const homeCarePlan = await Home.getPatientCarePlan({});
+    console.log(homeCarePlan);
     setCarePlanData(homeCarePlan?.data);
     setUserData(homeCarePlan?.data);
   };
 
   const getLearnMoreData = async () => {
     const learnMore = await Home.getLearnMoreData({});
+    console.log(learnMore);
     setLearnMoreData(learnMore?.data);
   };
 
   const getPlans = async () => {
     const allPlans = await Home.getHomePagePlans({}, {page: 0});
+    console.log(allPlans);
     setAllPlans(allPlans?.data ?? []);
   };
 
   const getHCDevicePlans = async () => {
     const hcDevicePlans = await Home.getHCDevicePlan();
+    console.log(hcDevicePlans);
     // console.log('hcDevicePlanshcDevicePlanshcDevicePlans', hcDevicePlans);
   };
 
   const getMyHealthInsights = async () => {
-    // const insights = await Home.getMyHealthInsights({});
-    // setHealthInsights(insights?.data);
     const goalsAndReadings = await Home.getGoalsAndReadings({
       current_datetime: new Date().toISOString(),
     });
+    console.log(goalsAndReadings);
     setHealthInsights(goalsAndReadings.data);
   };
 
   const getMyHealthDiaries = async () => {
     const diaries = await Home.getMyHealthDiaries({});
-
+    console.log(diaries);
     setHealthDiaries(diaries?.data);
   };
 
@@ -202,13 +223,6 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
     navigateTo('NotificationVC');
   };
   const onPressProfile = () => {
-    getHomeScreenDataStatus((error: any, data: any) => {
-      if (error) {
-        console.log(error, 'error');
-      } else {
-        console.log(data, 'data=========>');
-      }
-    });
     navigation.toggleDrawer();
   };
   const onPressDevices = () => {

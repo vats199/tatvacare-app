@@ -75,8 +75,10 @@ const MyHealthInsights: React.FC<MyHealthInsightsProps> = ({
           <Text style={styles.hiItemTitle}>{item?.goal_name || '-'}</Text>
         </View>
         <View style={styles.valuesRow}>
-          <Text style={styles.hiItemValue}>{getValue(item?.goal_value)}</Text>
-          <Text style={styles.hiItemKey}>{item?.keys}</Text>
+          <Text style={styles.hiItemValue}>
+            {getValue(item?.achieved_value)} / {getValue(item?.goal_value)}
+          </Text>
+          <Text style={styles.hiItemKey}>{item?.goal_measurement}</Text>
         </View>
       </TouchableOpacity>
     );

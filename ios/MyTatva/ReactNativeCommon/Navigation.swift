@@ -11,18 +11,6 @@ import React
 @objc(Navigation)
 class Navigation: NSObject {
     
-    static var is_home_data_update_required = false
-    @objc
-    func getHomeScreenDataStatus(_ callBack: RCTResponseSenderBlock) {
-        defer {
-            Navigation.is_home_data_update_required = false
-            print("is_home_data_update_required set : ", Navigation.is_home_data_update_required)
-        }
-        callBack([Navigation.is_home_data_update_required])
-        print("is_home_data_update_required return : ", Navigation.is_home_data_update_required)
-        //return ["home_screen_status": Navigation.is_home_data_update_required]
-    }
-    
     @objc
     func navigateToHistory(_ selectedType: NSString) -> Void {
         let historyModelVC = HistoryParentVC.instantiate(fromAppStoryboard: .setting)
@@ -42,7 +30,7 @@ class Navigation: NSObject {
     func navigateToEngagement(_ content_id : NSString) -> Void {
         let engageModelVC = EngageContentDetailVC.instantiate(fromAppStoryboard: .engage)
         engageModelVC.contentMasterId = (content_id as String)
-//        navigate(modelVC: engageModelVC)
+        //        navigate(modelVC: engageModelVC)
         DispatchQueue.main.async {
             UIApplication.topViewController()?.navigationController?.pushViewController(engageModelVC, animated: true)
         }
@@ -75,7 +63,7 @@ class Navigation: NSObject {
     
     @objc
     func navigateToBookmark() -> Void {
-       
+        
         DispatchQueue.main.async {
             PlanManager.shared.isAllowedByPlan(type: .bookmarks,
                                                sub_features_id: "",
@@ -142,39 +130,40 @@ class Navigation: NSObject {
         for data in array {
             arrReadingList.append(GoalListModel(fromDic: data as? NSDictionary ?? [:]))
         }
+        let myHealthDiaryItems = ["Diet", "Medication", "Exercise"]
+        arrReadingList = arrReadingList.filter({!myHealthDiaryItems.contains($0.goalName)})
         let selectedIndex = arrReadingList.firstIndex(where: { $0.keys == key})
         
-        
         let vc = UpdateGoalParentVC.instantiate(fromAppStoryboard: .goal)
-    
+        
         
         vc.selectedIndex            = selectedIndex ?? 0
         vc.arrList                  = arrReadingList
         vc.modalPresentationStyle   = .overFullScreen
         vc.modalTransitionStyle     = .crossDissolve
         
-    
+        
         vc.completionHandler = { obj in
             print("data waiting to updated---")
             if obj?.count > 0 {
                 print("data updated---")
-                Navigation.is_home_data_update_required = true
+                RNEventEmitter.emitter.sendEvent(withName: "updatedGoalReadingSuccess", body: [:])
             }
             /*if type == .Medication ||
-                type == .Pranayam {
-                
-                if obj?.count > 0 {
-                    print(obj ?? "")
-                    //self.viewModel.apiCallFromStartSummary(tblViewHome: self.tblDailySummary,colViewHome: self.colReading,withLoader: false)
-                }
-            }
-            else {
-                if obj?.count > 0 {
-                    print(obj ?? "")
-                    //object
-                    //self.viewModel.apiCallFromStartSummary(tblViewHome: self.tblDailySummary,colViewHome: self.colReading,withLoader: false)
-                }
-            }*/
+             type == .Pranayam {
+             
+             if obj?.count > 0 {
+             print(obj ?? "")
+             //self.viewModel.apiCallFromStartSummary(tblViewHome: self.tblDailySummary,colViewHome: self.colReading,withLoader: false)
+             }
+             }
+             else {
+             if obj?.count > 0 {
+             print(obj ?? "")
+             //object
+             //self.viewModel.apiCallFromStartSummary(tblViewHome: self.tblDailySummary,colViewHome: self.colReading,withLoader: false)
+             }
+             }*/
         }
         DispatchQueue.main.async {
             UIApplication.topViewController()?.present(vc, animated: true)
@@ -187,22 +176,22 @@ class Navigation: NSObject {
         //print(fileteredData?["filteredData"],"===========>>")
         //print(fileteredData?["filteredData"] as? [ReadingListModel] ?? [],"+++++++++++++")
         
-       // let data = fileteredData?["filteredData"] as! NSDictionary
+        // let data = fileteredData?["filteredData"] as! NSDictionary
         //print(data,"+++++++++>>")
-       
         
         
-    
+        
+        
         //let obj = ReadingListModel(backgroundColor: "#BE89F0", imageIconUrl: "https://admin-uat.mytatva.in/assets/azure_images/icons/pef.png", colorCode: "#BE89F0", createdAt: "2023-02-02 11:32:19", imageUrl: "https://admin-uat.mytatva.in/assets/azure_images/icons/pef.png", imgExtn: "", isActive: "", isDeleted: "0", keys: "pef", mandatory: "N", maxLimit: "1", measurements: "", minLimit: "", readingName: "pef", readingsMasterId: "", updatedAt: "", updatedBy: "", readingDatetime: "", readingValue: 0.0, information: "", duration: 2, readingRequired: "", totalReadingAverage: "", defaultReading: "", graph: "", inRange: nil, notConfigured: "")
         /*DispatchQueue.main.async {
-            let vc = UpdateCommonReadingPopupVC.instantiate(fromAppStoryboard: .goal)
-            vc.readingType          = .FEV1Lung
-            vc.readingListModel     = readingList
-            self.navigate(modelVC: vc)
-    //        self.pages.append(vc)
-            return
-        }*/
-    
+         let vc = UpdateCommonReadingPopupVC.instantiate(fromAppStoryboard: .goal)
+         vc.readingType          = .FEV1Lung
+         vc.readingListModel     = readingList
+         self.navigate(modelVC: vc)
+         //        self.pages.append(vc)
+         return
+         }*/
+        
         
         
         
@@ -227,10 +216,10 @@ class Navigation: NSObject {
             print("data waiting to updated---")
             if obj?.count > 0 {
                 print("data updated---")
-                Navigation.is_home_data_update_required = true
+                RNEventEmitter.emitter.sendEvent(withName: "updatedGoalReadingSuccess", body: [:])
                 //print(obj ?? "")
                 //object
-//                                    self.tblReadings.reloadData()
+                //                                    self.tblReadings.reloadData()
                 //self.viewModel.apiCallFromStart_reading(refreshControl: self.refreshControl, tblView: self.tblGoals,withLoader: true)
             }
         }
@@ -244,29 +233,29 @@ class Navigation: NSObject {
     @objc
     func openHealthKitSyncView() {
         //if UserDefaultsConfig.isShowCoachmark {
-            if !UserDefaultsConfig.isShowHealthPermission {
-                UserDefaultsConfig.isShowHealthPermission = true
-                DispatchQueue.main.async {
-                    GFunction.shared.navigateToHealthConnect { obj in
-                        if obj?.count > 0 {
-                            //self.viewWillAppear(true)
-                        }
+        if !UserDefaultsConfig.isShowHealthPermission {
+            UserDefaultsConfig.isShowHealthPermission = true
+            DispatchQueue.main.async {
+                GFunction.shared.navigateToHealthConnect { obj in
+                    if obj?.count > 0 {
+                        //self.viewWillAppear(true)
                     }
                 }
-                
-                //UserDefaultsConfig.isShowCoachmark = false
             }
-       // }
+            
+            //UserDefaultsConfig.isShowCoachmark = false
+        }
+        // }
     }
     
     
-//    @objc
-//        func showPopUpBMI(_ selectedType: NSString) -> Void {
-//            let vc = UpdateCommonReadingPopupVC.instantiate(fromAppStoryboard: .goal)
-//            vc.readingType          = .SPO2
-//            vc.readingListModel     = item
-//            self.pages.append(vc)
-//        }
+    //    @objc
+    //        func showPopUpBMI(_ selectedType: NSString) -> Void {
+    //            let vc = UpdateCommonReadingPopupVC.instantiate(fromAppStoryboard: .goal)
+    //            vc.readingType          = .SPO2
+    //            vc.readingListModel     = item
+    //            self.pages.append(vc)
+    //        }
     
     @objc func navigate(modelVC: UIViewController) {
         DispatchQueue.main.async {
@@ -310,15 +299,15 @@ class Navigation: NSObject {
         case "AccountSettingVC":
             modelVC = AccountSettingVC.instantiate(fromAppStoryboard: .setting)
         case "BCPCarePlanDetailVC":
-//            modelVC = BCPCarePlanDetailVC.instantiate(fromAppStoryboard: .BCP_temp)
-             modelVC = BCPCarePlanVC.instantiate(fromAppStoryboard: .BCP_temp)
+            //            modelVC = BCPCarePlanDetailVC.instantiate(fromAppStoryboard: .BCP_temp)
+            modelVC = BCPCarePlanVC.instantiate(fromAppStoryboard: .BCP_temp)
         case "FoodDiaryParentVC":
             modelVC = FoodDiaryParentVC.instantiate(fromAppStoryboard: .goal)
         case "UpdateGoalParentVC":
             modelVC =   UpdateMedicationPopupVC.instantiate(fromAppStoryboard: .goal)
         case "HelpAndSupportVC":
             modelVC =   HelpAndSupportVC.instantiate(fromAppStoryboard: .setting)
-//        case "HistoryParentVC":
+            //        case "HistoryParentVC":
         case "MyDevices":
             modelVC
             = DevicesVC.instantiate(fromAppStoryboard: .home)
@@ -336,5 +325,19 @@ class Navigation: NSObject {
             topController?.dismiss(animated: true, completion: nil)
         }
     }
-    
+}
+
+@objc(RNEventEmitter)
+open class RNEventEmitter: RCTEventEmitter {
+
+  public static var emitter: RCTEventEmitter!
+
+  override init() {
+    super.init()
+    RNEventEmitter.emitter = self
+  }
+
+  open override func supportedEvents() -> [String] {
+    ["updatedGoalReadingSuccess"]
+  }
 }
