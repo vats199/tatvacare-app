@@ -42,7 +42,10 @@ class Navigation: NSObject {
     func navigateToEngagement(_ content_id : NSString) -> Void {
         let engageModelVC = EngageContentDetailVC.instantiate(fromAppStoryboard: .engage)
         engageModelVC.contentMasterId = (content_id as String)
-        navigate(modelVC: engageModelVC)
+//        navigate(modelVC: engageModelVC)
+        DispatchQueue.main.async {
+            UIApplication.topViewController()?.navigationController?.pushViewController(engageModelVC, animated: true)
+        }
     }
     
     @objc

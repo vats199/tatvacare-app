@@ -516,7 +516,7 @@ class EngageContentDetailVC : UIViewController {
     }
     
     @IBAction func onGoBack(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
     }
 
 }
