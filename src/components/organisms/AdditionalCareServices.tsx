@@ -8,11 +8,13 @@ import {
 import React from 'react';
 import {colors} from '../../constants/colors';
 import {Icons} from '../../constants/icons';
+import {useApp} from '../../context/app.context';
 type AdditionalServicesProps = {
   onPressConsultNutritionist: () => void;
-  onPressConsultPhysio: () => void;
+  onPressConsultPhysio: (type: 'HC' | 'D') => void;
   onPressBookDiagnostic: () => void;
   onPressBookDevices: () => void;
+  hcDevicePlans: any;
 };
 
 type AdditionalServicesItem = {
@@ -30,7 +32,12 @@ const AdditionalCareServices: React.FC<AdditionalServicesProps> = ({
   onPressConsultPhysio,
   onPressBookDiagnostic,
   onPressBookDevices,
+  hcDevicePlans,
 }) => {
+  const {userData} = useApp();
+
+  const showDoctorButton: boolean = !!userData?.patient_guid ?? false;
+
   const options: AdditionalServicesItem[] = [
     {
       title: 'Consult\nNutritionist',
@@ -38,7 +45,7 @@ const AdditionalCareServices: React.FC<AdditionalServicesProps> = ({
     },
     {
       title: 'Consult\nPhysio',
-      onPress: onPressConsultPhysio,
+      onPress: () => onPressConsultPhysio('HC'),
     },
     {
       title: 'Book\nDiagnostic',
@@ -48,11 +55,15 @@ const AdditionalCareServices: React.FC<AdditionalServicesProps> = ({
       title: 'Book\nDevices',
       onPress: onPressBookDevices,
     },
-    {
-      title: 'Doctor\nAppointment',
-      onPress: onPressConsultPhysio,
-    },
   ];
+
+  let doctorButton: AdditionalServicesItem = {
+    title: 'Doctor\nAppointment',
+    onPress: () => onPressConsultPhysio('D'),
+  };
+  if (showDoctorButton) {
+    options.push(doctorButton);
+  }
 
   const renderIcon = (
     title:

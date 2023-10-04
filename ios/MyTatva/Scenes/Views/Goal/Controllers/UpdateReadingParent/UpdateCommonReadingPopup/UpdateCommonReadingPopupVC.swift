@@ -266,6 +266,8 @@ class UpdateCommonReadingPopupVC: ClearNavigationFontBlackBaseVC {
         self.setUpView()
         self.setupViewModelObserver()
         self.setData()
+        self.txtReading.delegate                    = self
+        self.txtReading.isUserInteractionEnabled    = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -347,6 +349,10 @@ extension UpdateCommonReadingPopupVC {
 
 //MARK: --------------------- UITextFieldDelegate Method ---------------------
 extension UpdateCommonReadingPopupVC : UITextFieldDelegate {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return true
+    }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         switch textField {

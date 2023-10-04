@@ -1,4 +1,4 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Linking, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {colors} from '../../constants/colors';
 import {Icons} from '../../constants/icons';
@@ -17,6 +17,10 @@ const DrawerMore: React.FC<DrawerMoreProps> = ({onPressAboutUs = () => {}}) => {
   };
   const onShareAppPress = () => {
     navigateToShareKit();
+  };
+
+  const onPressRateApp = () => {
+    Linking.openURL('https://apps.apple.com/in/app/mytatva/id1590299281');
   };
 
   return (
@@ -66,7 +70,10 @@ const DrawerMore: React.FC<DrawerMoreProps> = ({onPressAboutUs = () => {}}) => {
           <Text style={styles.mhdItemText}>Share App</Text>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.itemContainer} activeOpacity={0.7}>
+      <TouchableOpacity
+        style={styles.itemContainer}
+        activeOpacity={0.7}
+        onPress={onPressRateApp}>
         <View style={styles.icon}>
           <Icons.DrawerRateApp />
         </View>
