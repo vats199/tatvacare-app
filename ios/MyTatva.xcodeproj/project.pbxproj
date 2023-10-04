@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -795,7 +795,7 @@
 		9AF1E62629FF9C0E002CF3D8 /* SomeoneElsePopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF1E62529FF9C0E002CF3D8 /* SomeoneElsePopupVC.swift */; };
 		9AF1E62829FFA1C0002CF3D8 /* SomeoneElsePopupVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF1E62729FFA1C0002CF3D8 /* SomeoneElsePopupVM.swift */; };
 		9AF1E62A29FFA4CE002CF3D8 /* SomeoneElseDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF1E62929FFA4CE002CF3D8 /* SomeoneElseDataModel.swift */; };
-		A3FAD6252AC959030026CE46 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = A3FAD6242AC959030026CE46 /* main.jsbundle */; };
+		A39657A22ACB1A60006F0191 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = A39657A12ACB1A60006F0191 /* main.jsbundle */; };
 		A3FAD6282ACAA2F50026CE46 /* DevicesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FAD6272ACAA2F50026CE46 /* DevicesVC.swift */; };
 		A3FAD62B2ACABB060026CE46 /* DevicesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FAD62A2ACABB060026CE46 /* DevicesViewModel.swift */; };
 		B8604DF02E0C2D06389976FD /* Pods_MyTatvaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8812ED21F4E5B3EE77B1ABF /* Pods_MyTatvaTests.framework */; };
@@ -1733,7 +1733,7 @@
 		A179FD1F8E011AB49DB4344E /* Pods_MyTatva.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyTatva.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A309C6272AC858590095AADF /* GoogleMaps.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = GoogleMaps.xcframework; path = Pods/GoogleMaps/Maps/Frameworks/GoogleMaps.xcframework; sourceTree = "<group>"; };
 		A36CD15F12E71C79351A3420 /* BcaVitalsDetailsTypeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BcaVitalsDetailsTypeVC.swift; sourceTree = "<group>"; };
-		A3FAD6242AC959030026CE46 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
+		A39657A12ACB1A60006F0191 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		A3FAD6272ACAA2F50026CE46 /* DevicesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesVC.swift; sourceTree = "<group>"; };
 		A3FAD62A2ACABB060026CE46 /* DevicesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesViewModel.swift; sourceTree = "<group>"; };
 		A6FEE104F66D229A87C5E44C /* Pods-NotificationViewController.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationViewController.release.xcconfig"; path = "Target Support Files/Pods-NotificationViewController/Pods-NotificationViewController.release.xcconfig"; sourceTree = "<group>"; };
@@ -5807,7 +5807,7 @@
 		91A1754026789CC500297B66 = {
 			isa = PBXGroup;
 			children = (
-				A3FAD6242AC959030026CE46 /* main.jsbundle */,
+				A39657A12ACB1A60006F0191 /* main.jsbundle */,
 				91A1754B26789CC500297B66 /* MyTatva */,
 				6169A390272BE1D70081C3B7 /* MyTatvaNotificationService */,
 				618AFEF6272C0884003C244C /* NotificationViewController */,
@@ -6471,7 +6471,7 @@
 				610BA62026DE2D2200CDA7BD /* SFProDisplay-Bold.ttf in Resources */,
 				61FED720276C9B9200A75D6A /* ImageViewerController.xib in Resources */,
 				6196788628F56A9A008CC4E5 /* doc2.json in Resources */,
-				A3FAD6252AC959030026CE46 /* main.jsbundle in Resources */,
+				A39657A22ACB1A60006F0191 /* main.jsbundle in Resources */,
 				616725B226DCD54E006C44EC /* SFProDisplay-Semibold.otf in Resources */,
 				61FED71C276C9B9200A75D6A /* README.md in Resources */,
 				9ACC9E872A2718FE00CFB324 /* BCP_temp.storyboard in Resources */,
