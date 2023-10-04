@@ -2,9 +2,9 @@ import React from 'react';
 
 type AppContextData = {
   location: any;
-  setUserLocation: React.SetStateAction<any>;
+  setUserLocation: React.Dispatch<React.SetStateAction<any>>;
   userData: any;
-  setUserData: React.SetStateAction<any>;
+  setUserData: React.Dispatch<React.SetStateAction<any>>;
 };
 
 const AppContext = React.createContext<AppContextData>({} as AppContextData);
