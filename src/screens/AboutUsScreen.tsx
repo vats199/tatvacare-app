@@ -59,6 +59,7 @@ const AboutUsScreen: React.FC<AboutUsScreenProps> = ({navigation, route}) => {
           source={{uri: getUrl()}}
           style={{flex: 1}}
           allowsFullscreenVideo={false}
+          startInLoadingState
         />
       </View>
     </SafeAreaView>

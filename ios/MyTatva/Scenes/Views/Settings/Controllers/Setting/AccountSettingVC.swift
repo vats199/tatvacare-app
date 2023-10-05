@@ -303,7 +303,7 @@ extension AccountSettingVC : UITableViewDataSource, UITableViewDelegate{
                 DispatchQueue.main.async {
                     self.dismiss(animated: true) {
                         Alert.shared.showAlert("", actionOkTitle: AppMessages.ok, actionCancelTitle: AppMessages.cancel, message: AppMessages.logoutMessage) { [weak self] (isDone) in
-                            guard let _ = self else {return}
+//                            guard let _ = self else {return}
                             if isDone {
                                 //UIApplication.shared.forceLogOut()
                                 GlobalAPI.shared.logoutAPI { (isDone) in

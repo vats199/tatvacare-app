@@ -110,28 +110,34 @@ const MyHealthDiary: React.FC<MyHealthDiaryProps> = ({
   ) => {
     switch (title) {
       case 'Medicines':
-        return medicineObj?.achieved_value === 0 ? (
-          <Icons.HealthDiaryMedicines />
-        ) : medicineObj?.achieved_value / medicineObj?.goal_value > 0.75 ? (
+        return medicineObj?.achieved_value / medicineObj?.goal_value > 0.75 ? (
           <Icons.MedicineGreen />
-        ) : (
+        ) : medicineObj?.achieved_value &&
+          medicineObj?.achieved_value / medicineObj?.goal_value < 0.75 &&
+          medicineObj?.achieved_value / medicineObj?.goal_value > 0 ? (
           <Icons.MedicineOmbre />
+        ) : (
+          <Icons.HealthDiaryMedicines />
         );
       case 'Diet':
-        return dietObj?.achieved_value === 0 ? (
-          <Icons.HealthDiaryDiet />
-        ) : dietObj?.achieved_value / dietObj?.goal_value > 0.75 ? (
+        return dietObj?.achieved_value / dietObj?.goal_value > 0.75 ? (
           <Icons.DietGreen />
-        ) : (
+        ) : dietObj?.achieved_value &&
+          dietObj?.achieved_value / dietObj?.goal_value < 0.75 &&
+          dietObj?.achieved_value / dietObj?.goal_value > 0 ? (
           <Icons.DietOmbre />
+        ) : (
+          <Icons.HealthDiaryDiet />
         );
       case 'Exercises':
-        return exeObj?.achieved_value === 0 ? (
-          <Icons.HealthDiaryExercise />
-        ) : exeObj?.achieved_value / exeObj?.goal_value > 0.75 ? (
+        return exeObj?.achieved_value / exeObj?.goal_value > 0.75 ? (
           <Icons.ExerciseGreen />
-        ) : (
+        ) : exeObj?.achieved_value &&
+          exeObj?.achieved_value / exeObj?.goal_value < 0.75 &&
+          exeObj?.achieved_value / exeObj?.goal_value > 0 ? (
           <Icons.ExerciseOmbre />
+        ) : (
+          <Icons.HealthDiaryExercise />
         );
       case 'Devices':
         return <Icons.HealthDiaryDevices />;

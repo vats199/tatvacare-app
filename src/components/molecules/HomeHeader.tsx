@@ -55,14 +55,20 @@ const HomeHeader: React.FC<HomeHeaderProps> = ({
             </View>
           )}
         </TouchableOpacity>
-        {!userData?.profile_pic && (
-          <TouchableOpacity
-            activeOpacity={0.6}
-            onPress={onPressProfile}
-            style={styles.profileImageContainer}>
+        <TouchableOpacity
+          activeOpacity={0.6}
+          onPress={onPressProfile}
+          style={styles.profileImageContainer}>
+          {!userData?.profile_pic ? (
             <Icons.NoUserImage height={28} width={28} />
-          </TouchableOpacity>
-        )}
+          ) : (
+            <Image
+              source={{uri: userData.profile_pic}}
+              style={styles.image}
+              resizeMode={'stretch'}
+            />
+          )}
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -94,6 +100,10 @@ const styles = StyleSheet.create({
     top: -2.5,
     right: -2.5,
   },
+  image: {
+    height: 28,
+    width: 28,
+  },
   notifCountBadgeText: {
     fontWeight: '700',
     color: colors.white,
@@ -122,6 +132,8 @@ const styles = StyleSheet.create({
     borderRadius: 14,
     height: 28,
     width: 28,
+    alignItems: 'center',
+    justifyContent: 'center',
     overflow: 'hidden',
   },
   userImg: {

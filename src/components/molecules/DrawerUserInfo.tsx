@@ -18,7 +18,9 @@ type DrawerUserInfoProps = {};
 const DrawerUserInfo: React.FC<DrawerUserInfoProps> = () => {
   const {userData} = useApp();
 
-  const [image, setImage] = React.useState<string | null>(null);
+  const [image, setImage] = React.useState<string | null>(
+    userData?.profile_pic,
+  );
 
   const openPicker = () => {
     ImagePicker.openPicker({
@@ -68,7 +70,7 @@ const DrawerUserInfo: React.FC<DrawerUserInfoProps> = () => {
         <Image
           source={{uri: image}}
           style={styles.image}
-          resizeMode={'contain'}
+          resizeMode={'stretch'}
         />
       ) : (
         <Icons.NoProfilePhotoPlaceholder />

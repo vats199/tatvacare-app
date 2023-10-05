@@ -44,6 +44,8 @@ import {
   openUpdateGoal,
   navigateToExercise,
   navigateToBookAppointment,
+  navigateToDiscover,
+  openMedicine,
 } from '../routes/Router';
 import Home from '../api/home';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -71,8 +73,12 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   const [hcDevicePlans, setHcDevicePlans] = React.useState<any>({});
   const [healthDiaries, setHealthDiaries] = React.useState<any>([]);
 
-  const refetchData = () => {
+  const refetchHealthInsights = () => {
     getMyHealthInsights();
+  };
+
+  const refetchLearnMoreData = () => {
+    getLearnMoreData();
   };
 
   useEffect(() => {
@@ -85,10 +91,23 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
     getMyHealthDiaries();
   }, []);
 
+  // Health Insight Updates
   useEffect(() => {
     const subscribe = eventEmitter.addListener(
       'updatedGoalReadingSuccess',
-      refetchData,
+      refetchHealthInsights,
+    );
+
+    return () => {
+      subscribe.remove();
+    };
+  }, []);
+
+  // Bookmark Updates
+  useEffect(() => {
+    const subscribe = eventEmitter.addListener(
+      'bookmarkUpdated',
+      refetchLearnMoreData,
     );
 
     return () => {
@@ -114,10 +133,8 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
       return 'Good Morning';
     } else if (currentHour >= 12 && currentHour < 16) {
       return 'Good Afternoon';
-    } else if (currentHour >= 16 && currentHour < 21) {
-      return 'Good Evening';
     } else {
-      return 'Good Night';
+      return 'Good Evening';
     }
   };
 
@@ -234,7 +251,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   };
   const onPressMedicine = (filteredData: any) => {
     // navigateToMedicines('test');
-    openUpdateGoal([{filteredData: filteredData}, {firstRow: 'medication'}]);
+    openMedicine([{filteredData: filteredData}, {firstRow: 'medication'}]);
   };
   const onPressMyIncidents = () => {
     navigateToIncident();
@@ -265,7 +282,8 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   };
 
   const onPressViewAllLearn = () => {
-    navigation.navigate('AllLearnItemsScreen');
+    // navigation.navigate('AllLearnItemsScreen');
+    navigateToDiscover();
   };
 
   const onPressLearnItem = (contentId: string, contentType: string) => {

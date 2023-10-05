@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -3050,6 +3050,7 @@ added to your daily goal count</string>
                                 <rect key="frame" x="339.66666666666669" y="194.33333333333334" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="S5r-PS-0BX"/>
+                                    <constraint firstAttribute="width" secondItem="lFP-2O-S0P" secondAttribute="height" id="xse-56-yOM"/>
                                 </constraints>
                                 <state key="normal" image="cross_ic"/>
                             </button>
@@ -3065,7 +3066,6 @@ added to your daily goal count</string>
                             <constraint firstItem="jd5-gs-76R" firstAttribute="top" secondItem="l8w-SU-jQn" secondAttribute="top" id="dUz-a3-8fv"/>
                             <constraint firstItem="jd5-gs-76R" firstAttribute="leading" secondItem="l8w-SU-jQn" secondAttribute="leading" id="f9m-TL-dpb"/>
                             <constraint firstItem="Sq8-ug-YWf" firstAttribute="trailing" secondItem="ZtJ-Yw-zhe" secondAttribute="trailing" constant="25" id="idM-Ni-XRX"/>
-                            <constraint firstItem="lFP-2O-S0P" firstAttribute="width" secondItem="lFP-2O-S0P" secondAttribute="height" id="xse-56-yOM"/>
                             <constraint firstItem="Sq8-ug-YWf" firstAttribute="trailing" secondItem="jd5-gs-76R" secondAttribute="trailing" id="y3O-QS-sm3"/>
                         </constraints>
                     </view>
@@ -3158,6 +3158,7 @@ added to your daily goal count</string>
                                 <rect key="frame" x="345" y="331" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="Wih-lQ-Chr"/>
+                                    <constraint firstAttribute="width" secondItem="4cz-VX-sCP" secondAttribute="height" id="xDF-AG-SqI"/>
                                 </constraints>
                                 <state key="normal" image="cross_ic"/>
                             </button>
@@ -3175,7 +3176,6 @@ added to your daily goal count</string>
                             <constraint firstItem="LIZ-kz-06S" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="kay-TO-cPf" secondAttribute="bottom" constant="15" id="k8u-f7-mLG"/>
                             <constraint firstItem="kay-TO-cPf" firstAttribute="top" relation="greaterThanOrEqual" secondItem="LIZ-kz-06S" secondAttribute="top" constant="15" id="noa-zo-2Br"/>
                             <constraint firstItem="1Ci-e8-IwB" firstAttribute="top" secondItem="fo5-Bm-vaY" secondAttribute="top" id="wNm-cH-ZBz"/>
-                            <constraint firstItem="4cz-VX-sCP" firstAttribute="width" secondItem="4cz-VX-sCP" secondAttribute="height" id="xDF-AG-SqI"/>
                             <constraint firstItem="LIZ-kz-06S" firstAttribute="trailing" secondItem="1Ci-e8-IwB" secondAttribute="trailing" id="zey-mc-3BE"/>
                         </constraints>
                     </view>
@@ -4889,7 +4889,7 @@ added to your daily goal count</string>
         <image name="report_y" width="8" height="13"/>
         <image name="rest_day" width="263.33334350585938" height="96"/>
         <image name="sets" width="30" height="30"/>
-        <image name="share_ic" width="14.666666984558105" height="16"/>
+        <image name="share_ic" width="19.333333969116211" height="20.333333969116211"/>
         <image name="time_gray" width="14.333333015441895" height="14.333333015441895"/>
         <namedColor name="ColorExercise">
             <color red="0.46666666666666667" green="0.8666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -4910,13 +4910,13 @@ added to your daily goal count</string>
             <color red="0.46274509803921571" green="0.058823529411764705" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="linkColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray2Color">
-            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

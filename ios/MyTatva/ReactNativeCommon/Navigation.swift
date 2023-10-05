@@ -119,6 +119,15 @@ class Navigation: NSObject {
     }
     
     @objc
+    func navigateToDiscover() -> Void {
+        if let tabbarVC = UIApplication.topViewController()?.parent as? TabbarVC {
+            DispatchQueue.main.async {
+                tabbarVC.selectedIndex = 2
+            }
+        }
+    }
+    
+    @objc
     func navigateToBookAppointment(_ selectedType: NSString) -> Void {
         PlanManager.shared.isAllowedByPlan(type: .book_appointments,
                                            sub_features_id: "",
@@ -144,12 +153,41 @@ class Navigation: NSObject {
     }
     
     @objc
+    func openMedicine(_ selectedType: NSArray) {
+        let fileteredData = selectedType.firstObject as? NSDictionary
+        let key = (selectedType[1] as? NSDictionary)?["firstRow"] as? String
+        let array = fileteredData?["filteredData"] as? NSArray ?? []
+        var arrReadingList: [GoalListModel] = []
+        for data in array {
+            arrReadingList.append(GoalListModel(fromDic: data as? NSDictionary ?? [:]))
+        }
+        let selectedIndex = arrReadingList.firstIndex(where: { $0.keys == key})
+        
+        let vc = UpdateGoalParentVC.instantiate(fromAppStoryboard: .goal)
+        
+        
+        vc.selectedIndex            = selectedIndex ?? 0
+        vc.arrList                  = arrReadingList
+        vc.modalPresentationStyle   = .overFullScreen
+        vc.modalTransitionStyle     = .crossDissolve
+        
+        
+        vc.completionHandler = { obj in
+            print("data waiting to updated---")
+            if obj?.count > 0 {
+                print("data updated---")
+                RNEventEmitter.emitter.sendEvent(withName: "updatedGoalReadingSuccess", body: [:])
+            }
+        }
+        DispatchQueue.main.async {
+            UIApplication.topViewController()?.present(vc, animated: true)
+        }
+    }
+    
+    @objc
     func openUpdateGoal(_ selectedType: NSArray) {
         let fileteredData = selectedType.firstObject as? NSDictionary
-        //print(fileteredData?["filteredData"],"===========>>")
-        //print(fileteredData?["filteredData"] as? NSArray ?? [],"+++++++++++++")
         let key = (selectedType[1] as? NSDictionary)?["firstRow"] as? String
-        //print(key)
         let array = fileteredData?["filteredData"] as? NSArray ?? []
         var arrReadingList: [GoalListModel] = []
         for data in array {
@@ -363,6 +401,6 @@ open class RNEventEmitter: RCTEventEmitter {
   }
 
   open override func supportedEvents() -> [String] {
-    ["updatedGoalReadingSuccess"]
+    ["updatedGoalReadingSuccess","bookmarkUpdated"]
   }
 }
