@@ -55,6 +55,7 @@ import BookmarkFilled from '../assets/icons/bookmarkFilled.svg';
 import BackIcon from '../assets/icons/backIcon.svg';
 import CloseIcon from '../assets/icons/close.svg';
 
+import FlagIcon from '../assets/icons/flagIcon.svg';
 
 export const Icons = {
   HomeActive,
@@ -110,4 +111,5 @@ export const Icons = {
   DrawerAboutUs,
   DrawerShareApp,
   DrawerRateApp,
+  FlagIcon
 };

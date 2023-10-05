@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, ButtonProps, TouchableOpacity, ViewStyle, TextStyle, ActivityIndicator } from 'react-native'
 import React from 'react'
 import { colors } from '../../constants/colors'
+import { Fonts, Matrics } from '../../constants'
 
 interface MyButtonProps extends ButtonProps {
     buttonStyle?: ViewStyle,
@@ -12,7 +13,7 @@ interface MyButtonProps extends ButtonProps {
 
 const Button: React.FC<MyButtonProps> = ({ title, onPress, buttonStyle, titleStyle, activeOpacity, disabled, loading = false, loaderColor = 'white' }) => {
     return (
-        <TouchableOpacity style={[styles.container, buttonStyle]} onPress={onPress} activeOpacity={activeOpacity} disabled={disabled || loading}>
+        <TouchableOpacity style={[styles.container, { backgroundColor: disabled ? colors.disableButton : colors.themePurple }, buttonStyle]} onPress={onPress} activeOpacity={activeOpacity ?? 0.7} disabled={disabled || loading}>
             {loading ?
                 <ActivityIndicator size={'small'} color={loaderColor} />
                 :
@@ -30,10 +31,11 @@ const styles = StyleSheet.create({
         backgroundColor: colors.themePurple,
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 5
+        borderRadius: Matrics.mvs(16)
     },
     title: {
         color: 'white',
-        fontSize: 16,
+        fontSize: Matrics.mvs(16),
+        fontFamily: Fonts.BOLD
     }
 })

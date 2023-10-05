@@ -6,16 +6,17 @@ import {
   DrawerParamList,
   AuthStackParamList
 } from '../interface/Navigation.interface';
-import {NavigationContainer} from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import {
   DrawerContentComponentProps,
   createDrawerNavigator,
 } from '@react-navigation/drawer';
 import CustomDrawer from '../components/organisms/CustomDrawer';
-import {NativeModules} from 'react-native';
-import {createStackNavigator} from '@react-navigation/stack';
+import { NativeModules } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
 import LoginScreen from '../screens/Auth/LoginScreen';
 import OnBoardingScreen from '../screens/Auth/OnBoardingScreen';
+import OTPScreen from '../screens/Auth/OTPScreen';
 // const Navigation = NativeModules.Navigation;
 // export const navigateTo = Navigation.navigateTo;
 // export const navigateToHistory = Navigation.navigateToHistory;
@@ -54,10 +55,13 @@ const AuthStack = createStackNavigator<AuthStackParamList>();
 const AuthStackScreen = () => {
   return (
     <AuthStack.Navigator initialRouteName='OnBoardingScreen' screenOptions={{
-      headerShown: false,
+      // headerShown: false,
     }}>
-      <AuthStack.Screen  name='LoginScreen' component={LoginScreen}/>
-      <AuthStack.Screen  name='OnBoardingScreen' component={OnBoardingScreen}/>
+      <AuthStack.Screen name='LoginScreen' component={LoginScreen} />
+      <AuthStack.Screen name='OTPScreen' component={OTPScreen} />
+      <AuthStack.Screen name='OnBoardingScreen' component={OnBoardingScreen} options={{
+        headerShown: false
+      }} />
     </AuthStack.Navigator>
   )
 }
@@ -67,14 +71,14 @@ const Router = () => {
   return (
     <NavigationContainer>
       <AppStack.Navigator
-      initialRouteName='AuthStackScreen'
+        initialRouteName='AuthStackScreen'
         screenOptions={{
           headerShown: false,
         }}>
-          <AppStack.Screen name={'AuthStackScreen'} component={AuthStackScreen}/>
+        <AppStack.Screen name={'AuthStackScreen'} component={AuthStackScreen} />
         <AppStack.Screen name={'DrawerScreen'} component={DrawerScreen} />
       </AppStack.Navigator>
-      
+
       {/* <Stack.Navigator>
        
       </Stack.Navigator> */}
