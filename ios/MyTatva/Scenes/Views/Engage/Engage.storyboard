@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZoP-E5-uid">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZoP-E5-uid">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -5194,6 +5194,7 @@ Basics</string>
                                 <rect key="frame" x="345" y="141.33333333333334" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="N05-s1-NSL"/>
+                                    <constraint firstAttribute="width" secondItem="cnO-Il-vvE" secondAttribute="height" id="vm9-g6-9Mj"/>
                                 </constraints>
                                 <state key="normal" image="cross_ic"/>
                             </button>
@@ -5211,7 +5212,6 @@ Basics</string>
                             <constraint firstAttribute="trailing" secondItem="8Lv-jE-UjJ" secondAttribute="trailing" id="jc6-XO-53V"/>
                             <constraint firstItem="bGh-DK-Ff6" firstAttribute="leading" secondItem="aQT-6Q-Uy6" secondAttribute="leading" constant="25" id="l98-Ug-Dev"/>
                             <constraint firstItem="8Lv-jE-UjJ" firstAttribute="leading" secondItem="aQT-6Q-Uy6" secondAttribute="leading" id="sEB-MR-3yC"/>
-                            <constraint firstItem="cnO-Il-vvE" firstAttribute="width" secondItem="cnO-Il-vvE" secondAttribute="height" id="vm9-g6-9Mj"/>
                         </constraints>
                     </view>
                     <nil key="simulatedTopBarMetrics"/>
@@ -5325,6 +5325,7 @@ Basics</string>
                                 <rect key="frame" x="345" y="236.66666666666663" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="ece-no-aY5"/>
+                                    <constraint firstAttribute="width" secondItem="ozg-a4-n1T" secondAttribute="height" id="tn7-vB-0J6"/>
                                 </constraints>
                                 <state key="normal" image="cross_ic"/>
                             </button>
@@ -5342,7 +5343,6 @@ Basics</string>
                             <constraint firstItem="kWM-Zy-yfb" firstAttribute="leading" secondItem="yL4-gh-Dng" secondAttribute="leading" constant="25" id="iNa-mG-K8P"/>
                             <constraint firstItem="wdn-hs-6co" firstAttribute="top" secondItem="2Da-5v-AmS" secondAttribute="top" id="kJ7-qu-Xd7"/>
                             <constraint firstAttribute="trailing" secondItem="wdn-hs-6co" secondAttribute="trailing" id="mEx-pu-3kv"/>
-                            <constraint firstItem="ozg-a4-n1T" firstAttribute="width" secondItem="ozg-a4-n1T" secondAttribute="height" id="tn7-vB-0J6"/>
                             <constraint firstItem="kWM-Zy-yfb" firstAttribute="centerY" secondItem="yL4-gh-Dng" secondAttribute="centerY" id="vZQ-0D-QLB"/>
                             <constraint firstItem="wdn-hs-6co" firstAttribute="leading" secondItem="yL4-gh-Dng" secondAttribute="leading" id="za9-qG-q5z"/>
                         </constraints>
@@ -5389,7 +5389,7 @@ Basics</string>
         </designable>
     </designables>
     <resources>
-        <image name="arrow_right" width="6.6666665077209473" height="11.333333015441895"/>
+        <image name="arrow_right" width="6.6666665077209473" height="11"/>
         <image name="attachment" width="18" height="20.333333969116211"/>
         <image name="back_ic" width="9.6666669845581055" height="17"/>
         <image name="bookmark_ic" width="12.666666984558105" height="16"/>
@@ -5448,16 +5448,16 @@ Basics</string>
             <color red="1" green="0.74901960784313726" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="labelColor">
-            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="linkColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray6Color">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

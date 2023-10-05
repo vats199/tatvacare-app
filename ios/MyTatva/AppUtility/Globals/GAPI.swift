@@ -834,7 +834,6 @@ class GlobalAPI : NSObject {
             
             switch result {
             case .success(let response):
-                
                 var returnVal   = false
                 
                 switch response.apiCode {
@@ -3418,7 +3417,7 @@ class GlobalAPI : NSObject {
             var msg     = ""
             switch result {
             case .success(let response):
-                
+                RNEventEmitter.emitter.sendEvent(withName: "bookmarkUpdated", body: [:])
                 var returnVal = false
                 switch response.apiCode {
                 case .invalidOrFail:

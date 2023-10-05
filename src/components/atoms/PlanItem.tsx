@@ -12,20 +12,23 @@ const PlanItem: React.FC<PlanItemProps> = ({
   onPressKnowMore = () => {},
 }) => {
   return (
-    <View style={styles.planItemContainer}>
+    <TouchableOpacity
+      onPress={onPressKnowMore}
+      activeOpacity={0.6}
+      style={styles.planItemContainer}>
       <View style={styles.textContainer}>
         <Text style={styles.name}>{plan.plan_name}</Text>
         <Text style={styles.subtitle}>{plan.sub_title}</Text>
-        <TouchableOpacity onPress={onPressKnowMore} activeOpacity={0.6}>
+        <View>
           <Text style={styles.knowmore}>Know More</Text>
-        </TouchableOpacity>
+        </View>
       </View>
       <Image
         source={{uri: plan.image_url}}
         style={styles.image}
         resizeMode={'stretch'}
       />
-    </View>
+    </TouchableOpacity>
   );
 };
 

@@ -54,7 +54,7 @@ const MyHealthInsights: React.FC<MyHealthInsightsProps> = ({
           <Text style={styles.hiItemValue}>
             {getValue(item?.reading_value)}
           </Text>
-          <Text style={styles.hiItemKey}>{item?.keys}</Text>
+          <Text style={styles.hiItemKey}>{item?.measurements}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -76,9 +76,11 @@ const MyHealthInsights: React.FC<MyHealthInsightsProps> = ({
         </View>
         <View style={styles.valuesRow}>
           <Text style={styles.hiItemValue}>
-            {getValue(item?.achieved_value)} / {getValue(item?.goal_value)}
+            {getValue(item?.todays_achieved_value)}
           </Text>
-          <Text style={styles.hiItemKey}>{item?.goal_measurement}</Text>
+          <Text style={styles.hiItemKey}>
+            / {getValue(item?.goal_value)} {item?.goal_measurement}
+          </Text>
         </View>
       </TouchableOpacity>
     );

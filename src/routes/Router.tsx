@@ -25,7 +25,9 @@ export const navigateToIncident = Navigation.navigateToIncident;
 export const navigateToShareKit = Navigation.navigateToShareKit;
 export const openUpdateReading = Navigation.openUpdateReading;
 export const navigateToExercise = Navigation.navigateToExercise;
+export const navigateToDiscover = Navigation.navigateToDiscover;
 export const openUpdateGoal = Navigation.openUpdateGoal;
+export const openMedicine = Navigation.openMedicine;
 export const openHealthKitSyncView = Navigation.openHealthKitSyncView;
 export const navigateToBookAppointment = Navigation.navigateToBookAppointment;
 

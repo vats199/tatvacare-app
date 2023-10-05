@@ -8,6 +8,8 @@ class MyDevicesCell : UITableViewCell {
     @IBOutlet weak var lblDeviceName: UILabel!
     @IBOutlet weak var lblLastSync: UILabel!
     @IBOutlet weak var btnConnect: UIButton!
+    @IBOutlet weak var lblLungDeviceName: UILabel!
+    @IBOutlet weak var lblLundDeviceDetails: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -17,6 +19,12 @@ class MyDevicesCell : UITableViewCell {
         
         self.lblLastSync.font(name: .light, size: 12)
             .textColor(color: UIColor.ThemeDarkGray)
+       
+        self.lblLungDeviceName.font(name: .medium, size: 13)
+            .textColor(color: UIColor.lightGray).text = "Smart Analyser"
+        
+        self.lblLundDeviceDetails.font(name: .light, size: 12)
+            .textColor(color: UIColor.lightGray)
         
         self.btnConnect.font(name: .medium, size: 11)
             .textColor(color: UIColor.themePurple)
@@ -25,6 +33,7 @@ class MyDevicesCell : UITableViewCell {
         
         self.imgIcon.image = UIImage(named: "icon_BCA")
         
+        self.vwBG.cornerRadius(cornerRadius: 10, clips: true).borderColor(color: .lightGray, borderWidth: 0.5)
         self.vwBG.applyViewShadow(shadowOffset: .zero, shadowColor: UIColor.ThemeDeviceShadow, shadowOpacity: 0.2)
     }
 }
