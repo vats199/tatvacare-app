@@ -215,11 +215,11 @@ const styles = StyleSheet.create({
   dificultBtnContainer: {
     height: 30,
     position: 'absolute',
-    width: '100%',
+    width: '85%',
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
     top: 10,
-    right: 10,
+    right: 10,left:30
   },
   dificultBtn: {
     height: 30,
