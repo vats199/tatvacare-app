@@ -5,6 +5,8 @@ import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
 import com.facebook.react.defaults.DefaultReactActivityDelegate;
 import android.os.Bundle;
+import org.devio.rn.splashscreen.SplashScreen; // here
+
 
 public class MainActivity extends ReactActivity {
 
@@ -19,6 +21,8 @@ public class MainActivity extends ReactActivity {
   
   @Override
   protected void onCreate(Bundle savedInstanceState) {
+    androidx.core.splashscreen.SplashScreen.installSplashScreen(this); // native splash screen which will be skipped
+    org.devio.rn.splashscreen.SplashScreen.show(this, true); // custom splash screen from react-native-splash-screen library
     super.onCreate(null);
   }
 

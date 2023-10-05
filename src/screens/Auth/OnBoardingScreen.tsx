@@ -98,16 +98,9 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({ navigation, route }
           pagingEnabled
           keyExtractor={item => item.id}
           showsHorizontalScrollIndicator={false}
-          onViewableItemsChanged={_onViewableItemsChanged}
-          viewabilityConfig={_viewabilityConfig}
+        // onViewableItemsChanged={_onViewableItemsChanged}
+        // viewabilityConfig={_viewabilityConfig}
         />
-        {/* <View style={{ position: 'absolute', bottom: 10, alignSelf: 'center' }}>
-          {arr.map((item: any, index: number) => (
-            <View style={{ height: 6, width: 30, backgroundColor: 'gray', marginLeft: 5 }}>
-
-            </View>
-          ))}
-        </View> */}
         <View style={styles.pagingCont}>
           {arr.map((ele, index) => {
             return (
