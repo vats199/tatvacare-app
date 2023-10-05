@@ -59,6 +59,7 @@ import DoneIcon from '../assets/icons/done.svg';
 import Pending from '../assets/icons/pending.svg';
 import Play from '../assets/icons/play.svg';
 import calendar from '../assets/icons/calendar.svg';
+import restDay from '../assets/icons/restDay.svg';
 
 export const Icons = {
   HomeActive,
@@ -117,5 +118,6 @@ export const Icons = {
   DoneIcon,
   Pending,
   Play,
-  calendar
+  calendar,
+  restDay
 };

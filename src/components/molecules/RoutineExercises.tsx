@@ -50,6 +50,14 @@ const RoutineExercises: React.FC<RoutineExercisesProps> = ({
       <FlatList
         data={exerciseData}
         showsVerticalScrollIndicator={false}
+        ListEmptyComponent={() => {
+          return (
+            <View style={styles.emptyListContainer}>
+              <Text style={styles.restText}>Rest Day</Text>
+              <Icons.restDay />
+            </View>
+          );
+        }}
         renderItem={({item, index}: {item: any; index: number}) => {
           return (
             <View>
@@ -274,5 +282,14 @@ const styles = StyleSheet.create({
   backgroundVideo: {
     height: '100%',
     flex: 1,
+  },
+  emptyListContainer: {
+    flex: 1,
+  },
+  restText: {
+    fontSize: 24,
+    textAlign: 'center',
+    color: colors.darkBlue,
+    fontWeight: '600',
   },
 });
