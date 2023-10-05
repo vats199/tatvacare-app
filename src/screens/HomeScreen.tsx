@@ -152,7 +152,10 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   };
   const onPressExercise = (filteredData: any) => {
     // navigateToMedicines('test');
-    navigateToExercise([{filteredData: filteredData}, {firstRow: 'exercise'}]);
+    // navigateToExercise([{filteredData: filteredData}, {firstRow: 'exercise'}]);
+ 
+    navigation.navigate('TabScreen');
+ 
     // navigateTo('navigateToExercise');
   };
   const onPressMedicine = (filteredData: any) => {

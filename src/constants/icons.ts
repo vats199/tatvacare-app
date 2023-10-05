@@ -55,6 +55,11 @@ import BookmarkFilled from '../assets/icons/bookmarkFilled.svg';
 import BackIcon from '../assets/icons/backIcon.svg';
 import CloseIcon from '../assets/icons/close.svg';
 
+import DoneIcon from '../assets/icons/done.svg';
+import Pending from '../assets/icons/pending.svg';
+import Play from '../assets/icons/play.svg';
+import calendar from '../assets/icons/calendar.svg';
+
 export const Icons = {
   HomeActive,
   HomeInactive,
@@ -109,4 +114,8 @@ export const Icons = {
   DrawerAboutUs,
   DrawerShareApp,
   DrawerRateApp,
+  DoneIcon,
+  Pending,
+  Play,
+  calendar
 };
