@@ -79,6 +79,9 @@ struct UserDefaultsConfig {
     @UserDefault(UserDefaults.Keys.kAccessCode, defaultValue: "")
     static var kAccessCode: String
     
+    @UserDefault(UserDefaults.Keys.kAccessCode, defaultValue: "")
+    static var kAppVersion: String
+        
     /*@UserDefault(UserDefaults.Keys.accountFor, defaultValue: false)
     static var accountFor: Bool
     

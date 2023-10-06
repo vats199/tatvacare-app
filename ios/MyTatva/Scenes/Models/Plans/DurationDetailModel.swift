@@ -20,6 +20,7 @@ class DurationDetailModel{
     var deviceList : String!
     var deviceNames : String!
     var diagnosticTestSessionCount : Int!
+    var diagnosticTestUsedCount : Int!
     var diagnosticTests : String!
     var diagnosticTestsNames : String!
     var discountPercentage : String!
@@ -84,6 +85,7 @@ class DurationDetailModel{
         rentBuyType = json["rent_buy_type"].stringValue
         updatedAt = json["updated_at"].stringValue
         updatedBy = json["updated_by"].stringValue
+        diagnosticTestUsedCount = json["diagnostic_test_used_count"].intValue
     }
     
     /**
@@ -187,6 +189,9 @@ class DurationDetailModel{
         }
         if updatedBy != nil{
             dictionary["updated_by"] = updatedBy
+        }
+        if diagnosticTestUsedCount != nil{
+            dictionary["diagnostic_test_used_count"] = diagnosticTestUsedCount
         }
         return dictionary
     }

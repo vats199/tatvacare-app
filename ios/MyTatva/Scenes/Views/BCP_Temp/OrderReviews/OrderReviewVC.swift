@@ -53,6 +53,11 @@ class OrderReviewVC: LightPurpleNavigationBase {
     @IBOutlet weak var lblAmountPaid: UILabel!
     @IBOutlet weak var lblAmountPaidRate: UILabel!
     
+    @IBOutlet weak var lblDiscountItemsCharge: UILabel!
+    @IBOutlet weak var lblDiscountItemsChargeRate: UILabel!
+    @IBOutlet weak var lblApplyCouponCharge: UILabel!
+    @IBOutlet weak var lblApplyCouponChargeRate: UILabel!
+    
     //----------------- Agree -------------------
     @IBOutlet weak var btnAgree: UIButton!
     @IBOutlet weak var lblAgreeConditions: UILabel!
@@ -63,13 +68,21 @@ class OrderReviewVC: LightPurpleNavigationBase {
     @IBOutlet weak var lblTotalPayablePrice: UILabel!
     @IBOutlet weak var btnProcess: ThemePurple16Corner!
     
-    
-    //----------------
-    
+    //---------------- View Container --------------
     @IBOutlet weak var vwAccountDetails: UIView!
     @IBOutlet weak var vwSampleDetails: UIView!
     @IBOutlet weak var vwTestDetails: UIView!
     @IBOutlet weak var vwBillingDetails: UIView!
+    @IBOutlet weak var vwMainApplyCoupon: UIView!
+    @IBOutlet weak var vwApplyCouponCharge: UIView!
+    @IBOutlet weak var vwDiscountCharge: UIView!
+    
+    //----------------- Apply Coupon -------------------
+    
+    @IBOutlet weak var lblHeaderOffers: UILabel!
+    @IBOutlet weak var vwApplyCoupon: UIView!
+    @IBOutlet weak var lblApplyCoupon: UILabel!
+    
     //------------------------------------------------------
     //MARK: - Class Variables -
     
@@ -92,6 +105,8 @@ class OrderReviewVC: LightPurpleNavigationBase {
     var finalPayableAmount = 0
     
     var razorpayObj : RazorpayCheckout? = nil
+    
+    var promoCodeAmount = 0
     
     //------------------------------------------------------
     //MARK: - UIView Life Cycle Methods -
@@ -185,13 +200,19 @@ class OrderReviewVC: LightPurpleNavigationBase {
         self.lblAmountPaid.font(name: .bold, size: 14).textColor(color: .themeBlack).text = "Amount to be Paid"
         self.lblAmountPaidRate.font(name: .bold, size: 14).textColor(color: .themeBlack).text = "Free"
         
-        self.lblAgreeConditions.text = "By signing up, you agree to our Terms & Conditions"
+        self.lblDiscountItemsCharge.font(name: .regular, size: 13).textColor(color: .ThemeGray61).text = "Discount on Item(s)"
+        self.lblDiscountItemsChargeRate.font(name: .medium, size: 14).textColor(color: .ThemeGray61).text = "Free"
+        self.lblApplyCouponCharge.font(name: .regular, size: 13).textColor(color: .ThemeGray61).text = "Applied Coupon (\(kApplyCouponName))"
+        self.lblApplyCouponChargeRate.font(name: .medium, size: 14).textColor(color: .themeGreen).text = "Free"
+       
+        self.lblAgreeConditions.text = "I agree to the Terms & Conditions"
+
         self.lblAgreeConditions.font(name: .regular, size: 12.0).numberOfLines = 0
         self.lblAgreeConditions.isUserInteractionEnabled = true
         let gesture2 = UITapGestureRecognizer(target: self, action: #selector(tapLabelTerms(gesture:)))
         self.lblAgreeConditions.addGestureRecognizer(gesture2)
 
-        self.lblAgreeConditions.setAttributedString(["By signing up, you agree to our","Terms & Conditions"], attributes: [[
+        self.lblAgreeConditions.setAttributedString(["I agree to the","Terms & Conditions"], attributes: [[
             NSAttributedString.Key.foregroundColor : UIColor.themeGray5
         ],[
             NSAttributedString.Key.foregroundColor : UIColor.themeGray5,
@@ -204,7 +225,7 @@ class OrderReviewVC: LightPurpleNavigationBase {
         self.btnProcess.font(name: .bold, size: 12)
         
         self.setAttributedLabels()
-        self.setTestData()
+       
         
         self.vwAccountDetails.cornerRadius(cornerRadius: 12.0).themeShadowBCP()
         self.tblTest.cornerRadius(cornerRadius: 12.0)
@@ -213,6 +234,26 @@ class OrderReviewVC: LightPurpleNavigationBase {
         self.vwSampleDetails.cornerRadius(cornerRadius: 12.0).themeShadowBCP()
         self.vwProcess.themeShadowBCP()
         
+        if !kApplyCouponName.isEmpty {
+            self.vwMainApplyCoupon.isHidden = false
+            self.vwDiscountCharge.isHidden = false
+            self.vwApplyCouponCharge.isHidden = false
+            self.lblApplyCouponChargeRate.text = "- \(appCurrencySymbol.rawValue)\(kCouponCodeAmount)"
+            self.promoCodeAmount = kCouponCodeAmount
+        } else {
+            self.vwMainApplyCoupon.isHidden = true
+            self.vwDiscountCharge.isHidden = false
+            self.vwApplyCouponCharge.isHidden = true
+        }
+        
+        self.vwApplyCoupon.cornerRadius(cornerRadius: 12.0).themeShadowBCP()
+        self.lblHeaderOffers.font(name: .bold, size: 16).textColor(color: .themeBlack2).text = "Offers & Promotions"
+        self.lblApplyCoupon.font(name: .semibold, size: 14).textColor(color: .themeBlack).text = "'\(kApplyCouponName)' applied"
+        
+        self.lblTotalOldAmount.isHidden = true
+        self.lblCollectionOldAmount.isHidden = true
+        
+        self.setTestData()
     }
     
     func setAttributedLabels() {
@@ -234,20 +275,29 @@ class OrderReviewVC: LightPurpleNavigationBase {
         ]
         
         func setAmountData() {
-            [
-                self.lblTotalOldAmount,self.lblCollectionOldAmount
-            ].forEach({$0?.isHidden = false})
-                        
+//            [
+//                self.lblTotalOldAmount,self.lblCollectionOldAmount
+//            ].forEach({$0?.isHidden = false})
+            
+//            self.lblTotalAmountRate.text = appCurrencySymbol.rawValue + JSON(totalAmount as Any).stringValue
+//            self.lblTotalOldAmount.text = appCurrencySymbol.rawValue + JSON(totalOldAmount as Any).stringValue
+            
+            self.lblTotalAmountRate.text = appCurrencySymbol.rawValue + JSON(totalOldAmount as Any).stringValue
+            
             self.lblAmountPaidRate.text = appCurrencySymbol.rawValue + JSON(finalPayableAmount as Any).stringValue
             self.lblTotalPayablePrice.text = appCurrencySymbol.rawValue + JSON(finalPayableAmount as Any).stringValue
-            self.lblTotalOldAmount.text = appCurrencySymbol.rawValue + JSON(totalOldAmount as Any).stringValue
+           
             self.lblTotalOldAmount.attributedText = self.lblTotalOldAmount.text!.getAttributedText(defaultDic: defaultDicQue, attributeDic: defaultDicQue, attributedStrings: [""])
-            self.lblTotalAmountRate.text = appCurrencySymbol.rawValue + JSON(totalAmount as Any).stringValue
+            
             self.lblCollectionOldAmount.text = appCurrencySymbol.rawValue + JSON(homeOldCollectionCharge as Any).stringValue
             self.lblCollectionOldAmount.attributedText = self.lblCollectionOldAmount.text!.getAttributedText(defaultDic: defaultDicQue, attributeDic: defaultDicQue, attributedStrings: [""])
             self.lblCollectionChargeRate.text = appCurrencySymbol.rawValue + JSON(homeCollectionCharge as Any).stringValue
             self.lblServiceChargeRate.text = serviceCharge == 0 ? KFree : appCurrencySymbol.rawValue + "\(serviceCharge)"
             self.btnProcess.setTitle("Proceed to Payment", for: .normal)
+            
+            let dicountChargeRate = Int(JSON(totalOldAmount as Any).stringValue)! - Int(JSON(totalAmount as Any).stringValue)!
+            
+            self.lblDiscountItemsChargeRate.text = "- \(appCurrencySymbol.rawValue)\(dicountChargeRate)"
         }
         
         let isBCPAdded = self.cartListModel.bcpTestsList.contains(where: { $0.isBcpTestsAdded })
@@ -264,7 +314,7 @@ class OrderReviewVC: LightPurpleNavigationBase {
         homeOldCollectionCharge = homeCharge.ammount
         homeCollectionCharge = homeCharge.payableAmmount
         serviceCharge = JSON(orderDetail.serviceCharge as Any).intValue
-        finalPayableAmount = orderDetail.finalPayableAmount
+        finalPayableAmount = orderDetail.finalPayableAmount - self.promoCodeAmount
         
         if isBCPAdded && !isOtherTestAdded {
             var tempOldTotal = 0
@@ -278,22 +328,24 @@ class OrderReviewVC: LightPurpleNavigationBase {
             
             totalOldAmount -= tempOldTotal
             totalAmount -= tempAmount
-            finalPayableAmount = (totalAmount+homeCollectionCharge+serviceCharge)
+            finalPayableAmount = (totalAmount+homeCollectionCharge+serviceCharge) - self.promoCodeAmount
             
             setAmountData()
             
         }
         else if isBCPAdded && isOtherTestAdded {
-            [
-                self.lblTotalOldAmount,self.lblCollectionOldAmount
-            ].forEach({$0?.isHidden = true})
-            
+//            [
+//                self.lblTotalOldAmount,self.lblCollectionOldAmount
+//            ].forEach({$0?.isHidden = true})
+//
             [
                 self.lblTotalAmountRate,self.lblCollectionChargeRate,self.lblServiceChargeRate,self.lblAmountPaidRate
             ].forEach({$0?.text = KFree})
             self.btnProcess.setTitle("Confirm", for: .normal)
             
             self.finalPayableAmount = 0
+            self.vwApplyCouponCharge.isHidden = true
+            self.vwDiscountCharge.isHidden = true
             
         }
         else if !isBCPAdded && !isOtherTestAdded {
@@ -343,10 +395,23 @@ class OrderReviewVC: LightPurpleNavigationBase {
         self.btnProcess.addAction(for: .touchUpInside) { [weak self] in
             guard let self = self else { return }
             guard self.btnAgree.isSelected else {
-//                Alert.shared.showSnackBar(AppError.validation(type: .agreeTermsAndCondition).localizedDescription)
                 Alert.shared.showSnackBar(AppError.validation(type: .agreeTermsAndCondition).localizedDescription, isError: true, isBCP: true)
                 return
             }
+            
+            var params              = [String : Any]()
+            
+            params[AnalyticsParameters.service_type.rawValue]       = "test"
+
+            params[AnalyticsParameters.discount_code.rawValue]      = !kApplyCouponName.isEmpty ? kApplyCouponName : ""
+            
+            let dis = self.finalPayableAmount + self.promoCodeAmount
+            params[AnalyticsParameters.amount_after_discount.rawValue]       = !kApplyCouponName.isEmpty ? "\(self.finalPayableAmount)" : ""
+            params[AnalyticsParameters.amount_before_discount.rawValue]      = !kApplyCouponName.isEmpty ? "\(dis)" : "\(self.finalPayableAmount)"
+
+            FIRAnalytics.FIRLogEvent(eventName: .TAP_PROCEED_TO_PAYMENT,
+                                     screen: .BookLabtestAppointmentReview,
+                                     parameter: params)
             
             var params1 = [String: Any]()
             
@@ -406,7 +471,7 @@ extension OrderReviewVC : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TestDetailCell") as! TestDetailCell
         cell.btnDelete.isHidden = true
-        cell.lblTestName.text = self.cartListModel.testsList[indexPath.row].testNames
+        cell.lblTestName.text = self.cartListModel.testsList[indexPath.row].name
         let isLast = indexPath.row == (self.cartListModel.testsList.count - 1)
         cell.vwLine.isHidden = isLast
         cell.consLineBottom.constant = isLast ? 6 : 12

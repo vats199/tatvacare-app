@@ -297,6 +297,9 @@ extension PlanListVM {
         params["plan_package_duration_rel_id"]  = plan_package_duration_rel_id
         params["device_type"]                   = "I"
         params["purchase_amount"]               = purchase_amount
+//        params["discount_amount"]               = "\(kBCPCouponCodeAmount)"
+//        params["discounts_master_id"]           = kBCPDiscountMasterId
+//        params["discount_type"]                 = kBCPDiscountType
 //        params["subscription_id"]               = subscription_id
         
         ApiManager.shared.makeRequest(method: ApiEndPoints.patient_plans(.add_patient_plan), methodType: .post, parameter: params, withErrorAlert: true, withLoader: withLoader, withdebugLog: true) { (result) in

@@ -12,7 +12,9 @@ class SetupProfileVM2 {
     //MARK: - Class Variables
     
     private(set) var isResult = Bindable<Result<String?, AppError>>()
-    
+
+    private(set) var isRChange = Bindable<Int>()
+   
 
     //MARK: - init
     init() {

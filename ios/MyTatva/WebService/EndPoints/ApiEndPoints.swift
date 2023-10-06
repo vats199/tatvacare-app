@@ -153,6 +153,9 @@ enum Patient_plans: String {
     case razorpay_order_id              = "razorpay_order_id"
     case care_plan_services             = "care_plan_services"
     case my_devices                     = "my_devices"
+    case discount_list                  = "discount_list"
+    case check_discount                 = "check_discount"
+    case check_is_plan_purchased        = "check_is_plan_purchased"
 }
 
 enum GoalReading: String {

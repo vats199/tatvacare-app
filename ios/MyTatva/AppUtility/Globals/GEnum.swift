@@ -269,6 +269,11 @@ enum SelectionType: String {
     //case allTime          = "All time"
 }
 
+enum ActionType: String {
+    case edit        = "edit"
+    case delete      = "delete"
+}
+
 enum FibroScanType: String {
     case LSM
     case CAP
@@ -295,6 +300,12 @@ enum AddressType: String {
     case Other
 }
 
+enum AddressType1: String {
+    case Home
+    case Office
+    case Other
+}
+
 enum UserSettingFlag: String {
     case hide_engage_page//Tab, Search, coachmark
     case chat_bot//Home chat-bubble, FAQ
@@ -311,6 +322,10 @@ enum UserSettingFlag: String {
     case hide_home_my_device //Hide My device section from Home
     case hide_home_bca // Hide BCA list
     case is_bcp_with_in_app // BCP payment through inapp
+    case hide_home_spirometer // For hidding spirometer inapp
+    case hide_discount_on_labtest //For hidding discount for labtest
+    case hide_discount_on_plan //For hiding discount for plans
+    case home_from_react_native
 }
 
 //There will be 5 types of content: Article/blog, Photo gallery, KOL videos, Normal videos, webinar and panel discussion.
@@ -408,7 +423,7 @@ enum DateTimeFormaterEnum: String {
     case EEEEddMMMM                 = "EEEE, dd MMMM"
     case EEEddMMMM                  = "EEE, dd MMM, yyyy"
     case EEEEddMMMyyyy              = "EEEE, dd MMM, yyyy"
-    
+    case MMMMDDYYYY                 = "MMMM dd, yyyy"
     case HHmma                      = "HH:mm a"
 }
 
@@ -510,4 +525,16 @@ enum AccessFrom: String {
     case LinkPatient
 }
 
+enum BottomScreenName: String {
+    case select_address = "select address"
+    case grant_location_permission = "grant location permission"
+    case add_pincode = "add pincode"
+    case enter_address = "enter address"
+}
 
+extension Notification.Name {
+    static let didResumeTest = Notification.Name(rawValue: "didResumeTest")
+    static let locationUpdated = Notification.Name("locationUpdated")
+    static let locationPermissionChanged = Notification.Name("locationPermissionChanged")
+
+}

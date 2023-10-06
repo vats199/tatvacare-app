@@ -113,7 +113,7 @@ extension BCPCarePlanDetailVM {
     func getPlanDetails(durationType:String,patientPlanRelId:String="") {
         
         let planMasterId = self.cpDetail.planDetails.planMasterId ?? ""
-//        let planMasterId = "2605dfb7-3762-11ee-b5a3-1dbb567d70ba"
+        
         GlobalAPI.shared.planDetailsAPI(plan_id: planMasterId,
                                         durationType: durationType,
                                         patientPlanRelId: patientPlanRelId,
@@ -149,7 +149,7 @@ extension BCPCarePlanDetailVM {
                     Alert.shared.showSnackBar(response.message)
                     break
                 case .emptyData:
-                    Alert.shared.showSnackBar(response.message)
+                    Alert.shared.showSnackBar(response.message, isError: true, isBCP: true)
                     break
                 case .inactiveAccount:
                     
@@ -178,7 +178,6 @@ extension BCPCarePlanDetailVM {
                 break
                 
             case .failure(let error):
-                
                 Alert.shared.showSnackBar(error.localizedDescription, isError: true, isBCP: true)
                 break
                 
@@ -274,6 +273,9 @@ extension BCPCarePlanDetailVM {
         params["plan_package_duration_rel_id"]  = plan_package_duration_rel_id
         params["device_type"]                   = "I"
         params["purchase_amount"]               = purchase_amount
+//        params["discount_amount"]               = "\(kBCPCouponCodeAmount)"
+//        params["discounts_master_id"]           = kBCPDiscountMasterId
+//        params["discount_type"]                 = kBCPDiscountType
 //        params["subscription_id"]               = subscription_id
         
         ApiManager.shared.makeRequest(method: ApiEndPoints.patient_plans(.add_patient_plan), methodType: .post, parameter: params, withErrorAlert: true, withLoader: withLoader, withdebugLog: true) { (result) in
@@ -284,19 +286,19 @@ extension BCPCarePlanDetailVM {
                 var returnVal = false
                 switch response.apiCode {
                 case .invalidOrFail:
-                    Alert.shared.showSnackBar(response.message)
+                    Alert.shared.showSnackBar(response.message, isError: true, isBCP: true)
                     break
                 case .success:
                     returnVal = true
-                    Alert.shared.showSnackBar(response.message)
+                    Alert.shared.showSnackBar(response.message, isBCP: true)
                     break
                 case .emptyData:
-                    Alert.shared.showSnackBar(response.message)
+                    Alert.shared.showSnackBar(response.message, isError: true, isBCP: true)
                     break
                 case .inactiveAccount:
                     
                     UIApplication.shared.forceLogOut()
-                    Alert.shared.showSnackBar(response.message)
+                    Alert.shared.showSnackBar(response.message, isError: true, isBCP: true)
                     break
                 case .otpVerify:
                     break
@@ -320,8 +322,7 @@ extension BCPCarePlanDetailVM {
                 break
                 
             case .failure(let error):
-                
-                Alert.shared.showSnackBar(error.localizedDescription)
+                Alert.shared.showSnackBar(error.localizedDescription, isError: true, isBCP: true)
                 break
                 
             }

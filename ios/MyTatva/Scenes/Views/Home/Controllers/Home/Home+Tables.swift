@@ -8,23 +8,19 @@ class MyDevicesCell : UITableViewCell {
     @IBOutlet weak var lblDeviceName: UILabel!
     @IBOutlet weak var lblLastSync: UILabel!
     @IBOutlet weak var btnConnect: UIButton!
-    @IBOutlet weak var lblLungDeviceName: UILabel!
-    @IBOutlet weak var lblLundDeviceDetails: UILabel!
+    
+    @IBOutlet weak var vwLine: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        self.vwLine.backGroundColor(color: .themeGray4.withAlphaComponent(0.3))
         
         self.lblDeviceName.font(name: .medium, size: 13)
             .textColor(color: UIColor.themeBlack).text = "Smart Analyser"
         
         self.lblLastSync.font(name: .light, size: 12)
             .textColor(color: UIColor.ThemeDarkGray)
-       
-        self.lblLungDeviceName.font(name: .medium, size: 13)
-            .textColor(color: UIColor.lightGray).text = "Smart Analyser"
-        
-        self.lblLundDeviceDetails.font(name: .light, size: 12)
-            .textColor(color: UIColor.lightGray)
         
         self.btnConnect.font(name: .medium, size: 11)
             .textColor(color: UIColor.themePurple)
@@ -33,7 +29,6 @@ class MyDevicesCell : UITableViewCell {
         
         self.imgIcon.image = UIImage(named: "icon_BCA")
         
-        self.vwBG.cornerRadius(cornerRadius: 10, clips: true).borderColor(color: .lightGray, borderWidth: 0.5)
         self.vwBG.applyViewShadow(shadowOffset: .zero, shadowColor: UIColor.ThemeDeviceShadow, shadowOpacity: 0.2)
     }
 }
@@ -80,7 +75,7 @@ class SummaryTblCell: UITableViewCell {
         progressBar.capType             = 1
         
         switch progressBar {
-        
+            
         case self.linearProgressBar:
             progressBar.barThickness        = 10
             progressBar.barColor            = color
@@ -99,7 +94,7 @@ class SummaryTblCell: UITableViewCell {
             }
             
             break
-       
+            
         default: break
         }
     }
@@ -128,15 +123,15 @@ extension HomeVC : UITableViewDataSource, UITableViewDelegate{
                 }
             }
         case self.tblMyDevices:
-            return 1
+            return UserModel.shared.devices == nil ? 0 : UserModel.shared.getNumberOfDevice()
         default:
             break
         }
         return 0
     }
-  
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
+        
         
         switch tableView {
         case self.tblDailySummary:
@@ -144,11 +139,11 @@ extension HomeVC : UITableViewDataSource, UITableViewDelegate{
             let cell : SummaryTblCell = tableView.dequeueReusableCell(withClass: SummaryTblCell.self, for: indexPath)
             let object      = self.viewModel.getGoalObject(index: indexPath.row)//self.arrSummary[indexPath.row]
             
-    //        cell.imgView.image          = UIImage(named: object["img"].stringValue)
-    //        cell.lblTitle.text          = object["name"].stringValue
-    //        cell.lblDesc.text           = object["desc"].stringValue
-    //        let progress1Value          = CGFloat(object["progress"].doubleValue)
-    //        cell.linearProgressBar.progressValue = progress1Value
+            //        cell.imgView.image          = UIImage(named: object["img"].stringValue)
+            //        cell.lblTitle.text          = object["name"].stringValue
+            //        cell.lblDesc.text           = object["desc"].stringValue
+            //        let progress1Value          = CGFloat(object["progress"].doubleValue)
+            //        cell.linearProgressBar.progressValue = progress1Value
             
             cell.vwTitleBg.backGroundColor(color: UIColor.hexStringToUIColor(hex: object.colorCode).withAlphaComponent(0.4))
             cell.imgView.image      = nil
@@ -160,9 +155,9 @@ extension HomeVC : UITableViewDataSource, UITableViewDelegate{
             //cell.lblDesc.text           = "2 of 8 doses"//object["desc"].stringValue
             
             cell.lblDesc.text = "\(object.achievedValue!)"
-                + " " + AppMessages.of + " "
-                + "\(object.goalValue!)" + " "
-                + object.goalMeasurement
+            + " " + AppMessages.of + " "
+            + "\(object.goalValue!)" + " "
+            + object.goalMeasurement
             
             let value       = Float(object.achievedValue)
             let maxValue    = Float(object.goalValue) ?? 0
@@ -179,34 +174,60 @@ extension HomeVC : UITableViewDataSource, UITableViewDelegate{
         case self.tblMyDevices:
             let cell : MyDevicesCell = tableView.dequeueReusableCell(withClass: MyDevicesCell.self, for: indexPath)
             let userModel = UserModel.shared
-            cell.lblLastSync.text = userModel.bcaSync == nil ? AppMessages.deviceConnectionRequired : userModel.bcaSync.createdAt.isEmpty ? AppMessages.deviceConnectionRequired : "Last synced on " + GFunction.shared.convertDateFormat(dt: UserModel.shared.bcaSync.createdAt, inputFormat: DateTimeFormaterEnum.UTCFormat.rawValue, outputFormat: DateTimeFormaterEnum.ddMMMYYYYhhmma.rawValue, status: .NOCONVERSION).str
-            cell.lblDeviceName.text = userModel.devices != nil ? userModel.devices[indexPath.row].title : "Smart Analyser"
+            let data = userModel.getDeviceDetail(indexPath.row)//userModel.devices?[indexPath.row]
+            
+            let isSpirometer = data?.key == BTDeviceType.spirometer.rawValue
+            
+            cell.lblLastSync.numberOfLines = 0
+            cell.lblLastSync.text = isSpirometer ? AppMessages.connectToSpirometer : userModel.bcaSync == nil ? AppMessages.deviceConnectionRequired : userModel.bcaSync.createdAt.isEmpty ? AppMessages.deviceConnectionRequired : "Last synced on " + GFunction.shared.convertDateFormat(dt: UserModel.shared.bcaSync.createdAt, inputFormat: DateTimeFormaterEnum.UTCFormat.rawValue, outputFormat: DateTimeFormaterEnum.ddMMMYYYYhhmma.rawValue, status: .NOCONVERSION).str
+            cell.lblDeviceName.text = userModel.devices != nil ? data?.title ?? "" : "Smart Analyser"
+            
+            cell.vwLine.isHidden = indexPath.row == UserModel.shared.devices.count - 1
+            cell.imgIcon.image = UIImage(named: data?.icon ?? "")
+            cell.imgIcon.alpha = isSpirometer ? 0.5 : 1.0
+            
+            cell.lblLastSync.textColor(color: isSpirometer ? UIColor.themeDisable : UIColor.ThemeDarkGray)
+            cell.lblDeviceName.textColor(color: isSpirometer ? UIColor.themeDisable : UIColor.themeBlack)
+            
+            cell.btnConnect.isHidden = isSpirometer
+            
             cell.btnConnect.addAction(for: .touchUpInside) { [weak self] in
                 guard let self = self else { return }
+                if isSpirometer {
+                    Alert.shared.showAlert(message: AppMessages.connectToSpirometer) { Bool in
+                    }
+                    return
+                }
                 self.viewModel.showDeviceConnectPopUp()
             }
+            
             return cell
         default:
             break
         }
         return UITableViewCell()
     }
-   
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         switch tableView {
             
         case self.tblMyDevices:
-            
+
+            let userModel = UserModel.shared
+            let data = userModel.getDeviceDetail(indexPath.row)
+            let isSpiro = data?.key == BTDeviceType.spirometer.rawValue
             var params = [String:Any]()
-            params[AnalyticsParameters.sync_status.rawValue] = UserModel.shared.bcaSync == nil ? "N" : UserModel.shared.bcaSync.createdAt.isEmpty ? "N" : "Y"
-            params[AnalyticsParameters.medical_device.rawValue] = "BCA"
+            params[AnalyticsParameters.sync_status.rawValue] = (data?.lastSyncDate ?? "").trim().isEmpty ? "N" : "Y"
+            params[AnalyticsParameters.medical_device.rawValue] = isSpiro ? BTDeviceType.spirometer.rawValue.capitalized : BTDeviceType.bca.rawValue.uppercased()
             FIRAnalytics.FIRLogEvent(eventName: .TAP_DEVICE_CARD,
                                      screen: .Home,
                                      parameter: params)
             
-            guard let bcaSync = UserModel.shared.bcaSync, !bcaSync.createdAt.isEmpty else {
-//                Alert.shared.showSnackBar(AppMessages.deviceConnectionRequired)
+            guard !isSpiro else { return }
+            
+            guard !(data?.lastSyncDate ?? "").isEmpty else {
+                //                Alert.shared.showSnackBar(AppMessages.deviceConnectionRequired)
                 self.viewModel.showDeviceConnectPopUp()
                 return
             }
@@ -224,60 +245,60 @@ extension HomeVC : UITableViewDataSource, UITableViewDelegate{
                 self.selectGoal(obj: obj, cell: cell)
             }
             /*if (GoalType(rawValue: obj.keys) ?? .Exercise) == .Exercise {
-                
-                GlobalAPI.shared.getRoutines { [weak self] (message,data,statusCode) in
-                    guard let self = self else { return }
-                    switch statusCode {
-                    case .success:
-                        guard let data = data else { return }
-                        let isRestDay = data["is_rest_day"].boolValue
-                        
-                        guard isRestDay else {
-                            let vc = RoutineExercisePopupVC.instantiate(fromAppStoryboard: .goal)
-                            vc.viewModel.arrExersice = data["exercise_details"].arrayValue.map({ ExerciseDataModel(fromJson: $0) })
-                            vc.goalListModel = obj
-                            vc.modalPresentationStyle = .overFullScreen
-                            vc.modalTransitionStyle = .crossDissolve
-                            vc.performOtherExersice = { [weak self] isDone in
-                                guard let self = self,isDone else { return }
-                                if let cell = self.tblDailySummary.cellForRow(at: indexPath) as? SummaryTblCell {
-                                    self.selectGoal(obj: obj, cell: cell)
-                                }
-                            }
-                            UIApplication.topViewController()?.present(vc, animated: true)
-                            return
-                        }
-                        
-                        if let cell = self.tblDailySummary.cellForRow(at: indexPath) as? SummaryTblCell {
-                            self.selectGoal(obj: obj, cell: cell)
-                        }
-                        
-                        break
-                    case .emptyData: break
-                    default: break
-                    }
-                }
-                
-                /*let exersicePlanRoutineVM = ExerciseMyPlanRoutineParentVM()
-                exersicePlanRoutineVM.getRoutines { [weak self] isRestDay in
-                    guard let self = self else { return }
-                    guard isRestDay else {
-                        let vc = RoutineExercisePopupVC.instantiate(fromAppStoryboard: .goal)
-                        vc.modalPresentationStyle = .overFullScreen
-                        vc.modalTransitionStyle = .crossDissolve
-                        UIApplication.topViewController()?.present(vc, animated: true)
-                        return
-                    }
-                    if let cell = self.tblDailySummary.cellForRow(at: indexPath) as? SummaryTblCell {
-                        self.selectGoal(obj: obj, cell: cell)
-                    }
-                }*/
-            } else {
-                if let cell = self.tblDailySummary.cellForRow(at: indexPath) as? SummaryTblCell {
-                    self.selectGoal(obj: obj, cell: cell)
-                }
-            }*/
-                        
+             
+             GlobalAPI.shared.getRoutines { [weak self] (message,data,statusCode) in
+             guard let self = self else { return }
+             switch statusCode {
+             case .success:
+             guard let data = data else { return }
+             let isRestDay = data["is_rest_day"].boolValue
+             
+             guard isRestDay else {
+             let vc = RoutineExercisePopupVC.instantiate(fromAppStoryboard: .goal)
+             vc.viewModel.arrExersice = data["exercise_details"].arrayValue.map({ ExerciseDataModel(fromJson: $0) })
+             vc.goalListModel = obj
+             vc.modalPresentationStyle = .overFullScreen
+             vc.modalTransitionStyle = .crossDissolve
+             vc.performOtherExersice = { [weak self] isDone in
+             guard let self = self,isDone else { return }
+             if let cell = self.tblDailySummary.cellForRow(at: indexPath) as? SummaryTblCell {
+             self.selectGoal(obj: obj, cell: cell)
+             }
+             }
+             UIApplication.topViewController()?.present(vc, animated: true)
+             return
+             }
+             
+             if let cell = self.tblDailySummary.cellForRow(at: indexPath) as? SummaryTblCell {
+             self.selectGoal(obj: obj, cell: cell)
+             }
+             
+             break
+             case .emptyData: break
+             default: break
+             }
+             }
+             
+             /*let exersicePlanRoutineVM = ExerciseMyPlanRoutineParentVM()
+              exersicePlanRoutineVM.getRoutines { [weak self] isRestDay in
+              guard let self = self else { return }
+              guard isRestDay else {
+              let vc = RoutineExercisePopupVC.instantiate(fromAppStoryboard: .goal)
+              vc.modalPresentationStyle = .overFullScreen
+              vc.modalTransitionStyle = .crossDissolve
+              UIApplication.topViewController()?.present(vc, animated: true)
+              return
+              }
+              if let cell = self.tblDailySummary.cellForRow(at: indexPath) as? SummaryTblCell {
+              self.selectGoal(obj: obj, cell: cell)
+              }
+              }*/
+             } else {
+             if let cell = self.tblDailySummary.cellForRow(at: indexPath) as? SummaryTblCell {
+             self.selectGoal(obj: obj, cell: cell)
+             }
+             }*/
+            
             break
         default:break
         }
@@ -285,7 +306,7 @@ extension HomeVC : UITableViewDataSource, UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         //self.viewModel.managePagenation(tblView: self.tblView,
-//                                        index: indexPath.row)
+        //                                        index: indexPath.row)
     }
 }
 
@@ -330,11 +351,11 @@ extension HomeVC {
     
     func removeObserverOnHeightTbl() {
         
-//        guard let tblView = self.tblDailySummary else {return}
-//        if let _ = tblView.observationInfo {
-//            tblView.removeObserver(self, forKeyPath: "contentSize")
-//        }
-//
+        //        guard let tblView = self.tblDailySummary else {return}
+        //        if let _ = tblView.observationInfo {
+        //            tblView.removeObserver(self, forKeyPath: "contentSize")
+        //        }
+        //
         self.tblDailySummary.removeObserver(self, forKeyPath: "contentSize")
         self.tblMyDevices.removeObserver(self, forKeyPath: "contentSize")
     }
@@ -362,9 +383,9 @@ extension HomeVC {
                     vc.hidesBottomBarWhenPushed = true
                     self.navigationController?.pushViewController(vc, animated: true)
                     
-    //                let vc = FoodLogVC.instantiate(fromAppStoryboard: .goal)
-    //                vc.hidesBottomBarWhenPushed = true
-    //                UIApplication.topViewController()?.navigationController?.pushViewController(vc, animated: true)
+                    //                let vc = FoodLogVC.instantiate(fromAppStoryboard: .goal)
+                    //                vc.hidesBottomBarWhenPushed = true
+                    //                UIApplication.topViewController()?.navigationController?.pushViewController(vc, animated: true)
                 }
                 else {
                     self.isPageVisible = false
@@ -388,7 +409,7 @@ extension HomeVC {
                     for cell in self.tblDailySummary.visibleCells {
                         cell.hero.id            = nil
                     }
-//                    cell?.hero.id                   = obj.keys
+                    //                    cell?.hero.id                   = obj.keys
                     self.tblDailySummary.hero.id    = obj.keys
                     vc.completionHandler = { obj in
                         cell?.hero.id           = nil
@@ -421,4 +442,4 @@ extension HomeVC {
         })
     }
 }
-                                          
+

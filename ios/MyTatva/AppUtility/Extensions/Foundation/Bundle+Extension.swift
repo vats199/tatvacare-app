@@ -123,4 +123,8 @@ extension Bundle {
         }
     }
     
+    func getAppVersion() -> String {
+        JSON(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as Any).stringValue
+    }
+    
 }

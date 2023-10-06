@@ -128,6 +128,15 @@ class Navigation: NSObject {
     }
     
     @objc
+    func navigateToChronicCareProgram() -> Void {
+        DispatchQueue.main.async {
+            let vc = BCPCarePlanVC.instantiate(fromAppStoryboard: .BCP_temp)
+            vc.hidesBottomBarWhenPushed = true
+            UIApplication.topViewController()?.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+    @objc
     func navigateToBookAppointment(_ selectedType: NSString) -> Void {
         PlanManager.shared.isAllowedByPlan(type: .book_appointments,
                                            sub_features_id: "",

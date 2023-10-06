@@ -14,6 +14,7 @@ class MyDeviceListCell: UITableViewCell {
     @IBOutlet weak var lblDeviceName: UILabel!
     @IBOutlet weak var lblLastSync: UILabel!
     @IBOutlet weak var btnConnect: UIButton!
+    @IBOutlet weak var vwLine: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -30,6 +31,7 @@ class MyDeviceListCell: UITableViewCell {
         self.imgIcon.image = UIImage(named: "icon_BCA")
         self.btnConnect.contentHorizontalAlignment = .right
         
+        self.vwLine.backGroundColor(color: .themeGray4.withAlphaComponent(0.3))
         //self.vwBG.cornerRadius(cornerRadius: 12.0).themeShadow()
     }
     
@@ -198,26 +200,54 @@ extension MyDeviceVC : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withClass: MyDeviceListCell.self)
-        let data = self.viewModel.getDeviceData()
+        let data = self.viewModel.getDeviceData(indexPath.row)
+        let isSpirometer = (data?.key ?? "") == BTDeviceType.spirometer.rawValue
         cell.lblDeviceName.text = data?.title
-        cell.lblLastSync.text = (data?.lastSyncDate ?? "").trim().isEmpty ? AppMessages.deviceConnectionRequired : "Last synced on " + GFunction.shared.convertDateFormat(dt: data?.lastSyncDate ?? "", inputFormat: DateTimeFormaterEnum.UTCFormat.rawValue, outputFormat: DateTimeFormaterEnum.ddMMMYYYYhhmma.rawValue, status: .NOCONVERSION).str
+        
+        cell.imgIcon.image = UIImage(named: data?.icon ?? "")
+        cell.imgIcon.alpha = isSpirometer ? 0.5 : 1
+        
+        cell.lblLastSync.text = isSpirometer ? AppMessages.connectToSpirometer : (data?.lastSyncDate ?? "").trim().isEmpty ? AppMessages.deviceConnectionRequired : "Last synced on " + GFunction.shared.convertDateFormat(dt: data?.lastSyncDate ?? "", inputFormat: DateTimeFormaterEnum.UTCFormat.rawValue, outputFormat: DateTimeFormaterEnum.ddMMMYYYYhhmma.rawValue, status: .NOCONVERSION).str
+        cell.lblLastSync.numberOfLines = 0
+        
+        cell.lblLastSync.textColor(color: isSpirometer ? UIColor.themeDisable : UIColor.ThemeDarkGray)
+        cell.lblDeviceName.textColor(color: isSpirometer ? UIColor.themeDisable : UIColor.themeBlack)
+        
+        cell.btnConnect.isHidden = isSpirometer
+        
+        cell.vwLine.isHidden = indexPath.row == (self.viewModel.getNumOfRows() - 1)
+        
         cell.btnConnect.addAction(for: .touchUpInside) { [weak self] in
             guard let self = self else { return }
+            
+            if isSpirometer {
+                Alert.shared.showAlert(message: AppMessages.connectToSpirometer) { Bool in
+                }
+                return
+            }
+            
             self.viewModel.showDeviceConnectPopUp()
         }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let data = self.viewModel.getDeviceData()
+        
+        let data = self.viewModel.getDeviceData(indexPath.row)
+        let isSpiro = data?.key == BTDeviceType.spirometer.rawValue
+        
         var params = [String:Any]()
         params[AnalyticsParameters.sync_status.rawValue] = (data?.lastSyncDate ?? "").trim().isEmpty ? "N" : "Y"
-        params[AnalyticsParameters.medical_device.rawValue] = "BCA"
+        params[AnalyticsParameters.medical_device.rawValue] = isSpiro ? BTDeviceType.spirometer.rawValue.capitalized : BTDeviceType.bca.rawValue.uppercased()
         FIRAnalytics.FIRLogEvent(eventName: .TAP_DEVICE_CARD,
                                  screen: .BcpDeviceDetails,
                                  parameter: params)
+
+        guard !isSpiro else { return }
         
-        guard let bcaSync = self.viewModel.getDeviceData(), !bcaSync.lastSyncDate.trim().isEmpty else {
+        guard let device = self.viewModel.getDeviceData(indexPath.row) else { return }
+        
+        guard !(device.lastSyncDate.trim().isEmpty) else {
             self.viewModel.showDeviceConnectPopUp()
             return
         }

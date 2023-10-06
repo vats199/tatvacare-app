@@ -166,8 +166,7 @@ extension ChronicConditionsVM {
                 
                 switch response.apiCode {
                 case .invalidOrFail:
-
-                    Alert.shared.showSnackBar(response.message)
+                    Alert.shared.showSnackBar(response.message, isError: true, isBCP: true)
                     break
                 case .success:
 
@@ -186,14 +185,14 @@ extension ChronicConditionsVM {
                     break
 
                 case .emptyData:
-
-                    Alert.shared.showSnackBar(response.message)
+//                    Alert.shared.showSnackBar(response.message)
+                    Alert.shared.showSnackBar(response.message, isError: true, isBCP: true)
                     break
                 case .inactiveAccount:
-
                     //self.loginResult.value = .failure(.custom(errorDescription: apiData.message))
                     UIApplication.shared.forceLogOut()
-                    Alert.shared.showSnackBar(response.message)
+//                    Alert.shared.showSnackBar(response.message)
+                    Alert.shared.showSnackBar(response.message, isError: true, isBCP: true)
                     break
                 case .otpVerify:
                     break
@@ -215,8 +214,8 @@ extension ChronicConditionsVM {
                 break
 
             case .failure(let error):
-
-                Alert.shared.showSnackBar(error.localizedDescription)
+                Alert.shared.showSnackBar(error.localizedDescription, isError: true, isBCP: true)
+//                Alert.shared.showSnackBar(error.localizedDescription)
                 break
 
             }

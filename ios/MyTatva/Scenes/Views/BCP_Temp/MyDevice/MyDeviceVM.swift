@@ -32,7 +32,7 @@ class MyDeviceVM: NSObject {
 //MARK: - Class Methods -
 extension MyDeviceVM {
     func getNumOfRows() -> Int { return self.deviceData == nil ? 0 : self.deviceData?.devices.count ?? 0 }
-    func getDeviceData() -> DeviceDetailsModel? { self.deviceData?.devices[0] }
+    func getDeviceData(_ index: Int) -> DeviceDetailsModel? { self.deviceData?.devices[index] }
 }
 
 extension MyDeviceVM {
@@ -56,7 +56,7 @@ extension MyDeviceVM {
         
 //        let vc = DeviceAskingPopupVC.instantiate(fromAppStoryboard: .home)
         let vc = ConnectBCAPopUp.instantiate(fromAppStoryboard: .bca)
-        vc.details = self.getDeviceData()
+        vc.details = self.getDeviceData(0)
         let navi = UINavigationController(rootViewController: vc)
         navi.modalPresentationStyle = .overFullScreen
         navi.modalTransitionStyle = .crossDissolve
@@ -91,7 +91,6 @@ extension MyDeviceVM {
                 switch response.apiCode {
                 case .invalidOrFail:
                     Alert.shared.showSnackBar(response.message,isError: true, isBCP: true)
-                
                     break
                 case .success:
                     self.deviceData = MyDeviceModel(fromJson: response.data)
@@ -102,7 +101,7 @@ extension MyDeviceVM {
                 case .inactiveAccount:
                     
                     UIApplication.shared.forceLogOut()
-                    Alert.shared.showSnackBar(response.message)
+                    Alert.shared.showSnackBar(response.message,isError: true, isBCP: true)
                     break
                 case .otpVerify:
                     break

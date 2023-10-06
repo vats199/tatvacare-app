@@ -7,6 +7,7 @@
 
 import UIKit
 import AWSS3
+@_exported import ApxorSDK
 @_exported import Firebase
 @_exported import FirebaseRemoteConfig
 @_exported import DropDown
@@ -107,6 +108,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("msg:--- \(msg)")
         })
         
+        NotificationCenter.default.addObserver(self, selector: #selector(self.onRedirectionClicked(notification:)), name: Notification.Name("APXRedirectionNotification"), object: nil)
+
+        
         return true
     }
     
@@ -168,6 +172,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
         return true
     }
+    
+    @objc func onRedirectionClicked(notification: NSNotification) {
+            if let kvPairs = notification.userInfo!["info"] {
+                print(kvPairs)
+                
+                if let firstDeepLinkObj = JSON(kvPairs).arrayValue.first(where: {$0["name"].stringValue == "deep_link"}) {
+                    guard let url = URL(string: firstDeepLinkObj["value"].stringValue) else { return }
+                    let _ = DynamicLinks.dynamicLinks()
+                        .handleUniversalLink(url) { dynamiclink, error in
+                            // ...
+                            print("dynamiclink: \(dynamiclink)")
+                            print("dynamiclink url: \(dynamiclink?.url)")
+                            sceneDelegate.fetchDeepLinkData(link: dynamiclink?.url)
+                        }
+                    
+                }
+            }
+        }
 }
 
 //MARK: -------------- WEGAppDelegate Methods --------------

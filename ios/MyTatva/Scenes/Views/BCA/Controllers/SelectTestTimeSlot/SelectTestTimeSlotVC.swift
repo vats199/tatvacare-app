@@ -86,7 +86,7 @@ class SelectTestTimeSlotListCell : UITableViewCell {
     }
 }
 
-class SelectTestTimeSlotVC: UIViewController {
+class SelectTestTimeSlotVC: LightPurpleNavigationBase {
     //MARK: - Outlets -
     
     @IBOutlet weak var tblTimeSlot: UITableView!
@@ -144,6 +144,7 @@ class SelectTestTimeSlotVC: UIViewController {
     var cartListModel               = CartListModel()
     var labPatientListModel         : LabPatientListModel?
     var labAddressListModel         = LabAddressListModel()
+    var isFromSelectPatient         = true
     
     //MARK: - View Life Cycle -
     
@@ -441,14 +442,14 @@ class SelectTestTimeSlotVC: UIViewController {
     
     @IBAction func btnReviewDetailsTapped(_ sender: UIButton) {
         
-        let date = DateFormatter()
-        date.dateFormat = DateTimeFormaterEnum.yyyymmdd.rawValue
-        let stringDate : String = date.string(from: self.selectedDate)
-        
-        let dates = self.selectedTimeSlot.components(separatedBy: "-")
-        
-        let startTime: String = dates.first?.trim() ?? ""
-        let endTime: String = dates.last?.trim() ?? ""
+//        let date = DateFormatter()
+//        date.dateFormat = DateTimeFormaterEnum.yyyymmdd.rawValue
+//        let stringDate : String = date.string(from: self.selectedDate)
+//
+//        let dates = self.selectedTimeSlot.components(separatedBy: "-")
+//
+//        let startTime: String = dates.first?.trim() ?? ""
+//        let endTime: String = dates.last?.trim() ?? ""
         
         let vc = OrderReviewVC.instantiate(fromAppStoryboard: .BCP_temp)
         vc.cartListModel            = self.cartListModel
@@ -458,6 +459,26 @@ class SelectTestTimeSlotVC: UIViewController {
         vc.selectedDate             = self.selectedDate
         self.navigationController?.pushViewController(vc, animated: true)
     
+    }
+    
+    override func popViewController(sender: AnyObject) {
+        print("back tapped")
+        
+        guard self.isFromSelectPatient else  {
+            self.navigationController?.popViewController(animated: true)
+            return
+        }
+        
+        guard let arrViewController = self.navigationController?.viewControllers else {
+            self.navigationController?.popViewController(animated: true)
+            return
+        }
+        
+        _ = arrViewController.map({
+            if $0.isKind(of: SelectPatientDetailsVC.self) {
+                self.navigationController?.popToViewController($0, animated: true)
+            }
+        })
     }
     //----------------------------------------------------------------------------
     

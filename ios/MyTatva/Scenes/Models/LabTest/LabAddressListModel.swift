@@ -18,7 +18,9 @@ class LabAddressListModel {
     var updatedAt : String!
     var isBCPAddrees: Bool!
     var isSelected = false
-    
+    var isShowEdit = false
+    var longitude : String!
+    var latitude : String!
     init(){}
     /**
      * Instantiate the instance using the passed json values to set the properties values
@@ -41,6 +43,8 @@ class LabAddressListModel {
         street = json["street"].stringValue
         updatedAt = json["updated_at"].stringValue
         isBCPAddrees = json["bcp_address"].boolValue
+        longitude = json["longitude"].stringValue
+        latitude = json["latitude"].stringValue
     }
     
     /**
@@ -84,6 +88,12 @@ class LabAddressListModel {
         }
         if updatedAt != nil{
             dictionary["updated_at"] = updatedAt
+        }
+        if longitude != nil{
+            dictionary["longitude"] = updatedAt
+        }
+        if latitude != nil{
+            dictionary["latitude"] = updatedAt
         }
         return dictionary
     }

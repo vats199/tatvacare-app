@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="H1n-41-CiN">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="H1n-41-CiN">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -552,7 +552,7 @@
                     <navigationItem key="navigationItem" id="qXv-Zj-wYg">
                         <leftBarButtonItems>
                             <barButtonItem style="plain" id="OTn-iC-fhg">
-                                <view key="customView" contentMode="scaleToFill" ambiguous="YES" id="awE-ZT-OcD">
+                                <view key="customView" contentMode="scaleToFill" id="awE-ZT-OcD">
                                     <rect key="frame" x="20" y="5.5" width="71" height="33"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
@@ -704,9 +704,6 @@
                                                                         <subviews>
                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="defaultUser" translatesAutoresizingMaskIntoConstraints="NO" id="rcg-n3-flG">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="38.5" height="38.5"/>
-                                                                                <constraints>
-                                                                                    <constraint firstAttribute="width" secondItem="rcg-n3-flG" secondAttribute="height" id="dfJ-LM-7kK"/>
-                                                                                </constraints>
                                                                             </imageView>
                                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="OtZ-2o-OMx">
                                                                                 <rect key="frame" x="48.5" y="0.0" width="161" height="39"/>
@@ -736,6 +733,9 @@
                                                                                 </state>
                                                                             </button>
                                                                         </subviews>
+                                                                        <constraints>
+                                                                            <constraint firstItem="rcg-n3-flG" firstAttribute="width" secondItem="rcg-n3-flG" secondAttribute="height" id="dfJ-LM-7kK"/>
+                                                                        </constraints>
                                                                     </stackView>
                                                                 </subviews>
                                                             </stackView>
@@ -1098,7 +1098,7 @@
                         <leftBarButtonItems>
                             <barButtonItem image="back_ic" id="DPu-4V-abd">
                                 <connections>
-                                    <action selector="onGoBack:" destination="SgT-mq-BZH" id="1uS-DI-LEw"/>
+                                    <action selector="popViewControllerWithSender:" destination="SgT-mq-BZH" id="VBE-V6-lsu"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem style="plain" id="huI-lv-FdG">
@@ -2152,7 +2152,7 @@
                     <navigationItem key="navigationItem" id="DYW-nq-WTk">
                         <leftBarButtonItems>
                             <barButtonItem style="plain" id="UkZ-Hc-FM5">
-                                <view key="customView" contentMode="scaleToFill" ambiguous="YES" id="PXW-jW-u5W">
+                                <view key="customView" contentMode="scaleToFill" id="PXW-jW-u5W">
                                     <rect key="frame" x="20" y="5.5" width="71" height="33"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
@@ -2164,7 +2164,6 @@
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                             <state key="normal" image="back_ic"/>
                                             <connections>
-                                                <action selector="onGoBack:" destination="iNT-yt-vlC" eventType="touchUpInside" id="WGB-tU-eeN"/>
                                                 <action selector="popViewControllerWithSender:" destination="iNT-yt-vlC" eventType="touchUpInside" id="6Py-6d-6KX"/>
                                             </connections>
                                         </button>
@@ -2259,7 +2258,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nmK-Se-yxT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5888.4057971014499" y="738.61607142857144"/>
+            <point key="canvasLocation" x="5889" y="739"/>
         </scene>
         <!--Help And SupportVC-->
         <scene sceneID="rty-wh-0th">
@@ -2625,7 +2624,7 @@
                         <leftBarButtonItems>
                             <barButtonItem image="back_ic" id="gKi-aO-gjt">
                                 <connections>
-                                    <action selector="onGoBack:" destination="w3v-ct-inM" id="mNr-VL-ehG"/>
+                                    <action selector="popViewControllerWithSender:" destination="w3v-ct-inM" id="jvB-wh-GSk"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem style="plain" id="rtS-rN-cOA">
@@ -2941,13 +2940,15 @@
                                                                                                                         <constraint firstAttribute="bottom" secondItem="dDW-xr-VaQ" secondAttribute="bottom" constant="2" id="emM-aC-ZSP"/>
                                                                                                                         <constraint firstAttribute="trailing" secondItem="mjj-YW-SzP" secondAttribute="trailing" id="iQ0-l6-8hS"/>
                                                                                                                         <constraint firstAttribute="trailing" secondItem="dDW-xr-VaQ" secondAttribute="trailing" constant="2" id="mlX-x9-mxg"/>
-                                                                                                                        <constraint firstAttribute="width" secondItem="fw5-97-X8y" secondAttribute="height" multiplier="0.75" id="syy-oa-ZgV"/>
                                                                                                                     </constraints>
                                                                                                                 </view>
                                                                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" image="best_value" translatesAutoresizingMaskIntoConstraints="NO" id="Fzx-5c-pyW">
                                                                                                                     <rect key="frame" x="344" y="0.0" width="36" height="54.5"/>
                                                                                                                 </imageView>
                                                                                                             </subviews>
+                                                                                                            <constraints>
+                                                                                                                <constraint firstItem="fw5-97-X8y" firstAttribute="width" secondItem="fw5-97-X8y" secondAttribute="height" multiplier="0.75" id="syy-oa-ZgV"/>
+                                                                                                            </constraints>
                                                                                                         </stackView>
                                                                                                     </subviews>
                                                                                                 </stackView>
@@ -3036,7 +3037,7 @@
                         <leftBarButtonItems>
                             <barButtonItem image="back_ic" id="yCs-OX-Hl7">
                                 <connections>
-                                    <action selector="onGoBack:" destination="PY6-6L-5aZ" id="1kc-C6-BPr"/>
+                                    <action selector="popViewControllerWithSender:" destination="PY6-6L-5aZ" id="hWt-KL-xbq"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem style="plain" id="I9J-zg-EUO">
@@ -3676,7 +3677,6 @@
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" secondItem="NQ0-8B-0x0" secondAttribute="height" multiplier="338 : 40" id="JTW-5m-nMJ"/>
                                                             <constraint firstItem="rzw-Bm-AVG" firstAttribute="leading" secondItem="NQ0-8B-0x0" secondAttribute="leading" constant="15" id="VUx-kP-WOH"/>
                                                             <constraint firstAttribute="trailing" secondItem="rzw-Bm-AVG" secondAttribute="trailing" constant="15" id="bKM-dR-QWZ"/>
                                                             <constraint firstItem="rzw-Bm-AVG" firstAttribute="top" secondItem="NQ0-8B-0x0" secondAttribute="top" id="llY-DA-RZE"/>
@@ -3716,13 +3716,16 @@
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
                                                             <constraint firstItem="1HN-Ef-a3N" firstAttribute="leading" secondItem="dNg-9B-ocg" secondAttribute="leading" constant="20" id="KLu-Q0-hLt"/>
-                                                            <constraint firstAttribute="width" secondItem="dNg-9B-ocg" secondAttribute="height" multiplier="338 : 40" id="h5v-gF-rqb"/>
                                                             <constraint firstItem="1HN-Ef-a3N" firstAttribute="top" secondItem="dNg-9B-ocg" secondAttribute="top" constant="5" id="hDJ-cg-BnZ"/>
                                                             <constraint firstAttribute="bottom" secondItem="1HN-Ef-a3N" secondAttribute="bottom" constant="5" id="iz4-j8-tIv"/>
                                                             <constraint firstAttribute="trailing" secondItem="1HN-Ef-a3N" secondAttribute="trailing" constant="10" id="mnF-x1-WKq"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="NQ0-8B-0x0" firstAttribute="width" secondItem="NQ0-8B-0x0" secondAttribute="height" multiplier="338 : 40" id="JTW-5m-nMJ"/>
+                                                    <constraint firstItem="dNg-9B-ocg" firstAttribute="width" secondItem="dNg-9B-ocg" secondAttribute="height" multiplier="338 : 40" id="h5v-gF-rqb"/>
+                                                </constraints>
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dCa-nH-avh">
                                                 <rect key="frame" x="0.0" y="278.5" width="324" height="34.5"/>
@@ -3781,7 +3784,6 @@
                                 <rect key="frame" x="369" y="225.5" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="4XJ-Rg-5yS"/>
-                                    <constraint firstAttribute="width" secondItem="Ahs-Xt-XEL" secondAttribute="height" id="Beq-j5-1C5"/>
                                 </constraints>
                                 <state key="normal" image="cross_ic"/>
                             </button>
@@ -3792,6 +3794,7 @@
                             <constraint firstItem="66C-U1-HXr" firstAttribute="leading" secondItem="puA-Hc-J0u" secondAttribute="leading" id="0Xg-75-9J5"/>
                             <constraint firstItem="66C-U1-HXr" firstAttribute="top" secondItem="TuO-8w-LNG" secondAttribute="top" id="316-1p-c8o"/>
                             <constraint firstAttribute="trailing" secondItem="VY5-Xq-3un" secondAttribute="trailing" constant="25" id="3U5-uL-1Oe"/>
+                            <constraint firstItem="Ahs-Xt-XEL" firstAttribute="width" secondItem="Ahs-Xt-XEL" secondAttribute="height" id="Beq-j5-1C5"/>
                             <constraint firstAttribute="bottom" secondItem="66C-U1-HXr" secondAttribute="bottom" id="Gxv-qA-KAa"/>
                             <constraint firstItem="VY5-Xq-3un" firstAttribute="leading" secondItem="puA-Hc-J0u" secondAttribute="leading" constant="25" id="H3D-8g-yOH"/>
                             <constraint firstAttribute="trailing" secondItem="66C-U1-HXr" secondAttribute="trailing" id="ImQ-0P-ed0"/>
@@ -3863,12 +3866,14 @@
                                                         <constraints>
                                                             <constraint firstItem="Fze-rY-VMQ" firstAttribute="leading" secondItem="zIj-eQ-d8b" secondAttribute="leading" constant="10" id="FxM-TJ-Nas"/>
                                                             <constraint firstAttribute="trailing" secondItem="Fze-rY-VMQ" secondAttribute="trailing" constant="10" id="SHS-Lk-vZf"/>
-                                                            <constraint firstAttribute="width" secondItem="zIj-eQ-d8b" secondAttribute="height" multiplier="8.55" id="cMr-nM-2fK"/>
                                                             <constraint firstItem="Fze-rY-VMQ" firstAttribute="top" secondItem="zIj-eQ-d8b" secondAttribute="top" id="lcw-5X-Q0K"/>
                                                             <constraint firstAttribute="bottom" secondItem="Fze-rY-VMQ" secondAttribute="bottom" id="wRa-on-gIB"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="zIj-eQ-d8b" firstAttribute="width" secondItem="zIj-eQ-d8b" secondAttribute="height" multiplier="8.55" id="cMr-nM-2fK"/>
+                                                </constraints>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="O9A-Jr-7c1">
                                                 <rect key="frame" x="0.0" y="92" width="374" height="74.5"/>
@@ -3899,12 +3904,14 @@
                                                         <constraints>
                                                             <constraint firstItem="6T0-Mt-LyY" firstAttribute="top" secondItem="IWa-SI-vq2" secondAttribute="top" id="CCa-70-OW9"/>
                                                             <constraint firstAttribute="bottom" secondItem="6T0-Mt-LyY" secondAttribute="bottom" id="DYp-Zp-SOX"/>
-                                                            <constraint firstAttribute="width" secondItem="IWa-SI-vq2" secondAttribute="height" multiplier="8.55" id="fdo-p3-W7x"/>
                                                             <constraint firstAttribute="trailing" secondItem="6T0-Mt-LyY" secondAttribute="trailing" constant="10" id="sUG-wd-nSh"/>
                                                             <constraint firstItem="6T0-Mt-LyY" firstAttribute="leading" secondItem="IWa-SI-vq2" secondAttribute="leading" constant="10" id="zjZ-mS-x5N"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="IWa-SI-vq2" firstAttribute="width" secondItem="IWa-SI-vq2" secondAttribute="height" multiplier="8.55" id="fdo-p3-W7x"/>
+                                                </constraints>
                                             </stackView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="2An-BK-grW" customClass="IQTextView" customModule="IQKeyboardManagerSwift">
                                                 <rect key="frame" x="0.0" y="186.5" width="374" height="90.5"/>
@@ -4877,7 +4884,7 @@
                         <leftBarButtonItems>
                             <barButtonItem image="back_ic" id="aCE-JY-5He">
                                 <connections>
-                                    <action selector="onGoBack:" destination="NwK-Te-pfb" id="o3T-Xz-hQD"/>
+                                    <action selector="popViewControllerWithSender:" destination="NwK-Te-pfb" id="tFJ-Cl-4M8"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem style="plain" id="mpV-qn-mOP">
@@ -5634,7 +5641,7 @@ Apt, Ahmedabad, Gujarat, 399802</string>
                         <leftBarButtonItems>
                             <barButtonItem image="back_ic" id="LhL-B8-zk3">
                                 <connections>
-                                    <action selector="onGoBack:" destination="sZ9-yq-lM8" id="Zwu-Wa-N6J"/>
+                                    <action selector="popViewControllerWithSender:" destination="sZ9-yq-lM8" id="DvK-JW-zLD"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem style="plain" id="veL-On-QIf">
@@ -5830,7 +5837,7 @@ Apt, Ahmedabad, Gujarat, 399802</string>
                         <leftBarButtonItems>
                             <barButtonItem image="back_ic" id="yBJ-Wj-qnl">
                                 <connections>
-                                    <action selector="onGoBack:" destination="m40-DX-ExS" id="ZGw-ye-28y"/>
+                                    <action selector="popViewControllerWithSender:" destination="m40-DX-ExS" id="PCz-BH-eCH"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem style="plain" id="4ok-8B-wul">
@@ -5988,7 +5995,7 @@ Apt, Ahmedabad, Gujarat, 399802</string>
                         <leftBarButtonItems>
                             <barButtonItem image="back_ic" id="7oP-GD-AYk">
                                 <connections>
-                                    <action selector="onGoBack:" destination="Yc2-us-foX" id="H0L-45-WbI"/>
+                                    <action selector="popViewControllerWithSender:" destination="Yc2-us-foX" id="PAx-P6-fyA"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem style="plain" id="qdN-Yk-L35">
@@ -6492,7 +6499,7 @@ Apt, Ahmedabad, Gujarat, 399802</string>
                         <leftBarButtonItems>
                             <barButtonItem image="back_ic" id="4yU-aS-Lns">
                                 <connections>
-                                    <action selector="onGoBack:" destination="XUO-Px-6yq" id="Wvu-63-5vO"/>
+                                    <action selector="popViewControllerWithSender:" destination="XUO-Px-6yq" id="F8D-fw-MJE"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem style="plain" id="7zl-O1-JRK">
@@ -7245,7 +7252,6 @@ Apt, Ahmedabad, Gujarat, 399802</string>
                                         <rect key="frame" x="0.0" y="0.0" width="33" height="33"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="APP-S2-ihd"/>
-                                            <constraint firstAttribute="width" secondItem="U1z-xQ-rtm" secondAttribute="height" id="MUf-48-zbt"/>
                                         </constraints>
                                         <state key="normal" image="switch_off"/>
                                         <state key="selected" image="switch_on"/>
@@ -7255,6 +7261,7 @@ Apt, Ahmedabad, Gujarat, 399802</string>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="U1z-xQ-rtm" secondAttribute="bottom" id="CpP-VF-o1f"/>
                                     <constraint firstItem="U1z-xQ-rtm" firstAttribute="leading" secondItem="MyB-ce-BgM" secondAttribute="leading" id="GnC-LH-YmZ"/>
+                                    <constraint firstItem="U1z-xQ-rtm" firstAttribute="width" secondItem="U1z-xQ-rtm" secondAttribute="height" id="MUf-48-zbt"/>
                                     <constraint firstAttribute="trailing" secondItem="U1z-xQ-rtm" secondAttribute="trailing" id="keZ-8Q-6rd"/>
                                     <constraint firstItem="U1z-xQ-rtm" firstAttribute="top" secondItem="MyB-ce-BgM" secondAttribute="top" id="nwD-OF-bwX"/>
                                 </constraints>
@@ -7596,7 +7603,6 @@ Apt, Ahmedabad, Gujarat, 399802</string>
                                         <rect key="frame" x="0.0" y="0.0" width="33" height="33"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="cwC-Jm-uzS"/>
-                                            <constraint firstAttribute="width" secondItem="tGY-GP-DY0" secondAttribute="height" id="nsp-b0-IPf"/>
                                         </constraints>
                                         <state key="normal" image="switch_off"/>
                                         <state key="selected" image="switch_on"/>
@@ -7607,6 +7613,7 @@ Apt, Ahmedabad, Gujarat, 399802</string>
                                     <constraint firstAttribute="bottom" secondItem="tGY-GP-DY0" secondAttribute="bottom" id="CwO-A3-lej"/>
                                     <constraint firstAttribute="trailing" secondItem="tGY-GP-DY0" secondAttribute="trailing" id="T1Z-rP-rpb"/>
                                     <constraint firstItem="tGY-GP-DY0" firstAttribute="leading" secondItem="JUf-Ul-c0t" secondAttribute="leading" id="klk-OY-1Sv"/>
+                                    <constraint firstItem="tGY-GP-DY0" firstAttribute="width" secondItem="tGY-GP-DY0" secondAttribute="height" id="nsp-b0-IPf"/>
                                     <constraint firstItem="tGY-GP-DY0" firstAttribute="top" secondItem="JUf-Ul-c0t" secondAttribute="top" id="wwg-BV-Ix5"/>
                                 </constraints>
                             </view>
@@ -8064,7 +8071,6 @@ Apt, Ahmedabad, Gujarat, 399802</string>
                                         <rect key="frame" x="0.0" y="0.0" width="33" height="33"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="ZRj-Bq-QxY"/>
-                                            <constraint firstAttribute="width" secondItem="GiH-SH-TKn" secondAttribute="height" id="vvx-7R-NpH"/>
                                         </constraints>
                                         <state key="normal" image="switch_off"/>
                                         <state key="selected" image="switch_on"/>
@@ -8076,6 +8082,7 @@ Apt, Ahmedabad, Gujarat, 399802</string>
                                     <constraint firstAttribute="trailing" secondItem="GiH-SH-TKn" secondAttribute="trailing" id="FEt-bF-vsV"/>
                                     <constraint firstItem="GiH-SH-TKn" firstAttribute="leading" secondItem="rAP-1j-Fc1" secondAttribute="leading" id="Q9G-VK-eSY"/>
                                     <constraint firstItem="GiH-SH-TKn" firstAttribute="top" secondItem="rAP-1j-Fc1" secondAttribute="top" id="vYm-aU-kgH"/>
+                                    <constraint firstItem="GiH-SH-TKn" firstAttribute="width" secondItem="GiH-SH-TKn" secondAttribute="height" id="vvx-7R-NpH"/>
                                 </constraints>
                             </view>
                         </barButtonItem>
@@ -8440,7 +8447,6 @@ Apt, Ahmedabad, Gujarat, 399802</string>
                                         <rect key="frame" x="0.0" y="0.0" width="33" height="33"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="2rb-4d-iZy"/>
-                                            <constraint firstAttribute="width" secondItem="1h4-we-h73" secondAttribute="height" id="Bwa-Ou-bQg"/>
                                         </constraints>
                                         <state key="normal" image="switch_off"/>
                                         <state key="selected" image="switch_on"/>
@@ -8448,6 +8454,7 @@ Apt, Ahmedabad, Gujarat, 399802</string>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="1h4-we-h73" firstAttribute="width" secondItem="1h4-we-h73" secondAttribute="height" id="Bwa-Ou-bQg"/>
                                     <constraint firstItem="1h4-we-h73" firstAttribute="top" secondItem="pzx-CY-kr5" secondAttribute="top" id="Cad-33-kBS"/>
                                     <constraint firstAttribute="bottom" secondItem="1h4-we-h73" secondAttribute="bottom" id="D0k-KP-vgC"/>
                                     <constraint firstAttribute="trailing" secondItem="1h4-we-h73" secondAttribute="trailing" id="M8C-iv-qid"/>
@@ -9118,9 +9125,6 @@ Breach Candy, Cumballa Hill, Mumbai</string>
                                                             <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eBE-Wa-oSv">
                                                                 <rect key="frame" x="0.0" y="0.0" width="194" height="30.5"/>
                                                                 <color key="backgroundColor" name="ThemePurple"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="width" secondItem="eBE-Wa-oSv" secondAttribute="height" multiplier="6.42" id="iTZ-vA-W8Y"/>
-                                                                </constraints>
                                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                 <state key="normal" title="Yes, cancel it">
                                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -9138,6 +9142,9 @@ Breach Candy, Cumballa Hill, Mumbai</string>
                                                                 </state>
                                                             </button>
                                                         </subviews>
+                                                        <constraints>
+                                                            <constraint firstItem="eBE-Wa-oSv" firstAttribute="width" secondItem="eBE-Wa-oSv" secondAttribute="height" multiplier="6.42" id="iTZ-vA-W8Y"/>
+                                                        </constraints>
                                                     </stackView>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -10332,6 +10339,9 @@ Breach Candy, Cumballa Hill, Mumbai</string>
         </scene>
     </scenes>
     <designables>
+        <designable name="063-bj-z8X">
+            <size key="intrinsicContentSize" width="-1" height="16"/>
+        </designable>
         <designable name="0ZG-Fd-2Bv">
             <size key="intrinsicContentSize" width="41.5" height="20.5"/>
         </designable>
@@ -10349,6 +10359,9 @@ Breach Candy, Cumballa Hill, Mumbai</string>
         </designable>
         <designable name="216-hT-zeW">
             <size key="intrinsicContentSize" width="130" height="20.5"/>
+        </designable>
+        <designable name="2An-BK-grW">
+            <size key="intrinsicContentSize" width="-1" height="33"/>
         </designable>
         <designable name="2Lb-XZ-bT6">
             <size key="intrinsicContentSize" width="155" height="20.5"/>
@@ -10431,6 +10444,9 @@ Breach Candy, Cumballa Hill, Mumbai</string>
         <designable name="XEV-pI-8Ko">
             <size key="intrinsicContentSize" width="39" height="34"/>
         </designable>
+        <designable name="YbM-UM-oOY">
+            <size key="intrinsicContentSize" width="-1" height="33"/>
+        </designable>
         <designable name="a3j-Wb-1e6">
             <size key="intrinsicContentSize" width="128.5" height="20.5"/>
         </designable>
@@ -10493,7 +10509,7 @@ Breach Candy, Cumballa Hill, Mumbai</string>
         <image name="acc_setting_arrow_right" width="6.5" height="11.5"/>
         <image name="address_coach" width="24.5" height="24.5"/>
         <image name="alert_ic" width="120" height="120"/>
-        <image name="arrow_right" width="6.5" height="11.5"/>
+        <image name="arrow_right" width="6.5" height="11"/>
         <image name="arrow_right_tint" width="6.5" height="11.5"/>
         <image name="b1" width="130" height="75"/>
         <image name="back_ic" width="9.5" height="17"/>
@@ -10602,10 +10618,10 @@ Breach Candy, Cumballa Hill, Mumbai</string>
             <color red="1" green="0.74901960784313726" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="linkColor">
-            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

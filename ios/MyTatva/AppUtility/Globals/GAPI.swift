@@ -766,14 +766,25 @@ class GlobalAPI : NSObject {
             switch result {
             case .success(let response):
                 
+                var params              = [String: Any]()
+                params[AnalyticsParameters.doctor_access_code.rawValue]        = doctorAccessCode
+                
                 var returnVal = false
                 switch response.apiCode {
                 case .invalidOrFail:
                     
+                    FIRAnalytics.FIRLogEvent(eventName: .ACCESS_CODE_VERIFY_FAIL,
+                                             screen: ScreenName.AddAccountDetails,
+                                             parameter: params)
                     msg = response.message
 //                    Alert.shared.showSnackBar(response.message, isError: true, isBCP: true)
                     break
                 case .success:
+                    
+                    FIRAnalytics.FIRLogEvent(eventName: .ACCESS_CODE_VERIFY_SUCCESS,
+                                             screen: ScreenName.AddAccountDetails,
+                                             parameter: params)
+                    
                     returnVal = true
 //                    kDoctorAccessCode   = doctorAccessCode
 //                    kAccessCode         = doctorAccessCode
@@ -4520,4 +4531,79 @@ extension GlobalAPI {
 
     }
     
+}
+
+//------------------------------------------------------
+//MARK: - CheckDiscount
+extension GlobalAPI {
+    func ApiCheckDiscountList(withLoader: Bool,
+                              discounts_master_id: String,
+                              price: String,
+                              discount_Code: String,
+                              completion: ((JSON?,Bool?) -> Void)?) {
+        
+        guard !discounts_master_id.isEmpty else {
+            return
+        }
+        
+        var params              = [String : Any]()
+        params["discounts_master_id"]     = discounts_master_id
+        params["price"]                   = price
+        params["discount_code"]           = discount_Code
+        
+        params = params.filter({ (obj) -> Bool in
+            if obj.value as? String != "" {
+                return true
+            }
+            else {
+                return false
+            }
+        })
+        
+        ApiManager.shared.makeRequest(method: ApiEndPoints.patient_plans(.check_discount), methodType: .post, parameter: params, withErrorAlert: true, withLoader: withLoader, withdebugLog: true) { (result) in
+            
+            switch result {
+            case .success(let response):
+                
+                switch response.apiCode {
+                case .invalidOrFail:
+                    completion?(nil, true)
+                    Alert.shared.showSnackBar(response.message, isError: true, isBCP: true)
+                    break
+                case .success:
+                    completion?(response.data,false)
+                    break
+                case .emptyData:
+                    break
+                case .inactiveAccount:
+                    UIApplication.shared.forceLogOut()
+                    Alert.shared.showSnackBar(response.message, isError: true, isBCP: true)
+                    break
+                case .otpVerify:
+                    break
+                case .emailVerify:
+                    break
+                case .forceUpdateApp:
+                    break
+                case .underMaintenance:
+                    break
+                    
+                case .socialIdNotRegister:
+                    break
+                case .userSessionExpire:
+                    break
+                case .unknown:
+                    break
+                default: break
+                }
+                
+                break
+                
+            case .failure(let error):
+                Alert.shared.showSnackBar(error.localizedDescription, isError: true, isBCP: true)
+                break
+                
+            }
+        }
+    }
 }

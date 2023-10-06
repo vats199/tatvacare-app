@@ -216,7 +216,7 @@ extension BCPCartVC : UITableViewDelegate, UITableViewDataSource {
         case self.tblTest:
             let obj = self.object.testsList[indexPath.row]
             cell.btnDelete.isHidden = true
-            cell.lblTestName.text = obj.testNames
+            cell.lblTestName.text = obj.name
             cell.consLineBottom.constant = 6
             if indexPath.row == 0 && indexPath.row == (self.object.testsList.count - 1) {
                 cell.vwMain.cornerRadius(cornerRadius: 20.0)
@@ -241,7 +241,7 @@ extension BCPCartVC : UITableViewDelegate, UITableViewDataSource {
         case self.tblBCPTest:
             let obj = self.object.bcpTestsList[indexPath.section].bcpTestsList[indexPath.row]
             cell.btnDelete.isHidden = true
-            cell.lblTestName.text = self.object.bcpTestsList[indexPath.section].bcpTestsList[indexPath.row].testNames
+            cell.lblTestName.text = self.object.bcpTestsList[indexPath.section].bcpTestsList[indexPath.row].name
             cell.consLineBottom.constant = 6
             if indexPath.row == (self.object.bcpTestsList[indexPath.section].bcpTestsList.count - 1) {
                 DispatchQueue.main.async {

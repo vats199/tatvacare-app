@@ -182,6 +182,10 @@ extension UIColor {
         UIColor(named: "ThemeGrayBG") ?? .red
     }
     
+    static var themeDisable: UIColor {
+        UIColor(named: "ThemeDisable") ?? .red
+    }
+    
     static var ThemeDeviceShadow: UIColor {
         UIColor(named: "ThemeDeviceShadow") ?? .red
     }

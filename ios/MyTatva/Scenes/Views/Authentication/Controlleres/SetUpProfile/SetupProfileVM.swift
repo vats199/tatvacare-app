@@ -94,6 +94,11 @@ extension SetupProfileVM {
                     break
                 case .success:
                     
+                    var params              = [String: Any]()
+                    FIRAnalytics.FIRLogEvent(eventName: .USER_ADD_ACCOUNT_STEP_SUCCESS,
+                                             screen: ScreenName.AddAccountDetails,
+                                             parameter: params)
+                    
                     UserModel.shared.storeUserEntryDetails(withJSON: response.data,false)
                     self.isResult.value = .success(nil)
                     break

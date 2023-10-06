@@ -333,6 +333,7 @@ class BCPCarePlanDetailVC: LightPurpleNavigationBase {
     
     var plan_id                     = ""
     var completionHandler: ((_ obj : JSON?) -> Void)?
+    var isFromPurchasedPlan = false
     
     //------------------------------------------------------
     
@@ -359,8 +360,12 @@ class BCPCarePlanDetailVC: LightPurpleNavigationBase {
     }
     
     private func applyStyle() {
+        if self.isFromPurchasedPlan {
+            self.navigationController?.setNavigationBarHidden(false, animated: false)
+        }else {
+            self.navigationController?.isNavigationBarHidden = false
+        }
         
-        self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.navigationBar.barStyle = .default
         self.tabBarController?.tabBar.isHidden = true
         
@@ -460,6 +465,10 @@ class BCPCarePlanDetailVC: LightPurpleNavigationBase {
         
         self.btnBuyNow.addAction(for: .touchUpInside) { [weak self] in
             guard let self = self else { return }
+//            kApplyCouponName = ""
+//            kDiscountType = ""
+//            kDiscountMasterId = ""
+//            kCouponCodeAmount = 0
             let isIndividual = self.viewModel.cpDetail.planDetails.planType == kIndividual
             guard let selectedDuration = self.viewModel.getSelectedPlan() else {
 //                Alert.shared.showSnackBar(AppMessages.kSelectDuration)
@@ -557,7 +566,7 @@ class BCPCarePlanDetailVC: LightPurpleNavigationBase {
             guard let self = self else { return }
             
             var params              = [String : Any]()
-            params[AnalyticsParameters.bottom_sheet_name.rawValue]            = "select address"
+            params[AnalyticsParameters.bottom_sheet_name.rawValue]            = BottomScreenName.select_address.rawValue
             params[AnalyticsParameters.plan_type.rawValue]          = self.viewModel.cpDetail.planDetails.planType
                                     
             FIRAnalytics.FIRLogEvent(eventName: .SHOW_BOTTOM_SHEET,
@@ -568,9 +577,10 @@ class BCPCarePlanDetailVC: LightPurpleNavigationBase {
             let navController = UINavigationController(rootViewController: vc) //Add navigation controller
             vc.viewModel.arrList = dataResponse
             vc.viewModel.cpDetails = self.viewModel.cpDetail
+            vc.isFromBCP = true
             navController.modalPresentationStyle = .overFullScreen
             navController.modalTransitionStyle = .crossDissolve
-            self.present(navController, animated: true, completion: nil)
+            self.present(navController, animated: isShowAddressList, completion: nil)
         }
 
     }
@@ -653,7 +663,14 @@ class BCPCarePlanDetailVC: LightPurpleNavigationBase {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = false
         WebengageManager.shared.navigateScreenEvent(screen: .BcpDetails)
+        if isShowAddressList {
+            self.presentAddress()
+            isShowAddressList = false
+        } else {
+            selectedAddressIndex = 0
+        }
     }
     
     

@@ -84,6 +84,7 @@ class UserModel: NSObject, NSCoding {
     var tempPatientSignupId : String!
     
     var devices : [DeviceDetailsModel]!
+    private var arrDevice = [DeviceDetailsModel]()
     
     static var shared : UserModel = UserModel()
     
@@ -204,7 +205,17 @@ class UserModel: NSObject, NSCoding {
             let value = DeviceDetailsModel(fromJson: devicesJson)
             devices.append(value)
         }
-        devices = devices.filter({ $0.key != "spirometer" })
+        
+        let isCOPDOrAsthama = medicalConditionName.contains(where: { $0.medicalConditionName.contains("COPD") || $0.medicalConditionName.contains("Asthma") })
+        
+        self.devices = self.devices.filter({ model in
+            if (hide_home_spirometer && model.key == BTDeviceType.spirometer.rawValue && !isCOPDOrAsthama) || (hide_home_bca && model.key == BTDeviceType.bca.rawValue) || (model.key == BTDeviceType.spirometer.rawValue && !isCOPDOrAsthama) {
+                return false
+            }
+            return true
+        })
+        
+//        devices = devices.filter({ $0.key != "spirometer" })
         
         let bcaSyncJson = json["bca_sync"]
         if !bcaSyncJson.isEmpty{
@@ -544,6 +555,36 @@ extension UserModel {
             UserDefaults.standard.synchronize()
         }
     }
+    
+    /**
+     Get Number of devices
+     */
+    
+    func getDevices() {
+        self.arrDevice = self.devices.filter({ model in
+            if (hide_home_spirometer && model.key == BTDeviceType.spirometer.rawValue) || (hide_home_bca && model.key == BTDeviceType.bca.rawValue) {
+                return false
+            }
+            return true
+        })
+    }
+    
+    func getNumberOfDevice() -> Int {
+        return self.devices.count
+    }
+    
+    func getDeviceDetail(_ index: Int) -> DeviceDetailsModel? {
+        self.devices[index]
+    }
+    
+    func getAllPlanName() -> String {
+        return "\(self.patientPlans.map({$0.planName}).joined(separator: ", "))"
+    }
+    
+    func getAllPlanType() -> String {
+        return (self.patientPlans.contains(where: {$0.planType == kIndividual || $0.planType == kSubscription}) ? "Paid - " : patientPlans.contains(where: {$0.planType == KFree || $0.planType == KTrial}) ? "Free - " : "") + "\(patientPlans.map({$0.planType}).joined(separator: ", "))"
+    }
+    
 }
 
 //MARK: ----------------------- saveUserData -----------------------
@@ -2378,6 +2419,30 @@ class Settings : NSObject, NSCoding{
                 completion(is_bcp_with_in_app)
             }
             break
+        case .hide_home_spirometer:
+            RemoteConfigManager.shared.setNewValues {  _ in
+                completion(hide_home_spirometer)
+            }
+            break
+            
+        case .hide_discount_on_plan:
+            RemoteConfigManager.shared.setNewValues {  _ in
+                completion(is_hide_discount_on_plan)
+            }
+            break
+            
+        case .hide_discount_on_labtest:
+            RemoteConfigManager.shared.setNewValues {  _ in
+                completion(is_hide_discount_on_labtest)
+            }
+            break
+            
+        case .home_from_react_native:
+            RemoteConfigManager.shared.setNewValues {  _ in
+                completion(is_home_from_react_native)
+            }
+            break
+            
         }
     }
 }

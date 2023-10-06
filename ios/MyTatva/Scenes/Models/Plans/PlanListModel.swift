@@ -55,6 +55,7 @@ class PlanDetail {
     var iosPrice : Double!
     var isActive : String!
     var isDeleted : String!
+    var isShowRenew : String!
     var offerPerMonthPrice : Double!
     var offerPrice : Double!
     var patientId : String!
@@ -81,6 +82,11 @@ class PlanDetail {
     var descriptionFieldHTML : String!
     var enableRentBuy: Bool!
     
+    var totalDays: String!
+    var remainingDays: String!
+    var expiryDate: String!
+    var startDate: String!
+    
     /**
      * Instantiate the instance using the passed json values to set the properties values
      */
@@ -105,6 +111,7 @@ class PlanDetail {
         iosPrice = json["ios_price"].doubleValue
         isActive = json["is_active"].stringValue
         isDeleted = json["is_deleted"].stringValue
+        isShowRenew = json["show_renew"].stringValue
         offerPerMonthPrice = json["offer_per_month_price"].doubleValue
         offerPrice = json["offer_price"].doubleValue
         patientId = json["patient_id"].stringValue
@@ -128,7 +135,12 @@ class PlanDetail {
         discountPercentage = json["discount_percentage"].doubleValue
         cardImageDetail = json["card_image_detail"].stringValue
         enableRentBuy = json["enable_rent_buy"].boolValue
-
+        
+        remainingDays = json["remaining_days"].stringValue
+        expiryDate = json["expiry_date"].stringValue
+        startDate = json["start_date"].stringValue
+        totalDays = json["total_days"].stringValue
+        
     }
 }
 

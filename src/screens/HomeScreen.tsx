@@ -46,6 +46,7 @@ import {
   navigateToBookAppointment,
   navigateToDiscover,
   openMedicine,
+  navigateToChronicCareProgram,
 } from '../routes/Router';
 import Home from '../api/home';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -262,14 +263,14 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
     if (Object.values(hcDevicePlans.nutritionist).length > 0) {
       navigateToBookAppointment('HC');
     } else {
-      navigateTo('BCPCarePlanDetailVC');
+      navigateToChronicCareProgram();
     }
   };
   const onPressConsultPhysio = (type: 'HC' | 'D') => {
     if (Object.values(hcDevicePlans.physiotherapist).length > 0) {
       navigateToBookAppointment(type);
     } else {
-      navigateTo('BCPCarePlanDetailVC');
+      navigateToChronicCareProgram();
     }
   };
   const onPressBookDiagnostic = () => {
@@ -279,7 +280,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
     if (Object.values(hcDevicePlans.devices).length > 0) {
       navigateTo('MyDevices');
     } else {
-      navigateTo('BCPCarePlanDetailVC');
+      navigateToChronicCareProgram();
     }
   };
   const onPressCarePlan = () => {

@@ -34,6 +34,26 @@ class BCASelectAddressListVC: UIViewController {
     var selectAddressData: LabAddressListModel?
     var arrDaysOffline : [JSON] = []
     var isDataRefresh = false
+    var cartListModel               = CartListModel()
+    var isFromBCP = false
+    var isEditTapped = false
+    var addressData : LabAddressListModel!
+    
+    var arrSelectionType: [JSON] = [
+        [
+            "name": "Edit",
+            "type": ActionType.edit.rawValue,
+            "image" : "home_address",
+        ],
+        [
+            "name": "Delete",
+            "type": ActionType.delete.rawValue,
+            "image" : "work_address",
+        ],
+        
+    ]
+    
+    var addressActionType: ActionType = .edit
     
     //------------------------------------------------------
     
@@ -60,6 +80,8 @@ class BCASelectAddressListVC: UIViewController {
     }
     
     private func applyStyle() {
+        
+        self.tblAddresses.register(UINib(nibName: "BCANewAddressListCell", bundle: nil), forCellReuseIdentifier: "BCANewAddressListCell")
         
         self.lblTitle
             .font(name: .bold, size: 20.0).textColor(color: .themeBlack.withAlphaComponent(1))
@@ -121,21 +143,63 @@ class BCASelectAddressListVC: UIViewController {
     }
     
     func pushAddAddress() {
-        let vc = BCAAddAddressVC.instantiate(fromAppStoryboard: .bca)
-        vc.completion = { [weak self] newAddress in
-            guard let self = self else { return }
-            self.selectAddressData = newAddress
-            self.isDataRefresh = true
-//            self.viewModel.getAddressList()
+        //        let vc = BCAAddAddressVC.instantiate(fromAppStoryboard: .bca)
+        //        vc.completion = { [weak self] newAddress in
+        //            guard let self = self else { return }
+        //            self.selectAddressData = newAddress
+        //            self.isDataRefresh = true
+        ////            self.viewModel.getAddressList()
+        //
+        ////            self.dismiss(animated: true) {
+        //                self.pushToBCPPurchase()
+        ////            }
+        //
+        //        }
+        //        let navController = UINavigationController(rootViewController: vc) //Add navigation controller
+        //        navController.modalPresentationStyle = .fullScreen
+        //        self.present(navController, animated: true, completion: nil)
+        if LocationManager.shared.checkStatus() == .authorizedAlways || LocationManager.shared.checkStatus() == .authorizedWhenInUse {
+            self.pushGeoLocation()
+        } else {
+            let vc = LocationPermissionPopUpVC.instantiate(fromAppStoryboard: .BCP_temp)
+            vc.selectManuallyCompletion = { [weak self] _ in
+                guard let self = self else { return }
+                let vc = EnterLocationPopupVC.instantiate(fromAppStoryboard: .BCP_temp)
+                vc.isFromEdit = self.isEditTapped
+                vc.addressData = self.addressData
+                vc.completion = { [weak self] newAddress in
+                    guard let self = self else { return }
+                    self.selectAddressData = newAddress
+                    self.isDataRefresh = true
+                    if self.isEditTapped {
+                        self.getAddresssList()
+                    }else if self.isFromBCP {
+                        self.pushToBCPPurchase()
+                    } else {
+                        self.pushToTimeSlot()
+                    }
+                }
+                UIApplication.topViewController()?.present(vc, animated: true)
+            }
+            vc.selectGrantCompletion = { [weak self] _ in
+                guard let self = self else { return }
+                
+                if (UIApplication.topViewController()?.isKind(of: LocationPermissionPopUpVC.self) ?? false) {
+                    UIApplication.topViewController()?.dismiss(animated: true, completion: { [weak self] in
+                        guard let self = self else { return }
+                        self.pushGeoLocation()
+                    })
+                    return
+                }
+                
+                self.pushGeoLocation()
+            }
             
-//            self.dismiss(animated: true) {
-                self.pushToBCPPurchase()
-//            }
-            
+            let navi = UINavigationController(rootViewController: vc)
+            navi.modalPresentationStyle = .overFullScreen
+            navi.modalTransitionStyle = .crossDissolve
+            UIApplication.topViewController()?.present(navi, animated: true)
         }
-        let navController = UINavigationController(rootViewController: vc) //Add navigation controller
-        navController.modalPresentationStyle = .fullScreen
-        self.present(navController, animated: true, completion: nil)
     }
     
     private func pushToBCPPurchase() {
@@ -151,6 +215,43 @@ class BCASelectAddressListVC: UIViewController {
     
     }
     
+    private func pushToTimeSlot() {
+        self.dismiss(animated: true) {
+            let vc = SelectTestTimeSlotVC.instantiate(fromAppStoryboard: .bca)
+            vc.cartListModel = self.cartListModel
+            vc.labAddressListModel = self.selectAddressData ?? LabAddressListModel()
+            UIApplication.topViewController()?.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+    private func pushGeoLocation() {
+        let vc = GeoLocationVC.instantiate(fromAppStoryboard: .BCP_temp)
+        vc.isFromEdit = self.isEditTapped
+        vc.addressData = self.addressData
+        vc.completion = { [weak self] newAddress in
+            guard let self = self else { return }
+            self.selectAddressData = newAddress
+            self.isDataRefresh = true
+            if self.isEditTapped {
+                self.getAddresssList()
+            }else if self.isFromBCP {
+                self.pushToBCPPurchase()
+            } else {
+                self.pushToTimeSlot()
+            }
+        }
+        UIApplication.topViewController()?.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    private func getAddresssList() {
+        if self.isDataRefresh {
+            self.isDataRefresh = false
+            self.tblAddresses.isHidden = !self.isEditTapped
+            self.tblHeightConstant.constant = self.isEditTapped ? self.tblHeightConstant.constant : 0
+            self.viewModel.getAddressList()
+        }
+    }
+    
     //------------------------------------------------------
     
     //MARK: Action Method
@@ -163,27 +264,32 @@ class BCASelectAddressListVC: UIViewController {
             
             self.btnNew.addAction(for: .touchUpInside) {[weak self] in
                 guard let self = self else { return }
+                self.isEditTapped = false
                 self.pushAddAddress()
                 var params              = [String : Any]()
-                params[AnalyticsParameters.bottom_sheet_name.rawValue]            = "select address"
+                params[AnalyticsParameters.bottom_sheet_name.rawValue]            = BottomScreenName.select_address.rawValue
 //                params[AnalyticsParameters.address_number.rawValue]               = "0"
                                         
                 FIRAnalytics.FIRLogEvent(eventName: .TAP_ADD_NEW,
                                          screen: .SelectAddressBottomSheet,
                                          parameter: params)
+                isShowAddressList = true
             }
             
             self.btnAddAddress.addAction(for: .touchUpInside) { [weak self] in
                 guard let self = self else { return }
+                self.isEditTapped = false
                 self.pushAddAddress()
                 
                 var params              = [String : Any]()
-                params[AnalyticsParameters.bottom_sheet_name.rawValue]            = "select address"
+                params[AnalyticsParameters.bottom_sheet_name.rawValue]            = BottomScreenName.select_address.rawValue
 //                params[AnalyticsParameters.address_number.rawValue]               = "0"
                 
                 FIRAnalytics.FIRLogEvent(eventName: .ADD_ADDRESS,
                                          screen: .SelectAddressBottomSheet,
                                          parameter: params)
+                
+                isShowAddressList = true
                 
             }
             
@@ -204,8 +310,13 @@ class BCASelectAddressListVC: UIViewController {
                                              screen: .SelectAddressBottomSheet,
                                              parameter: params)
                     
-                    self.pushToBCPPurchase()
+                    if self.isFromBCP {
+                        self.pushToBCPPurchase()
+                    } else {
+                        self.pushToTimeSlot()
+                    }
                     
+                    isShowAddressList = true
                 }
                 else {
                     Alert.shared.showSnackBar(AppError.validation(type: .selectAddress).errorDescription ?? "")
@@ -230,14 +341,11 @@ class BCASelectAddressListVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.clearNavigation()
         self.navigationController?.isNavigationBarHidden = true
-        if self.isDataRefresh {
-            self.isDataRefresh = false
-            self.tblAddresses.isHidden = true
-            self.tblHeightConstant.constant = 0
-            self.viewModel.getAddressList()
-        }
+        self.getAddresssList()
         WebengageManager.shared.navigateScreenEvent(screen: .SelectAddressBottomSheet)
+        self.isEditTapped = false
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -252,11 +360,18 @@ extension BCASelectAddressListVC {
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?){
         if let obj = object as? UITableView, obj == self.tblAddresses, (keyPath == "contentSize"), let newvalue = change?[.newKey] as? CGSize {
             
-            if newvalue.height >= ScreenSize.height - 200 {
-                self.tblHeightConstant.constant = ScreenSize.height - 200// (ScreenSize.height / 2)
-            } else {
-                self.tblHeightConstant.constant = newvalue.height
-            }
+//            if newvalue.height >= ScreenSize.height - 200 {
+//                self.tblHeightConstant.constant = ScreenSize.height - 200// (ScreenSize.height / 2)
+//            } else {
+//                self.tblHeightConstant.constant = newvalue.height
+//            }
+            
+            let halfHeight = (ScreenSize.height/2) + 150
+            self.tblHeightConstant.constant = newvalue.height > halfHeight ? halfHeight : newvalue.height
+            self.tblAddresses.isScrollEnabled = newvalue.height > halfHeight
+            
+            self.vwBG.layoutSubviews()
+            self.vwBG.layoutIfNeeded()
                 
         }
         /*UIView.animate(withDuration: kAnimationSpeed) { [weak self] in
@@ -288,26 +403,127 @@ extension BCASelectAddressListVC : UITableViewDataSource, UITableViewDelegate{
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell : BCAAddressListCell = tableView.dequeueReusableCell(withClass: BCAAddressListCell.self, for: indexPath)
+        let cell : BCANewAddressListCell = tableView.dequeueReusableCell(withClass: BCANewAddressListCell.self, for: indexPath)
 
         let object = self.viewModel.getObject(index: indexPath.row)
         
-        cell.btnRadio.isHidden     = false
-        cell.lblTitle.text = "\(object.address ?? ""), \(object.street ?? "") - \(object.pincode ?? 0)"
-        
-        cell.btnRadio.isSelected = object.isSelected
+        //cell.btnRadio.isHidden     = false
+        cell.lblAddress.text = "\(object.address ?? ""), \(object.street ?? "") - \(object.pincode ?? 0)"
+        cell.lblTitle.text = object.addressType == "Work" ? "Office" : object.addressType
+        cell.imgIcon.image = UIImage(named: object.addressType == AddressType1.Home.rawValue ? "homeGray_ic" : "personGray_ic")
+    //    cell.btnRadio.isSelected = indexPath.row == selectedAddressIndex //object.isSelected
         
         if object.isSelected {
             self.selectAddressData = object
         }
         
-
+        cell.btnMore.isHidden = object.isBCPAddrees
+        cell.vwBtn.isHidden = !object.isShowEdit
+        
+        cell.btnMore.addTapGestureRecognizer { [weak self] in
+            guard let self = self else { return }
+            
+            /*let dropDown = DropDown()
+            DropDown.appearance().textColor                 = UIColor.themeBlack
+            DropDown.appearance().selectedTextColor         = UIColor.themeBlack
+            DropDown.appearance().textFont                  = UIFont.customFont(ofType: .medium, withSize: 14)
+            DropDown.appearance().backgroundColor           = UIColor.white
+            DropDown.appearance().selectionBackgroundColor  = UIColor.white
+            DropDown.appearance().cellHeight                = 60
+            dropDown.anchorView                             = cell.btnMore
+            
+            let arr: [String] = self.arrSelectionType.map { (obj) -> String in
+                return obj["name"].stringValue
+            }
+            
+            dropDown.dataSource = arr
+            dropDown.selectionAction = { (index, str) in
+                dropDown.hide()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0){
+                    let type = ActionType.init(rawValue: self.arrSelectionType[index]["type"].stringValue) ?? .edit
+                    
+                }
+            }
+            dropDown.show()*/
+//            self.viewModel.manageSelection(index: indexPath.row)
+            self.viewModel.updateEditView(index: indexPath.row,isNewEditClick: true)
+            self.tblAddresses.reloadData()
+            
+            /*DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) { [weak self] in
+                guard let self = self else { return }
+                self.tblAddresses.scrollToRow(at: indexPath, at: .bottom, animated: false)
+            }*/
+            
+        }
+        
+        cell.btnEdit.addAction(for: .touchUpInside) { [weak self] in
+            guard let self = self else { return }
+            self.isEditTapped = true
+            self.addressData = object
+            isShowAddressList = true
+            self.pushAddAddress()
+            self.viewModel.updateEditView(index: indexPath.row)
+            self.tblAddresses.reloadData()
+        }
+        
+        cell.btnDelete.addAction(for: .touchUpInside) { [weak self] in
+            guard let self = self else { return }
+            self.viewModel.updateEditView(index: indexPath.row)
+            self.tblAddresses.reloadData()
+            Alert.shared.showAlert("", actionOkTitle: AppMessages.yes, actionCancelTitle: AppMessages.no, message: AppMessages.deleteMessage) { [weak self] (isDone) in
+                guard let self = self else {return}
+                if isDone {
+                    self.viewModel.delete_addressAPI(address_id: object.patientAddressRelId) { [weak self] isDone in
+                        guard let self = self else {return}
+                        if isDone {
+                            self.viewModel.arrList.remove(at: indexPath.row)
+                            self.tblAddresses.reloadData()
+                            
+                            var params1 = [String: Any]()
+                            params1[AnalyticsParameters.address_id.rawValue]  = object.patientAddressRelId
+                            FIRAnalytics.FIRLogEvent(eventName: .LABTEST_ADDRESS_DELETED,
+                                                     screen: .SelectAddress,
+                                                     parameter: params1)
+                        }
+                    }
+                }
+            }
+        }
+        
+        cell.vwBg.addTapGestureRecognizer { [weak self] in
+            guard let self = self, !object.isShowEdit else { return }
+            selectedAddressIndex = indexPath.row
+            self.selectAddressData = object
+//            self.viewModel.updateEditView(index: indexPath.row)
+//            self.tblAddresses.reloadData()
+            if self.isFromBCP {
+                var params              = [String : Any]()
+                params[AnalyticsParameters.address_number.rawValue]               = "\(self.viewModel.getSelectedInt())"
+                params[AnalyticsParameters.address_type.rawValue]                 = self.viewModel.getSelectedObject()?.addressType ?? ""
+                FIRAnalytics.FIRLogEvent(eventName: .SELECT_ADDRESS,
+                                         screen: .SelectAddressBottomSheet,
+                                         parameter: params)
+            }else {
+                var params1 = [String: Any]()
+                params1[AnalyticsParameters.address_id.rawValue]  = self.viewModel.getObject(index: indexPath.row).patientAddressRelId
+                FIRAnalytics.FIRLogEvent(eventName: .LABTEST_ADDRESS_SELECTED,
+                                         screen: .SelectAddressBottomSheet,
+                                         parameter: params1)
+            }
+            
+            if self.isFromBCP {
+                self.pushToBCPPurchase()
+            } else {
+                self.pushToTimeSlot()
+            }
+            isShowAddressList = true
+        }
+        
         return cell
     }
    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.viewModel.manageSelection(index: indexPath.row)
-        self.tblAddresses.reloadData()
+//        selectedAddressIndex = indexPath.row
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -343,12 +559,13 @@ extension BCASelectAddressListVC {
             self.tblAddresses.isHidden = true
         } else  {
             self.vwNoAvailabelAddress.isHidden = true
-            self.vwSave.isHidden = false
+            self.vwSave.isHidden = true
             self.btnNew.isHidden = false
             self.tblAddresses.isHidden = false
         }
     }
     
+   
 }
 
 

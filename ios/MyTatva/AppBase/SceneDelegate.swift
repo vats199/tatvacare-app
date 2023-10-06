@@ -68,7 +68,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISceneDelegate {
     func sceneDidBecomeActive(_ scene: UIScene) {
         UIApplication.shared.applicationIconBadgeNumber = 0
         isAppBackgroundForGAOnce = false
-        print("sceneDidBecomeActive")
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
             AppDelegate.shared.requestTrackingPermission()
         }
@@ -134,6 +133,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISceneDelegate {
     }
     
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        
+        let url = URLContexts.first?.url
+                let urlStr = url?.absoluteString
+                if (urlStr!.contains("add-test-device")) {
+                    ApxorSDK.handleDeeplink(url!)
+                }
+        
         for context in URLContexts {
             print("url: \(context.url.absoluteURL)")
             print("scheme: \(context.url.scheme ?? "")")
@@ -875,6 +881,13 @@ extension SceneDelegate {
                     case .LabtestCart:
                         break
                     case .LabtestDetails:
+                        let vc = LabTestDetailsVC.instantiate(fromAppStoryboard: .carePlan)
+                                                vc.lab_test_id = data["lab_test_id"].stringValue
+                                                vc.hidesBottomBarWhenPushed = true
+                                                
+                                                if let vc2 = UIApplication.topViewController() {
+                                                    vc2.navigationController?.pushViewController(vc, animated: true)
+                                                }
                         break
                     case .LabtestList:
                         break
@@ -1016,6 +1029,53 @@ extension SceneDelegate {
                     case .BcpList:
                         break
                     case .BcpDetails:
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                                    ApiManager.shared.makeRequest(method: .patient_plans(.check_is_plan_purchased), parameter: ["plan_master_id":data["plan_master_id"].stringValue]) { [weak self] result in
+                                                        guard let self = self else { return }
+                                                        switch result{
+                                                        case.success(let apiResponse):
+                                                            
+                                                            switch apiResponse.apiCode {
+                                                            case .success:
+                                                                print(apiResponse.data)
+                                                                
+                                                                let planDetails = PlanDetail(fromJson: apiResponse.data)
+                                                                
+                                                                if !planDetails.patientPlanRelId.isEmpty && planDetails.planType == kIndividual {
+                                                                    let vc = PurchsedCarePlanVC.instantiate(fromAppStoryboard: .BCP_temp)
+                                                                    vc.viewModel.planDetails = planDetails
+                                                                    vc.isBack = true
+                                                                    if let vc2 = UIApplication.topViewController() {
+                                                                        vc2.navigationController?.pushViewController(vc, animated: true)
+                                                                    }
+                                                                }else {
+                                                                    GlobalAPI.shared.planDetailsAPI(plan_id: planDetails.planMasterId,
+                                                                                                    durationType: planDetails.enableRentBuy ? planDetails.planType == kIndividual ? kRent : nil : nil,
+                                                                                                    patientPlanRelId: planDetails.patientPlanRelId,
+                                                                                                    withLoader: true) { [weak self] isDone, object1, msg in
+                                                                        guard let self = self else {return}
+                                                                        if isDone {
+                                                                            let vc = BCPCarePlanDetailVC.instantiate(fromAppStoryboard: .BCP_temp)
+                                                                            vc.plan_id              = planDetails.planMasterId
+                                                                            vc.viewModel.cpDetail   = object1
+                                                                            vc.patientPlanRelId     = planDetails.patientPlanRelId
+                                                                            if let vc2 = UIApplication.topViewController() {
+                                                                                vc2.navigationController?.pushViewController(vc, animated: true)
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                                
+                                                            default:
+                                                                Alert.shared.showSnackBar(apiResponse.message)
+                                                            }
+                                                            
+                                                            print(apiResponse.data)
+                                                        case .failure(let error):
+                                                            debugPrint("Error: ",error.localizedDescription)
+                                                        }
+                                                    }
+                                                }
                         break
                     case .BcpPurchasedDetails:
                         break
@@ -1033,8 +1093,18 @@ extension SceneDelegate {
                         break
                     case .ConnectDeviceInfo:
                         break
+                    case .CouponCodeList:
+                        break
+                    case .AppliedCouponCodeSuccess:
+                        break
                         
                     case .ExerciseFeedback:
+                        break
+                    case .LocationPermission:
+                        break
+                    case .EnterLocationPinCode:
+                        break
+                    case .ConfirmLocationMap:
                         break
                     case .ExerciseMyRoutine:
                         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
@@ -1052,6 +1122,8 @@ extension SceneDelegate {
                                 }
                             }
                         }
+                        break
+                    case .EnterAddress:
                         break
                     }
                 }

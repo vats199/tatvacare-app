@@ -38,6 +38,7 @@ class BCPCarePlanVC: LightPurpleNavigationBase {
     var isMoveToOthers              = false
     var isHideNav                   = true
     var numberOfCardTap             = 0
+    var isToScroll: Bool            = false
     //------------------------------------------------------
     //MARK: - UIView Life Cycle Methods -
     required init?(coder: NSCoder) {
@@ -89,6 +90,7 @@ class BCPCarePlanVC: LightPurpleNavigationBase {
     
     func applyStyle() {
         self.lblNavTittle.text = "Chronic Care Programs"
+        self.setupViewModelObserver()
     }
     
     func configureUI(){
@@ -136,13 +138,15 @@ class BCPCarePlanVC: LightPurpleNavigationBase {
                     guard let self = self else { return }
                     if self.isMoveToOthers {
                         self.isMoveToOthers = false
-                        
-                        if self.tblCarePlans.numberOfSections > 0 {
+                        if self.viewModel.getCount() > 0 {
+                            self.tblCarePlans.scrollToRow(at: IndexPath(row: 0, section: self.viewModel.getCount() - 1), at: .top, animated: true)
+                        }
+                        /*if self.tblCarePlans.numberOfSections > 0 {
                             let indexPath = IndexPath(item: 0, section: self.tblCarePlans.numberOfSections - 1)
                             if let cell = self.tblCarePlans.cellForRow(at: indexPath) {
                                 self.tblCarePlans.scrollToView(view: cell, animated: true)
                             }
-                        }
+                        }*/
                     }
                 }
                 
@@ -157,10 +161,6 @@ class BCPCarePlanVC: LightPurpleNavigationBase {
     }
     
     //MARK: - Button Action Methods -
-    @IBAction func onGoBack(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
-    }
-
 }
 
 //MARK: UITableViewDelegate and UITableViewDataSource
@@ -206,6 +206,10 @@ extension BCPCarePlanVC : UITableViewDelegate, UITableViewDataSource {
             let vc = PurchsedCarePlanVC.instantiate(fromAppStoryboard: .BCP_temp)
             vc.viewModel.planDetails = object
             vc.isBack = true
+            vc.renewCompletion = { [weak self] isDone in
+                guard let self = self else { return }
+                self.isMoveToOthers = true
+            }
             self.navigationController?.pushViewController(vc, animated: true)
             return
         }

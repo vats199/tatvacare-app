@@ -72,6 +72,20 @@ class BCPPlanDetailsVC: LightPurpleNavigationBase {
     
     //------------------------------------------------------
     
+    //----------------- Apply Coupon -------------------
+    @IBOutlet weak var imgApplyCoupon: UIImageView!
+    @IBOutlet weak var imgCouponLogo: UIImageView!
+    @IBOutlet weak var btnRemove: UIButton!
+    @IBOutlet weak var lblHeaderOffers: UILabel!
+    @IBOutlet weak var vwApplyCoupon: UIView!
+    @IBOutlet weak var lblApplyCoupon: UILabel!
+    
+    //---------------- View Container --------------
+    @IBOutlet weak var vwApplyCouponCharge: UIView!
+    @IBOutlet weak var lblApplyCouponCharge: UILabel!
+    @IBOutlet weak var lblApplyCouponChargeRate: UILabel!
+    
+    //------------------------------------------------------
     //MARK: - Class Variables -
     
     var selectAddData: LabAddressListModel?
@@ -82,6 +96,10 @@ class BCPPlanDetailsVC: LightPurpleNavigationBase {
     var razorpayObj : RazorpayCheckout? = nil
     var selectedPlan: DurationDetailModel!
     var finalAmount = 0
+    var finalDicountPrice = 0
+    var promoCodeAmount = 0
+    var isCouponRemove = false
+    var isDiscountHide = true
     
     //------------------------------------------------------
     //MARK: - UIView Life Cycle Methods -
@@ -101,8 +119,34 @@ class BCPPlanDetailsVC: LightPurpleNavigationBase {
         Settings().isHidden(setting: .is_bcp_with_in_app) { [weak self] isWithInApp in
             guard let self = self else { return }
             self.isPayThroughInApp = isWithInApp
+            self.lblHeaderOffers.superview?.isHidden = self.isPayThroughInApp
             self.setData()
         }
+        
+        Settings().isHidden(setting: .hide_discount_on_plan) { [weak self] isHide in
+            guard let self = self else { return }
+            self.isDiscountHide = isHide
+            self.lblHeaderOffers.superview?.isHidden = isHide
+        }
+        
+        if !kBCPApplyCouponName.isEmpty {
+            self.lblApplyCoupon.text = "'\(kBCPApplyCouponName)' applied"
+            self.btnRemove.isHidden = false
+            self.imgApplyCoupon.isHidden = true
+            self.imgCouponLogo.image = UIImage(named: "ic_CircleGreenCheck")
+            self.vwApplyCouponCharge.isHidden = false
+            self.lblApplyCouponCharge.text = "Applied Coupon (\(kBCPApplyCouponName))"
+            self.lblApplyCouponChargeRate.text = "- \(appCurrencySymbol.rawValue)\(kBCPCouponCodeAmount)"
+            self.promoCodeAmount = kBCPCouponCodeAmount
+            self.isCouponRemove = false
+        } else {
+            self.btnRemove.isHidden = true
+            self.imgApplyCoupon.isHidden = false
+            self.imgCouponLogo.image = UIImage(named: "ic_Discount")
+            self.vwApplyCouponCharge.isHidden = true
+        }
+        
+        self.setData()
         
     }
     
@@ -174,15 +218,18 @@ class BCPPlanDetailsVC: LightPurpleNavigationBase {
         
         // ---------- BillingDetails ----------
         self.lblBilling.font(name: .bold, size: 16).textColor(color: .themeBlack2).text = "Billing"
-        self.lblActualPrice.font(name: .regular, size: 14).textColor(color: .ThemeGray61).text = "Actual Price (MRP)"
-        self.lblDiscount.font(name: .regular, size: 14).textColor(color: .ThemeGray61).text = "Discount"
+        self.lblActualPrice.font(name: .regular, size: 14).textColor(color: .ThemeGray61).text = "Item Total"//"Actual Price (MRP)"
+        self.lblDiscount.font(name: .regular, size: 14).textColor(color: .ThemeGray61).text = "Discount on Item(s)"
         self.lblPurchse.font(name: .regular, size: 14).textColor(color: .ThemeGray61).text = "Purchase Price"
         self.lblGST.font(name: .regular, size: 14).textColor(color: .ThemeGray61).text = "GST"
+        self.lblApplyCouponCharge.font(name: .regular, size: 14).textColor(color: .ThemeGray61).text = "Applied Coupon (FIRST25)"
         
         self.lblActualPriceRate.font(name: .medium, size: 14).textColor(color: .ThemeGray61).text = "₹ 1,200"
         self.lblDiscountRate.font(name: .medium, size: 14).textColor(color: .ThemeGray61).text = "₹ 1,200"
         self.lblPurchseRate.font(name: .medium, size: 14).textColor(color: .ThemeGray61).text = "₹ 500"
         self.lblGSTRate.font(name: .medium, size: 14).textColor(color: .ThemeGray61).text = "₹ 300"
+        
+        self.lblApplyCouponChargeRate.font(name: .medium, size: 14).textColor(color: .themeGreen).text = "₹ 300"
         
         self.lblAmountPaid.font(name: .bold, size: 14).textColor(color: .themeBlack).text = "Amount to be Paid"
         self.lblAmountPaidRate.font(name: .bold, size: 14).textColor(color: .themeBlack).text = "₹ 1,999"
@@ -197,6 +244,36 @@ class BCPPlanDetailsVC: LightPurpleNavigationBase {
         self.vwAddress.cornerRadius(cornerRadius: 12.0).themeShadowBCP()
         self.vwBilling.cornerRadius(cornerRadius: 12.0).themeShadowBCP()
         self.vwPaymentDetails.themeShadowBCP()
+        
+        self.vwApplyCoupon.cornerRadius(cornerRadius: 12.0).themeShadowBCP()
+        self.lblApplyCoupon.font(name: .semibold, size: 14).textColor(color: .themeBlack).text = "Apply Coupon"
+        self.lblHeaderOffers.font(name: .bold, size: 16).textColor(color: .themeBlack2).text = "Offers & Promotions"
+        self.btnRemove.font(name: .semibold, size: 12).textColor(color: .themePurple).setTitle("REMOVE", for: .normal)
+        self.btnRemove.isHidden = true
+        self.imgApplyCoupon.isHidden = false
+        
+        self.vwPurchase.isHidden = true
+        
+        //        self.lblTotalOldAmount.isHidden = true
+        //        self.lblCollectionOldAmount.isHidden = true
+    }
+    
+    func setRemoveCouponData() {
+        DispatchQueue.main.async {
+            AppLoader.shared.removeLoader()
+        }
+        kBCPApplyCouponName = ""
+        kBCPDiscountType = ""
+        kBCPDiscountMasterId = ""
+        kBCPCouponCodeAmount = 0
+        self.isCouponRemove = true
+        self.btnRemove.isHidden = true
+        self.imgApplyCoupon.isHidden = false
+        self.lblApplyCoupon.text = "Apply Coupon"
+        self.imgCouponLogo.image = UIImage(named: "ic_Discount")
+        self.vwApplyCouponCharge.isHidden = true
+        self.promoCodeAmount = 0
+        self.setData()
     }
     
     private func setData() {
@@ -205,14 +282,14 @@ class BCPPlanDetailsVC: LightPurpleNavigationBase {
         
         self.selectedPlan = selectedPlan
         
-        self.lblActualPriceRate.text = appCurrencySymbol.rawValue + JSON(selectedPlan.offerPrice as Any).stringValue
+        self.lblActualPriceRate.text = appCurrencySymbol.rawValue + (selectedPlan.offerPrice == 0 ? self.isPayThroughInApp ? JSON(selectedPlan.iosPrice as Any).stringValue : JSON(selectedPlan.androidPrice as Any).stringValue : JSON(selectedPlan.offerPrice as Any).stringValue)
         
         let discount = (JSON(selectedPlan.offerPrice as Any).doubleValue * JSON(selectedPlan.discountPercentage as Any).doubleValue) / 100
         
-        self.lblDiscountRate.text = "\(JSON(selectedPlan.discountPercentage as Any).intValue)" + "%" //appCurrencySymbol.rawValue + "\(discount)"
+        self.lblDiscountRate.text = "-\(appCurrencySymbol.rawValue)\(selectedPlan.offerPrice-selectedPlan.androidPrice)" //"\(JSON(selectedPlan.discountPercentage as Any).intValue)" + "%" //appCurrencySymbol.rawValue + "\(discount)"
         
         [
-            self.vwActualPrice,self.vwDiscount, self.vwGST
+            self.vwDiscount, self.vwGST
         ].forEach({ $0?.isHidden = selectedPlan.offerPrice == 0 })
         
         var gst = 0
@@ -231,8 +308,13 @@ class BCPPlanDetailsVC: LightPurpleNavigationBase {
         self.lblPurchseRate.text = appCurrencySymbol.rawValue + (self.isPayThroughInApp ? JSON(selectedPlan.iosPrice as Any).stringValue : JSON(selectedPlan.androidPrice as Any).stringValue)
         
         self.finalAmount = (self.isPayThroughInApp ? selectedPlan.iosPrice+gst : JSON(String(format: "%.f", selectedPlan.androidFinalAmount.floorToPlaces(places: 2)) as Any).intValue)
-        self.lblTotalPayrate.text = appCurrencySymbol.rawValue + "\(self.finalAmount)"
-        self.lblAmountPaidRate.text = appCurrencySymbol.rawValue + "\(self.finalAmount)"
+        //        self.lblTotalPayrate.text = appCurrencySymbol.rawValue + "\(self.finalAmount)"
+        //        self.lblAmountPaidRate.text = appCurrencySymbol.rawValue + "\(self.finalAmount)"
+        
+        self.finalDicountPrice = self.finalAmount - self.promoCodeAmount
+        self.lblAmountPaidRate.text = self.isCouponRemove ? appCurrencySymbol.rawValue + "\(self.finalAmount)" : appCurrencySymbol.rawValue + "\(self.finalDicountPrice)"
+        self.lblTotalPayrate.text = self.isCouponRemove ? appCurrencySymbol.rawValue + "\(self.finalAmount)" : appCurrencySymbol.rawValue + "\(self.finalDicountPrice)"
+        
         self.lblMonths.text = selectedPlan.durationName
         
         self.lblPlanDesc.text = selectedPlan.durationTitle + " - " + selectedPlan.durationName
@@ -242,7 +324,19 @@ class BCPPlanDetailsVC: LightPurpleNavigationBase {
     //MARK: - Button Action Methods -
     
     @IBAction func btnBackTapped(_ sender: UIBarButtonItem) {
-        self.navigationController?.popViewController(animated: true)
+        
+        self.setRemoveCouponData()
+        guard let arrViewController = self.navigationController?.viewControllers else {
+            self.navigationController?.popViewController(animated: true)
+            return
+        }
+        
+        _ = arrViewController.map({
+            if $0.isKind(of: BCPCarePlanDetailVC.self) {
+                self.navigationController?.popToViewController($0, animated: true)
+            }
+        })
+        
     }
     
     @IBAction func btnHelpClicked(_ sender: UIButton) {
@@ -250,17 +344,65 @@ class BCPPlanDetailsVC: LightPurpleNavigationBase {
     }
     
     func manageActionMethods() {
+        
+        self.vwApplyCoupon.addTapGestureRecognizer {
+            if kBCPApplyCouponName.isEmpty {
+                let vc = DiscountVC.instantiate(fromAppStoryboard: .BCP_temp)
+                vc.IS_FROM_LAB_TEST = false
+                vc.payableAmount = "\(self.finalDicountPrice)"
+                
+                var params = [String:Any]()
+                params[AnalyticsParameters.service_type.rawValue] = "plan"
+                params[AnalyticsParameters.amount_before_discount.rawValue] = self.lblAmountPaidRate.text
+                FIRAnalytics.FIRLogEvent(eventName: .USER_TAPS_ON_APPLY_COUPON_CARD,
+                                         screen: .BcpOrderReview,
+                                         parameter: params)
+                
+                vc.completionHandler = { obj, desc, amount, subHeading in
+                    let vc = ApplyCouponPopupVC.instantiate(fromAppStoryboard: .BCP_temp)
+                    vc.promoCode = obj
+                    vc.descriptionTitle = subHeading
+                    self.lblApplyCouponChargeRate.text = "- \(appCurrencySymbol.rawValue)\(amount)"
+                    self.promoCodeAmount = amount
+                    vc.modalPresentationStyle = .overFullScreen
+                    vc.modalTransitionStyle = .crossDissolve
+                    self.present(vc, animated: true, completion: nil)
+                    self.setData()
+                }
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            
+        }
+        
+        self.btnRemove.addAction(for: .touchUpInside) { [weak self] in
+            guard let self = self else { return }
+            var params = [String:Any]()
+            params[AnalyticsParameters.discount_code.rawValue] = kBCPApplyCouponName
+            params[AnalyticsParameters.service_type.rawValue] = "plan"
+            FIRAnalytics.FIRLogEvent(eventName: .USER_TAPS_ON_REMOVE,
+                                     screen: .BcpOrderReview,
+                                     parameter: params)
+            
+            self.setRemoveCouponData()
+        }
+        
         self.btnProcessPayment.addAction(for: .touchUpInside) { [weak self] in
             guard let self = self else { return }
             
             var selectedDuration = self.cpDetails.durationDetails.first(where: { $0.isSelected })
             
             var params              = [String : Any]()
-            params[AnalyticsParameters.plan_id.rawValue]            = self.cpDetails.planDetails.planMasterId
-            params[AnalyticsParameters.plan_type.rawValue]          = self.cpDetails.planDetails.planType
+            //            params[AnalyticsParameters.plan_id.rawValue]            = self.cpDetails.planDetails.planMasterId
+            //            params[AnalyticsParameters.plan_type.rawValue]          = self.cpDetails.planDetails.planType
+            //            params[AnalyticsParameters.rentOrBuy.rawValue]          = selectedDuration?.rentBuyType ?? ""
             params[AnalyticsParameters.plan_duration.rawValue]      = selectedDuration?.durationTitle ?? ""
-//            params[AnalyticsParameters.rentOrBuy.rawValue]          = selectedDuration?.rentBuyType ?? ""
-            params[AnalyticsParameters.plan_value.rawValue]         = self.finalAmount
+            
+            params[AnalyticsParameters.amount_before_discount.rawValue]         = self.finalAmount
+            params[AnalyticsParameters.service_type.rawValue]       = "plan"
+            
+            params[AnalyticsParameters.discount_code.rawValue]      = !kBCPApplyCouponName.isEmpty ? kBCPApplyCouponName : ""
+            params[AnalyticsParameters.amount_after_discount.rawValue]       = !kBCPApplyCouponName.isEmpty ? "\(self.finalDicountPrice)" : ""
+            //            params[AnalyticsParameters.amount_before_discount.rawValue]      = !kBCPApplyCouponName.isEmpty ? "\(self.finalAmount)" : ""
             
             FIRAnalytics.FIRLogEvent(eventName: .TAP_PROCEED_TO_PAYMENT,
                                      screen: .BcpOrderReview,
@@ -324,7 +466,7 @@ extension BCPPlanDetailsVC: RazorpayResultProtocol {
             "name": UserModel.shared.name ?? "",
             "description": self.cpDetails.planDetails.planName ?? "",
             "currency": "INR",
-            "amount": self.finalAmount * 100,
+            "amount": self.finalDicountPrice * 100,
             "order_id": orderID
         ]
         if let rzp = self.razorpayObj {
@@ -367,7 +509,7 @@ extension BCPPlanDetailsVC {
     private func getOrderId() {
         
         var params = [String:Any]()
-        params["amount"] = self.finalAmount
+        params["amount"] = self.finalDicountPrice
         
         if NetworkManager.environment == .local || NetworkManager.environment == .uat {
             params["dev"] = true
@@ -412,6 +554,9 @@ extension BCPPlanDetailsVC {
         params["plan_package_duration_rel_id"]  = plan_package_duration_rel_id
         params["device_type"]                   = "A"
         params["purchase_amount"]               = purchase_amount
+        params["discount_amount"]               = "\(kBCPCouponCodeAmount)"
+        params["discounts_master_id"]           = kBCPDiscountMasterId
+        params["discount_type"]                 = kBCPDiscountType
         
         if let address = self.selectAddData {
             params["patient_address_rel_id"] = address.patientAddressRelId
@@ -439,6 +584,10 @@ extension BCPPlanDetailsVC {
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0) {
                         GlobalAPI.shared.getPatientDetailsAPI(withLoader: true) { [weak self] (isDone) in
                             guard let self = self else {return}
+                            kBCPCouponCodeAmount = 0
+                            kBCPDiscountMasterId = ""
+                            kBCPDiscountType     = ""
+                            kBCPApplyCouponName  = ""
                             let vc = PaymentSuccessVC.instantiate(fromAppStoryboard: .BCP_temp)
                             //                            vc.planDetails = PlanDetail(fromJson: response.response)
                             vc.patientPlanRefID = response.data["patient_plan_rel_id"].stringValue

@@ -277,7 +277,7 @@ class UpdateReadingParentVC: ClearNavigationFontBlackBaseVC {
                 
             }
         }
-        print("Pages count", pages.count)
+        
 /*
  Static entry
          
