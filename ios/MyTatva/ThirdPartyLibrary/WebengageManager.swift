@@ -142,6 +142,13 @@ enum ScreenName: String {
     case ExerciseFeedback
     case ExerciseMyRoutine
     
+    case CouponCodeList
+    case AppliedCouponCodeSuccess
+    case LocationPermission
+    case EnterLocationPinCode
+    case ConfirmLocationMap
+    case EnterAddress
+    
 }
 
 enum ScreenSection: String {
@@ -243,6 +250,14 @@ class WebengageManager: NSObject {
                 self.weUser.setAttribute("language", withStringValue: UserModel.shared.languageName)
                 self.weUser.setAttribute("severity", withStringValue: UserModel.shared.severityName)
                 
+                self.weUser.setAttribute("email", withStringValue: UserModel.shared.email)
+                self.weUser.setAttribute("name", withStringValue: UserModel.shared.name)
+                self.weUser.setAttribute("phone", withStringValue: UserModel.shared.countryCode + UserModel.shared.contactNo)
+                self.weUser.setAttribute("birthDate", withStringValue: UserModel.shared.dob)
+                self.weUser.setAttribute("patientGender", withStringValue: UserModel.shared.gender == "M" ? "Male" : "Female")
+                self.weUser.setAttribute("current_plan_type", withStringValue: UserModel.shared.getAllPlanType())
+                self.weUser.setAttribute("current_plan_name", withStringValue: UserModel.shared.getAllPlanName())
+                
                 if LocationManager.shared.isLocationServiceEnabled(showAlert: false) {
                     self.setUserLocation()
                 }
@@ -253,6 +268,7 @@ class WebengageManager: NSObject {
                 
                 //------FreshDeskManager initiate
                 FreshDeskManager.shared.initFreshchatSDK()
+                self.apxorUser()
             }
         }
     }
@@ -270,7 +286,42 @@ class WebengageManager: NSObject {
         
         Analytics.logEvent(AnalyticsEventScreenView,
                            parameters: [AnalyticsParameterScreenName: name])
-        
+        ApxorSDK.logScreen(withName: name)
         debugPrint("Screen log ======================>" ,  name)
+    }
+    
+    func apxorUser() {
+        if UserModel.shared.patientId != nil {
+            
+            var medicalConditionName = ""
+            var dr_Name = ""
+            var dr_Phone = ""
+            
+            if let arr = UserModel.shared.medicalConditionName, arr.count > 0 {
+                medicalConditionName = arr.first!.medicalConditionName
+            }
+            
+            if let doc = UserModel.shared.patientLinkDoctorDetails, doc.count > 0 {
+                dr_Name = doc[0].name!
+                dr_Phone = doc[0].contactNo!
+            }
+            
+            let userInfo = ["email": UserModel.shared.email,
+                            "phone_number": UserModel.shared.countryCode + UserModel.shared.contactNo,
+                            "name": UserModel.shared.name,
+                            "dob": UserModel.shared.dob,
+                            "gender": UserModel.shared.gender,
+                            "indication": medicalConditionName,
+                            "dr_name": dr_Name,
+                            "dr_phone": dr_Phone,
+                            "language": UserModel.shared.languageName,
+                            "severity": UserModel.shared.severityName] as [String : AnyObject]
+            
+            //------For Identifying Users
+            ApxorSDK.setUserIdentifier(UserModel.shared.patientId)
+            
+            //------User Attributes
+            ApxorSDK.setUserCustomInfo(userInfo)
+        }
     }
 }

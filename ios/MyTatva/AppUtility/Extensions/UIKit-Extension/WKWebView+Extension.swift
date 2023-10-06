@@ -15,4 +15,8 @@ extension WKWebView {
             "var head = document.getElementsByTagName('head')[0];" + "head.appendChild(meta);"
         self.configuration.userContentController.addUserScript(WKUserScript(source: source, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
     }
+    func loadHTMLStringWithMagic(content:String,baseURL:URL?){
+            let headerString = "<header><meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no'></header>"
+            loadHTMLString(headerString + content, baseURL: baseURL)
+        }
 }

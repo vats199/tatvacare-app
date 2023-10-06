@@ -69,6 +69,7 @@ enum AnalyticsParameters: String {
     case plan_type
     case plan_expiry_date
     case plan_duration
+    case days_to_expire
     case plan_value
     case menu
     case cards
@@ -111,6 +112,14 @@ enum AnalyticsParameters: String {
     case flag
     case sync_status
     case exercise_plan_name
+    
+    case service_type
+    case amount_before_discount
+    case discount_code
+    case design_element_type
+    case amount_after_discount
+    case permission_type
+    
 
 }
 
@@ -392,6 +401,7 @@ enum FIREventType {
     case TAP_ADD_NEW //When user tap on "Add New" action on the bottom sheet of address list
     case TAP_SAVE_AND_NEXT //When the user tap on the Save and Next button
     case TAP_PROCEED_TO_PAYMENT //user taps on CTA Proceed to payment
+    case TAP_PROCEED_TO_PAYMENT_LAB_TEST //user taps on CTA Proceed to payment for lab test
     case TAP_CONTACT_US //When user tap on "Contact Us" CTA
     case TAP_LABTEST_CARD //When user tap on "Lab Test card" from the paid care plan detail page
     case ADD_TEST //When user tap on "Add Test" from the Review Order Test page
@@ -408,7 +418,33 @@ enum FIREventType {
     case USER_TAPS_ON_READ_MORE
     case USER_GOES_BACK
     
+    //Discount Phase
+    case USER_TAPS_ON_APPLY_COUPON_CARD //When the user taps on Apply Coupon card to see the list of discounts availabl
+    case USER_TAPS_ON_DETAILS //When the user taps on View Details and expands the description section of a discount
+    case APPLY_CLICK //When the user clicks on Apply to avail a discount code
+    case USER_TAPS_OK //When the user taps on ‘Got it, thanks’
+    case USER_TAPS_ON_REMOVE //User taps on Remove Button
+    case USER_ENTERS_CODE //User enters the Discount code manually by typing
+    case TAP_SELECT_MANUALLY //When user clicks on 'Select Manually'
+    case TAP_GRANT_LOCATION //When user clicks on 'Grant'
+    case PINCODE_ENTERED//User enters pincode
+    case USE_CURRENT_LOCATION//When user clicks on 'Use Current Location' in Enter Location Bottom sheet pop-up
+    case BACK_BUTTON_CLICK//When user clicks on 'Back Button' on Confirm Location Screen
+    case LOCATION_SEARCH//When user does a complete successful search the location search tab
+    case MAP_USAGE//When user clicks on 'map' or changes the pin
+    case TAP_COMPLETE_ADDRESS//When user clicks on 'Add Complete Address'
+    case TAP_SAVE_ADDRESS//When user tap on "Save Address"
+    case LOCATION_PERMISSION//When user giver permission on the defautl pop-up of the platform
+    case RENEW_PLAN //When user tap on "Renew" button in the Care Plan card from different pages
     
+    case USER_CLICK_DONT_HAVE_ACCESS_CODE// - when user click on don't have
+    case USER_CLICK_HAVE_ACCESS_CODE //- when user click on have
+    case USER_CLICK_CHECK_ACCESS_CODE// - - when user click check action
+    case ACCESS_CODE_VERIFY_SUCCESS // - access code verify success event
+    case ACCESS_CODE_VERIFY_FAIL // - access code verify failure event
+    case DOCTOR_ACCESS_CODE_HIDDEN_BY_DEFAULT// - when this screen comes and access code is hidden by default due to any reason(either deeplink or PM or linked patient)
+    case USER_ADD_ACCOUNT_STEP_SUCCESS// - user fill details and successfully API response on button next
+        
     var rawString : String {
         
         switch self {
@@ -821,6 +857,8 @@ enum FIREventType {
             return "TAP_SAVE_AND_NEXT"
         case .TAP_PROCEED_TO_PAYMENT:
             return "TAP_PROCEED_TO_PAYMENT"
+        case .TAP_PROCEED_TO_PAYMENT_LAB_TEST:
+            return "TAP_PROCEED_TO_PAYMENT_LAB_TEST"
         case .TAP_CONTACT_US:
             return "TAP_CONTACT_US"
         case .TAP_LABTEST_CARD:
@@ -848,6 +886,56 @@ enum FIREventType {
             return "USER_TAPS_ON_READ_MORE"
         case .USER_GOES_BACK:
             return "USER_GOES_BACK"
+            
+        case .USER_TAPS_ON_APPLY_COUPON_CARD:
+            return "USER_TAPS_ON_APPLY_COUPON_CARD"
+        case .USER_TAPS_ON_DETAILS:
+            return "USER_TAPS_ON_DETAILS"
+        case .APPLY_CLICK:
+            return "APPLY_CLICK"
+        case .USER_TAPS_OK:
+            return "USER_TAPS_OK"
+        case .USER_TAPS_ON_REMOVE:
+            return "USER_TAPS_ON_REMOVE"
+        case .USER_ENTERS_CODE:
+            return "USER_ENTERS_CODE"
+        case .TAP_SELECT_MANUALLY:
+            return "TAP_SELECT_MANUALLY"
+        case .TAP_GRANT_LOCATION:
+            return "TAP_GRANT_LOCATION"
+        case .PINCODE_ENTERED:
+            return "PINCODE_ENTERED"
+        case .USE_CURRENT_LOCATION:
+            return "USE_CURRENT_LOCATION"
+        case .BACK_BUTTON_CLICK:
+            return "BACK_BUTTON_CLICK"
+        case .LOCATION_SEARCH:
+            return "LOCATION_SEARCH"
+        case .MAP_USAGE:
+            return "MAP_USAGE"
+        case .TAP_COMPLETE_ADDRESS:
+            return "TAP_COMPLETE_ADDRESS"
+        case .TAP_SAVE_ADDRESS:
+            return "TAP_SAVE_ADDRESS"
+        case .LOCATION_PERMISSION:
+            return "LOCATION_PERMISSION"
+        case .RENEW_PLAN:
+            return "RENEW_PLAN"
+        case .USER_CLICK_DONT_HAVE_ACCESS_CODE:
+            return "USER_CLICK_DONT_HAVE_ACCESS_CODE"
+        case .USER_CLICK_HAVE_ACCESS_CODE:
+            return "USER_CLICK_HAVE_ACCESS_CODE"
+        case .USER_CLICK_CHECK_ACCESS_CODE:
+            return "USER_CLICK_CHECK_ACCESS_CODE"
+        case .ACCESS_CODE_VERIFY_SUCCESS:
+            return "ACCESS_CODE_VERIFY_SUCCESS"
+        case .ACCESS_CODE_VERIFY_FAIL:
+            return "ACCESS_CODE_VERIFY_FAIL"
+        case .DOCTOR_ACCESS_CODE_HIDDEN_BY_DEFAULT:
+            return "DOCTOR_ACCESS_CODE_HIDDEN_BY_DEFAULT"
+        case .USER_ADD_ACCOUNT_STEP_SUCCESS:
+            return "USER_ADD_ACCOUNT_STEP_SUCCESS"
+            
         }
     }
 }
@@ -965,7 +1053,7 @@ public class FIRAnalytics : NSObject {
             if converted.count > 0 {
                 WebengageManager.shared.weAnalytics.trackEvent(withName: eventName.rawString, andValue: converted)
             }
-            
+            ApxorSDK.logAppEvent(withName: eventName.rawString, info: converted)
             Analytics.logEvent(eventName.rawString, parameters: converted)
         }
     }
@@ -1362,6 +1450,18 @@ extension FIRAnalytics {
                 case .ExerciseFeedback:
                     break
                 case .ExerciseMyRoutine:
+                    break
+                case .CouponCodeList:
+                    break
+                case .AppliedCouponCodeSuccess:
+                    break
+                case .LocationPermission:
+                    break
+                case .EnterLocationPinCode:
+                    break
+                case .ConfirmLocationMap:
+                    break
+                case .EnterAddress:
                     break
                 }
             }

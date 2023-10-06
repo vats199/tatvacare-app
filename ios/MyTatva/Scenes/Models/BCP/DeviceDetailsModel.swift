@@ -8,14 +8,24 @@
 import Foundation
 import SwiftyJSON
 
+enum BTDeviceType: String {
+    case spirometer, bca
+}
 
 class DeviceDetailsModel : NSObject, NSCoding{
-
+    
     var key : String!
     var lastSyncDate : String!
     var title : String!
-
-
+    
+    var icon: String {
+        switch BTDeviceType(rawValue: self.key) {
+        case .bca : return "icon_BCA"
+        case .spirometer: return "icon_Spirometer"
+        case .none: return ""
+        }
+    }
+    
     /**
      * Instantiate the instance using the passed json values to set the properties values
      */

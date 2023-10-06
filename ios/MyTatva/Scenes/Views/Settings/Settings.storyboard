@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="H1n-41-CiN">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="H1n-41-CiN">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -552,7 +552,7 @@
                     <navigationItem key="navigationItem" id="qXv-Zj-wYg">
                         <leftBarButtonItems>
                             <barButtonItem style="plain" id="OTn-iC-fhg">
-                                <view key="customView" contentMode="scaleToFill" ambiguous="YES" id="awE-ZT-OcD">
+                                <view key="customView" contentMode="scaleToFill" id="awE-ZT-OcD">
                                     <rect key="frame" x="20" y="5.5" width="71" height="33"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
@@ -1098,7 +1098,7 @@
                         <leftBarButtonItems>
                             <barButtonItem image="back_ic" id="DPu-4V-abd">
                                 <connections>
-                                    <action selector="onGoBack:" destination="SgT-mq-BZH" id="1uS-DI-LEw"/>
+                                    <action selector="popViewControllerWithSender:" destination="SgT-mq-BZH" id="VBE-V6-lsu"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem style="plain" id="huI-lv-FdG">
@@ -2152,7 +2152,7 @@
                     <navigationItem key="navigationItem" id="DYW-nq-WTk">
                         <leftBarButtonItems>
                             <barButtonItem style="plain" id="UkZ-Hc-FM5">
-                                <view key="customView" contentMode="scaleToFill" ambiguous="YES" id="PXW-jW-u5W">
+                                <view key="customView" contentMode="scaleToFill" id="PXW-jW-u5W">
                                     <rect key="frame" x="20" y="5.5" width="71" height="33"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
@@ -2624,7 +2624,7 @@
                         <leftBarButtonItems>
                             <barButtonItem image="back_ic" id="gKi-aO-gjt">
                                 <connections>
-                                    <action selector="onGoBack:" destination="w3v-ct-inM" id="mNr-VL-ehG"/>
+                                    <action selector="popViewControllerWithSender:" destination="w3v-ct-inM" id="jvB-wh-GSk"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem style="plain" id="rtS-rN-cOA">
@@ -3037,7 +3037,7 @@
                         <leftBarButtonItems>
                             <barButtonItem image="back_ic" id="yCs-OX-Hl7">
                                 <connections>
-                                    <action selector="onGoBack:" destination="PY6-6L-5aZ" id="1kc-C6-BPr"/>
+                                    <action selector="popViewControllerWithSender:" destination="PY6-6L-5aZ" id="hWt-KL-xbq"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem style="plain" id="I9J-zg-EUO">
@@ -4884,7 +4884,7 @@
                         <leftBarButtonItems>
                             <barButtonItem image="back_ic" id="aCE-JY-5He">
                                 <connections>
-                                    <action selector="onGoBack:" destination="NwK-Te-pfb" id="o3T-Xz-hQD"/>
+                                    <action selector="popViewControllerWithSender:" destination="NwK-Te-pfb" id="tFJ-Cl-4M8"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem style="plain" id="mpV-qn-mOP">
@@ -5641,7 +5641,7 @@ Apt, Ahmedabad, Gujarat, 399802</string>
                         <leftBarButtonItems>
                             <barButtonItem image="back_ic" id="LhL-B8-zk3">
                                 <connections>
-                                    <action selector="onGoBack:" destination="sZ9-yq-lM8" id="Zwu-Wa-N6J"/>
+                                    <action selector="popViewControllerWithSender:" destination="sZ9-yq-lM8" id="DvK-JW-zLD"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem style="plain" id="veL-On-QIf">
@@ -5837,7 +5837,7 @@ Apt, Ahmedabad, Gujarat, 399802</string>
                         <leftBarButtonItems>
                             <barButtonItem image="back_ic" id="yBJ-Wj-qnl">
                                 <connections>
-                                    <action selector="onGoBack:" destination="m40-DX-ExS" id="ZGw-ye-28y"/>
+                                    <action selector="popViewControllerWithSender:" destination="m40-DX-ExS" id="PCz-BH-eCH"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem style="plain" id="4ok-8B-wul">
@@ -5995,7 +5995,7 @@ Apt, Ahmedabad, Gujarat, 399802</string>
                         <leftBarButtonItems>
                             <barButtonItem image="back_ic" id="7oP-GD-AYk">
                                 <connections>
-                                    <action selector="onGoBack:" destination="Yc2-us-foX" id="H0L-45-WbI"/>
+                                    <action selector="popViewControllerWithSender:" destination="Yc2-us-foX" id="PAx-P6-fyA"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem style="plain" id="qdN-Yk-L35">
@@ -6499,7 +6499,7 @@ Apt, Ahmedabad, Gujarat, 399802</string>
                         <leftBarButtonItems>
                             <barButtonItem image="back_ic" id="4yU-aS-Lns">
                                 <connections>
-                                    <action selector="onGoBack:" destination="XUO-Px-6yq" id="Wvu-63-5vO"/>
+                                    <action selector="popViewControllerWithSender:" destination="XUO-Px-6yq" id="F8D-fw-MJE"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem style="plain" id="7zl-O1-JRK">
@@ -10339,6 +10339,9 @@ Breach Candy, Cumballa Hill, Mumbai</string>
         </scene>
     </scenes>
     <designables>
+        <designable name="063-bj-z8X">
+            <size key="intrinsicContentSize" width="-1" height="16"/>
+        </designable>
         <designable name="0ZG-Fd-2Bv">
             <size key="intrinsicContentSize" width="41.5" height="20.5"/>
         </designable>
@@ -10356,6 +10359,9 @@ Breach Candy, Cumballa Hill, Mumbai</string>
         </designable>
         <designable name="216-hT-zeW">
             <size key="intrinsicContentSize" width="130" height="20.5"/>
+        </designable>
+        <designable name="2An-BK-grW">
+            <size key="intrinsicContentSize" width="-1" height="33"/>
         </designable>
         <designable name="2Lb-XZ-bT6">
             <size key="intrinsicContentSize" width="155" height="20.5"/>
@@ -10438,6 +10444,9 @@ Breach Candy, Cumballa Hill, Mumbai</string>
         <designable name="XEV-pI-8Ko">
             <size key="intrinsicContentSize" width="39" height="34"/>
         </designable>
+        <designable name="YbM-UM-oOY">
+            <size key="intrinsicContentSize" width="-1" height="33"/>
+        </designable>
         <designable name="a3j-Wb-1e6">
             <size key="intrinsicContentSize" width="128.5" height="20.5"/>
         </designable>
@@ -10500,7 +10509,7 @@ Breach Candy, Cumballa Hill, Mumbai</string>
         <image name="acc_setting_arrow_right" width="6.5" height="11.5"/>
         <image name="address_coach" width="24.5" height="24.5"/>
         <image name="alert_ic" width="120" height="120"/>
-        <image name="arrow_right" width="6.5" height="11.5"/>
+        <image name="arrow_right" width="6.5" height="11"/>
         <image name="arrow_right_tint" width="6.5" height="11.5"/>
         <image name="b1" width="130" height="75"/>
         <image name="back_ic" width="9.5" height="17"/>
@@ -10560,7 +10569,7 @@ Breach Candy, Cumballa Hill, Mumbai</string>
         <image name="roundCheck_selected" width="22" height="22"/>
         <image name="roundCheck_unselected" width="22" height="22"/>
         <image name="search2" width="21" height="21"/>
-        <image name="share_ic" width="19.5" height="20.5"/>
+        <image name="share_ic" width="14.5" height="16"/>
         <image name="support-call" width="33.5" height="33.5"/>
         <image name="support-chat" width="39" height="36.5"/>
         <image name="support-mail" width="33.5" height="33.5"/>

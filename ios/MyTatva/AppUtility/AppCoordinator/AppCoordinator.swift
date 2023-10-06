@@ -22,9 +22,11 @@ class AppCoordinator: NSObject {
     var audioDevice = DefaultAudioDevice()
     
     func basicAppSetup() {
+        
+        setupMap()
                 
-        GMSServices.provideAPIKey(AppCredential.googleKey.rawValue)
-        GMSPlacesClient.provideAPIKey(AppCredential.googleKey.rawValue)
+//        GMSServices.provideAPIKey(AppCredential.googleKey.rawValue)
+//        GMSPlacesClient.provideAPIKey(AppCredential.googleKey.rawValue)
         
 //        GMSServices.provideAPIKey(AppCredential.googleKey.rawValue)
 //        GMSPlacesClient.provideAPIKey(AppCredential.googleKey.rawValue)
@@ -39,6 +41,11 @@ class AppCoordinator: NSObject {
         UIApplication.shared.windows.first?.isExclusiveTouch = true
         UITextField.appearance().tintColor = UIColor.themePurple
         UITextView.appearance().tintColor = UIColor.themePurple
+        if #available(iOS 9.0, *) {
+                    UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.themeBlack]
+                } else {
+                    // Fallback on earlier versions
+                }
         
         let alertView = UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self])
         alertView.tintColor = UIColor.themePurple
@@ -77,12 +84,17 @@ class AppCoordinator: NSObject {
             }
         }
         
-        //manage login
-        if #available(iOS 13.0, *) {
-            //For latest versions
-        } else {
-            UIApplication.shared.manageLogin()
-        }
+        if UserDefaultsConfig.kAppVersion != Bundle.main.getAppVersion() && !(UserModel.isUserLoggedIn && UserModel.isVerifiedUser) {
+                    UIApplication.shared.forceLogOut()
+                    UserDefaultsConfig.kAppVersion = Bundle.main.getAppVersion()
+                }else {
+                    //manage login
+                    if #available(iOS 13.0, *) {
+                        //For latest versions
+                    } else {
+                        UIApplication.shared.manageLogin()
+                    }
+                }
         
         //Google sign in init
         //        GIDSignIn.sharedInstance().clientID = AppCredential.googleClientID.rawValue
@@ -112,4 +124,19 @@ class AppCoordinator: NSObject {
         IQKeyboardManager.shared.keyboardDistanceFromTextField = 5
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
     }
+    
+    func setupMap() {
+            
+            let GMSServicesKeyValid = GMSServices.provideAPIKey(AppCredential.googleKey.rawValue)
+            
+            let GMSServicesSDKVer = GMSServices.sdkVersion()
+            print("GMS Services Key Valid: ", GMSServicesKeyValid)
+            print("GMS Services SDK version: ", GMSServicesSDKVer)
+
+            let GMSPlacesKeyValid = GMSPlacesClient.provideAPIKey(AppCredential.googleBrowserKey.rawValue)
+            
+            let GMSPlacesSDKVer = GMSPlacesClient.sdkVersion()
+            print("GMS Places Key Valid: ", GMSPlacesKeyValid)
+            print("GMS Places SDK version: ", GMSPlacesSDKVer)
+        }
 }

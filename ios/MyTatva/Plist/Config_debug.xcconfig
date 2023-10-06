@@ -9,4 +9,5 @@
 
 WEGLicenseCode = 82617b48
 WEGEnvironment = US
+ApxorAppID = 460d5566-b0cc-49d6-801a-97608a6068d4
 //EXCLUDED_ARCHS[sdk=iphonesimulator*] = arm64

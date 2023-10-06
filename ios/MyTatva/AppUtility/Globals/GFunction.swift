@@ -528,7 +528,7 @@ extension GFunction{
         }
     }
     
-    func updateCartCount(btn: UIButton,_ isBadges: Bool = true,vm: PurchsedCarePlanVM? = nil){
+    func updateCartCount(btn: UIButton,_ isBadges: Bool = true,vm: PurchsedCarePlanVM? = nil, isPlanExpired: Bool = false){
         GlobalAPI.shared.get_cart_infoAPI { isDone, count, isBCPFlag in
             
             if isBadges {
@@ -536,6 +536,11 @@ extension GFunction{
             }
             
             btn.addTapGestureRecognizer {
+                
+                guard !isPlanExpired else {
+                    return
+                }
+                
                 if count > 0 || isBCPFlag {
                     //                    let vc = LabTestCartVC.instantiate(fromAppStoryboard: .carePlan)
                     

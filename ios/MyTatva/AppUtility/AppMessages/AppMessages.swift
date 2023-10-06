@@ -200,4 +200,6 @@ Purchasing a new plan will deactivate your existing subscription. Do you want to
     static let allowAccess                  = "Allow access"
     static let cameraAccess                 = "Need camera access"
     static let cameraAccessMessage          = "Camera access is required for capture QR code"
+    
+    static let connectToSpirometer          = "Only compatible with Android. Please log in to the MyTatva Android app to connect, measure, and review."
 }

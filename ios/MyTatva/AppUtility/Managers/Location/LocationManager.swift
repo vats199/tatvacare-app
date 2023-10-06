@@ -27,6 +27,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     
     // Use For continues update
     var locationStatus = ""
+    var permissionStatus: CLAuthorizationStatus = .notDetermined
     
     //---------------------------------------------------------------------
     
@@ -81,6 +82,8 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
             // Fallback on earlier versions
         }
         
+        self.permissionStatus = CLLocationManager.authorizationStatus()
+        
         switch CLLocationManager.authorizationStatus() {
         case .authorizedAlways:
             locationStatus = "authorized always"
@@ -132,6 +135,10 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
         //
         //        }
         return location
+    }
+    
+    func isLocationEmpty() -> Bool {
+        return location.coordinate.latitude == 0.0 && location.coordinate.longitude == 0.0
     }
     
     //MARK: Delegate method
@@ -190,6 +197,27 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if let _ = self.delegate {
+            
+            if status != self.permissionStatus && status != .notDetermined {
+                self.permissionStatus = status
+                let permissionType = {
+                    switch status {
+                    case .authorizedAlways,.authorized:
+                        return "always"
+                    case .authorizedWhenInUse:
+                        return "once"
+                    default:
+                        return "not now"
+                    }
+                }()
+                
+                var params              = [String : Any]()
+                params[AnalyticsParameters.permission_type.rawValue]            = permissionType
+                FIRAnalytics.FIRLogEvent(eventName: .LOCATION_PERMISSION,
+                                         screen: .LocationPermission,
+                                         parameter: params)
+            }
+            
             self.delegate?.didChangeAuthorizationStatus?(status: status)
         }
         switch status {
@@ -238,4 +266,65 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
             self.delegate?.didUpdateLocationOnAppDidBecomeActive?(locations: location)
         }
     }
+    
+    func updateLocation() {
+            DispatchQueue.main.async {
+                if (CLLocationManager.locationServicesEnabled()) {
+                    self.locationManager = CLLocationManager()
+                    self.locationManager.delegate = self
+                    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+                    self.locationManager.startUpdatingLocation()
+                }
+            }
+        }
+        
+        //TODO: Uncomment below code to get address from location
+        func getAddressFromLocation(latitude : String , longitude : String , handler : @escaping ((GMSAddress?) -> ())) {
+            
+            let geocoder = GMSGeocoder()
+        
+            var location : CLLocation?
+            if latitude.isEmpty || longitude.isEmpty{
+                
+            }else{
+                location = CLLocation(latitude: Double(latitude)!, longitude: Double(longitude)!)
+            }
+            
+            if let loc = location {
+    //            self.location = loc
+                geocoder.reverseGeocodeCoordinate(loc.coordinate, completionHandler: { (response, error) in
+                    
+                    if error == nil{
+                        if let res = response?.results(){
+                            for address in res {
+                                debugPrint("\ncoordinate.latitude=\(address.coordinate.latitude)")
+                                debugPrint("coordinate.longitude=\(address.coordinate.longitude)")
+                                debugPrint("thoroughfare=\(address.thoroughfare ?? "")")
+                                debugPrint("locality=\(address.locality ?? "")")
+                                debugPrint("subLocality=\(address.subLocality ?? "")")
+                                debugPrint("administrativeArea=\(address.administrativeArea ?? "")")
+                                debugPrint("postalCode=\(address.postalCode ?? "")")
+                                debugPrint("country=\(address.country ?? "")")
+                                debugPrint("lines=\(address.lines ?? [])")
+                                handler(address)
+                                return
+    //                            if address.locality != nil {
+    //                                handler(address)
+    //                                return
+    //                            }
+                            }
+                            handler(nil)
+                            debugPrint("not found")
+                        }else{
+                            handler(nil)
+                            debugPrint("not found")
+                        }
+                    } else {
+                        debugPrint(error?.localizedDescription ?? "")
+                    }
+
+                })
+            }
+            
+        }
 }

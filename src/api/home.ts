@@ -24,8 +24,8 @@ const Home = {
       payload,
     });
   },
-  getMyHealthInsights: (query: object) => {
-    const route = bindQueryParams('/goal_readings/my_health_insights', query);
+  getMyHealthInsights: () => {
+    const route = '/goal_readings/my_health_insights';
     return Ajax.request(route, {
       method: Ajax.POST,
       priv: true,

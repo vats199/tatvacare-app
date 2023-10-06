@@ -251,6 +251,7 @@ class UpdateExercisePopupVC: ClearNavigationFontBlackBaseVC {
             guard let self = self else { return }
             self.exerciseVM.addDifficulty(indexPath: indexPath, difficulty: difficulty)
         }
+        vc.exerciseData = obj
         UIApplication.topViewController()?.present(vc, animated: true)
     }
     

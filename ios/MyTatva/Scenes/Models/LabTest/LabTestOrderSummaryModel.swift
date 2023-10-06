@@ -34,6 +34,8 @@ class LabTestOrderSummaryModel {
     var orderProcess : String!
     var serviceCharge : String!
     var serviceDateTime : String!
+    var couponCode : String!
+    var couponDiscount : String!
     
     init(){}
     /**
@@ -86,6 +88,9 @@ class LabTestOrderSummaryModel {
 
         orderLeadId = json["order_lead_id"].stringValue
         orderMobile = json["order_mobile"].stringValue
+        
+        couponCode = json["coupon_code"].stringValue
+        couponDiscount = json["coupon_discount"].stringValue
 
         serviceCharge = json["service_charge"].stringValue
         serviceDateTime = json["service_date_time"].stringValue

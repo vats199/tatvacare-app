@@ -28,6 +28,8 @@ class SetupProfileVC: UIViewController {
     
     @IBOutlet weak var btnCheck: UIButton!
     @IBOutlet weak var vwDoctorCode: UIView!
+    @IBOutlet weak var lblShowAccessCode: UILabel!
+    @IBOutlet weak var svDoctorAccessCode: UIStackView!
     
     @IBOutlet weak var vwTxtName: UIView!
     @IBOutlet weak var vwTxtEmail: UIView!
@@ -49,6 +51,11 @@ class SetupProfileVC: UIViewController {
     
     var isBackShown = false
     var isToRoot = false
+    var isShowAccessField = true {
+        didSet {
+            self.setDoctorCode()
+        }
+    }
     
     var isCheck = false
     
@@ -186,7 +193,7 @@ class SetupProfileVC: UIViewController {
             NSAttributedString.Key.underlineStyle : NSUnderlineStyle.single.rawValue
         ]])
         
-       
+        self.isShowAccessField = true
         
         self.txtDOB.setRightImage(img: UIImage(named: "ic_downArrow")?.imageWithSize(size: CGSize(width: 16, height: 16), extraMargin: 16))
         
@@ -227,6 +234,26 @@ class SetupProfileVC: UIViewController {
         self.lblErrorEmail.font(name: .regular, size: 12).textColor(color: .themeRedAlert)
         self.lblEroorEnterCode.font(name: .regular, size: 12).textColor(color: .themeRedAlert)
     }
+    
+    private func setDoctorCode() {
+            let tmpText = self.isShowAccessField ? "Click here, if you don't have a doctor code." : "If you have a doctor code, click here." + "\n(Proceed without code if you don't have one. We will auto-assign a code)"
+            self.lblShowAccessCode.text = tmpText
+            self.lblShowAccessCode.font(name: .semibold, size: 14.0).numberOfLines = 0
+            self.lblShowAccessCode.isUserInteractionEnabled = true
+    //        let gesture3 = UITapGestureRecognizer(target: self, action: #selector(tapLabelAccessCode(gesture:)))
+    //        self.lblShowAccessCode.addGestureRecognizer(gesture3)
+            
+            self.lblShowAccessCode.setAttributedString(self.isShowAccessField ? ["Click","here",", if you don't have a doctor code."] : ["If you have a doctor code, click","here",".\n(Proceed without code if you don't have one. We will auto-assign a code)"], attributes: [[
+                NSAttributedString.Key.foregroundColor : UIColor.themePurple
+            ],[
+                NSAttributedString.Key.foregroundColor : UIColor.colorFromHex(hex: 0x052EFF),
+                NSAttributedString.Key.underlineStyle : NSUnderlineStyle.single.rawValue
+            ],[
+                NSAttributedString.Key.font : UIFont.customFont(ofType: self.isShowAccessField ? .semibold : .regular, withSize: self.isShowAccessField ? 14.0 : 12.0),
+                NSAttributedString.Key.foregroundColor : UIColor.themePurple
+            ]])
+        }
+        
     
     func initDatePicker() {
         self.txtDOB.inputView               = self.datePicker
@@ -277,10 +304,32 @@ class SetupProfileVC: UIViewController {
         }
         
         self.vwDoctorCode.isHidden = !((userData.accessCode ?? "").trim().isEmpty || (userData.doctorAccessCode ?? "").trim().isEmpty )
-        
+            
+        if self.vwDoctorCode.isHidden {
+                    var params              = [String: Any]()
+                    FIRAnalytics.FIRLogEvent(eventName: .DOCTOR_ACCESS_CODE_HIDDEN_BY_DEFAULT,
+                                             screen: ScreenName.AddAccountDetails,
+                                             parameter: params)
+                }
+
     }
     
     //------------------------------------------------------------------------------------------
+    
+    @objc func tapLabelAccessCode(gesture: UITapGestureRecognizer) {
+        
+        guard let text = self.lblShowAccessCode.attributedText?.string else {
+            return
+        }
+        
+        if let range = text.range(of: "here"),gesture.didTapAttributedTextInLabel(label: self.lblShowAccessCode, inRange: NSRange(range, in: text)) {
+            print("Tapped")
+            self.svDoctorAccessCode.isHidden = !self.svDoctorAccessCode.isHidden
+        }else {
+            print("Tapped none")
+            return
+        }
+    }
     
     @objc func tapLabelTerms(gesture: UITapGestureRecognizer) {
         
@@ -326,7 +375,25 @@ class SetupProfileVC: UIViewController {
     //------------------------------------------------------------------------------------------
     
     private func addActions() {
-        
+        self.lblShowAccessCode.addTapGestureRecognizer { [weak self] in
+                    guard let self = self else { return }
+                    self.svDoctorAccessCode.isHidden = !self.svDoctorAccessCode.isHidden
+                    self.isShowAccessField = !self.isShowAccessField
+                    self.txtEnterCode.text = nil
+                    self.btnCheck.isUserInteractionEnabled = false
+                    self.btnCheck.alpha = 0.3
+                    self.vwTxtEnterCode.borderColor(color: .themeBorder2)
+                    self.vwErrorEnterCode.isHidden = true
+                    self.validateForEnable()
+                    
+                    var params              = [String: Any]()
+                    FIRAnalytics.FIRLogEvent(eventName: !self.isShowAccessField ? .USER_CLICK_DONT_HAVE_ACCESS_CODE : .USER_CLICK_HAVE_ACCESS_CODE,
+                                             screen: ScreenName.AddAccountDetails,
+                                             parameter: params)
+                    
+                    
+                }
+                
         self.btnSelectTerm.addAction(for: .touchUpInside) { [weak self] in
             guard let self = self else { return }
             self.btnSelectTerm.isSelected = !self.btnSelectTerm.isSelected
@@ -337,6 +404,11 @@ class SetupProfileVC: UIViewController {
         self.btnCheck.addAction(for: .touchUpInside) { [weak self] in
             guard let self = self else { return }
             self.view.endEditing(true)
+            
+            var params              = [String: Any]()
+            FIRAnalytics.FIRLogEvent(eventName: .USER_CLICK_CHECK_ACCESS_CODE,
+                                     screen: ScreenName.AddAccountDetails,
+                                     parameter: params)
             if self.txtEnterCode.text?.trim() == "" {
                 //                Alert.shared.showSnackBar(AppError.validation(type: .enterAccessCode).errorDescription ?? "")
                 Alert.shared.showSnackBar(AppError.validation(type: .enterAccessCode).errorDescription ?? "", isError: true, isBCP: true)
@@ -348,6 +420,7 @@ class SetupProfileVC: UIViewController {
                     self.lblEroorEnterCode.text = msg
 //                    self.vwTxtEnterCode.borderColor(color: UIColor.themeRedAlert)
                     if isDone {
+                        self.lblShowAccessCode.isHidden = true
                         self.isCheck = true
                         self.imgSuceessDoctor.isHidden = false
                         self.lblDoctorName.isHidden = false
@@ -370,7 +443,7 @@ class SetupProfileVC: UIViewController {
                 case 2: return "Female"
                 default: return ""
                 }
-            }(), code: self.txtEnterCode.text!, isCheck: self.isCheck)
+            }(), code: self.txtEnterCode.text!, isCheck: self.isShowAccessField ? self.isCheck : true)
         }
         
         self.btnScanner.addAction(for: .touchUpInside) { [weak self] in
@@ -432,6 +505,7 @@ class SetupProfileVC: UIViewController {
                         self.validateForEnable()
                         if isDone {
                             DispatchQueue.main.async {
+                                self.lblShowAccessCode.isHidden = true
                                 self.isCheck = true
                                 self.imgSuceessDoctor.isHidden = false
                                 self.lblDoctorName.isHidden = false
@@ -506,19 +580,37 @@ class SetupProfileVC: UIViewController {
     }
     
     func validateForEnable() {
-        self.btnNext.isEnabled = false
-        self.btnNext.borderColor(color: .themeGray5.withAlphaComponent(0.5)).backGroundColor(color: .themeGray5.withAlphaComponent(0.03)).textColor(color: .themeGray5.withAlphaComponent(0.5))
         
-        if inputs.first(where: { $0.text!.trim().isEmpty }) != nil {
-            return
-        } else if self.selectedGender == 0 {
-            return
-        } else if !btnSelectTerm.isSelected {
-            return
+        if self.isShowAccessField {
+            self.btnNext.isEnabled = false
+            self.btnNext.borderColor(color: .themeGray5.withAlphaComponent(0.5)).backGroundColor(color: .themeGray5.withAlphaComponent(0.03)).textColor(color: .themeGray5.withAlphaComponent(0.5))
+            
+            if inputs.first(where: { $0.text!.trim().isEmpty }) != nil {
+                return
+            } else if self.selectedGender == 0 {
+                return
+            } else if !btnSelectTerm.isSelected {
+                return
+            }
+            
+            self.btnNext.isEnabled = true
+            self.btnNext.borderColor(color: .themePurple).backGroundColor(color: .white).textColor(color: .themePurple)
+        } else {
+            self.btnNext.isEnabled = false
+            self.btnNext.borderColor(color: .themeGray5.withAlphaComponent(0.5)).backGroundColor(color: .themeGray5.withAlphaComponent(0.03)).textColor(color: .themeGray5.withAlphaComponent(0.5))
+            
+            if [txtName, txtEmail, txtDOB].first(where: { $0.text!.trim().isEmpty }) != nil {
+                return
+            } else if self.selectedGender == 0 {
+                return
+            } else if !btnSelectTerm.isSelected {
+                return
+            }
+            
+            self.btnNext.isEnabled = true
+            self.btnNext.borderColor(color: .themePurple).backGroundColor(color: .white).textColor(color: .themePurple)
         }
         
-        self.btnNext.isEnabled = true
-        self.btnNext.borderColor(color: .themePurple).backGroundColor(color: .white).textColor(color: .themePurple)
     }
     
     @IBAction func btnGenderClicked(_ sender: UIButton) {

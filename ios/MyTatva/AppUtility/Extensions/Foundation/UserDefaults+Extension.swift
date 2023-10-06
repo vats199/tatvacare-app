@@ -36,6 +36,7 @@ extension UserDefaults {
         static let kLetBigGIF               = "kLetBigGIF"
         static let kDoctorAccessCode        = "kDoctorAccessCode"
         static let kAccessCode              = "kAccessCode"
+        static let kAppVersion              = "kAppVersion"
     }
 }
 

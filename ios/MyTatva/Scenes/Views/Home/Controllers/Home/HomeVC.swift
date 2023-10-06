@@ -110,6 +110,10 @@ class HomeVC: ClearNavigationFontBlackBaseVC {
     var isOpenGoalReadingKey            = ""
     var screenSection: ScreenSection = .none
     
+    var isCOPDAsthamaPatient            = false
+    var isHideSpirometer                = true
+    var isHideBCA                       = true
+    
     var arrSummary : [JSON] = [
         [
             "img": "medication",
@@ -238,6 +242,7 @@ class HomeVC: ClearNavigationFontBlackBaseVC {
         NotificationCenter.default.addObserver(self, selector: #selector(self.appStatusActivity), name: UIApplication.didBecomeActiveNotification, object: nil)
         
         self.isPageVisible = true
+        isShowAddressList = false
         
         Settings().isHidden(setting: .hide_home_chat_bubble) { isHidden in
             if !isHidden {
@@ -245,10 +250,23 @@ class HomeVC: ClearNavigationFontBlackBaseVC {
             }
         }
         
+        func showMyDevices() {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+                guard let self = self else { return }
+                self.vwMyDeviceParent.isHidden = self.isHideBCA && self.isHideSpirometer
+            }
+        }
+        
+        Settings().isHidden(setting: .hide_home_spirometer) { isHidden in
+            self.isHideSpirometer = isHidden
+            showMyDevices()
+        }
+        
         Settings().isHidden(setting: .hide_home_bca) { [weak self] isHidden in
             guard let self = self else { return }
             print("BCA hidden:- ", isHidden)
-            self.vwMyDeviceParent.isHidden = isHidden
+            self.isHideBCA = isHidden
+            showMyDevices()
         }
         
         Settings().isHidden(setting: .hide_home_my_device) { [weak self] isHidden in
@@ -287,6 +305,7 @@ class HomeVC: ClearNavigationFontBlackBaseVC {
                 }
             }
         }
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -303,6 +322,7 @@ class HomeVC: ClearNavigationFontBlackBaseVC {
         //        self.navigationController?.tabBarController?.tabBar.isHidden = true
         self.isPageVisible = false
         FIRAnalytics.manageTimeSpent(on: .Home, when: .Disappear)
+        
     }
     
     //MARK:-------------------- Memory Management Method --------------------
@@ -581,7 +601,7 @@ class HomeVC: ClearNavigationFontBlackBaseVC {
             if let hcServiceLongestPlan = UserModel.shared.hcServicesLongestPlan {
                 let vc = PurchsedCarePlanVC.instantiate(fromAppStoryboard: .BCP_temp)
                 vc.viewModel.planDetails = PlanDetail(fromJson: JSON(hcServiceLongestPlan.toDictionary()))
-                vc.isBack = true
+                vc.isBack = false
                 self.navigationController?.pushViewController(vc, animated: true)
             }else {
                 let vc = BCPCarePlanVC.instantiate(fromAppStoryboard: .BCP_temp)
@@ -780,6 +800,8 @@ extension HomeVC {
         }
         
         GFunction.shared.updateNotification(btn: self.btnNotification)
+        UserModel.shared.getDevices()
+        self.isCOPDAsthamaPatient = UserModel.shared.medicalConditionName.contains(where: { $0.medicalConditionName.contains("COPD") || $0.medicalConditionName.contains("Asthma") })
         self.tblMyDevices.reloadData()
         
         if let hcServiceLongestPlan = UserModel.shared.hcServicesLongestPlan {

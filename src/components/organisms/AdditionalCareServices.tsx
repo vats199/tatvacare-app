@@ -14,7 +14,6 @@ type AdditionalServicesProps = {
   onPressConsultPhysio: (type: 'HC' | 'D') => void;
   onPressBookDiagnostic: () => void;
   onPressBookDevices: () => void;
-  hcDevicePlans: any;
 };
 
 type AdditionalServicesItem = {
@@ -32,7 +31,6 @@ const AdditionalCareServices: React.FC<AdditionalServicesProps> = ({
   onPressConsultPhysio,
   onPressBookDiagnostic,
   onPressBookDevices,
-  hcDevicePlans,
 }) => {
   const {userData} = useApp();
 

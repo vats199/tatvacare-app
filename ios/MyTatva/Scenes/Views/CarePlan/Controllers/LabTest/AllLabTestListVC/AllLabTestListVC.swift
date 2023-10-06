@@ -93,6 +93,7 @@ class AllLabTestListVC: WhiteNavigationBaseVC {
     
     var completionHandler: ((_ obj : JSON?) -> Void)?
     var locationStatus              : CLAuthorizationStatus?
+    var isFromFirstTime = true
     //var arrGoal = [GoalListModel]()
     //    var arrGoal : [JSON] = [
     //        [
@@ -187,6 +188,42 @@ class AllLabTestListVC: WhiteNavigationBaseVC {
         self.btnChangeLocation
             .font(name: .semibold, size: 14)
             .textColor(color: UIColor.themePurple.withAlphaComponent(1))
+    }
+    
+    private func addGeoLocationAddress(search: String? = nil) {
+        if LocationManager.shared.checkStatus() == .authorizedAlways || LocationManager.shared.checkStatus() == .authorizedWhenInUse {
+            let lat     = LocationManager.shared.getUserLocation().coordinate.latitude
+            let long    = LocationManager.shared.getUserLocation().coordinate.longitude
+            
+            GoogleNavigationAdddress.getAddressFromLatLong(lat: lat, lng: long) { (response) in
+                let response = JSON(response)
+                
+                if response[StringConstant.PinCode].stringValue != "" {
+                    
+                    kGlobalPincode              = response[StringConstant.PinCode].stringValue
+                    self.lblLocationVal.text    = kGlobalPincode
+                }
+                
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+                    self.viewModel.apiCallFromStart(tblView: self.tblView,
+                                                    refreshControl: self.refreshControl,
+                                                    search: search ?? self.txtSearch.text!,
+                                                    type: self.labTestType,
+                                                    pincode: kGlobalPincode,
+                                                    withLoader: false)
+                }
+            }
+        } else {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+                _ = LocationManager.shared.isLocationServiceEnabled(showAlert: true)
+                self.viewModel.apiCallFromStart(tblView: self.tblView,
+                                                refreshControl: self.refreshControl,
+                                                search: search ?? self.txtSearch.text!,
+                                                type: self.labTestType,
+                                                pincode: kGlobalPincode,
+                                                withLoader: false)
+            }
+        }
     }
     
     //Desc:- Set layout desing customize
@@ -288,7 +325,81 @@ class AllLabTestListVC: WhiteNavigationBaseVC {
                                                 withLoader: false)
             }
             else {
-                LocationManager.shared.getLocation(isAskForPermission: true)
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+                    self.viewModel.apiCallFromStart(tblView: self.tblView,
+                                                    refreshControl: self.refreshControl,
+                                                    search: search ?? self.txtSearch.text!,
+                                                    type: self.labTestType,
+                                                    pincode: kGlobalPincode,
+                                                    withLoader: false)
+                }
+                
+                //   ----------------- Comment ----------
+                if LocationManager.shared.checkStatus() == .authorizedAlways || LocationManager.shared.checkStatus() == .authorizedWhenInUse {
+                    let lat     = LocationManager.shared.getUserLocation().coordinate.latitude
+                    let long    = LocationManager.shared.getUserLocation().coordinate.longitude
+                    
+                    GoogleNavigationAdddress.getAddressFromLatLong(lat: lat, lng: long) { (response) in
+                        let response = JSON(response)
+                        
+                        if response[StringConstant.PinCode].stringValue != "" {
+                            
+                            kGlobalPincode              = response[StringConstant.PinCode].stringValue
+                            self.lblLocationVal.text    = kGlobalPincode
+                        }
+                        
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+                            self.viewModel.apiCallFromStart(tblView: self.tblView,
+                                                            refreshControl: self.refreshControl,
+                                                            search: search ?? self.txtSearch.text!,
+                                                            type: self.labTestType,
+                                                            pincode: kGlobalPincode,
+                                                            withLoader: false)
+                        }
+                    }
+                } else {
+                    
+                    if self.isFromFirstTime {
+                        self.isFromFirstTime = false
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.10) {
+                            let vc = LocationPermissionPopUpVC.instantiate(fromAppStoryboard: .BCP_temp)
+                            vc.selectManuallyCompletion = { [weak self] _ in
+                                guard let self = self else { return }
+                                let vc = SelectLocationPopUpVC.instantiate(fromAppStoryboard: .BCP_temp)
+                                vc.completionHandler = { obj in
+                                    if obj?.count > 0 {
+                                        kGlobalPincode              = obj!["code"].stringValue
+                                        self.lblLocationVal.text    = kGlobalPincode
+                                        self.updateAPIData(sender: self.btnChangeLocation, search: self.txtSearch.text!)
+                                    }
+                                }
+                                UIApplication.topViewController()?.present(vc, animated: true)
+                            }
+                            vc.selectGrantCompletion = { [weak self] _ in
+                                guard let self = self else { return }
+                                
+                                if (UIApplication.topViewController()?.isKind(of: LocationPermissionPopUpVC.self) ?? false) {
+                                    UIApplication.topViewController()?.dismiss(animated: true, completion: { [weak self] in
+                                        guard let self = self else { return }
+                                        self.addGeoLocationAddress(search: search)
+                                    })
+                                    return
+                                }
+                                self.addGeoLocationAddress(search: search)
+                                
+                            }
+                            
+                            let navi = UINavigationController(rootViewController: vc)
+                            navi.modalPresentationStyle = .overFullScreen
+                            navi.modalTransitionStyle = .crossDissolve
+                            UIApplication.topViewController()?.present(navi, animated: true)
+                        }
+                    }
+                    
+                }
+                
+            // --------- Comment -----------
+               /* LocationManager.shared.getLocation(isAskForPermission: true)
                 self.locationStatus = LocationManager.shared.checkStatus()
                 if LocationManager.shared.checkStatus() == .authorizedAlways || LocationManager.shared.checkStatus() == .authorizedWhenInUse {
                     let lat     = LocationManager.shared.getUserLocation().coordinate.latitude
@@ -320,7 +431,7 @@ class AllLabTestListVC: WhiteNavigationBaseVC {
                                                     type: self.labTestType,
                                                     pincode: kGlobalPincode,
                                                     withLoader: false)
-                }
+                } */
                 
                 /*if LocationManager.shared.isLocationServiceEnabled(showAlert: false) {
                  LocationManager.shared.getLocation()
@@ -361,7 +472,7 @@ class AllLabTestListVC: WhiteNavigationBaseVC {
     //MARK: -------------------- Action Methods --------------------
     func manageActionMethods(){
         self.vwLocation.addTapGestureRecognizer {
-            let vc = ChooseLocationPinVC.instantiate(fromAppStoryboard: .carePlan)
+            /*let vc = ChooseLocationPinVC.instantiate(fromAppStoryboard: .carePlan)
             //            vc.modalTransitionStyle = .crossDissolve
             vc.modalPresentationStyle = .overFullScreen
             vc.completionHandler = { obj in
@@ -372,6 +483,16 @@ class AllLabTestListVC: WhiteNavigationBaseVC {
                 }
             }
             UIApplication.topViewController()?.present(vc, animated: true, completion: nil)
+             */
+            let vc = SelectLocationPopUpVC.instantiate(fromAppStoryboard: .BCP_temp)
+            vc.completionHandler = { obj in
+                if obj?.count > 0 {
+                    kGlobalPincode              = obj!["code"].stringValue
+                    self.lblLocationVal.text    = kGlobalPincode
+                    self.updateAPIData(sender: self.btnChangeLocation, search: self.txtSearch.text!)
+                }
+            }
+            UIApplication.topViewController()?.present(vc, animated: true)
         }
         
     }

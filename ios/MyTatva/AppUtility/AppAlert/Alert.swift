@@ -183,4 +183,49 @@ extension Alert {
         alert.view.tintColor = UIColor.black
         UIApplication.topViewController()?.present(alert, animated: true, completion: nil)
     }
+
+    func showAlertForSettings(title: String,message: String = "",settingsCompletion: ((UIAlertAction) -> Void)? = nil, cancelCompletion: ((UIAlertAction) -> Void)?) {
+            let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            
+            alertController.addAction(UIAlertAction(title:"Cancel".localized, style: .default, handler: cancelCompletion))
+            
+            
+            let settingsAction = UIAlertAction(title: "Settings".localized, style: .default) { (_) -> Void in
+                let settingsUrl = NSURL(string: UIApplication.openSettingsURLString)
+                if let url = settingsUrl {
+                    if #available(iOS 10.0, *) {
+                        UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
+                    }
+                }
+            }
+            
+            if let settingActionCompletion = settingsCompletion {
+                alertController.addAction(UIAlertAction(title:"Settings".localized, style: .default, handler: settingActionCompletion))
+            } else {
+                alertController.addAction(settingsAction)
+            }
+            
+            
+            DispatchQueue.main.async {
+                UIApplication.topViewController()?.present(alertController, animated: true, completion: nil)
+            }
+        }
+        
+        func openAppOrSystemSettingsAlert(title: String, message: String) {
+            let alertController = UIAlertController (title: title, message: message, preferredStyle: .alert)
+            let settingsAction = UIAlertAction(title: "Settings", style: .destructive) { (_) -> Void in
+                guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else { return }
+                if UIApplication.shared.canOpenURL(settingsUrl) {
+                    UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                        print("Settings opened: \(success)") // Prints true
+                    })
+                }
+            }
+            alertController.addAction(settingsAction)
+            let cancelAction = UIAlertAction(title: "Cancel", style: .default) { (_) -> Void in
+                
+            }
+            alertController.addAction(cancelAction)
+            UIApplication.topViewController()?.present(alertController, animated: true, completion: nil)
+        }
 }

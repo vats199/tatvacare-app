@@ -28,6 +28,7 @@ extension AppError.Enums {
         case enterValidPincode
         case enterHouseNumber
         case enterFullAddress
+        case enterHouseFullAddress
         case enterValidHouseFullAddress
         case enterValidHouseNumber
         case enterStreet
@@ -248,7 +249,6 @@ extension AppError.Enums.ValidationError: LocalizedError {
             return "Please enter calories upto \(kMaxFoodCalorie)"
         case .selectLanguage:
             return "Please select language"
-            
         case .enterConfirmPassword:
             return "Please enter confirm password"
         case .passwordMismatch:
@@ -538,6 +538,8 @@ extension AppError.Enums.ValidationError: LocalizedError {
         case .invalidSkelatalMuscle:
             return "Please enter Skeletal Muscle in the range of \(kMinSkeletalMuscle) - \(kMaxSkeletalMuscle)"
         
+        case .enterHouseFullAddress:
+            return "Please enter house number and building"
         }
     }
 }

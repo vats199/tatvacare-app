@@ -80,7 +80,7 @@ class CPDetailsModel {
             let value = DeviceDetailsModel(fromJson: devicesJson)
             devices.append(value)
         }
-        devices = devices.filter({ $0.key != "spirometer" })
+        devices = devices.filter({ $0.key != BTDeviceType.spirometer.rawValue })
         
     }
     

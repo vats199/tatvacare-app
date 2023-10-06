@@ -4,7 +4,7 @@
 
 
 import UIKit
-import React
+
 
 class TabbarVC: BFPaperTabBarController {
     
@@ -43,17 +43,29 @@ class TabbarVC: BFPaperTabBarController {
     }
     
     fileprivate  func setTabbar(){
+        self.myTabbar.unselectedItemTintColor = .themeGray
         self.myTabbar.backgroundColor       = UIColor.clear
         self.myTabbar.backgroundImage       = UIImage()
         self.myTabbar.shadowImage           = UIImage()  // removes the border
         
-        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont.customFont(ofType: .medium, withSize: 12),
-                                                          NSAttributedString.Key.foregroundColor: UIColor.themeGray],
-                                                         for: .normal)
+        if #available(iOS 13.0, *) {
+            let tabAppearance = self.tabBar.standardAppearance
+            
+            tabAppearance.stackedLayoutAppearance.normal.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.themeGray,NSAttributedString.Key.font : UIFont.customFont(ofType: .regular, withSize: 12) as Any]
+            
+            tabAppearance.stackedLayoutAppearance.selected.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.themePurple,NSAttributedString.Key.font : UIFont.customFont(ofType: .bold, withSize: 12) as Any]
+            
+            self.tabBar.standardAppearance = tabAppearance
+        }
         
-        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont.customFont(ofType: .medium, withSize: 12),
-                                                          NSAttributedString.Key.foregroundColor: UIColor.themePurple],
-                                                         for: .selected)
+        
+//        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont.customFont(ofType: .medium, withSize: 12),
+//                                                          NSAttributedString.Key.foregroundColor: UIColor.themeGray],
+//                                                         for: .normal)
+//
+//        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont.customFont(ofType: .medium, withSize: 12),
+//                                                          NSAttributedString.Key.foregroundColor: UIColor.themePurple],
+//                                                         for: .selected)
 
         
         let vwBg                            = UIView(frame: CGRect(x: 0, y: 0, width: ScreenSize.width, height: self.tabBar.frame.height + 50))
@@ -80,7 +92,7 @@ class TabbarVC: BFPaperTabBarController {
         index += 1
         tab2.image          = UIImage(named: "care_unselected")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
         tab2.selectedImage  = UIImage(named: "care_selected")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
-        tab2.title          = "Care Plan"
+        tab2.title          = "Programs" // "Care Plan"
         tab2.imageInsets    = UIEdgeInsets(top: paddingTop, left: 0, bottom: paddingBottom, right: 0)
         
         if self.showEngageVC {
@@ -88,7 +100,7 @@ class TabbarVC: BFPaperTabBarController {
             index += 1
             tab3.image          = UIImage(named: "engage_unselected")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
             tab3.selectedImage  = UIImage(named: "engage_selected")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
-            tab3.title          = "Discover"
+            tab3.title          = "Learn"
             tab3.imageInsets    = UIEdgeInsets(top: paddingTop, left: 0, bottom: paddingBottom, right: 0)
         }
         
@@ -109,37 +121,13 @@ class TabbarVC: BFPaperTabBarController {
     
     fileprivate func setTabbarViewControllers(){
         
-#if DEBUG
-        let rootView = RCTRootView(
-         bundleURL: URL(string: "http://localhost:8081/index.bundle?platform=ios")!,
-//           bundleURL: URL(string: "http://192.168.1.5:8081/index.bundle?platform=ios")!,
-//            bundleURL: URL(string: "http://192.168.1.36:8081/index.bundle?platform=ios")!,
-            
-//           bundleURL: URL(string: "http://169.254.76.56:8081/index.bundle?platform=ios")!,
-           
-            moduleName: "TatvacareApp",
-            initialProperties: nil,
-            launchOptions: nil
-        )
-#else
-        let rootView = RCTRootView(
-         bundleURL: Bundle.main.url(forResource: "main", withExtension: "jsbundle")!,
-//           bundleURL: URL(string: "http://192.168.1.5:8081/index.bundle?platform=ios")!,
-//            bundleURL: URL(string: "http://192.168.1.32:8081/index.bundle?platform=ios")!,
-            
-//           bundleURL: URL(string: "http://169.254.76.56:8081/index.bundle?platform=ios")!,
-           
-            moduleName: "TatvacareApp",
-            initialProperties: nil,
-            launchOptions: nil
-        )
-#endif
+        var homeVC              = HomeVC.instantiate(fromAppStoryboard: .home)
+        Settings().isHidden(setting: .home_from_react_native) { isFromRN in
+            print(isFromRN)
+            //Put condition here for Home screen, True for native for RN(UJ4) screen and false iOS screen
+        }
         
-        let vc = UIViewController()
-        vc.view = rootView
-//        let homeVC              = HomeVC.instantiate(fromAppStoryboard: .home)
         
-        let homeVC              =  vc
         let carePlanVC          = CarePlanVC.instantiate(fromAppStoryboard: .carePlan)
         let engageVC            = EngageParentVC.instantiate(fromAppStoryboard: .engage)
         let exerciseVC          = ExerciseParentVC.instantiate(fromAppStoryboard: .exercise)
@@ -149,12 +137,11 @@ class TabbarVC: BFPaperTabBarController {
         if self.showEngageVC {
             arrVC       = [homeVC, carePlanVC, engageVC, exerciseVC, moreVC]
         }
+        
         self.viewControllers    = arrVC
         self.viewControllers    = arrVC.map({ (vc) in
             UINavigationController(rootViewController: vc)
         })
-        
-        self.viewControllers?[0] = homeVC
     }
     
     fileprivate func setTabTheme(){
@@ -193,7 +180,6 @@ class TabbarVC: BFPaperTabBarController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: animated)
         NotificationCenter.default.removeObserver(self)
         NotificationCenter.default.addObserver(self, selector: #selector(self.appStatusActivity), name: UIApplication.didBecomeActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.appStatusActivity), name: UIApplication.willResignActiveNotification, object: nil)
@@ -387,5 +373,7 @@ extension TabbarVC: TransitionableTab {
         }
     }
 }
+
+
 
 

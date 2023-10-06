@@ -52,16 +52,13 @@ extension BCASelectAddressListVM {
                 item.isSelected = true
             }
         }
-        
-        var params              = [String : Any]()
-        params[AnalyticsParameters.bottom_sheet_name.rawValue]            = "select address"
-        params[AnalyticsParameters.address_number.rawValue]               = "\(index + 1)"
-        params[AnalyticsParameters.address_type.rawValue]                 = object.addressType
-                                
-        FIRAnalytics.FIRLogEvent(eventName: .SELECT_ADDRESS,
-                                 screen: .SelectAddressBottomSheet,
-                                 parameter: params)
-        
+    }
+    
+    func updateEditView(index: Int,isNewEditClick: Bool = false) {
+        if isNewEditClick {
+            self.arrList.forEach({ $0.isShowEdit = false })
+        }        
+        self.arrList[index].isShowEdit = !self.arrList[index].isShowEdit
     }
     
     func getSelectedObject() ->  LabAddressListModel? {
@@ -93,6 +90,67 @@ extension BCASelectAddressListVM {
             self.arrList.removeAll()
             self.arrList = arr
             self.isListChanged.value = true
+        }
+    }
+    
+    //MARK: ---------------- delete_address API ----------------------
+    func delete_addressAPI(address_id: String,
+                           completion: ((Bool) -> Void)?){
+        //email
+        
+        var params              = [String : Any]()
+        params["address_id"]    = address_id
+        
+        ApiManager.shared.makeRequest(method: ApiEndPoints.tests(.delete_address), methodType: .post, parameter: params, withErrorAlert: true, withLoader: true, withdebugLog: true) { (result) in
+            
+            switch result {
+            case .success(let response):
+                
+                var returnVal = false
+                switch response.apiCode {
+                case .invalidOrFail:
+                    
+                    Alert.shared.showSnackBar(response.message)
+                    break
+                case .success:
+                    returnVal = true
+                    //Alert.shared.showSnackBar(response.message)
+                    break
+                case .emptyData:
+                    
+                    Alert.shared.showSnackBar(response.message)
+                    break
+                case .inactiveAccount:
+                    
+                    UIApplication.shared.forceLogOut()
+                    Alert.shared.showSnackBar(response.message)
+                    break
+                case .otpVerify:
+                    break
+                case .emailVerify:
+                    break
+                case .forceUpdateApp:
+                    break
+                case .underMaintenance:
+                    break
+                case .socialIdNotRegister:
+                    break
+                case .userSessionExpire:
+                    break
+                case .unknown:
+                    break
+                default: break
+                }
+                
+                completion?(returnVal)
+                break
+                
+            case .failure(let error):
+                
+                Alert.shared.showSnackBar(error.localizedDescription)
+                break
+                
+            }
         }
     }
     

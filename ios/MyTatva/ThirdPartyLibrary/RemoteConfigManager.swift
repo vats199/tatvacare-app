@@ -46,6 +46,9 @@ class RemoteConfigManager: NSObject {
         hide_home_bca                   = false
         hide_home_my_device             = false
         is_bcp_with_in_app              = true
+        is_hide_discount_on_plan        = true
+        is_hide_discount_on_labtest     = true
+        is_home_from_react_native       = true
         
         let key_hide_chatbot                = ["hide_chatbot" : false as NSObject]
         let key_hide_language_page          = ["hide_language_page" : false as NSObject]
@@ -62,6 +65,10 @@ class RemoteConfigManager: NSObject {
         let key_hide_home_bca               = ["hide_home_bca" : false as NSObject]
         let key_hide_home_my_device         = ["hide_home_my_device" : false as NSObject]
         let key_is_bcp_with_in_app          = ["is_bcp_with_in_app" : true as NSObject]
+        let key_hide_home_spirometer        = ["hide_home_spirometer" : true as NSObject]
+        let key_hide_discount_on_labtest    = ["hide_discount_on_labtest" : true as NSObject]
+        let key_hide_discount_on_plan       = ["hide_discount_on_plan" : true as NSObject]
+        let key_home_from_react_native      = ["home_from_react_native" : true as NSObject]
         
         self.remoteConfig.setDefaults(key_hide_chatbot)
         self.remoteConfig.setDefaults(key_hide_language_page)
@@ -78,6 +85,10 @@ class RemoteConfigManager: NSObject {
         self.remoteConfig.setDefaults(key_hide_home_bca)
         self.remoteConfig.setDefaults(key_hide_home_my_device)
         self.remoteConfig.setDefaults(key_is_bcp_with_in_app)
+        self.remoteConfig.setDefaults(key_hide_home_spirometer)
+        self.remoteConfig.setDefaults(key_hide_discount_on_labtest)
+        self.remoteConfig.setDefaults(key_hide_discount_on_plan)
+        self.remoteConfig.setDefaults(key_home_from_react_native)
         
         ///For Azure Cloud ---------------------
         let azure_access_key_dev    = ["azure_access_key_dev": "Hello world!" as NSObject]
@@ -145,6 +156,10 @@ class RemoteConfigManager: NSObject {
         hide_home_my_device             = self.remoteConfig.configValue(forKey: "hide_home_my_device").boolValue
         
         is_bcp_with_in_app              = self.remoteConfig.configValue(forKey: "is_bcp_with_in_app").boolValue
+        hide_home_spirometer            = self.remoteConfig.configValue(forKey: "hide_home_spirometer").boolValue
+        is_hide_discount_on_plan        = self.remoteConfig.configValue(forKey: "hide_discount_on_plan").boolValue
+        is_hide_discount_on_labtest     = self.remoteConfig.configValue(forKey: "hide_discount_on_labtest").boolValue
+        is_home_from_react_native       = self.remoteConfig.configValue(forKey: "home_from_react_native").boolValue
         
         switch NetworkManager.environment {
         case .live:

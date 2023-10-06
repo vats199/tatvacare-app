@@ -31,7 +31,14 @@ var hide_home_chat_bubble_hc        = false
 var hide_home_bca                   = false
 var hide_home_my_device             = false
 var is_bcp_with_in_app              = true
+var is_hide_discount_on_plan        = true
+var is_hide_discount_on_labtest     = true
+var is_home_from_react_native       = true
 
+var isShowAddressList               = false
+var selectedAddressIndex            = 0
+var isGrantPermission               = false
+var hide_home_spirometer            = true
 
 //"hide_chatbot_android" //hide_chatbot_ios
 //"hide_language_page_android" //hide_language_page_ios
@@ -92,6 +99,15 @@ var kAccessFrom: AccessFrom                 = .Doctor
 var isRemoteConfigFetchDone                 = false
 var kBMISuccessMessage                      = ""
 var kDoctorName                             = ""
+var kApplyCouponName                        = ""
+var kCouponCodeAmount                       = 0
+var kDiscountMasterId                       = ""
+var kDiscountType                           = ""
+
+var kBCPApplyCouponName                     = ""
+var kBCPCouponCodeAmount                    = 0
+var kBCPDiscountMasterId                    = ""
+var kBCPDiscountType                        = ""
 
 var isAppBackgroundForGAOnce                    = false
 var videoPlayerVCStartTime                  = Date()
@@ -335,3 +351,5 @@ let kBCP                                    = "bcp"
 
 var isBackVisible                           = false
 var kPateintPlanRefID                       = ""
+var kDiscountData                           : DiscountListModel?
+var kIsCartModified                         = false

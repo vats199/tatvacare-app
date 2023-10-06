@@ -36,7 +36,7 @@ class MyDeviceModel {
             let value = DeviceDetailsModel(fromJson: devicesJson)
             devices.append(value)
         }
-        devices = devices.filter({ $0.key != "spirometer" })
+//        devices = devices.filter({ $0.key != "spirometer" })
         let patientDetailsJson = json["patient_details"]
         if !patientDetailsJson.isEmpty{
             patientDetails = UserModel(fromJson: patientDetailsJson)
