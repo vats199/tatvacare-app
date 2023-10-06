@@ -88,7 +88,7 @@ const RoutineExercises: React.FC<RoutineExercisesProps> = ({
                         alignItems: 'center',
                         width: '100%',
                         marginTop: '17%',
-                      }}>
+                       }}>
                       <Icons.Play />
                     </TouchableOpacity>
                   ) : null}
@@ -189,7 +189,6 @@ const styles = StyleSheet.create({
   exerciseTab: {
     marginHorizontal: 20,
     justifyContent: 'space-between',
-    marginBottom: '15%',
   },
   cardTitleContainer: {
     flexDirection: 'row',
@@ -219,7 +218,8 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
     top: 10,
-    right: 10,left:30
+    right: 10,
+    left: 30,
   },
   dificultBtn: {
     height: 30,

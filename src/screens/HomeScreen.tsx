@@ -112,7 +112,6 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
 
   const getHCDevicePlans = async () => {
     const hcDevicePlans = await Home.getHCDevicePlan();
-    console.log('hcDevicePlanshcDevicePlanshcDevicePlans', hcDevicePlans);
   };
 
   const getMyHealthInsights = async () => {

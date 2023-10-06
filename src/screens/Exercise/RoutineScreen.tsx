@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
   },
   exerciesContainer: {
     backgroundColor: colors.lightGray,
-    flex: 0.85,
+    flex: 0.80,
     borderRadius: 30,
   },
 });

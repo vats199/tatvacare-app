@@ -7,11 +7,13 @@ export type AppStackParamList = {
 export type DrawerParamList = {
   HomeScreen: undefined;
   AboutUsScreen: undefined;
+  ExerciseDetailScreen:{Data:any}
+  ExplorScreen:undefined;
 };
 export type TabParamList = {
   RoutineScreen:undefined;
   ExplorScreen:undefined;
-};
+ };
 
 export type BottomTabParamList = {
   HomeScreen: undefined;

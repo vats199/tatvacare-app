@@ -9,6 +9,34 @@ type RoutineHeaderProps = {
   Vadlidity: String;
 };
 const RoutineHeader: React.FC<RoutineHeaderProps> = ({date, Vadlidity}) => {
+  const TabArray = [
+    {
+      id: 1,
+      title: 'Routine 1',
+      selected: true,
+    },
+    {
+      id: 2,
+      title: 'Routine 2',
+      selected: false,
+    },
+    {
+      id: 3,
+      title: 'Routine 3',
+      selected: false,
+    },
+  ];
+  const [tab, setTab] = React.useState(TabArray);
+
+  const handlePress = (id: number) => {
+    const updatedTabArray = TabArray.map(item => ({
+      ...item,
+      selected: id === item?.id ? true : false,
+    }));
+
+    setTab(updatedTabArray);
+  };
+
   return (
     <View style={styles.haederContainer}>
       <View style={styles.headerTitleContainer}>
@@ -20,30 +48,23 @@ const RoutineHeader: React.FC<RoutineHeaderProps> = ({date, Vadlidity}) => {
       </View>
       <Text style={styles.haederContent}>{Vadlidity}</Text>
       <View style={styles.routineTab}>
-        <TouchableOpacity>
-          <Text style={styles.routineText}> Routine 1 </Text>
-          <View style={styles.routineTabUnderline}></View>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text
-            style={[
-              styles.routineText,
-              {color: colors.darkBlue, fontWeight: '400'},
-            ]}>
-            {' '}
-            Routine 2{' '}
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text
-            style={[
-              styles.routineText,
-              {color: colors.darkBlue, fontWeight: '400'},
-            ]}>
-            {' '}
-            Routine 3{' '}
-          </Text>
-        </TouchableOpacity>
+        {tab?.map((item: any) => {
+          return (
+            <TouchableOpacity onPress={() => handlePress(item.id)}>
+              <Text
+                style={
+                  item?.selected
+                    ? styles.routineSelectedTabText
+                    : styles?.routineUnselectedTabText
+                }>
+                {item.title}
+              </Text>
+              {item?.selected ? (
+                <View style={styles.routineTabUnderline}></View>
+              ) : null}
+            </TouchableOpacity>
+          );
+        })}
       </View>
     </View>
   );
@@ -53,10 +74,10 @@ export default RoutineHeader;
 
 const styles = StyleSheet.create({
   haederContainer: {
-    flex: 0.2,
     margin: 5,
     marginHorizontal: 20,
-    marginTop: 20,
+    marginTop: '7%',
+    flex: 0.2,
   },
   headerTitleContainer: {
     flexDirection: 'row',
@@ -80,7 +101,7 @@ const styles = StyleSheet.create({
     color: colors.darkBlue,
     fontSize: 12,
     textAlign: 'center',
-    marginLeft: 2
+    marginLeft: 2,
   },
   haederContent: {fontSize: 14, color: colors.darkBlue, marginTop: 12},
   cardTitleContainer: {
@@ -93,15 +114,20 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginTop: 12,
   },
-  routineText: {
+  routineSelectedTabText: {
     color: colors.themePurple,
     fontSize: 16,
     fontWeight: '700',
+  },
+  routineUnselectedTabText: {
+    fontSize: 16,
+    color: colors.darkBlue,
+    fontWeight: '400',
   },
   routineTabUnderline: {
     backgroundColor: colors.themePurple,
     height: 4,
     borderRadius: 4,
-    marginTop: 10,
+    marginVertical: 10,
   },
 });

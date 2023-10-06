@@ -152,7 +152,7 @@ PODS:
   - Hero (1.6.2)
   - HGCircularSlider (2.2.0)
   - ImageViewer.swift (3.3.8)
-  - IQKeyboardManagerSwift (6.5.13)
+  - IQKeyboardManagerSwift (6.5.15)
   - KDCircularProgress (1.5.4)
   - libevent (2.1.12)
   - lottie-ios (4.3.3)
@@ -476,6 +476,8 @@ PODS:
     - react-native-config/App (= 1.5.1)
   - react-native-config/App (1.5.1):
     - React-Core
+  - react-native-date-picker (4.3.3):
+    - React-Core
   - react-native-geolocation-service (5.3.1):
     - React
   - react-native-pager-view (6.2.1):
@@ -716,6 +718,7 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - react-native-config (from `../node_modules/react-native-config`)
+  - react-native-date-picker (from `../node_modules/react-native-date-picker`)
   - react-native-geolocation-service (from `../node_modules/react-native-geolocation-service`)
   - react-native-pager-view (from `../node_modules/react-native-pager-view`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
@@ -858,6 +861,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/logger"
   react-native-config:
     :path: "../node_modules/react-native-config"
+  react-native-date-picker:
+    :path: "../node_modules/react-native-date-picker"
   react-native-geolocation-service:
     :path: "../node_modules/react-native-geolocation-service"
   react-native-pager-view:
@@ -961,7 +966,7 @@ SPEC CHECKSUMS:
   Hero: c69009dbc9e2f0472e081adc644dba05fcedae72
   HGCircularSlider: afb1942743a2df156dcc7a3500216e523e14266b
   ImageViewer.swift: 284cd8127d31af8e5938674fb9f8e695a4cdf6c6
-  IQKeyboardManagerSwift: 69b5fb9960edff37263d45c44fd97427e1f8c22b
+  IQKeyboardManagerSwift: 79fab21f451441935788dc5d80ded21c32685904
   KDCircularProgress: 98200c6b8e85d22bc04eb644721d3b1e12b0686b
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   lottie-ios: 25e7b2675dad5c3ddad369ac9baab03560c5bfdd
@@ -989,6 +994,7 @@ SPEC CHECKSUMS:
   React-jsinspector: aaed4cf551c4a1c98092436518c2d267b13a673f
   React-logger: da1ebe05ae06eb6db4b162202faeafac4b435e77
   react-native-config: 86038147314e2e6d10ea9972022aa171e6b1d4d8
+  react-native-date-picker: 1d61c76315098a6ad4c643a356f005916c7d4875
   react-native-geolocation-service: 608e1da71a1ac31b4de64d9ef2815f697978c55b
   react-native-pager-view: d211379f61895b6349bd7e571b44a26d005c2975
   react-native-safe-area-context: 7aa8e6d9d0f3100a820efb1a98af68aa747f9284
@@ -1013,7 +1019,7 @@ SPEC CHECKSUMS:
   RNCAsyncStorage: c913ede1fa163a71cea118ed4670bbaaa4b511bb
   RNGestureHandler: 38aa38413896620338948fbb5c90579a7b1c3fde
   RNImageCropPicker: 486e2f7e2b0461ce24321f751410dce1b3b49e6d
-  RNPermissions: 868c4e459921873df0c756f37450457a88bf037c
+  RNPermissions: de936d523f21ad3f304a2e39dd26cb6c115e3b59
   RNReanimated: ab2e96c6d5591c3dfbb38a464f54c8d17fb34a87
   RNScreens: 85d3880b52d34db7b8eeebe2f1a0e807c05e69fa
   RNSVG: d00c8f91c3cbf6d476451313a18f04d220d4f396

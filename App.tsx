@@ -25,6 +25,7 @@ import Home from './src/api/home';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {AppProvider} from './src/context/app.context';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import { colors } from './src/constants/colors';
 
 const App = () => {
   const {height, width} = useWindowDimensions();
@@ -155,23 +156,30 @@ const App = () => {
   };
 
   return (
-    <GestureHandlerRootView style={{height, width}}>
-      <SafeAreaProvider>
-        <AppProvider>
-          <Router />
-          <LocationBottomSheet
-            ref={BottomSheetRef}
-            setLocation={setLocation}
-            requestLocationPermission={requestLocationPermission}
-            setLocationPermission={setLocationPermission}
-            locationPermission={locationPermission}
-          />
-        </AppProvider>
-      </SafeAreaProvider>
-    </GestureHandlerRootView>
+    <SafeAreaView >
+      <GestureHandlerRootView style={{height, width}}>
+        <SafeAreaProvider>
+          <AppProvider>
+            <Router />
+            <LocationBottomSheet
+              ref={BottomSheetRef}
+              setLocation={setLocation}
+              requestLocationPermission={requestLocationPermission}
+              setLocationPermission={setLocationPermission}
+              locationPermission={locationPermission}
+            />
+          </AppProvider>
+        </SafeAreaProvider>
+      </GestureHandlerRootView>
+    </SafeAreaView>
   );
 };
 
 export default App;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  outerConteiner:{
+    flex: 1,
+    backgroundColor: colors.themePurple
+  }
+});

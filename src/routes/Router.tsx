@@ -2,7 +2,8 @@ import HomeScreen from '../screens/HomeScreen';
 import AboutUsScreen from '../screens/AboutUsScreen';
 import RoutineScreen from '../screens/Exercise/RoutineScreen';
 import ExplorScreen from '../screens/Exercise/ExplorScreen';
- import {
+import ExerciseDetailScreen from '../screens/Exercise/ExerciseDetailScreen';
+import {
   AppStackParamList,
   DrawerParamList,
   TabParamList,
@@ -49,7 +50,12 @@ const DrawerScreen = () => {
       }}>
       <Drawer.Screen name={'HomeScreen'} component={HomeScreen} />
       <Drawer.Screen name={'AboutUsScreen'} component={AboutUsScreen} />
-     </Drawer.Navigator>
+      <Drawer.Screen name={'ExplorScreen'} component={ExplorScreen} />
+      <Drawer.Screen
+        name={'ExerciseDetailScreen'}
+        component={ExerciseDetailScreen}
+      />
+    </Drawer.Navigator>
   );
 };
 
@@ -71,7 +77,6 @@ const TabScreen = () => {
           borderBottomColor: colors.themePurple,
           borderBottomWidth: 6,
           borderRadius: 3,
-          marginHorizontal: 10,
         },
       }}>
       <Tab.Screen
