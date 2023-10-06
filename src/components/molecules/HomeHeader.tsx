@@ -65,7 +65,7 @@ const HomeHeader: React.FC<HomeHeaderProps> = ({
             <Image
               source={{uri: userData.profile_pic}}
               style={styles.image}
-              resizeMode={'stretch'}
+              resizeMode={'contain'}
             />
           )}
         </TouchableOpacity>
@@ -103,6 +103,8 @@ const styles = StyleSheet.create({
   image: {
     height: 28,
     width: 28,
+    borderRadius: 14,
+    borderWidth: 0.5,
   },
   notifCountBadgeText: {
     fontWeight: '700',

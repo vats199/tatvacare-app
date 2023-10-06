@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="H1n-41-CiN">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="H1n-41-CiN">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -704,6 +704,9 @@
                                                                         <subviews>
                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="defaultUser" translatesAutoresizingMaskIntoConstraints="NO" id="rcg-n3-flG">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="38.5" height="38.5"/>
+                                                                                <constraints>
+                                                                                    <constraint firstAttribute="width" secondItem="rcg-n3-flG" secondAttribute="height" id="dfJ-LM-7kK"/>
+                                                                                </constraints>
                                                                             </imageView>
                                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="OtZ-2o-OMx">
                                                                                 <rect key="frame" x="48.5" y="0.0" width="161" height="39"/>
@@ -733,9 +736,6 @@
                                                                                 </state>
                                                                             </button>
                                                                         </subviews>
-                                                                        <constraints>
-                                                                            <constraint firstItem="rcg-n3-flG" firstAttribute="width" secondItem="rcg-n3-flG" secondAttribute="height" id="dfJ-LM-7kK"/>
-                                                                        </constraints>
                                                                     </stackView>
                                                                 </subviews>
                                                             </stackView>
@@ -2164,6 +2164,7 @@
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                             <state key="normal" image="back_ic"/>
                                             <connections>
+                                                <action selector="onGoBack:" destination="iNT-yt-vlC" eventType="touchUpInside" id="WGB-tU-eeN"/>
                                                 <action selector="popViewControllerWithSender:" destination="iNT-yt-vlC" eventType="touchUpInside" id="6Py-6d-6KX"/>
                                             </connections>
                                         </button>
@@ -2258,7 +2259,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nmK-Se-yxT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5889" y="739"/>
+            <point key="canvasLocation" x="5888.4057971014499" y="738.61607142857144"/>
         </scene>
         <!--Help And SupportVC-->
         <scene sceneID="rty-wh-0th">
@@ -2940,15 +2941,13 @@
                                                                                                                         <constraint firstAttribute="bottom" secondItem="dDW-xr-VaQ" secondAttribute="bottom" constant="2" id="emM-aC-ZSP"/>
                                                                                                                         <constraint firstAttribute="trailing" secondItem="mjj-YW-SzP" secondAttribute="trailing" id="iQ0-l6-8hS"/>
                                                                                                                         <constraint firstAttribute="trailing" secondItem="dDW-xr-VaQ" secondAttribute="trailing" constant="2" id="mlX-x9-mxg"/>
+                                                                                                                        <constraint firstAttribute="width" secondItem="fw5-97-X8y" secondAttribute="height" multiplier="0.75" id="syy-oa-ZgV"/>
                                                                                                                     </constraints>
                                                                                                                 </view>
                                                                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" image="best_value" translatesAutoresizingMaskIntoConstraints="NO" id="Fzx-5c-pyW">
                                                                                                                     <rect key="frame" x="344" y="0.0" width="36" height="54.5"/>
                                                                                                                 </imageView>
                                                                                                             </subviews>
-                                                                                                            <constraints>
-                                                                                                                <constraint firstItem="fw5-97-X8y" firstAttribute="width" secondItem="fw5-97-X8y" secondAttribute="height" multiplier="0.75" id="syy-oa-ZgV"/>
-                                                                                                            </constraints>
                                                                                                         </stackView>
                                                                                                     </subviews>
                                                                                                 </stackView>
@@ -3677,6 +3676,7 @@
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
+                                                            <constraint firstAttribute="width" secondItem="NQ0-8B-0x0" secondAttribute="height" multiplier="338 : 40" id="JTW-5m-nMJ"/>
                                                             <constraint firstItem="rzw-Bm-AVG" firstAttribute="leading" secondItem="NQ0-8B-0x0" secondAttribute="leading" constant="15" id="VUx-kP-WOH"/>
                                                             <constraint firstAttribute="trailing" secondItem="rzw-Bm-AVG" secondAttribute="trailing" constant="15" id="bKM-dR-QWZ"/>
                                                             <constraint firstItem="rzw-Bm-AVG" firstAttribute="top" secondItem="NQ0-8B-0x0" secondAttribute="top" id="llY-DA-RZE"/>
@@ -3716,16 +3716,13 @@
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
                                                             <constraint firstItem="1HN-Ef-a3N" firstAttribute="leading" secondItem="dNg-9B-ocg" secondAttribute="leading" constant="20" id="KLu-Q0-hLt"/>
+                                                            <constraint firstAttribute="width" secondItem="dNg-9B-ocg" secondAttribute="height" multiplier="338 : 40" id="h5v-gF-rqb"/>
                                                             <constraint firstItem="1HN-Ef-a3N" firstAttribute="top" secondItem="dNg-9B-ocg" secondAttribute="top" constant="5" id="hDJ-cg-BnZ"/>
                                                             <constraint firstAttribute="bottom" secondItem="1HN-Ef-a3N" secondAttribute="bottom" constant="5" id="iz4-j8-tIv"/>
                                                             <constraint firstAttribute="trailing" secondItem="1HN-Ef-a3N" secondAttribute="trailing" constant="10" id="mnF-x1-WKq"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
-                                                <constraints>
-                                                    <constraint firstItem="NQ0-8B-0x0" firstAttribute="width" secondItem="NQ0-8B-0x0" secondAttribute="height" multiplier="338 : 40" id="JTW-5m-nMJ"/>
-                                                    <constraint firstItem="dNg-9B-ocg" firstAttribute="width" secondItem="dNg-9B-ocg" secondAttribute="height" multiplier="338 : 40" id="h5v-gF-rqb"/>
-                                                </constraints>
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dCa-nH-avh">
                                                 <rect key="frame" x="0.0" y="278.5" width="324" height="34.5"/>
@@ -3784,6 +3781,7 @@
                                 <rect key="frame" x="369" y="225.5" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="4XJ-Rg-5yS"/>
+                                    <constraint firstAttribute="width" secondItem="Ahs-Xt-XEL" secondAttribute="height" id="Beq-j5-1C5"/>
                                 </constraints>
                                 <state key="normal" image="cross_ic"/>
                             </button>
@@ -3794,7 +3792,6 @@
                             <constraint firstItem="66C-U1-HXr" firstAttribute="leading" secondItem="puA-Hc-J0u" secondAttribute="leading" id="0Xg-75-9J5"/>
                             <constraint firstItem="66C-U1-HXr" firstAttribute="top" secondItem="TuO-8w-LNG" secondAttribute="top" id="316-1p-c8o"/>
                             <constraint firstAttribute="trailing" secondItem="VY5-Xq-3un" secondAttribute="trailing" constant="25" id="3U5-uL-1Oe"/>
-                            <constraint firstItem="Ahs-Xt-XEL" firstAttribute="width" secondItem="Ahs-Xt-XEL" secondAttribute="height" id="Beq-j5-1C5"/>
                             <constraint firstAttribute="bottom" secondItem="66C-U1-HXr" secondAttribute="bottom" id="Gxv-qA-KAa"/>
                             <constraint firstItem="VY5-Xq-3un" firstAttribute="leading" secondItem="puA-Hc-J0u" secondAttribute="leading" constant="25" id="H3D-8g-yOH"/>
                             <constraint firstAttribute="trailing" secondItem="66C-U1-HXr" secondAttribute="trailing" id="ImQ-0P-ed0"/>
@@ -3866,14 +3863,12 @@
                                                         <constraints>
                                                             <constraint firstItem="Fze-rY-VMQ" firstAttribute="leading" secondItem="zIj-eQ-d8b" secondAttribute="leading" constant="10" id="FxM-TJ-Nas"/>
                                                             <constraint firstAttribute="trailing" secondItem="Fze-rY-VMQ" secondAttribute="trailing" constant="10" id="SHS-Lk-vZf"/>
+                                                            <constraint firstAttribute="width" secondItem="zIj-eQ-d8b" secondAttribute="height" multiplier="8.55" id="cMr-nM-2fK"/>
                                                             <constraint firstItem="Fze-rY-VMQ" firstAttribute="top" secondItem="zIj-eQ-d8b" secondAttribute="top" id="lcw-5X-Q0K"/>
                                                             <constraint firstAttribute="bottom" secondItem="Fze-rY-VMQ" secondAttribute="bottom" id="wRa-on-gIB"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
-                                                <constraints>
-                                                    <constraint firstItem="zIj-eQ-d8b" firstAttribute="width" secondItem="zIj-eQ-d8b" secondAttribute="height" multiplier="8.55" id="cMr-nM-2fK"/>
-                                                </constraints>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="O9A-Jr-7c1">
                                                 <rect key="frame" x="0.0" y="92" width="374" height="74.5"/>
@@ -3904,14 +3899,12 @@
                                                         <constraints>
                                                             <constraint firstItem="6T0-Mt-LyY" firstAttribute="top" secondItem="IWa-SI-vq2" secondAttribute="top" id="CCa-70-OW9"/>
                                                             <constraint firstAttribute="bottom" secondItem="6T0-Mt-LyY" secondAttribute="bottom" id="DYp-Zp-SOX"/>
+                                                            <constraint firstAttribute="width" secondItem="IWa-SI-vq2" secondAttribute="height" multiplier="8.55" id="fdo-p3-W7x"/>
                                                             <constraint firstAttribute="trailing" secondItem="6T0-Mt-LyY" secondAttribute="trailing" constant="10" id="sUG-wd-nSh"/>
                                                             <constraint firstItem="6T0-Mt-LyY" firstAttribute="leading" secondItem="IWa-SI-vq2" secondAttribute="leading" constant="10" id="zjZ-mS-x5N"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
-                                                <constraints>
-                                                    <constraint firstItem="IWa-SI-vq2" firstAttribute="width" secondItem="IWa-SI-vq2" secondAttribute="height" multiplier="8.55" id="fdo-p3-W7x"/>
-                                                </constraints>
                                             </stackView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="2An-BK-grW" customClass="IQTextView" customModule="IQKeyboardManagerSwift">
                                                 <rect key="frame" x="0.0" y="186.5" width="374" height="90.5"/>
@@ -7252,6 +7245,7 @@ Apt, Ahmedabad, Gujarat, 399802</string>
                                         <rect key="frame" x="0.0" y="0.0" width="33" height="33"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="APP-S2-ihd"/>
+                                            <constraint firstAttribute="width" secondItem="U1z-xQ-rtm" secondAttribute="height" id="MUf-48-zbt"/>
                                         </constraints>
                                         <state key="normal" image="switch_off"/>
                                         <state key="selected" image="switch_on"/>
@@ -7261,7 +7255,6 @@ Apt, Ahmedabad, Gujarat, 399802</string>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="U1z-xQ-rtm" secondAttribute="bottom" id="CpP-VF-o1f"/>
                                     <constraint firstItem="U1z-xQ-rtm" firstAttribute="leading" secondItem="MyB-ce-BgM" secondAttribute="leading" id="GnC-LH-YmZ"/>
-                                    <constraint firstItem="U1z-xQ-rtm" firstAttribute="width" secondItem="U1z-xQ-rtm" secondAttribute="height" id="MUf-48-zbt"/>
                                     <constraint firstAttribute="trailing" secondItem="U1z-xQ-rtm" secondAttribute="trailing" id="keZ-8Q-6rd"/>
                                     <constraint firstItem="U1z-xQ-rtm" firstAttribute="top" secondItem="MyB-ce-BgM" secondAttribute="top" id="nwD-OF-bwX"/>
                                 </constraints>
@@ -7603,6 +7596,7 @@ Apt, Ahmedabad, Gujarat, 399802</string>
                                         <rect key="frame" x="0.0" y="0.0" width="33" height="33"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="cwC-Jm-uzS"/>
+                                            <constraint firstAttribute="width" secondItem="tGY-GP-DY0" secondAttribute="height" id="nsp-b0-IPf"/>
                                         </constraints>
                                         <state key="normal" image="switch_off"/>
                                         <state key="selected" image="switch_on"/>
@@ -7613,7 +7607,6 @@ Apt, Ahmedabad, Gujarat, 399802</string>
                                     <constraint firstAttribute="bottom" secondItem="tGY-GP-DY0" secondAttribute="bottom" id="CwO-A3-lej"/>
                                     <constraint firstAttribute="trailing" secondItem="tGY-GP-DY0" secondAttribute="trailing" id="T1Z-rP-rpb"/>
                                     <constraint firstItem="tGY-GP-DY0" firstAttribute="leading" secondItem="JUf-Ul-c0t" secondAttribute="leading" id="klk-OY-1Sv"/>
-                                    <constraint firstItem="tGY-GP-DY0" firstAttribute="width" secondItem="tGY-GP-DY0" secondAttribute="height" id="nsp-b0-IPf"/>
                                     <constraint firstItem="tGY-GP-DY0" firstAttribute="top" secondItem="JUf-Ul-c0t" secondAttribute="top" id="wwg-BV-Ix5"/>
                                 </constraints>
                             </view>
@@ -8071,6 +8064,7 @@ Apt, Ahmedabad, Gujarat, 399802</string>
                                         <rect key="frame" x="0.0" y="0.0" width="33" height="33"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="ZRj-Bq-QxY"/>
+                                            <constraint firstAttribute="width" secondItem="GiH-SH-TKn" secondAttribute="height" id="vvx-7R-NpH"/>
                                         </constraints>
                                         <state key="normal" image="switch_off"/>
                                         <state key="selected" image="switch_on"/>
@@ -8082,7 +8076,6 @@ Apt, Ahmedabad, Gujarat, 399802</string>
                                     <constraint firstAttribute="trailing" secondItem="GiH-SH-TKn" secondAttribute="trailing" id="FEt-bF-vsV"/>
                                     <constraint firstItem="GiH-SH-TKn" firstAttribute="leading" secondItem="rAP-1j-Fc1" secondAttribute="leading" id="Q9G-VK-eSY"/>
                                     <constraint firstItem="GiH-SH-TKn" firstAttribute="top" secondItem="rAP-1j-Fc1" secondAttribute="top" id="vYm-aU-kgH"/>
-                                    <constraint firstItem="GiH-SH-TKn" firstAttribute="width" secondItem="GiH-SH-TKn" secondAttribute="height" id="vvx-7R-NpH"/>
                                 </constraints>
                             </view>
                         </barButtonItem>
@@ -8447,6 +8440,7 @@ Apt, Ahmedabad, Gujarat, 399802</string>
                                         <rect key="frame" x="0.0" y="0.0" width="33" height="33"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="2rb-4d-iZy"/>
+                                            <constraint firstAttribute="width" secondItem="1h4-we-h73" secondAttribute="height" id="Bwa-Ou-bQg"/>
                                         </constraints>
                                         <state key="normal" image="switch_off"/>
                                         <state key="selected" image="switch_on"/>
@@ -8454,7 +8448,6 @@ Apt, Ahmedabad, Gujarat, 399802</string>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="1h4-we-h73" firstAttribute="width" secondItem="1h4-we-h73" secondAttribute="height" id="Bwa-Ou-bQg"/>
                                     <constraint firstItem="1h4-we-h73" firstAttribute="top" secondItem="pzx-CY-kr5" secondAttribute="top" id="Cad-33-kBS"/>
                                     <constraint firstAttribute="bottom" secondItem="1h4-we-h73" secondAttribute="bottom" id="D0k-KP-vgC"/>
                                     <constraint firstAttribute="trailing" secondItem="1h4-we-h73" secondAttribute="trailing" id="M8C-iv-qid"/>
@@ -9125,6 +9118,9 @@ Breach Candy, Cumballa Hill, Mumbai</string>
                                                             <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eBE-Wa-oSv">
                                                                 <rect key="frame" x="0.0" y="0.0" width="194" height="30.5"/>
                                                                 <color key="backgroundColor" name="ThemePurple"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" secondItem="eBE-Wa-oSv" secondAttribute="height" multiplier="6.42" id="iTZ-vA-W8Y"/>
+                                                                </constraints>
                                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                 <state key="normal" title="Yes, cancel it">
                                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -9142,9 +9138,6 @@ Breach Candy, Cumballa Hill, Mumbai</string>
                                                                 </state>
                                                             </button>
                                                         </subviews>
-                                                        <constraints>
-                                                            <constraint firstItem="eBE-Wa-oSv" firstAttribute="width" secondItem="eBE-Wa-oSv" secondAttribute="height" multiplier="6.42" id="iTZ-vA-W8Y"/>
-                                                        </constraints>
                                                     </stackView>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -10560,7 +10553,7 @@ Breach Candy, Cumballa Hill, Mumbai</string>
         <image name="roundCheck_selected" width="22" height="22"/>
         <image name="roundCheck_unselected" width="22" height="22"/>
         <image name="search2" width="21" height="21"/>
-        <image name="share_ic" width="19.5" height="20.5"/>
+        <image name="share_ic" width="14.5" height="16"/>
         <image name="support-call" width="33.5" height="33.5"/>
         <image name="support-chat" width="39" height="36.5"/>
         <image name="support-mail" width="33.5" height="33.5"/>
@@ -10609,10 +10602,10 @@ Breach Candy, Cumballa Hill, Mumbai</string>
             <color red="1" green="0.74901960784313726" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="labelColor">
-            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="linkColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

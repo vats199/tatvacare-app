@@ -18,45 +18,43 @@ type DrawerUserInfoProps = {};
 const DrawerUserInfo: React.FC<DrawerUserInfoProps> = () => {
   const {userData} = useApp();
 
-  const [image, setImage] = React.useState<string | null>(
-    userData?.profile_pic,
-  );
+  // const [image, setImage] = React.useState<string>(userData?.profile_pic);
+  // const openPicker = () => {
+  //   ImagePicker.openPicker({
+  //     width: 300,
+  //     height: 300,
+  //     cropping: true,
+  //   })
+  //     .then(image => {
+  //       setImage(image.path);
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     });
+  // };
 
-  const openPicker = () => {
-    ImagePicker.openPicker({
-      width: 300,
-      height: 300,
-      cropping: true,
-    })
-      .then(image => {
-        setImage(image.path);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
+  // const openCamera = () => {
+  //   ImagePicker.openCamera({
+  //     width: 300,
+  //     height: 300,
+  //     cropping: true,
+  //   })
+  //     .then(image => {
+  //       setImage(image.path);
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     });
+  // };
 
-  const openCamera = () => {
-    ImagePicker.openCamera({
-      width: 300,
-      height: 300,
-      cropping: true,
-    })
-      .then(image => {
-        setImage(image.path);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
+  // const onPress = () => {
+  //   Alert.alert('Choose', 'Please select one of the following to continue.', [
+  //     {text: 'Open Camera', onPress: openCamera},
+  //     {text: 'Open Gallery', onPress: openPicker},
+  //     {text: 'Cancel'},
+  //   ]);
+  // };
 
-  const onPress = () => {
-    Alert.alert('Choose', 'Please select one of the following to continue.', [
-      {text: 'Open Camera', onPress: openCamera},
-      {text: 'Open Gallery', onPress: openPicker},
-      {text: 'Cancel'},
-    ]);
-  };
   const onPressProfile = () => {
     navigateTo('ProfileVC');
   };
@@ -66,11 +64,11 @@ const DrawerUserInfo: React.FC<DrawerUserInfoProps> = () => {
       style={styles.container}
       onPress={onPressProfile}
       activeOpacity={0.8}>
-      {image ? (
+      {userData?.profile_pic?.length > 0 ? (
         <Image
-          source={{uri: image}}
+          source={{uri: userData?.profile_pic}}
           style={styles.image}
-          resizeMode={'stretch'}
+          resizeMode={'contain'}
         />
       ) : (
         <Icons.NoProfilePhotoPlaceholder />

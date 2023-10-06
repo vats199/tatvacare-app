@@ -70,7 +70,11 @@ const CarePlanView: React.FC<CarePlanViewProps> = ({
                 Bundled with diagnostic tests and more.
               </Text>
             </View>
-            <Icons.CarePlan />
+            <Image
+              source={require('../../assets/images/carePlan.png')}
+              style={styles.cpimage}
+              resizeMode={'contain'}
+            />
           </View>
           <FlatList
             data={allPlans}
@@ -103,7 +107,11 @@ const CarePlanView: React.FC<CarePlanViewProps> = ({
                         : '-'}
                     </Text>
                   </View>
-                  <Icons.CarePlan />
+                  <Image
+                    source={require('../../assets/images/carePlan.png')}
+                    style={styles.cpimage}
+                    resizeMode={'contain'}
+                  />
                 </View>
               </TouchableOpacity>
             );
@@ -141,6 +149,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     width: Dimensions.get('screen').width - 45,
+  },
+  cpimage: {
+    height: 80,
+    width: 80,
   },
   cp: {
     color: colors.labelDarkGray,

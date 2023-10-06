@@ -160,10 +160,11 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   };
 
   const getMyHealthInsights = async () => {
-    const goalsAndReadings = await Home.getGoalsAndReadings({
-      current_datetime: new Date().toISOString(),
+    const goalsAndReadings = await Home.getMyHealthInsights();
+    setHealthInsights({
+      goals: goalsAndReadings?.data?.goal_data,
+      readings: goalsAndReadings?.data?.readings_response,
     });
-    setHealthInsights(goalsAndReadings.data);
   };
 
   const getMyHealthDiaries = async () => {
@@ -258,17 +259,28 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   };
 
   const onPressConsultNutritionist = () => {
-    navigateToBookAppointment('HC');
+    if (Object.values(hcDevicePlans.nutritionist).length > 0) {
+      navigateToBookAppointment('HC');
+    } else {
+      navigateTo('BCPCarePlanDetailVC');
+    }
   };
   const onPressConsultPhysio = (type: 'HC' | 'D') => {
-    console.log(type);
-    navigateToBookAppointment(type);
+    if (Object.values(hcDevicePlans.physiotherapist).length > 0) {
+      navigateToBookAppointment(type);
+    } else {
+      navigateTo('BCPCarePlanDetailVC');
+    }
   };
   const onPressBookDiagnostic = () => {
     navigateTo('LabTestListVC');
   };
   const onPressBookDevices = () => {
-    navigateTo('MyDevices');
+    if (Object.values(hcDevicePlans.devices).length > 0) {
+      navigateTo('MyDevices');
+    } else {
+      navigateTo('BCPCarePlanDetailVC');
+    }
   };
   const onPressCarePlan = () => {
     navigateToPlan('navigateToPlan');
@@ -353,7 +365,6 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
               onPressConsultPhysio={onPressConsultPhysio}
               onPressBookDiagnostic={onPressBookDiagnostic}
               onPressBookDevices={onPressBookDevices}
-              hcDevicePlans={hcDevicePlans}
             />
             {learnMoreData?.length > 0 && (
               <Learn
