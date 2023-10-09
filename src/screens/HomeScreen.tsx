@@ -252,6 +252,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
     // navigateTo('navigateToExercise');
   };
   const onPressMedicine = (filteredData: any) => {
+    // console.log(filteredData);
     // navigateToMedicines('test');
     openMedicine([{filteredData: filteredData}, {firstRow: 'medication'}]);
   };
@@ -359,7 +360,6 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
               onPressMedicine={onPressMedicine}
               onPressMyIncidents={onPressMyIncidents}
               data={healthDiaries}
-              healthInsights={healthInsights}
             />
             <AdditionalCareServices
               onPressConsultNutritionist={onPressConsultNutritionist}

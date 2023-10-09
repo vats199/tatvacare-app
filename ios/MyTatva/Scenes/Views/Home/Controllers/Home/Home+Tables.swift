@@ -33,6 +33,44 @@ class MyDevicesCell : UITableViewCell {
     }
 }
 
+class MyDevicesCell2 : UITableViewCell {
+    
+    @IBOutlet weak var vwBG: UIView!
+    @IBOutlet weak var imgIcon: UIImageView!
+    @IBOutlet weak var lblDeviceName: UILabel!
+    @IBOutlet weak var lblLastSync: UILabel!
+    @IBOutlet weak var btnConnect: UIButton!
+    @IBOutlet weak var lblLungDeviceName: UILabel!
+    @IBOutlet weak var lblLungDeviceDetails: UILabel!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        self.lblLungDeviceName.font(name: .medium, size: 13)
+            .textColor(color: UIColor.lightGray).text = "Smart Analyser"
+        
+        self.lblLungDeviceDetails.font(name: .light, size: 12)
+            .textColor(color: UIColor.lightGray)
+        
+        self.lblDeviceName.font(name: .medium, size: 13)
+            .textColor(color: UIColor.themeBlack).text = "Smart Analyser"
+        
+        self.lblLastSync.font(name: .light, size: 12)
+            .textColor(color: UIColor.ThemeDarkGray)
+        
+        self.btnConnect.font(name: .medium, size: 11)
+            .textColor(color: UIColor.themePurple)
+            .setTitle("Connect", for: .normal)
+        self.btnConnect.contentHorizontalAlignment = .right
+        
+        self.imgIcon.image = UIImage(named: "icon_BCA")
+        
+        self.vwBG.cornerRadius(cornerRadius: 10, clips: true).borderColor(color: .lightGray, borderWidth: 0.5)
+        
+        self.vwBG.applyViewShadow(shadowOffset: .zero, shadowColor: UIColor.ThemeDeviceShadow, shadowOpacity: 0.2)
+    }
+}
+
 class SummaryTblCell: UITableViewCell {
     
     @IBOutlet weak var vwBg             : UIView!
@@ -213,7 +251,7 @@ extension HomeVC : UITableViewDataSource, UITableViewDelegate{
         switch tableView {
             
         case self.tblMyDevices:
-
+            
             let userModel = UserModel.shared
             let data = userModel.getDeviceDetail(indexPath.row)
             let isSpiro = data?.key == BTDeviceType.spirometer.rawValue

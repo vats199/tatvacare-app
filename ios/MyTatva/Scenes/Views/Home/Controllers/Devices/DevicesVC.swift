@@ -134,7 +134,7 @@ extension DevicesVC : UITableViewDataSource, UITableViewDelegate{
   
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell : MyDevicesCell = tableView.dequeueReusableCell(withClass: MyDevicesCell.self, for: indexPath)
+        let cell : MyDevicesCell2 = tableView.dequeueReusableCell(withClass: MyDevicesCell2.self, for: indexPath)
         let userModel = UserModel.shared
         cell.lblLastSync.text = userModel.bcaSync == nil ? AppMessages.deviceConnectionRequired : userModel.bcaSync.createdAt.isEmpty ? AppMessages.deviceConnectionRequired : "Last synced on " + GFunction.shared.convertDateFormat(dt: UserModel.shared.bcaSync.createdAt, inputFormat: DateTimeFormaterEnum.UTCFormat.rawValue, outputFormat: DateTimeFormaterEnum.ddMMMYYYYhhmma.rawValue, status: .NOCONVERSION).str
         cell.lblDeviceName.text = userModel.devices != nil ? userModel.devices[indexPath.row].title : "Smart Analyser"

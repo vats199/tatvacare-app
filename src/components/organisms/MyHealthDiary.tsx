@@ -10,7 +10,6 @@ type MyHealthDiaryProps = {
   onPressDevices: () => void;
   onPressMyIncidents: () => void;
   data: any;
-  healthInsights: any;
 };
 type HealthDiaryItem = {
   title: 'Medicines' | 'Diet' | 'Exercises' | 'Devices' | 'My Incidents';
@@ -25,7 +24,6 @@ const MyHealthDiary: React.FC<MyHealthDiaryProps> = ({
   onPressMedicine,
   onPressMyIncidents,
   data,
-  healthInsights,
 }) => {
   //DYNAMIC DATA FROM API //
 
@@ -55,17 +53,15 @@ const MyHealthDiary: React.FC<MyHealthDiaryProps> = ({
   //     </View>
   // )
 
-  const myHealthDiaryItems = ['Diet', 'Medication', 'Exercise'];
-  const goals = healthInsights?.goals?.filter((goal: any) =>
-    myHealthDiaryItems.includes(goal.goal_name),
-  );
-  const dietObj = goals?.find((goalObj: any) => goalObj.goal_name === 'Diet');
-  const medicineObj = goals?.find(
+  // const myHealthDiaryItems = ['Diet', 'Medication', 'Exercise'];
+  // const goals = healthInsights?.goals?.filter((goal: any) =>
+  //   myHealthDiaryItems.includes(goal.goal_name),
+  // );
+  const dietObj = data?.find((goalObj: any) => goalObj.goal_name === 'Diet');
+  const medicineObj = data?.find(
     (goalObj: any) => goalObj.goal_name === 'Medication',
   );
-  const exeObj = goals?.find(
-    (goalObj: any) => goalObj.goal_name === 'Exercise',
-  );
+  const exeObj = data?.find((goalObj: any) => goalObj.goal_name === 'Exercise');
 
   //STATIC DATA //
   const options: HealthDiaryItem[] = [
@@ -75,7 +71,7 @@ const MyHealthDiary: React.FC<MyHealthDiaryProps> = ({
         medicineObj?.achieved_value > 0
           ? `${medicineObj.achieved_value}/${medicineObj.goal_value}`
           : 'Log and track your medicines!',
-      onPress: () => onPressMedicine(healthInsights.goals),
+      onPress: () => onPressMedicine(data),
     },
     {
       title: 'Diet',
@@ -91,7 +87,7 @@ const MyHealthDiary: React.FC<MyHealthDiaryProps> = ({
         exeObj?.achieved_value > 0
           ? `${exeObj.achieved_value}/${exeObj.goal_value}`
           : 'Log your exercise details!',
-      onPress: () => onPressExercise(healthInsights.goals),
+      onPress: () => onPressExercise(data),
     },
     {
       title: 'Devices',

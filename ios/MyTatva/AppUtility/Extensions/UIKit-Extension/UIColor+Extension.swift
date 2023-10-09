@@ -214,6 +214,14 @@ extension UIColor {
         UIColor(named: "ThemeGrayE0") ?? .red
     }
     
+    static var themeLightGaryBorder: UIColor {
+        UIColor(named: "ThemeLightGaryBorder") ?? .red
+    }
+    
+    static var ThemeGray9E: UIColor {
+        UIColor(named: "ThemeGray9E") ?? .gray
+    }
+    
 }
 
 extension UIColor {
