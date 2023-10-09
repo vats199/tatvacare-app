@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Alert, NativeModules} from 'react-native';
+import { Alert, NativeModules } from 'react-native';
 import config from './config';
 import Config from 'react-native-config';
 import CRYPTO from 'crypto-js';
@@ -58,6 +58,7 @@ export const getDecryptedData = (cipher: string) => {
 const getToken = async () => {
   try {
     const token = await AsyncStorage.getItem('accessToken');
+    console.log(token, 'tokentoken')
     if (token !== null) {
       // token previously stored
       return token;
@@ -73,11 +74,10 @@ const handleResponse = async (response: any) => {
   if (contentType && contentType.indexOf('application/json') !== -1) {
     const jsonRes = await response.json();
     const parsedResponse = await JSON.parse(getDecryptedData(jsonRes));
-
     if (parsedResponse?.code == 1) {
-      return {data: parsedResponse?.data};
+      return parsedResponse;
     } else {
-      return {};
+      return parsedResponse;
     }
   } else {
     return response.text();
@@ -102,7 +102,7 @@ const request: any = async (
     headers: {
       ...headers,
       'api-key': 'lChjFRJce3bxmoS3TSQk5w==',
-      token: NativeModules.RNShare.token,
+      // token: NativeModules.RNShare.token,
     },
     body: '',
   };

@@ -68,7 +68,7 @@ const LocationBottomSheet = forwardRef<LocationBottomSheetRef, LocationBottomShe
         })
 
         const data = await res.json();
-        
+
 
         if ((data?.results || []).length > 0 && (data?.results[0]?.address_components || []).length > 0) {
             const city = data?.results[0]?.address_components.find((a: any) => a?.types.includes('administrative_area_level_3'))
@@ -80,7 +80,7 @@ const LocationBottomSheet = forwardRef<LocationBottomSheetRef, LocationBottomShe
                 country: country?.long_name,
                 pincode: pincode
             }
-            
+
             setLocation({
                 ...locationPayload
             })
@@ -117,7 +117,7 @@ const LocationBottomSheet = forwardRef<LocationBottomSheetRef, LocationBottomShe
                                         onChangeText={onChangePin} textStyle={styles.inputBoxStyle} placeholder='Enter Pincode' style={styles.pincodeInputStyle} keyboardType="decimal-pad" onBlur={() => bottomSheetModalRef.current?.snapToIndex(0)} onFocus={() => bottomSheetModalRef.current?.expand()} />
                                     <TouchableOpacity onPress={onApplyPincode} disabled={pincode?.length == 6 || pincode?.length == 4 ? false : true} activeOpacity={0.6}><Text style={pincode?.length == 6 || pincode?.length == 4 ? styles.activeApplyText : styles.inactiveApplyText}>Apply</Text></TouchableOpacity>
                                 </View>
-                                <TouchableOpacity onPress={() => { Platform.OS =='android' ? (requestLocationPermission(['blocked', 'never_ask_again'].includes(locationPermission || '') ? true : false)) : requestLocationPermission(true) }} style={styles.currentLocationContainer} activeOpacity={0.6}>
+                                <TouchableOpacity onPress={() => { Platform.OS == 'android' ? (requestLocationPermission(['blocked', 'never_ask_again'].includes(locationPermission || '') ? true : false)) : requestLocationPermission(true) }} style={styles.currentLocationContainer} activeOpacity={0.6}>
                                     <Icons.LocationSymbol />
                                     <Text style={styles.currentLocationText}>Use Current Location</Text>
                                 </TouchableOpacity>
@@ -142,7 +142,7 @@ const LocationBottomSheet = forwardRef<LocationBottomSheetRef, LocationBottomShe
                                     />
                                     <Button
                                         title={'Grant'}
-                                        onPress={() => {Platform.OS =='android' ? (requestLocationPermission(['blocked', 'never_ask_again'].includes(locationPermission || '') ? true : false)) : requestLocationPermission(true)}}
+                                        onPress={() => { Platform.OS == 'android' ? (requestLocationPermission(['blocked', 'never_ask_again'].includes(locationPermission || '') ? true : false)) : requestLocationPermission(true) }}
                                         titleStyle={styles.filledButtonText}
                                         buttonStyle={styles.filledButton}
                                         activeOpacity={0.6}

@@ -17,6 +17,7 @@ import Button from '../../components/atoms/Button';
 import AnimatedInputField from '../../components/atoms/AnimatedInputField';
 import { Icons } from '../../constants/icons';
 import { TextInput } from 'react-native-gesture-handler';
+import Auth from '../../api/auth';
 
 type OnBoardingScreenProps = CompositeScreenProps<
   StackScreenProps<AuthStackParamList, 'OnBoardingScreen'>,
@@ -60,6 +61,17 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({ navigation, route }
     }
   ])
 
+  React.useEffect(() => {
+    // setInterval(() => {
+    //   if (activeIndex == arr.length - 1) {
+    //     setActiveIndex(0); // <-- Change this line!
+    //     flatListRef.current?.scrollToIndex({ index: 0 })
+    //   } else {
+    //     setActiveIndex(activeIndex => activeIndex + 1); // <-- Change this line!
+    //     flatListRef.current?.scrollToIndex({ index: activeIndex + 1 })
+    //   }
+    // }, 4000);
+  }, [])
   const renderItem = ({ item, index }: { item: any; index: number }) => {
     return (
       <View style={{ width: Matrics.screenWidth }}>
@@ -73,22 +85,36 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({ navigation, route }
   };
 
   const onPressGetStarted = () => {
-    if (activeIndex == arr.length - 1) {
-      setModalVisible(true)
-      return;
-    }
-    flatListRef.current?.scrollToIndex({ index: activeIndex + 1 })
-    setActiveIndex(activeIndex + 1)
-
+    setModalVisible(true)
   }
 
   const onChangeText = (text: string) => {
     setMobileNumber(text)
   }
 
-  const onPressContinue = () => {
-    setModalVisible(false)
-    navigation.navigate('OTPScreen')
+  const onPressContinue = async () => {
+
+    let data = await Auth.loginSendOtp({
+      contact_no: mobileNumber.trim()
+    })
+    if (data?.code == 1) {
+      setModalVisible(false)
+      navigation.navigate('OTPScreen', { contact_no: mobileNumber.trim(), isLoginOTP: true })
+    } else if (data?.code == 0) {
+      let data = await Auth.sendSignUpOtp({
+        contact_no: mobileNumber.trim()
+      })
+      if (data?.code == 1) {
+        setModalVisible(false)
+        navigation.navigate('OTPScreen', { contact_no: mobileNumber.trim(), isLoginOTP: false })
+      } else {
+        //TODO: error message
+      }
+    } else {
+      //TODO: error message
+    }
+
+
   }
   //TODO: remove if not in use later stage
   // const _onViewableItemsChanged = React.useCallback(({ viewableItems, changed }) => {

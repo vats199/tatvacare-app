@@ -9,7 +9,8 @@ export const OnBoardStyle = StyleSheet.create({
     },
     buttonStyle: {
         marginHorizontal: Matrics.s(20),
-        borderRadius: Matrics.mvs(16)
+        borderRadius: Matrics.mvs(16),
+        marginBottom: Matrics.vs(12)
     },
     spaceView: {
         height: Matrics.vs(42)
@@ -68,7 +69,9 @@ export const OnBoardStyle = StyleSheet.create({
         fontFamily: fonts.MEDIUM,
         fontSize: Matrics.mvs(14),
         flex: 1,
-        paddingLeft: Matrics.s(4)
+        paddingLeft: Matrics.s(4),
+        paddingTop: 0,
+        paddingBottom: 0
     },
     contryCode: {
         color: colors.inputValueDarkGray,
@@ -134,5 +137,35 @@ export const OtpStyle = StyleSheet.create({
     },
     nestedBoldText: {
         fontFamily: fonts.BOLD,
-    }
+        color: colors.labelDarkGray,
+    },
+    resendDesc: {
+        color: colors.subTitleLightGray,
+        fontFamily: fonts.REGULAR,
+        fontSize: Matrics.mvs(12)
+    },
+    resendNestedTest: {
+        fontFamily: fonts.MEDIUM,
+        color: colors.inactiveGray,
+    },
+    resendCode: {
+        fontFamily: fonts.BOLD,
+        fontSize: Matrics.mvs(13),
+        color: colors.themePurple
+    },
+    resendCont: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    underlineStyleBase: {
+        borderWidth: 1,
+        borderRadius: Matrics.mvs(12),
+        fontSize: Matrics.mvs(14),
+        fontFamily: fonts.MEDIUM,
+        color: colors.inputValueDarkGray
+    },
+
+    underlineStyleHighLighted: {
+        borderColor: colors.inputBoxDarkBorder,
+    },
 })

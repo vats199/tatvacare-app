@@ -18,6 +18,6 @@ export type BottomTabParamList = {
 
 export type AuthStackParamList = {
   OnBoardingScreen: undefined;
-  LoginScreen : undefined;
-  OTPScreen: undefined;
+  LoginScreen: undefined;
+  OTPScreen: { contact_no: string, isLoginOTP?: boolean | false };
 };
