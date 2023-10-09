@@ -25,9 +25,14 @@ import HealthDiaryDiet from '../assets/icons/healthDiaryDiet.svg';
 import HealthDiaryExercise from '../assets/icons/healthDiaryExercise.svg';
 import HealthDiaryDevices from '../assets/icons/healthDiaryDevices.svg';
 import HealthDiaryMyIncidents from '../assets/icons/healthDiaryMyIncident.svg';
-import ChevronBack from '../assets/icons/chevron-back.svg';
+import ChevronBack from '../assets/icons/backarrow.svg';
+import ChevronForward from '../assets/icons/chevron-forward.svg';
 import AddCircle from '../assets/icons/addcircle.svg';
 import Vector from '../assets/icons/Vector.svg';
+import Flame from '../assets/icons/flame.svg';
+import Ellipse from '../assets/icons/Ellipse.svg';
+import ThreeDot from '../assets/icons/three-dot.svg';
+import Success from '../assets/icons/success.svg';
 
 export const Icons = {
   HomeActive,
@@ -59,4 +64,9 @@ export const Icons = {
   ChevronBack,
   AddCircle,
   Vector,
+  Flame,
+  Ellipse,
+  ThreeDot,
+  Success,
+  ChevronForward,
 };

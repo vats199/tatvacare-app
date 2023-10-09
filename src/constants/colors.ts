@@ -3,6 +3,7 @@ export const colors = {
   inactiveGray: '#919191',
   white: 'white',
   black: 'black',
+  //faintBlack: '#444444',
   labelTitleDarkGray: '#41434C',
   darkGray: '#919191',
   subTitleLightGray: '#616161',

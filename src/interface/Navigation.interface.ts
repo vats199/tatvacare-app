@@ -1,6 +1,15 @@
 export type AppStackParamList = {
   BottomTabs: undefined;
-  DietScreen: undefined;
+  DietScreen:
+    | {
+        dietData: {
+          title: string;
+        };
+      }
+    | undefined;
+
+  AddDiet: undefined;
+  DietDetail: undefined;
 };
 
 export type BottomTabParamList = {

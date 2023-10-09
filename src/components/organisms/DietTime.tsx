@@ -2,12 +2,17 @@ import {StyleSheet, ScrollView, View} from 'react-native';
 import React from 'react';
 import DietExactTime from '../molecules/DietExactTime';
 
+type DietTimeProps = {
+  onPressPlus: () => void;
+  dietOption: boolean;
+};
+
 type DietTimeItem = {
   title: 'Breakfast' | 'Lunch' | 'Snacks' | 'Dinner';
   description: string;
 };
 
-const DietTime: React.FC = () => {
+const DietTime: React.FC<DietTimeProps> = ({onPressPlus, dietOption}) => {
   const options: DietTimeItem[] = [
     {
       title: 'Breakfast',
@@ -33,6 +38,8 @@ const DietTime: React.FC = () => {
         key={index}
         title={item.title}
         message={item.description}
+        onPressPlus={onPressPlus}
+        dietOption={dietOption}
       />
     );
   };
@@ -48,6 +55,6 @@ export default DietTime;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 10,
+    marginTop: 5,
   },
 });

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {CompositeScreenProps} from '@react-navigation/native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {StyleSheet, Text, View} from 'react-native';
@@ -18,28 +18,42 @@ type DietScreenProps = CompositeScreenProps<
   NativeStackScreenProps<AppStackParamList, 'DietScreen'>
 >;
 
-const DietScreen: React.FC<DietScreenProps> = ({navigation}) => {
+const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
+  const title = route.params?.dietData;
+  const [dietOption, setDietOption] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (title) {
+      setDietOption(true);
+    } else {
+      setDietOption(false);
+    }
+  }, [title]);
+
   const onPressBack = () => {
     navigation.goBack();
   };
+  const onPressPlus = () => {
+    navigation.navigate('AddDiet');
+  };
+
   return (
-    <>
+    <View style={{flex: 1}}>
       <DietHeader onPressBack={onPressBack} />
       <View style={styles.belowContainer}>
         <CalorieConsumer />
-        <DietTime />
+        <DietTime onPressPlus={onPressPlus} dietOption={dietOption} />
       </View>
-    </>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   belowContainer: {
     flex: 1,
-    marginBottom: 10,
-    paddingHorizontal: 13,
-    paddingVertical: 15,
+    paddingHorizontal: 15,
     backgroundColor: colors.veryLightGreyishBlue,
+    paddingBottom: 30,
   },
 });
 

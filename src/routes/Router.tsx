@@ -12,6 +12,8 @@ import {NavigationContainer} from '@react-navigation/native';
 import {colors} from '../constants/colors';
 import {Icons} from '../constants/icons';
 import DietScreen from '../screens/DietScreen';
+import AddDietScreen from '../screens/AddDietScreen';
+import DietDetailScreen from '../screens/DietDetailScreen';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -93,6 +95,8 @@ const Router = () => {
         }}>
         <AppStack.Screen name="BottomTabs" component={BottomTabs} />
         <AppStack.Screen name="DietScreen" component={DietScreen} />
+        <AppStack.Screen name="AddDiet" component={AddDietScreen} />
+        <AppStack.Screen name="DietDetail" component={DietDetailScreen} />
       </AppStack.Navigator>
     </NavigationContainer>
   );
