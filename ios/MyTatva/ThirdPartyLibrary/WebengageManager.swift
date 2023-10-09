@@ -121,7 +121,7 @@ enum ScreenName: String {
     case LinkDoctor = "LinkDoctor"
     
     case DoYouHaveDevice
-    case ConnectDevice    
+    case ConnectDevice
     case LearnToConnectSmartScale
     case SearchSelectSmartScale
     case MeasureSmartScaleReadings
@@ -310,12 +310,14 @@ class WebengageManager: NSObject {
                             "phone_number": UserModel.shared.countryCode + UserModel.shared.contactNo,
                             "name": UserModel.shared.name,
                             "dob": UserModel.shared.dob,
-                            "gender": UserModel.shared.gender,
+                            "gender": UserModel.shared.gender == "M" ? "Male" : "Female",
                             "indication": medicalConditionName,
                             "dr_name": dr_Name,
                             "dr_phone": dr_Phone,
                             "language": UserModel.shared.languageName,
-                            "severity": UserModel.shared.severityName] as [String : AnyObject]
+                            "severity": UserModel.shared.severityName,
+                            "current_plan_type": UserModel.shared.getAllPlanType(),
+                            "current_plan_name": UserModel.shared.getAllPlanName()] as [String : AnyObject]
             
             //------For Identifying Users
             ApxorSDK.setUserIdentifier(UserModel.shared.patientId)

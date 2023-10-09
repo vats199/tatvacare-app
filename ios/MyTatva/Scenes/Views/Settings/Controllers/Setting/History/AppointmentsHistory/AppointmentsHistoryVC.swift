@@ -349,13 +349,18 @@ class AppointmentsHistoryVC: ClearNavigationFontBlackBaseVC {
                 var obj                     = JSON()
                 obj["name"].stringValue     = "Doctor"
                 obj["key"].stringValue      = AppointmentFor.D.rawValue
-                obj["isSelected"]           = 0
+                obj["isSelected"]           = UserModel.shared.patientGuid.trim() == "" ? 1 : 0
                 if self.selectedFor == .D {
                     obj["isSelected"]       = 1
                 }
                 self.arrList.append(obj)
                 break
             }
+        }
+        
+        if UserModel.shared.patientGuid.trim() == ""  {
+            self.selectedFor = .H
+            self.arrList = self.arrList.filter({ $0["name"].stringValue == "Health Coach" })
         }
     }
     

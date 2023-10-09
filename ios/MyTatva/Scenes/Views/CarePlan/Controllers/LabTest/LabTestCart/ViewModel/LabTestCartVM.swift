@@ -33,7 +33,15 @@ extension LabTestCartVM {
     func numberOfSections() -> Int { self.arrTest.count }
     func listOfSec(_ sec:Int) -> BcpTestsList { self.arrTest[sec] }
     func numberOfRows(_ sec:Int) -> Int { self.arrTest[sec].bcpTestsList.count - 1 }
+    func numberOFRowsForLabTest(_ sec: Int) -> Int {
+        if self.arrTest[sec].bcpTestsList.count > 2 {
+            return self.arrTest[sec].bcpTestsList.count - 2
+        } else {
+            return 0
+        }
+    }
     func listOfRow(_ ip:IndexPath) -> BcpTestsList { self.arrTest[ip.section].bcpTestsList[ip.row] }
+    func listOfRowForLabTest(_ ip:IndexPath) -> BcpTestsList { self.arrTest[ip.section].bcpTestsList[ip.row+1] }
     func getLastTest(_ sec:Int) -> BcpTestsList? { return self.arrTest[sec].bcpTestsList.last }
     func getFirstTest(_ sec:Int) -> BcpTestsList? { return self.arrTest[sec].bcpTestsList.first }
     func getBCPAddressData() -> LabAddressListModel? { return self.arrTest.first(where: { JSON($0.isBcpTestsAdded as Any).boolValue })?.bcpAddressData }
@@ -73,8 +81,7 @@ extension LabTestCartVM {
             case .success(let response):
                 switch response.apiCode {
                 case .invalidOrFail:
-                    
-                    Alert.shared.showSnackBar(response.message)
+                    Alert.shared.showSnackBar(response.message,isError: true,isBCP: true)
                     break
                 case .success:
                     
@@ -107,13 +114,13 @@ extension LabTestCartVM {
                     
                     break
                 case .emptyData:
-                    Alert.shared.showSnackBar(response.message)
+                    Alert.shared.showSnackBar(response.message,isError: true,isBCP: true)
                     
                     break
                 case .inactiveAccount:
                     
                     UIApplication.shared.forceLogOut()
-                    Alert.shared.showSnackBar(response.message)
+                    Alert.shared.showSnackBar(response.message,isError: true,isBCP: true)
                     break
                 case .otpVerify:
                     break
@@ -135,7 +142,7 @@ extension LabTestCartVM {
                 break
                 
             case .failure(let error):
-                Alert.shared.showSnackBar(error.localizedDescription)
+                Alert.shared.showSnackBar(error.localizedDescription,isError: true,isBCP: true)
                 break
             }
         }
@@ -150,13 +157,13 @@ extension LabTestCartVM {
         ApiManager.shared.makeRequest(method: .tests(JSON(self.arrTest[sec].isBcpTestsAdded as Any).boolValue ? .remove_from_cart : .add_to_cart), parameter: params) { [weak self] result in
             guard let self = self else { return }
             self.isCartChanges.value = true
-            switch result{                
+            switch result{
             case.success(let apiResponse):
                 switch apiResponse.apiCode {
                 case .success:
                     print(apiResponse.data)
                 default:
-                    Alert.shared.showSnackBar(apiResponse.message)
+                    Alert.shared.showSnackBar(apiResponse.message,isError: true, isBCP: true)
                 }
                 
                 print(apiResponse.data)

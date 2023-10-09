@@ -730,6 +730,23 @@
 		777D644E71468EE68B0D2D08 /* Pods_MyTatva_MyTatvaUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3056644C2AAAC52608A331D7 /* Pods_MyTatva_MyTatvaUITests.framework */; };
 		78EC5639690A840A49120677 /* Pods_NotificationViewController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CC69669994823EA46144A6A /* Pods_NotificationViewController.framework */; };
 		8D11D59325B5DC8A00548102 /* BCASelectAddressListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7035E316A6C13E30B814D4CB /* BCASelectAddressListVM.swift */; };
+		8F1E96592AD3F70500C7F19E /* EnterLocationPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1E964D2AD3F70500C7F19E /* EnterLocationPopupVC.swift */; };
+		8F1E965A2AD3F70500C7F19E /* EnterLocationPopUpVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1E964E2AD3F70500C7F19E /* EnterLocationPopUpVM.swift */; };
+		8F1E965B2AD3F70500C7F19E /* GeoLocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1E96502AD3F70500C7F19E /* GeoLocationVC.swift */; };
+		8F1E965C2AD3F70500C7F19E /* GeoLocationVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1E96512AD3F70500C7F19E /* GeoLocationVM.swift */; };
+		8F1E965D2AD3F70500C7F19E /* GeoLocationPopupVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1E96532AD3F70500C7F19E /* GeoLocationPopupVM.swift */; };
+		8F1E965E2AD3F70500C7F19E /* GeoLocationPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1E96542AD3F70500C7F19E /* GeoLocationPopupVC.swift */; };
+		8F1E965F2AD3F70500C7F19E /* LocationPermissionPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1E96552AD3F70500C7F19E /* LocationPermissionPopUpVC.swift */; };
+		8F1E96602AD3F70500C7F19E /* SelectLocationPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1E96572AD3F70500C7F19E /* SelectLocationPopUpVC.swift */; };
+		8F1E96612AD3F70500C7F19E /* SelectLocationPopUpVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1E96582AD3F70500C7F19E /* SelectLocationPopUpVM.swift */; };
+		8F1E96652AD3F72600C7F19E /* DiscountVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1E96632AD3F72600C7F19E /* DiscountVM.swift */; };
+		8F1E96662AD3F72600C7F19E /* DiscountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1E96642AD3F72600C7F19E /* DiscountVC.swift */; };
+		8F1E96692AD3F73B00C7F19E /* ApplyCouponPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1E96682AD3F73B00C7F19E /* ApplyCouponPopupVC.swift */; };
+		8F1E966D2AD3F75000C7F19E /* DiscountCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F1E966B2AD3F74F00C7F19E /* DiscountCell.xib */; };
+		8F1E966E2AD3F75000C7F19E /* DiscountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1E966C2AD3F74F00C7F19E /* DiscountCell.swift */; };
+		8F9D2C9E2AD3CA68007F43FB /* DiscountListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9D2C9D2AD3CA68007F43FB /* DiscountListModel.swift */; };
+		8F9D2CA92AD3CCBE007F43FB /* BCANewAddressListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F9D2CA72AD3CCBE007F43FB /* BCANewAddressListCell.xib */; };
+		8F9D2CAA2AD3CCBE007F43FB /* BCANewAddressListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9D2CA82AD3CCBE007F43FB /* BCANewAddressListCell.swift */; };
 		910276A02679237800C55C2D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9102763F2679237700C55C2D /* AppDelegate.swift */; };
 		910276A12679237800C55C2D /* AppDelegate+PushNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910276412679237700C55C2D /* AppDelegate+PushNotification.swift */; };
 		910276A22679237800C55C2D /* PushNotificationTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910276422679237700C55C2D /* PushNotificationTag.swift */; };
@@ -1656,6 +1673,23 @@
 		7A37D6723B2DA8E07A8C576A /* BCATitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCATitleCell.swift; sourceTree = "<group>"; };
 		7CAC2139AEFA1E3B8E941950 /* Pods-MyTatvaNotificationService.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyTatvaNotificationService.debug.xcconfig"; path = "Target Support Files/Pods-MyTatvaNotificationService/Pods-MyTatvaNotificationService.debug.xcconfig"; sourceTree = "<group>"; };
 		8CC69669994823EA46144A6A /* Pods_NotificationViewController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NotificationViewController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F1E964D2AD3F70500C7F19E /* EnterLocationPopupVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterLocationPopupVC.swift; sourceTree = "<group>"; };
+		8F1E964E2AD3F70500C7F19E /* EnterLocationPopUpVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterLocationPopUpVM.swift; sourceTree = "<group>"; };
+		8F1E96502AD3F70500C7F19E /* GeoLocationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoLocationVC.swift; sourceTree = "<group>"; };
+		8F1E96512AD3F70500C7F19E /* GeoLocationVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoLocationVM.swift; sourceTree = "<group>"; };
+		8F1E96532AD3F70500C7F19E /* GeoLocationPopupVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoLocationPopupVM.swift; sourceTree = "<group>"; };
+		8F1E96542AD3F70500C7F19E /* GeoLocationPopupVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoLocationPopupVC.swift; sourceTree = "<group>"; };
+		8F1E96552AD3F70500C7F19E /* LocationPermissionPopUpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationPermissionPopUpVC.swift; sourceTree = "<group>"; };
+		8F1E96572AD3F70500C7F19E /* SelectLocationPopUpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectLocationPopUpVC.swift; sourceTree = "<group>"; };
+		8F1E96582AD3F70500C7F19E /* SelectLocationPopUpVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectLocationPopUpVM.swift; sourceTree = "<group>"; };
+		8F1E96632AD3F72600C7F19E /* DiscountVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountVM.swift; sourceTree = "<group>"; };
+		8F1E96642AD3F72600C7F19E /* DiscountVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountVC.swift; sourceTree = "<group>"; };
+		8F1E96682AD3F73B00C7F19E /* ApplyCouponPopupVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplyCouponPopupVC.swift; sourceTree = "<group>"; };
+		8F1E966B2AD3F74F00C7F19E /* DiscountCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DiscountCell.xib; sourceTree = "<group>"; };
+		8F1E966C2AD3F74F00C7F19E /* DiscountCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountCell.swift; sourceTree = "<group>"; };
+		8F9D2C9D2AD3CA68007F43FB /* DiscountListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountListModel.swift; sourceTree = "<group>"; };
+		8F9D2CA72AD3CCBE007F43FB /* BCANewAddressListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BCANewAddressListCell.xib; sourceTree = "<group>"; };
+		8F9D2CA82AD3CCBE007F43FB /* BCANewAddressListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCANewAddressListCell.swift; sourceTree = "<group>"; };
 		9102763F2679237700C55C2D /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		910276412679237700C55C2D /* AppDelegate+PushNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppDelegate+PushNotification.swift"; sourceTree = "<group>"; };
 		910276422679237700C55C2D /* PushNotificationTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationTag.swift; sourceTree = "<group>"; };
@@ -5412,6 +5446,80 @@
 			path = Transitions;
 			sourceTree = "<group>";
 		};
+		8F1E964B2AD3F70500C7F19E /* GeoLocation */ = {
+			isa = PBXGroup;
+			children = (
+				8F1E964C2AD3F70500C7F19E /* EnterLocationPopup */,
+				8F1E964F2AD3F70500C7F19E /* GeoLocation */,
+				8F1E96522AD3F70500C7F19E /* GeoLocationPopUp */,
+				8F1E96552AD3F70500C7F19E /* LocationPermissionPopUpVC.swift */,
+				8F1E96562AD3F70500C7F19E /* SelectLocationPopUp */,
+			);
+			path = GeoLocation;
+			sourceTree = "<group>";
+		};
+		8F1E964C2AD3F70500C7F19E /* EnterLocationPopup */ = {
+			isa = PBXGroup;
+			children = (
+				8F1E964D2AD3F70500C7F19E /* EnterLocationPopupVC.swift */,
+				8F1E964E2AD3F70500C7F19E /* EnterLocationPopUpVM.swift */,
+			);
+			path = EnterLocationPopup;
+			sourceTree = "<group>";
+		};
+		8F1E964F2AD3F70500C7F19E /* GeoLocation */ = {
+			isa = PBXGroup;
+			children = (
+				8F1E96502AD3F70500C7F19E /* GeoLocationVC.swift */,
+				8F1E96512AD3F70500C7F19E /* GeoLocationVM.swift */,
+			);
+			path = GeoLocation;
+			sourceTree = "<group>";
+		};
+		8F1E96522AD3F70500C7F19E /* GeoLocationPopUp */ = {
+			isa = PBXGroup;
+			children = (
+				8F1E96532AD3F70500C7F19E /* GeoLocationPopupVM.swift */,
+				8F1E96542AD3F70500C7F19E /* GeoLocationPopupVC.swift */,
+			);
+			path = GeoLocationPopUp;
+			sourceTree = "<group>";
+		};
+		8F1E96562AD3F70500C7F19E /* SelectLocationPopUp */ = {
+			isa = PBXGroup;
+			children = (
+				8F1E96572AD3F70500C7F19E /* SelectLocationPopUpVC.swift */,
+				8F1E96582AD3F70500C7F19E /* SelectLocationPopUpVM.swift */,
+			);
+			path = SelectLocationPopUp;
+			sourceTree = "<group>";
+		};
+		8F1E96622AD3F72600C7F19E /* Discount */ = {
+			isa = PBXGroup;
+			children = (
+				8F1E96632AD3F72600C7F19E /* DiscountVM.swift */,
+				8F1E96642AD3F72600C7F19E /* DiscountVC.swift */,
+			);
+			path = Discount;
+			sourceTree = "<group>";
+		};
+		8F1E96672AD3F73B00C7F19E /* ApplyCouponPopup */ = {
+			isa = PBXGroup;
+			children = (
+				8F1E96682AD3F73B00C7F19E /* ApplyCouponPopupVC.swift */,
+			);
+			path = ApplyCouponPopup;
+			sourceTree = "<group>";
+		};
+		8F1E966A2AD3F74F00C7F19E /* DiscountCell */ = {
+			isa = PBXGroup;
+			children = (
+				8F1E966B2AD3F74F00C7F19E /* DiscountCell.xib */,
+				8F1E966C2AD3F74F00C7F19E /* DiscountCell.swift */,
+			);
+			path = DiscountCell;
+			sourceTree = "<group>";
+		};
 		9102763E2679237700C55C2D /* AppBase */ = {
 			isa = PBXGroup;
 			children = (
@@ -5874,6 +5982,7 @@
 		9A2327562A41764D0073137C /* BCP */ = {
 			isa = PBXGroup;
 			children = (
+				8F9D2C9D2AD3CA68007F43FB /* DiscountListModel.swift */,
 				9A2327572A4176620073137C /* AppointmentModel.swift */,
 				9A2327592A4179720073137C /* NutritionistModel.swift */,
 				9A562A042A42DFEB000B39FE /* MyDeviceModel.swift */,
@@ -5988,6 +6097,9 @@
 		9ACC9E7D2A2718FD00CFB324 /* BCP_Temp */ = {
 			isa = PBXGroup;
 			children = (
+				8F1E96672AD3F73B00C7F19E /* ApplyCouponPopup */,
+				8F1E96622AD3F72600C7F19E /* Discount */,
+				8F1E964B2AD3F70500C7F19E /* GeoLocation */,
 				9A2D33722A3865BA000D97F0 /* MyCart */,
 				9A45BC662A38429E004D9C82 /* OrderReviews */,
 				9A4CEF1B2A3704FB002CFA00 /* MyDevice */,
@@ -6005,6 +6117,7 @@
 		9ACC9E7E2A2718FD00CFB324 /* XIB */ = {
 			isa = PBXGroup;
 			children = (
+				8F1E966A2AD3F74F00C7F19E /* DiscountCell */,
 				5DA95EE42A4C4A2D00A03E44 /* TestListCell */,
 				5D783F982A45BBBB0069DC55 /* TestDetailCell */,
 				5D783F972A45BBAF0069DC55 /* CarePlansCell */,
@@ -6153,6 +6266,8 @@
 		D2A922062A25CF96000FEC2F /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				8F9D2CA82AD3CCBE007F43FB /* BCANewAddressListCell.swift */,
+				8F9D2CA72AD3CCBE007F43FB /* BCANewAddressListCell.xib */,
 				D2A922072A25CFB5000FEC2F /* BCAAddressListCell.swift */,
 			);
 			path = Cell;
@@ -6422,6 +6537,7 @@
 				616725B126DCD54E006C44EC /* SFProDisplay-Heavy.otf in Resources */,
 				61852D4E269D718B004393C1 /* CustomMarker.xib in Resources */,
 				91673A612678AA79004EB2F4 /* LaunchScreen.storyboard in Resources */,
+				8F9D2CA92AD3CCBE007F43FB /* BCANewAddressListCell.xib in Resources */,
 				916739C02678A7D4004EB2F4 /* MapStyle.json in Resources */,
 				5DB634E8273D2C7D00F5C078 /* breathing.gif in Resources */,
 				61AD9C882799708A00F86EBC /* GaneshRound.gpx in Resources */,
@@ -6430,6 +6546,7 @@
 				916739F02678A7D4004EB2F4 /* Home.storyboard in Resources */,
 				91673A812678B6E0004EB2F4 /* Authentication.storyboard in Resources */,
 				6167818026A88754007B504A /* play_fair_display_black.ttf in Resources */,
+				8F1E966D2AD3F75000C7F19E /* DiscountCell.xib in Resources */,
 				6167817E26A88753007B504A /* playfairdisplay_black.ttf in Resources */,
 				618606F827070AD300C38236 /* GoalSummaryChartCell.xib in Resources */,
 				61738D4F2768D7F500B58953 /* CustomThemeFileOld.plist in Resources */,
@@ -6799,6 +6916,7 @@
 				61FEB333269C3D130087ED58 /* String+Extension.swift in Sources */,
 				61FEB383269C41390087ED58 /* AttributedTextBlock.swift in Sources */,
 				6189B52D27A3E38E008E2BD5 /* CommonReadingReminderVC.swift in Sources */,
+				8F1E96662AD3F72600C7F19E /* DiscountVC.swift in Sources */,
 				61FEB2AC269C3C540087ED58 /* TTGSnackBar.swift in Sources */,
 				61A0C9D426E8A5C6000685D2 /* DefineAnimation.swift in Sources */,
 				61CA36FF297A908E00B4BD03 /* ViewPDFVC.swift in Sources */,
@@ -6822,12 +6940,14 @@
 				61A13B052782F16800EDA7D8 /* PlanListModel.swift in Sources */,
 				618606FA27070C3900C38236 /* GoalSummaryChartCell.swift in Sources */,
 				61C29D1E27E84C0C004DE4DD /* OrderTestVC.swift in Sources */,
+				8F1E96592AD3F70500C7F19E /* EnterLocationPopupVC.swift in Sources */,
 				61BD21C227D9C22E00C80265 /* BookTestHistoryVC.swift in Sources */,
 				91D246BF267A5D520023FB1B /* ForgotPasswordVC.swift in Sources */,
 				4097D6432A2DF47300D5574B /* EnterMobileViewPopUp.swift in Sources */,
 				61FEB3E4269C58BF0087ED58 /* SideMenuManager.swift in Sources */,
 				61927DC32702EBD1003795D6 /* UpdateBloodGlucoseReadingPopupVC.swift in Sources */,
 				9A85ABE12A53F8CD00875FC3 /* ChronicConditionsVC.swift in Sources */,
+				8F1E965C2AD3F70500C7F19E /* GeoLocationVM.swift in Sources */,
 				5DCBB373271801320045C825 /* ViewAllBoormarkVM.swift in Sources */,
 				6112B71B27F73C34005A1E56 /* LabTestHistoryModel.swift in Sources */,
 				61BD21C427D9C23C00C80265 /* BookTestHistoryVM.swift in Sources */,
@@ -6901,6 +7021,7 @@
 				61FEB321269C3D130087ED58 /* UserDefault.swift in Sources */,
 				61FEB34F269C3D130087ED58 /* AWSFileMimeType.swift in Sources */,
 				618FFE1326F8BA02003D1672 /* SelectStateVM.swift in Sources */,
+				8F1E96652AD3F72600C7F19E /* DiscountVM.swift in Sources */,
 				61A76CDE271ECBE400C29D7E /* IncidentHistoryDetailModel.swift in Sources */,
 				61953280288FB85D00EFED34 /* GlobalSearchParentVC.swift in Sources */,
 				614B01E726E262210048A2DE /* VPMOTPView.swift in Sources */,
@@ -6914,6 +7035,7 @@
 				6191D07827E3044000FB5406 /* TestOrderReviewVC.swift in Sources */,
 				61FEB335269C3D130087ED58 /* CGFloat+Extension.swift in Sources */,
 				61C34A6C27BCC8AF004A57DA /* AskExpertListCell.swift in Sources */,
+				8F1E96692AD3F73B00C7F19E /* ApplyCouponPopupVC.swift in Sources */,
 				615122E0272A806E007EC85C /* ExercisePlanDetailVM.swift in Sources */,
 				614B01E226E257600048A2DE /* SignupMobileVM.swift in Sources */,
 				6189B53327A40410008E2BD5 /* NotificationReminderListModel.swift in Sources */,
@@ -6956,6 +7078,7 @@
 				61873DC226EB2AF600C11523 /* AddReadingsVM.swift in Sources */,
 				6178943226F3552100FDCC3B /* BiometricsManager.swift in Sources */,
 				6191D07E27E31E8000FB5406 /* TestOrderSuccessVC.swift in Sources */,
+				8F1E965A2AD3F70500C7F19E /* EnterLocationPopUpVM.swift in Sources */,
 				61FEB32A269C3D130087ED58 /* AppLanguagesEnum.swift in Sources */,
 				6183AB1027E888610074871E /* TestPackageListVC.swift in Sources */,
 				61C8D64A26E7499E00B70C18 /* CreatePasswordVC.swift in Sources */,
@@ -7018,6 +7141,7 @@
 				5D1C1D5E2726B50D00B32926 /* RecordsVC.swift in Sources */,
 				61A76CDA271EBBB200C29D7E /* IncidentFreeModel.swift in Sources */,
 				6186C72A26CE7ADA00CFAA36 /* ContactUsViewModel.swift in Sources */,
+				8F1E965F2AD3F70500C7F19E /* LocationPermissionPopUpVC.swift in Sources */,
 				918886B12690825800FF5E76 /* SettingVC.swift in Sources */,
 				6191D08627E34ACB00FB5406 /* OrderSummaryVC.swift in Sources */,
 				615122D8272A806E007EC85C /* ExerciseMyPlanTblCell.swift in Sources */,
@@ -7042,6 +7166,7 @@
 				615356C326E7AC7400A31DF1 /* DaySelectionPopupVM.swift in Sources */,
 				6173AF8E276B09DB000ECDB5 /* ChatHistoryListVM.swift in Sources */,
 				9AA727F329EE810300326F0B /* RoutineExercisePopupVC.swift in Sources */,
+				8F1E96612AD3F70500C7F19E /* SelectLocationPopUpVM.swift in Sources */,
 				6190E28B27AD35A50010D914 /* CoachmarkCarePlanVC.swift in Sources */,
 				6118E3AB270202DB004C3EBC /* UpdateBpReadingPopupVM.swift in Sources */,
 				61828162279577C300A532AA /* ReadingInfoPopupVC.swift in Sources */,
@@ -7173,6 +7298,7 @@
 				61FEB34D269C3D130087ED58 /* AWSUploadConfigration.swift in Sources */,
 				61B7B53E27E1D9BB00C777B3 /* SelectPatientDetailsVC.swift in Sources */,
 				61FEB31E269C3D130087ED58 /* LocationManager.swift in Sources */,
+				8F1E965B2AD3F70500C7F19E /* GeoLocationVC.swift in Sources */,
 				5DA9A57E2A2DCFD1001A1B92 /* BCPCarePlanDetailVM.swift in Sources */,
 				61B7B54527E1E1D300C777B3 /* SelectAddressVC.swift in Sources */,
 				61C5BF9527E0797E00CE71B7 /* LabTestDetailsVC.swift in Sources */,
@@ -7230,6 +7356,7 @@
 				40AA55CD2A29EA4500CB0BB6 /* BcaTimeSlotResultModel.swift in Sources */,
 				6189B52F27A3E3AD008E2BD5 /* CommonReadingReminderVM.swift in Sources */,
 				5DDA20BD2A14C25C0018F88D /* VitalRange.swift in Sources */,
+				8F9D2C9E2AD3CA68007F43FB /* DiscountListModel.swift in Sources */,
 				6124F5D727170459007B980A /* IncidentHistoryDetailVC.swift in Sources */,
 				6105EC79272834CD00385103 /* FSCalendarDelegationProxy.m in Sources */,
 				6182EC9F2796CF0400F54854 /* UpdateWalkDistancePopupVC.swift in Sources */,
@@ -7275,6 +7402,7 @@
 				610F0C4727BE7EDD00F7E741 /* AskExpertQuestionVM.swift in Sources */,
 				61C5F9A827C4C2A000501EE0 /* AskExpertFilterVM.swift in Sources */,
 				61AB276F2716E77400EC256E /* CommentListVC.swift in Sources */,
+				8F1E966E2AD3F75000C7F19E /* DiscountCell.swift in Sources */,
 				D28A42062A285418007983FD /* OrderTestHelpPopUpVC.swift in Sources */,
 				61B0670C287C0EF60080B847 /* SearchFoodVM.swift in Sources */,
 				61AD487126E7676B00B23A77 /* AddPrescriptionVC.swift in Sources */,
@@ -7369,8 +7497,10 @@
 				61FEB312269C3D130087ED58 /* UIImageView+Class.swift in Sources */,
 				5DBF7EFE29E6BAD100A5DF09 /* ExerciseRoutineVM.swift in Sources */,
 				611AAAD327295419004F8B55 /* WebengageManager.swift in Sources */,
+				8F1E965D2AD3F70500C7F19E /* GeoLocationPopupVM.swift in Sources */,
 				61FEB38D269C41390087ED58 /* GradientSlider.swift in Sources */,
 				61C2D540271D6134007B8D60 /* ContentListModel.swift in Sources */,
+				8F9D2CAA2AD3CCBE007F43FB /* BCANewAddressListCell.swift in Sources */,
 				61FEB311269C3D130087ED58 /* UITextView+Class.swift in Sources */,
 				6184D3D327046C42005A6015 /* ExerciseListModel.swift in Sources */,
 				61FEB348269C3D130087ED58 /* CALayer+Extension.swift in Sources */,
@@ -7424,6 +7554,7 @@
 				6118E3962701F023004C3EBC /* UpdateStepsPopupVC.swift in Sources */,
 				61FEB317269C3D130087ED58 /* UICollectionView+Class.swift in Sources */,
 				61FEB310269C3D130087ED58 /* SocialLoginManager.swift in Sources */,
+				8F1E96602AD3F70500C7F19E /* SelectLocationPopUpVC.swift in Sources */,
 				61FEB322269C3D130087ED58 /* ValidationConstant.swift in Sources */,
 				61FEB32F269C3D130087ED58 /* Nsobject+FormatStyle.swift in Sources */,
 				61FEB34A269C3D130087ED58 /* Alert.swift in Sources */,
@@ -7459,6 +7590,7 @@
 				6CF363956818DA4529C664E6 /* BcaDetailVC.swift in Sources */,
 				666B27E9AE9EAFA86D06169E /* BcaVitalsDetailsTypeVC.swift in Sources */,
 				E58207EA32FEB6C90DB1FBF5 /* BcaDetailViewModel.swift in Sources */,
+				8F1E965E2AD3F70500C7F19E /* GeoLocationPopupVC.swift in Sources */,
 				40C0CF492A2EED510095C219 /* AutoVerificationOTPVM.swift in Sources */,
 				D9BD6C0FB1A1F2256E90DB40 /* BCATitleCell.swift in Sources */,
 				1FC36334486C59A7840670CC /* CommonPageView.swift in Sources */,

@@ -27,10 +27,11 @@ import AWSS3
 @_exported import Hero
 @_exported import libLifetronsSdk
 
-//import React
-
+import React
 //import React_debug
+
 import AppTrackingTransparency
+import FirebaseCrashlytics
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {

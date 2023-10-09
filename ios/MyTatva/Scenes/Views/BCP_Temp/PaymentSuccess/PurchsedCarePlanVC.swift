@@ -106,9 +106,9 @@ class PurchsedCarePlanVC: LightPurpleNavigationBase {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-//        if !self.isBack {
-//            self.navigationController?.setNavigationBarHidden(true, animated: true)
-//        }
+        //        if !self.isBack {
+        //            self.navigationController?.setNavigationBarHidden(true, animated: true)
+        //        }
         
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
@@ -193,10 +193,10 @@ class PurchsedCarePlanVC: LightPurpleNavigationBase {
             guard let self = self, let object = self.planDetails else { return }
             
             var params              = [String : Any]()
-            params[AnalyticsParameters.plan_id.rawValue]            = self.viewModel.planDetails.planMasterId
-            params[AnalyticsParameters.plan_type.rawValue]          = self.viewModel.planDetails.planType
-            params[AnalyticsParameters.plan_expiry_date.rawValue]   = self.viewModel.planDetails.expiryDate
-            params[AnalyticsParameters.days_to_expire.rawValue]     = self.viewModel.planDetails.remainingDays
+            params[AnalyticsParameters.plan_id.rawValue]            = object.planMasterId
+            params[AnalyticsParameters.plan_type.rawValue]          = object.planType
+            params[AnalyticsParameters.plan_expiry_date.rawValue]   = object.expiryDate
+            params[AnalyticsParameters.days_to_expire.rawValue]     = object.remainingDays
             FIRAnalytics.FIRLogEvent(eventName: .RENEW_PLAN,
                                      screen: .BcpPurchasedDetails,
                                      parameter: params)
@@ -224,13 +224,13 @@ class PurchsedCarePlanVC: LightPurpleNavigationBase {
                                             withLoader: true) { [weak self] isDone, object1, msg in
                 guard let self = self else {return}
                 if isDone {
-                  //  self.isBack = true
+                    //  self.isBack = true
                     let vc = BCPCarePlanDetailVC.instantiate(fromAppStoryboard: .BCP_temp)
                     
                     vc.isFromPurchasedPlan  = true
                     vc.plan_id              = object.planMasterId
                     vc.viewModel.cpDetail   = object1
-//                    vc.patientPlanRelId     = object.patientPlanRelId
+                    //                    vc.patientPlanRelId     = object.patientPlanRelId
                     
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
@@ -269,9 +269,9 @@ class PurchsedCarePlanVC: LightPurpleNavigationBase {
                 self.isPlanExpired = false
                 
                 self.lblCarePlanName.text = planDetails.planName
-                self.vwProgress.progress = remainingDays < 0 ? 1.0 : JSON(planDetails.totalDays as Any).doubleValue == 0.0 ? 0.0 : Float( differenceDays / totalPlans)
+                self.vwProgress.progress = remainingDays < 0 ? 1.0 : JSON(planDetails.totalDays as Any).doubleValue == 0.0 ? 0.0 : Float( differenceDays / (totalPlans+1))
                 
-               
+                
                 let progressColor: UIColor = {
                     self.vwBtnRenew.isHidden = remainingDays > 14
                     self.lblDaysRemaining.text = "\(JSON(remainingDays as Any).intValue) days remaining"
@@ -397,6 +397,7 @@ extension PurchsedCarePlanVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        return
         let type = self.viewModel.listOfRows(indexPath.row).type
         switch type {
         case .Time:

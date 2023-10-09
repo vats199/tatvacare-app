@@ -4,7 +4,7 @@
 
 
 import UIKit
-
+import React
 
 class TabbarVC: BFPaperTabBarController {
     
@@ -59,14 +59,14 @@ class TabbarVC: BFPaperTabBarController {
         }
         
         
-//        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont.customFont(ofType: .medium, withSize: 12),
-//                                                          NSAttributedString.Key.foregroundColor: UIColor.themeGray],
-//                                                         for: .normal)
-//
-//        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont.customFont(ofType: .medium, withSize: 12),
-//                                                          NSAttributedString.Key.foregroundColor: UIColor.themePurple],
-//                                                         for: .selected)
-
+        //        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont.customFont(ofType: .medium, withSize: 12),
+        //                                                          NSAttributedString.Key.foregroundColor: UIColor.themeGray],
+        //                                                         for: .normal)
+        //
+        //        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont.customFont(ofType: .medium, withSize: 12),
+        //                                                          NSAttributedString.Key.foregroundColor: UIColor.themePurple],
+        //                                                         for: .selected)
+        
         
         let vwBg                            = UIView(frame: CGRect(x: 0, y: 0, width: ScreenSize.width, height: self.tabBar.frame.height + 50))
         vwBg.backgroundColor                = UIColor.white
@@ -116,15 +116,46 @@ class TabbarVC: BFPaperTabBarController {
         tab5.selectedImage  = UIImage(named: "more_selected")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
         tab5.title          = "More"
         tab5.imageInsets    = UIEdgeInsets(top: paddingTop, left: 0, bottom: paddingBottom, right: 0)
-
+        
     }
     
     fileprivate func setTabbarViewControllers(){
         
-        var homeVC              = HomeVC.instantiate(fromAppStoryboard: .home)
+#if DEBUG
+        let rootView = RCTRootView(
+            bundleURL: URL(string: "http://localhost:8081/index.bundle?platform=ios")!,
+            //           bundleURL: URL(string: "http://192.168.1.5:8081/index.bundle?platform=ios")!,
+            //            bundleURL: URL(string: "http://192.168.1.36:8081/index.bundle?platform=ios")!,
+            
+            //           bundleURL: URL(string: "http://169.254.76.56:8081/index.bundle?platform=ios")!,
+            
+            moduleName: "TatvacareApp",
+            initialProperties: nil,
+            launchOptions: nil
+        )
+#else
+        let rootView = RCTRootView(
+            bundleURL: Bundle.main.url(forResource: "main", withExtension: "jsbundle")!,
+            //           bundleURL: URL(string: "http://192.168.1.5:8081/index.bundle?platform=ios")!,
+            //            bundleURL: URL(string: "http://192.168.1.32:8081/index.bundle?platform=ios")!,
+            
+            //           bundleURL: URL(string: "http://169.254.76.56:8081/index.bundle?platform=ios")!,
+            
+            moduleName: "TatvacareApp",
+            initialProperties: nil,
+            launchOptions: nil
+        )
+#endif
+        
+        let vc = UIViewController()
+        vc.view = rootView
+        var homeVC: UIViewController!
         Settings().isHidden(setting: .home_from_react_native) { isFromRN in
-            print(isFromRN)
-            //Put condition here for Home screen, True for native for RN(UJ4) screen and false iOS screen
+            if isFromRN {
+                homeVC = vc
+            } else {
+                homeVC = HomeVC.instantiate(fromAppStoryboard: .home)
+            }
         }
         
         
@@ -133,19 +164,26 @@ class TabbarVC: BFPaperTabBarController {
         let exerciseVC          = ExerciseParentVC.instantiate(fromAppStoryboard: .exercise)
         let moreVC              = MenuVC.instantiate(fromAppStoryboard: .home)
         
-        var arrVC       = [homeVC, carePlanVC, exerciseVC, moreVC]
+        var arrVC       = [homeVC!, carePlanVC, exerciseVC, moreVC]
         if self.showEngageVC {
-            arrVC       = [homeVC, carePlanVC, engageVC, exerciseVC, moreVC]
+            arrVC       = [homeVC!, carePlanVC, engageVC, exerciseVC, moreVC]
         }
         
         self.viewControllers    = arrVC
         self.viewControllers    = arrVC.map({ (vc) in
             UINavigationController(rootViewController: vc)
         })
+        
+        Settings().isHidden(setting: .home_from_react_native) { isFromRN in
+            if isFromRN {
+                self.viewControllers?[0] = homeVC
+            }
+        }
+        
     }
     
     fileprivate func setTabTheme(){
-       
+        
         self.tabBar.tintColor = UIColor.themePurple // set the tab bar tint color to something cool.
         
         self.rippleFromTapLocation = true  // YES = spawn tap-circles from tap locaiton. NO = spawn tap-circles from the center of the tab.
@@ -180,6 +218,11 @@ class TabbarVC: BFPaperTabBarController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        Settings().isHidden(setting: .home_from_react_native) { isFromRN in
+            if isFromRN {
+                self.navigationController?.setNavigationBarHidden(true, animated: animated)
+            }
+        }
         NotificationCenter.default.removeObserver(self)
         NotificationCenter.default.addObserver(self, selector: #selector(self.appStatusActivity), name: UIApplication.didBecomeActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.appStatusActivity), name: UIApplication.willResignActiveNotification, object: nil)
@@ -216,37 +259,37 @@ extension TabbarVC: TransitionableTab {
     }
     
     func fromTransitionAnimation(layer: CALayer?, direction: Direction) -> CAAnimation {
-//        switch type {
-//        case .move: return DefineAnimation.move(.from, direction: direction)
-//        case .scale: return DefineAnimation.scale(.from)
-//        case .fade: return DefineAnimation.fade(.from)
-//        case .custom:
-//            let animation = CABasicAnimation(keyPath: "transform.translation.y")
-//            animation.fromValue = 0
-//            animation.toValue = -(layer?.frame.height ?? 0)
-//            return animation
-//        }
+        //        switch type {
+        //        case .move: return DefineAnimation.move(.from, direction: direction)
+        //        case .scale: return DefineAnimation.scale(.from)
+        //        case .fade: return DefineAnimation.fade(.from)
+        //        case .custom:
+        //            let animation = CABasicAnimation(keyPath: "transform.translation.y")
+        //            animation.fromValue = 0
+        //            animation.toValue = -(layer?.frame.height ?? 0)
+        //            return animation
+        //        }
         
         return DefineAnimation.scale(.from)
         
     }
     
     func toTransitionAnimation(layer: CALayer?, direction: Direction) -> CAAnimation {
-//        switch type {
-//        case .move: return DefineAnimation.move(.to, direction: direction)
-//        case .scale: return DefineAnimation.scale(.to)
-//        case .fade: return DefineAnimation.fade(.to)
-//        case .custom:
-//            let animation = CABasicAnimation(keyPath: "transform.translation.y")
-//            animation.fromValue = (layer?.frame.height ?? 0)
-//            animation.toValue = 0
-//            return animation
-//        }
+        //        switch type {
+        //        case .move: return DefineAnimation.move(.to, direction: direction)
+        //        case .scale: return DefineAnimation.scale(.to)
+        //        case .fade: return DefineAnimation.fade(.to)
+        //        case .custom:
+        //            let animation = CABasicAnimation(keyPath: "transform.translation.y")
+        //            animation.fromValue = (layer?.frame.height ?? 0)
+        //            animation.toValue = 0
+        //            return animation
+        //        }
         
-//        let animation = CABasicAnimation(keyPath: "transform.translation.y")
-//        animation.fromValue = 20//(layer?.frame.width ?? 0)
-//        animation.toValue = 0
-//        return animation
+        //        let animation = CABasicAnimation(keyPath: "transform.translation.y")
+        //        animation.fromValue = 20//(layer?.frame.width ?? 0)
+        //        animation.toValue = 0
+        //        return animation
         
         return DefineAnimation.move(.to, direction: direction)
     }
@@ -304,23 +347,23 @@ extension TabbarVC: TransitionableTab {
         let generator = UIImpactFeedbackGenerator(style: .medium)
         generator.prepare()
         generator.impactOccurred()
-//(viewController as! UINavigationController).viewControllers[0].view.subviews
+        //(viewController as! UINavigationController).viewControllers[0].view.subviews
         
-//        if let nav = viewController as? UINavigationController {
-//            let vc = nav.viewControllers[0]
-//            let subviews = vc.view.subviews
-//            for vw in subviews {
-//                if let scroll = vw as? UIScrollView {
-//                    scroll.scrollToTop()
-//                }
-//                else if let scroll = vw as? UITableView {
-//                    scroll.scrollToTop()
-//                }
-//                else if let scroll = vw as? UICollectionView {
-//                    scroll.scrollToTop()
-//                }
-//            }
-//        }
+        //        if let nav = viewController as? UINavigationController {
+        //            let vc = nav.viewControllers[0]
+        //            let subviews = vc.view.subviews
+        //            for vw in subviews {
+        //                if let scroll = vw as? UIScrollView {
+        //                    scroll.scrollToTop()
+        //                }
+        //                else if let scroll = vw as? UITableView {
+        //                    scroll.scrollToTop()
+        //                }
+        //                else if let scroll = vw as? UICollectionView {
+        //                    scroll.scrollToTop()
+        //                }
+        //            }
+        //        }
         
         ///For tab select animation
         DispatchQueue.main.async {
@@ -345,26 +388,26 @@ extension TabbarVC: TransitionableTab {
     func amimateTab(vw: UIView){
         
         UIView.animate(withDuration: 0.2, animations: {
-//            vw.transform = CGAffineTransform(scaleX: 2, y: 2)
-//            vw.transform = CGAffineTransform(scaleX: -1, y: 1)
+            //            vw.transform = CGAffineTransform(scaleX: 2, y: 2)
+            //            vw.transform = CGAffineTransform(scaleX: -1, y: 1)
             
             let translation     = CGAffineTransform(translationX: -1, y: 1)
             let scaling         = CGAffineTransform(scaleX: 1.1, y: 1.1)
             let fullTransform   = scaling.concatenating(translation)
             
-//            let translation     = CGAffineTransform(translationX: -10, y: 1)
-//            let scaling         = CGAffineTransform(rotationAngle: 180)
-//            let fullTransform   = scaling.concatenating(translation)
+            //            let translation     = CGAffineTransform(translationX: -10, y: 1)
+            //            let scaling         = CGAffineTransform(rotationAngle: 180)
+            //            let fullTransform   = scaling.concatenating(translation)
             
             vw.transform        = fullTransform
         }) { isDone in
-
+            
             UIView.animate(withDuration: 0.3, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 3.0, options: .curveEaseInOut, animations: {
                 vw.transform = .identity
             }, completion: nil)
         }
     }
-
+    
     @objc func appStatusActivity(_ notification: Notification)  {
         if notification.name == UIApplication.didBecomeActiveNotification{
             // become active notifictaion
