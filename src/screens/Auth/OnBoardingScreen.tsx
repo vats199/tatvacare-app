@@ -18,6 +18,7 @@ import AnimatedInputField from '../../components/atoms/AnimatedInputField';
 import { Icons } from '../../constants/icons';
 import { TextInput } from 'react-native-gesture-handler';
 import Auth from '../../api/auth';
+import LoginBottomSheet, { LoginBottomSheetRef } from '../../components/molecules/LoginBottomSheet';
 
 type OnBoardingScreenProps = CompositeScreenProps<
   StackScreenProps<AuthStackParamList, 'OnBoardingScreen'>,
@@ -31,9 +32,10 @@ interface OnBoardProps {
 const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({ navigation, route }) => {
   const insets = useSafeAreaInsets()
   const [activeIndex, setActiveIndex] = React.useState<number>(0)
-  const [mobileNumber, setMobileNumber] = React.useState<string>('')
-  const [isModalVisible, setModalVisible] = React.useState<boolean>(false)
+  const activeIndexRef = React.useRef<number>(0);
+
   const flatListRef = React.useRef<FlatList>(null);
+  const BottomSheetRef = React.useRef<LoginBottomSheetRef>(null);
 
   const [arr, setArr] = React.useState<Array<{
     id: number,
@@ -62,16 +64,19 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({ navigation, route }
   ])
 
   React.useEffect(() => {
-    // setInterval(() => {
-    //   if (activeIndex == arr.length - 1) {
-    //     setActiveIndex(0); // <-- Change this line!
-    //     flatListRef.current?.scrollToIndex({ index: 0 })
-    //   } else {
-    //     setActiveIndex(activeIndex => activeIndex + 1); // <-- Change this line!
-    //     flatListRef.current?.scrollToIndex({ index: activeIndex + 1 })
-    //   }
-    // }, 4000);
+    setInterval(() => {
+      if (activeIndexRef.current == arr.length - 1) {
+        activeIndexRef.current = 0
+        setActiveIndex(activeIndexRef.current);
+        flatListRef.current?.scrollToIndex({ index: 0 })
+      } else {
+        activeIndexRef.current = activeIndexRef.current + 1
+        setActiveIndex(activeIndexRef.current);
+        flatListRef.current?.scrollToIndex({ index: activeIndexRef.current })
+      }
+    }, 4000);
   }, [])
+
   const renderItem = ({ item, index }: { item: any; index: number }) => {
     return (
       <View style={{ width: Matrics.screenWidth }}>
@@ -85,27 +90,25 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({ navigation, route }
   };
 
   const onPressGetStarted = () => {
-    setModalVisible(true)
+    // setModalVisible(true)
+    BottomSheetRef?.current?.show()
   }
 
-  const onChangeText = (text: string) => {
-    setMobileNumber(text)
-  }
 
-  const onPressContinue = async () => {
+  const onPressContinue = async (mobileNumber: string) => {
 
     let data = await Auth.loginSendOtp({
       contact_no: mobileNumber.trim()
     })
     if (data?.code == 1) {
-      setModalVisible(false)
+      BottomSheetRef?.current?.hide()
       navigation.navigate('OTPScreen', { contact_no: mobileNumber.trim(), isLoginOTP: true })
     } else if (data?.code == 0) {
       let data = await Auth.sendSignUpOtp({
         contact_no: mobileNumber.trim()
       })
       if (data?.code == 1) {
-        setModalVisible(false)
+        BottomSheetRef?.current?.hide()
         navigation.navigate('OTPScreen', { contact_no: mobileNumber.trim(), isLoginOTP: false })
       } else {
         //TODO: error message
@@ -116,7 +119,7 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({ navigation, route }
 
 
   }
-  //TODO: remove if not in use later stage
+  // TODO: remove if not in use later stage
   // const _onViewableItemsChanged = React.useCallback(({ viewableItems, changed }) => {
   //   // console.log("Visible items are", viewableItems[0]?.index);
   //   // console.log("Changed in this iteration", changed);
@@ -135,7 +138,7 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({ navigation, route }
   }
   return (
     <SafeAreaView edges={['bottom']} style={styles.container}>
-      <View style={styles.wrapper(insets)}>
+      <View style={[styles.wrapper, { paddingTop: insets.top }]}>
         <FlatList
           ref={flatListRef}
           // onScroll={_onscroll}
@@ -166,44 +169,11 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({ navigation, route }
         onPress={() => onPressGetStarted()}
       />
 
-      <Modal
-        visible={isModalVisible}
-        transparent={true}
-      >
-        <SafeAreaView style={{ flex: 1 }}>
-          <KeyboardAvoidingView behavior='padding' style={{ flex: 1 }}>
-            <View style={styles.modelContainer}>
-              <View style={styles.modelWrapper}>
-                <View style={styles.indicator} />
-                <Text style={styles.loginTitle}>{`Login or signup to your account`}</Text>
-                <Text style={styles.loginDesc}>{`Enter your number to receive a One Time Password.`}</Text>
-                <View style={styles.inputRowCont}>
-                  <Icons.FlagIcon />
-                  <View style={{ flex: 1, paddingHorizontal: Matrics.s(12) }}>
-                    <Text style={styles.inputTitle}>{`Mobile Number`}</Text>
-                    <View style={styles.inputContainer}>
-                      <Text style={styles.contryCode}>{`+91`}</Text>
-                      <TextInput
-                        style={styles.inputWrapper}
-                        keyboardType='number-pad'
-                        maxLength={10}
-                        autoFocus={true}
-                        onChangeText={onChangeText}
-                      />
-                    </View>
-                  </View>
-                </View>
-                <Button
-                  title='Continue'
-                  buttonStyle={{ marginVertical: Matrics.vs(20) }}
-                  disabled={mobileNumber.length < 10}
-                  onPress={() => onPressContinue()}
-                />
-              </View>
-            </View>
-          </KeyboardAvoidingView>
-        </SafeAreaView>
-      </Modal>
+      <LoginBottomSheet
+        ref={BottomSheetRef}
+        onPressContinue={onPressContinue}
+      />
+
     </SafeAreaView>
   );
 };

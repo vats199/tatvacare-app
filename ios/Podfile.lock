@@ -519,7 +519,7 @@ PODS:
     - React-Core
     - React-RCTImage
     - TOCropViewController
-  - RNPermissions (3.9.3):
+  - RNPermissions (3.9.2):
     - React-Core
   - RNReanimated (3.4.2):
     - DoubleConversion
@@ -832,7 +832,7 @@ SPEC CHECKSUMS:
   RNCClipboard: 41d8d918092ae8e676f18adada19104fa3e68495
   RNGestureHandler: c0d04458598fcb26052494ae23dda8f8f5162b13
   RNImageCropPicker: 486e2f7e2b0461ce24321f751410dce1b3b49e6d
-  RNPermissions: c0ae489b193c306a28acf99ec6e407b1d3cfc468
+  RNPermissions: de936d523f21ad3f304a2e39dd26cb6c115e3b59
   RNReanimated: 726395a2fa2f04cea340274ba57a4e659bc0d9c1
   RNScreens: b21dc57dfa2b710c30ec600786a3fc223b1b92e7
   RNSVG: 03e4d258ca355d7836a0a5dd4d4dc63c1eb49cbb

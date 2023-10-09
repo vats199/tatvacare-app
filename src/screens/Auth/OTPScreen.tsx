@@ -13,6 +13,8 @@ import { Matrics } from '../../constants';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import AuthHeader from '../../components/molecules/AuthHeader';
 import Auth from '../../api/auth';
+import { useApp } from '../../context/app.context';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 type OTPScreenProps = CompositeScreenProps<
@@ -24,7 +26,7 @@ const OTPScreen: React.FC<OTPScreenProps> = ({ navigation, route }) => {
   const insets = useSafeAreaInsets()
 
   const intervalRef = React.useRef<null | NodeJS.Timeout>(null);
-
+  const { setUserData } = useApp();
   const [otp, setOtp] = React.useState<string>('')
   const [timer, setTimer] = React.useState<number>(30)
 
@@ -56,9 +58,12 @@ const OTPScreen: React.FC<OTPScreenProps> = ({ navigation, route }) => {
         otp: code
       })
     }
-    console.log(data, "datadata")
+
     if (data?.code == 1) {
       // success data
+      await AsyncStorage.setItem('userData', JSON.stringify(data?.data));
+      setUserData(data?.data)
+      navigation.navigate('DrawerScreen')
     }
 
   }
@@ -82,7 +87,7 @@ const OTPScreen: React.FC<OTPScreenProps> = ({ navigation, route }) => {
           pinCount={6}
           // code={this.state.code} //You can supply this prop or not. The component will be used as a controlled / uncontrolled component respectively.
           // onCodeChanged = {code => { this.setState({code})}}
-          autoFocusOnLoad
+          autoFocusOnLoad={true}
           codeInputFieldStyle={styles.underlineStyleBase}
           codeInputHighlightStyle={styles.underlineStyleHighLighted}
           onCodeFilled={(code) => {
