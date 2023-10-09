@@ -2,10 +2,19 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
-	<key>LSApplicationCategoryType</key>
-	<string></string>
+    <key>Apxor</key>
+    <dict>
+        <key>APXPushPlugin</key>
+        <true/>
+        <key>APXRTAPlugin</key>
+        <true/>
+        <key>APXSurveyPlugin</key>
+        <true/>
+        <key>APXWYSIWYGPlugin</key>
+        <true/>
+        <key>Core</key>
+        <string>460d5566-b0cc-49d6-801a-97608a6068d4</string>
+    </dict>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
 		<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
@@ -46,6 +55,16 @@
 				<string>fb253851173225318</string>
 			</array>
 		</dict>
+        <dict>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>CFBundleURLName</key>
+            <string>DeepLink</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>com.mytatva.patient</string>
+            </array>
+        </dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
@@ -75,7 +94,9 @@
 			<string>NSTemporaryExceptionAllowsInsecureHTTPLoads</string>
 		</dict>
 		<key>NSAllowsArbitraryLoadsUsageDescription</key>
-		<dict/>
+        <true/>
+        <key>NSAllowsArbitraryLoads</key>
+        <true/>
 	</dict>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>$(PRODUCT_NAME) wants to use your bluetooth to connect to Smart Analyser.</string>
@@ -188,7 +209,7 @@
 	<key>WEGEnvironment	</key>
 	<string>$(WEGEnvironment)</string>
 	<key>WEGLicenseCode</key>
-	<string>$(WEGLicenseCode)</string>
+	<string>82617b48</string>
 	<key>WEGLogLevel</key>
 	<string></string>
 </dict>
