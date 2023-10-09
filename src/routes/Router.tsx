@@ -162,22 +162,12 @@ const ExerciesStackScreen = () => {
 const AuthStack = createStackNavigator<AuthStackParamList>();
 const AuthStackScreen = () => {
   return (
-    <AuthStack.Navigator
-      initialRouteName="OnBoardingScreen"
-      screenOptions={
-        {
-          // headerShown: false,
-        }
-      }>
-      <AuthStack.Screen name="LoginScreen" component={LoginScreen} />
-      <AuthStack.Screen name="OTPScreen" component={OTPScreen} />
-      <AuthStack.Screen
-        name="OnBoardingScreen"
-        component={OnBoardingScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
+    <AuthStack.Navigator initialRouteName='OnBoardingScreen' screenOptions={{
+      headerShown: false,
+    }}>
+      <AuthStack.Screen name='LoginScreen' component={LoginScreen} />
+      <AuthStack.Screen name='OTPScreen' component={OTPScreen} />
+      <AuthStack.Screen name='OnBoardingScreen' component={OnBoardingScreen} />
     </AuthStack.Navigator>
   );
 };

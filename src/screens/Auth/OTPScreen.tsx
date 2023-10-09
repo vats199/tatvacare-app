@@ -9,6 +9,10 @@ import { useSafeAreaInsets, SafeAreaView } from 'react-native-safe-area-context'
 import { StackScreenProps } from '@react-navigation/stack';
 import { OtpStyle as styles } from './styles';
 import OTPInputView from '@twotalltotems/react-native-otp-input'
+import { Matrics } from '../../constants';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import AuthHeader from '../../components/molecules/AuthHeader';
+import Auth from '../../api/auth';
 
 
 type OTPScreenProps = CompositeScreenProps<
@@ -19,34 +23,87 @@ type OTPScreenProps = CompositeScreenProps<
 const OTPScreen: React.FC<OTPScreenProps> = ({ navigation, route }) => {
   const insets = useSafeAreaInsets()
 
-  const [otp, setOtp] = React.useState<string>('')
+  const intervalRef = React.useRef<null | NodeJS.Timeout>(null);
 
-  const onChangeText = (text: string) => {
-    // setMobileNumber(text)
+  const [otp, setOtp] = React.useState<string>('')
+  const [timer, setTimer] = React.useState<number>(30)
+
+  React.useEffect(() => {
+    //Implementing the setInterval method 
+    intervalRef.current = setInterval(() => {
+      if (timer > 0)
+        setTimer(timer - 1);
+    }, 1000);
+
+    //Clearing the interval 
+    return () => clearInterval(intervalRef.current as NodeJS.Timeout);
+  }, [timer])
+
+  const onPressResendCode = () => {
+    setTimer(30);
   }
 
+  const onCodeFilled = async (code: string) => {
+    let data
+    if (route?.params?.isLoginOTP) {
+      data = await Auth.verifyOTPLogin({
+        contact_no: route?.params?.contact_no.trim(),
+        otp: code
+      })
+    } else {
+      data = await Auth.verifyOTPSignUp({
+        contact_no: route?.params?.contact_no.trim(),
+        otp: code
+      })
+    }
+    console.log(data, "datadata")
+    if (data?.code == 1) {
+      // success data
+    }
+
+  }
+
+
   return (
-    <SafeAreaView edges={['bottom']} style={styles.container}>
+    <SafeAreaView edges={['bottom', 'top']} style={styles.container}>
+      <AuthHeader
+        onPressBack={() => { navigation.goBack() }}
+      />
       <View>
         <Text style={styles.title}>{`OTP Verification`}</Text>
         <Text style={styles.description}>{`Please enter the OTP, we have sent to your phone number `}
           <Text style={styles.nestedBoldText}>
-            {`+91-9999999999`}
+            {`+91-${route?.params?.contact_no}`}
           </Text>
         </Text>
 
         <OTPInputView
-          style={{ width: '80%', height: 100, alignSelf: 'center' }}
+          style={{ height: Matrics.vs(80) }}
           pinCount={6}
           // code={this.state.code} //You can supply this prop or not. The component will be used as a controlled / uncontrolled component respectively.
           // onCodeChanged = {code => { this.setState({code})}}
           autoFocusOnLoad
-          // codeInputFieldStyle={styles.underlineStyleBase}
-          // codeInputHighlightStyle={styles.underlineStyleHighLighted}
+          codeInputFieldStyle={styles.underlineStyleBase}
+          codeInputHighlightStyle={styles.underlineStyleHighLighted}
           onCodeFilled={(code) => {
+            onCodeFilled(code)
+            // setTimer(30.)
+            // clearInterval(intervalRef.current as NodeJS.Timeout)
             console.log(`Code is ${code}, you are good to go!`)
           }}
         />
+
+        <View style={styles.resendCont}>
+          <Text style={styles.resendDesc}>
+            {`Didn’t receive OTP? `}
+          </Text>
+          <TouchableOpacity activeOpacity={0.7} onPress={() => onPressResendCode()}>
+            <Text style={timer != 0 ? styles.resendNestedTest : styles.resendCode}>
+              {timer != 0 ? `Resend code in ${timer}sec` : `Resend Code`}
+            </Text>
+          </TouchableOpacity>
+        </View>
+
       </View>
     </SafeAreaView>
   );
