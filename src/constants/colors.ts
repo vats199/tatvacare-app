@@ -16,6 +16,7 @@ export const colors = {
   purple: '#605AE0',
   secondaryLabel: '#999999',
   disableButton: '#9E9E9E',
+  secondaryDisableButton: 'rgba(158, 158, 158, 0.08)',
   darkBlue: '#1B053C',
   lightGray: '#F8F8F8',
   stock: '#D2D4D7',

@@ -12,7 +12,7 @@ import { useSafeAreaInsets, SafeAreaView } from 'react-native-safe-area-context'
 import { StackScreenProps } from '@react-navigation/stack';
 import { OnBoardStyle as styles } from './styles';
 import OnBoard from '../../interface/Auth.interface';
-import { Images, Matrics } from '../../constants';
+import { Constants, Images, Matrics } from '../../constants';
 import Button from '../../components/atoms/Button';
 import AnimatedInputField from '../../components/atoms/AnimatedInputField';
 import { Icons } from '../../constants/icons';
@@ -20,6 +20,7 @@ import { TextInput } from 'react-native-gesture-handler';
 import Auth from '../../api/auth';
 import LoginBottomSheet, { LoginBottomSheetRef } from '../../components/molecules/LoginBottomSheet';
 import Loader from '../../components/atoms/Loader';
+import constants from '../../constants/constants';
 
 type OnBoardingScreenProps = CompositeScreenProps<
   StackScreenProps<AuthStackParamList, 'OnBoardingScreen'>,
