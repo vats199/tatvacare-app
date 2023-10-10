@@ -113,6 +113,11 @@ class PurchsedCarePlanVC: LightPurpleNavigationBase {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
+    @IBAction func onGoBack(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+
+    
     //------------------------------------------------------
     //MARK: - Memory Management Method -
     
