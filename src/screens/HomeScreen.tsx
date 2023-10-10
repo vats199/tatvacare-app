@@ -116,6 +116,32 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
     };
   }, []);
 
+  // Bottom Tab Bar Navigation
+  useEffect(() => {
+    const subscribe = eventEmitter.addListener(
+      'bottomTabNavigationInitiated',
+      () => {
+        navigation.closeDrawer();
+      },
+    );
+
+    return () => {
+      subscribe.remove();
+    };
+  }, []);
+
+  // Profile Update Success
+  useEffect(() => {
+    const subscribe = eventEmitter.addListener(
+      'profileUpdatedSuccess',
+      getHomeCarePlan,
+    );
+
+    return () => {
+      subscribe.remove();
+    };
+  }, []);
+
   useEffect(() => {
     onPressLocation(); //Update location on all home screen focus
   }, [isFocused]);

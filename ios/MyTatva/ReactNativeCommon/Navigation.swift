@@ -48,15 +48,18 @@ class Navigation: NSObject {
     
     @objc
     func navigateToPlan(_ selectedType: NSString) -> Void {
-        
         if let hcServiceLongestPlan = UserModel.shared.hcServicesLongestPlan {
             let planModelVC = PurchsedCarePlanVC.instantiate(fromAppStoryboard: .BCP_temp)
             planModelVC.viewModel.planDetails = PlanDetail(fromJson: JSON(hcServiceLongestPlan.toDictionary()))
             planModelVC.isBack = true
-            navigate(modelVC: planModelVC)
-        }else {
+            DispatchQueue.main.async {
+                UIApplication.topViewController()?.navigationController?.pushViewController(planModelVC, animated: true)
+            }
+        } else {
             let planModelVC = BCPCarePlanVC.instantiate(fromAppStoryboard: .BCP_temp)
-            navigate(modelVC: planModelVC)
+            DispatchQueue.main.async {
+                UIApplication.topViewController()?.navigationController?.pushViewController(planModelVC, animated: true)
+            }
         }
     }
     
@@ -410,6 +413,6 @@ open class RNEventEmitter: RCTEventEmitter {
   }
 
   open override func supportedEvents() -> [String] {
-    ["updatedGoalReadingSuccess","bookmarkUpdated"]
+    ["updatedGoalReadingSuccess","bookmarkUpdated","bottomTabNavigationInitiated","profileUpdatedSuccess"]
   }
 }

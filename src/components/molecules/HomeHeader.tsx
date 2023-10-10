@@ -3,6 +3,14 @@ import React from 'react';
 import {Icons} from '../../constants/icons';
 import {colors} from '../../constants/colors';
 import {useApp} from '../../context/app.context';
+import {useIsFocused} from '@react-navigation/native';
+
+type Location = {
+  city?: string;
+  country?: string;
+  pincode?: string;
+  state?: string;
+};
 
 type HomeHeaderProps = {
   onPressLocation: () => void;
@@ -19,6 +27,8 @@ const HomeHeader: React.FC<HomeHeaderProps> = ({
 }) => {
   const {location, userData} = useApp();
 
+  const [userLoc, setUserLocation] = React.useState<Location>(userLocation);
+
   const unreadNotificationCount: number = userData?.unread_notifications ?? 0;
 
   return (
@@ -30,13 +40,13 @@ const HomeHeader: React.FC<HomeHeaderProps> = ({
           style={styles.locationContainer}
           onPress={onPressLocation}>
           <Text style={styles.locationText}>
-            {location?.city && location?.state
+            {userLoc?.city && userLoc?.state
+              ? `${userLoc?.city}, ${userLoc?.state}`
+              : userLoc?.state
+              ? `${userLoc?.state}`
+              : location?.city && location?.state
               ? `${location?.city}, ${location?.state}`
-              : userLocation?.city && userLocation?.state
-              ? `${userLocation?.city}, ${userLocation?.state}`
-              : userLocation?.state
-              ? `${userLocation?.state}`
-              : `-`}
+              : `Select Location`}
           </Text>
           <Icons.Dropdown />
         </TouchableOpacity>

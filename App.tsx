@@ -1,18 +1,13 @@
 import 'react-native-gesture-handler';
 import {
-  Alert,
-  Dimensions,
-  PermissionsAndroid,
-  Permission,
   Platform,
-  StatusBar,
   StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
   useWindowDimensions,
+  AppState,
+  AppStateStatus,
+  Alert,
 } from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
+import React from 'react';
 import Router, {openHealthKitSyncView} from './src/routes/Router';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import LocationBottomSheet, {
@@ -28,9 +23,11 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 const App = () => {
   const {height, width} = useWindowDimensions();
-  const [location, setLocation] = useState<object>({});
-  const BottomSheetRef = useRef<LocationBottomSheetRef>(null);
-  const [locationPermission, setLocationPermission] = useState<string>('');
+  const [location, setLocation] = React.useState<object>({});
+  const appState = React.useRef<AppStateStatus>(AppState.currentState);
+  const BottomSheetRef = React.useRef<LocationBottomSheetRef>(null);
+  const [locationPermission, setLocationPermission] =
+    React.useState<string>('');
 
   const requestLocationPermission = async (goToSettings: boolean) => {
     try {
@@ -53,7 +50,19 @@ const App = () => {
         if (granted == RESULTS.GRANTED) {
           getLocation();
         } else if (goToSettings) {
-          Linking.openURL('app-settings:');
+          Alert.alert(
+            'App Permission Denied',
+            'To re-enable, please go to Settings and turn on Location Service for MyTatva',
+            [
+              {
+                text: 'Close',
+              },
+              {
+                text: 'Go to Settings',
+                onPress: () => Linking.openURL('app-settings:'),
+              },
+            ],
+          );
         } else {
           BottomSheetRef.current?.show();
         }
@@ -125,10 +134,6 @@ const App = () => {
     }
   };
 
-  useEffect(() => {
-    checkLocationPermission();
-  }, []);
-
   const checkLocationPermission = async () => {
     try {
       let permissionResult = null;
@@ -146,13 +151,34 @@ const App = () => {
       if (permissionResult === RESULTS.GRANTED) {
         getLocation();
       } else {
-        // BottomSheetRef.current?.show();
         requestLocationPermission(false);
       }
     } catch (err) {
+      console.log(err);
       BottomSheetRef.current?.show();
     }
   };
+
+  React.useEffect(() => {
+    const subscription = AppState.addEventListener('change', nextAppState => {
+      if (
+        appState.current.match(/inactive|background/) &&
+        nextAppState === 'active'
+      ) {
+        checkLocationPermission();
+      }
+
+      appState.current = nextAppState;
+    });
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
+
+  React.useEffect(() => {
+    checkLocationPermission();
+  }, []);
 
   return (
     <GestureHandlerRootView style={{height, width}}>

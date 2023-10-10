@@ -30,7 +30,7 @@ const MyHealthInsights: React.FC<MyHealthInsightsProps> = ({
 
   const getValue = (val: any) => {
     if (val || (val == 0 && val !== '')) {
-      return parseInt(val);
+      return parseFloat(val).toFixed(2);
     } else {
       return '-';
     }
