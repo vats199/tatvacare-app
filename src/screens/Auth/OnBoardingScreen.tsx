@@ -88,7 +88,8 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({ navigation, route }
 
   const onPressContinue = () => {
     setModalVisible(false)
-    navigation.navigate('OTPScreen')
+    // navigation.navigate('OTPScreen')
+    navigation.navigate('TabScreen')
   }
   //TODO: remove if not in use later stage
   // const _onViewableItemsChanged = React.useCallback(({ viewableItems, changed }) => {

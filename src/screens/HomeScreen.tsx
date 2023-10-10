@@ -15,6 +15,7 @@ import {CompositeScreenProps} from '@react-navigation/native';
 import {
   AppStackParamList,
   DrawerParamList,
+  BottomTabParamList,
 } from '../interface/Navigation.interface';
 import {Container, Screen} from '../components/styled/Views';
 import {Icons} from '../constants/icons';
@@ -31,23 +32,24 @@ import AdditionalCareServices from '../components/organisms/AdditionalCareServic
 import Learn from '../components/organisms/Learn';
 import SearchModal from '../components/molecules/SearchModal';
 import {DrawerScreenProps} from '@react-navigation/drawer';
-import {
-  navigateTo,
-  navigateToPlan,
-  navigateToMedicines,
-  navigateToEngagement,
-  navigateToIncident,
-  openUpdateReading,
-  openHealthKitSyncView,
-  openUpdateGoal,
-  navigateToExercise,
-} from '../routes/Router';
+import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
+// import {
+//   navigateTo,
+//   navigateToPlan,
+//   navigateToMedicines,
+//   navigateToEngagement,
+//   navigateToIncident,
+//   openUpdateReading,
+//   openHealthKitSyncView,
+//   openUpdateGoal,
+//   navigateToExercise,
+// } from '../routes/Router';
 import Home from '../api/home';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {StackScreenProps} from '@react-navigation/stack';
 
 type HomeScreenProps = CompositeScreenProps<
-  DrawerScreenProps<DrawerParamList, 'HomeScreen'>,
+  BottomTabScreenProps<BottomTabParamList, 'HomeScreen'>,
   StackScreenProps<AppStackParamList, 'DrawerScreen'>
 >;
 
@@ -131,55 +133,55 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
 
   const onPressLocation = () => {};
   const onPressBell = () => {
-    navigateTo('NotificationVC');
+    // navigateTo('NotificationVC');
   };
   const onPressProfile = () => {
-    navigation.toggleDrawer();
+    // navigation.toggleDrawer();
   };
   const onPressDevices = () => {
-    navigateTo('MyDevices');
+    // navigateTo('MyDevices');
   };
   const onPressDiet = () => {
-    navigateTo('FoodDiaryParentVC');
+    // navigateTo('FoodDiaryParentVC');
   };
   const onPressExercise = (filteredData: any) => {
     // navigateToMedicines('test');
-    navigateToExercise([{filteredData: filteredData}, {firstRow: 'exercise'}]);
+    // navigateToExercise([{filteredData: filteredData}, {firstRow: 'exercise'}]);
     // navigateTo('navigateToExercise');
   };
   const onPressMedicine = (filteredData: any) => {
     // navigateToMedicines('test');
-    openUpdateGoal([{filteredData: filteredData}, {firstRow: 'medication'}]);
+    // openUpdateGoal([{filteredData: filteredData}, {firstRow: 'medication'}]);
   };
   const onPressMyIncidents = () => {
-    navigateToIncident();
+    // navigateToIncident();
   };
 
   const onPressConsultNutritionist = () => {
-    navigateTo('AppointmentsHistoryVC');
+    // navigateTo('AppointmentsHistoryVC');
   };
   const onPressConsultPhysio = () => {
-    navigateTo('AppointmentsHistoryVC');
+    // navigateTo('AppointmentsHistoryVC');
   };
   const onPressBookDiagnostic = () => {
-    navigateTo('LabTestListVC');
+    // navigateTo('LabTestListVC');
   };
   const onPressBookDevices = () => {
-    navigateTo('MyDevices');
+    // navigateTo('MyDevices');
   };
   const onPressCarePlan = () => {
-    navigateToPlan('navigateToPlan');
+    // navigateToPlan('navigateToPlan');
   };
   const onPressReading = (filteredData: any, firstRow: any) => {
-    openUpdateReading([{filteredData: filteredData}, {firstRow: firstRow}]);
+    // openUpdateReading([{filteredData: filteredData}, {firstRow: firstRow}]);
   };
 
   const onPressGoal = (filteredData: any, firstRow: any) => {
-    openUpdateGoal([{filteredData: filteredData}, {firstRow: firstRow}]);
+    // openUpdateGoal([{filteredData: filteredData}, {firstRow: firstRow}]);
   };
 
   const onPressLearnItem = (contentId: string, contentType: string) => {
-    navigateToEngagement(contentId.toString());
+    // navigateToEngagement(contentId.toString());
   };
 
   const onPressBookmark = async (data: any) => {
@@ -208,7 +210,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
             style={styles.searchContainer}
             activeOpacity={1}
             onPress={() => {
-              navigateTo('GlobalSearchParentVC');
+              // navigateTo('GlobalSearchParentVC');
             }}>
             <Icons.Search />
             <Text style={styles.searchText}>

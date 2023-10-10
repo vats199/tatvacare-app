@@ -7,6 +7,6 @@ export const Screen = styled.SafeAreaView`
 
 export const Container = styled.View`
     flex:1;
-    background-color: #F9F8FD;
+    background-color: ;
     padding: 0px 20px 0px 20px;
 `

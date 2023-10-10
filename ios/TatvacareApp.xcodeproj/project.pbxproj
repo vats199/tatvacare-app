@@ -14,6 +14,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-TatvacareApp-TatvacareAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-TatvacareApp-TatvacareAppTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		AD470DFE2AD4038B00A61449 /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = AD470DFD2AD4038B00A61449 /* Fonts */; };
 		CFA8A9062ACDC1730030CDF8 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = CFA8A9052ACDC1730030CDF8 /* fonts */; };
 /* End PBXBuildFile section */
 
@@ -44,6 +45,7 @@
 		5DCACB8F33CDC322A6C60F78 /* libPods-TatvacareApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TatvacareApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = TatvacareApp/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-TatvacareApp-TatvacareAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TatvacareApp-TatvacareAppTests.release.xcconfig"; path = "Target Support Files/Pods-TatvacareApp-TatvacareAppTests/Pods-TatvacareApp-TatvacareAppTests.release.xcconfig"; sourceTree = "<group>"; };
+		AD470DFD2AD4038B00A61449 /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Fonts; path = "../node_modules/react-native-vector-icons/Fonts"; sourceTree = "<group>"; };
 		CFA8A9052ACDC1730030CDF8 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -88,6 +90,7 @@
 		13B07FAE1A68108700A75B9A /* TatvacareApp */ = {
 			isa = PBXGroup;
 			children = (
+				AD470DFD2AD4038B00A61449 /* Fonts */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -248,6 +251,7 @@
 				CFA8A9062ACDC1730030CDF8 /* fonts in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				AD470DFE2AD4038B00A61449 /* Fonts in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
