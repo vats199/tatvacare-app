@@ -63,6 +63,7 @@ import Play from '../assets/icons/play.svg';
 import calendar from '../assets/icons/calendar.svg';
 import restDay from '../assets/icons/restDay.svg';
 import backArrow from '../assets/icons/backArrow.svg';
+import Filter from '../assets/icons/filter.svg';
 
 export const Icons = {
   HomeActive,
@@ -125,4 +126,5 @@ export const Icons = {
   calendar,
   restDay,
   backArrow,
+  Filter,
 };
