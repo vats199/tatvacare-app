@@ -201,11 +201,7 @@ const Router = () => {
   return (
     <NavigationContainer>
       <AppStack.Navigator
-<<<<<<< HEAD
-        initialRouteName="DrawerScreen"
-=======
         initialRouteName="AuthStackScreen"
->>>>>>> 45797e9 (SP:code merge)
         screenOptions={{
           headerShown: false,
         }}>
