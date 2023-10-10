@@ -76,6 +76,7 @@ const BottomTabScreen = () => {
         },
         tabBarActiveTintColor: colors.themePurple,
         tabBarInactiveTintColor: colors.secondaryLabel,
+<<<<<<< HEAD
         tabBarStyle: {borderTopRightRadius: 30, borderTopLeftRadius: 30, flex:0.1 ,},
         tabBarLabelStyle: {
           paddingBottom: 10,
@@ -84,6 +85,20 @@ const BottomTabScreen = () => {
         },
         tabBarIconStyle: {
          marginTop:15
+=======
+        tabBarStyle: {
+          borderTopRightRadius: 30,
+          borderTopLeftRadius: 30,
+          flex: 0.1,
+        },
+        tabBarLabelStyle: {
+          paddingBottom: 10,
+          fontSize: 12,
+          paddingTop: 10,
+        },
+        tabBarIconStyle: {
+          marginTop: 15,
+>>>>>>> 45797e9 (SP:code merge)
         },
       })}>
       <BottomTab.Screen
@@ -91,11 +106,19 @@ const BottomTabScreen = () => {
         component={HomeScreen}
         options={{tabBarLabel: 'Home'}}
       />
+<<<<<<< HEAD
         <BottomTab.Screen
           name={'CarePlanScreen'}
           component={CarePlanScreen}
           options={{tabBarLabel: 'Care Plan'}}
         />
+=======
+      <BottomTab.Screen
+        name={'CarePlanScreen'}
+        component={CarePlanScreen}
+        options={{tabBarLabel: 'Care Plan'}}
+      />
+>>>>>>> 45797e9 (SP:code merge)
       <BottomTab.Screen
         name={'EngageScreen'}
         component={EngageScreen}
@@ -162,12 +185,14 @@ const ExerciesStackScreen = () => {
 const AuthStack = createStackNavigator<AuthStackParamList>();
 const AuthStackScreen = () => {
   return (
-    <AuthStack.Navigator initialRouteName='OnBoardingScreen' screenOptions={{
-      headerShown: false,
-    }}>
-      <AuthStack.Screen name='LoginScreen' component={LoginScreen} />
-      <AuthStack.Screen name='OTPScreen' component={OTPScreen} />
-      <AuthStack.Screen name='OnBoardingScreen' component={OnBoardingScreen} />
+    <AuthStack.Navigator
+      initialRouteName="OnBoardingScreen"
+      screenOptions={{
+        headerShown: false,
+      }}>
+      <AuthStack.Screen name="LoginScreen" component={LoginScreen} />
+      <AuthStack.Screen name="OTPScreen" component={OTPScreen} />
+      <AuthStack.Screen name="OnBoardingScreen" component={OnBoardingScreen} />
     </AuthStack.Navigator>
   );
 };
@@ -176,7 +201,11 @@ const Router = () => {
   return (
     <NavigationContainer>
       <AppStack.Navigator
+<<<<<<< HEAD
         initialRouteName="DrawerScreen"
+=======
+        initialRouteName="AuthStackScreen"
+>>>>>>> 45797e9 (SP:code merge)
         screenOptions={{
           headerShown: false,
         }}>

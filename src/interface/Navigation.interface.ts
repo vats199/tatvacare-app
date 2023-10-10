@@ -36,3 +36,7 @@ export type AuthStackParamList = {
   LoginScreen: undefined;
   OTPScreen: { contact_no: string, isLoginOTP?: boolean | false };
 };
+<<<<<<< HEAD
+=======
+  
+>>>>>>> 45797e9 (SP:code merge)
