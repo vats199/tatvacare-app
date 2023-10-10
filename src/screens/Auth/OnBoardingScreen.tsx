@@ -19,6 +19,7 @@ import { Icons } from '../../constants/icons';
 import { TextInput } from 'react-native-gesture-handler';
 import Auth from '../../api/auth';
 import LoginBottomSheet, { LoginBottomSheetRef } from '../../components/molecules/LoginBottomSheet';
+import Loader from '../../components/atoms/Loader';
 
 type OnBoardingScreenProps = CompositeScreenProps<
   StackScreenProps<AuthStackParamList, 'OnBoardingScreen'>,
@@ -36,7 +37,7 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({ navigation, route }
 
   const flatListRef = React.useRef<FlatList>(null);
   const BottomSheetRef = React.useRef<LoginBottomSheetRef>(null);
-
+  const [isLoading, setIsLoading] = React.useState<boolean>(false)
   const [arr, setArr] = React.useState<Array<{
     id: number,
     image: any,
@@ -96,11 +97,12 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({ navigation, route }
 
 
   const onPressContinue = async (mobileNumber: string) => {
-
+    setIsLoading(true)
     let data = await Auth.loginSendOtp({
       contact_no: mobileNumber.trim()
     })
     if (data?.code == 1) {
+      setIsLoading(false)
       BottomSheetRef?.current?.hide()
       navigation.navigate('OTPScreen', { contact_no: mobileNumber.trim(), isLoginOTP: true })
     } else if (data?.code == 0) {
@@ -108,6 +110,7 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({ navigation, route }
         contact_no: mobileNumber.trim()
       })
       if (data?.code == 1) {
+        setIsLoading(false)
         BottomSheetRef?.current?.hide()
         navigation.navigate('OTPScreen', { contact_no: mobileNumber.trim(), isLoginOTP: false })
       } else {
@@ -174,6 +177,7 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({ navigation, route }
         onPressContinue={onPressContinue}
       />
 
+      <Loader visible={isLoading} />
     </SafeAreaView>
   );
 };
