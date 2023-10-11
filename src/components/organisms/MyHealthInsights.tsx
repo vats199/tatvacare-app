@@ -146,6 +146,13 @@ const styles = StyleSheet.create({
     width: Dimensions.get('screen').width * 0.45,
     minHeight: 86,
     marginRight: 10,
+    shadowColor: '#2121210D',
+    shadowOffset: {
+      width: 0,
+      height: 0.5,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 1.41,
   },
   hiItemContainerBottom: {
     marginTop: 5,
@@ -156,6 +163,13 @@ const styles = StyleSheet.create({
     width: Dimensions.get('screen').width * 0.45,
     marginRight: 10,
     minHeight: 86,
+    shadowColor: '#2121210D',
+    shadowOffset: {
+      width: 0,
+      height: 0.5,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 1.41,
   },
   columnContainer: {
     marginRight: 10,

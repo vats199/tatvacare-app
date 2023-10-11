@@ -10,6 +10,7 @@ import React from 'react';
 import moment from 'moment';
 import {Icons} from '../../constants/icons';
 import {colors} from '../../constants/colors';
+import RenderHTML from 'react-native-render-html';
 
 type LearnItemProps = {
   learnItem: any;
@@ -40,8 +41,10 @@ const LearnItem: React.FC<LearnItemProps> = ({
         }
       />
       <View style={styles.detailsContainer}>
-        <Text style={styles.itemTitle}>{learnItem?.topic_name || '-'}</Text>
-        <Text style={styles.itemDescription}>{learnItem?.title || '-'}</Text>
+        <Text style={styles.itemTitle} numberOfLines={2} ellipsizeMode={'tail'}>
+          {learnItem?.title || '-'}
+        </Text>
+        <RenderHTML source={learnItem?.description || ''} />
         <View style={styles.bottomContainer}>
           <Text style={styles.itemDescription}>
             {learnItem?.publish_date

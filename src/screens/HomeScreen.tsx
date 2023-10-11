@@ -457,12 +457,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginBottom: 10,
     paddingVertical: 10,
-    shadowColor: colors.black,
+    shadowColor: '#2121210D',
     shadowOffset: {
       width: 0,
-      height: 1,
+      height: 0.5,
     },
-    shadowOpacity: 0.2,
+    shadowOpacity: 0.1,
     shadowRadius: 1.41,
   },
   searchText: {
