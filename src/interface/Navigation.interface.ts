@@ -4,6 +4,7 @@ export type AppStackParamList = {
   DrawerScreen: DrawerParamList;
   AuthStackScreen: AuthStackParamList;
   TabScreen: TabParamList;
+  SetupProfileScreen : SetupProfileStackParamList
 };
 
 export type DrawerParamList = {
@@ -36,4 +37,9 @@ export type AuthStackParamList = {
   OnBoardingScreen: undefined;
   LoginScreen: undefined;
   OTPScreen: { contact_no: string, isLoginOTP?: boolean | false };
+};
+
+export type SetupProfileStackParamList = {
+  WelcomeScreen: undefined;
+  QuestionOneScreen: undefined;
 };
