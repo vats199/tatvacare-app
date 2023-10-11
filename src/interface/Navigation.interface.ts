@@ -22,7 +22,7 @@ export type ExerciesStackParamList = {
 };
 
 export type BottomTabParamList = {
-  HomeScreen: undefined;
+  HomeScreen: HomeStackParamList;
   Exercies: ExerciesStackParamList;
   EngageScreen: undefined;
   CarePlanScreen:undefined
@@ -36,3 +36,10 @@ export type AuthStackParamList = {
   LoginScreen: undefined;
   OTPScreen: { contact_no: string, isLoginOTP?: boolean | false };
 };
+
+export type HomeStackParamList={
+  HomeScreen:undefined;
+  DietScreen:undefined;
+  AddDiet:undefined;
+  DietDetail:undefined;
+}

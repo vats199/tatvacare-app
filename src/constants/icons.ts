@@ -64,6 +64,12 @@ import calendar from '../assets/icons/calendar.svg';
 import restDay from '../assets/icons/restDay.svg';
 import backArrow from '../assets/icons/backArrow.svg';
 import Filter from '../assets/icons/filter.svg';
+import Vector from '../assets/icons/Vector.svg';
+import AddCircle from '../assets/icons/addcircle.svg';
+import Ellipse from '../assets/icons/Ellipse.svg';
+import Success from '../assets/icons/success.svg';
+import ThreeDot from '../assets/icons/three-dot.svg';
+import Flame from '../assets/icons/flame.svg';
 
 export const Icons = {
   HomeActive,
@@ -127,4 +133,10 @@ export const Icons = {
   restDay,
   backArrow,
   Filter,
+  Vector,
+  AddCircle,
+  Ellipse,
+  Success,
+  ThreeDot,
+  Flame
 };
