@@ -1,4 +1,5 @@
 import {
+  Dimensions,
   FlatList,
   Image,
   ScrollView,
@@ -30,7 +31,7 @@ const MyHealthInsights: React.FC<MyHealthInsightsProps> = ({
 
   const getValue = (val: any) => {
     if (val || (val == 0 && val !== '')) {
-      return parseInt(val);
+      return parseFloat(val).toFixed(2);
     } else {
       return '-';
     }
@@ -42,7 +43,7 @@ const MyHealthInsights: React.FC<MyHealthInsightsProps> = ({
         key={index.toString()}
         style={styles.hiItemContainerBottom}
         onPress={() => onPressReading(data?.readings, item.keys)}>
-        <View style={styles.row}>
+        <View style={[styles.row, styles.flex]}>
           <Image
             resizeMode="contain"
             style={styles.imageStyle}
@@ -66,7 +67,7 @@ const MyHealthInsights: React.FC<MyHealthInsightsProps> = ({
         key={index.toString()}
         style={styles.hiItemContainerTop}
         onPress={() => onPressGoal(data?.goals, item.keys)}>
-        <View style={styles.row}>
+        <View style={[styles.row, styles.flex]}>
           <Image
             resizeMode="contain"
             style={styles.imageStyle}
@@ -121,6 +122,9 @@ const styles = StyleSheet.create({
   container: {
     marginVertical: 10,
   },
+  flex: {
+    flex: 1,
+  },
   title: {
     color: colors.black,
     fontWeight: '700',
@@ -134,7 +138,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     borderRadius: 12,
     padding: 10,
-    minWidth: 150,
+    // minWidth: 150,
+    width: Dimensions.get('screen').width * 0.45,
     minHeight: 86,
     marginRight: 10,
   },
@@ -143,7 +148,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     borderRadius: 12,
     padding: 10,
-    minWidth: 150,
+    // minWidth: 150,
+    width: Dimensions.get('screen').width * 0.45,
     marginRight: 10,
     minHeight: 86,
   },
@@ -156,6 +162,7 @@ const styles = StyleSheet.create({
   },
   hiItemTitle: {
     flex: 1,
+    flexShrink: 1,
     color: colors.black,
     fontWeight: '700',
     fontSize: 12,

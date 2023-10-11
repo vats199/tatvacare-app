@@ -224,9 +224,9 @@ class SearchDeviceVC : UIViewController {
     }
     
     
-    @IBAction func onGoBack(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
-    }
+//    @IBAction func onGoBack(_ sender: Any) {
+//        self.dismiss(animated: true, completion: nil)
+//    }
 }
 
 extension SearchDeviceVC: UITableViewDelegate, UITableViewDataSource {

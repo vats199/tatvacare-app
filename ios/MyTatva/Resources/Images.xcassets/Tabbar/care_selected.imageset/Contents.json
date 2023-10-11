@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "care_selected.png",
+      "filename" : "program_selected.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "care_selected@2x.png",
+      "filename" : "program_selected@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "care_selected@3x.png",
+      "filename" : "program_selected@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

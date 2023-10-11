@@ -70,7 +70,7 @@ class TabbarVC: BFPaperTabBarController {
         
         let vwBg                            = UIView(frame: CGRect(x: 0, y: 0, width: ScreenSize.width, height: self.tabBar.frame.height + 50))
         vwBg.backgroundColor                = UIColor.white
-        vwBg.roundCorners(corners: [.topLeft, .topRight], radius: 25)
+//        vwBg.roundCorners(corners: [.topLeft, .topRight], radius: 25)
         self.myTabbar.insertSubview(vwBg, belowSubview: self.myTabbar.subviews.first!)
         self.myTabbar.applyViewShadow(shadowOffset: .zero,
                                       shadowColor: UIColor.themeBlack,
@@ -110,12 +110,6 @@ class TabbarVC: BFPaperTabBarController {
         tab4.selectedImage  = UIImage(named: "exercise_selected")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
         tab4.title          = "Exercise"
         tab4.imageInsets    = UIEdgeInsets(top: paddingTop, left: 0, bottom: paddingBottom, right: 0)
-        
-        let tab5            = self.tabBar.items![index]
-        tab5.image          = UIImage(named: "more_unselected")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
-        tab5.selectedImage  = UIImage(named: "more_selected")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
-        tab5.title          = "More"
-        tab5.imageInsets    = UIEdgeInsets(top: paddingTop, left: 0, bottom: paddingBottom, right: 0)
         
     }
     
@@ -162,11 +156,10 @@ class TabbarVC: BFPaperTabBarController {
         let carePlanVC          = CarePlanVC.instantiate(fromAppStoryboard: .carePlan)
         let engageVC            = EngageParentVC.instantiate(fromAppStoryboard: .engage)
         let exerciseVC          = ExerciseParentVC.instantiate(fromAppStoryboard: .exercise)
-        let moreVC              = MenuVC.instantiate(fromAppStoryboard: .home)
         
-        var arrVC       = [homeVC!, carePlanVC, exerciseVC, moreVC]
+        var arrVC       = [homeVC!, carePlanVC, exerciseVC]
         if self.showEngageVC {
-            arrVC       = [homeVC!, carePlanVC, engageVC, exerciseVC, moreVC]
+            arrVC       = [homeVC!, carePlanVC, engageVC, exerciseVC]
         }
         
         self.viewControllers    = arrVC
@@ -299,18 +292,8 @@ extension TabbarVC: TransitionableTab {
     }
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        RNEventEmitter.emitter.sendEvent(withName: "bottomTabNavigationInitiated", body: [:])
         let vcs = viewController.children[0]
-        if let _ = vcs as? MenuVC {
-            var params: [String: Any] = [:]
-            FIRAnalytics.FIRLogEvent(eventName: .USER_CLICKED_ON_MENU,
-                                     screen: .Home,
-                                     parameter: params)
-            
-            params[AnalyticsParameters.module.rawValue] = "More"
-            FIRAnalytics.FIRLogEvent(eventName: .USER_TAPS_ON_BOTTOM_NAV,
-                                     screen: .Home,
-                                     parameter: params)
-        }
         
         if let _ = vcs as? ExerciseParentVC {
             var params: [String: Any] = [:]

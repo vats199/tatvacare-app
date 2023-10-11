@@ -14,49 +14,88 @@ import {Icons} from '../../constants/icons';
 import ProgressBar from '../atoms/ProgressBar';
 import moment from 'moment';
 import PlanItem from '../atoms/PlanItem';
+import {navigateToChronicCareProgram} from '../../routes/Router';
 
 type CarePlanViewProps = {
   data?: any;
   allPlans: any[];
-  onPressCarePlan: () => void;
+  onPressCarePlan: (plan: any) => void;
+  onPressRenew: (plan: any) => void;
 };
 
 const CarePlanView: React.FC<CarePlanViewProps> = ({
   data,
   onPressCarePlan,
+  onPressRenew,
   allPlans = [],
 }) => {
   const isFreePlan: boolean =
     data?.patient_plans && data?.patient_plans[0]?.plan_type === 'Free';
 
   const getPlanProgress = (plan: any) => {
-    if (plan?.plan_end_date && plan?.plan_start_date) {
-      const planDuration = moment(plan?.plan_end_date).diff(
-        plan?.plan_start_date,
-        'days',
-      ); //duration of plan in days
-
-      const completedPlanDuration = moment(new Date()).diff(
-        plan?.plan_start_date,
-        'days',
-      ); //completed plan duration in days
-
-      if (completedPlanDuration >= 0 && planDuration > 0) {
-        return (completedPlanDuration / planDuration) * 100;
-      } else {
-        return 0;
-      }
-    } else {
-      return 0;
+    if (moment(plan.expiry_date) < moment(new Date())) {
+      return 100;
     }
+    const totalDuration =
+      moment(plan.expiry_date).diff(moment(plan.plan_start_date), 'day') ?? 1;
+    const completedDuration = moment(new Date()).diff(
+      moment(plan.plan_start_date),
+      'day',
+    );
+
+    return (completedDuration / totalDuration) * 100 < 0
+      ? 0
+      : (completedDuration / totalDuration) * 100;
   };
 
-  const onPressKnowMore = (plan: any) => {};
+  const onPressKnowMore = (plan: any) => {
+    navigateToChronicCareProgram();
+  };
 
   const renderPlanItem = ({item, index}: {item: any; index: number}) => {
     return (
       <PlanItem plan={item} onPressKnowMore={() => onPressKnowMore(item)} />
     );
+  };
+
+  const getText = (plan: any): string => {
+    if (moment(plan.expiry_date) < moment(new Date())) {
+      return 'Plan Expired';
+    }
+
+    const planDuration = moment(plan.expiry_date).diff(new Date(), 'day') + 1;
+
+    if (planDuration > 14) {
+      return `Expires on ${moment(plan?.expiry_date).format('MMM Do, yyyy')}`;
+    } else {
+      return `${planDuration} day(s) remaining`;
+    }
+  };
+
+  const getColor = (plan: any): string => {
+    if (moment(plan.expiry_date) < moment(new Date())) {
+      return colors.red;
+    }
+
+    const planDuration = moment(plan.expiry_date).diff(new Date(), 'day') + 1;
+
+    if (planDuration > 14) {
+      return colors.green;
+    } else if (planDuration > 7) {
+      return colors.orange;
+    } else {
+      return colors.red;
+    }
+  };
+
+  const showRenewButton = (plan: any): boolean => {
+    const planDuration = moment(plan.expiry_date).diff(new Date(), 'day') + 1;
+
+    if (planDuration > 14) {
+      return false;
+    } else {
+      return true;
+    }
   };
 
   return (
@@ -92,27 +131,37 @@ const CarePlanView: React.FC<CarePlanViewProps> = ({
           bounces={false}>
           {data?.patient_plans?.map((plan: any, planIdx: number) => {
             return (
-              <TouchableOpacity key={planIdx} onPress={onPressCarePlan}>
-                <View style={styles.container}>
+              <TouchableOpacity
+                key={planIdx}
+                onPress={() => onPressCarePlan(plan)}
+                style={styles.container}>
+                <View style={{flex: 1}}>
                   <View style={styles.details}>
                     <Text style={styles.title}>{plan?.plan_name || '-'}</Text>
                     <Text style={styles.subTitle}>
                       {plan?.sub_title || '-'}
                     </Text>
-                    <ProgressBar progress={getPlanProgress(plan) || 0} />
-                    <Text style={styles.expiry}>
-                      Expires on{' '}
-                      {plan?.plan_end_date
-                        ? moment(plan?.plan_end_date).format('MMMM Do yyyy')
-                        : '-'}
-                    </Text>
+                    <ProgressBar
+                      progress={getPlanProgress(plan) || 0}
+                      expired={moment(plan.expiry_date) < moment(new Date())}
+                    />
+                    <View style={styles.rowBetween}>
+                      <Text style={[styles.expiry, {color: getColor(plan)}]}>
+                        {getText(plan)}
+                      </Text>
+                      {showRenewButton(plan) && (
+                        <TouchableOpacity onPress={() => onPressRenew(plan)}>
+                          <Text style={styles.renew}>Renew</Text>
+                        </TouchableOpacity>
+                      )}
+                    </View>
                   </View>
-                  <Image
-                    source={require('../../assets/images/carePlan.png')}
-                    style={styles.cpimage}
-                    resizeMode={'contain'}
-                  />
                 </View>
+                <Image
+                  source={require('../../assets/images/carePlan.png')}
+                  style={styles.cpimage}
+                  resizeMode={'contain'}
+                />
               </TouchableOpacity>
             );
           })}
@@ -137,11 +186,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
+  renew: {
+    fontSize: 12,
+    fontWeight: '400',
+    color: colors.themePurple,
+    textDecorationLine: 'underline',
+    textDecorationColor: colors.themePurple,
+  },
   itemSep: {
     width: 10,
   },
   container: {
     marginVertical: 10,
+    marginRight: 10,
     backgroundColor: colors.white,
     borderRadius: 12,
     padding: 10,
@@ -176,7 +233,6 @@ const styles = StyleSheet.create({
     fontSize: 10,
   },
   expiry: {
-    color: colors.darkGray,
     fontSize: 12,
     fontWeight: '400',
   },

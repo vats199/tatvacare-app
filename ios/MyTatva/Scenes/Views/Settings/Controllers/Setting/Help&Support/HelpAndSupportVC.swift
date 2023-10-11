@@ -270,9 +270,9 @@ class HelpAndSupportVC: ClearNavigationFontBlackBaseVC { //---------------------
         super.viewDidDisappear(animated)
     }
     
-    @IBAction func onGoBack(_ sender: Any) {
-           self.dismiss(animated: true, completion: nil)
-       }
+//    @IBAction func onGoBack(_ sender: Any) {
+//           self.dismiss(animated: true, completion: nil)
+//       }
 }
 
 //----------------------------------------------------------------------------

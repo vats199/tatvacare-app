@@ -77,6 +77,7 @@ extension EditProfileViewModel {
                                               address: "") { [weak self] (isDone) in
                 guard let self = self else {return}
                 if isDone {
+                    RNEventEmitter.emitter.sendEvent(withName: "profileUpdatedSuccess", body: [:])
                     self.vmResult.value = .success(nil)
                 }
             }

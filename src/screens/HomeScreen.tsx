@@ -45,8 +45,10 @@ import {
   navigateToExercise,
   navigateToBookAppointment,
   navigateToDiscover,
-  openMedicine,
   navigateToChronicCareProgram,
+  openPlanDetails,
+  onPressRenewPlan,
+  openMedicineExerciseDiet,
 } from '../routes/Router';
 import Home from '../api/home';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -62,8 +64,6 @@ type HomeScreenProps = CompositeScreenProps<
 >;
 
 const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
-  const isFocused = useIsFocused();
-
   const {setUserData, setUserLocation} = useApp();
 
   const [location, setLocation] = React.useState<object>({});
@@ -116,9 +116,50 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
     };
   }, []);
 
+  // Bottom Tab Bar Navigation
   useEffect(() => {
-    onPressLocation(); //Update location on all home screen focus
-  }, [isFocused]);
+    const subscribe = eventEmitter.addListener(
+      'bottomTabNavigationInitiated',
+      () => {
+        navigation.closeDrawer();
+      },
+    );
+
+    return () => {
+      subscribe.remove();
+    };
+  }, []);
+
+  // Location Updates
+  useEffect(() => {
+    const subscribe = eventEmitter.addListener(
+      'locationUpdatedSuccessfully',
+      (location: any) => {
+        const {city, state, country} = location;
+        setUserLocation({city, state, country});
+      },
+    );
+
+    return () => {
+      subscribe.remove();
+    };
+  }, []);
+
+  // Profile Update Success
+  useEffect(() => {
+    const subscribe = eventEmitter.addListener(
+      'profileUpdatedSuccess',
+      getHomeCarePlan,
+    );
+
+    return () => {
+      subscribe.remove();
+    };
+  }, []);
+
+  // useEffect(() => {
+  //   onPressLocation(); //Update location on all home screen focus
+  // }, [isFocused]);
 
   const getCurrentLocation = async () => {
     const currentLocation = await AsyncStorage.getItem('location');
@@ -141,6 +182,10 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
 
   const getHomeCarePlan = async () => {
     const homeCarePlan = await Home.getPatientCarePlan({});
+    const {city, state, country} = homeCarePlan?.data;
+    if (city && state && country) {
+      setUserLocation({city, state, country});
+    }
     setCarePlanData(homeCarePlan?.data);
     setUserData(homeCarePlan?.data);
   };
@@ -220,18 +265,19 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   };
 
   const onPressLocation = () => {
-    Geolocation.getCurrentPosition(
-      async position => {
-        await getLocationFromLatLng(
-          position?.coords?.latitude,
-          position?.coords?.longitude,
-        );
-      },
-      error => {
-        // Handle location error here
-      },
-      {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
-    );
+    // Geolocation.getCurrentPosition(
+    //   async position => {
+    //     await getLocationFromLatLng(
+    //       position?.coords?.latitude,
+    //       position?.coords?.longitude,
+    //     );
+    //   },
+    //   error => {
+    //     // Handle location error here
+    //   },
+    //   {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
+    // );
+    navigateTo('SetLocationVC');
   };
 
   const onPressBell = () => {
@@ -254,7 +300,10 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   const onPressMedicine = (filteredData: any) => {
     // console.log(filteredData);
     // navigateToMedicines('test');
-    openMedicine([{filteredData: filteredData}, {firstRow: 'medication'}]);
+    openMedicineExerciseDiet([
+      {filteredData: filteredData},
+      {firstRow: 'medication'},
+    ]);
   };
   const onPressMyIncidents = () => {
     navigateToIncident();
@@ -284,9 +333,14 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
       navigateToChronicCareProgram();
     }
   };
-  const onPressCarePlan = () => {
-    navigateToPlan('navigateToPlan');
+  const onPressCarePlan = (plan: any) => {
+    openPlanDetails([{planDetails: plan}]);
   };
+
+  const onPressRenew = (plan: any) => {
+    onPressRenewPlan([{planDetails: plan}]);
+  };
+
   const onPressReading = (filteredData: any, firstRow: any) => {
     openUpdateReading([{filteredData: filteredData}, {firstRow: firstRow}]);
   };
@@ -343,6 +397,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
             <CarePlanView
               data={carePlanData}
               onPressCarePlan={onPressCarePlan}
+              onPressRenew={onPressRenew}
               allPlans={allPlans}
             />
             {carePlanData?.doctor_says?.description && (
@@ -402,6 +457,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginBottom: 10,
     paddingVertical: 10,
+    shadowColor: colors.black,
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
   },
   searchText: {
     color: colors.subTitleLightGray,

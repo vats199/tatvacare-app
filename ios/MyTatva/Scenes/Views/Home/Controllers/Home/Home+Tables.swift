@@ -47,7 +47,7 @@ class MyDevicesCell2 : UITableViewCell {
         super.awakeFromNib()
         
         self.lblLungDeviceName.font(name: .medium, size: 13)
-            .textColor(color: UIColor.lightGray).text = "Smart Analyser"
+            .textColor(color: UIColor.lightGray).text = "Lung Function Analyser"
         
         self.lblLungDeviceDetails.font(name: .light, size: 12)
             .textColor(color: UIColor.lightGray)

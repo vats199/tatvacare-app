@@ -47,16 +47,65 @@ class Navigation: NSObject {
     
     
     @objc
+    func openPlanDetails(_ planDetails :NSArray) -> Void {
+        let planData = planDetails.firstObject as? NSDictionary
+        let planDetails = planData?["planDetails"] as? NSDictionary
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: planDetails!, options: [])
+            let vc = PurchsedCarePlanVC.instantiate(fromAppStoryboard: .BCP_temp)
+            vc.viewModel.planDetails = PlanDetail(fromJson: try JSON.init(data: jsonData))
+            vc.isBack = false
+            navigate(modelVC: vc)
+        }catch {
+            print(error)
+        }
+    }
+    
+    @objc
+    func onPressRenewPlan(_ planDetails: NSArray) -> Void {
+        let planData = planDetails.firstObject as? NSDictionary
+        let planDetails = planData?["planDetails"] as? NSDictionary
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: planDetails!, options: [])
+            let object = PlanDetail(fromJson: try JSON.init(data: jsonData))
+            GlobalAPI.shared.planDetailsAPI(plan_id: object.planMasterId,
+                                            durationType: object.enableRentBuy ? object.planType == kIndividual ? kRent : nil : nil,
+                                            patientPlanRelId: object.patientPlanRelId,
+                                            withLoader: true) { [weak self] isDone, object1, msg in
+                guard let self = self else {return}
+                if isDone {
+                    let vc = BCPCarePlanDetailVC.instantiate(fromAppStoryboard: .BCP_temp)
+                    
+                    vc.plan_id              = object.planMasterId
+                    vc.viewModel.cpDetail   = object1
+                    vc.patientPlanRelId     = object.patientPlanRelId
+    //                vc.isScrollToBuy    = isScrollToBuy
+                    vc.completionHandler = { obj in
+                      //to refresh data
+                    }
+                    navigate(modelVC: vc)
+                }
+            }
+        }catch {
+            print(error)
+        }
+       
+    }
+    
+    @objc
     func navigateToPlan(_ selectedType: NSString) -> Void {
-        
         if let hcServiceLongestPlan = UserModel.shared.hcServicesLongestPlan {
             let planModelVC = PurchsedCarePlanVC.instantiate(fromAppStoryboard: .BCP_temp)
             planModelVC.viewModel.planDetails = PlanDetail(fromJson: JSON(hcServiceLongestPlan.toDictionary()))
             planModelVC.isBack = true
-            navigate(modelVC: planModelVC)
-        }else {
+            DispatchQueue.main.async {
+                UIApplication.topViewController()?.navigationController?.pushViewController(planModelVC, animated: true)
+            }
+        } else {
             let planModelVC = BCPCarePlanVC.instantiate(fromAppStoryboard: .BCP_temp)
-            navigate(modelVC: planModelVC)
+            DispatchQueue.main.async {
+                UIApplication.topViewController()?.navigationController?.pushViewController(planModelVC, animated: true)
+            }
         }
     }
     
@@ -113,7 +162,7 @@ class Navigation: NSObject {
                 }
             }
             else {
-                self.openUpdateGoal(selectedType)
+                self.openMedicineExerciseDiet(selectedType)
             }
         })
     }
@@ -162,7 +211,7 @@ class Navigation: NSObject {
     }
     
     @objc
-    func openMedicine(_ selectedType: NSArray) {
+    func openMedicineExerciseDiet(_ selectedType: NSArray) {
         let fileteredData = selectedType.firstObject as? NSDictionary
         let key = (selectedType[1] as? NSDictionary)?["firstRow"] as? String
         let array = fileteredData?["filteredData"] as? NSArray ?? []
@@ -298,7 +347,6 @@ class Navigation: NSObject {
         DispatchQueue.main.async {
             UIApplication.topViewController()?.present(vc, animated: true)
         }
-        //self.navigate(modelVC: vc)
     }
     
     
@@ -331,10 +379,11 @@ class Navigation: NSObject {
     
     @objc func navigate(modelVC: UIViewController) {
         DispatchQueue.main.async {
-            let navController = UINavigationController(rootViewController: modelVC)
-            navController.modalPresentationStyle = .fullScreen
-            let topController = UIApplication.topViewController()
-            topController?.present(navController, animated: true, completion: nil)
+            UIApplication.topViewController()?.navigationController?.pushViewController(modelVC, animated: true)
+//            let navController = UINavigationController(rootViewController: modelVC)
+//            navController.modalPresentationStyle = .fullScreen
+//            let topController = UIApplication.topViewController()
+//            topController?.present(navController, animated: true, completion: nil)
         }
     }
     
@@ -364,7 +413,9 @@ class Navigation: NSObject {
             modelVC = ProfileVC.instantiate(fromAppStoryboard: .setting)
         case "AppointmentsHistoryVC":
             modelVC = AppointmentsHistoryVC.instantiate(fromAppStoryboard: .setting)
-            
+        case "SetLocationVC":
+            modelVC = SetLocationVC.instantiate(fromAppStoryboard: .auth)
+            (modelVC as? SetLocationVC)?.isEdit = true
         case "SetGoalsVC":
             modelVC = SetGoalsVC.instantiate(fromAppStoryboard: .auth)
             
@@ -410,6 +461,6 @@ open class RNEventEmitter: RCTEventEmitter {
   }
 
   open override func supportedEvents() -> [String] {
-    ["updatedGoalReadingSuccess","bookmarkUpdated"]
+    ["updatedGoalReadingSuccess","bookmarkUpdated","bottomTabNavigationInitiated","profileUpdatedSuccess","locationUpdatedSuccessfully"]
   }
 }

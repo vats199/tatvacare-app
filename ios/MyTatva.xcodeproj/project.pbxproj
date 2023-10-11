@@ -812,7 +812,7 @@
 		9AF1E62629FF9C0E002CF3D8 /* SomeoneElsePopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF1E62529FF9C0E002CF3D8 /* SomeoneElsePopupVC.swift */; };
 		9AF1E62829FFA1C0002CF3D8 /* SomeoneElsePopupVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF1E62729FFA1C0002CF3D8 /* SomeoneElsePopupVM.swift */; };
 		9AF1E62A29FFA4CE002CF3D8 /* SomeoneElseDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF1E62929FFA4CE002CF3D8 /* SomeoneElseDataModel.swift */; };
-		A368F08C2AD441D5008DDCA8 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = A368F08B2AD441D5008DDCA8 /* main.jsbundle */; };
+		A31262D12AD6F7A8003AF645 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = A31262D02AD6F7A8003AF645 /* main.jsbundle */; };
 		A3FAD6282ACAA2F50026CE46 /* DevicesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FAD6272ACAA2F50026CE46 /* DevicesVC.swift */; };
 		A3FAD62B2ACABB060026CE46 /* DevicesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FAD62A2ACABB060026CE46 /* DevicesViewModel.swift */; };
 		B8604DF02E0C2D06389976FD /* Pods_MyTatvaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8812ED21F4E5B3EE77B1ABF /* Pods_MyTatvaTests.framework */; };
@@ -1766,7 +1766,7 @@
 		9AF1E62929FFA4CE002CF3D8 /* SomeoneElseDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomeoneElseDataModel.swift; sourceTree = "<group>"; };
 		A179FD1F8E011AB49DB4344E /* Pods_MyTatva.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyTatva.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A309C6272AC858590095AADF /* GoogleMaps.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = GoogleMaps.xcframework; path = Pods/GoogleMaps/Maps/Frameworks/GoogleMaps.xcframework; sourceTree = "<group>"; };
-		A368F08B2AD441D5008DDCA8 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
+		A31262D02AD6F7A8003AF645 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		A36CD15F12E71C79351A3420 /* BcaVitalsDetailsTypeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BcaVitalsDetailsTypeVC.swift; sourceTree = "<group>"; };
 		A3FAD6272ACAA2F50026CE46 /* DevicesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesVC.swift; sourceTree = "<group>"; };
 		A3FAD62A2ACABB060026CE46 /* DevicesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesViewModel.swift; sourceTree = "<group>"; };
@@ -5915,7 +5915,7 @@
 		91A1754026789CC500297B66 = {
 			isa = PBXGroup;
 			children = (
-				A368F08B2AD441D5008DDCA8 /* main.jsbundle */,
+				A31262D02AD6F7A8003AF645 /* main.jsbundle */,
 				91A1754B26789CC500297B66 /* MyTatva */,
 				6169A390272BE1D70081C3B7 /* MyTatvaNotificationService */,
 				618AFEF6272C0884003C244C /* NotificationViewController */,
@@ -6594,7 +6594,7 @@
 				6186B03927019259009BEC12 /* Goal.storyboard in Resources */,
 				6196788428F563C6008CC4E5 /* doc.json in Resources */,
 				61C33C6C291BDFCE005E37D0 /* mytatva_01.json in Resources */,
-				A368F08C2AD441D5008DDCA8 /* main.jsbundle in Resources */,
+				A31262D12AD6F7A8003AF645 /* main.jsbundle in Resources */,
 				5371B1BA130E70EFA40B354A /* BCA.storyboard in Resources */,
 				73578501955AF9595139CDD3 /* Weigth_scale.json in Resources */,
 			);
@@ -6757,7 +6757,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nexport NODE_BINARY=$(fish -c 'which node')\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
+			shellScript = "export NODE_BINARY=$(fish -c 'which node')\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
 		AB7F8DC37CA13C2EBD3D4E10 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;

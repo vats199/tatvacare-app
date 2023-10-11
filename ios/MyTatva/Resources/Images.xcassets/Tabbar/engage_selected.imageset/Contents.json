@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "engage_selected.png",
+      "filename" : "learn_selected.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "engage_selected@2x.png",
+      "filename" : "learn_selected@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "engage_selected@3x.png",
+      "filename" : "learn_selected@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
