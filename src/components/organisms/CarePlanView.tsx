@@ -180,6 +180,13 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 10,
     width: '100%',
+    shadowColor: '#2121210D',
+    shadowOffset: {
+      width: 0,
+      height: 0.5,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 1.41,
   },
   rowBetween: {
     flexDirection: 'row',
@@ -206,6 +213,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     width: Dimensions.get('screen').width - 45,
+    shadowColor: '#2121210D',
+    shadowOffset: {
+      width: 0,
+      height: 0.5,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 1.41,
   },
   cpimage: {
     height: 80,

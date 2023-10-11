@@ -69,7 +69,9 @@ const MyHealthDiary: React.FC<MyHealthDiaryProps> = ({
       title: 'Medicines',
       description:
         medicineObj?.achieved_value > 0
-          ? `${medicineObj.achieved_value}/${medicineObj.goal_value} doses`
+          ? `${parseInt(medicineObj.achieved_value)}/${parseInt(
+              medicineObj.goal_value,
+            )} doses`
           : 'Log and track your medicines!',
       onPress: () => onPressMedicine(data),
     },
@@ -77,7 +79,9 @@ const MyHealthDiary: React.FC<MyHealthDiaryProps> = ({
       title: 'Diet',
       description:
         dietObj?.achieved_value > 0
-          ? `${dietObj.achieved_value}/${dietObj.goal_value} cal`
+          ? `${parseInt(dietObj.achieved_value)}/${parseInt(
+              dietObj.goal_value,
+            )} cal`
           : 'Log and track your calories!',
       onPress: onPressDiet,
     },
@@ -85,7 +89,9 @@ const MyHealthDiary: React.FC<MyHealthDiaryProps> = ({
       title: 'Exercises',
       description:
         exeObj?.achieved_value > 0
-          ? `${exeObj.achieved_value}/${exeObj.goal_value} minutes`
+          ? `${parseInt(exeObj.achieved_value)}/${parseInt(
+              exeObj.goal_value,
+            )} minutes`
           : 'Log your exercise details!',
       onPress: () => onPressExercise(data),
     },
@@ -187,6 +193,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     minHeight: 70,
+    shadowColor: '#2121210D',
+    shadowOffset: {
+      width: 0,
+      height: 0.5,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 1.41,
   },
   textContainer: {
     marginLeft: 10,

@@ -132,6 +132,13 @@ const styles = StyleSheet.create({
     marginRight: 10,
     height: 110,
     width: 75,
+    shadowColor: '#2121210D',
+    shadowOffset: {
+      width: 0,
+      height: 0.5,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 1.41,
   },
   iconContainer: {
     backgroundColor: colors.white,
