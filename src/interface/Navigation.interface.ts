@@ -9,8 +9,8 @@ export type AppStackParamList = {
 export type DrawerParamList = {
   Home: BottomTabParamList;
   AboutUsScreen: undefined;
-  ExerciseDetailScreen: {Data: any};
-  ExplorScreen: undefined;
+  // ExerciseDetailScreen: {Data: any};
+  // ExplorScreen: undefined;
 };
 export type TabParamList = {
   RoutineScreen: undefined;
@@ -20,12 +20,16 @@ export type ExerciesStackParamList = {
   ExplorScreen: TabParamList;
   ExerciseDetailScreen: {Data: any};
 };
+export type EngageStackParamList = {
+  EngageScreen: undefined;
+  EngageDetailScreen: {Data: any};
+};
 
 export type BottomTabParamList = {
   HomeScreen: undefined;
   Exercies: ExerciesStackParamList;
-  EngageScreen: undefined;
-  CarePlanScreen:undefined
+  EngageScreen: EngageStackParamList;
+  CarePlanScreen: undefined;
   // ProgramsScreen: undefined;
   // LearnScreen: undefined;
   // ExerciseScreen: undefined;
@@ -34,5 +38,5 @@ export type BottomTabParamList = {
 export type AuthStackParamList = {
   OnBoardingScreen: undefined;
   LoginScreen: undefined;
-  OTPScreen: { contact_no: string, isLoginOTP?: boolean | false };
+  OTPScreen: {contact_no: string; isLoginOTP?: boolean | false};
 };

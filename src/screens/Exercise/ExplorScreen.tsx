@@ -13,18 +13,23 @@ import {StackScreenProps} from '@react-navigation/stack';
 import {
   TabParamList,
   AppStackParamList,
-  DrawerParamList,
+  ExerciesStackParamList,
+  BottomTabParamList,
 } from '../../interface/Navigation.interface';
 import ExerciseCard from '../../components/molecules/ExerciseCard';
 import ExplorExercies from '../../components/organisms/ExplorExercies';
 import {colors} from '../../constants/colors';
 import {DrawerScreenProps} from '@react-navigation/drawer';
+import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 
 type ExplorScreenProps = CompositeScreenProps<
-  DrawerScreenProps<DrawerParamList, 'ExplorScreen'>,
+  MaterialTopTabScreenProps<TabParamList, 'ExplorScreen'>,
   CompositeScreenProps<
-    MaterialTopTabScreenProps<TabParamList, 'ExplorScreen'>,
-    StackScreenProps<AppStackParamList, 'TabScreen'>
+    StackScreenProps<ExerciesStackParamList, 'ExplorScreen'>,
+    CompositeScreenProps<
+      BottomTabScreenProps<BottomTabParamList, 'Exercies'>,
+      StackScreenProps<AppStackParamList, 'DrawerScreen'>
+    >
   >
 >;
 
@@ -74,38 +79,36 @@ const ExplorScreen: React.FC<ExplorScreenProps> = ({route, navigation}) => {
   };
 
   return (
-       <ScrollView
-        style={{flex: 1}}
-        showsVerticalScrollIndicator={false}>
-        <View style={styles.Container}>
-          <View style={styles.titleContainer}>
-            <Text style={styles.title}>Exercise Of the week</Text>
-          </View>
-          <ExerciseCard
-            exerciseData={exerciseOfWeek}
-            onPlayPause={() => handlePlay}
-          />
+    <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
+      <View style={styles.Container}>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>Exercise Of the week</Text>
         </View>
-        <View>
-          <View style={styles.titleContainer2}>
-            <Text style={styles.title2}>{'Breathing'}</Text>
-            <TouchableOpacity onPress={handleViewMore}>
-              <Text style={styles.ViewMore}>View More</Text>
-            </TouchableOpacity>
-          </View>
-          <ExplorExercies exerciseCardData={exercise} />
+        <ExerciseCard
+          exerciseData={exerciseOfWeek}
+          onPlayPause={() => handlePlay}
+        />
+      </View>
+      <View>
+        <View style={styles.titleContainer2}>
+          <Text style={styles.title2}>{'Breathing'}</Text>
+          <TouchableOpacity onPress={handleViewMore}>
+            <Text style={styles.ViewMore}>View More</Text>
+          </TouchableOpacity>
         </View>
-        <View>
-          <View style={styles.titleContainer2}>
-            <Text style={styles.title2}>{'Walking'}</Text>
-            <TouchableOpacity onPress={handleViewMore}>
-              <Text style={styles.ViewMore}>View More</Text>
-            </TouchableOpacity>
-          </View>
-          <ExplorExercies exerciseCardData={exercise} />
+        <ExplorExercies exerciseCardData={exercise} />
+      </View>
+      <View>
+        <View style={styles.titleContainer2}>
+          <Text style={styles.title2}>{'Walking'}</Text>
+          <TouchableOpacity onPress={handleViewMore}>
+            <Text style={styles.ViewMore}>View More</Text>
+          </TouchableOpacity>
         </View>
-      </ScrollView>
-   );
+        <ExplorExercies exerciseCardData={exercise} />
+      </View>
+    </ScrollView>
+  );
 };
 
 export default ExplorScreen;

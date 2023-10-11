@@ -9,6 +9,7 @@ import OnBoardingScreen from '../screens/Auth/OnBoardingScreen';
 import OTPScreen from '../screens/Auth/OTPScreen';
 import EngageScreen from '../screens/Engage/EngageScreen';
 import CarePlanScreen from '../screens/CarePlan/CarePlanScreen';
+import EngageDetailScreen from '../screens/Engage/EngageDetailScreen';
 import {
   AppStackParamList,
   DrawerParamList,
@@ -16,6 +17,7 @@ import {
   TabParamList,
   BottomTabParamList,
   ExerciesStackParamList,
+  EngageStackParamList,
 } from '../interface/Navigation.interface';
 import {NavigationContainer} from '@react-navigation/native';
 import {
@@ -102,7 +104,7 @@ const BottomTabScreen = () => {
       />
       <BottomTab.Screen
         name={'EngageScreen'}
-        component={EngageScreen}
+        component={EngageStackScreen}
         options={{tabBarLabel: 'Engage'}}
       />
       <BottomTab.Screen
@@ -148,6 +150,20 @@ const TabScreen = () => {
   );
 };
 
+const EngageStack = createStackNavigator<EngageStackParamList>();
+const EngageStackScreen = () => {
+  return (
+    <EngageStack.Navigator
+      initialRouteName="EngageScreen"
+      screenOptions={{headerShown: false}}>
+      <EngageStack.Screen name="EngageScreen" component={EngageScreen} />
+      <EngageStack.Screen
+        name="EngageDetailScreen"
+        component={EngageDetailScreen}
+      />
+    </EngageStack.Navigator>
+  );
+};
 const ExerciesStack = createStackNavigator<ExerciesStackParamList>();
 const ExerciesStackScreen = () => {
   return (

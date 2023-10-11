@@ -21,6 +21,11 @@ export const colors = {
   stock: '#D2D4D7',
   titleLightGray: '#9E99B1',
   tabTitleColor: '#9F8EAA',
+  lightPurple: '#C57FFA',
+  lightGreen: '#77DD77',
+  lightYellow: '#FFBD00',
+  lightRed: '#FF7F8C',
+  lightGrayBackgroundColor:'#DBDBDB',
 
   OVERLAY_DARK_10: 'rgba(0,0,0,0.1)',
   OVERLAY_DARK_20: 'rgba(0,0,0,0.2)',
