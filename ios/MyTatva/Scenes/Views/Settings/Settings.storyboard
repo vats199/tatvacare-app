@@ -552,7 +552,7 @@
                     <navigationItem key="navigationItem" id="qXv-Zj-wYg">
                         <leftBarButtonItems>
                             <barButtonItem style="plain" id="OTn-iC-fhg">
-                                <view key="customView" contentMode="scaleToFill" id="awE-ZT-OcD">
+                                <view key="customView" contentMode="scaleToFill" ambiguous="YES" id="awE-ZT-OcD">
                                     <rect key="frame" x="20" y="5.5" width="71" height="33"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
@@ -2152,7 +2152,7 @@
                     <navigationItem key="navigationItem" id="DYW-nq-WTk">
                         <leftBarButtonItems>
                             <barButtonItem style="plain" id="UkZ-Hc-FM5">
-                                <view key="customView" contentMode="scaleToFill" id="PXW-jW-u5W">
+                                <view key="customView" contentMode="scaleToFill" ambiguous="YES" id="PXW-jW-u5W">
                                     <rect key="frame" x="20" y="5.5" width="71" height="33"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
@@ -4876,7 +4876,7 @@
                         <leftBarButtonItems>
                             <barButtonItem image="back_ic" id="aCE-JY-5He">
                                 <connections>
-                                    <action selector="onGoBack:" destination="NwK-Te-pfb" id="aHc-Uz-u3n"/>
+                                    <action selector="onGoBack:" destination="NwK-Te-pfb" id="128-7Q-ZK6"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem style="plain" id="mpV-qn-mOP">
@@ -10492,7 +10492,7 @@ Breach Candy, Cumballa Hill, Mumbai</string>
         <image name="acc_setting_arrow_right" width="6.5" height="11.5"/>
         <image name="address_coach" width="24.5" height="24.5"/>
         <image name="alert_ic" width="120" height="120"/>
-        <image name="arrow_right" width="6.5" height="11"/>
+        <image name="arrow_right" width="6.5" height="11.5"/>
         <image name="arrow_right_tint" width="6.5" height="11.5"/>
         <image name="b1" width="130" height="75"/>
         <image name="back_ic" width="9.5" height="17"/>

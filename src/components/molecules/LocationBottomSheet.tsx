@@ -69,6 +69,7 @@ const LocationBottomSheet = forwardRef<
       useState<boolean>(false);
 
     const [pincode, setPincode] = useState<string>('');
+    const [error, setError] = useState<string>('');
 
     const onChangePin = (val: string) => {
       if (val?.length <= 6) {
@@ -124,6 +125,14 @@ const LocationBottomSheet = forwardRef<
         setUserLocation(locationPayload);
         setLocationPermission('granted');
         bottomSheetModalRef.current?.dismiss();
+      } else {
+        switch (data.status) {
+          case 'ZERO_RESULTS':
+            setError('Enter a valid pincode');
+            break;
+          default:
+            setError('Something went wrong!');
+        }
       }
     };
 
@@ -164,6 +173,7 @@ const LocationBottomSheet = forwardRef<
                     editable={pincode?.length <= 6}
                     value={pincode}
                     showAnimatedLabel={true}
+                    maxLength={6}
                     onChangeText={onChangePin}
                     textStyle={styles.inputBoxStyle}
                     placeholder="Enter Pincode"
@@ -190,6 +200,7 @@ const LocationBottomSheet = forwardRef<
                     </Text>
                   </TouchableOpacity>
                 </View>
+                {error.length > 0 && <Text style={styles.error}>{error}</Text>}
                 <TouchableOpacity
                   onPress={() => {
                     Platform.OS == 'android'
@@ -270,6 +281,11 @@ const styles = StyleSheet.create({
   container: {
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
+  },
+  error: {
+    color: colors.red,
+    fontSize: 12,
+    alignSelf: 'flex-start',
   },
   sheetContainer: {
     padding: 15,

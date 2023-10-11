@@ -113,7 +113,7 @@ class DevicesVC: WhiteNavigationBaseVC {
         super.viewDidDisappear(animated)
     }
     @IBAction func onGoBack(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
     }
 
 
