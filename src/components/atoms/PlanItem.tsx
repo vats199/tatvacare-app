@@ -16,13 +16,6 @@ const PlanItem: React.FC<PlanItemProps> = ({
       onPress={onPressKnowMore}
       activeOpacity={0.6}
       style={styles.planItemContainer}>
-      <View style={styles.textContainer}>
-        <Text style={styles.name}>{plan.plan_name}</Text>
-        <Text style={styles.subtitle}>{plan.sub_title}</Text>
-        <View>
-          <Text style={styles.knowmore}>Know More</Text>
-        </View>
-      </View>
       <Image
         source={{uri: plan.image_url}}
         style={styles.image}
@@ -47,8 +40,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   image: {
-    height: 60,
-    width: 60,
+    height: '100%',
+    width: '100%',
     backgroundColor: colors.lightGrey,
   },
   textContainer: {

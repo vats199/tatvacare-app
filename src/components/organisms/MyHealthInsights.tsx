@@ -29,9 +29,13 @@ const MyHealthInsights: React.FC<MyHealthInsightsProps> = ({
   const goals: any[] = data?.goals;
   const readings: any[] = data?.readings;
 
-  const getValue = (val: any) => {
-    if (val || (val == 0 && val !== '')) {
-      return parseFloat(val).toFixed(2);
+  const getValue = (val: string) => {
+    let num = parseFloat(val);
+    if (num) {
+      return num.toLocaleString('en-IN', {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2,
+      });
     } else {
       return '-';
     }
@@ -53,7 +57,7 @@ const MyHealthInsights: React.FC<MyHealthInsightsProps> = ({
         </View>
         <View style={styles.valuesRow}>
           <Text style={styles.hiItemValue}>
-            {getValue(item?.reading_value)}
+            {getValue(item?.reading_value) || '-'}
           </Text>
           <Text style={styles.hiItemKey}>{item?.measurements}</Text>
         </View>
@@ -77,10 +81,10 @@ const MyHealthInsights: React.FC<MyHealthInsightsProps> = ({
         </View>
         <View style={styles.valuesRow}>
           <Text style={styles.hiItemValue}>
-            {getValue(item?.todays_achieved_value)}
+            {item?.todays_achieved_value || '0'}
           </Text>
           <Text style={styles.hiItemKey}>
-            / {getValue(item?.goal_value)} {item?.goal_measurement}
+            / {item?.goal_value} {item?.goal_measurement}
           </Text>
         </View>
       </TouchableOpacity>
@@ -176,8 +180,9 @@ const styles = StyleSheet.create({
   },
   hiItemValue: {
     color: colors.black,
+    flexShrink: 1,
     fontWeight: '700',
-    fontSize: 20,
+    fontSize: 18,
   },
   hiItemKey: {
     color: colors.secondaryLabel,

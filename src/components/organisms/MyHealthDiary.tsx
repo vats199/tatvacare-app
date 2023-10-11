@@ -69,7 +69,7 @@ const MyHealthDiary: React.FC<MyHealthDiaryProps> = ({
       title: 'Medicines',
       description:
         medicineObj?.achieved_value > 0
-          ? `${medicineObj.achieved_value}/${medicineObj.goal_value}`
+          ? `${medicineObj.achieved_value}/${medicineObj.goal_value} doses`
           : 'Log and track your medicines!',
       onPress: () => onPressMedicine(data),
     },
@@ -77,7 +77,7 @@ const MyHealthDiary: React.FC<MyHealthDiaryProps> = ({
       title: 'Diet',
       description:
         dietObj?.achieved_value > 0
-          ? `${dietObj.achieved_value}/${dietObj.goal_value}`
+          ? `${dietObj.achieved_value}/${dietObj.goal_value} cal`
           : 'Log and track your calories!',
       onPress: onPressDiet,
     },
@@ -85,7 +85,7 @@ const MyHealthDiary: React.FC<MyHealthDiaryProps> = ({
       title: 'Exercises',
       description:
         exeObj?.achieved_value > 0
-          ? `${exeObj.achieved_value}/${exeObj.goal_value}`
+          ? `${exeObj.achieved_value}/${exeObj.goal_value} minutes`
           : 'Log your exercise details!',
       onPress: () => onPressExercise(data),
     },
