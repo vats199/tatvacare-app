@@ -31,7 +31,7 @@ export const navigateToDiscover = Navigation.navigateToDiscover;
 export const navigateToChronicCareProgram =
   Navigation.navigateToChronicCareProgram;
 export const openUpdateGoal = Navigation.openUpdateGoal;
-export const openMedicine = Navigation.openMedicine;
+export const openMedicineExerciseDiet = Navigation.openMedicineExerciseDiet;
 export const openHealthKitSyncView = Navigation.openHealthKitSyncView;
 export const navigateToBookAppointment = Navigation.navigateToBookAppointment;
 

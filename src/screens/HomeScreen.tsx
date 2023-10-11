@@ -45,10 +45,10 @@ import {
   navigateToExercise,
   navigateToBookAppointment,
   navigateToDiscover,
-  openMedicine,
   navigateToChronicCareProgram,
   openPlanDetails,
   onPressRenewPlan,
+  openMedicineExerciseDiet,
 } from '../routes/Router';
 import Home from '../api/home';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -300,7 +300,10 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   const onPressMedicine = (filteredData: any) => {
     // console.log(filteredData);
     // navigateToMedicines('test');
-    openMedicine([{filteredData: filteredData}, {firstRow: 'medication'}]);
+    openMedicineExerciseDiet([
+      {filteredData: filteredData},
+      {firstRow: 'medication'},
+    ]);
   };
   const onPressMyIncidents = () => {
     navigateToIncident();

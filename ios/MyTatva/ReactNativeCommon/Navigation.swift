@@ -162,7 +162,7 @@ class Navigation: NSObject {
                 }
             }
             else {
-                self.openUpdateGoal(selectedType)
+                self.openMedicineExerciseDiet(selectedType)
             }
         })
     }
@@ -211,7 +211,7 @@ class Navigation: NSObject {
     }
     
     @objc
-    func openMedicine(_ selectedType: NSArray) {
+    func openMedicineExerciseDiet(_ selectedType: NSArray) {
         let fileteredData = selectedType.firstObject as? NSDictionary
         let key = (selectedType[1] as? NSDictionary)?["firstRow"] as? String
         let array = fileteredData?["filteredData"] as? NSArray ?? []

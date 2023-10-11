@@ -87,7 +87,7 @@ class WalkthroughVC: UIViewController {
         self.colWalkthrough.delegate = self
         self.colWalkthrough.dataSource = self
         
-        self.vwPageControl.drawer = DropDrawer(height:6, width: 30,space: 5, indicatorColor: .themePurpleBlack)
+        self.vwPageControl.drawer = SlideDrawer(height:6, width: 30,space: 5, indicatorColor: .themePurpleBlack)
         self.vwPageControl.drawer.numberOfPages = self.viewModel.numOfItem()
     }
     

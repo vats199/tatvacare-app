@@ -37,7 +37,7 @@ RCT_EXTERN_METHOD(openHealthKitSyncView)
 //RCT_EXTERN_METHOD(getHomeScreenDataStatus: (RCTPromiseResolveBlock)resolve rejecter: (RCTPromiseRejectBlock)reject)
 RCT_EXTERN_METHOD(openUpdateReading: (NSArray)destination)
 RCT_EXTERN_METHOD(openUpdateGoal: (NSArray)destination)
-RCT_EXTERN_METHOD(openMedicine: (NSArray)destination)
+RCT_EXTERN_METHOD(openMedicineExerciseDiet: (NSArray)destination)
 RCT_EXTERN_METHOD(goBack)
 @end
 
