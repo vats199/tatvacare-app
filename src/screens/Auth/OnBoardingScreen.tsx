@@ -138,7 +138,7 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({ navigation, route }
   }
   return (
     <SafeAreaView edges={['bottom']} style={styles.container}>
-      <View style={[styles.wrapper, { paddingTop: insets.top }]}>
+      {/* <View style={[styles.wrapper, { paddingTop: insets.top }]}>
         <FlatList
           ref={flatListRef}
           // onScroll={_onscroll}
@@ -161,7 +161,7 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({ navigation, route }
             )
           })}
         </View>
-      </View>
+      </View> */}
       <View style={styles.spaceView} />
       <Button
         title='Get Started'

@@ -7,7 +7,8 @@ export const colors = {
   darkGray: '#919191',
   subTitleLightGray: '#616161',
   inputValueDarkGray: '#212121',
-
+  lightGreyishBlue: '#F9F9FF',
+  veryLightGreyishBlue: '#EFEFF4',
   inputBoxLightBorder: '#E0E0E0',
   inputBoxDarkBorder: '#230435',
   labelDarkGray: '#313131',

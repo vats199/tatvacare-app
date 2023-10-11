@@ -16,6 +16,7 @@ import {
   AppStackParamList,
   DrawerParamList,
   BottomTabParamList,
+  HomeStackParamList,
 } from '../interface/Navigation.interface';
 import {Container, Screen} from '../components/styled/Views';
 import {Icons} from '../constants/icons';
@@ -49,8 +50,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {StackScreenProps} from '@react-navigation/stack';
 
 type HomeScreenProps = CompositeScreenProps<
+  StackScreenProps<HomeStackParamList, 'HomeScreen'>,
+  CompositeScreenProps<
   BottomTabScreenProps<BottomTabParamList, 'HomeScreen'>,
   StackScreenProps<AppStackParamList, 'DrawerScreen'>
+  >
 >;
 
 const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
@@ -143,6 +147,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   };
   const onPressDiet = () => {
     // navigateTo('FoodDiaryParentVC');
+    navigation.navigate("DietScreen");
   };
   const onPressExercise = (filteredData: any) => {
     // navigateToMedicines('test');
