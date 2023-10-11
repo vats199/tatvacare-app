@@ -28,6 +28,7 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({navigation}) => {
   const onPressPlus = () => {
     navigation.navigate('DietDetail');
   };
+console.log("data");
 
   return (
     <View style={styles.container}>
