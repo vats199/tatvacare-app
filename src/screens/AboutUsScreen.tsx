@@ -12,6 +12,7 @@ import {StackScreenProps} from '@react-navigation/stack';
 import WebView from 'react-native-webview';
 import AboutUsTabSwitcher from '../components/atoms/AboutUsTabSwitcher';
 import {Icons} from '../constants/icons';
+import LottieView from 'lottie-react-native';
 
 type AboutUsScreenProps = CompositeScreenProps<
   DrawerScreenProps<DrawerParamList, 'AboutUsScreen'>,
@@ -26,6 +27,8 @@ const AboutUsScreen: React.FC<AboutUsScreenProps> = ({navigation, route}) => {
   const [aboutUsTab, setAboutUsTab] = React.useState<
     'about' | 'terms' | 'policy'
   >('about');
+
+  const [loading, setLoading] = React.useState<boolean>(true);
 
   const onPressClose = () => {
     navigation.goBack();
@@ -42,8 +45,22 @@ const AboutUsScreen: React.FC<AboutUsScreenProps> = ({navigation, route}) => {
     }
   };
 
+  React.useEffect(() => {
+    setLoading(true);
+  }, [aboutUsTab]);
+
   return (
     <SafeAreaView edges={['bottom', 'top']} style={styles.screen}>
+      {loading && (
+        <View style={styles.overlay}>
+          <LottieView
+            source={require('../assets/images/mytatva_animate_loader.json')}
+            autoPlay
+            loop
+            style={{height: 125, width: 125}}
+          />
+        </View>
+      )}
       <View style={styles.container}>
         <TouchableOpacity
           style={styles.closeBtn}
@@ -59,7 +76,7 @@ const AboutUsScreen: React.FC<AboutUsScreenProps> = ({navigation, route}) => {
           source={{uri: getUrl()}}
           style={{flex: 1}}
           allowsFullscreenVideo={false}
-          startInLoadingState
+          onLoadEnd={() => setLoading(false)}
         />
       </View>
     </SafeAreaView>
@@ -72,6 +89,14 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     backgroundColor: colors.white,
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    // position: 'absolute',
+    zIndex: 1,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   container: {
     flex: 1,
