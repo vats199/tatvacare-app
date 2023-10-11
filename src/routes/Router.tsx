@@ -17,8 +17,8 @@ import {
   TabParamList,
   BottomTabParamList,
   ExerciesStackParamList,
-  EngageStackParamList,
   HomeStackParamList,
+  EngageStackParamList,
 } from '../interface/Navigation.interface';
 import {NavigationContainer} from '@react-navigation/native';
 import {
@@ -29,7 +29,7 @@ import CustomDrawer from '../components/organisms/CustomDrawer';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import {colors} from '../constants/colors';
+import {colors} from '../constants/colors'; 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Image} from 'react-native';
 import DietScreen from '../screens/Home/DietScreen';
@@ -198,21 +198,20 @@ const AuthStackScreen = () => {
   );
 };
 
-const HomeStack=createStackNavigator<HomeStackParamList>();
-const HomeStackScreen=()=> {
+const HomeStack = createStackNavigator<HomeStackParamList>();
+const HomeStackScreen = () => {
   return (
-    <HomeStack.Navigator 
-    screenOptions={{
-      headerShown: false,
-    }}
-    >
+    <HomeStack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}>
       <HomeStack.Screen name="HomeScreen" component={HomeScreen} />
       <HomeStack.Screen name="DietScreen" component={DietScreen} />
       <HomeStack.Screen name="AddDiet" component={AddDietScreen} />
       <HomeStack.Screen name="DietDetail" component={DietDetailScreen} />
     </HomeStack.Navigator>
-  )
-}
+  );
+};
 const AppStack = createStackNavigator<AppStackParamList>();
 const Router = () => {
   return (
