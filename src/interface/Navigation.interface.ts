@@ -4,6 +4,8 @@ export type AppStackParamList = {
   DrawerScreen: DrawerParamList;
   AuthStackScreen: AuthStackParamList;
   TabScreen: TabParamList;
+  AppointmentScreen:undefined;
+  AppointmentWithScreen:{type:string}
 };
 
 export type DrawerParamList = {

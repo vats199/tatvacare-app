@@ -29,6 +29,8 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 import {colors} from '../constants/colors';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Image} from 'react-native';
+import AppointmentScreen from '../screens/Appointment/AppointmentScreen';
+import AppointmentWithScreen from '../screens/Appointment/AppointmentWithScreen';
 
 const Drawer = createDrawerNavigator<DrawerParamList>();
 const DrawerScreen = () => {
@@ -189,6 +191,14 @@ const Router = () => {
         <AppStack.Screen name={'TabScreen'} component={TabScreen} />
         <AppStack.Screen name={'AuthStackScreen'} component={AuthStackScreen} />
         <AppStack.Screen name={'DrawerScreen'} component={DrawerScreen} />
+        <AppStack.Screen
+          name={'AppointmentScreen'}
+          component={AppointmentScreen}
+        />
+        <AppStack.Screen
+          name={'AppointmentWithScreen'}
+          component={AppointmentWithScreen}
+        />
       </AppStack.Navigator>
     </NavigationContainer>
   );

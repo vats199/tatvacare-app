@@ -64,6 +64,10 @@ import calendar from '../assets/icons/calendar.svg';
 import restDay from '../assets/icons/restDay.svg';
 import backArrow from '../assets/icons/backArrow.svg';
 import Filter from '../assets/icons/filter.svg';
+import Correct from '../assets/icons/correct.svg';
+import RoundCalendar from '../assets/icons/roundCalendar.svg';
+import RoundLab from '../assets/icons/roundLab.svg';
+
 
 export const Icons = {
   HomeActive,
@@ -127,4 +131,7 @@ export const Icons = {
   restDay,
   backArrow,
   Filter,
+  Correct,
+  RoundCalendar,
+  RoundLab
 };
