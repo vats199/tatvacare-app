@@ -11,6 +11,8 @@ type DietOptionItem = {
 };
 
 const DietOption: React.FC = () => {
+  console.log("hey");
+  
   const options: DietOptionItem[] = [
     {
       id: 1,
