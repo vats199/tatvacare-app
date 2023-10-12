@@ -170,6 +170,9 @@ PODS:
   - KDCircularProgress (1.5.4)
   - libevent (2.1.12)
   - lottie-ios (4.3.2)
+  - lottie-react-native (6.3.1):
+    - lottie-ios (~> 4.3.0)
+    - React-Core
   - MaterialShowcase (0.8.0)
   - Moya (15.0.0):
     - Moya/Core (= 15.0.0)
@@ -711,6 +714,7 @@ DEPENDENCIES:
   - KDCircularProgress
   - libevent (~> 2.1.12)
   - lottie-ios
+  - lottie-react-native (from `../node_modules/lottie-react-native`)
   - MaterialShowcase
   - Moya
   - QorumLogs
@@ -849,6 +853,8 @@ EXTERNAL SOURCES:
   hermes-engine:
     :podspec: "../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec"
     :tag: hermes-2023-08-07-RNv0.72.4-813b2def12bc9df02654b3e3653ae4a68d0572e0
+  lottie-react-native:
+    :path: "../node_modules/lottie-react-native"
   RCT-Folly:
     :podspec: "../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec"
   RCTRequired:
@@ -994,6 +1000,7 @@ SPEC CHECKSUMS:
   KDCircularProgress: 98200c6b8e85d22bc04eb644721d3b1e12b0686b
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   lottie-ios: 48af491639ba6e8bb7cfaf7649b8a339487da935
+  lottie-react-native: c9f1db4f4124dcce9f8159e65d8dc6e8bcb11fb4
   MaterialShowcase: 0c0cef713a6504cd2a76a5d047bcb2787944a318
   Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
