@@ -119,7 +119,7 @@ export const QuestionOneScreenStyle = StyleSheet.create({
         marginRight: Matrics.s(12),
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginTop: Matrics.vs(20),
+        marginTop: Matrics.vs(12),
         height: Matrics.mvs(44),
         borderWidth: 1,
         borderRadius: Matrics.mvs(16),
@@ -142,7 +142,7 @@ export const QuestionOneScreenStyle = StyleSheet.create({
         backgroundColor: 'rgba(118, 15, 178, 0.08)',
         borderWidth: 1,
         borderColor: colors.themePurple,
-        marginTop: Matrics.vs(20),
+        marginTop: Matrics.vs(12),
         borderRadius: Matrics.mvs(12),
         justifyContent: 'center',
         alignItems: 'center'
