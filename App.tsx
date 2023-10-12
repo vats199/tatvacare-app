@@ -159,13 +159,13 @@ const App = () => {
       <AppProvider>
         {/* <SafeAreaView style={{flex:1}}> */}
         <Router />
-        {/* <LocationBottomSheet
-            ref={BottomSheetRef}
-            setLocation={setLocation}
-            requestLocationPermission={requestLocationPermission}
-            setLocationPermission={setLocationPermission}
-            locationPermission={locationPermission}
-          /> */}
+        <LocationBottomSheet
+          ref={BottomSheetRef}
+          setLocation={setLocation}
+          requestLocationPermission={requestLocationPermission}
+          setLocationPermission={setLocationPermission}
+          locationPermission={locationPermission}
+        />
         {/* </SafeAreaView> */}
       </AppProvider>
     </GestureHandlerRootView>

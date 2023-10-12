@@ -22,7 +22,9 @@ export const colors = {
   stock: '#D2D4D7',
   titleLightGray: '#9E99B1',
   tabTitleColor: '#9F8EAA',
+  genderSelectedBorderColor: '#3B0859',
 
+  THEME_OVERLAY: 'rgba(118, 15, 178, 0.08)',
   OVERLAY_DARK_10: 'rgba(0,0,0,0.1)',
   OVERLAY_DARK_20: 'rgba(0,0,0,0.2)',
   OVERLAY_DARK_30: 'rgba(0,0,0,0.3)',

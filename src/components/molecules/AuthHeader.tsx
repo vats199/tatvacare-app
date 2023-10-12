@@ -1,8 +1,8 @@
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
-import {Icons} from '../../constants/icons';
-import {colors} from '../../constants/colors';
-import {Matrics} from '../../constants';
+import { Icons } from '../../constants/icons';
+import { colors } from '../../constants/colors';
+import { Matrics } from '../../constants';
 import fonts from '../../constants/fonts';
 
 type AuthHeaderProps = {
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     height: Matrics.vs(40),
     alignItems: 'center',
     paddingHorizontal: Matrics.s(20),
-    backgroundColor: colors.white,
+    // backgroundColor: colors.white,
   },
   skipText: {
     color: colors.themePurple,

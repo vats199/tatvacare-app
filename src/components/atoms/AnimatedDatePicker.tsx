@@ -18,7 +18,7 @@ export type AnimatedInputFieldRef = {
     focus: () => void;
 }
 
-const AnimatedInputField = forwardRef<AnimatedInputFieldRef, AnimatedInputFieldProps>(({
+const AnimatedDatePicker = forwardRef<AnimatedInputFieldRef, AnimatedInputFieldProps>(({
     label,
     textStyle,
     style,
@@ -86,11 +86,11 @@ const AnimatedInputField = forwardRef<AnimatedInputFieldRef, AnimatedInputFieldP
                         {rightLabel && <Text style={styles.rightlabel}>{rightLabel} : {rightValue}</Text>}
                     </View>
                 } */}
-                <TapGestureHandler onHandlerStateChange={handleFocus}>
+                {/* <TapGestureHandler onHandlerStateChange={handleFocus}> */}
 
-                    <Animated.View style={[styles.row]}>
-                        {showAnimatedLabel && (isFocused || (value?.length ?? 0) > 0) && <Animated.Text style={{ position: 'absolute', transform: [{ translateY }], color: colors.subTitleLightGray, fontSize: Matrics.mvs(12), fontFamily: Fonts.REGULAR }}>{placeholder}</Animated.Text>}
-                        <TextInput
+                <Animated.View style={[styles.row]}>
+                    {showAnimatedLabel && (isFocused || (value?.length ?? 0) > 0) && <Animated.Text style={{ position: 'absolute', transform: [{ translateY }], color: colors.subTitleLightGray, fontSize: Matrics.mvs(12), fontFamily: Fonts.REGULAR }}>{placeholder}</Animated.Text>}
+                    {/* <TextInput
                             placeholder={isFocused ? '' : showAnimatedLabel || !isFocused ? placeholder : ''}
                             placeholderTextColor={colors.subTitleLightGray}
                             value={value}
@@ -107,25 +107,45 @@ const AnimatedInputField = forwardRef<AnimatedInputFieldRef, AnimatedInputFieldP
                             ref={textInputRef}
                             secureTextEntry={hidden}
                             style={[editable ? styles.canEdit : styles.cannotEdit, textStyle, showAnimatedLabel && (isFocused || (value?.length ?? 0) > 0) && { paddingTop: 15 }]}
-                        />
-                    </Animated.View>
-                </TapGestureHandler>
+                        /> */}
+                    {value != '' && value != null ? (
+                        <Text style={styles.valueText}>{value}</Text>
+                    ) :
+                        (
+                            <Text style={styles.placeholderText}>{placeholder}</Text>
+                        )
+                    }
+
+
+
+                </Animated.View>
+                {/* </TapGestureHandler> */}
             </View>
             {(error?.length ?? 0) > 0 && showErrorText && <Text style={styles.error}>{error}</Text>}
         </>
     )
 })
 
-export default AnimatedInputField
+export default AnimatedDatePicker
 
 const styles = StyleSheet.create({
     container: {
-        borderWidth: 1,
-        borderRadius: 5,
+        // borderWidth: 1,
+        // borderRadius: 5,
         borderColor: 'gray',
         paddingVertical: 5,
         paddingHorizontal: 10,
         marginVertical: 5
+    },
+    placeholderText: {
+        color: colors.subTitleLightGray,
+        fontFamily: Fonts.REGULAR,
+        fontSize: Matrics.mvs(14)
+    },
+    valueText: {
+        color: colors.inputValueDarkGray,
+        fontFamily: Fonts.MEDIUM,
+        fontSize: Matrics.mvs(14)
     },
     errorContainer: {
         borderColor: 'red',
@@ -154,8 +174,8 @@ const styles = StyleSheet.create({
         padding: 0,
         flex: 1,
         color: colors.inputValueDarkGray,
-        fontFamily: Fonts.MEDIUM,
-        fontSize: Matrics.mvs(14)
+        fontWeight: '600',
+        fontSize: 16
     },
     cannotEdit: {
         color: 'gray',

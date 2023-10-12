@@ -1,27 +1,27 @@
-import {Image, Text, View} from 'react-native';
+import { Image, Text, View } from 'react-native';
 import React from 'react';
-import {CommonActions, CompositeScreenProps} from '@react-navigation/native';
-import {StackScreenProps} from '@react-navigation/stack';
-import {useSafeAreaInsets, SafeAreaView} from 'react-native-safe-area-context';
+import { CommonActions, CompositeScreenProps } from '@react-navigation/native';
+import { StackScreenProps } from '@react-navigation/stack';
+import { useSafeAreaInsets, SafeAreaView } from 'react-native-safe-area-context';
 
 import {
   AppStackParamList,
   AuthStackParamList,
   SetupProfileStackParamList,
 } from '../../interface/Navigation.interface';
-import {useApp} from '../../context/app.context';
-import {WelcomeScreenStyle as styles} from './styles';
+import { useApp } from '../../context/app.context';
+import { WelcomeScreenStyle as styles } from './styles';
 import images from '../../constants/images';
 import Button from '../../components/atoms/Button';
-import {Matrics} from '../../constants';
+import { Matrics } from '../../constants';
 
 type WelcomeScreenProps = CompositeScreenProps<
   StackScreenProps<SetupProfileStackParamList, 'WelcomeScreen'>,
   StackScreenProps<AppStackParamList, 'SetupProfileScreen'>
 >;
 
-const WelcomeScreen: React.FC<WelcomeScreenProps> = ({navigation, route}) => {
-  const {setUserData} = useApp();
+const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ navigation, route }) => {
+  const { setUserData } = useApp();
   const insets = useSafeAreaInsets();
   return (
     <SafeAreaView style={styles.container}>
@@ -39,9 +39,10 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({navigation, route}) => {
       </View>
       <Button
         title={`Let’s Begin`}
-        buttonStyle={{marginBottom: insets.bottom == 0 ? Matrics.vs(16) : 0}}
+        buttonStyle={{ marginBottom: insets.bottom == 0 ? Matrics.vs(16) : 0 }}
         onPress={() => {
           navigation.navigate('DrawerScreen');
+          // navigation.navigate('QuestionOneScreen');
         }}
       />
     </SafeAreaView>

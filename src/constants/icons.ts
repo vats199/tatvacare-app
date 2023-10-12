@@ -65,6 +65,12 @@ import restDay from '../assets/icons/restDay.svg';
 import backArrow from '../assets/icons/backArrow.svg';
 import Filter from '../assets/icons/filter.svg';
 
+import Male from '../assets/icons/male.svg';
+import Female from '../assets/icons/female.svg';
+import Other from '../assets/icons/other.svg';
+import QrCodeScanner from '../assets/icons/qrCodeScanner.svg';
+
+
 export const Icons = {
   HomeActive,
   HomeInactive,
@@ -127,4 +133,8 @@ export const Icons = {
   restDay,
   backArrow,
   Filter,
+  Male,
+  Female,
+  Other,
+  QrCodeScanner
 };
