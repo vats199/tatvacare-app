@@ -235,29 +235,34 @@ class Navigation: NSObject {
         let key = (selectedType[1] as? NSDictionary)?["firstRow"] as? String
         let array = fileteredData?["filteredData"] as? NSArray ?? []
         var arrReadingList: [GoalListModel] = []
-        for data in array {
-            arrReadingList.append(GoalListModel(fromDic: data as? NSDictionary ?? [:]))
-        }
-        let selectedIndex = arrReadingList.firstIndex(where: { $0.keys == key})
-        
-        let vc = UpdateGoalParentVC.instantiate(fromAppStoryboard: .goal)
-        
-        
-        vc.selectedIndex            = selectedIndex ?? 0
-        vc.arrList                  = arrReadingList
-        vc.modalPresentationStyle   = .overFullScreen
-        vc.modalTransitionStyle     = .crossDissolve
-        
-        
-        vc.completionHandler = { obj in
-            print("data waiting to updated---")
-            if obj?.count > 0 {
-                print("data updated---")
-                RNEventEmitter.emitter.sendEvent(withName: "updatedGoalReadingSuccess", body: [:])
+        do {
+            for data in array {
+                let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
+                arrReadingList.append(GoalListModel(fromJson: JSON.init(data)))
             }
-        }
-        DispatchQueue.main.async {
-            UIApplication.topViewController()?.present(vc, animated: true)
+            let selectedIndex = arrReadingList.firstIndex(where: { $0.keys == key})
+            
+            let vc = UpdateGoalParentVC.instantiate(fromAppStoryboard: .goal)
+            
+            
+            vc.selectedIndex            = selectedIndex ?? 0
+            vc.arrList                  = arrReadingList
+            vc.modalPresentationStyle   = .overFullScreen
+            vc.modalTransitionStyle     = .crossDissolve
+            
+            
+            vc.completionHandler = { obj in
+                print("data waiting to updated---")
+                if obj?.count > 0 {
+                    print("data updated---")
+                    RNEventEmitter.emitter.sendEvent(withName: "updatedGoalReadingSuccess", body: [:])
+                }
+            }
+            DispatchQueue.main.async {
+                UIApplication.topViewController()?.present(vc, animated: true)
+            }
+        }catch{
+            print(error)
         }
     }
     
@@ -267,46 +272,51 @@ class Navigation: NSObject {
         let key = (selectedType[1] as? NSDictionary)?["firstRow"] as? String
         let array = fileteredData?["filteredData"] as? NSArray ?? []
         var arrReadingList: [GoalListModel] = []
-        for data in array {
-            arrReadingList.append(GoalListModel(fromDic: data as? NSDictionary ?? [:]))
-        }
-        let myHealthDiaryItems = ["Diet", "Medication", "Exercise"]
-        arrReadingList = arrReadingList.filter({!myHealthDiaryItems.contains($0.goalName)})
-        let selectedIndex = arrReadingList.firstIndex(where: { $0.keys == key})
-        
-        let vc = UpdateGoalParentVC.instantiate(fromAppStoryboard: .goal)
-        
-        
-        vc.selectedIndex            = selectedIndex ?? 0
-        vc.arrList                  = arrReadingList
-        vc.modalPresentationStyle   = .overFullScreen
-        vc.modalTransitionStyle     = .crossDissolve
-        
-        
-        vc.completionHandler = { obj in
-            print("data waiting to updated---")
-            if obj?.count > 0 {
-                print("data updated---")
-                RNEventEmitter.emitter.sendEvent(withName: "updatedGoalReadingSuccess", body: [:])
+        do{
+            for data in array {
+                let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
+                arrReadingList.append(GoalListModel(fromJson: JSON.init(data)))
             }
-            /*if type == .Medication ||
-             type == .Pranayam {
-             
-             if obj?.count > 0 {
-             print(obj ?? "")
-             //self.viewModel.apiCallFromStartSummary(tblViewHome: self.tblDailySummary,colViewHome: self.colReading,withLoader: false)
-             }
-             }
-             else {
-             if obj?.count > 0 {
-             print(obj ?? "")
-             //object
-             //self.viewModel.apiCallFromStartSummary(tblViewHome: self.tblDailySummary,colViewHome: self.colReading,withLoader: false)
-             }
-             }*/
-        }
-        DispatchQueue.main.async {
-            UIApplication.topViewController()?.present(vc, animated: true)
+            let myHealthDiaryItems = ["Diet", "Medication", "Exercise"]
+            arrReadingList = arrReadingList.filter({!myHealthDiaryItems.contains($0.goalName)})
+            let selectedIndex = arrReadingList.firstIndex(where: { $0.keys == key})
+            
+            let vc = UpdateGoalParentVC.instantiate(fromAppStoryboard: .goal)
+            
+            
+            vc.selectedIndex            = selectedIndex ?? 0
+            vc.arrList                  = arrReadingList
+            vc.modalPresentationStyle   = .overFullScreen
+            vc.modalTransitionStyle     = .crossDissolve
+            
+            
+            vc.completionHandler = { obj in
+                print("data waiting to updated---")
+                if obj?.count > 0 {
+                    print("data updated---")
+                    RNEventEmitter.emitter.sendEvent(withName: "updatedGoalReadingSuccess", body: [:])
+                }
+                /*if type == .Medication ||
+                 type == .Pranayam {
+                 
+                 if obj?.count > 0 {
+                 print(obj ?? "")
+                 //self.viewModel.apiCallFromStartSummary(tblViewHome: self.tblDailySummary,colViewHome: self.colReading,withLoader: false)
+                 }
+                 }
+                 else {
+                 if obj?.count > 0 {
+                 print(obj ?? "")
+                 //object
+                 //self.viewModel.apiCallFromStartSummary(tblViewHome: self.tblDailySummary,colViewHome: self.colReading,withLoader: false)
+                 }
+                 }*/
+            }
+            DispatchQueue.main.async {
+                UIApplication.topViewController()?.present(vc, animated: true)
+            }
+        }catch {
+            print(error)
         }
     }
     @objc
@@ -331,41 +341,50 @@ class Navigation: NSObject {
          //        self.pages.append(vc)
          return
          }*/
-        
-        
-        
-        
         let fileteredData = selectedType.firstObject as? NSDictionary
+        
+        do {
+            let key = (selectedType[1] as? NSDictionary)?["firstRow"] as? String
+            //print(key)
+            let array = fileteredData?["filteredData"] as? NSArray ?? []
+            var arrReadingList: [ReadingListModel] = []
+            
+            for data in array {
+                let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
+                arrReadingList.append(ReadingListModel(fromJson: JSON.init(jsonData)))
+            }
+            let selectedIndex = arrReadingList.firstIndex(where: { $0.keys == key})
+            let vc = UpdateReadingParentVC.instantiate(fromAppStoryboard: .goal)
+            vc.selectedIndex = selectedIndex ?? 0
+            
+            vc.arrList = arrReadingList//fileteredData?["filteredData"] as? [ReadingListModel] ?? []
+            
+            vc.completionHandler = { obj in
+                print("data waiting to updated---")
+                if obj?.count > 0 {
+                    print("data updated---")
+                    RNEventEmitter.emitter.sendEvent(withName: "updatedGoalReadingSuccess", body: [:])
+                    //print(obj ?? "")
+                    //object
+                    //                                    self.tblReadings.reloadData()
+                    //self.viewModel.apiCallFromStart_reading(refreshControl: self.refreshControl, tblView: self.tblGoals,withLoader: true)
+                }
+            }
+            DispatchQueue.main.async {
+                vc.modalPresentationStyle = .overFullScreen
+                vc.modalTransitionStyle = .crossDissolve
+                UIApplication.topViewController()?.present(vc, animated: true)
+            }
+        }catch {
+            print(error)
+        }
+        
+        
+        
+        
         //print(fileteredData?["filteredData"],"===========>>")
         //print(fileteredData?["filteredData"] as? NSArray ?? [],"+++++++++++++")
-        let key = (selectedType[1] as? NSDictionary)?["firstRow"] as? String
-        //print(key)
-        let array = fileteredData?["filteredData"] as? NSArray ?? []
-        var arrReadingList: [ReadingListModel] = []
-        for data in array {
-            arrReadingList.append(ReadingListModel(fromDic: data as? NSDictionary ?? [:]))
-        }
-        let selectedIndex = arrReadingList.firstIndex(where: { $0.keys == key})
-        let vc = UpdateReadingParentVC.instantiate(fromAppStoryboard: .goal)
-        vc.selectedIndex = selectedIndex ?? 0
         
-        vc.arrList = arrReadingList//fileteredData?["filteredData"] as? [ReadingListModel] ?? []
-        vc.modalPresentationStyle = .overFullScreen
-        vc.modalTransitionStyle = .crossDissolve
-        vc.completionHandler = { obj in
-            print("data waiting to updated---")
-            if obj?.count > 0 {
-                print("data updated---")
-                RNEventEmitter.emitter.sendEvent(withName: "updatedGoalReadingSuccess", body: [:])
-                //print(obj ?? "")
-                //object
-                //                                    self.tblReadings.reloadData()
-                //self.viewModel.apiCallFromStart_reading(refreshControl: self.refreshControl, tblView: self.tblGoals,withLoader: true)
-            }
-        }
-        DispatchQueue.main.async {
-            UIApplication.topViewController()?.present(vc, animated: true)
-        }
     }
     
     

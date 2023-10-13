@@ -143,6 +143,31 @@ class SelectPatientDetailsVC: WhiteNavigationBaseVC {
            
     }
     
+    private func presentAddress() {
+        
+        GlobalAPI.shared.addressListAPI { [weak self] dataResponse in
+            guard let self = self else { return }
+            
+            var params              = [String : Any]()
+            params[AnalyticsParameters.bottom_sheet_name.rawValue]            = BottomScreenName.select_address.rawValue
+         //   params[AnalyticsParameters.plan_type.rawValue]          = self.viewModel.cpDetail.planDetails.planType
+                                    
+            FIRAnalytics.FIRLogEvent(eventName: .SHOW_BOTTOM_SHEET,
+                                     screen: .SelectAddressBottomSheet,
+                                     parameter: params)
+            
+            let vc = BCASelectAddressListVC.instantiate(fromAppStoryboard: .bca)
+            let navController = UINavigationController(rootViewController: vc) //Add navigation controller
+            vc.viewModel.arrList = dataResponse
+            vc.cartListModel = self.cartListModel
+            vc.isFromBCP = false
+            navController.modalPresentationStyle = .overFullScreen
+            navController.modalTransitionStyle = .crossDissolve
+            self.present(navController, animated: isShowAddressList, completion: nil)
+        }
+
+    }
+    
     //----------------------------------------------------------------------------
     //MARK:- Action Methods
     func manageActionMethods(){
@@ -154,10 +179,11 @@ class SelectPatientDetailsVC: WhiteNavigationBaseVC {
                                          screen: .SelectPatient,
                                          parameter: params1)
                 
-                let vc = SelectAddressVC.instantiate(fromAppStoryboard: .carePlan)
-                vc.cartListModel = self.cartListModel
-                vc.labPatientListModel = obj
-                self.navigationController?.pushViewController(vc, animated: true)
+//                let vc = SelectAddressVC.instantiate(fromAppStoryboard: .carePlan)
+//                vc.cartListModel = self.cartListModel
+//                vc.labPatientListModel = obj
+//                self.navigationController?.pushViewController(vc, animated: true)
+                self.presentAddress()
             }
             else {
                 Alert.shared.showSnackBar(AppError.validation(type: .selectPatient).errorDescription ?? "")
@@ -188,6 +214,12 @@ class SelectPatientDetailsVC: WhiteNavigationBaseVC {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.viewModel.apiCallFromStart(tblView: self.tblView,
                                    withLoader: true)
+        if isShowAddressList {
+            self.presentAddress()
+            isShowAddressList = false
+        } else {
+            selectedAddressIndex = 0
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -232,11 +264,8 @@ extension SelectPatientDetailsVC : UITableViewDataSource, UITableViewDelegate{
         cell.lblGender.text     = AppMessages.Gender + " : " + object.gender
         cell.lblAge.text        = AppMessages.Age + " : " + "\(object.age!)"
         
-        cell.btnSelect.isSelected = false
-        if object.isSelected {
-            cell.btnSelect.isSelected = true
-        }
-        
+        cell.btnSelect.isSelected = object.isSelected
+                
 //        cell.btnSelect.isSelected = false
 //        if object["isSelected"].intValue == 1 {
 //            cell.btnSelect.isSelected = true
