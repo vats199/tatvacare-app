@@ -74,6 +74,16 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   const [hcDevicePlans, setHcDevicePlans] = React.useState<any>({});
   const [healthDiaries, setHealthDiaries] = React.useState<any>([]);
 
+  const canBookHealthCoach: boolean = !!carePlanData?.patient_plans?.find(
+    (pp: any) => {
+      return pp?.features_res.find((fr: any) =>
+        (fr.sub_features_keys ?? '')
+          .split(',')
+          .includes('book_appointments_hc'),
+      );
+    },
+  );
+
   const refetchHealthInsights = () => {
     getMyHealthInsights();
   };
@@ -101,9 +111,9 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
     const subscribe = eventEmitter.addListener(
       'updatedGoalReadingSuccess',
       () => {
-        refetchHealthInsights()
-        refetchHealthDiary()
-      }
+        refetchHealthInsights();
+        refetchHealthDiary();
+      },
     );
 
     return () => {
@@ -218,8 +228,6 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
       goals: goalsAndReadings?.data?.goal_data,
       readings: goalsAndReadings?.data?.readings_response,
     });
-    console.log(goalsAndReadings?.data?.readings_response,'readings_responsereadings_response');
-    
   };
 
   const getMyHealthDiaries = async () => {
@@ -319,15 +327,21 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   };
 
   const onPressConsultNutritionist = () => {
-    if (Object.values(hcDevicePlans.nutritionist).length > 0) {
+    if (canBookHealthCoach) {
       navigateToBookAppointment('HC');
+      // } else if (Object.values(hcDevicePlans.nutritionist).length > 0) {
+      //   // Navigate to plan in this object
+      //   openPlanDetails([{planDetails: hcDevicePlans.nutritionist}]);
     } else {
       navigateToChronicCareProgram();
     }
   };
   const onPressConsultPhysio = (type: 'HC' | 'D') => {
-    if (Object.values(hcDevicePlans.physiotherapist).length > 0) {
+    if (canBookHealthCoach) {
       navigateToBookAppointment(type);
+      // } else if (Object.values(hcDevicePlans.physiotherapist).length > 0) {
+      //   // Navigate to plan in this object
+      //   openPlanDetails([{planDetails: hcDevicePlans.physiotherapist}]);
     } else {
       navigateToChronicCareProgram();
     }
@@ -346,9 +360,9 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
     openPlanDetails([{planDetails: plan}]);
   };
 
-  const onPressRenew = (plan: any) => {
-    onPressRenewPlan([{planDetails: plan}]);
-  };
+  // const onPressRenew = (plan: any) => {
+  //   onPressRenewPlan([{planDetails: plan}]);
+  // };
 
   const onPressReading = (filteredData: any, firstRow: any) => {
     openUpdateReading([{filteredData: filteredData}, {firstRow: firstRow}]);
@@ -406,7 +420,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
             <CarePlanView
               data={carePlanData}
               onPressCarePlan={onPressCarePlan}
-              onPressRenew={onPressRenew}
+              // onPressRenew={onPressRenew}
               allPlans={allPlans}
             />
             {carePlanData?.doctor_says?.description && (

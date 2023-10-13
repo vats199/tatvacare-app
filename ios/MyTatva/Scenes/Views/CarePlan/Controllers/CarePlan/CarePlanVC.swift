@@ -1004,10 +1004,10 @@ extension CarePlanVC {
         }*/
         
         if planName.trim() != "" {
-            self.lblTitle.text = AppMessages.CarePlan + " " + "(\(planName))"
+            self.lblTitle.text = AppMessages.Programs + " " + "(\(planName))"
         }
         else {
-            self.lblTitle.text = AppMessages.CarePlan
+            self.lblTitle.text = AppMessages.Programs
         }
         
         //For diet

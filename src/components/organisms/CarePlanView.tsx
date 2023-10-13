@@ -16,19 +16,21 @@ import {Icons} from '../../constants/icons';
 import ProgressBar from '../atoms/ProgressBar';
 import moment from 'moment';
 import PlanItem from '../atoms/PlanItem';
-import {navigateToChronicCareProgram, onPressRenewPlan, openPlanDetails} from '../../routes/Router';
+import {
+  navigateToChronicCareProgram,
+  onPressRenewPlan,
+  openPlanDetails,
+} from '../../routes/Router';
 
 type CarePlanViewProps = {
   data?: any;
   allPlans: any[];
   onPressCarePlan: (plan: any) => void;
-  onPressRenew: (plan: any) => void;
 };
 
 const CarePlanView: React.FC<CarePlanViewProps> = ({
   data,
   onPressCarePlan,
-  onPressRenew,
   allPlans = [],
 }) => {
   const isFreePlan: boolean =
@@ -53,20 +55,14 @@ const CarePlanView: React.FC<CarePlanViewProps> = ({
   const onPressKnowMore = (plan: any) => {
     // navigateToChronicCareProgram();
     onPressRenewPlan([{planDetails: plan}]);
-   
   };
 
   const onCarePlanNeedCotainer = () => {
     navigateToChronicCareProgram();
-   
-   
   };
-
 
   const renderPlanItem = ({item, index}: {item: any; index: number}) => {
     return (
-      
-
       <PlanItem plan={item} onPressKnowMore={() => onPressKnowMore(item)} />
     );
   };
@@ -86,11 +82,11 @@ const CarePlanView: React.FC<CarePlanViewProps> = ({
   };
 
   const getColor = (plan: any): string => {
-    if (moment(plan.expiry_date) < moment(new Date())) {
+    if (moment(plan?.expiry_date) < moment(new Date())) {
       return colors.red;
     }
 
-    const planDuration = moment(plan.expiry_date).diff(new Date(), 'day') + 1;
+    const planDuration = moment(plan?.expiry_date).diff(new Date(), 'day') + 1;
 
     if (planDuration > 14) {
       return colors.green;
@@ -101,46 +97,44 @@ const CarePlanView: React.FC<CarePlanViewProps> = ({
     }
   };
 
-  const showRenewButton = (plan: any): boolean => {
-    const planDuration = moment(plan.expiry_date).diff(new Date(), 'day') + 1;
+  // const showRenewButton = (plan: any): boolean => {
+  //   const planDuration = moment(plan?.expiry_date).diff(new Date(), 'day') + 1;
 
-    if (planDuration > 14) {
-      return false;
-    } else {
-      return true;
-    }
-  };
+  //   if (planDuration > 14) {
+  //     return false;
+  //   } else {
+  //     return true;
+  //   }
+  // };
 
   return (
     <>
       {data?.patient_plans?.length <= 0 || isFreePlan ? (
         <TouchableNativeFeedback onPress={() => onCarePlanNeedCotainer()}>
-
-        <View style={styles.compcontainer}>
-          <View style={styles.rowBetween}>
-            <View>
-              <Text style={styles.cp}>Care Plans for all your needs</Text>
-              <Text style={styles.subTitle}>
-                Bundled with diagnostic tests and more.
-              </Text>
+          <View style={styles.compcontainer}>
+            <View style={styles.rowBetween}>
+              <View>
+                <Text style={styles.cp}>Care Plans for all your needs</Text>
+                <Text style={styles.subTitle}>
+                  Bundled with diagnostic tests and more.
+                </Text>
+              </View>
+              <Image
+                source={require('../../assets/images/carePlan.png')}
+                style={styles.cpimage}
+                resizeMode={'contain'}
+              />
             </View>
-            <Image
-              source={require('../../assets/images/carePlan.png')}
-              style={styles.cpimage}
-              resizeMode={'contain'}
+            <FlatList
+              data={allPlans}
+              keyExtractor={(_item, index) => index.toString()}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              renderItem={renderPlanItem}
+              ItemSeparatorComponent={() => <View style={styles.itemSep} />}
             />
           </View>
-          <FlatList
-            data={allPlans}
-            keyExtractor={(_item, index) => index.toString()}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            renderItem={renderPlanItem}
-            ItemSeparatorComponent={() => <View style={styles.itemSep} />}
-          />
-        </View>
         </TouchableNativeFeedback>
-
       ) : (
         <ScrollView
           horizontal
@@ -161,16 +155,17 @@ const CarePlanView: React.FC<CarePlanViewProps> = ({
                     <ProgressBar
                       progress={getPlanProgress(plan) || 0}
                       expired={moment(plan.expiry_date) < moment(new Date())}
+                      color={getColor(plan)}
                     />
                     <View style={styles.rowBetween}>
                       <Text style={[styles.expiry, {color: getColor(plan)}]}>
                         {getText(plan)}
                       </Text>
-                      {showRenewButton(plan) && (
+                      {/* {showRenewButton(plan) && (
                         <TouchableOpacity onPress={() => onPressRenew(plan)}>
                           <Text style={styles.renew}>Renew</Text>
                         </TouchableOpacity>
-                      )}
+                      )} */}
                     </View>
                   </View>
                 </View>

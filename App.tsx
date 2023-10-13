@@ -6,7 +6,7 @@ import {
   AppState,
   AppStateStatus,
   Alert,
-  NativeModules
+  NativeModules,
 } from 'react-native';
 import React from 'react';
 import Router, {openHealthKitSyncView} from './src/routes/Router';
@@ -25,8 +25,8 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 const App = () => {
   const {height, width} = useWindowDimensions();
   const Navigation = NativeModules.Navigation;
-   const showTabBarNative = Navigation.showTabbar;
-   const hideTabBarNative = Navigation.hideTabbar;
+  const showTabBarNative = Navigation.showTabbar;
+  const hideTabBarNative = Navigation.hideTabbar;
 
   const [location, setLocation] = React.useState<object>({});
   const appState = React.useRef<AppStateStatus>(AppState.currentState);
@@ -35,6 +35,11 @@ const App = () => {
     React.useState<string>('');
 
   const requestLocationPermission = async (goToSettings: boolean) => {
+    const location = await AsyncStorage.getItem('location');
+    if (location) {
+      // Dont do anything if we already have location from pincode
+      return;
+    }
     try {
       if (Platform.OS === 'android') {
         const granted = await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
@@ -47,8 +52,7 @@ const App = () => {
         ) {
           Linking.openSettings();
         } else {
-         
-         await BottomSheetRef.current?.show();
+          await BottomSheetRef.current?.show();
         }
       } else {
         const granted = await request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
@@ -61,19 +65,18 @@ const App = () => {
             'To re-enable, please go to Settings and turn on Location Service for MyTatva',
             [
               {
-                text: 'Close',
-              },
-              {
                 text: 'Go to Settings',
                 onPress: () => Linking.openURL('app-settings:'),
+              },
+              {
+                text: 'Close',
               },
             ],
           );
         } else {
-             console.log('throw');
-             
-                BottomSheetRef.current?.show();
-               
+          console.log('throw');
+
+          BottomSheetRef.current?.show();
         }
       }
     } catch (err) {
@@ -81,7 +84,6 @@ const App = () => {
 
       // hideTabBarNative()
       BottomSheetRef.current?.show();
-
     }
   };
 
@@ -171,7 +173,6 @@ const App = () => {
       console.log(err);
       BottomSheetRef.current?.show();
       // hideTabBarNative()
-
     }
   };
 

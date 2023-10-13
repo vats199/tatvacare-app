@@ -5,9 +5,14 @@ import {colors} from '../../constants/colors';
 type ProgressBarProps = {
   progress: number;
   expired: boolean;
+  color: string;
 };
 
-const ProgressBar: React.FC<ProgressBarProps> = ({progress, expired}) => {
+const ProgressBar: React.FC<ProgressBarProps> = ({
+  progress,
+  expired,
+  color,
+}) => {
   return (
     <View style={styles.container}>
       <View
@@ -15,7 +20,11 @@ const ProgressBar: React.FC<ProgressBarProps> = ({progress, expired}) => {
           styles.progress,
           {
             width: `${progress}%`,
-            backgroundColor: expired ? colors.red : colors.green,
+            backgroundColor: expired
+              ? colors.red
+              : color
+              ? color
+              : colors.green,
           },
         ]}
       />
