@@ -124,11 +124,18 @@ class UpdateFibroScanReadingPopupVC: ClearNavigationFontBlackBaseVC {
 //        self.txtLSM.maxLength           = kMaximumLSM.size
         self.txtCAP.maxLength           = kMaximumCAP.size
         
+       
         self.txtLSM.keyboardType        = .decimalPad
         self.txtLSM.regex               = "".decimalRegex(maxLength: kMaximumLSM.size + 10, decimalLength: 1)
         
         self.txtCAP.keyboardType        = .numberPad
         self.txtCAP.regex               = Validations.RegexType.OnlyNumber.rawValue
+        
+        self.txtCAP.delegate = self
+        self.txtCAP.isUserInteractionEnabled = true
+        
+        self.txtLSM.delegate = self
+        self.txtLSM.isUserInteractionEnabled = true
         
         GFunction.shared.setUpHealthKitConnectionLabel(vw: self.vwHKConnect, lbl: self.lblHKConnect){ [weak self] (isDone) in
             guard let _ = self else {return}
@@ -331,6 +338,9 @@ extension UpdateFibroScanReadingPopupVC {
 
 //MARK: --------------------- UITextFieldDelegate Method ---------------------
 extension UpdateFibroScanReadingPopupVC : UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return true
+    }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         switch textField {

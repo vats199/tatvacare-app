@@ -128,6 +128,12 @@ class UpdateBpReadingPopupVC: ClearNavigationFontBlackBaseVC {
         self.txtSystolic.keyboardType       = .numberPad
         self.txtSystolic.regex              = Validations.RegexType.OnlyNumber.rawValue
         
+        self.txtSystolic.delegate = self
+        self.txtSystolic.isUserInteractionEnabled = true
+        
+        self.txtDiastolic.delegate = self
+        self.txtDiastolic.isUserInteractionEnabled = true
+        
         GFunction.shared.setUpHealthKitConnectionLabel(vw: self.vwHKConnect, lbl: self.lblHKConnect){ [weak self] (isDone) in
             guard let _ = self else {return}
             if isDone {

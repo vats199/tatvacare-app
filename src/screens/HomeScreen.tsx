@@ -78,6 +78,10 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
     getMyHealthInsights();
   };
 
+  const refetchHealthDiary = () => {
+    getMyHealthDiaries();
+  };
+
   const refetchLearnMoreData = () => {
     getLearnMoreData();
   };
@@ -96,7 +100,10 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   useEffect(() => {
     const subscribe = eventEmitter.addListener(
       'updatedGoalReadingSuccess',
-      refetchHealthInsights,
+      () => {
+        refetchHealthInsights()
+        refetchHealthDiary()
+      }
     );
 
     return () => {
@@ -211,6 +218,8 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
       goals: goalsAndReadings?.data?.goal_data,
       readings: goalsAndReadings?.data?.readings_response,
     });
+    console.log(goalsAndReadings?.data?.readings_response,'readings_responsereadings_response');
+    
   };
 
   const getMyHealthDiaries = async () => {

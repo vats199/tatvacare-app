@@ -116,6 +116,12 @@ class UpdateBloodGlucoseReadingPopupVC: ClearNavigationFontBlackBaseVC {
         self.txtPPBlood.regex = Validations.RegexType.OnlyNumber.rawValue
         self.txtPPBlood.maxLength = kMaxPPBlood.size
         
+        self.txtFastBlood.delegate = self
+        self.txtFastBlood.isUserInteractionEnabled = true
+        
+        self.txtPPBlood.delegate = self
+        self.txtPPBlood.isUserInteractionEnabled = true
+        
         self.btnCancel.font(name: .medium, size: 14)
             .textColor(color: UIColor.themePurple)
             .borderColor(color: UIColor.themePurple, borderWidth: 1)

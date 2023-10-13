@@ -645,6 +645,8 @@ extension UpdateWalkDistancePopupVC {
         //}
         
         self.txtReading.maxLength   = kMaxSixMinWalkValue.size
+        self.txtReading.delegate = self
+        self.txtReading.isUserInteractionEnabled = true
         self.lblStandardVal.text    = self.readingListModel.defaultReading!
     }
     

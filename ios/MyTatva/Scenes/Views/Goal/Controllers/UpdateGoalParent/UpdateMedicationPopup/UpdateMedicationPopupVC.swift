@@ -143,8 +143,8 @@ class UpdateMedicationPopupVC: ClearNavigationFontBlackBaseVC {
     
     fileprivate func setUpView() {
         
-        self.lblTitle.font(name: .bold, size: 22)
-            .textColor(color: UIColor.themeBlack)
+        //self.lblTitle.font(name: .bold, size: 22)
+        //    .textColor(color: UIColor.themeBlack)
         self.txtDate.font(name: .medium, size: 12)
             .textColor(color: UIColor.themeBlack)
         self.txtDate.delegate = self
@@ -405,7 +405,7 @@ class UpdateMedicationPopupVC: ClearNavigationFontBlackBaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        self.navigationController?.navigationBar.isHidden = false
         FIRAnalytics.FIRLogEvent(eventName: .USER_LOGGOAL_MEDICINE_CONTENTVIEW,
                                  screen: .LogGoal,
                                  parameter: nil)
@@ -414,6 +414,11 @@ class UpdateMedicationPopupVC: ClearNavigationFontBlackBaseVC {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
     }
+       
+    @IBAction func onGoBack(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+
     
 }
 

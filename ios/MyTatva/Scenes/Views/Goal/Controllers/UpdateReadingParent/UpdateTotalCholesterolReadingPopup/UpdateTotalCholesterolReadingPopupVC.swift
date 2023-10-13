@@ -123,6 +123,19 @@ class UpdateTotalCholesterolReadingPopupVC: ClearNavigationFontBlackBaseVC {
         self.txtTotalCholesterol.keyboardType   = .numberPad
         self.txtTotalCholesterol.regex          = Validations.RegexType.OnlyNumber.rawValue
         
+        self.txtLDL.delegate = self
+        self.txtLDL.isUserInteractionEnabled = true
+        
+        self.txtHDL.delegate = self
+        self.txtHDL.isUserInteractionEnabled = true
+        
+        self.txtTriglyceride.delegate = self
+        self.txtTriglyceride.isUserInteractionEnabled = true
+        
+        self.txtTotalCholesterol.delegate = self
+        self.txtTotalCholesterol.isUserInteractionEnabled = true
+        
+        
         GFunction.shared.setUpHealthKitConnectionLabel(vw: self.vwHKConnect, lbl: self.lblHKConnect){ [weak self] (isDone) in
             guard let _ = self else {return}
             if isDone {

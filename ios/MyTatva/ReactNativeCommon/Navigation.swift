@@ -12,11 +12,30 @@ import React
 class Navigation: NSObject {
     
     @objc
+    func showTabbar() -> Void {
+        DispatchQueue.main.async {
+            if let tabbar = UIApplication.topViewController()?.parent as? TabbarVC {
+                tabbar.tabBar.isHidden = false
+            }
+        }
+    }
+    
+    @objc
+    func hideTabbar() -> Void {
+        DispatchQueue.main.async {
+            if let tabbar = UIApplication.topViewController()?.parent as? TabbarVC {
+                tabbar.tabBar.isHidden = true
+            }
+        }
+    }
+    
+    @objc
     func navigateToHistory(_ selectedType: NSString) -> Void {
         let historyModelVC = HistoryParentVC.instantiate(fromAppStoryboard: .setting)
         historyModelVC.selectedType = HistoryType(rawValue: selectedType as String)
         navigate(modelVC: historyModelVC)
     }
+    
     @objc
     func navigateToIncident() -> Void {
         if let carePlan = UIApplication.topViewController()?.parent as? TabbarVC {

@@ -57,7 +57,7 @@ const MyHealthInsights: React.FC<MyHealthInsightsProps> = ({
         </View>
         <View style={styles.valuesRow}>
           <Text style={styles.hiItemValue}>
-            {getValue(item?.reading_value) || '-'}
+            {getValue(item?.keys == 'bloodpressure' ? item?.reading_value_data?.diastolic : item?.keys == 'blood_glucose' ? item?.reading_value_data?.fast  :  item?.keys == 'fibro_scan' ?  item?.reading_value_data?.cap :   item?.reading_value) || '-'}
           </Text>
           <Text style={styles.hiItemKey}>{item?.measurements}</Text>
         </View>

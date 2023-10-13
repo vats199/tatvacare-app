@@ -7,6 +7,8 @@ import {
   View,
   TouchableOpacity,
   FlatList,
+  TouchableHighlight,
+  TouchableNativeFeedback,
 } from 'react-native';
 import React from 'react';
 import {colors} from '../../constants/colors';
@@ -14,7 +16,7 @@ import {Icons} from '../../constants/icons';
 import ProgressBar from '../atoms/ProgressBar';
 import moment from 'moment';
 import PlanItem from '../atoms/PlanItem';
-import {navigateToChronicCareProgram} from '../../routes/Router';
+import {navigateToChronicCareProgram, onPressRenewPlan, openPlanDetails} from '../../routes/Router';
 
 type CarePlanViewProps = {
   data?: any;
@@ -49,11 +51,22 @@ const CarePlanView: React.FC<CarePlanViewProps> = ({
   };
 
   const onPressKnowMore = (plan: any) => {
-    navigateToChronicCareProgram();
+    // navigateToChronicCareProgram();
+    onPressRenewPlan([{planDetails: plan}]);
+   
   };
+
+  const onCarePlanNeedCotainer = () => {
+    navigateToChronicCareProgram();
+   
+   
+  };
+
 
   const renderPlanItem = ({item, index}: {item: any; index: number}) => {
     return (
+      
+
       <PlanItem plan={item} onPressKnowMore={() => onPressKnowMore(item)} />
     );
   };
@@ -101,6 +114,8 @@ const CarePlanView: React.FC<CarePlanViewProps> = ({
   return (
     <>
       {data?.patient_plans?.length <= 0 || isFreePlan ? (
+        <TouchableNativeFeedback onPress={() => onCarePlanNeedCotainer()}>
+
         <View style={styles.compcontainer}>
           <View style={styles.rowBetween}>
             <View>
@@ -124,6 +139,8 @@ const CarePlanView: React.FC<CarePlanViewProps> = ({
             ItemSeparatorComponent={() => <View style={styles.itemSep} />}
           />
         </View>
+        </TouchableNativeFeedback>
+
       ) : (
         <ScrollView
           horizontal

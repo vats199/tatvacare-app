@@ -6,6 +6,7 @@ import {
   AppState,
   AppStateStatus,
   Alert,
+  NativeModules
 } from 'react-native';
 import React from 'react';
 import Router, {openHealthKitSyncView} from './src/routes/Router';
@@ -23,6 +24,10 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 const App = () => {
   const {height, width} = useWindowDimensions();
+  const Navigation = NativeModules.Navigation;
+   const showTabBarNative = Navigation.showTabbar;
+   const hideTabBarNative = Navigation.hideTabbar;
+
   const [location, setLocation] = React.useState<object>({});
   const appState = React.useRef<AppStateStatus>(AppState.currentState);
   const BottomSheetRef = React.useRef<LocationBottomSheetRef>(null);
@@ -42,7 +47,8 @@ const App = () => {
         ) {
           Linking.openSettings();
         } else {
-          BottomSheetRef.current?.show();
+         
+         await BottomSheetRef.current?.show();
         }
       } else {
         const granted = await request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
@@ -64,11 +70,18 @@ const App = () => {
             ],
           );
         } else {
-          BottomSheetRef.current?.show();
+             console.log('throw');
+             
+                BottomSheetRef.current?.show();
+               
         }
       }
     } catch (err) {
+      console.log('catch');
+
+      // hideTabBarNative()
       BottomSheetRef.current?.show();
+
     }
   };
 
@@ -131,6 +144,7 @@ const App = () => {
       await AsyncStorage.setItem('location', JSON.stringify(locationPayload));
       await Home.updatePatientLocation({}, locationPayload);
       BottomSheetRef.current?.hide();
+      showTabBarNative();
     }
   };
 
@@ -156,6 +170,8 @@ const App = () => {
     } catch (err) {
       console.log(err);
       BottomSheetRef.current?.show();
+      // hideTabBarNative()
+
     }
   };
 

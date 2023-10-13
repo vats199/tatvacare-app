@@ -233,6 +233,7 @@ extension UpdateMedicationPopupVM {
                 guard let self = self else {return}
                 if isDone {
                     self.vmResult.value = .success(nil)
+                    RNEventEmitter.emitter.sendEvent(withName: "updatedGoalReadingSuccess", body: [:])
                 }
             }
         }

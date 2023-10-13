@@ -101,8 +101,8 @@ class UpdateExercisePopupVC: ClearNavigationFontBlackBaseVC {
         
         self.btnAddotherExercise.font(name: .medium, size: 11.0).textColor(color: .themePurple).setTitle("Performed a different exercise ? Log here", for: UIControl.State())
         
-        self.lblTitle.font(name: .bold, size: 15)
-            .textColor(color: UIColor.themeBlack)
+        //self.lblTitle.font(name: .bold, size: 15)
+        //    .textColor(color: UIColor.themeBlack)
         self.lblProgress.font(name: .medium, size: 12)
             .textColor(color: UIColor.themeBlack)
         
@@ -267,6 +267,9 @@ class UpdateExercisePopupVC: ClearNavigationFontBlackBaseVC {
     }
     
     //MARK:- Action Method
+    @IBAction func onGoBack(_ sender: Any) {
+           self.navigationController?.popViewController(animated: true)
+       }
     fileprivate func manageActionMethods(){
         
         self.imgBg.addTapGestureRecognizer { [weak self] in
