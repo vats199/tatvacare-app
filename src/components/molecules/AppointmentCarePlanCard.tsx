@@ -8,7 +8,7 @@ const AppointmentCarePlanCard = () => {
   const [progress, setProgress] = useState<number>(50);
 
   return (
-    <View style={styles.carePlanContainer}>
+    <View style={[styles.carePlanContainer, styles.containerShadow]}>
       <View style={styles.carePlanSubContainer}>
         <>
           <Text numberOfLines={1} style={styles.carePlanTxt}>
@@ -45,6 +45,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginHorizontal: Matrics.s(17),
+  },
+  containerShadow: {
+    shadowColor: colors.black,
+    shadowOffset: {width: 0, height: 0},
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    elevation: 2,
   },
   carePlanSubContainer: {
     flex: 1,

@@ -124,7 +124,7 @@ const YourBenefits = () => {
     const {id, title, description} = item;
     return (
       <View style={styles.benefitsItemContainer}>
-        <Icons.Correct height={Matrics.s(19)} width={Matrics.s(19)} />
+        <Icons.Correct height={Matrics.s(24)} width={Matrics.s(24)} />
         <View style={styles.benefitsItemSubContainer}>
           <Text numberOfLines={2} style={styles.benefitsTitleTxt}>
             {title}
@@ -143,7 +143,7 @@ const YourBenefits = () => {
   return (
     <View style={styles.container}>
       <Text numberOfLines={1} style={styles.yourServicesTxt}>
-        YourBenefits
+        Your Benefits
       </Text>
       <FlatList
         data={yourBenefits}

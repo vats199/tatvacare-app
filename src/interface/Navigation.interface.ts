@@ -1,11 +1,10 @@
-import carePlanScreen from '../screens/CarePlan/CarePlanScreen';
+import { AppointmentDetailsScreenProps } from "../screens/Appointment/AppointmentDetailsScreen";
+
 export type AppStackParamList = {
-  // BottomTabs: undefined;
   DrawerScreen: DrawerParamList;
   AuthStackScreen: AuthStackParamList;
   TabScreen: TabParamList;
-  AppointmentScreen:undefined;
-  AppointmentWithScreen:{type:string}
+  AppointmentStackScreen:AppointmentStackParamList;
 };
 
 export type DrawerParamList = {
@@ -21,6 +20,12 @@ export type TabParamList = {
 export type ExerciesStackParamList = {
   ExplorScreen: TabParamList;
   ExerciseDetailScreen: {Data: any};
+};
+
+export type AppointmentStackParamList = {
+  AppointmentScreen:{appointmentDetails?:AppointmentDetailsScreenProps};
+  AppointmentWithScreen:{type:string}
+  AppointmentDetailsScreen:{appointmentDetails:AppointmentDetailsScreenProps}
 };
 
 export type BottomTabParamList = {

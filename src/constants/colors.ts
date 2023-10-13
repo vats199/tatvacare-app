@@ -22,6 +22,10 @@ export const colors = {
   stock: '#D2D4D7',
   titleLightGray: '#9E99B1',
   tabTitleColor: '#9F8EAA',
+  boxLightPurple:'#f4ecf9',
+  darkBorder:'#6b4581',
+  lightBorder:'#e5e5e5',
+  darkLightGray:'#666666',
 
   OVERLAY_DARK_10: 'rgba(0,0,0,0.1)',
   OVERLAY_DARK_20: 'rgba(0,0,0,0.2)',

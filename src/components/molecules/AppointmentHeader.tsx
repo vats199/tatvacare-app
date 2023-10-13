@@ -25,7 +25,7 @@ const AppointmentHeader: React.FC<
   const {containerStyle, title, textStyle} = props;
   return (
     <View style={[styles.container, containerStyle]}>
-      <TouchableOpacity {...props}>
+      <TouchableOpacity {...props} style={[styles.btnStyle, props.style]}>
         <Icons.backArrow height={Matrics.s(20)} width={Matrics.s(15)} />
       </TouchableOpacity>
       <Text style={[styles.headerTxt, textStyle]}>{title}</Text>
@@ -49,7 +49,12 @@ const styles = StyleSheet.create({
   headerTxt: {
     fontFamily: Fonts.BOLD,
     fontSize: Matrics.mvs(16),
-    marginLeft: Matrics.s(15),
+    marginLeft: Matrics.s(10),
     fontWeight: '600',
+  },
+  btnStyle: {
+    paddingHorizontal: Matrics.s(5),
+    paddingVertical: Matrics.s(2),
+    marginLeft: Matrics.s(-5),
   },
 });

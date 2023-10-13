@@ -30,8 +30,6 @@ import MyHealthDiary from '../components/organisms/MyHealthDiary';
 import HomeHeader from '../components/molecules/HomeHeader';
 import AdditionalCareServices from '../components/organisms/AdditionalCareServices';
 import Learn from '../components/organisms/Learn';
-import SearchModal from '../components/molecules/SearchModal';
-import {DrawerScreenProps} from '@react-navigation/drawer';
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 // import {
 //   navigateTo,
@@ -52,7 +50,6 @@ type HomeScreenProps = CompositeScreenProps<
   BottomTabScreenProps<BottomTabParamList, 'HomeScreen'>,
   StackScreenProps<AppStackParamList, 'DrawerScreen'>
 >;
-
 const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   const [search, setSearch] = React.useState<string>('');
   const [location, setLocation] = React.useState<object>({});
@@ -158,7 +155,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   };
 
   const onPressConsultNutritionist = () => {
-    navigation.navigate('AppointmentScreen')
+    navigation.navigate('AppointmentStackScreen');
     // navigateTo('AppointmentsHistoryVC');
   };
   const onPressConsultPhysio = () => {

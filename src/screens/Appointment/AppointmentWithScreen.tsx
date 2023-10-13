@@ -1,32 +1,46 @@
+import React, {useRef, useState} from 'react';
 import {
   FlatList,
-  Image,
   ImageSourcePropType,
+  Platform,
   StyleSheet,
-  Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
 import {colors} from '../../constants/colors';
 import {StackScreenProps} from '@react-navigation/stack';
-import {AppStackParamList} from '../../interface/Navigation.interface';
+import {AppointmentStackParamList} from '../../interface/Navigation.interface';
 import AppointmentHeader from '../../components/molecules/AppointmentHeader';
-import {Fonts, Matrics} from '../../constants';
+import {Matrics} from '../../constants';
+import AppointmentDaySlot from '../../components/organisms/AppointmentDaySlot';
+import AppointmentTimeSlot from '../../components/organisms/AppointmentTimeSlot';
+import Button from '../../components/atoms/Button';
+import CoachDetailsCard from '../../components/molecules/CoachDetailsCard';
+import {BottomSheetModal} from '@gorhom/bottom-sheet';
+import AppointmentAllSlots from '../../components/organisms/AppointmentAllSlots';
+import {AppointmentDetailsScreenProps} from './AppointmentDetailsScreen';
 
-type AppointmentScreenProps = StackScreenProps<AppStackParamList>;
+type AppointmentScreenProps = StackScreenProps<
+  AppointmentStackParamList,
+  'AppointmentWithScreen'
+>;
 
-type LanguagesType = {
+export type LanguagesType = {
   id: number;
   language: string;
 };
 
-type SlotsType = {
+export type SlotType = {
   id: number;
   time: string;
 };
 
-type CoachDetailsType = {
+export type SlotDetailsType = {
+  id: number;
+  timeZone: string;
+  slots: string[];
+};
+
+export type CoachDetailsType = {
   name: string;
   profile: ImageSourcePropType & string;
   type: string;
@@ -34,9 +48,17 @@ type CoachDetailsType = {
   languages: LanguagesType[];
 };
 
-type CoachDataType = {
+export type AppointmentsType = {
+  id: number;
+  date: string;
+  time: string;
+  timeZone?: string;
+};
+
+export type CoachDataType = {
+  id: number;
   coachDetails: CoachDetailsType;
-  slots: SlotsType[];
+  slots: SlotDetailsType[];
 };
 
 const AppointmentWithScreen: React.FC<AppointmentScreenProps> = ({
@@ -45,6 +67,7 @@ const AppointmentWithScreen: React.FC<AppointmentScreenProps> = ({
 }) => {
   const CoachData: CoachDataType[] = [
     {
+      id: 1,
       coachDetails: {
         name: 'Health coach name',
         profile: require('../../assets/images/User.png'),
@@ -88,25 +111,31 @@ const AppointmentWithScreen: React.FC<AppointmentScreenProps> = ({
       slots: [
         {
           id: 1,
-          time: '06:30 - 07:30',
+          timeZone: 'Morning',
+          slots: [
+            '08:30 - 09:30',
+            '09:30 - 10:30',
+            '10:30 - 11:30',
+            '10:30 - 11:30',
+            '10:30 - 11:30',
+          ],
         },
         {
           id: 2,
-          time: '06:30 - 07:30',
+          timeZone: 'Afternoon',
+          slots: ['08:30 - 09:30', '09:30 - 10:30', '10:30 - 11:30'],
         },
         {
           id: 3,
-          time: '06:30 - 07:30',
-        },
-        {
-          id: 4,
-          time: '06:30 - 07:30',
+          timeZone: 'Evening',
+          slots: ['08:30 - 09:30', '09:30 - 10:30', '10:30 - 11:30'],
         },
       ],
     },
     {
+      id: 2,
       coachDetails: {
-        name: 'Health coach name',
+        name: 'Health coach name 2',
         profile: require('../../assets/images/User.png'),
         type: 'Specialisation',
         level: 'Experience',
@@ -124,25 +153,40 @@ const AppointmentWithScreen: React.FC<AppointmentScreenProps> = ({
       slots: [
         {
           id: 1,
-          time: '06:30 - 07:30',
+          timeZone: 'Morning',
+          slots: [
+            '07:30 - 08:30',
+            '08:30 - 09:30',
+            '09:30 - 10:30',
+            '10:30 - 11:30',
+          ],
         },
         {
           id: 2,
-          time: '06:30 - 07:30',
+          timeZone: 'Afternoon',
+          slots: [
+            '07:30 - 08:30',
+            '08:30 - 09:30',
+            '09:30 - 10:30',
+            '10:30 - 11:30',
+          ],
         },
         {
           id: 3,
-          time: '06:30 - 07:30',
-        },
-        {
-          id: 4,
-          time: '06:30 - 07:30',
+          timeZone: 'Evening',
+          slots: [
+            '07:30 - 08:30',
+            '08:30 - 09:30',
+            '09:30 - 10:30',
+            '10:30 - 11:30',
+          ],
         },
       ],
     },
     {
+      id: 3,
       coachDetails: {
-        name: 'Health coach name',
+        name: 'Health coach name 3',
         profile: require('../../assets/images/User.png'),
         type: 'Specialisation',
         level: 'Experience',
@@ -160,41 +204,43 @@ const AppointmentWithScreen: React.FC<AppointmentScreenProps> = ({
       slots: [
         {
           id: 1,
-          time: '06:30 - 07:30',
+          timeZone: 'Morning',
+          slots: [
+            '07:30 - 08:30',
+            '08:30 - 09:30',
+            '09:30 - 10:30',
+            '10:30 - 11:30',
+          ],
         },
         {
           id: 2,
-          time: '06:30 - 07:30',
+          timeZone: 'Afternoon',
+          slots: [
+            '07:30 - 08:30',
+            '08:30 - 09:30',
+            '09:30 - 10:30',
+            '10:30 - 11:30',
+          ],
         },
         {
           id: 3,
-          time: '06:30 - 07:30',
-        },
-        {
-          id: 4,
-          time: '06:30 - 07:30',
+          timeZone: 'Evening',
+          slots: [
+            '07:30 - 08:30',
+            '08:30 - 09:30',
+            '09:30 - 10:30',
+            '10:30 - 11:30',
+          ],
         },
       ],
     },
   ];
-
+  const [appointment, setAppointments] = useState<AppointmentsType | null>(
+    null,
+  );
+  const [selectedId, setSelectedId] = useState<number | null>(null);
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const type = route?.params?.type;
-
-  const renderLanguage = (item: LanguagesType[]) => {
-    const combineLanguage = item.map(item => item.language).join(',');
-    return (
-      <Text
-        numberOfLines={1}
-        style={{
-          fontFamily: Fonts.BOLD,
-          fontSize: Matrics.mvs(11),
-          color: colors.subTitleLightGray,
-          maxWidth: Matrics.s(240),
-        }}>
-        {combineLanguage}
-      </Text>
-    );
-  };
 
   const timeFrom = (count: number) => {
     let dates: string[] = [];
@@ -203,170 +249,90 @@ const AppointmentWithScreen: React.FC<AppointmentScreenProps> = ({
         new Date(
           new Date().getTime() -
             (count >= 0 ? I : I - I - I) * 24 * 60 * 60 * 1000,
-        ).toLocaleString('en-us', {weekday: 'short', day: '2-digit'}),
+        ).toUTCString(),
       );
     }
     return dates;
   };
 
-  const renderDays = ({item, index}: {item: string; index: number}) => {
-    const dayName = item?.split(' ')[0];
-    const date = item?.split(' ')[1];
-    return (
-      <TouchableOpacity
-        style={{
-          backgroundColor: colors.white,
-          alignItems: 'center',
-          width: Matrics.s(40),
-          height: Matrics.vs(40),
-          justifyContent: 'center',
-          borderRadius: Matrics.s(10),
-          borderWidth: Matrics.s(1),
-          borderColor: colors.inactiveGray,
-          marginLeft: Matrics.s(12),
-        }}>
-        <Text
-          style={{
-            fontFamily: Fonts.MEDIUM,
-            fontSize: Matrics.mvs(12),
-          }}>
-          {dayName}
-        </Text>
-        <Text>{date}</Text>
-      </TouchableOpacity>
-    );
+  const onPressDaySlot = (date: string, item: CoachDataType) => {
+    const sameAppointment = appointment?.id == item.id;
+    const tempAppointment: AppointmentsType = {
+      id: item.id,
+      date: date,
+      time: sameAppointment ? appointment.time : '',
+      timeZone: '',
+    };
+    setAppointments(tempAppointment);
   };
 
-  const renderSlots = ({item, index}: {item: SlotsType; index: number}) => {
-    return (
-      <TouchableOpacity
-        style={{
-          backgroundColor: colors.white,
-          alignItems: 'center',
-          justifyContent: 'center',
-          borderRadius: Matrics.s(10),
-          borderWidth: Matrics.s(1),
-          borderColor: colors.inactiveGray,
-          padding: Matrics.s(6),
-          marginRight: Matrics.s(6),
-        }}>
-        <Text>{item.time}</Text>
-      </TouchableOpacity>
-    );
+  const onPressTimeSlot = (
+    time: string,
+    item: CoachDataType,
+    timeZone: string,
+  ) => {
+    const sameAppointment = appointment?.id == item.id;
+    const today = new Date().toUTCString();
+    const tempAppointment: AppointmentsType = {
+      id: item.id,
+      date: sameAppointment ? appointment.date : today,
+      time: time,
+      timeZone: timeZone ?? '',
+    };
+    setAppointments(tempAppointment);
+  };
+
+  const onPressSaveNextBtn = () => {
+    console.log('appointment', appointment);
+    if (appointment?.id) {
+      const coachDetails = CoachData.filter(item => item.id == appointment.id);
+      const props: AppointmentDetailsScreenProps = {
+        coachDetails: coachDetails[0].coachDetails,
+        ...appointment,
+      };
+      bottomSheetModalRef.current?.forceClose({duration: 600});
+      navigation.navigate('AppointmentDetailsScreen', {
+        appointmentDetails: props,
+      });
+    }
+  };
+
+  const openSlotDetailsBottomSheet = (id: number, item: CoachDataType) => {
+    bottomSheetModalRef.current?.present();
+    const sameAppointment = appointment?.id == item.id;
+    if (!sameAppointment) {
+      const today = new Date().toUTCString();
+      setAppointments({
+        id: id,
+        date: today,
+        time: '',
+      });
+    }
   };
 
   const renderItem = ({item, index}: {item: CoachDataType; index: number}) => {
-    const {coachDetails, slots} = item;
-    const {languages, level, name, profile, type} = coachDetails;
-    const dates = timeFrom(7);
+    const {coachDetails, slots, id} = item;
+    // generate dates
+    const dates = timeFrom(10);
     return (
-      <View
-        style={{
-          backgroundColor: colors.white,
-          flex: 1,
-          marginHorizontal: Matrics.s(15),
-          paddingVertical: Matrics.s(15),
-          borderRadius: Matrics.s(15),
-        }}>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            paddingHorizontal: Matrics.s(15),
-          }}>
-          <Image
-            source={profile}
-            style={{
-              height: Matrics.vs(50),
-              width: Matrics.s(50),
-            }}
-            resizeMode="contain"
-          />
-          <View
-            style={{
-              flex: 1,
-              marginLeft: Matrics.s(10),
-            }}>
-            <Text
-              numberOfLines={1}
-              style={{
-                fontFamily: Fonts.BOLD,
-                fontSize: Matrics.mvs(14),
-                fontWeight: '500',
-                color: colors.black,
-                maxWidth: Matrics.s(240),
-              }}>
-              {name}
-            </Text>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
-              <Text
-                numberOfLines={1}
-                style={{
-                  fontFamily: Fonts.REGULAR,
-                  fontSize: Matrics.mvs(11),
-                  color: colors.subTitleLightGray,
-                  lineHeight: Matrics.vs(20),
-                  maxWidth: Matrics.s(110),
-                }}>
-                {type}
-              </Text>
-              <View
-                style={{
-                  width: Matrics.s(4),
-                  height: Matrics.s(4),
-                  borderRadius: Matrics.s(4),
-                  backgroundColor: colors.inactiveGray,
-                  marginHorizontal: Matrics.s(5),
-                }}
-              />
-              <Text
-                numberOfLines={1}
-                style={{
-                  fontFamily: Fonts.REGULAR,
-                  fontSize: Matrics.mvs(11),
-                  color: colors.subTitleLightGray,
-                  lineHeight: Matrics.vs(20),
-                  maxWidth: Matrics.s(110),
-                }}>
-                {level}
-              </Text>
-            </View>
-            {renderLanguage(languages)}
-
-            {/* <View style={{flexWrap: 'wrap', flexDirection: 'row'}}>
-              {languages.map(renderLanguage)}
-            </View> */}
-          </View>
-        </View>
+      <View style={[styles.coachContainer, styles.coachContainerShadow]}>
+        <CoachDetailsCard data={coachDetails} />
         <View style={[styles.seprator]} />
-        <FlatList
+        <AppointmentDaySlot
           data={dates}
-          renderItem={renderDays}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          keyExtractor={(_item, index) => index.toString()}
+          onPress={date => onPressDaySlot(date, item)}
+          selectedData={appointment?.id == item.id ? appointment : null}
         />
-        <View style={styles.slotContainer}>
-          <Text>Next Available Slots</Text>
-          <FlatList
-            data={slots.slice(0, 3)}
-            renderItem={renderSlots}
-            numColumns={3}
-            style={{
-              marginTop: Matrics.s(10),
-            }}
-            keyExtractor={(_item, index) => index.toString()}
-          />
-          {slots.length > 3 ? (
-            <TouchableOpacity style={styles.viewAllTxtContainer}>
-              <Text style={styles.viewAllSlotsTxt}>View All Slots</Text>
-            </TouchableOpacity>
-          ) : null}
-        </View>
+        <AppointmentTimeSlot
+          data={slots[0]}
+          viewAllslot={slots?.length > 1}
+          onPress={(time, timeZone) => onPressTimeSlot(time, item, timeZone)}
+          selectedData={appointment?.id == item.id ? appointment : null}
+          onViewallPress={() => {
+            setSelectedId(id);
+            openSlotDetailsBottomSheet(id, item);
+          }}
+        />
       </View>
     );
   };
@@ -383,9 +349,34 @@ const AppointmentWithScreen: React.FC<AppointmentScreenProps> = ({
         data={CoachData}
         renderItem={renderItem}
         keyExtractor={(_item, index) => index.toString()}
-        ItemSeparatorComponent={() => {
-          return <View style={styles.itemSeprator} />;
-        }}
+        showsVerticalScrollIndicator={false}
+      />
+      <View
+        style={[
+          styles.bottomBtn,
+          styles.bottomBtnShadow,
+          {
+            marginBottom: Platform.OS == 'android' ? Matrics.s(20) : 0,
+          },
+        ]}>
+        <Button
+          disabled={appointment?.date && appointment?.time ? false : true}
+          onPress={onPressSaveNextBtn}
+          title="Save & Next"
+          titleStyle={{
+            fontWeight: '700',
+          }}
+          buttonStyle={{
+            paddingVertical: Matrics.vs(10),
+          }}
+        />
+      </View>
+      <AppointmentAllSlots
+        ref={bottomSheetModalRef}
+        coachDetails={CoachData?.filter(item => item.id == selectedId)[0]}
+        selectedData={appointment ?? null}
+        setSelectedData={setAppointments}
+        onPress={onPressSaveNextBtn}
       />
     </View>
   );
@@ -404,22 +395,34 @@ const styles = StyleSheet.create({
   seprator: {
     height: Matrics.vs(0.5),
     backgroundColor: colors.lightGrey,
-    marginVertical: Matrics.s(12),
+    marginTop: Matrics.s(12),
     marginHorizontal: Matrics.s(15),
   },
-  viewAllSlotsTxt: {
-    color: colors.themePurple,
-    fontWeight: '600',
-    fontFamily: Fonts.BOLD,
-    fontSize: Matrics.mvs(14),
-    lineHeight: Matrics.s(15),
-  },
-  viewAllTxtContainer: {
-    alignSelf: 'center',
-    marginTop: Matrics.s(10),
-  },
-  slotContainer: {
-    marginTop: Matrics.s(15),
+  coachContainer: {
+    backgroundColor: colors.white,
+    flex: 1,
     marginHorizontal: Matrics.s(15),
+    paddingVertical: Matrics.s(15),
+    borderRadius: Matrics.s(15),
+    marginVertical: Matrics.vs(5),
+  },
+  coachContainerShadow: {
+    shadowColor: colors.black,
+    shadowOffset: {width: 0, height: 0},
+    shadowOpacity: 0.05,
+    shadowRadius: 5,
+    elevation: 3,
+  },
+  bottomBtn: {
+    backgroundColor: colors.white,
+    paddingHorizontal: Matrics.s(15),
+    paddingVertical: Matrics.s(10),
+  },
+  bottomBtnShadow: {
+    shadowColor: colors.black,
+    shadowOffset: {width: 0, height: 0},
+    shadowOpacity: 0.2,
+    shadowRadius: 9,
+    elevation: 3,
   },
 });

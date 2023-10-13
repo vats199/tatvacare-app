@@ -15,11 +15,17 @@ import AppointmentFaqs from '../../components/organisms/AppointmentFaqs';
 import {colors} from '../../constants/colors';
 import ContactUs from '../../components/molecules/ContactUs';
 import {Fonts, Matrics} from '../../constants';
-import {BottomSheetModal, BottomSheetModalProvider} from '@gorhom/bottom-sheet';
+import {
+  BottomSheetBackdrop,
+  BottomSheetBackdropProps,
+  BottomSheetModal,
+  BottomSheetModalProvider,
+} from '@gorhom/bottom-sheet';
 import {Icons} from '../../constants/icons';
-import {CompositeScreenProps} from '@react-navigation/native';
+import {AppointmentStackParamList} from '../../interface/Navigation.interface';
 import {StackScreenProps} from '@react-navigation/stack';
-import {AppStackParamList} from '../../interface/Navigation.interface';
+import UpcomingAppointmentDetails from '../../components/organisms/UpcomingAppointmentDetails';
+import Button from '../../components/atoms/Button';
 
 type AppointmentType = {
   id: number;
@@ -28,12 +34,21 @@ type AppointmentType = {
 
 const BottomSheetSnapPointValue = Platform.OS == 'ios' ? '23%' : '26%';
 
-type AppointmentScreenProps = StackScreenProps<AppStackParamList>;
+type AppointmentScreenProps = StackScreenProps<
+  AppointmentStackParamList,
+  'AppointmentScreen'
+>;
 
 const AppointmentScreen: React.FC<AppointmentScreenProps> = ({
   route,
   navigation,
 }) => {
+  const appointmentDetails = route.params?.appointmentDetails;
+  console.log(
+    '🚀 ~ file: AppointmentScreen.tsx:45 ~ appointmentDetails:',
+    appointmentDetails,
+  );
+
   const typeOfAppointment = [
     {
       id: 1,
@@ -57,25 +72,27 @@ const AppointmentScreen: React.FC<AppointmentScreenProps> = ({
     console.log('handleSheetChanges', index);
   }, []);
 
-  const pressAppointmentType = (type: string) => {
+  const onPressAppointmentType = (type: string) => {
     bottomSheetModalRef.current?.forceClose();
     navigation.navigate('AppointmentWithScreen', {type: type});
   };
+
+  const onPressJoinCall = () => {};
+
+  const onPressRequestCancellation = () => {};
 
   const renderAppointmentType = (item: AppointmentType, index: number) => {
     const {title, id} = item;
     return (
       <>
         <TouchableOpacity
-          onPress={() => pressAppointmentType(title)}
+          onPress={() => onPressAppointmentType(title)}
           style={styles.appointmentItemContainer}>
           <Text style={styles.appointmentTypeTxt}>{title}</Text>
           <Icons.backArrow
             height={Matrics.s(10)}
             width={Matrics.s(10)}
-            style={{
-              transform: [{rotate: '180deg'}],
-            }}
+            style={styles.backArrow}
           />
         </TouchableOpacity>
         {typeOfAppointment.length - 1 !== index ? (
@@ -84,6 +101,19 @@ const AppointmentScreen: React.FC<AppointmentScreenProps> = ({
       </>
     );
   };
+
+  const renderBackdrop = React.useCallback(
+    (props: BottomSheetBackdropProps) => (
+      <BottomSheetBackdrop
+        {...props}
+        opacity={1}
+        appearsOnIndex={0}
+        disappearsOnIndex={-1}
+        style={styles.overlay}
+      />
+    ),
+    [],
+  );
 
   return (
     <View style={styles.container}>
@@ -95,6 +125,34 @@ const AppointmentScreen: React.FC<AppointmentScreenProps> = ({
       />
       <ScrollView showsVerticalScrollIndicator={false}>
         <AppointmentCarePlanCard />
+        {appointmentDetails?.id ? (
+          <>
+            <Text numberOfLines={1} style={styles.upcomingTxt}>
+              Upcoming
+            </Text>
+            <UpcomingAppointmentDetails
+              containerStyle={styles.upcomingAppointmentContainer}
+              data={appointmentDetails}
+              children={
+                <View style={styles.upcomingContainer}>
+                  <TouchableOpacity
+                    activeOpacity={0.5}
+                    onPress={onPressRequestCancellation}>
+                    <Text style={styles.requestCancelltionTxt}>
+                      Request Cancellation
+                    </Text>
+                  </TouchableOpacity>
+                  <Button
+                    onPress={onPressJoinCall}
+                    buttonStyle={styles.joinCallBtn}
+                    titleStyle={styles.joinCallTxt}
+                    title="Join Call"
+                  />
+                </View>
+              }
+            />
+          </>
+        ) : null}
         <AppointmentYourServices
           onPress={(id, title) => {
             if (title === 'Book Appoinment') handlePresentModalPress();
@@ -102,28 +160,27 @@ const AppointmentScreen: React.FC<AppointmentScreenProps> = ({
         />
         <YourBenefits />
         <AppointmentFaqs />
-        <View style={styles.bottomBtnContainer}>
+        <View style={[styles.bottomBtnContainer]}>
           <ContactUs />
         </View>
       </ScrollView>
       <BottomSheetModalProvider>
-        <View style={styles.container}>
-          <BottomSheetModal
-            ref={bottomSheetModalRef}
-            backdropComponent={() => <View style={styles.overlay} />}
-            index={0}
-            snapPoints={snapPoints}
-            handleIndicatorStyle={styles.handleIndicator}
-            onChange={handleSheetChanges}>
-            <View style={{flex: 1, marginTop: Matrics.s(6)}}>
-              <Text style={styles.bookAppointmentTxt}>Book appointment</Text>
-              <View style={styles.itemSeprator} />
-              <View style={styles.appointmentTypeContainer}>
-                {typeOfAppointment.map(renderAppointmentType)}
-              </View>
+        <BottomSheetModal
+          ref={bottomSheetModalRef}
+          backdropComponent={renderBackdrop}
+          index={0}
+          snapPoints={snapPoints}
+          handleIndicatorStyle={styles.handleIndicator}
+          backgroundStyle={styles.bottomSheetBackground}
+          onChange={handleSheetChanges}>
+          <View style={{flex: 1, marginTop: Matrics.s(6)}}>
+            <Text style={styles.bookAppointmentTxt}>Book appointment</Text>
+            <View style={styles.itemSeprator} />
+            <View style={styles.appointmentTypeContainer}>
+              {typeOfAppointment.map(renderAppointmentType)}
             </View>
-          </BottomSheetModal>
-        </View>
+          </View>
+        </BottomSheetModal>
       </BottomSheetModalProvider>
     </View>
   );
@@ -147,10 +204,11 @@ const styles = StyleSheet.create({
   },
   bookAppointmentTxt: {
     fontFamily: Fonts.BOLD,
-    fontSize: Matrics.mvs(20),
+    fontSize: Matrics.mvs(19),
     fontWeight: '600',
     color: colors.black,
     paddingHorizontal: Matrics.s(20),
+    marginTop: Matrics.s(2),
   },
   itemSeprator: {
     height: Matrics.s(1),
@@ -165,16 +223,62 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingVertical: Matrics.s(12),
+    paddingVertical: Matrics.s(14),
   },
   appointmentTypeTxt: {
     fontFamily: Fonts.BOLD,
-    fontSize: Matrics.mvs(15),
+    fontSize: Matrics.mvs(14),
     color: colors.labelDarkGray,
   },
   handleIndicator: {
     width: Matrics.s(40),
     backgroundColor: colors.lightGrey,
     opacity: 0.5,
+  },
+  bottomSheetBackground: {
+    borderTopLeftRadius: Matrics.s(20),
+    borderTopRightRadius: Matrics.s(20),
+  },
+  backArrow: {
+    transform: [{rotate: '180deg'}],
+    marginRight: Matrics.s(5),
+    colors: colors.darkLightGray,
+  },
+  upcomingTxt: {
+    fontFamily: Fonts.BOLD,
+    fontSize: Matrics.mvs(15),
+    fontWeight: '600',
+    color: colors.black,
+    marginHorizontal: Matrics.s(15),
+    marginVertical: Matrics.vs(10),
+    marginTop: Matrics.s(25),
+  },
+  upcomingContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginHorizontal: Matrics.s(15),
+    marginTop: Matrics.s(20),
+  },
+  requestCancelltionTxt: {
+    textAlign: 'center',
+    marginHorizontal: Matrics.s(20),
+    color: colors.themePurple,
+    fontFamily: Fonts.BOLD,
+    fontSize: Matrics.mvs(12),
+    fontWeight: '600',
+  },
+  joinCallBtn: {
+    paddingHorizontal: Matrics.s(35),
+    paddingVertical: Matrics.vs(9),
+    borderRadius: Matrics.s(15),
+  },
+  joinCallTxt: {
+    fontSize: Matrics.mvs(12),
+    fontWeight: '700',
+  },
+  upcomingAppointmentContainer: {
+    marginBottom: Matrics.s(10),
+    paddingBottom: Matrics.s(15),
   },
 });

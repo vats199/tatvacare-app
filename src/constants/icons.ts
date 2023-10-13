@@ -67,7 +67,11 @@ import Filter from '../assets/icons/filter.svg';
 import Correct from '../assets/icons/correct.svg';
 import RoundCalendar from '../assets/icons/roundCalendar.svg';
 import RoundLab from '../assets/icons/roundLab.svg';
-
+import Moon from '../assets/icons/moon.svg';
+import Afternoon from '../assets/icons/afternoon.svg';
+import Morning from '../assets/icons/morning.svg';
+import Clock from '../assets/icons/clock.svg';
+import CalendarRound from '../assets/icons/calendarRound.svg';
 
 export const Icons = {
   HomeActive,
@@ -133,5 +137,10 @@ export const Icons = {
   Filter,
   Correct,
   RoundCalendar,
-  RoundLab
+  RoundLab,
+  Moon,
+  Afternoon,
+  Morning,
+  Clock,
+  CalendarRound
 };

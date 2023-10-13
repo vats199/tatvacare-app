@@ -1,5 +1,4 @@
 import HomeScreen from '../screens/HomeScreen';
-import AboutUsScreen from '../screens/AboutUsScreen';
 import RoutineScreen from '../screens/Exercise/RoutineScreen';
 import React from 'react';
 import ExplorScreen from '../screens/Exercise/ExplorScreen';
@@ -16,6 +15,7 @@ import {
   TabParamList,
   BottomTabParamList,
   ExerciesStackParamList,
+  AppointmentStackParamList,
 } from '../interface/Navigation.interface';
 import {NavigationContainer} from '@react-navigation/native';
 import {
@@ -27,10 +27,10 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {colors} from '../constants/colors';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Image} from 'react-native';
 import AppointmentScreen from '../screens/Appointment/AppointmentScreen';
 import AppointmentWithScreen from '../screens/Appointment/AppointmentWithScreen';
+import AppointmentDetailsScreen from '../screens/Appointment/AppointmentDetailsScreen';
 
 const Drawer = createDrawerNavigator<DrawerParamList>();
 const DrawerScreen = () => {
@@ -165,6 +165,28 @@ const ExerciesStackScreen = () => {
   );
 };
 
+const AppointmentStack = createStackNavigator<AppointmentStackParamList>();
+const AppointmentStackScreen = () => {
+  return (
+    <AppointmentStack.Navigator
+      initialRouteName="AppointmentScreen"
+      screenOptions={{headerShown: false}}>
+      <AppointmentStack.Screen
+        name="AppointmentScreen"
+        component={AppointmentScreen}
+      />
+      <AppointmentStack.Screen
+        name={'AppointmentWithScreen'}
+        component={AppointmentWithScreen}
+      />
+      <AppointmentStack.Screen
+        name={'AppointmentDetailsScreen'}
+        component={AppointmentDetailsScreen}
+      />
+    </AppointmentStack.Navigator>
+  );
+};
+
 const AuthStack = createStackNavigator<AuthStackParamList>();
 const AuthStackScreen = () => {
   return (
@@ -192,12 +214,8 @@ const Router = () => {
         <AppStack.Screen name={'AuthStackScreen'} component={AuthStackScreen} />
         <AppStack.Screen name={'DrawerScreen'} component={DrawerScreen} />
         <AppStack.Screen
-          name={'AppointmentScreen'}
-          component={AppointmentScreen}
-        />
-        <AppStack.Screen
-          name={'AppointmentWithScreen'}
-          component={AppointmentWithScreen}
+          name={'AppointmentStackScreen'}
+          component={AppointmentStackScreen}
         />
       </AppStack.Navigator>
     </NavigationContainer>
