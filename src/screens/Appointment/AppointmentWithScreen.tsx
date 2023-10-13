@@ -9,7 +9,7 @@ import {
 import {colors} from '../../constants/colors';
 import {StackScreenProps} from '@react-navigation/stack';
 import {AppointmentStackParamList} from '../../interface/Navigation.interface';
-import AppointmentHeader from '../../components/molecules/AppointmentHeader';
+import CommonHeader from '../../components/molecules/CommonHeader';
 import {Matrics} from '../../constants';
 import AppointmentDaySlot from '../../components/organisms/AppointmentDaySlot';
 import AppointmentTimeSlot from '../../components/organisms/AppointmentTimeSlot';
@@ -339,7 +339,7 @@ const AppointmentWithScreen: React.FC<AppointmentScreenProps> = ({
 
   return (
     <View style={styles.container}>
-      <AppointmentHeader
+      <CommonHeader
         onPress={() => {
           navigation.goBack();
         }}

@@ -8,7 +8,7 @@ import {
   View,
 } from 'react-native';
 import AppointmentCarePlanCard from '../../components/molecules/AppointmentCarePlanCard';
-import AppointmentHeader from '../../components/molecules/AppointmentHeader';
+import CommonHeader from '../../components/molecules/CommonHeader';
 import AppointmentYourServices from '../../components/organisms/AppointmentYourServices';
 import YourBenefits from '../../components/organisms/YourBenefits';
 import AppointmentFaqs from '../../components/organisms/AppointmentFaqs';
@@ -117,7 +117,7 @@ const AppointmentScreen: React.FC<AppointmentScreenProps> = ({
 
   return (
     <View style={styles.container}>
-      <AppointmentHeader
+      <CommonHeader
         onPress={() => {
           navigation.goBack();
         }}
