@@ -134,6 +134,11 @@ class OrderSummaryVC: ClearNavigationFontBlackBaseVC {
    
     @IBOutlet weak var btnCancel                : UIButton!
     
+    @IBOutlet weak var lblApplyCoupon           : UILabel!
+    @IBOutlet weak var lblApplyCouponVal        : UILabel!
+    
+    @IBOutlet weak var stApplyCouopn: UIStackView!
+    
     //MARK: ------------------------- Class Variable -------------------------
     var object              = LabTestOrderSummaryModel()
     
@@ -243,6 +248,13 @@ class OrderSummaryVC: ClearNavigationFontBlackBaseVC {
             .font(name: .semibold, size: 15)
             .textColor(color: UIColor.themeBlack.withAlphaComponent(1))
         
+        self.lblApplyCoupon
+            .font(name: .regular, size: 14)
+            .textColor(color: UIColor.themeBlack.withAlphaComponent(0.8))
+        self.lblApplyCouponVal
+            .font(name: .semibold, size: 15)
+            .textColor(color: UIColor.themeGreen)
+        
         self.lblCollectionCharge
             .font(name: .regular, size: 14)
             .textColor(color: UIColor.themeBlack.withAlphaComponent(0.8))
@@ -297,6 +309,7 @@ class OrderSummaryVC: ClearNavigationFontBlackBaseVC {
             self.vwAppointment.cornerRadius(cornerRadius: 10)
                 .backGroundColor(color: UIColor.themeLightPurple.withAlphaComponent(0.4))
         }
+        
     }
     
     func setup(tblView: UITableView) {
@@ -361,6 +374,7 @@ class OrderSummaryVC: ClearNavigationFontBlackBaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         self.setUpView()
         
         //WebengageManager.shared.navigateScreenEvent(screen: .DoctorProfile)
@@ -558,6 +572,16 @@ extension OrderSummaryVC {
             self.lblCollectionChargeFree.text   = JSON(self.object.homeCollectionCharge as Any).intValue == 0 ? KFree : CurrencySymbol.INR.rawValue + "\(self.object.homeCollectionCharge!)"
             self.lblOrderTotalVal.text          = CurrencySymbol.INR.rawValue + "\(self.object.orderTotal!)"
             self.lblAmountVal.text              = CurrencySymbol.INR.rawValue + "\(self.object.finalPayableAmount!)"
+            
+//            self.lblApplyCoupon.isHidden = self.object.couponCode == "" && self.object.couponDiscount == ""
+//            self.lblApplyCouponVal.isHidden = self.object.couponCode == "" && self.object.couponDiscount == ""
+            
+            self.stApplyCouopn.isHidden = self.object.couponCode == "" && self.object.couponDiscount == ""
+            
+            self.lblApplyCoupon.text            = "Applied Coupon (\(self.object.couponCode!))"
+            let value = Float(self.object.couponDiscount)
+            let finalValue = Int(value ?? 0.0)
+            self.lblApplyCouponVal.text = "- \(appCurrencySymbol.rawValue)\(finalValue)"
         }
         
         if let bcpTestValue = self.object.bcpTestPriceData {

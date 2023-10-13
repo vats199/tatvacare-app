@@ -747,6 +747,7 @@
 		8F9D2C9E2AD3CA68007F43FB /* DiscountListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9D2C9D2AD3CA68007F43FB /* DiscountListModel.swift */; };
 		8F9D2CA92AD3CCBE007F43FB /* BCANewAddressListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F9D2CA72AD3CCBE007F43FB /* BCANewAddressListCell.xib */; };
 		8F9D2CAA2AD3CCBE007F43FB /* BCANewAddressListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9D2CA82AD3CCBE007F43FB /* BCANewAddressListCell.swift */; };
+		8FC8710F2AD98113004BA610 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FC8710E2AD98112004BA610 /* Images.xcassets */; };
 		910276A02679237800C55C2D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9102763F2679237700C55C2D /* AppDelegate.swift */; };
 		910276A12679237800C55C2D /* AppDelegate+PushNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910276412679237700C55C2D /* AppDelegate+PushNotification.swift */; };
 		910276A22679237800C55C2D /* PushNotificationTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910276422679237700C55C2D /* PushNotificationTag.swift */; };
@@ -769,7 +770,6 @@
 		91673A612678AA79004EB2F4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91673A5F2678AA79004EB2F4 /* LaunchScreen.storyboard */; };
 		91673A812678B6E0004EB2F4 /* Authentication.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91673A802678B6E0004EB2F4 /* Authentication.storyboard */; };
 		91673A9B2678CECD004EB2F4 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91673A9A2678CECD004EB2F4 /* Colors.xcassets */; };
-		91673A9E2678CEF1004EB2F4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91673A9D2678CEF1004EB2F4 /* Images.xcassets */; };
 		918886AC26905C3100FF5E76 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 918886AB26905C3100FF5E76 /* Settings.storyboard */; };
 		918886B12690825800FF5E76 /* SettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918886B02690825800FF5E76 /* SettingVC.swift */; };
 		91D246BF267A5D520023FB1B /* ForgotPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D246BE267A5D520023FB1B /* ForgotPasswordVC.swift */; };
@@ -1691,6 +1691,7 @@
 		8F9D2C9D2AD3CA68007F43FB /* DiscountListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountListModel.swift; sourceTree = "<group>"; };
 		8F9D2CA72AD3CCBE007F43FB /* BCANewAddressListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BCANewAddressListCell.xib; sourceTree = "<group>"; };
 		8F9D2CA82AD3CCBE007F43FB /* BCANewAddressListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCANewAddressListCell.swift; sourceTree = "<group>"; };
+		8FC8710E2AD98112004BA610 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "../../../../../../Downloads/MyTatavIOS-BCP_Changes/MyTatva/Resources/Images.xcassets"; sourceTree = "<group>"; };
 		9102763F2679237700C55C2D /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		910276412679237700C55C2D /* AppDelegate+PushNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppDelegate+PushNotification.swift"; sourceTree = "<group>"; };
 		910276422679237700C55C2D /* PushNotificationTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationTag.swift; sourceTree = "<group>"; };
@@ -1716,7 +1717,6 @@
 		91673A642678AA94004EB2F4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		91673A802678B6E0004EB2F4 /* Authentication.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Authentication.storyboard; sourceTree = "<group>"; };
 		91673A9A2678CECD004EB2F4 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
-		91673A9D2678CEF1004EB2F4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		91673AA12678D645004EB2F4 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.ttf"; sourceTree = "<group>"; };
 		91673AA22678D645004EB2F4 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
 		91673AA32678D645004EB2F4 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
@@ -5649,6 +5649,7 @@
 		916738342678A7D3004EB2F4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				8FC8710E2AD98112004BA610 /* Images.xcassets */,
 				61AD9C892799709100F86EBC /* GaneshToPaldi.gpx */,
 				61AD9C872799708900F86EBC /* GaneshRound.gpx */,
 				619E3B0C2743D74B00702057 /* heart.json */,
@@ -5659,7 +5660,6 @@
 				6196788328F563C5008CC4E5 /* doc.json */,
 				6196788528F56A90008CC4E5 /* doc2.json */,
 				5DB634E7273D2C7C00F5C078 /* breathing.gif */,
-				91673A9D2678CEF1004EB2F4 /* Images.xcassets */,
 				91673A9A2678CECD004EB2F4 /* Colors.xcassets */,
 				61FEA3BA2717FDCB00E01D82 /* GoogleService-Info.plist */,
 				916738362678A7D3004EB2F4 /* MapStyle.json */,
@@ -6545,7 +6545,6 @@
 				5DB634E8273D2C7D00F5C078 /* breathing.gif in Resources */,
 				61AD9C882799708A00F86EBC /* GaneshRound.gpx in Resources */,
 				9A45BC6C2A3849DB004D9C82 /* TestDetailCell.xib in Resources */,
-				91673A9E2678CEF1004EB2F4 /* Images.xcassets in Resources */,
 				916739F02678A7D4004EB2F4 /* Home.storyboard in Resources */,
 				91673A812678B6E0004EB2F4 /* Authentication.storyboard in Resources */,
 				6167818026A88754007B504A /* play_fair_display_black.ttf in Resources */,
@@ -6578,6 +6577,7 @@
 				5D94538A29F6BAAC0098C178 /* LoginHeaderView.xib in Resources */,
 				5DA95EE62A4C4A4500A03E44 /* TestListCell.xib in Resources */,
 				616725AE26DCD54E006C44EC /* SFProDisplay-Thin.otf in Resources */,
+				8FC8710F2AD98113004BA610 /* Images.xcassets in Resources */,
 				918886AC26905C3100FF5E76 /* Settings.storyboard in Resources */,
 				61C03D5A29879E9600D4A508 /* Config_release.xcconfig in Resources */,
 				61A285AC29015016009D59E7 /* mytatva_Loader.json in Resources */,

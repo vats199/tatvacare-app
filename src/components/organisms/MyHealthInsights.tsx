@@ -41,6 +41,59 @@ const MyHealthInsights: React.FC<MyHealthInsightsProps> = ({
     }
   };
 
+  const getDisplay = (
+    keys: string,
+    measurements: string,
+    reading_value: any,
+    reading_value_data: any,
+  ) => {
+    switch (keys) {
+      case 'bloodpressure':
+        return (
+          <Text>
+            <Text style={styles.hiItemValue}>
+              {getValue(reading_value_data.systolic)}/
+              {getValue(reading_value_data.diastolic)}
+            </Text>
+            <Text style={styles.hiItemKey}> {measurements}</Text>
+          </Text>
+        );
+      case 'fibro_scan':
+        return (
+          <Text>
+            <Text style={styles.hiItemValue}>
+              {getValue(reading_value_data.lsm)}
+            </Text>
+            <Text style={styles.hiItemKey}> {measurements.split(',')[0]} </Text>
+            <Text style={styles.hiItemValue}>
+              {getValue(reading_value_data.cap)}
+            </Text>
+            <Text style={styles.hiItemKey}> {measurements.split(',')[1]}</Text>
+          </Text>
+        );
+      case 'blood_glucose':
+        return (
+          <Text>
+            <Text style={styles.hiItemValue}>
+              {getValue(reading_value_data.fast)}
+            </Text>
+            <Text style={styles.hiItemKey}> {measurements} </Text>
+            <Text style={styles.hiItemValue}>
+              {getValue(reading_value_data.pp)}
+            </Text>
+            <Text style={styles.hiItemKey}> {measurements}</Text>
+          </Text>
+        );
+      default:
+        return (
+          <Text>
+            <Text style={styles.hiItemValue}>{getValue(reading_value)}</Text>
+            <Text style={styles.hiItemKey}> {measurements}</Text>
+          </Text>
+        );
+    }
+  };
+
   const renderReadings = ({item, index}: {item: any; index: number}) => {
     return (
       <TouchableOpacity
@@ -57,18 +110,12 @@ const MyHealthInsights: React.FC<MyHealthInsightsProps> = ({
           <Text style={styles.hiItemTitle}>{item?.reading_name || '-'}</Text>
         </View>
         <View style={styles.valuesRow}>
-          <Text style={styles.hiItemValue}>
-            {getValue(
-              item?.keys == 'bloodpressure'
-                ? item?.reading_value_data?.diastolic
-                : item?.keys == 'blood_glucose'
-                ? item?.reading_value_data?.fast
-                : item?.keys == 'fibro_scan'
-                ? item?.reading_value_data?.cap
-                : item?.reading_value,
-            ) || '-'}
-          </Text>
-          <Text style={styles.hiItemKey}>{item?.measurements}</Text>
+          {getDisplay(
+            item.keys,
+            item.measurements,
+            item.reading_value,
+            item.reading_value_data,
+          )}
         </View>
       </TouchableOpacity>
     );

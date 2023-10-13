@@ -613,6 +613,8 @@ PODS:
     - React-perflogger (= 0.72.4)
   - RNCAsyncStorage (1.19.3):
     - React-Core
+  - RNDeviceInfo (10.11.0):
+    - React-Core
   - RNGestureHandler (2.12.1):
     - React-Core
   - RNImageCropPicker (0.40.0):
@@ -759,6 +761,7 @@ DEPENDENCIES:
   - React-utils (from `../node_modules/react-native/ReactCommon/react/utils`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
+  - RNDeviceInfo (from `../node_modules/react-native-device-info`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNImageCropPicker (from `../node_modules/react-native-image-crop-picker`)
   - RNPermissions (from `../node_modules/react-native-permissions`)
@@ -931,6 +934,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-async-storage/async-storage"
+  RNDeviceInfo:
+    :path: "../node_modules/react-native-device-info"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNImageCropPicker:
@@ -1047,6 +1052,7 @@ SPEC CHECKSUMS:
   React-utils: 2656bf0ea2e9866335c8862df1e61a503778b972
   ReactCommon: 1a5189c2be06c390c2861b63939aeb9e81fa0425
   RNCAsyncStorage: c913ede1fa163a71cea118ed4670bbaaa4b511bb
+  RNDeviceInfo: bf8a32acbcb875f568217285d1793b0e8588c974
   RNGestureHandler: c0d04458598fcb26052494ae23dda8f8f5162b13
   RNImageCropPicker: 486e2f7e2b0461ce24321f751410dce1b3b49e6d
   RNPermissions: 976a2ccb8956f34398968af52bd1f1ad63ca51db
