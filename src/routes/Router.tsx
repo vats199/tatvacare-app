@@ -34,6 +34,7 @@ export const openUpdateGoal = Navigation.openUpdateGoal;
 export const openMedicineExerciseDiet = Navigation.openMedicineExerciseDiet;
 export const openHealthKitSyncView = Navigation.openHealthKitSyncView;
 export const navigateToBookAppointment = Navigation.navigateToBookAppointment;
+export const openAddWeightHeight = Navigation.openAddWeightHeight;
 
 export const goBack = Navigation.goBack();
 

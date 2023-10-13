@@ -6,6 +6,7 @@ import {
   navigateTo,
   navigateToHistory,
   navigateToBookmark,
+  openAddWeightHeight,
 } from '../../routes/Router';
 
 type DrawerMyHealthDiaryProps = {};
@@ -14,7 +15,12 @@ const DrawerMyHealthDiary: React.FC<DrawerMyHealthDiaryProps> = ({}) => {
   const onPressGoals = () => {
     navigateTo('SetGoalsVC');
   };
+  const onPressBMI = () => {
+    openAddWeightHeight();
+  };
 
+
+  
   const onPressHealthRecords = () => {
     navigateToHistory('Records');
   };
@@ -61,7 +67,7 @@ const DrawerMyHealthDiary: React.FC<DrawerMyHealthDiaryProps> = ({}) => {
       <TouchableOpacity
         style={styles.itemContainer}
         activeOpacity={0.7}
-        onPress={onPressGoals}>
+        onPress={onPressBMI}>
         <View style={styles.icon}>
           <Icons.DrawerBMI />
         </View>

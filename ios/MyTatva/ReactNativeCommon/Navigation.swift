@@ -319,6 +319,17 @@ class Navigation: NSObject {
             print(error)
         }
     }
+    
+    @objc
+    func openAddWeightHeight(){
+        let vc = AddWeightHeightVC.instantiate(fromAppStoryboard: .auth)
+        vc.isEdit = true
+        DispatchQueue.main.async {
+            vc.hidesBottomBarWhenPushed = true
+            self.navigate(modelVC: vc)
+        }
+    }
+    
     @objc
     func openUpdateReading(_ selectedType: NSArray) -> Void {
         
