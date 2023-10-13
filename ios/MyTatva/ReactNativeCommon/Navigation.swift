@@ -73,7 +73,7 @@ class Navigation: NSObject {
             let jsonData = try JSONSerialization.data(withJSONObject: planDetails!, options: [])
             let vc = PurchsedCarePlanVC.instantiate(fromAppStoryboard: .BCP_temp)
             vc.viewModel.planDetails = PlanDetail(fromJson: try JSON.init(data: jsonData))
-            vc.isBack = false
+            vc.isBack = true
             navigate(modelVC: vc)
         }catch {
             print(error)

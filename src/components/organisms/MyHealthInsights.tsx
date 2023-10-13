@@ -52,12 +52,21 @@ const MyHealthInsights: React.FC<MyHealthInsightsProps> = ({
             resizeMode="contain"
             style={styles.imageStyle}
             source={{uri: item?.image_url || ''}}
+            tintColor={item?.in_range?.icon_color}
           />
           <Text style={styles.hiItemTitle}>{item?.reading_name || '-'}</Text>
         </View>
         <View style={styles.valuesRow}>
           <Text style={styles.hiItemValue}>
-            {getValue(item?.keys == 'bloodpressure' ? item?.reading_value_data?.diastolic : item?.keys == 'blood_glucose' ? item?.reading_value_data?.fast  :  item?.keys == 'fibro_scan' ?  item?.reading_value_data?.cap :   item?.reading_value) || '-'}
+            {getValue(
+              item?.keys == 'bloodpressure'
+                ? item?.reading_value_data?.diastolic
+                : item?.keys == 'blood_glucose'
+                ? item?.reading_value_data?.fast
+                : item?.keys == 'fibro_scan'
+                ? item?.reading_value_data?.cap
+                : item?.reading_value,
+            ) || '-'}
           </Text>
           <Text style={styles.hiItemKey}>{item?.measurements}</Text>
         </View>
@@ -143,7 +152,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 10,
     // minWidth: 150,
-    width: Dimensions.get('screen').width * 0.45,
+    width: Dimensions.get('screen').width * 0.39,
     minHeight: 86,
     marginRight: 10,
     shadowColor: '#2121210D',
@@ -160,7 +169,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 10,
     // minWidth: 150,
-    width: Dimensions.get('screen').width * 0.45,
+    width: Dimensions.get('screen').width * 0.39,
     marginRight: 10,
     minHeight: 86,
     shadowColor: '#2121210D',

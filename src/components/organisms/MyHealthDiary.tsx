@@ -25,76 +25,13 @@ const MyHealthDiary: React.FC<MyHealthDiaryProps> = ({
   onPressMyIncidents,
   data,
 }) => {
-  //DYNAMIC DATA FROM API //
-
-  // const renderHealthDiaryItem = (item: any, idx: number) => {
-  //     return (
-  //         <TouchableOpacity
-  //             key={idx.toString()}
-  //             style={styles.healthDiaryItemContainer}
-  //             // onPress={onPress}
-  //             activeOpacity={0.7}
-  //         >
-  //             <Image resizeMode='contain' source={{ uri: item?.image_url || '' }} style={styles.imageStyle} />
-  //             {/* {renderIcon(title)} */}
-  //             <View style={styles.textContainer}>
-  //                 <Text style={styles.text}>{item?.goal_name || '-'}</Text>
-  //                 {item?.achieved_value ? <Text style={styles.subText}>{item?.achieved_value || 0} of {item?.goal_value || 0} {item?.goal_measurement}</Text> : null}
-  //             </View>
-  //         </TouchableOpacity>
-  //     )
-  // }
-
-  // return (
-  //     <View style={styles.container}>
-  //         <Text style={styles.title}>My Health Diary</Text>
-  //         {data?.map((item: any, idx: number) => { return renderHealthDiaryItem(item, idx) })}
-
-  //     </View>
-  // )
-
-  // const myHealthDiaryItems = ['Diet', 'Medication', 'Exercise'];
-  // const goals = healthInsights?.goals?.filter((goal: any) =>
-  //   myHealthDiaryItems.includes(goal.goal_name),
-  // );
   const dietObj = data?.find((goalObj: any) => goalObj.goal_name === 'Diet');
   const medicineObj = data?.find(
     (goalObj: any) => goalObj.goal_name === 'Medication',
   );
   const exeObj = data?.find((goalObj: any) => goalObj.goal_name === 'Exercise');
 
-  //STATIC DATA //
   const options: HealthDiaryItem[] = [
-    {
-      title: 'Medicines',
-      description:
-        medicineObj?.achieved_value > 0
-          ? `${parseInt(medicineObj.achieved_value)}/${parseInt(
-              medicineObj.goal_value,
-            )} doses`
-          : 'Log and track your medicines!',
-      onPress: () => onPressMedicine(data),
-    },
-    {
-      title: 'Diet',
-      description:
-        dietObj?.achieved_value > 0
-          ? `${parseInt(dietObj.achieved_value)}/${parseInt(
-              dietObj.goal_value,
-            )} cal`
-          : 'Log and track your calories!',
-      onPress: onPressDiet,
-    },
-    {
-      title: 'Exercises',
-      description:
-        exeObj?.achieved_value > 0
-          ? `${parseInt(exeObj.achieved_value)}/${parseInt(
-              exeObj.goal_value,
-            )} minutes`
-          : 'Log your exercise details!',
-      onPress: () => onPressExercise(data),
-    },
     {
       title: 'Devices',
       description: 'Connect and monitor your condition!',
@@ -106,6 +43,45 @@ const MyHealthDiary: React.FC<MyHealthDiaryProps> = ({
       onPress: onPressMyIncidents,
     },
   ];
+
+  if (exeObj) {
+    options.unshift({
+      title: 'Exercises',
+      description:
+        exeObj?.achieved_value > 0
+          ? `${parseInt(exeObj.achieved_value)}/${parseInt(
+              exeObj.goal_value,
+            )} minutes`
+          : 'Log your exercise details!',
+      onPress: () => onPressExercise(data),
+    });
+  }
+
+  if (dietObj) {
+    options.unshift({
+      title: 'Diet',
+      description:
+        dietObj?.achieved_value > 0
+          ? `${parseInt(dietObj.achieved_value)}/${parseInt(
+              dietObj.goal_value,
+            )} cal`
+          : 'Log and track your calories!',
+      onPress: onPressDiet,
+    });
+  }
+
+  if (medicineObj) {
+    options.unshift({
+      title: 'Medicines',
+      description:
+        medicineObj?.achieved_value > 0
+          ? `${parseInt(medicineObj.achieved_value)}/${parseInt(
+              medicineObj.goal_value,
+            )} doses`
+          : 'Log and track your medicines!',
+      onPress: () => onPressMedicine(data),
+    });
+  }
 
   const renderIcon = (
     title: 'Medicines' | 'Diet' | 'Exercises' | 'Devices' | 'My Incidents',

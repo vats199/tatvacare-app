@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -505,7 +505,6 @@
 		61B7A70B27A7EE1100B766F6 /* NotificationGoalReminderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B7A70A27A7EE1100B766F6 /* NotificationGoalReminderModel.swift */; };
 		61B7B53727E1A8C000C777B3 /* LabTestCartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B7B53627E1A8C000C777B3 /* LabTestCartVC.swift */; };
 		61B7B53927E1A9A500C777B3 /* LabTestCartVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B7B53827E1A9A500C777B3 /* LabTestCartVM.swift */; };
-		61B7B53E27E1D9BB00C777B3 /* SelectPatientDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B7B53D27E1D9BB00C777B3 /* SelectPatientDetailsVC.swift */; };
 		61B7B54227E1DA7800C777B3 /* SelectPatientDetailsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B7B54127E1DA7800C777B3 /* SelectPatientDetailsVM.swift */; };
 		61B7B54527E1E1D300C777B3 /* SelectAddressVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B7B54427E1E1D300C777B3 /* SelectAddressVC.swift */; };
 		61B7B54727E1E1DB00C777B3 /* SelectAddressVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B7B54627E1E1DB00C777B3 /* SelectAddressVM.swift */; };
@@ -744,6 +743,7 @@
 		8F1E96692AD3F73B00C7F19E /* ApplyCouponPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1E96682AD3F73B00C7F19E /* ApplyCouponPopupVC.swift */; };
 		8F1E966D2AD3F75000C7F19E /* DiscountCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F1E966B2AD3F74F00C7F19E /* DiscountCell.xib */; };
 		8F1E966E2AD3F75000C7F19E /* DiscountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1E966C2AD3F74F00C7F19E /* DiscountCell.swift */; };
+		8F827AFF2AD937B000D05821 /* SelectPatientDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F827AFE2AD937B000D05821 /* SelectPatientDetailsVC.swift */; };
 		8F9D2C9E2AD3CA68007F43FB /* DiscountListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9D2C9D2AD3CA68007F43FB /* DiscountListModel.swift */; };
 		8F9D2CA92AD3CCBE007F43FB /* BCANewAddressListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F9D2CA72AD3CCBE007F43FB /* BCANewAddressListCell.xib */; };
 		8F9D2CAA2AD3CCBE007F43FB /* BCANewAddressListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9D2CA82AD3CCBE007F43FB /* BCANewAddressListCell.swift */; };
@@ -1457,7 +1457,6 @@
 		61B7A70A27A7EE1100B766F6 /* NotificationGoalReminderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationGoalReminderModel.swift; sourceTree = "<group>"; };
 		61B7B53627E1A8C000C777B3 /* LabTestCartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabTestCartVC.swift; sourceTree = "<group>"; };
 		61B7B53827E1A9A500C777B3 /* LabTestCartVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabTestCartVM.swift; sourceTree = "<group>"; };
-		61B7B53D27E1D9BB00C777B3 /* SelectPatientDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPatientDetailsVC.swift; sourceTree = "<group>"; };
 		61B7B54127E1DA7800C777B3 /* SelectPatientDetailsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPatientDetailsVM.swift; sourceTree = "<group>"; };
 		61B7B54427E1E1D300C777B3 /* SelectAddressVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAddressVC.swift; sourceTree = "<group>"; };
 		61B7B54627E1E1DB00C777B3 /* SelectAddressVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAddressVM.swift; sourceTree = "<group>"; };
@@ -1688,6 +1687,7 @@
 		8F1E96682AD3F73B00C7F19E /* ApplyCouponPopupVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplyCouponPopupVC.swift; sourceTree = "<group>"; };
 		8F1E966B2AD3F74F00C7F19E /* DiscountCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DiscountCell.xib; sourceTree = "<group>"; };
 		8F1E966C2AD3F74F00C7F19E /* DiscountCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountCell.swift; sourceTree = "<group>"; };
+		8F827AFE2AD937B000D05821 /* SelectPatientDetailsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SelectPatientDetailsVC.swift; path = ../../../../../../../../../../../Desktop/SelectPatientDetailsVC.swift; sourceTree = "<group>"; };
 		8F9D2C9D2AD3CA68007F43FB /* DiscountListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountListModel.swift; sourceTree = "<group>"; };
 		8F9D2CA72AD3CCBE007F43FB /* BCANewAddressListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BCANewAddressListCell.xib; sourceTree = "<group>"; };
 		8F9D2CA82AD3CCBE007F43FB /* BCANewAddressListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCANewAddressListCell.swift; sourceTree = "<group>"; };
@@ -4545,7 +4545,7 @@
 		61B7B53F27E1D9E500C777B3 /* SelectPatientDetails */ = {
 			isa = PBXGroup;
 			children = (
-				61B7B53D27E1D9BB00C777B3 /* SelectPatientDetailsVC.swift */,
+				8F827AFE2AD937B000D05821 /* SelectPatientDetailsVC.swift */,
 				61B7B54327E1DA7B00C777B3 /* ViewModel */,
 				61E7F8C727E9E08F00464916 /* AddPatientDetails */,
 			);
@@ -7018,6 +7018,7 @@
 				61FEB389269C41390087ED58 /* CurrencyCell.swift in Sources */,
 				5D1C1D672726CDB400B32926 /* UploadRecordVC.swift in Sources */,
 				6183AB1827E8A4990074871E /* AllLabTestListVM.swift in Sources */,
+				8F827AFF2AD937B000D05821 /* SelectPatientDetailsVC.swift in Sources */,
 				9ACB03842A4C56DE00B176B8 /* DeviceDetailsModel.swift in Sources */,
 				6105EC82272834CD00385103 /* FSCalendarConstants.m in Sources */,
 				61D1D1FE26E6295800E483D3 /* AddAccountDetailsVC.swift in Sources */,
@@ -7300,7 +7301,6 @@
 				6178942E26F310F700FDCC3B /* ProfileSetupSuccessVC.swift in Sources */,
 				6173AF8C276B0991000ECDB5 /* ChatHistoryListVC.swift in Sources */,
 				61FEB34D269C3D130087ED58 /* AWSUploadConfigration.swift in Sources */,
-				61B7B53E27E1D9BB00C777B3 /* SelectPatientDetailsVC.swift in Sources */,
 				61FEB31E269C3D130087ED58 /* LocationManager.swift in Sources */,
 				8F1E965B2AD3F70500C7F19E /* GeoLocationVC.swift in Sources */,
 				5DA9A57E2A2DCFD1001A1B92 /* BCPCarePlanDetailVM.swift in Sources */,

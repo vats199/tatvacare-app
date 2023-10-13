@@ -25,6 +25,10 @@ const LearnItem: React.FC<LearnItemProps> = ({
   onPressItem,
   style,
 }) => {
+  const [bookmarked, setBookmarked] = React.useState<'Y' | 'N'>(
+    learnItem.bookmarked,
+  );
+
   return (
     <TouchableOpacity
       activeOpacity={0.7}
@@ -35,10 +39,11 @@ const LearnItem: React.FC<LearnItemProps> = ({
       <Image
         style={styles.imageStyle}
         source={
-          learnItem.url
-            ? {uri: learnItem.url}
+          learnItem.media[0].home_thumbnail_url
+            ? {uri: learnItem.media[0].home_thumbnail_url}
             : require('../../assets/images/learnImage.jpg')
         }
+        resizeMode={'cover'}
       />
       <View style={styles.detailsContainer}>
         <Text style={styles.itemTitle} numberOfLines={2} ellipsizeMode={'tail'}>
@@ -54,9 +59,14 @@ const LearnItem: React.FC<LearnItemProps> = ({
           <TouchableOpacity
             activeOpacity={0.6}
             onPress={() => {
+              if (bookmarked === 'Y') {
+                setBookmarked('N');
+              } else {
+                setBookmarked('Y');
+              }
               onPressBookmark(learnItem);
             }}>
-            {learnItem.bookmarked === 'Y' ? (
+            {bookmarked === 'Y' ? (
               <Icons.BookmarkFilled height={20} width={20} />
             ) : (
               <Icons.Bookmark height={20} width={20} />
@@ -81,11 +91,11 @@ const styles = StyleSheet.create({
     marginRight: 15,
     flexDirection: 'row',
     alignItems: 'center',
+    overflow: 'hidden',
   },
   imageStyle: {
-    maxWidth: 100,
-    borderTopLeftRadius: 12,
-    borderBottomLeftRadius: 12,
+    width: 100,
+    height: '100%',
   },
   detailsContainer: {
     flex: 1,

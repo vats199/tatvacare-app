@@ -13,6 +13,7 @@ import {
 import {
   FlatList,
   Platform,
+  Pressable,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -140,7 +141,12 @@ const LocationBottomSheet = forwardRef<
       <BottomSheetModalProvider>
         <BottomSheetModal
           ref={bottomSheetModalRef}
-          backdropComponent={() => <View style={styles.overlay} />}
+          backdropComponent={() => (
+            <Pressable
+              style={styles.overlay}
+              onPress={() => bottomSheetModalRef.current?.close()}
+            />
+          )}
           handleIndicatorStyle={{
             backgroundColor: '#E0E0E0',
             width: 45,
@@ -150,7 +156,7 @@ const LocationBottomSheet = forwardRef<
           snapPoints={[pincodeDetailsShown ? '35%' : '40%', '75%']}
           enablePanDownToClose={true}
           enableContentPanningGesture={false}
-          keyboardBehavior="interactive"
+          keyboardBehavior={'interactive'}
           backgroundStyle={styles.container}>
           <View
             style={[
@@ -184,15 +190,11 @@ const LocationBottomSheet = forwardRef<
                   />
                   <TouchableOpacity
                     onPress={onApplyPincode}
-                    disabled={
-                      pincode?.length == 6 || pincode?.length == 4
-                        ? false
-                        : true
-                    }
+                    disabled={pincode?.length == 6 ? false : true}
                     activeOpacity={0.6}>
                     <Text
                       style={
-                        pincode?.length == 6 || pincode?.length == 4
+                        pincode?.length == 6
                           ? styles.activeApplyText
                           : styles.inactiveApplyText
                       }>

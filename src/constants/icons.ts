@@ -25,7 +25,7 @@ import ChevronRightGrey from '../assets/icons/chevronRightGrey.svg';
 import DrawerHealthRecords from '../assets/icons/drawerHealthRecords.svg';
 import DrawerBookmarks from '../assets/icons/drawerBookmarks.svg';
 import DrawerGoals from '../assets/icons/drawerGoals.svg';
-import DrawerHealthTrends from '../assets/icons/drawerHealthTrends.svg';
+import DrawerBMI from '../assets/icons/drawerBMI.svg';
 import DrawerConsultations from '../assets/icons/drawerConsultations.svg';
 import DrawerLabTests from '../assets/icons/drawerHealthTrends.svg';
 import DrawerAccountSettings from '../assets/icons/drawerAccountSettings.svg';
@@ -103,7 +103,7 @@ export const Icons = {
   DrawerBookmarks,
   DrawerGoals,
   DrawerHealthRecords,
-  DrawerHealthTrends,
+  DrawerBMI,
   DrawerConsultations,
   DrawerLabTests,
   DrawerAccountSettings,
