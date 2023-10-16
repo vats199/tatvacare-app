@@ -70,6 +70,7 @@ extension SelectPatientDetailsVM {
                                             withLoader: false) { [weak self] (isDone) in
                             guard let self = self else {return}
                             self.vmResult.value = .success(nil)
+                            self.manageSelection(index: selectedAddressIndex)
                             tblView.reloadData()
                         }
                     }

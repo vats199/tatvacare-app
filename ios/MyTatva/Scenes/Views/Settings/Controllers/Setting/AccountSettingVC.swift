@@ -216,10 +216,7 @@ class AccountSettingVC: WhiteNavigationBaseVC {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
     }
-    
-//    @IBAction func onGoBack(_ sender: Any) {
-//           self.dismiss(animated: true, completion: nil)
-//       }
+
 }
 
 //----------------------------------------------------------------------------
@@ -303,7 +300,7 @@ extension AccountSettingVC : UITableViewDataSource, UITableViewDelegate{
                 DispatchQueue.main.async {
                     self.dismiss(animated: true) {
                         Alert.shared.showAlert("", actionOkTitle: AppMessages.ok, actionCancelTitle: AppMessages.cancel, message: AppMessages.logoutMessage) { [weak self] (isDone) in
-//                            guard let _ = self else {return}
+                            guard let _ = self else {return}
                             if isDone {
                                 //UIApplication.shared.forceLogOut()
                                 GlobalAPI.shared.logoutAPI { (isDone) in
@@ -315,7 +312,16 @@ extension AccountSettingVC : UITableViewDataSource, UITableViewDelegate{
                                                                      screen: .Menu  ,
                                                                      parameter: nil)
                                         }
+                                        kDiscountData = nil
+                                        kApplyCouponName = ""
+                                        kCouponCodeAmount = 0
+                                        kDiscountType = ""
+                                        kDiscountMasterId = ""
                                         
+                                        kBCPApplyCouponName = ""
+                                        kBCPCouponCodeAmount = 0
+                                        kBCPDiscountType = ""
+                                        kBCPDiscountMasterId = ""
                                         UIApplication.shared.forceLogOut()
                                     }
                                 }

@@ -268,63 +268,63 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     }
     
     func updateLocation() {
-            DispatchQueue.main.async {
-                if (CLLocationManager.locationServicesEnabled()) {
-                    self.locationManager = CLLocationManager()
-                    self.locationManager.delegate = self
-                    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-                    self.locationManager.startUpdatingLocation()
-                }
+        DispatchQueue.main.async {
+            if (CLLocationManager.locationServicesEnabled()) {
+                self.locationManager = CLLocationManager()
+                self.locationManager.delegate = self
+                self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+                self.locationManager.startUpdatingLocation()
             }
         }
+    }
+    
+    //TODO: Uncomment below code to get address from location
+    func getAddressFromLocation(latitude : String , longitude : String , handler : @escaping ((GMSAddress?) -> ())) {
         
-        //TODO: Uncomment below code to get address from location
-        func getAddressFromLocation(latitude : String , longitude : String , handler : @escaping ((GMSAddress?) -> ())) {
+        let geocoder = GMSGeocoder()
+    
+        var location : CLLocation?
+        if latitude.isEmpty || longitude.isEmpty{
             
-            let geocoder = GMSGeocoder()
+        }else{
+            location = CLLocation(latitude: Double(latitude)!, longitude: Double(longitude)!)
+        }
         
-            var location : CLLocation?
-            if latitude.isEmpty || longitude.isEmpty{
+        if let loc = location {
+//            self.location = loc
+            geocoder.reverseGeocodeCoordinate(loc.coordinate, completionHandler: { (response, error) in
                 
-            }else{
-                location = CLLocation(latitude: Double(latitude)!, longitude: Double(longitude)!)
-            }
-            
-            if let loc = location {
-    //            self.location = loc
-                geocoder.reverseGeocodeCoordinate(loc.coordinate, completionHandler: { (response, error) in
-                    
-                    if error == nil{
-                        if let res = response?.results(){
-                            for address in res {
-                                debugPrint("\ncoordinate.latitude=\(address.coordinate.latitude)")
-                                debugPrint("coordinate.longitude=\(address.coordinate.longitude)")
-                                debugPrint("thoroughfare=\(address.thoroughfare ?? "")")
-                                debugPrint("locality=\(address.locality ?? "")")
-                                debugPrint("subLocality=\(address.subLocality ?? "")")
-                                debugPrint("administrativeArea=\(address.administrativeArea ?? "")")
-                                debugPrint("postalCode=\(address.postalCode ?? "")")
-                                debugPrint("country=\(address.country ?? "")")
-                                debugPrint("lines=\(address.lines ?? [])")
-                                handler(address)
-                                return
-    //                            if address.locality != nil {
-    //                                handler(address)
-    //                                return
-    //                            }
-                            }
-                            handler(nil)
-                            debugPrint("not found")
-                        }else{
-                            handler(nil)
-                            debugPrint("not found")
+                if error == nil{
+                    if let res = response?.results(){
+                        for address in res {
+                            debugPrint("\ncoordinate.latitude=\(address.coordinate.latitude)")
+                            debugPrint("coordinate.longitude=\(address.coordinate.longitude)")
+                            debugPrint("thoroughfare=\(address.thoroughfare ?? "")")
+                            debugPrint("locality=\(address.locality ?? "")")
+                            debugPrint("subLocality=\(address.subLocality ?? "")")
+                            debugPrint("administrativeArea=\(address.administrativeArea ?? "")")
+                            debugPrint("postalCode=\(address.postalCode ?? "")")
+                            debugPrint("country=\(address.country ?? "")")
+                            debugPrint("lines=\(address.lines ?? [])")
+                            handler(address)
+                            return
+//                            if address.locality != nil {
+//                                handler(address)
+//                                return
+//                            }
                         }
-                    } else {
-                        debugPrint(error?.localizedDescription ?? "")
+                        handler(nil)
+                        debugPrint("not found")
+                    }else{
+                        handler(nil)
+                        debugPrint("not found")
                     }
+                } else {
+                    debugPrint(error?.localizedDescription ?? "")
+                }
 
-                })
-            }
-            
+            })
         }
+        
+    }
 }

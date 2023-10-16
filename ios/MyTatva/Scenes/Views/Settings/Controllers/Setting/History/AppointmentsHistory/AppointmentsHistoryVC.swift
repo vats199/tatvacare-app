@@ -339,7 +339,7 @@ class AppointmentsHistoryVC: ClearNavigationFontBlackBaseVC {
                 var obj                     = JSON()
                 obj["name"].stringValue     = "Health Coach"
                 obj["key"].stringValue      = AppointmentFor.H.rawValue
-                obj["isSelected"]           = 0
+                obj["isSelected"]           = UserModel.shared.patientGuid.trim() == "" ? 1 : 0
                 if self.selectedFor == .H {
                     obj["isSelected"]       = 1
                 }
@@ -349,7 +349,7 @@ class AppointmentsHistoryVC: ClearNavigationFontBlackBaseVC {
                 var obj                     = JSON()
                 obj["name"].stringValue     = "Doctor"
                 obj["key"].stringValue      = AppointmentFor.D.rawValue
-                obj["isSelected"]           = UserModel.shared.patientGuid.trim() == "" ? 1 : 0
+                obj["isSelected"]           = 0
                 if self.selectedFor == .D {
                     obj["isSelected"]       = 1
                 }
@@ -362,6 +362,7 @@ class AppointmentsHistoryVC: ClearNavigationFontBlackBaseVC {
             self.selectedFor = .H
             self.arrList = self.arrList.filter({ $0["name"].stringValue == "Health Coach" })
         }
+        
     }
     
     private func initPicker(){
@@ -516,10 +517,6 @@ class AppointmentsHistoryVC: ClearNavigationFontBlackBaseVC {
         super.viewDidDisappear(animated)
         
     }
-    
-//    @IBAction func onGoBack(_ sender: Any) {
-//           self.dismiss(animated: true, completion: nil)
-//       }
 }
 
 //----------------------------------------------------------------------------

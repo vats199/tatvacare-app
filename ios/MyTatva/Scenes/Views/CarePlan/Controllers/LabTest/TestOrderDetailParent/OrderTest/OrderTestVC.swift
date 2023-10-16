@@ -44,6 +44,11 @@ class OrderTestVC: ClearNavigationFontBlackBaseVC {
     @IBOutlet weak var lblAmount                : UILabel!
     @IBOutlet weak var lblAmountVal             : UILabel!
     
+    @IBOutlet weak var lblApplyCoupon           : UILabel!
+    @IBOutlet weak var lblApplyCouponVal        : UILabel!
+    
+    @IBOutlet weak var stApplyCouopn: UIStackView!
+    
     //MARK: ------------------------- Class Variable -------------------------
     var object                      = LabTestOrderSummaryModel()
     let viewModel                   = OrderTestVM()
@@ -94,6 +99,13 @@ class OrderTestVC: ClearNavigationFontBlackBaseVC {
         self.lblSubTotalVal
             .font(name: .semibold, size: 15)
             .textColor(color: UIColor.themeBlack.withAlphaComponent(1))
+        
+        self.lblApplyCoupon
+            .font(name: .regular, size: 14)
+            .textColor(color: UIColor.themeBlack.withAlphaComponent(0.8))
+        self.lblApplyCouponVal
+            .font(name: .semibold, size: 15)
+            .textColor(color: UIColor.themeGreen)
         
         self.lblCollectionCharge
             .font(name: .regular, size: 14)
@@ -181,6 +193,11 @@ class OrderTestVC: ClearNavigationFontBlackBaseVC {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         
         self.scrollMain.isHidden = true
+        
+//        self.lblApplyCoupon.isHidden = self.object.couponCode == "" && self.object.couponDiscount == ""
+//        self.lblApplyCouponVal.isHidden = self.object.couponCode == "" && self.object.couponDiscount == ""
+        
+        self.stApplyCouopn.isHidden = self.object.couponCode == "" && self.object.couponDiscount == ""
         self.setData()
     }
     
@@ -301,6 +318,12 @@ extension OrderTestVC {
             self.lblCollectionChargeFree.text   = JSON(self.object.homeCollectionCharge as Any).intValue == 0 ? KFree : CurrencySymbol.INR.rawValue + "\(self.object.homeCollectionCharge!)"
             self.lblOrderTotalVal.text          = CurrencySymbol.INR.rawValue + "\(self.object.orderTotal!)"
             self.lblAmountVal.text              = CurrencySymbol.INR.rawValue + "\(self.object.finalPayableAmount!)"
+            
+            self.lblApplyCoupon.text = "Applied Coupon (\(self.object.couponCode!))"
+            
+            let value = Float(self.object.couponDiscount)
+            let finalValue = Int(value ?? 0.0)
+            self.lblApplyCouponVal.text = "- \(appCurrencySymbol.rawValue)\(finalValue)"
             
             if let bcpTestValue = self.object.bcpTestPriceData {
                 self.lblOrderTotalVal.text = bcpTestValue.bcpTotalAmountOld == 0 ? KFree : CurrencySymbol.INR.rawValue + JSON(bcpTestValue.bcpTotalAmountOld as Any).stringValue

@@ -35,20 +35,20 @@ import FirebaseCrashlytics
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
     var window: UIWindow?
     var bridge: RCTBridge!
     
     
-        
-  
-    #if DEBUG
+    
+    
+#if DEBUG
     let jsCodeLocation: URL = RCTBundleURLProvider.sharedSettings().jsBundleURL(forBundleRoot: "index")
-    #else
-//    let jsCodeLocation: URL = NSBundle.mainBundle().resourceURL("main", withExtension : "jsbundle")
+#else
+    //    let jsCodeLocation: URL = NSBundle.mainBundle().resourceURL("main", withExtension : "jsbundle")
     let jsCodeLocation = Bundle.main.url(forResource: "main", withExtension: "jsbundle")!
-
-    #endif
+    
+#endif
     
     
     static let shared : AppDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -84,20 +84,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         
-//        var nsDictionary: NSDictionary?
-//        if let path = Bundle.main.path(forResource: "Info", ofType: "plist") {
-//            nsDictionary = NSDictionary(contentsOfFile: path)
-//            print(JSON(nsDictionary))
-//        }
+        //        var nsDictionary: NSDictionary?
+        //        if let path = Bundle.main.path(forResource: "Info", ofType: "plist") {
+        //            nsDictionary = NSDictionary(contentsOfFile: path)
+        //            print(JSON(nsDictionary))
+        //        }
         
         // Check if launched from notification
         let notificationOption = launchOptions?[.remoteNotification]
-
+        
         // 1
         if let notification = notificationOption as? [String: AnyObject],
-          let userInfo = notification["aps"] as? [String: AnyObject] {
-
-          // 2
+           let userInfo = notification["aps"] as? [String: AnyObject] {
+            
+            // 2
             self.handlePushNotification(userInfo: JSON(userInfo),
                                         type: .didreceiveFetch)
         }
@@ -109,8 +109,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("msg:--- \(msg)")
         })
         
+        //        ApxorSDK.initialize()
+        //        ApxorSDK.initializeApxor(withID: "460d5566-b0cc-49d6-801a-97608a6068d4")
+        
+        
         NotificationCenter.default.addObserver(self, selector: #selector(self.onRedirectionClicked(notification:)), name: Notification.Name("APXRedirectionNotification"), object: nil)
-
+        
         
         return true
     }
@@ -131,7 +135,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-
+    
     @available(iOS 13.0, *)
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
         // Called when the user discards a scene session.
@@ -143,31 +147,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let handled = DynamicLinks.dynamicLinks()
             .handleUniversalLink(userActivity.webpageURL!) { dynamiclink, error in
-              // ...
+                // ...
             }
-
-          return handled
+        
+        return handled
     }
     
     @available(iOS 9.0, *)
     func application(_ app: UIApplication, open url: URL,
                      options: [UIApplication.OpenURLOptionsKey: Any]) -> Bool {
-      return application(app, open: url,
-                         sourceApplication: options[UIApplication.OpenURLOptionsKey
-                           .sourceApplication] as? String,
-                         annotation: "")
+        return application(app, open: url,
+                           sourceApplication: options[UIApplication.OpenURLOptionsKey
+                            .sourceApplication] as? String,
+                           annotation: "")
     }
-
+    
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?,
                      annotation: Any) -> Bool {
-      if let dynamicLink = DynamicLinks.dynamicLinks().dynamicLink(fromCustomSchemeURL: url) {
-          sceneDelegate.fetchDeepLinkData(link: dynamicLink.url)
-        // Handle the deep link. For example, show the deep-linked content or
-        // apply a promotional offer to the user's account.
-        // ...
-        return true
-      }
-      return false
+        if let dynamicLink = DynamicLinks.dynamicLinks().dynamicLink(fromCustomSchemeURL: url) {
+            sceneDelegate.fetchDeepLinkData(link: dynamicLink.url)
+            // Handle the deep link. For example, show the deep-linked content or
+            // apply a promotional offer to the user's account.
+            // ...
+            return true
+        }
+        return false
     }
     
     func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
@@ -175,22 +179,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     @objc func onRedirectionClicked(notification: NSNotification) {
-            if let kvPairs = notification.userInfo!["info"] {
-                print(kvPairs)
+        if let kvPairs = notification.userInfo!["info"] {
+            print(kvPairs)
+            
+            if let firstDeepLinkObj = JSON(kvPairs).arrayValue.first(where: {$0["name"].stringValue == "deep_link"}) {
+                guard let url = URL(string: firstDeepLinkObj["value"].stringValue) else { return }
+                let _ = DynamicLinks.dynamicLinks()
+                    .handleUniversalLink(url) { dynamiclink, error in
+                        // ...
+                        print("dynamiclink: \(dynamiclink)")
+                        print("dynamiclink url: \(dynamiclink?.url)")
+                        sceneDelegate.fetchDeepLinkData(link: dynamiclink?.url)
+                    }
                 
-                if let firstDeepLinkObj = JSON(kvPairs).arrayValue.first(where: {$0["name"].stringValue == "deep_link"}) {
-                    guard let url = URL(string: firstDeepLinkObj["value"].stringValue) else { return }
-                    let _ = DynamicLinks.dynamicLinks()
-                        .handleUniversalLink(url) { dynamiclink, error in
-                            // ...
-                            print("dynamiclink: \(dynamiclink)")
-                            print("dynamiclink url: \(dynamiclink?.url)")
-                            sceneDelegate.fetchDeepLinkData(link: dynamiclink?.url)
-                        }
-                    
-                }
             }
         }
+    }
 }
 
 //MARK: -------------- WEGAppDelegate Methods --------------
@@ -210,17 +214,17 @@ extension AppDelegate: WEGAppDelegate {
 }
 
 extension AppDelegate: WEGInAppNotificationProtocol {
-//    func notificationPrepared(_ inAppNotificationData: [String : Any]!, shouldStop stopRendering: UnsafeMutablePointer<ObjCBool>!) -> [AnyHashable : Any]!
+    //    func notificationPrepared(_ inAppNotificationData: [String : Any]!, shouldStop stopRendering: UnsafeMutablePointer<ObjCBool>!) -> [AnyHashable : Any]!
     
     func notificationShown(_ inAppNotificationData: [String : Any]!) {
     }
     
     func notificationDismissed(_ inAppNotificationData: [String : Any]!) {
     }
-        
+    
     func notification(_ inAppNotificationData: [String : Any]!, clickedWithAction actionId: String!) {
-//        print(actionId)
-//        print(inAppNotificationData)
+        //        print(actionId)
+        //        print(inAppNotificationData)
         
         let object = JSON(inAppNotificationData)
         let arr = object["actions"].arrayValue

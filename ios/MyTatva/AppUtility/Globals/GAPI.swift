@@ -168,7 +168,7 @@ class GlobalAPI : NSObject {
                         
                         DispatchQueue.main.async {
                             if let url = URL(string: AppCredential.shareapp.rawValue),
-                            UIApplication.shared.canOpenURL(url){
+                               UIApplication.shared.canOpenURL(url){
                                 UIApplication.shared.open(url)
                             }
                         }
@@ -178,7 +178,7 @@ class GlobalAPI : NSObject {
                     
                 case .underMaintenance:
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
-                       
+                        
                         let vc = AppUnderMaintenanceVC.instantiate(fromAppStoryboard: .auth)
                         vc.strtitle    = response.data["title"].stringValue
                         vc.strDesc     = response.data["message"].stringValue
@@ -188,17 +188,17 @@ class GlobalAPI : NSObject {
                     }
                     
                     break
-              
+                    
                 case .optionalUpdateApp:
                     if let vc = UIApplication.topViewController() as? AppUnderMaintenanceVC {
                         vc.dismiss(animated: true, completion: nil)
                     }
-         
+                    
                     Alert.shared.showAlert("", actionOkTitle: AppMessages.Update, actionCancelTitle: AppMessages.Skip, message: response.message) { (isDone) in
                         if isDone {
                             DispatchQueue.main.async {
                                 if let url = URL(string: AppCredential.shareapp.rawValue),
-                                UIApplication.shared.canOpenURL(url){
+                                   UIApplication.shared.canOpenURL(url){
                                     UIApplication.shared.open(url)
                                 }
                             }
@@ -247,7 +247,7 @@ class GlobalAPI : NSObject {
         
         var apiName = ApiEndPoints.patient(.forgot_password_send_otp)
         switch type {
-        
+            
         case .login:
             apiName = ApiEndPoints.patient(.login_send_otp)
         case .forgotPassword:
@@ -266,7 +266,7 @@ class GlobalAPI : NSObject {
                 
                 switch response.apiCode {
                 case .invalidOrFail:
-//                    Alert.shared.showSnackBar(response.message)
+                    //                    Alert.shared.showSnackBar(response.message)
                     Alert.shared.showSnackBarGreen(response.message, isError: true)
                     break
                 case .success:
@@ -286,9 +286,9 @@ class GlobalAPI : NSObject {
                         kAccessCode         = response.data["doctor_access_code"].stringValue
                     }
                     kAccessFrom         = .LinkPatient
-//                    Alert.shared.showSnackBar(response.message)
+                    //                    Alert.shared.showSnackBar(response.message)
                     Alert.shared.showSnackBarGreen(response.message)
-
+                    
                     switch type {
                     case .signup:
                         
@@ -307,7 +307,7 @@ class GlobalAPI : NSObject {
                 case .inactiveAccount:
                     
                     UIApplication.shared.forceLogOut()
-//                    Alert.shared.showSnackBar(response.message)
+                    //                    Alert.shared.showSnackBar(response.message)
                     Alert.shared.showSnackBarGreen(response.message, isError: true)
                     break
                 case .otpVerify:
@@ -321,9 +321,9 @@ class GlobalAPI : NSObject {
                 case .userAlreadyRegistered:
                     returnVal               = true
                     userAlreadyRegistered   = true
-//                    Alert.shared.showAlert(message: response.message) { (_) in
-//                        UIApplication.shared.setLogin()
-//                    }
+                    //                    Alert.shared.showAlert(message: response.message) { (_) in
+                    //                        UIApplication.shared.setLogin()
+                    //                    }
                     break
                 case .userSessionExpire:
                     break
@@ -338,7 +338,7 @@ class GlobalAPI : NSObject {
                 
             case .failure(let error):
                 Alert.shared.showSnackBarGreen(error.localizedDescription, isError: true)
-//                Alert.shared.showSnackBar(error.localizedDescription)
+                //                Alert.shared.showSnackBar(error.localizedDescription)
                 completion?(returnVal, userAlreadyRegistered)
                 break
                 
@@ -363,7 +363,7 @@ class GlobalAPI : NSObject {
         
         var apiName = ApiEndPoints.patient(.forgot_password_verify_otp)
         switch type {
-        
+            
         case .login:
             apiName = ApiEndPoints.patient(.login_verify_otp)
         case .forgotPassword:
@@ -397,7 +397,7 @@ class GlobalAPI : NSObject {
                         break
                     }
                     Alert.shared.showSnackBarGreen(response.message, isError: true)
-//                    Alert.shared.showSnackBar(response.message)
+                    //                    Alert.shared.showSnackBar(response.message)
                     break
                 case .success:
                     returnVal   = true
@@ -417,16 +417,16 @@ class GlobalAPI : NSObject {
                         UserModel.shared.storeUserEntryDetails(withJSON: response.data,false)
                     }
                     
-//                    Alert.shared.showSnackBar(response.message)
+                    //                    Alert.shared.showSnackBar(response.message)
                     break
                 case .emptyData:
                     Alert.shared.showSnackBarGreen(response.message, isError: true)
-//                    Alert.shared.showSnackBar(response.message)
+                    //                    Alert.shared.showSnackBar(response.message)
                     break
                 case .inactiveAccount:
                     
                     UIApplication.shared.forceLogOut()
-//                    Alert.shared.showSnackBar(response.message)
+                    //                    Alert.shared.showSnackBar(response.message)
                     Alert.shared.showSnackBarGreen(response.message, isError: true)
                     break
                 case .otpVerify:
@@ -451,7 +451,7 @@ class GlobalAPI : NSObject {
                 
             case .failure(let error):
                 Alert.shared.showSnackBarGreen(error.localizedDescription, isError: true)
-//                Alert.shared.showSnackBar(error.localizedDescription)
+                //                Alert.shared.showSnackBar(error.localizedDescription)
                 break
                 
             }
@@ -583,7 +583,7 @@ class GlobalAPI : NSObject {
                 
             case .failure(let error):
                 print(error.localizedDescription)
-//                Alert.shared.showSnackBar(error.localizedDescription)
+                //                Alert.shared.showSnackBar(error.localizedDescription)
                 break
                 
             }
@@ -777,7 +777,7 @@ class GlobalAPI : NSObject {
                                              screen: ScreenName.AddAccountDetails,
                                              parameter: params)
                     msg = response.message
-//                    Alert.shared.showSnackBar(response.message, isError: true, isBCP: true)
+                    //                    Alert.shared.showSnackBar(response.message, isError: true, isBCP: true)
                     break
                 case .success:
                     
@@ -786,14 +786,14 @@ class GlobalAPI : NSObject {
                                              parameter: params)
                     
                     returnVal = true
-//                    kDoctorAccessCode   = doctorAccessCode
-//                    kAccessCode         = doctorAccessCode
+                    //                    kDoctorAccessCode   = doctorAccessCode
+                    //                    kAccessCode         = doctorAccessCode
                     kAccessFrom         = .Doctor
                     kDoctorName         = response.data["name"].stringValue
-//                    Alert.shared.showSnackBar(response.message, isBCP: true)
+                    //                    Alert.shared.showSnackBar(response.message, isBCP: true)
                     break
                 case .emptyData:
-//                    Alert.shared.showSnackBar(response.message)
+                    //                    Alert.shared.showSnackBar(response.message)
                     Alert.shared.showSnackBar(response.message, isError: true, isBCP: true)
                     break
                 case .inactiveAccount:
@@ -823,7 +823,7 @@ class GlobalAPI : NSObject {
                 
             case .failure(let error):
                 //print(error.localizedDescription)
-//                Alert.shared.showSnackBar(error.localizedDescription)
+                //                Alert.shared.showSnackBar(error.localizedDescription)
                 Alert.shared.showSnackBar(error.localizedDescription, isError: true, isBCP: true)
                 break
                 
@@ -1105,7 +1105,7 @@ class GlobalAPI : NSObject {
             case .success(let response):
                 switch response.apiCode {
                 case .invalidOrFail:
-//                    Alert.shared.showSnackBar(response.message)
+                    //                    Alert.shared.showSnackBar(response.message)
                     break
                 case .success:
                     returnVal                           = true
@@ -1697,11 +1697,11 @@ class GlobalAPI : NSObject {
         
         /*
          {
-           "image_url": "string",
-           "we_notification_id": "string",
-           "deep_link": "string",
-           "mesage": "string",
-           "data": {}
+         "image_url": "string",
+         "we_notification_id": "string",
+         "deep_link": "string",
+         "mesage": "string",
+         "data": {}
          }
          */
         
@@ -1760,7 +1760,7 @@ class GlobalAPI : NSObject {
                 
             case .failure(let error):
                 print(error.localizedDescription)
-//                Alert.shared.showSnackBar(error.localizedDescription)
+                //                Alert.shared.showSnackBar(error.localizedDescription)
                 break
                 
             }
@@ -2235,8 +2235,8 @@ class GlobalAPI : NSObject {
         
         let start_dt = GFunction.shared.convertDateFormate(dt: medication_date,
                                                            inputFormat: appDateFormat,
-                                                       outputFormat: DateTimeFormaterEnum.yyyymmdd.rawValue,
-                                                       status: .NOCONVERSION)
+                                                           outputFormat: DateTimeFormaterEnum.yyyymmdd.rawValue,
+                                                           status: .NOCONVERSION)
         
         params["medication_date"]           = start_dt.0
         
@@ -2321,9 +2321,9 @@ class GlobalAPI : NSObject {
         var dayFromToday = 30//180
         if UserModel.shared.syncAt != nil && UserModel.shared.syncAt.trim() != "" {
             let time = GFunction.shared.convertDateFormate(dt: UserModel.shared.syncAt,
-                                                               inputFormat: DateTimeFormaterEnum.UTCFormat.rawValue,
-                                                               outputFormat: DateTimeFormaterEnum.ddmm_yyyy.rawValue,
-                                                               status: .NOCONVERSION)
+                                                           inputFormat: DateTimeFormaterEnum.UTCFormat.rawValue,
+                                                           outputFormat: DateTimeFormaterEnum.ddmm_yyyy.rawValue,
+                                                           status: .NOCONVERSION)
             
             dayFromToday = Calendar.current.dateComponents([.day], from: time.1, to: Date()).day ?? dayFromToday
             if  dayFromToday < 7 {
@@ -2335,7 +2335,7 @@ class GlobalAPI : NSObject {
                                                 sampleIdentifier: [
                                                     .stepCount,
                                                     .dietaryWater/*,
-                                                    .activeEnergyBurned*/,
+                                                                  .activeEnergyBurned*/,
                                                     .appleExerciseTime,
                                                     .oxygenSaturation,
                                                     .forcedExpiratoryVolume1,
@@ -2346,220 +2346,220 @@ class GlobalAPI : NSObject {
                                                     .bodyMass,
                                                     .bodyMassIndex,
                                                     .bloodGlucose]) { result, error in
-            if let error = error{
-                print(error)
-                return
-            }
-            
-            //Update all data in chunk
-            func updateData(arrGoal: [[String: Any]]? = nil,
-                            arrReading: [[String:Any]]? = nil,
-                            completion: ((Bool) -> Void)?) {
-                
-                var params = [String  :Any]()
-                
-                if let arr = arrGoal {
-                    params["goal_data"]     = arr
-                }
-                if let arr = arrReading {
-                    params["reading_data"]  = arr
-                }
-                
-                ApiManager.shared.makeRequest(method: ApiEndPoints.goalReading(.update_readings_goals), methodType: .post, parameter: params, withErrorAlert: true, withLoader: false, withdebugLog: true) { (result) in
-
-    //                {
-    //                  "data" : true,
-    //                  "message" : "Goal Readings updated successfully",
-    //                  "code" : "1"
-    //                }
-
-                    switch result {
-                    case .success(let response):
-                        var returnVal = false
-                        switch response.apiCode {
-                        case .invalidOrFail:
-
-                            break
-                        case .success:
-                            FIRAnalytics.FIRLogEvent(eventName: .READING_CAPTURED_APPLE_HEALTH, parameter: nil)
-                            returnVal = true
-                            break
-                        case .emptyData:
-
-                            break
-                        case .inactiveAccount:
-
-                            UIApplication.shared.forceLogOut()
-                            break
-                        case .otpVerify:
-                            break
-                        case .emailVerify:
-                            break
-                        case .forceUpdateApp:
-                            break
-                        case .underMaintenance:
-                            break
-
-                        case .socialIdNotRegister:
-                            break
-                        case .userSessionExpire:
-                            break
-                        case .unknown:
-                            break
-                        default: break
-                        }
-                        completion?(returnVal)
-                        break
-
-                    case .failure(let error):
-                        print(error.localizedDescription)
-                        break
-                    }
-                }
-            }
-            
-            print("result======", result)
-            if let result = result{
-//               let dispatchGroup1 = DispatchGroup()
-               
-                let arrTempReading  = result.reading_data
-                let arrTempGoal     = result.goal_data
-                
-                let readingList     = GFunction.shared.chunked(array: arrTempReading.reversed(), into: 60)
-                let goalList        = GFunction.shared.chunked(array: arrTempGoal.reversed(), into: 60)
-                
-                
-//                updateData(arrGoal: result.goal_data, arrReading: result.reading_data) { (isDone) in
-//
-//                    completion?(isDone)
-//                }
-                
-                ///Logic of passing data in the chunk of 20 items to store healthkit data
-                ///
-                
-                /*
-                 var index = 0
-                 func updateReading(){
-                     dispatchGroup1.enter()
-
-                     if readingList.count > 0 {
-                         let item = readingList[index]
-                         
-                         updateData(arrReading: item) { (isDone) in
-                             if isDone {
-                                 index += 1
-                                 if index < readingList.count {
-                                     updateReading()
-                                 }
-                             }
-                             dispatchGroup1.leave()
-                         }
-                     }
-                     else {
-                         dispatchGroup1.leave()
-                     }
-                 }
-
-                 updateReading()
-
-                 dispatchGroup1.notify(queue: DispatchQueue.main) {
-                     let dispatchGroup2 = DispatchGroup()
-
-                     var index = 0
-                     func updateGoal(){
-                         dispatchGroup2.enter()
-
-                         if goalList.count > 0 {
-                             let item = goalList[index]
-                             updateData(arrGoal: item) { (isDone) in
-                                 if isDone {
-                                     index += 1
-                                     if index < goalList.count {
-                                         updateGoal()
-                                     }
-                                 }
-                                 dispatchGroup2.leave()
-                             }
-                         }
-                         else {
-                             dispatchGroup2.leave()
-                         }
-                     }
-                     updateGoal()
-
-                     dispatchGroup2.notify(queue: DispatchQueue.main) {
-                         completion?(true)
-                     }
-                 }
-                */
-                
-                let readOperation = BlockOperation()
-                let goalOperation = BlockOperation()
-                for reading in readingList {
-                    
-                    readOperation.addExecutionBlock {
-                        updateData(arrReading: reading) { (isDone) in
-                            if isDone {
-                            }
-                        }
-                    }
-                }
-                
-                for goal in goalList {
-                    goalOperation.addExecutionBlock {
-                        updateData(arrGoal: goal) { (isDone) in
-                            if isDone {
-                            }
-                        }
-                    }
-                }
-                
-                readOperation.completionBlock = {
-                    print("I'm done fetching readOperation")
-                }
-                
-                goalOperation.completionBlock = {
-                    print("I'm done fetching goalOperation")
-                }
-
-//                DispatchQueue.main.async {
-                    let operationQueue = OperationQueue()
-                    operationQueue.maxConcurrentOperationCount = -1
-                    readOperation.addDependency(goalOperation)
-                    operationQueue.addOperation(readOperation)
-                    operationQueue.addOperation(goalOperation)
-//                }
-                
-                
-//                DispatchQueue.global(qos: .background).async {
-//
-//                    let dispatchGroup1 = DispatchGroup()
-//                    for reading in readingList {
-//                        dispatchGroup1.enter()
-//                        updateData(arrReading: reading) { (isDone) in
-//                            dispatchGroup1.leave()
-//                            if isDone {
-//                            }
-//                        }
-//                    }
-//
-//                    dispatchGroup1.notify(queue: .main) {
-//                        let dispatchGroup2 = DispatchGroup()
-//
-//                        for goal in goalList {
-//                            dispatchGroup2.enter()
-//                            updateData(arrGoal: goal) { (isDone) in
-//                                dispatchGroup2.leave()
-//                                if isDone {
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-            }
+                                                        if let error = error{
+                                                            print(error)
+                                                            return
+                                                        }
+                                                        
+                                                        //Update all data in chunk
+                                                        func updateData(arrGoal: [[String: Any]]? = nil,
+                                                                        arrReading: [[String:Any]]? = nil,
+                                                                        completion: ((Bool) -> Void)?) {
+                                                            
+                                                            var params = [String  :Any]()
+                                                            
+                                                            if let arr = arrGoal {
+                                                                params["goal_data"]     = arr
+                                                            }
+                                                            if let arr = arrReading {
+                                                                params["reading_data"]  = arr
+                                                            }
+                                                            
+                                                            ApiManager.shared.makeRequest(method: ApiEndPoints.goalReading(.update_readings_goals), methodType: .post, parameter: params, withErrorAlert: true, withLoader: false, withdebugLog: true) { (result) in
+                                                                
+                                                                //                {
+                                                                //                  "data" : true,
+                                                                //                  "message" : "Goal Readings updated successfully",
+                                                                //                  "code" : "1"
+                                                                //                }
+                                                                
+                                                                switch result {
+                                                                case .success(let response):
+                                                                    var returnVal = false
+                                                                    switch response.apiCode {
+                                                                    case .invalidOrFail:
+                                                                        
+                                                                        break
+                                                                    case .success:
+                                                                        FIRAnalytics.FIRLogEvent(eventName: .READING_CAPTURED_APPLE_HEALTH, parameter: nil)
+                                                                        returnVal = true
+                                                                        break
+                                                                    case .emptyData:
+                                                                        
+                                                                        break
+                                                                    case .inactiveAccount:
+                                                                        
+                                                                        UIApplication.shared.forceLogOut()
+                                                                        break
+                                                                    case .otpVerify:
+                                                                        break
+                                                                    case .emailVerify:
+                                                                        break
+                                                                    case .forceUpdateApp:
+                                                                        break
+                                                                    case .underMaintenance:
+                                                                        break
+                                                                        
+                                                                    case .socialIdNotRegister:
+                                                                        break
+                                                                    case .userSessionExpire:
+                                                                        break
+                                                                    case .unknown:
+                                                                        break
+                                                                    default: break
+                                                                    }
+                                                                    completion?(returnVal)
+                                                                    break
+                                                                    
+                                                                case .failure(let error):
+                                                                    print(error.localizedDescription)
+                                                                    break
+                                                                }
+                                                            }
+                                                        }
+                                                        
+                                                        print("result======", result)
+                                                        if let result = result{
+                                                            //               let dispatchGroup1 = DispatchGroup()
+                                                            
+                                                            let arrTempReading  = result.reading_data
+                                                            let arrTempGoal     = result.goal_data
+                                                            
+                                                            let readingList     = GFunction.shared.chunked(array: arrTempReading.reversed(), into: 60)
+                                                            let goalList        = GFunction.shared.chunked(array: arrTempGoal.reversed(), into: 60)
+                                                            
+                                                            
+                                                            //                updateData(arrGoal: result.goal_data, arrReading: result.reading_data) { (isDone) in
+                                                            //
+                                                            //                    completion?(isDone)
+                                                            //                }
+                                                            
+                                                            ///Logic of passing data in the chunk of 20 items to store healthkit data
+                                                            ///
+                                                            
+                                                            /*
+                                                             var index = 0
+                                                             func updateReading(){
+                                                             dispatchGroup1.enter()
+                                                             
+                                                             if readingList.count > 0 {
+                                                             let item = readingList[index]
+                                                             
+                                                             updateData(arrReading: item) { (isDone) in
+                                                             if isDone {
+                                                             index += 1
+                                                             if index < readingList.count {
+                                                             updateReading()
+                                                             }
+                                                             }
+                                                             dispatchGroup1.leave()
+                                                             }
+                                                             }
+                                                             else {
+                                                             dispatchGroup1.leave()
+                                                             }
+                                                             }
+                                                             
+                                                             updateReading()
+                                                             
+                                                             dispatchGroup1.notify(queue: DispatchQueue.main) {
+                                                             let dispatchGroup2 = DispatchGroup()
+                                                             
+                                                             var index = 0
+                                                             func updateGoal(){
+                                                             dispatchGroup2.enter()
+                                                             
+                                                             if goalList.count > 0 {
+                                                             let item = goalList[index]
+                                                             updateData(arrGoal: item) { (isDone) in
+                                                             if isDone {
+                                                             index += 1
+                                                             if index < goalList.count {
+                                                             updateGoal()
+                                                             }
+                                                             }
+                                                             dispatchGroup2.leave()
+                                                             }
+                                                             }
+                                                             else {
+                                                             dispatchGroup2.leave()
+                                                             }
+                                                             }
+                                                             updateGoal()
+                                                             
+                                                             dispatchGroup2.notify(queue: DispatchQueue.main) {
+                                                             completion?(true)
+                                                             }
+                                                             }
+                                                             */
+                                                            
+                                                            let readOperation = BlockOperation()
+                                                            let goalOperation = BlockOperation()
+                                                            for reading in readingList {
+                                                                
+                                                                readOperation.addExecutionBlock {
+                                                                    updateData(arrReading: reading) { (isDone) in
+                                                                        if isDone {
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                            
+                                                            for goal in goalList {
+                                                                goalOperation.addExecutionBlock {
+                                                                    updateData(arrGoal: goal) { (isDone) in
+                                                                        if isDone {
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                            
+                                                            readOperation.completionBlock = {
+                                                                print("I'm done fetching readOperation")
+                                                            }
+                                                            
+                                                            goalOperation.completionBlock = {
+                                                                print("I'm done fetching goalOperation")
+                                                            }
+                                                            
+                                                            //                DispatchQueue.main.async {
+                                                            let operationQueue = OperationQueue()
+                                                            operationQueue.maxConcurrentOperationCount = -1
+                                                            readOperation.addDependency(goalOperation)
+                                                            operationQueue.addOperation(readOperation)
+                                                            operationQueue.addOperation(goalOperation)
+                                                            //                }
+                                                            
+                                                            
+                                                            //                DispatchQueue.global(qos: .background).async {
+                                                            //
+                                                            //                    let dispatchGroup1 = DispatchGroup()
+                                                            //                    for reading in readingList {
+                                                            //                        dispatchGroup1.enter()
+                                                            //                        updateData(arrReading: reading) { (isDone) in
+                                                            //                            dispatchGroup1.leave()
+                                                            //                            if isDone {
+                                                            //                            }
+                                                            //                        }
+                                                            //                    }
+                                                            //
+                                                            //                    dispatchGroup1.notify(queue: .main) {
+                                                            //                        let dispatchGroup2 = DispatchGroup()
+                                                            //
+                                                            //                        for goal in goalList {
+                                                            //                            dispatchGroup2.enter()
+                                                            //                            updateData(arrGoal: goal) { (isDone) in
+                                                            //                                dispatchGroup2.leave()
+                                                            //                                if isDone {
+                                                            //                                }
+                                                            //                            }
+                                                            //                        }
+                                                            //                    }
+                                                            //                }
+                                                        }
                                                     }
     }
-     
+    
     //MARK: 🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦
     //MARK: ---------------- Graphs of goal and reading API ----------------------
     //MARK: ---------------- get_reading_records API ----------------------
@@ -2600,9 +2600,9 @@ class GlobalAPI : NSObject {
         case .oneYear:
             params["reading_time"]       = "1Y"
             break
-//        case .allTime:
-//            params["reading_time"]       = "ALL"
-//            break
+            //        case .allTime:
+            //            params["reading_time"]       = "ALL"
+            //            break
         }
         
         
@@ -2635,7 +2635,7 @@ class GlobalAPI : NSObject {
                     break
                 case .emptyData:
                     msg = response.message
-//                    Alert.shared.showSnackBar(response.message)
+                    //                    Alert.shared.showSnackBar(response.message)
                     break
                 case .inactiveAccount:
                     
@@ -2709,9 +2709,9 @@ class GlobalAPI : NSObject {
         case .oneYear:
             params["goal_time"]     = "1Y"
             break
-//        case .allTime:
-//            params["goal_time"]     = "ALL"
-//            break
+            //        case .allTime:
+            //            params["goal_time"]     = "ALL"
+            //            break
         }
         
         
@@ -2775,7 +2775,7 @@ class GlobalAPI : NSObject {
                 break
                 
             case .failure(let error):
-//                Alert.shared.showSnackBar(error.localizedDescription)
+                //                Alert.shared.showSnackBar(error.localizedDescription)
                 msg = error.localizedDescription
                 completion?(returnVal, object, msg, reading_time)
                 break
@@ -2931,7 +2931,7 @@ class GlobalAPI : NSObject {
          "score": "string",
          "survey_id": "string",
          "cat_survey_master_id": "string"
-       }*/
+         }*/
         
         var params                          = [String : Any]()
         params["cat_survey_master_id"]      = cat_survey_master_id
@@ -2972,7 +2972,7 @@ class GlobalAPI : NSObject {
                     break
                 case .underMaintenance:
                     break
-                
+                    
                 case .socialIdNotRegister:
                     break
                 case .userSessionExpire:
@@ -3005,8 +3005,8 @@ class GlobalAPI : NSObject {
         
         var params                  = [String : Any]()
         params["content_master_id"] = content_master_id
-//        params["content_master_id"] = "9747525f-4bdb-11ee-a125-b856859b798d"
-
+        //        params["content_master_id"] = "9747525f-4bdb-11ee-a125-b856859b798d"
+        
         ApiManager.shared.makeRequest(method: ApiEndPoints.content(.content_by_id), methodType: .post, parameter: params, withErrorAlert: true, withLoader: true, withdebugLog: true) { (result) in
             
             var data = ContentListModel()
@@ -3042,7 +3042,7 @@ class GlobalAPI : NSObject {
                     break
                 case .underMaintenance:
                     break
-                
+                    
                 case .socialIdNotRegister:
                     break
                 case .userSessionExpire:
@@ -3109,7 +3109,7 @@ class GlobalAPI : NSObject {
                     break
                 case .underMaintenance:
                     break
-                
+                    
                 case .socialIdNotRegister:
                     break
                 case .userSessionExpire:
@@ -3214,8 +3214,8 @@ class GlobalAPI : NSObject {
         
         /*
          {
-           "survey_id": "string",
-           "response": "string"
+         "survey_id": "string",
+         "response": "string"
          }
          */
         
@@ -3257,7 +3257,7 @@ class GlobalAPI : NSObject {
                     break
                 case .underMaintenance:
                     break
-                
+                    
                 case .socialIdNotRegister:
                     break
                 case .userSessionExpire:
@@ -3289,8 +3289,8 @@ class GlobalAPI : NSObject {
         
         /*
          {
-           "content_master_id": "string",
-           "is_active": "Y"
+         "content_master_id": "string",
+         "is_active": "Y"
          }
          */
         
@@ -3349,7 +3349,7 @@ class GlobalAPI : NSObject {
                     break
                 case .underMaintenance:
                     break
-                
+                    
                 case .socialIdNotRegister:
                     break
                 case .userSessionExpire:
@@ -3381,8 +3381,8 @@ class GlobalAPI : NSObject {
         
         /*
          {
-           "content_master_id": "string",
-           "is_active": "Y"
+         "content_master_id": "string",
+         "is_active": "Y"
          }
          */
         if forQuestion {
@@ -3456,7 +3456,7 @@ class GlobalAPI : NSObject {
                     break
                 case .underMaintenance:
                     break
-                
+                    
                 case .socialIdNotRegister:
                     break
                 case .userSessionExpire:
@@ -3480,11 +3480,11 @@ class GlobalAPI : NSObject {
     
     //MARK: --------------- update_share_count API ----------------------
     func update_share_countAPI(content_master_id: String,
-                         completion: ((Bool, String) -> Void)?){
+                               completion: ((Bool, String) -> Void)?){
         
         /*
          {
-           "content_master_id": "string",
+         "content_master_id": "string",
          }
          */
         
@@ -3492,7 +3492,7 @@ class GlobalAPI : NSObject {
         //FIRAnalytics.FIRLogEvent(eventName: .USER_UN_BOOKMARK_CONTENT, parameter: ["content_master_id": content_master_id])
         var params                      = [String : Any]()
         params["content_master_id"]     = content_master_id
-    
+        
         ApiManager.shared.makeRequest(method: ApiEndPoints.content(.update_share_count), methodType: .post, parameter: params, withErrorAlert: true, withLoader: false, withdebugLog: true) { (result) in
             
             var msg     = ""
@@ -3526,7 +3526,7 @@ class GlobalAPI : NSObject {
                     break
                 case .underMaintenance:
                     break
-                
+                    
                 case .socialIdNotRegister:
                     break
                 case .userSessionExpire:
@@ -3598,7 +3598,7 @@ class GlobalAPI : NSObject {
                     break
                 case .underMaintenance:
                     break
-                
+                    
                 case .socialIdNotRegister:
                     break
                 case .userSessionExpire:
@@ -3623,74 +3623,74 @@ class GlobalAPI : NSObject {
     //MARK: 🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦
     //MARK: --------------- unreport comment api ----------------------
     
-   /* func apiUnreportComment(content_master_id: String,
-                 content_comments_id: String,
-                 reported: String,
-                 completion : @escaping (Bool,String) -> Void) {
+    /* func apiUnreportComment(content_master_id: String,
+     content_comments_id: String,
+     reported: String,
+     completion : @escaping (Bool,String) -> Void) {
+     
+     var params                      = [String : Any]()
+     params["content_master_id"]     = content_master_id
+     params["content_comments_id"]   = content_comments_id
+     params["reported"]              = reported
+     
+     params = params.filter({ (obj) -> Bool in
+     if obj.value as? String != "" {
+     return true
+     }
+     else {
+     return false
+     }
+     })
+     
+     ApiManager.shared.makeRequest(method: ApiEndPoints.content(.report_comment), methodType: .post, parameter: params, withErrorAlert: true, withLoader: false, withdebugLog: true) { (result) in
+     
+     switch result {
+     case .success(let response):
+     var returnVal = false
+     
+     switch response.apiCode {
+     case .invalidOrFail:
+     break
+     case .success:
+     var params = [String: Any]()
+     params[AnalyticsParameters.content_master_id.rawValue] = content_master_id
+     FIRAnalytics.FIRLogEvent(eventName: .USER_UN_REPORTED_COMMENT, parameter: params)
+     
+     returnVal = true
+     break
+     case .emptyData:
+     break
+     case .inactiveAccount:
+     UIApplication.shared.forceLogOut()
+     break
+     case .otpVerify:
+     break
+     case .emailVerify:
+     break
+     case .forceUpdateApp:
+     break
+     case .simpleUpdateAlert:
+     break
+     
+     case .socialIdNotRegister:
+     break
+     case .userSessionExpire:
+     break
+     case .unknown:
+     break
+     default: break
+     }
+     completion(returnVal,response.message)
+     break
+     
+     case .failure(let error):
+     
+     Alert.shared.showSnackBar(error.localizedDescription)
+     break
+     }
+     }
+     }*/
     
-        var params                      = [String : Any]()
-        params["content_master_id"]     = content_master_id
-        params["content_comments_id"]   = content_comments_id
-        params["reported"]              = reported
-        
-        params = params.filter({ (obj) -> Bool in
-            if obj.value as? String != "" {
-                return true
-            }
-            else {
-                return false
-            }
-        })
-        
-        ApiManager.shared.makeRequest(method: ApiEndPoints.content(.report_comment), methodType: .post, parameter: params, withErrorAlert: true, withLoader: false, withdebugLog: true) { (result) in
-            
-            switch result {
-            case .success(let response):
-                var returnVal = false
-                
-                switch response.apiCode {
-                case .invalidOrFail:
-                    break
-                case .success:
-                    var params = [String: Any]()
-                    params[AnalyticsParameters.content_master_id.rawValue] = content_master_id
-                    FIRAnalytics.FIRLogEvent(eventName: .USER_UN_REPORTED_COMMENT, parameter: params)
-                    
-                    returnVal = true
-                    break
-                case .emptyData:
-                    break
-                case .inactiveAccount:
-                    UIApplication.shared.forceLogOut()
-                    break
-                case .otpVerify:
-                    break
-                case .emailVerify:
-                    break
-                case .forceUpdateApp:
-                    break
-                case .simpleUpdateAlert:
-                    break
-                    
-                case .socialIdNotRegister:
-                    break
-                case .userSessionExpire:
-                    break
-                case .unknown:
-                    break
-                default: break
-                }
-                completion(returnVal,response.message)
-                break
-                
-            case .failure(let error):
-                
-                Alert.shared.showSnackBar(error.localizedDescription)
-                break
-            }
-        }
-    }*/
-
     //MARK: --------------- delete comment api ----------------------
     func apiDeleteComment(content_comments_id: String,
                           screen: ScreenName,
@@ -3714,7 +3714,7 @@ class GlobalAPI : NSObject {
             case .success(let response):
                 var returnVal = false
                 var obj = ContentListModel()
-
+                
                 switch response.apiCode {
                 case .invalidOrFail:
                     Alert.shared.showSnackBar(response.message)
@@ -3753,9 +3753,9 @@ class GlobalAPI : NSObject {
                     break
                 default: break
                 }
-
+                
                 completion(returnVal,response.message, obj)
-
+                
                 break
                 
             case .failure(let error):
@@ -3768,7 +3768,7 @@ class GlobalAPI : NSObject {
     
     //MARK: ---------------- health_coach_details_by_id API ----------------------
     func getHealthCoachDetailsAPI(health_coach_id: String,
-                             completion: ((Bool, HealthCoachDetailsModel) -> Void)?){
+                                  completion: ((Bool, HealthCoachDetailsModel) -> Void)?){
         
         /*
          */
@@ -3840,7 +3840,7 @@ class GlobalAPI : NSObject {
          */
         
         var params                  = [String : Any]()
-//        params["health_coach_id"]   = health_coach_id
+        //        params["health_coach_id"]   = health_coach_id
         params["restore_id"]        = restore_id
         
         params = params.filter({ (obj) -> Bool in
@@ -3983,7 +3983,7 @@ class GlobalAPI : NSObject {
          topic_ids*    [...]
          document*    string
          document_type*    string
-          
+         
          }
          */
         
@@ -4150,7 +4150,7 @@ class GlobalAPI : NSObject {
                 
                 switch response.apiCode {
                 case .invalidOrFail:
-//                    Alert.shared.showSnackBar(response.message)
+                    //                    Alert.shared.showSnackBar(response.message)
                     break
                 case .success:
                     returnVal   = true
@@ -4204,7 +4204,7 @@ class GlobalAPI : NSObject {
         
         /*
          No params
-
+         
          */
         
         var params                  = [String : Any]()
@@ -4220,19 +4220,19 @@ class GlobalAPI : NSObject {
                 
                 switch response.apiCode {
                 case .invalidOrFail:
-//                    Alert.shared.showSnackBar(response.message)
+                    //                    Alert.shared.showSnackBar(response.message)
                     Alert.shared.showSnackBar(response.message, isError: true, isBCP: true)
                     break
                 case .success:
                     
                     /*guard response.data["access_code"].stringValue.isEmpty else {
-                        UserDefaultsConfig.kUserStep = 3
-//                        UIApplication.shared.manageLogin()
-                        let vc = AddpatientDetailsVC.instantiate(fromAppStoryboard: .auth)
-                        vc.isBackShown = true
-                        UIApplication.topViewController()?.navigationController?.pushViewController(vc, animated: true)
-                        return
-                    }*/
+                     UserDefaultsConfig.kUserStep = 3
+                     //                        UIApplication.shared.manageLogin()
+                     let vc = AddpatientDetailsVC.instantiate(fromAppStoryboard: .auth)
+                     vc.isBackShown = true
+                     UIApplication.topViewController()?.navigationController?.pushViewController(vc, animated: true)
+                     return
+                     }*/
                     
                     returnVal   = true
                     UserModel.shared.storeUserEntryDetails(withJSON: response.data,false)
@@ -4240,12 +4240,12 @@ class GlobalAPI : NSObject {
                     //Alert.shared.showSnackBar(response.message)
                     break
                 case .emptyData:
-//                    Alert.shared.showSnackBar(response.message)
+                    //                    Alert.shared.showSnackBar(response.message)
                     Alert.shared.showSnackBar(response.message, isError: true, isBCP: true)
                     break
                 case .inactiveAccount:
                     UIApplication.shared.forceLogOut()
-//                    Alert.shared.showSnackBar(response.message)
+                    //                    Alert.shared.showSnackBar(response.message)
                     Alert.shared.showSnackBar(response.message, isError: true, isBCP: true)
                     break
                 case .otpVerify:
@@ -4269,7 +4269,7 @@ class GlobalAPI : NSObject {
                 break
                 
             case .failure(let error):
-//                Alert.shared.showSnackBar(error.localizedDescription)
+                //                Alert.shared.showSnackBar(error.localizedDescription)
                 Alert.shared.showSnackBar(error.localizedDescription, isError: true, isBCP: true)
                 break
                 
@@ -4279,11 +4279,11 @@ class GlobalAPI : NSObject {
     
     //MARK: ---------------- update doctor access code ----------------------
     func updateDoctorAccessCodeAPI(access_code: String,
-                              completion: ((Bool, String) -> Void)?){
+                                   completion: ((Bool, String) -> Void)?){
         
         /*
          No params
-
+         
          */
         
         var params                  = [String : Any]()
@@ -4351,7 +4351,7 @@ extension GlobalAPI{
         let planDate = planDate ?? Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = DateTimeFormaterEnum.yyyymmdd.rawValue
-                
+        
         let param: [String:Any] = [
             "plan_date": dateFormatter.string(from: planDate)
         ]
@@ -4386,12 +4386,12 @@ extension GlobalAPI{
     
     //MARK: ---------------- Walkthrough List Data ----------------------
     func apiWalkthroughList(completionHandler: @escaping(([WalkthroughListModel]) -> Void)) {
-
+        
         ApiManager.shared.makeRequest(method: .patient(.onbording_signup_data), parameter: [:], withLoader: false) { [weak self] result in
             guard let self = self else { return }
             switch result{
             case.success(let apiResponse):
-
+                
                 switch apiResponse.apiCode {
                 case .success:
                     print(apiResponse.data)
@@ -4402,13 +4402,13 @@ extension GlobalAPI{
                 default:
                     Alert.shared.showSnackBar(apiResponse.message)
                 }
-
+                
                 print(apiResponse.data)
             case .failure(_):
                 debugPrint("Error")
             }
         }
-
+        
     }
     
 }
@@ -4491,19 +4491,19 @@ extension GlobalAPI {
         }
         
     }
-        
+    
 }
 
 //MARK: - BCA Select Address List APIs
 extension GlobalAPI {
     
     func addressListAPI(completionHandler: @escaping(([LabAddressListModel]) -> Void)) {
-
+        
         ApiManager.shared.makeRequest(method: ApiEndPoints.tests(.address_list), parameter: [:], withLoader: false) { [weak self] result in
             guard let self = self else { return }
             switch result{
             case.success(let apiResponse):
-
+                
                 switch apiResponse.apiCode {
                 case .success:
                     print(apiResponse.data)
@@ -4522,13 +4522,13 @@ extension GlobalAPI {
                 default:
                     Alert.shared.showSnackBar(apiResponse.message)
                 }
-
+                
                 print(apiResponse.data)
             case .failure(_):
                 debugPrint("Error")
             }
         }
-
+        
     }
     
 }

@@ -108,7 +108,6 @@ extension UIApplication {
     
     /// Logout user from app and clear all user data from user default
     func forceLogOut() {
-        print("user forcefully logout===>>>")
         UserModel.removeCurrentUser()
         // Clear all the user default data from the app, expect remember me data
         let defaults = UserDefaults.standard

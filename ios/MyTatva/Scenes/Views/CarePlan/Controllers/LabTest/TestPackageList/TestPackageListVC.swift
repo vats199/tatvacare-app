@@ -167,7 +167,9 @@ class TestPackageListVC: ClearNavigationFontBlackBaseVC {
     //    var strPincode                  = ""
     var strErrorMessage : String    = ""
     var timerSearch                 = Timer()
-    var locationStatus              : CLAuthorizationStatus?    //----------------------------------------------------------------------------
+    var locationStatus              : CLAuthorizationStatus?
+    var isFirstTimePopup = true
+    //----------------------------------------------------------------------------
     //MARK:- Memory management
     
     override func didReceiveMemoryWarning() {
@@ -226,6 +228,42 @@ class TestPackageListVC: ClearNavigationFontBlackBaseVC {
         self.refreshControl.addTarget(self, action: #selector(self.updateAPIData), for: UIControl.Event.valueChanged)
         self.tblView.addSubview(self.refreshControl)
         LocationManager.shared.delegate = self
+    }
+    
+    private func getAddressFromGEo(search: String? = nil) {
+        if LocationManager.shared.checkStatus() == .authorizedAlways || LocationManager.shared.checkStatus() == .authorizedWhenInUse {
+            let lat     = LocationManager.shared.getUserLocation().coordinate.latitude
+            let long    = LocationManager.shared.getUserLocation().coordinate.longitude
+            
+            GoogleNavigationAdddress.getAddressFromLatLong(lat: lat, lng: long) { (response) in
+                let response = JSON(response)
+                
+                if response[StringConstant.PinCode].stringValue != "" {
+                    
+                    kGlobalPincode              = response[StringConstant.PinCode].stringValue
+                    self.lblLocationVal.text    = kGlobalPincode
+                }
+                
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+                    self.viewModel.apiCallFromStart(tblView: self.tblView,
+                                                    refreshControl: self.refreshControl,
+                                                    search: search ?? self.txtSearch.text!,
+                                                    type: .package,
+                                                    pincode: kGlobalPincode,
+                                                    withLoader: false)
+                }
+            }
+        } else {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+                _ = LocationManager.shared.isLocationServiceEnabled(showAlert: true)
+                self.viewModel.apiCallFromStart(tblView: self.tblView,
+                                                refreshControl: self.refreshControl,
+                                                search: search ?? self.txtSearch.text!,
+                                                type: .package,
+                                                pincode: kGlobalPincode,
+                                                withLoader: false)
+            }
+        }
     }
     
     @objc func APICallToGetPackages() {
@@ -298,8 +336,80 @@ class TestPackageListVC: ClearNavigationFontBlackBaseVC {
             }
             
             else {
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+                    self.viewModel.apiCallFromStart(tblView: self.tblView,
+                                                    refreshControl: self.refreshControl,
+                                                    search: search ?? self.txtSearch.text!,
+                                                    type: .package,
+                                                    pincode: kGlobalPincode,
+                                                    withLoader: false)
+                }
                 
-                LocationManager.shared.getLocation(isAskForPermission: true)
+                //   ----------------- Comment ----------
+                if LocationManager.shared.checkStatus() == .authorizedAlways || LocationManager.shared.checkStatus() == .authorizedWhenInUse {
+                    let lat     = LocationManager.shared.getUserLocation().coordinate.latitude
+                    let long    = LocationManager.shared.getUserLocation().coordinate.longitude
+                    
+                    GoogleNavigationAdddress.getAddressFromLatLong(lat: lat, lng: long) { (response) in
+                        let response = JSON(response)
+                        
+                        if response[StringConstant.PinCode].stringValue != "" {
+                            
+                            kGlobalPincode              = response[StringConstant.PinCode].stringValue
+                            self.lblLocationVal.text    = kGlobalPincode
+                        }
+                        
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+                            self.viewModel.apiCallFromStart(tblView: self.tblView,
+                                                            refreshControl: self.refreshControl,
+                                                            search: search ?? self.txtSearch.text!,
+                                                            type: .package,
+                                                            pincode: kGlobalPincode,
+                                                            withLoader: false)
+                        }
+                    }
+                } else {
+                    
+                    if self.isFirstTimePopup {
+                        self.isFirstTimePopup = false
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.10) {
+                            let vc = LocationPermissionPopUpVC.instantiate(fromAppStoryboard: .BCP_temp)
+                            vc.selectManuallyCompletion = { [weak self] _ in
+                                guard let self = self else { return }
+                                let vc = SelectLocationPopUpVC.instantiate(fromAppStoryboard: .BCP_temp)
+                                vc.completionHandler = { obj in
+                                    if obj?.count > 0 {
+                                        kGlobalPincode              = obj!["code"].stringValue
+                                        self.lblLocationVal.text    = kGlobalPincode
+                                        self.updateAPIData(sender: self.btnChangeLocation, search: self.txtSearch.text!)
+                                    }
+                                }
+                                UIApplication.topViewController()?.present(vc, animated: true)
+                            }
+                            vc.selectGrantCompletion = { [weak self] _ in
+                                guard let self = self else { return }
+                                
+                                if (UIApplication.topViewController()?.isKind(of: LocationPermissionPopUpVC.self) ?? false) {
+                                    UIApplication.topViewController()?.dismiss(animated: true, completion: { [weak self] in
+                                        guard let self = self else { return }
+                                        self.getAddressFromGEo(search: search)
+                                    })
+                                    return
+                                }
+                                self.getAddressFromGEo(search: search)
+                            }
+                            
+                            let navi = UINavigationController(rootViewController: vc)
+                            navi.modalPresentationStyle = .overFullScreen
+                            navi.modalTransitionStyle = .crossDissolve
+                            UIApplication.topViewController()?.present(navi, animated: true)
+                        }
+                    }
+                    
+                }
+               
+                // ------- Comment -------
+              /*  LocationManager.shared.getLocation(isAskForPermission: true)
                 self.locationStatus = LocationManager.shared.checkStatus()
                 if LocationManager.shared.checkStatus() == .authorizedAlways || LocationManager.shared.checkStatus() == .authorizedWhenInUse {
                     
@@ -332,7 +442,7 @@ class TestPackageListVC: ClearNavigationFontBlackBaseVC {
                                                     type: .package,
                                                     pincode: kGlobalPincode,
                                                     withLoader: false)
-                }
+                } */
             }
         }
     }
@@ -342,7 +452,7 @@ class TestPackageListVC: ClearNavigationFontBlackBaseVC {
     func manageActionMethods(){
         
         self.vwLocation.addTapGestureRecognizer {
-            let vc = ChooseLocationPinVC.instantiate(fromAppStoryboard: .carePlan)
+           /* let vc = ChooseLocationPinVC.instantiate(fromAppStoryboard: .carePlan)
             //            vc.modalTransitionStyle = .crossDissolve
             vc.modalPresentationStyle = .overFullScreen
             vc.completionHandler = { obj in
@@ -353,6 +463,17 @@ class TestPackageListVC: ClearNavigationFontBlackBaseVC {
                 }
             }
             UIApplication.topViewController()?.present(vc, animated: true, completion: nil)
+            */
+            
+            let vc = SelectLocationPopUpVC.instantiate(fromAppStoryboard: .BCP_temp)
+            vc.completionHandler = { obj in
+                if obj?.count > 0 {
+                    kGlobalPincode              = obj!["code"].stringValue
+                    self.lblLocationVal.text    = kGlobalPincode
+                    self.updateAPIData(sender: self.btnChangeLocation, search: self.txtSearch.text!)
+                }
+            }
+            UIApplication.topViewController()?.present(vc, animated: true)
         }
         
         //        self.btnBookAppointment.addTapGestureRecognizer {

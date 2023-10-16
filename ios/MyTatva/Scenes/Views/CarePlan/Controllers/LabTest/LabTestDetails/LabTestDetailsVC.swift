@@ -69,6 +69,8 @@ class LabTestDetailsVC: ClearNavigationFontBlackBaseVC {
     var completionHandler: ((_ obj : BookTestListModel?) -> Void)?
     var locationStatus              : CLAuthorizationStatus?
     
+    var isForFirstTime = true
+    
     //MARK: ------------------------- Memory Management Method -------------------------
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -222,11 +224,41 @@ class LabTestDetailsVC: ClearNavigationFontBlackBaseVC {
         tblView.reloadData()
     }
     
+    private func getAddressFromGeo(withLoader: Bool = true) {
+        if LocationManager.shared.checkStatus() == .authorizedAlways || LocationManager.shared.checkStatus() == .authorizedWhenInUse {
+            let lat     = LocationManager.shared.getUserLocation().coordinate.latitude
+            let long    = LocationManager.shared.getUserLocation().coordinate.longitude
+            
+            GoogleNavigationAdddress.getAddressFromLatLong(lat: lat, lng: long) { (response) in
+                let response = JSON(response)
+                
+                if response[StringConstant.PinCode].stringValue != "" {
+                    
+                    kGlobalPincode              = response[StringConstant.PinCode].stringValue
+                    self.lblLocationVal.text    = kGlobalPincode
+                }
+                
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+                    self.viewModel.test_detailAPI(lab_test_id: self.lab_test_id,
+                                                  pincode: kGlobalPincode,
+                                                  withLoader: withLoader)
+                }
+            }
+        } else {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+                _ = LocationManager.shared.isLocationServiceEnabled(showAlert: true)
+                self.viewModel.test_detailAPI(lab_test_id: self.lab_test_id,
+                                              pincode: kGlobalPincode,
+                                              withLoader: withLoader)
+            }
+        }
+    }
+    
     //MARK: ------------------------- Action Method -------------------------
     fileprivate func manageActionMethods(){
         
         self.vwLocation.addTapGestureRecognizer {
-            let vc = ChooseLocationPinVC.instantiate(fromAppStoryboard: .carePlan)
+           /* let vc = ChooseLocationPinVC.instantiate(fromAppStoryboard: .carePlan)
             //            vc.modalTransitionStyle = .crossDissolve
             vc.modalPresentationStyle = .overFullScreen
             vc.completionHandler = { obj in
@@ -239,6 +271,16 @@ class LabTestDetailsVC: ClearNavigationFontBlackBaseVC {
                 }
             }
             UIApplication.topViewController()?.present(vc, animated: true, completion: nil)
+            */
+            let vc = SelectLocationPopUpVC.instantiate(fromAppStoryboard: .BCP_temp)
+            vc.completionHandler = { obj in
+                if obj?.count > 0 {
+                    kGlobalPincode              = obj!["code"].stringValue
+                    self.lblLocationVal.text    = kGlobalPincode
+                    self.updateAPIData(withLoader: true)
+                }
+            }
+            UIApplication.topViewController()?.present(vc, animated: true)
         }
         
         self.btnAddToCart.addTapGestureRecognizer {
@@ -249,6 +291,11 @@ class LabTestDetailsVC: ClearNavigationFontBlackBaseVC {
                                                  screen: .LabtestDetails) { [weak self] isDone in
                     guard let self = self else {return}
                     if isDone {
+                        /*kApplyCouponName = ""
+                        kCouponCodeAmount = 0
+                        kDiscountMasterId = ""
+                        kDiscountType = ""*/
+                        kIsCartModified = true
                         self.object.inCart = "Y"
                         //                        self.tblView.reloadData()
                         self.object.cart.totalTest += 1
@@ -629,15 +676,14 @@ extension LabTestDetailsVC {
             }
         }
         else {
-            //            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
-            //                self.viewModel.test_detailAPI(lab_test_id: self.lab_test_id,
-            //                                              pincode: kGlobalPincode,
-            //                                              withLoader: withLoader)
-            //            }
-            LocationManager.shared.getLocation(isAskForPermission: true)
-            self.locationStatus = LocationManager.shared.checkStatus()
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+                self.viewModel.test_detailAPI(lab_test_id: self.lab_test_id,
+                                              pincode: kGlobalPincode,
+                                              withLoader: withLoader)
+            }
+            
+            //   ----------------- Comment ----------
             if LocationManager.shared.checkStatus() == .authorizedAlways || LocationManager.shared.checkStatus() == .authorizedWhenInUse {
-                
                 let lat     = LocationManager.shared.getUserLocation().coordinate.latitude
                 let long    = LocationManager.shared.getUserLocation().coordinate.longitude
                 
@@ -656,15 +702,79 @@ extension LabTestDetailsVC {
                                                       withLoader: withLoader)
                     }
                 }
-            }
-            else {
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
-                    _ = LocationManager.shared.isLocationServiceEnabled(showAlert: true)
-                    self.viewModel.test_detailAPI(lab_test_id: self.lab_test_id,
-                                                  pincode: kGlobalPincode,
-                                                  withLoader: withLoader)
+            } else {
+                
+                if self.isForFirstTime {
+                    self.isForFirstTime = false
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.10) {
+                        let vc = LocationPermissionPopUpVC.instantiate(fromAppStoryboard: .BCP_temp)
+                        vc.selectManuallyCompletion = { [weak self] _ in
+                            guard let self = self else { return }
+                            let vc = SelectLocationPopUpVC.instantiate(fromAppStoryboard: .BCP_temp)
+                            vc.completionHandler = { obj in
+                                if obj?.count > 0 {
+                                    kGlobalPincode              = obj!["code"].stringValue
+                                    self.lblLocationVal.text    = kGlobalPincode
+                                    self.updateAPIData(withLoader: true)
+                                }
+                            }
+                            UIApplication.topViewController()?.present(vc, animated: true)
+                        }
+                        vc.selectGrantCompletion = { [weak self] _ in
+                            guard let self = self else { return }
+                            
+                            if (UIApplication.topViewController()?.isKind(of: LocationPermissionPopUpVC.self) ?? false) {
+                                UIApplication.topViewController()?.dismiss(animated: true, completion: { [weak self] in
+                                    guard let self = self else { return }
+                                    self.getAddressFromGeo(withLoader: withLoader)
+                                })
+                                return
+                            }
+                            self.getAddressFromGeo(withLoader: withLoader)
+                        }
+                        
+                        let navi = UINavigationController(rootViewController: vc)
+                        navi.modalPresentationStyle = .overFullScreen
+                        navi.modalTransitionStyle = .crossDissolve
+                        UIApplication.topViewController()?.present(navi, animated: true)
+                    }
                 }
+                
             }
+            
+            
+         //   ----------------- Comment ----------
+//            LocationManager.shared.getLocation(isAskForPermission: true)
+//            self.locationStatus = LocationManager.shared.checkStatus()
+//            if LocationManager.shared.checkStatus() == .authorizedAlways || LocationManager.shared.checkStatus() == .authorizedWhenInUse {
+//
+//                let lat     = LocationManager.shared.getUserLocation().coordinate.latitude
+//                let long    = LocationManager.shared.getUserLocation().coordinate.longitude
+//
+//                GoogleNavigationAdddress.getAddressFromLatLong(lat: lat, lng: long) { (response) in
+//                    let response = JSON(response)
+//
+//                    if response[StringConstant.PinCode].stringValue != "" {
+//
+//                        kGlobalPincode              = response[StringConstant.PinCode].stringValue
+//                        self.lblLocationVal.text    = kGlobalPincode
+//                    }
+//
+//                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+//                        self.viewModel.test_detailAPI(lab_test_id: self.lab_test_id,
+//                                                      pincode: kGlobalPincode,
+//                                                      withLoader: withLoader)
+//                    }
+//                }
+//            }
+//            else {
+//                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+//                    _ = LocationManager.shared.isLocationServiceEnabled(showAlert: true)
+//                    self.viewModel.test_detailAPI(lab_test_id: self.lab_test_id,
+//                                                  pincode: kGlobalPincode,
+//                                                  withLoader: withLoader)
+//                }
+//            }
         }
     }
     

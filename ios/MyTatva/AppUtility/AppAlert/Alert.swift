@@ -24,59 +24,59 @@ class Alert {
 extension Alert {
     
     /// Show snack bar alert message
-       ///
-       /// - Parameters:
-       ///   - message: Message for alert
-       ///   - backGroundColor: Backgroud color for alert box
-       ///   - duration: Alert display duration
-       ///   - animation: Snack bar animation type
-       func showSnackBar(_ message : String, isError: Bool = false, isBCP: Bool = false, duration : TTGSnackbarDuration = .long, animation : TTGSnackbarAnimationType = .slideFromTopBackToTop) {
-           snackbar.message = message//.localized
-           snackbar.duration = duration
-           snackbar.messageTextColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-           snackbar.messageTextFont = .customFont(ofType: .medium, withSize: 15)
-           snackbar.layer.insertSublayer(snackbar.gradientLayer, at: 0)
-
+    ///
+    /// - Parameters:
+    ///   - message: Message for alert
+    ///   - backGroundColor: Backgroud color for alert box
+    ///   - duration: Alert display duration
+    ///   - animation: Snack bar animation type
+    func showSnackBar(_ message : String, isError: Bool = false, isBCP: Bool = false, duration : TTGSnackbarDuration = .long, animation : TTGSnackbarAnimationType = .slideFromTopBackToTop) {
+        snackbar.message = message//.localized
+        snackbar.duration = duration
+        snackbar.messageTextColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        snackbar.messageTextFont = .customFont(ofType: .medium, withSize: 15)
+        snackbar.layer.insertSublayer(snackbar.gradientLayer, at: 0)
         
-           if isError && isBCP {
-               snackbar.backgroundColor = UIColor.themeRedAlert
-           } else if isBCP {
-               snackbar.backgroundColor = UIColor.themeGreenAlert
-           } else if isError {
-               snackbar.backgroundColor = .themePurple
-           } else {
-               snackbar.backgroundColor = UIColor.themePurple
-           }
-           
-           snackbar.layer.cornerRadius = 10
-           
-           snackbar.onTapBlock = { snackbar in
-               snackbar.dismiss()
-           }
-           
-           snackbar.onSwipeBlock = { (snackbar, direction) in
-               if direction == .right {
-                   snackbar.animationType = .slideFromLeftToRight
-               } else if direction == .left {
-                   snackbar.animationType = .slideFromRightToLeft
-               } else if direction == .up {
-                   snackbar.animationType = .slideFromTopBackToTop
-               } else if direction == .down {
-                   snackbar.animationType = .slideFromTopBackToTop
-               }
-               
-               snackbar.dismiss()
-           }
-           snackbar.viewcornerRadius = 5.0
-           
-           // Change animation duration
-           snackbar.animationDuration = 0.5
-           
-           // Animation type
-           snackbar.animationType = animation
-           snackbar.show()
-       }
-       
+        
+        if isError && isBCP {
+            snackbar.backgroundColor = UIColor.themeRedAlert
+        } else if isBCP {
+            snackbar.backgroundColor = UIColor.themeGreenAlert
+        } else if isError {
+            snackbar.backgroundColor = .themePurple
+        } else {
+            snackbar.backgroundColor = UIColor.themePurple
+        }
+        
+        snackbar.layer.cornerRadius = 10
+        
+        snackbar.onTapBlock = { snackbar in
+            snackbar.dismiss()
+        }
+        
+        snackbar.onSwipeBlock = { (snackbar, direction) in
+            if direction == .right {
+                snackbar.animationType = .slideFromLeftToRight
+            } else if direction == .left {
+                snackbar.animationType = .slideFromRightToLeft
+            } else if direction == .up {
+                snackbar.animationType = .slideFromTopBackToTop
+            } else if direction == .down {
+                snackbar.animationType = .slideFromTopBackToTop
+            }
+            
+            snackbar.dismiss()
+        }
+        snackbar.viewcornerRadius = 5.0
+        
+        // Change animation duration
+        snackbar.animationDuration = 0.5
+        
+        // Animation type
+        snackbar.animationType = animation
+        snackbar.show()
+    }
+    
     
     
     func showSnackBarGreen(_ message : String, isError: Bool = false, duration : TTGSnackbarDuration = .middle, animation : TTGSnackbarAnimationType = .slideFromBottomToTop) {
@@ -86,7 +86,7 @@ extension Alert {
         snackbar.messageTextColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         snackbar.messageTextFont = .customFont(ofType: .medium, withSize: 15)
         snackbar.layer.insertSublayer(snackbar.gradientLayer, at: 0)
-
+        
         if isError {
             snackbar.backgroundColor = UIColor.themeRedAlert
         } else {
@@ -183,49 +183,49 @@ extension Alert {
         alert.view.tintColor = UIColor.black
         UIApplication.topViewController()?.present(alert, animated: true, completion: nil)
     }
-
+    
     func showAlertForSettings(title: String,message: String = "",settingsCompletion: ((UIAlertAction) -> Void)? = nil, cancelCompletion: ((UIAlertAction) -> Void)?) {
-            let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-            
-            alertController.addAction(UIAlertAction(title:"Cancel".localized, style: .default, handler: cancelCompletion))
-            
-            
-            let settingsAction = UIAlertAction(title: "Settings".localized, style: .default) { (_) -> Void in
-                let settingsUrl = NSURL(string: UIApplication.openSettingsURLString)
-                if let url = settingsUrl {
-                    if #available(iOS 10.0, *) {
-                        UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
-                    }
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        alertController.addAction(UIAlertAction(title:"Cancel".localized, style: .default, handler: cancelCompletion))
+        
+        
+        let settingsAction = UIAlertAction(title: "Settings".localized, style: .default) { (_) -> Void in
+            let settingsUrl = NSURL(string: UIApplication.openSettingsURLString)
+            if let url = settingsUrl {
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
                 }
-            }
-            
-            if let settingActionCompletion = settingsCompletion {
-                alertController.addAction(UIAlertAction(title:"Settings".localized, style: .default, handler: settingActionCompletion))
-            } else {
-                alertController.addAction(settingsAction)
-            }
-            
-            
-            DispatchQueue.main.async {
-                UIApplication.topViewController()?.present(alertController, animated: true, completion: nil)
             }
         }
         
-        func openAppOrSystemSettingsAlert(title: String, message: String) {
-            let alertController = UIAlertController (title: title, message: message, preferredStyle: .alert)
-            let settingsAction = UIAlertAction(title: "Settings", style: .destructive) { (_) -> Void in
-                guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else { return }
-                if UIApplication.shared.canOpenURL(settingsUrl) {
-                    UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
-                        print("Settings opened: \(success)") // Prints true
-                    })
-                }
-            }
+        if let settingActionCompletion = settingsCompletion {
+            alertController.addAction(UIAlertAction(title:"Settings".localized, style: .default, handler: settingActionCompletion))
+        } else {
             alertController.addAction(settingsAction)
-            let cancelAction = UIAlertAction(title: "Cancel", style: .default) { (_) -> Void in
-                
-            }
-            alertController.addAction(cancelAction)
+        }
+        
+        
+        DispatchQueue.main.async {
             UIApplication.topViewController()?.present(alertController, animated: true, completion: nil)
         }
+    }
+    
+    func openAppOrSystemSettingsAlert(title: String, message: String) {
+        let alertController = UIAlertController (title: title, message: message, preferredStyle: .alert)
+        let settingsAction = UIAlertAction(title: "Settings", style: .destructive) { (_) -> Void in
+            guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else { return }
+            if UIApplication.shared.canOpenURL(settingsUrl) {
+                UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                    print("Settings opened: \(success)") // Prints true
+                })
+            }
+        }
+        alertController.addAction(settingsAction)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default) { (_) -> Void in
+            
+        }
+        alertController.addAction(cancelAction)
+        UIApplication.topViewController()?.present(alertController, animated: true, completion: nil)
+    }
 }

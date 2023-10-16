@@ -146,11 +146,6 @@ class AddPrescriptionVC: ClearNavigationFontBlackBaseVC {
         FIRAnalytics.manageTimeSpent(on: .SetUpDrugs, when: .Disappear)
     }
     
-    
-    @IBAction func onGoBack(_ sender: Any) {
-           self.dismiss(animated: true, completion: nil)
-       }
-    
     //------------------------------------------------------
     
     //MARK:- Memory Management Method

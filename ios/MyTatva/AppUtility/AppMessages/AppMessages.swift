@@ -164,7 +164,7 @@ struct AppMessages {
     static var AddMedicine                  = "Add medicine"
     static var YourCartIsEmpty              = "Your cart is empty"
     static var CarePlan                     = "Care Plan"
-    static var Programs                     = "Programs"
+    static var Programs                     = "Care Programs"
     static var SelectDaysOfTheWeek          = "Please select days of the week"
     static var PleaseSelectFrequency        = "Please select frequency"
     static var Free                         = "Free"

@@ -37,7 +37,7 @@ class DeviceDetailsModel : NSObject, NSCoding{
         lastSyncDate = json["last_sync_date"].stringValue
         title = json["title"].stringValue
     }
-
+    
     /**
      * Returns all the available property values in the form of [String:Any] object where the key is the approperiate json key and the value is the value of the corresponding property
      */
@@ -55,23 +55,23 @@ class DeviceDetailsModel : NSObject, NSCoding{
         }
         return dictionary
     }
-
+    
     /**
-    * NSCoding required initializer.
-    * Fills the data from the passed decoder
-    */
+     * NSCoding required initializer.
+     * Fills the data from the passed decoder
+     */
     @objc required init(coder aDecoder: NSCoder)
     {
-         key = aDecoder.decodeObject(forKey: "key") as? String
-         lastSyncDate = aDecoder.decodeObject(forKey: "last_sync_date") as? String
-         title = aDecoder.decodeObject(forKey: "title") as? String
-
+        key = aDecoder.decodeObject(forKey: "key") as? String
+        lastSyncDate = aDecoder.decodeObject(forKey: "last_sync_date") as? String
+        title = aDecoder.decodeObject(forKey: "title") as? String
+        
     }
-
+    
     /**
-    * NSCoding required method.
-    * Encodes mode properties into the decoder
-    */
+     * NSCoding required method.
+     * Encodes mode properties into the decoder
+     */
     func encode(with aCoder: NSCoder)
     {
         if key != nil{
@@ -83,7 +83,7 @@ class DeviceDetailsModel : NSObject, NSCoding{
         if title != nil{
             aCoder.encode(title, forKey: "title")
         }
-
+        
     }
-
+    
 }

@@ -24,12 +24,12 @@ class AppCoordinator: NSObject {
     func basicAppSetup() {
         
         setupMap()
-                
-//        GMSServices.provideAPIKey(AppCredential.googleKey.rawValue)
-//        GMSPlacesClient.provideAPIKey(AppCredential.googleKey.rawValue)
         
-//        GMSServices.provideAPIKey(AppCredential.googleKey.rawValue)
-//        GMSPlacesClient.provideAPIKey(AppCredential.googleKey.rawValue)
+        //        GMSServices.provideAPIKey(AppCredential.googleKey.rawValue)
+        //        GMSPlacesClient.provideAPIKey(AppCredential.googleKey.rawValue)
+        
+        //        GMSServices.provideAPIKey(AppCredential.googleKey.rawValue)
+        //        GMSPlacesClient.provideAPIKey(AppCredential.googleKey.rawValue)
         //GIDSignIn.sharedInstance().clientID = AppCredential.googleClientID.rawValue
         
         DispatchQueue.main.async {
@@ -42,10 +42,10 @@ class AppCoordinator: NSObject {
         UITextField.appearance().tintColor = UIColor.themePurple
         UITextView.appearance().tintColor = UIColor.themePurple
         if #available(iOS 9.0, *) {
-                    UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.themeBlack]
-                } else {
-                    // Fallback on earlier versions
-                }
+            UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.themeBlack]
+        } else {
+            // Fallback on earlier versions
+        }
         
         let alertView = UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self])
         alertView.tintColor = UIColor.themePurple
@@ -61,17 +61,17 @@ class AppCoordinator: NSObject {
             
             if self.audioDevice == DefaultAudioDevice() {
                 self.audioDevice.block = {
-                      do {
+                    do {
                         DefaultAudioDevice.DefaultAVAudioSessionConfigurationBlock()
                         
                         let audioSession = AVAudioSession.sharedInstance()
                         //try audioSession.setMode(.voiceChat)
                         try audioSession.setCategory(
-                                        .playAndRecord, mode: .videoChat,
-                                        options: [.mixWithOthers,
-                                                  .allowAirPlay,
-                                                  .allowBluetoothA2DP,
-                                                  .allowBluetooth])
+                            .playAndRecord, mode: .videoChat,
+                            options: [.mixWithOthers,
+                                      .allowAirPlay,
+                                      .allowBluetoothA2DP,
+                                      .allowBluetooth])
                     } catch let error as NSError {
                         print("Fail: \(error.localizedDescription)")
                     }
@@ -85,16 +85,16 @@ class AppCoordinator: NSObject {
         }
         
         if UserDefaultsConfig.kAppVersion != Bundle.main.getAppVersion() && !(UserModel.isUserLoggedIn && UserModel.isVerifiedUser) {
-                    UIApplication.shared.forceLogOut()
-                    UserDefaultsConfig.kAppVersion = Bundle.main.getAppVersion()
-                }else {
-                    //manage login
-                    if #available(iOS 13.0, *) {
-                        //For latest versions
-                    } else {
-                        UIApplication.shared.manageLogin()
-                    }
-                }
+            UIApplication.shared.forceLogOut()
+            UserDefaultsConfig.kAppVersion = Bundle.main.getAppVersion()
+        }else {
+            //manage login
+            if #available(iOS 13.0, *) {
+                //For latest versions
+            } else {
+                UIApplication.shared.manageLogin()
+            }
+        }
         
         //Google sign in init
         //        GIDSignIn.sharedInstance().clientID = AppCredential.googleClientID.rawValue
@@ -107,7 +107,7 @@ class AppCoordinator: NSObject {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
             self.setUpIQKeyBoardManager()
         }
-                
+        
         //Push setup
         AppDelegate.shared.registerForNotification()
         
@@ -126,17 +126,17 @@ class AppCoordinator: NSObject {
     }
     
     func setupMap() {
-            
-            let GMSServicesKeyValid = GMSServices.provideAPIKey(AppCredential.googleKey.rawValue)
-            
-            let GMSServicesSDKVer = GMSServices.sdkVersion()
-            print("GMS Services Key Valid: ", GMSServicesKeyValid)
-            print("GMS Services SDK version: ", GMSServicesSDKVer)
-
-            let GMSPlacesKeyValid = GMSPlacesClient.provideAPIKey(AppCredential.googleBrowserKey.rawValue)
-            
-            let GMSPlacesSDKVer = GMSPlacesClient.sdkVersion()
-            print("GMS Places Key Valid: ", GMSPlacesKeyValid)
-            print("GMS Places SDK version: ", GMSPlacesSDKVer)
-        }
+        
+        let GMSServicesKeyValid = GMSServices.provideAPIKey(AppCredential.googleKey.rawValue)
+        
+        let GMSServicesSDKVer = GMSServices.sdkVersion()
+        print("GMS Services Key Valid: ", GMSServicesKeyValid)
+        print("GMS Services SDK version: ", GMSServicesSDKVer)
+        
+        let GMSPlacesKeyValid = GMSPlacesClient.provideAPIKey(AppCredential.googleBrowserKey.rawValue)
+        
+        let GMSPlacesSDKVer = GMSPlacesClient.sdkVersion()
+        print("GMS Places Key Valid: ", GMSPlacesKeyValid)
+        print("GMS Places SDK version: ", GMSPlacesSDKVer)
+    }
 }

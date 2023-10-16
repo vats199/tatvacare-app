@@ -171,10 +171,15 @@ class SelectAddressVC: WhiteNavigationBaseVC {
                                          screen: .SelectAddress,
                                          parameter: params1)
                 
-                let vc = SelectLabTestTimeSlotVC.instantiate(fromAppStoryboard: .carePlan)
-                vc.cartListModel            = self.cartListModel
-                vc.labPatientListModel      = self.labPatientListModel
-                vc.labAddressListModel      = obj
+//                let vc = SelectLabTestTimeSlotVC.instantiate(fromAppStoryboard: .carePlan)
+//                vc.cartListModel            = self.cartListModel
+//                vc.labPatientListModel      = self.labPatientListModel
+//                vc.labAddressListModel      = obj
+//                self.navigationController?.pushViewController(vc, animated: true)
+                
+                let vc = SelectTestTimeSlotVC.instantiate(fromAppStoryboard: .bca)
+                vc.cartListModel = self.cartListModel
+                vc.labAddressListModel = obj
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             else {

@@ -294,7 +294,7 @@ const styles = StyleSheet.create({
     // flex: 1,
     width: '100%',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
   },
   smallHeight: {
     height: '40%',
@@ -355,12 +355,14 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     paddingHorizontal: 10,
     paddingVertical: 0,
+    marginVertical: 10,
   },
   locationTitleText: {
     fontSize: 18,
     fontWeight: '700',
     color: colors.labelTitleDarkGray,
-    marginRight: 'auto',
+    alignSelf: 'flex-start',
+    marginBottom: 10,
   },
   pincodeInputStyle: {
     borderWidth: 0,
@@ -384,7 +386,8 @@ const styles = StyleSheet.create({
   currentLocationContainer: {
     flexDirection: 'row',
     gap: 10,
-    marginRight: 'auto',
+    alignSelf: 'flex-start',
+    marginTop: 10,
   },
   currentLocationText: {
     color: colors.inputValueDarkGray,

@@ -185,6 +185,9 @@ extension TestOrderReviewVM {
         params["final_payable_amount"]      = final_payable_amount
         params["home_collection_charge"]    = home_collection_charge
         params["service_charge"]            = service_charge
+        params["discount_amount"]           = "\(kCouponCodeAmount)"
+        params["discounts_master_id"]       = kDiscountMasterId
+        params["discount_type"]             = kDiscountType
         
         if let member_id = member_id {
             params["member_id"]              = member_id
@@ -225,10 +228,14 @@ extension TestOrderReviewVM {
                     Alert.shared.showSnackBar(response.message, isError: true, isBCP: true)
                     break
                 case .success:
-                    
+                    kCouponCodeAmount = 0
+                    kDiscountMasterId = ""
+                    kDiscountType     = ""
+                    kApplyCouponName  = ""
+                    kDiscountData     = nil
                     self.order_master_id = response.data["order_master_id"].stringValue
                     self.vmResult.value = .success(nil)
-                    Alert.shared.showSnackBar(response.message)
+                    Alert.shared.showSnackBar(response.message, isBCP: true)
                     break
                     
                 case .emptyData:
@@ -261,7 +268,6 @@ extension TestOrderReviewVM {
                 break
                 
             case .failure(let error):
-                
                 Alert.shared.showSnackBar(error.localizedDescription, isError: true, isBCP: true)
                 break
                 

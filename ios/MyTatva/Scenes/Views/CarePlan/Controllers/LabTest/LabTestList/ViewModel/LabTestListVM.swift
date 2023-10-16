@@ -250,12 +250,12 @@ extension LabTestListVM {
                 var returnVal = false
                 switch response.apiCode {
                 case .invalidOrFail:
-                    
                     Alert.shared.showSnackBar(response.message)
                     break
                 case .success:
                     returnVal = true
 //                    Alert.shared.showSnackBar(response.message)
+                    kIsCartModified = true
                     self.isRemovedFromCart.value = true
                     /*if isAdd {
                         var params1 = [String: Any]()
@@ -274,7 +274,6 @@ extension LabTestListVM {
                     
                     break
                 case .emptyData:
-                    
                     Alert.shared.showSnackBar(response.message)
                     break
                 case .inactiveAccount:
@@ -303,7 +302,6 @@ extension LabTestListVM {
                 break
                 
             case .failure(let error):
-                
                 Alert.shared.showSnackBar(error.localizedDescription)
                 break
                 

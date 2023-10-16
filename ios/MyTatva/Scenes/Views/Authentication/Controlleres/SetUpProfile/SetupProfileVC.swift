@@ -165,7 +165,7 @@ class SetupProfileVC: UIViewController {
         self.txtEmail.keyboardType      = .emailAddress
         
         self.txtName.autocapitalizationType = .sentences
-
+        
         self.txtName.defaultcharacterSet   = CharacterSet.letters.union(CharacterSet(charactersIn: ".' "))
         self.txtName.maxLength      = Validations.MaxCharacterLimit.Name.rawValue
         self.txtEmail.maxLength         = Validations.MaxCharacterLimit.Email.rawValue
@@ -236,24 +236,24 @@ class SetupProfileVC: UIViewController {
     }
     
     private func setDoctorCode() {
-            let tmpText = self.isShowAccessField ? "Click here, if you don't have a doctor code." : "If you have a doctor code, click here." + "\n(Proceed without code if you don't have one. We will auto-assign a code)"
-            self.lblShowAccessCode.text = tmpText
-            self.lblShowAccessCode.font(name: .semibold, size: 14.0).numberOfLines = 0
-            self.lblShowAccessCode.isUserInteractionEnabled = true
-    //        let gesture3 = UITapGestureRecognizer(target: self, action: #selector(tapLabelAccessCode(gesture:)))
-    //        self.lblShowAccessCode.addGestureRecognizer(gesture3)
-            
-            self.lblShowAccessCode.setAttributedString(self.isShowAccessField ? ["Click","here",", if you don't have a doctor code."] : ["If you have a doctor code, click","here",".\n(Proceed without code if you don't have one. We will auto-assign a code)"], attributes: [[
-                NSAttributedString.Key.foregroundColor : UIColor.themePurple
-            ],[
-                NSAttributedString.Key.foregroundColor : UIColor.colorFromHex(hex: 0x052EFF),
-                NSAttributedString.Key.underlineStyle : NSUnderlineStyle.single.rawValue
-            ],[
-                NSAttributedString.Key.font : UIFont.customFont(ofType: self.isShowAccessField ? .semibold : .regular, withSize: self.isShowAccessField ? 14.0 : 12.0),
-                NSAttributedString.Key.foregroundColor : UIColor.themePurple
-            ]])
-        }
+        let tmpText = self.isShowAccessField ? "Click here, if you don't have a doctor code." : "If you have a doctor code, click here." + "\n(Proceed without code if you don't have one. We will auto-assign a code)"
+        self.lblShowAccessCode.text = tmpText
+        self.lblShowAccessCode.font(name: .semibold, size: 14.0).numberOfLines = 0
+        self.lblShowAccessCode.isUserInteractionEnabled = true
+        //        let gesture3 = UITapGestureRecognizer(target: self, action: #selector(tapLabelAccessCode(gesture:)))
+        //        self.lblShowAccessCode.addGestureRecognizer(gesture3)
         
+        self.lblShowAccessCode.setAttributedString(self.isShowAccessField ? ["Click","here",", if you don't have a doctor code."] : ["If you have a doctor code, click","here",".\n(Proceed without code if you don't have one. We will auto-assign a code)"], attributes: [[
+            NSAttributedString.Key.foregroundColor : UIColor.themePurple
+        ],[
+            NSAttributedString.Key.foregroundColor : UIColor.colorFromHex(hex: 0x052EFF),
+            NSAttributedString.Key.underlineStyle : NSUnderlineStyle.single.rawValue
+        ],[
+            NSAttributedString.Key.font : UIFont.customFont(ofType: self.isShowAccessField ? .semibold : .regular, withSize: self.isShowAccessField ? 14.0 : 12.0),
+            NSAttributedString.Key.foregroundColor : UIColor.themePurple
+        ]])
+    }
+    
     
     func initDatePicker() {
         self.txtDOB.inputView               = self.datePicker
@@ -304,14 +304,14 @@ class SetupProfileVC: UIViewController {
         }
         
         self.vwDoctorCode.isHidden = !((userData.accessCode ?? "").trim().isEmpty || (userData.doctorAccessCode ?? "").trim().isEmpty )
-            
+        
         if self.vwDoctorCode.isHidden {
-                    var params              = [String: Any]()
-                    FIRAnalytics.FIRLogEvent(eventName: .DOCTOR_ACCESS_CODE_HIDDEN_BY_DEFAULT,
-                                             screen: ScreenName.AddAccountDetails,
-                                             parameter: params)
-                }
-
+            var params              = [String: Any]()
+            FIRAnalytics.FIRLogEvent(eventName: .DOCTOR_ACCESS_CODE_HIDDEN_BY_DEFAULT,
+                                     screen: ScreenName.AddAccountDetails,
+                                     parameter: params)
+        }
+        
     }
     
     //------------------------------------------------------------------------------------------
@@ -376,24 +376,24 @@ class SetupProfileVC: UIViewController {
     
     private func addActions() {
         self.lblShowAccessCode.addTapGestureRecognizer { [weak self] in
-                    guard let self = self else { return }
-                    self.svDoctorAccessCode.isHidden = !self.svDoctorAccessCode.isHidden
-                    self.isShowAccessField = !self.isShowAccessField
-                    self.txtEnterCode.text = nil
-                    self.btnCheck.isUserInteractionEnabled = false
-                    self.btnCheck.alpha = 0.3
-                    self.vwTxtEnterCode.borderColor(color: .themeBorder2)
-                    self.vwErrorEnterCode.isHidden = true
-                    self.validateForEnable()
-                    
-                    var params              = [String: Any]()
-                    FIRAnalytics.FIRLogEvent(eventName: !self.isShowAccessField ? .USER_CLICK_DONT_HAVE_ACCESS_CODE : .USER_CLICK_HAVE_ACCESS_CODE,
-                                             screen: ScreenName.AddAccountDetails,
-                                             parameter: params)
-                    
-                    
-                }
-                
+            guard let self = self else { return }
+            self.svDoctorAccessCode.isHidden = !self.svDoctorAccessCode.isHidden
+            self.isShowAccessField = !self.isShowAccessField
+            self.txtEnterCode.text = nil
+            self.btnCheck.isUserInteractionEnabled = false
+            self.btnCheck.alpha = 0.3
+            self.vwTxtEnterCode.borderColor(color: .themeBorder2)
+            self.vwErrorEnterCode.isHidden = true
+            self.validateForEnable()
+            
+            var params              = [String: Any]()
+            FIRAnalytics.FIRLogEvent(eventName: !self.isShowAccessField ? .USER_CLICK_DONT_HAVE_ACCESS_CODE : .USER_CLICK_HAVE_ACCESS_CODE,
+                                     screen: ScreenName.AddAccountDetails,
+                                     parameter: params)
+            
+            
+        }
+        
         self.btnSelectTerm.addAction(for: .touchUpInside) { [weak self] in
             guard let self = self else { return }
             self.btnSelectTerm.isSelected = !self.btnSelectTerm.isSelected
@@ -409,16 +409,18 @@ class SetupProfileVC: UIViewController {
             FIRAnalytics.FIRLogEvent(eventName: .USER_CLICK_CHECK_ACCESS_CODE,
                                      screen: ScreenName.AddAccountDetails,
                                      parameter: params)
+            
             if self.txtEnterCode.text?.trim() == "" {
-                //                Alert.shared.showSnackBar(AppError.validation(type: .enterAccessCode).errorDescription ?? "")
+        
                 Alert.shared.showSnackBar(AppError.validation(type: .enterAccessCode).errorDescription ?? "", isError: true, isBCP: true)
             }
             else {
+                
                 GlobalAPI.shared.verifyDoctorLinkAPI(doctorAccessCode: self.txtEnterCode.text!) { [weak self]  isDone, msg in
                     guard let self = self else {return}
                     self.vwErrorEnterCode.isHidden = false
                     self.lblEroorEnterCode.text = msg
-//                    self.vwTxtEnterCode.borderColor(color: UIColor.themeRedAlert)
+
                     if isDone {
                         self.lblShowAccessCode.isHidden = true
                         self.isCheck = true
@@ -500,8 +502,6 @@ class SetupProfileVC: UIViewController {
                         self.vwErrorEnterCode.isHidden = false
                         self.lblEroorEnterCode.text = msg
                         self.txtEnterCode.text = kAccessCode
-//                        self.vwTxtEnterCode.borderColor(color: .themePurpleBlack)
-//                        self.vwTxtEnterCode.borderColor(color: UIColor.themeRedAlert)
                         self.validateForEnable()
                         if isDone {
                             DispatchQueue.main.async {
@@ -515,6 +515,7 @@ class SetupProfileVC: UIViewController {
                                 self.btnScanner.isUserInteractionEnabled = false
                                 self.vwTxtEnterCode.borderColor(color: .themePurpleBlack)
                                 self.btnCheck.alpha = 0.3
+                                
                             }
                         }
                     }
@@ -679,7 +680,6 @@ extension SetupProfileVC : UITextFieldDelegate {
             let str = (string.isBackspace() ? String(textField.text!.dropLast()) : textField.text! + string)
             self.vwErrorEmail.isHidden = (str.count >= 7 && !Validation.isValidEmail(testStr: str)) ? false : true
             self.lblErrorEmail.text = AppError.validation(type: .enterValidEmail).errorDescription
-             
             break
         default:
             break
@@ -713,7 +713,6 @@ extension SetupProfileVC : UITextFieldDelegate {
         
         switch textField {
         case self.txtName :
-
             self.vwErrorName.isHidden = textField.text!.isEmpty  ? false : true
             self.lblEroorName.text = AppError.validation(type: .enterName).errorDescription
             self.vwTxtName.borderColor(color: self.txtName.text!.isEmpty ? UIColor.themeBorder2 : UIColor.themePurpleBlack)
