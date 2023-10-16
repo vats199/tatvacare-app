@@ -10,6 +10,8 @@ import {
   requireNativeComponent,
   SafeAreaView,
   NativeEventEmitter,
+  LayoutRectangle,
+  Animated,
 } from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import {CompositeScreenProps, useIsFocused} from '@react-navigation/native';
@@ -54,6 +56,7 @@ import Home from '../api/home';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {StackScreenProps} from '@react-navigation/stack';
 import {useApp} from '../context/app.context';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 const {RNEventEmitter} = NativeModules;
 const eventEmitter = new NativeEventEmitter(RNEventEmitter);
@@ -64,6 +67,8 @@ type HomeScreenProps = CompositeScreenProps<
 >;
 
 const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
+  const {top} = useSafeAreaInsets();
+
   const {setUserData, setUserLocation} = useApp();
 
   const [location, setLocation] = React.useState<object>({});
@@ -392,31 +397,35 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
     }
   };
 
+  // Sticky Header
+  const [header, setHeader] = React.useState<LayoutRectangle | null>(null);
+  const scrollY = React.useRef(new Animated.Value(0)).current;
+  const topEdge = header?.height;
+
   return (
     <>
       <Screen>
         <Container>
-          <HomeHeader
-            onPressBell={onPressBell}
-            onPressLocation={onPressLocation}
-            onPressProfile={onPressProfile}
-            userLocation={location}
-          />
-          <Text style={styles.goodMorning}>
-            {getGreetings()} {carePlanData?.name}!
-          </Text>
-          <TouchableOpacity
-            style={styles.searchContainer}
-            activeOpacity={1}
-            onPress={() => {
-              navigateTo('GlobalSearchParentVC');
-            }}>
-            <Icons.Search />
-            <Text style={styles.searchText}>
-              Find resources to manage your condition
-            </Text>
-          </TouchableOpacity>
-          <ScrollView showsVerticalScrollIndicator={false}>
+          <Animated.ScrollView
+            showsVerticalScrollIndicator={false}
+            onScroll={Animated.event(
+              [{nativeEvent: {contentOffset: {y: scrollY}}}],
+              {useNativeDriver: true},
+            )}>
+            <View
+              style={styles.header}
+              onLayout={(ev: any) => setHeader(ev.nativeEvent.layout)}>
+              <HomeHeader
+                onPressBell={onPressBell}
+                onPressLocation={onPressLocation}
+                onPressProfile={onPressProfile}
+                userLocation={location}
+              />
+              <Text style={styles.goodMorning}>
+                {getGreetings()} {carePlanData?.name}!
+              </Text>
+            </View>
+            <View style={[styles.searchBar, {backgroundColor: 'red'}]} />
             <CarePlanView
               data={carePlanData}
               onPressCarePlan={onPressCarePlan}
@@ -453,7 +462,38 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
                 onPressViewAll={onPressViewAllLearn}
               />
             )}
-          </ScrollView>
+          </Animated.ScrollView>
+          {topEdge && (
+            <Animated.View
+              style={[
+                styles.searchBar,
+                {
+                  backgroundColor: '#f9f8fd',
+                  position: 'absolute',
+                  width: '100%',
+                  transform: [
+                    {
+                      translateY: scrollY.interpolate({
+                        inputRange: [0, topEdge - 1, topEdge, topEdge + 1],
+                        outputRange: [topEdge, 1, 0, 0],
+                      }),
+                    },
+                  ],
+                },
+              ]}>
+              <TouchableOpacity
+                style={styles.searchContainer}
+                activeOpacity={1}
+                onPress={() => {
+                  navigateTo('GlobalSearchParentVC');
+                }}>
+                <Icons.Search />
+                <Text style={styles.searchText}>
+                  Find resources to manage your condition
+                </Text>
+              </TouchableOpacity>
+            </Animated.View>
+          )}
         </Container>
       </Screen>
     </>
@@ -470,16 +510,25 @@ const styles = StyleSheet.create({
     marginVertical: 15,
     lineHeight: 20,
   },
+  header: {
+    height: 90,
+  },
+  searchBar: {
+    height: 80,
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   searchContainer: {
+    alignSelf: 'center',
     flexDirection: 'row',
+    width: '100%',
     alignItems: 'center',
     backgroundColor: colors.white,
     borderWidth: 1,
     borderColor: colors.inputBoxLightBorder,
     borderRadius: 12,
-    paddingHorizontal: 10,
-    marginBottom: 10,
-    paddingVertical: 10,
+    padding: 10,
     shadowColor: '#2121210D',
     shadowOffset: {
       width: 0,
