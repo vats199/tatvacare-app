@@ -1,193 +1,223 @@
-import { Animated, StyleSheet, Text, TextInput, TextInputProps, TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native'
-import React, { forwardRef, useImperativeHandle } from 'react'
-import { colors } from '../../constants/colors';
-import { TapGestureHandler } from 'react-native-gesture-handler';
-import { Fonts, Matrics } from '../../constants';
+import {
+  Animated,
+  StyleSheet,
+  Text,
+  TextInput,
+  TextInputProps,
+  TextStyle,
+  ViewStyle,
+  TouchableOpacity,
+} from 'react-native';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import {TapGestureHandler} from 'react-native-gesture-handler';
+
+import React, {forwardRef, useImperativeHandle, useState} from 'react';
+import {colors} from '../../constants/colors';
+import {Fonts, Matrics} from '../../constants';
+import moment from 'moment';
 
 interface AnimatedInputFieldProps extends TextInputProps {
-    style?: ViewStyle;
-    textStyle?: TextStyle;
-    label?: string;
-    error?: string;
-    showErrorText?: boolean,
-    showAnimatedLabel?: boolean
+  style?: ViewStyle;
+  textStyle?: TextStyle;
+  label?: string;
+  error?: string;
+  showErrorText?: boolean;
+  showAnimatedLabel?: boolean;
 }
 
 export type AnimatedInputFieldRef = {
-    blur: () => void;
-    focus: () => void;
-}
+  blur: () => void;
+  focus: () => void;
+};
 
-const AnimatedDatePicker = forwardRef<AnimatedInputFieldRef, AnimatedInputFieldProps>(({
-    label,
-    textStyle,
-    style,
-    placeholder,
-    value,
-    onChangeText,
-    editable = true,
-    autoCapitalize,
-    keyboardType,
-    maxLength,
-    error,
-    numberOfLines,
-    multiline,
-    secureTextEntry = false,
-    showErrorText = true,
-    autoFocus = false,
-    showAnimatedLabel = false,
-    onFocus = () => { },
-    onBlur = () => { },
-}, ref) => {
-
+const AnimatedDatePicker = forwardRef<
+  AnimatedInputFieldRef,
+  AnimatedInputFieldProps
+>(
+  (
+    {
+      style,
+      placeholder,
+      value,
+      error,
+      showErrorText = true,
+      showAnimatedLabel = true,
+      onFocus = () => {},
+    },
+    ref,
+  ) => {
     const textInputRef = React.useRef<TextInput>(null);
 
     // Expose methods using useImperativeHandle
     useImperativeHandle(ref, () => ({
-        focus: () => {
-            textInputRef.current?.focus();
-        },
-        blur: () => {
-            textInputRef.current?.blur();
-        }
+      focus: () => {
+        textInputRef.current?.focus();
+      },
+      blur: () => {
+        textInputRef.current?.blur();
+      },
     }));
-
-    const [hidden, setHidden] = React.useState<boolean>(secureTextEntry)
 
     const [isFocused, setIsFocused] = React.useState<boolean>(false);
     const translateY = new Animated.Value(0);
-
-    const handleFocus = (e: any) => {
-        onFocus(e)
-        setIsFocused(true);
-        Animated.timing(translateY, {
-            toValue: -10,
-            duration: 300,
-            useNativeDriver: false,
-        }).start();
+    const [date, setDate] = useState<string | null>(null);
+    const [isDatePickerVisible, setDatePickerVisibility] =
+      useState<boolean>(false);
+    const handleFocus = () => {
+      setIsFocused(true);
+      Animated.timing(translateY, {
+        toValue: -10,
+        duration: 300,
+        useNativeDriver: false,
+      }).start();
     };
 
-    const handleBlur = (e: any) => {
-        onBlur(e)
-        setIsFocused(false);
-        Animated.timing(translateY, {
-            toValue: 0,
-            duration: 300,
-            useNativeDriver: false,
-        }).start();
+    // const handleBlur = (e: any) => {
+    //   onBlur(e);
+    //   setIsFocused(false);
+    //   Animated.timing(translateY, {
+    //     toValue: 0,
+    //     duration: 300,
+    //     useNativeDriver: false,
+    //   }).start();
+    // };
+
+    const showDatePicker = () => {
+      setDatePickerVisibility(true);
     };
 
+    const hideDatePicker = () => {
+      setDatePickerVisibility(false);
+    };
+
+    const handleConfirm = (dateVal: Date) => {
+      handleFocus();
+      setDate(moment(dateVal).format('YYYY-MM-DD'));
+      //   console.warn('A date has been picked: ', dateVal);
+      hideDatePicker();
+    };
     return (
-        <>
-            <View style={[styles.container, style, (error?.length ?? 0) > 0 && styles.errorContainer]}>
-                {/* {label &&
-                    <View style={styles.labelContainer}>
-                        <Text style={styles.label}>{label}</Text>
-                        {rightLabel && <Text style={styles.rightlabel}>{rightLabel} : {rightValue}</Text>}
-                    </View>
-                } */}
-                {/* <TapGestureHandler onHandlerStateChange={handleFocus}> */}
+      <>
+        <TouchableOpacity
+          onPress={() => {
+            handleFocus();
+            showDatePicker();
+          }}
+          style={[
+            styles.container,
+            style,
+            (error?.length ?? 0) > 0 && styles.errorContainer,
+          ]}>
+          <TapGestureHandler onHandlerStateChange={handleFocus}>
+            <Animated.View style={[styles.row]}>
+              {showAnimatedLabel && (isFocused || (date?.length ?? 0) > 0) && (
+                <Animated.Text
+                  style={{
+                    position: 'absolute',
+                    transform: [{translateY}],
+                    color: colors.subTitleLightGray,
+                    fontSize: Matrics.mvs(12),
+                    fontFamily: Fonts.REGULAR,
+                  }}>
+                  {placeholder}
+                </Animated.Text>
+              )}
 
-                <Animated.View style={[styles.row]}>
-                    {showAnimatedLabel && (isFocused || (value?.length ?? 0) > 0) && <Animated.Text style={{ position: 'absolute', transform: [{ translateY }], color: colors.subTitleLightGray, fontSize: Matrics.mvs(12), fontFamily: Fonts.REGULAR }}>{placeholder}</Animated.Text>}
-                    {/* <TextInput
-                            placeholder={isFocused ? '' : showAnimatedLabel || !isFocused ? placeholder : ''}
-                            placeholderTextColor={colors.subTitleLightGray}
-                            value={value}
-                            editable={editable}
-                            keyboardType={keyboardType}
-                            autoCapitalize={autoCapitalize}
-                            maxLength={maxLength}
-                            numberOfLines={numberOfLines}
-                            onChangeText={onChangeText}
-                            multiline={multiline}
-                            autoFocus={autoFocus}
-                            onFocus={handleFocus}
-                            onBlur={handleBlur}
-                            ref={textInputRef}
-                            secureTextEntry={hidden}
-                            style={[editable ? styles.canEdit : styles.cannotEdit, textStyle, showAnimatedLabel && (isFocused || (value?.length ?? 0) > 0) && { paddingTop: 15 }]}
-                        /> */}
-                    {value != '' && value != null ? (
-                        <Text style={styles.valueText}>{value}</Text>
-                    ) :
-                        (
-                            <Text style={styles.placeholderText}>{placeholder}</Text>
-                        )
-                    }
+              {date !== '' && date != null ? (
+                <Text style={styles.valueText}>
+                  {moment(date).format('DD/MM/YYYY')}
+                </Text>
+              ) : (
+                <Text style={styles.placeholderText}>
+                  {isFocused
+                    ? ''
+                    : showAnimatedLabel || !isFocused
+                    ? placeholder
+                    : ''}
+                </Text>
+              )}
+            </Animated.View>
+          </TapGestureHandler>
 
+          <DateTimePickerModal
+            isVisible={isDatePickerVisible}
+            mode="date"
+            onConfirm={handleConfirm}
+            onCancel={hideDatePicker}
+          />
+        </TouchableOpacity>
+        {(error?.length ?? 0) > 0 && showErrorText && (
+          <Text style={styles.error}>{error}</Text>
+        )}
+      </>
+    );
+  },
+);
 
-
-                </Animated.View>
-                {/* </TapGestureHandler> */}
-            </View>
-            {(error?.length ?? 0) > 0 && showErrorText && <Text style={styles.error}>{error}</Text>}
-        </>
-    )
-})
-
-export default AnimatedDatePicker
+export default AnimatedDatePicker;
 
 const styles = StyleSheet.create({
-    container: {
-        // borderWidth: 1,
-        // borderRadius: 5,
-        borderColor: 'gray',
-        paddingVertical: 5,
-        paddingHorizontal: 10,
-        marginVertical: 5
-    },
-    placeholderText: {
-        color: colors.subTitleLightGray,
-        fontFamily: Fonts.REGULAR,
-        fontSize: Matrics.mvs(14)
-    },
-    valueText: {
-        color: colors.inputValueDarkGray,
-        fontFamily: Fonts.MEDIUM,
-        fontSize: Matrics.mvs(14)
-    },
-    errorContainer: {
-        borderColor: 'red',
-    },
-    row: {
-        flexDirection: 'row',
-        alignItems: 'center'
-    },
-    qtyBtn: {
-        padding: 5,
-        backgroundColor: 'blue',
-        borderRadius: 2,
-        aspectRatio: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    label: {
-        color: colors.labelTitleDarkGray,
-        fontSize: 14
-    },
-    rightlabel: {
-        color: 'black',
-        fontSize: 10,
-    },
-    canEdit: {
-        padding: 0,
-        flex: 1,
-        color: colors.inputValueDarkGray,
-        fontWeight: '600',
-        fontSize: 16
-    },
-    cannotEdit: {
-        color: 'gray',
-        padding: 0,
-        flex: 1
-    },
-    error: {
-        color: 'red'
-    },
-    labelContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between'
-    }
-})
+  container: {
+    // borderWidth: 1,
+    // borderRadius: 5,
+    // borderColor: 'gray',
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    marginVertical: 5,
+    flex: 1,
+  },
+  placeholderText: {
+    color: colors.subTitleLightGray,
+    fontFamily: Fonts.REGULAR,
+    fontSize: Matrics.mvs(14),
+  },
+  valueText: {
+    color: colors.inputValueDarkGray,
+    fontFamily: Fonts.MEDIUM,
+    fontSize: Matrics.mvs(14),
+    paddingTop: 15,
+  },
+  errorContainer: {
+    borderColor: 'red',
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  qtyBtn: {
+    padding: 5,
+    backgroundColor: 'blue',
+    borderRadius: 2,
+    aspectRatio: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  label: {
+    color: colors.labelTitleDarkGray,
+    fontSize: 14,
+  },
+  rightlabel: {
+    color: 'black',
+    fontSize: 10,
+  },
+  canEdit: {
+    padding: 0,
+    flex: 1,
+    color: colors.inputValueDarkGray,
+    fontWeight: '600',
+    fontSize: 16,
+  },
+  cannotEdit: {
+    color: 'gray',
+    padding: 0,
+    flex: 1,
+  },
+  error: {
+    color: 'red',
+  },
+  labelContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+});

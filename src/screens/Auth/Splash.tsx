@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {View} from 'react-native';
 import React from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {CommonActions, CompositeScreenProps} from '@react-navigation/native';
@@ -14,7 +14,7 @@ type SplahScreenProps = CompositeScreenProps<
   StackScreenProps<AppStackParamList, 'AuthStackScreen'>
 >;
 
-const Splash: React.FC<SplahScreenProps> = ({navigation, route}) => {
+const Splash: React.FC<SplahScreenProps> = ({navigation}) => {
   const {setUserData} = useApp();
 
   React.useEffect(() => {
@@ -23,7 +23,7 @@ const Splash: React.FC<SplahScreenProps> = ({navigation, route}) => {
 
   const checkAuthentication = async () => {
     let isUserLoggedIn = await AsyncStorage.getItem('isUserLoggedIn');
-    if (isUserLoggedIn == 'true') {
+    if (isUserLoggedIn === 'true') {
       let userData = await AsyncStorage.getItem('userData');
       setUserData(JSON.parse(userData));
       SplashScreen.hide();
@@ -48,5 +48,3 @@ const Splash: React.FC<SplahScreenProps> = ({navigation, route}) => {
 };
 
 export default Splash;
-
-const styles = StyleSheet.create({});
