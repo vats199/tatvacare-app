@@ -1,44 +1,98 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import {CompositeScreenProps} from '@react-navigation/native';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
-import {
-  AppStackParamList,
-  BottomTabParamList,
-  HomeStackParamList
-} from '../../interface/Navigation.interface';
-import {Icons} from '../../constants/icons';
+import { DietStackParamList } from '../../interface/Navigation.interface';
+import { Icons } from '../../constants/icons';
 import { colors } from '../../constants/colors';
 import MicronutrientsInformation from '../../components/organisms/MicronutrientsInformation';
 import AddDiet from '../../components/organisms/AddDiet';
-import {StackScreenProps} from '@react-navigation/stack';
+import { StackScreenProps } from '@react-navigation/stack';
+import Deit from '../../api/diet'
+import { useApp } from '../../context/app.context';
+ 
+type DietDetailProps = StackScreenProps<DietStackParamList, 'DietDetail'>
 
-type DietDetailProps = CompositeScreenProps<
-  StackScreenProps<HomeStackParamList, 'DietDetail'>,
-  CompositeScreenProps<
-  BottomTabScreenProps<BottomTabParamList, 'HomeScreen'>,
-  StackScreenProps<AppStackParamList, 'DrawerScreen'>
-  >
->;
-const DietDetailScreen: React.FC<DietDetailProps> = ({navigation}) => {
-  const onPressBack = () => {
-    navigation.goBack();
+const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
+  const { foodItem, buttonText, healthCoachId } = route.params
+  const [qty, setQty] = React.useState<string>()
+  const { userData } = useApp();
+
+  const onPressBack = () => { navigation.goBack(); };
+
+  const onPressAdd = async () => {
+    const addPayload = {
+      patient_id: userData?.patient_id,
+      food_item_id: foodItem?.food_item_id,
+      food_item_name: foodItem?.food_item_name,
+      quantity: qty,
+      measure_id: foodItem?.measure_id,
+      measure_name: foodItem?.measure_name,
+      protein: foodItem?.protein,
+      carbs: foodItem?.carbs,
+      calories: foodItem?.calories,
+      fats: foodItem?.fats,
+      fibers: foodItem?.fibers,
+      sodium: foodItem?.sodium,
+      potassium: foodItem?.potassium,
+      sugar: foodItem?.sugar,
+      fatty_acids: foodItem?.fatty_acids,
+      saturated_fatty_acids: foodItem?.saturated_fatty_acids,
+      monounsaturated_fatty_acids: foodItem?.monounsaturated_fatty_acids,
+      polyunsaturated_fatty_acids: foodItem?.polyunsaturated_fatty_acids,
+      diet_meal_options_id: foodItem?.diet_meal_options_id,
+      health_coach_id: foodItem?.healthCoachId
+    }
+    const updatePayload = {
+      patient_id: userData?.patient_id,
+      food_item_id: foodItem?.food_item_id,
+      food_item_name: foodItem?.food_item_name,
+      quantity: qty,
+      measure_id: foodItem?.measure_id,
+      measure_name: foodItem?.measure_name,
+      protein: foodItem?.protein,
+      carbs: foodItem?.carbs,
+      calories: foodItem?.calories,
+      fats: foodItem?.fats,
+      fibers: foodItem?.fibers,
+      sodium: foodItem?.sodium,
+      potassium: foodItem?.potassium,
+      sugar: foodItem?.sugar,
+      fatty_acids: foodItem?.fatty_acids,
+      saturated_fatty_acids: foodItem?.saturated_fatty_acids,
+      monounsaturated_fatty_acids: foodItem?.monounsaturated_fatty_acids,
+      polyunsaturated_fatty_acids: foodItem?.polyunsaturated_fatty_acids,
+      diet_meal_options_id: foodItem?.diet_meal_options_id,
+      health_coach_id: healthCoachId,
+      diet_plan_food_item_id: foodItem?.diet_plan_food_item_id
+    }
+
+    if (buttonText === "Add") {
+      const result = await Deit?.addFoodItem(addPayload, {}, { token: userData?.token })
+      console.log("added", result?.code);
+
+      if (result?.code === '1') {
+        navigation.popToTop()
+      }
+    } else {
+      const result = await Deit?.updateFoodItem(updatePayload, {}, { token: userData?.token })
+      console.log("upadted", result?.code);
+      if (result?.code === '1') {
+        navigation.popToTop()
+      }
+    }
   };
 
-  const onPressAdd = () => {
-    navigation.navigate('DietScreen', {dietData: {title: 'add'}});
-  };
-
+  const handleSeletedQty = (item: string) => {
+    setQty(item)
+  }
   return (
-    <View style={{flex: 1, backgroundColor: colors.lightGreyishBlue}}>
+    <View style={{ flex: 1, backgroundColor: colors.lightGreyishBlue }}>
       <View style={styles.header}>
         <Icons.backArrow onPress={onPressBack} height={23} width={23} />
-        <Text style={styles.dietTitle}>Chapati</Text>
+        <Text style={styles.dietTitle}>{foodItem?.food_item_name}</Text>
       </View>
       <View style={styles.belowContainer}>
-        <MicronutrientsInformation />
-        <AddDiet onPressAdd={onPressAdd} />
+        <MicronutrientsInformation foodItemDetails={foodItem} />
+        <AddDiet onPressAdd={onPressAdd} buttonText={buttonText} onSeleteQty={handleSeletedQty} measureUnit={foodItem?.measure_name}/>
       </View>
     </View>
   );

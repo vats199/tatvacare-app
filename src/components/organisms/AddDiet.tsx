@@ -3,17 +3,31 @@ import React from 'react';
 import Button from '../atoms/Button';
 import DropdownComponent from '../atoms/Dropdown';
 import {colors} from '../../constants/colors';
+import {Icons} from '../../constants/icons';
 
 type AddDietProps = {
   onPressAdd: () => void;
+  buttonText: string;
+  onSeleteQty: (qty: string) => void;
+  measureUnit:string
 };
 
-const AddDiet: React.FC<AddDietProps> = ({onPressAdd}) => {
+const AddDiet: React.FC<AddDietProps> = ({
+  onPressAdd,
+  buttonText,
+  onSeleteQty,measureUnit
+}) => {
   const data = [
-    {label: 'Item 1', value: '1'},
-    {label: 'Item 2', value: '2'},
-    {label: 'Item 3', value: '3'},
+    {label: '1', value: '1'},
+    {label: '2', value: '2'},
+    {label: '3', value: '3'},
+    {label: '4', value: '4'},
+    {label: '5', value: '5'},
   ];
+  const handleSelectedQty = (ietm: string) => {
+    onSeleteQty(ietm);
+  };
+  const handleSelectedMeasures = (ietm: string) => {};
 
   return (
     <View style={styles.container}>
@@ -28,16 +42,24 @@ const AddDiet: React.FC<AddDietProps> = ({onPressAdd}) => {
                 dropdownStyle={{width: '48%'}}
                 placeholder="Quality"
                 placeholderStyle={styles.dropdownTitleText}
+                selectedItem={handleSelectedQty}
+                isDisable={false}
               />
-              <DropdownComponent
+              {/* <DropdownComponent
                 data={data}
-                dropdownStyle={{width: '48%'}}
+                dropdownStyle={{ width: '48%' }}
                 placeholder="Measure"
                 placeholderStyle={styles.dropdownTitleText}
-              />
+                 isDisable={true}
+                selectedItem={handleSelectedMeasures}
+              /> */}
+              <View style={styles.measureContainer}>
+                <Text style={styles.dropdownTitleText}>{measureUnit}</Text>
+                <Icons.DropdownIcon />
+              </View>
             </View>
             <Button
-              title="Add"
+              title={buttonText}
               titleStyle={styles.outlinedButtonText}
               buttonStyle={styles.outlinedButton}
               onPress={onPressAdd}
@@ -98,5 +120,15 @@ const styles = StyleSheet.create({
   outlinedButton: {
     padding: 10,
     borderRadius: 16,
+  },
+  measureContainer: {
+    borderRadius: 10,
+    borderWidth: 0.4,
+    width: '50%',
+    height: '98%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 8,
   },
 });

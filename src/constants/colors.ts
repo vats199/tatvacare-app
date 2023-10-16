@@ -26,9 +26,10 @@ export const colors = {
   lightGreen: '#77DD77',
   lightYellow: '#FFBD00',
   lightRed: '#FF7F8C',
-  lightGrayBackgroundColor:'#DBDBDB',
+  optionbackground:'#f4ecf9',
 
-  OVERLAY_DARK_10: 'rgba(0,0,0,0.1)',
+  lightGrayBackgroundColor:'#DBDBDB',
+   OVERLAY_DARK_10: 'rgba(0,0,0,0.1)',
   OVERLAY_DARK_20: 'rgba(0,0,0,0.2)',
   OVERLAY_DARK_30: 'rgba(0,0,0,0.3)',
   OVERLAY_DARK_40: 'rgba(0,0,0,0.4)',

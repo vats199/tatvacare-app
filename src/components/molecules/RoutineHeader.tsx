@@ -4,7 +4,8 @@ import React from 'react';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {Icons} from '../../constants/icons';
 import DatePicker from 'react-native-date-picker'
- 
+import moment from 'moment';
+
 type RoutineHeaderProps = {
   date: String;
   Vadlidity: String;
@@ -12,8 +13,7 @@ type RoutineHeaderProps = {
 const RoutineHeader: React.FC<RoutineHeaderProps> = ({date, Vadlidity}) => {
   const [selectedDate, setSelectedDate] = React.useState(new Date());
   const [open, setOpen] = React.useState(false);
-  const moment = require('moment');
-  const TabArray = [
+   const TabArray = [
     {
       id: 1,
       title: 'Routine 1',

@@ -1,64 +1,60 @@
-import {StyleSheet, Text, View} from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import {colors} from '../../constants/colors';
+import { colors } from '../../constants/colors';
 import RecentDietItem from '../molecules/RecentFoodItem';
+import { Icons } from '../../constants/icons';
+import { TouchableOpacity } from 'react-native';
 
 type RecentSerachDietProps = {
-  onPressPlus: () => void;
-};
+  onPressPlus: (data: SearcheFood) => void;
+  searchData: SearcheFood[],
+  title:string
 
-type RecentSearchItem = {
-  id: number;
-  title: 'Roti' | 'Poha' | 'Milk' | 'Fruit';
-  description: string;
-  calorieValue: number;
-};
+}
+type SearcheFood = {
+  FOOD_ID: number,
+  ALIAS_NAME: string,
+  CALORIES_CALCULATED_FOR: 100,
+  food_name: string,
+  Energy_kcal: number,
+  food_item_id: number,
+  unit_name: string,
+  cal_unit_name: string,
+  BASIC_UNIT_MEASURE: string,
+  carbs: string,
+  protein: string,
+  fat: string,
+  fiber: string,
+  sodium: string,
+  sugar: string,
+  potassium: string,
+  added_sugar: string,
+  total_saturated_fatty_acids: string,
+  total_monounsaturated_fatty_acids: string,
+  total_polyunsaturated_fatty_acids: string
+}
+const RecentSearchDiet: React.FC<RecentSerachDietProps> = ({ onPressPlus, searchData,title }) => {
 
-const RecentSearchDiet: React.FC<RecentSerachDietProps> = ({onPressPlus}) => {
-  const options: RecentSearchItem[] = [
-    {
-      id: 1,
-      title: 'Roti',
-      description: 'Quantity| Micronutrients',
-      calorieValue: 120,
-    },
-    {
-      id: 2,
-      title: 'Poha',
-      description: 'Quantity| Micronutrients',
-      calorieValue: 120,
-    },
-    {
-      id: 3,
-      title: 'Milk',
-      description: 'Quantity| Micronutrients',
-      calorieValue: 120,
-    },
-    {
-      id: 4,
-      title: 'Fruit',
-      description: 'Quantity| Micronutrients',
-      calorieValue: 120,
-    },
-  ];
-
-  const renderRecentSearchItem = (item: RecentSearchItem, index: number) => {
+  const renderRecentSearchItem = (item: SearcheFood, index: number) => {
     return (
-      <RecentDietItem
-        key={index}
-        title={item.title}
-        message={item.description}
-        calorieValue={item.calorieValue}
-        onPressPlus={onPressPlus}
-      />
+      <TouchableOpacity style={styles.container} onPress={() => onPressPlus(item)}>
+        <View style={{ flex: 0.78 }}>
+          <Text style={styles.titleText}>{item?.ALIAS_NAME}</Text>
+          <Text style={styles.messageText}>{' Quantity| Micronutrients'}</Text>
+        </View>
+        <View style={styles.leftContainer}>
+          <Text style={styles.calorieText}>{item?.CALORIES_CALCULATED_FOR}cal</Text>
+          <Icons.AddCircle height={25} width={25} />
+        </View>
+      </TouchableOpacity>
     );
   };
 
   return (
-    <View>
-      <Text style={styles.text}>Recent Search</Text>
-      {options.map(renderRecentSearchItem)}
-    </View>
+    <ScrollView showsVerticalScrollIndicator={false}>
+      <Text style={styles.text}>{title}</Text>
+      {searchData?.map(renderRecentSearchItem)}
+    </ScrollView>
   );
 };
 
@@ -70,5 +66,30 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: colors.black,
     marginBottom: 5,
+  },
+  container: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginVertical: 6,
+  },
+  titleText: {
+    fontSize: 17,
+    // fontWeight: 'bold',
+    color: colors.labelDarkGray,
+    padding: 5
+  },
+  messageText: {
+    fontSize: 13,
+  },
+  calorieText: {
+    fontSize: 15,
+    color: colors.labelDarkGray,
+    marginRight: 10,
+  },
+  leftContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    flex: 0.22,
   },
 });

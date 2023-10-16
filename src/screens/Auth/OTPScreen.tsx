@@ -60,7 +60,7 @@ const OTPScreen: React.FC<OTPScreenProps> = ({ navigation, route }) => {
     }
 
     if (data?.code == 1) {
-      console.log(data);
+      // console.log(data);
       // success data
       await AsyncStorage.setItem('userData', JSON.stringify(data?.data));
       setUserData(data?.data)

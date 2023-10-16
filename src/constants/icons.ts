@@ -70,6 +70,10 @@ import Ellipse from '../assets/icons/Ellipse.svg';
 import Success from '../assets/icons/success.svg';
 import ThreeDot from '../assets/icons/three-dot.svg';
 import Flame from '../assets/icons/flame.svg';
+import Edit from '../assets/icons/editicon.svg';
+import Delete from '../assets/icons/deletIcon.svg';
+import RightArrow from '../assets/icons/rightArrow.svg';
+import DropdownIcon from '../assets/icons/dropdownIcon.svg';
 
 export const Icons = {
   HomeActive,
@@ -138,5 +142,8 @@ export const Icons = {
   Ellipse,
   Success,
   ThreeDot,
-  Flame
+  Flame,
+  Edit,
+  Delete,
+  RightArrow,DropdownIcon
 };

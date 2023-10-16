@@ -17,21 +17,21 @@ import {
   TabParamList,
   BottomTabParamList,
   ExerciesStackParamList,
-  HomeStackParamList,
+  DietStackParamList,
   EngageStackParamList,
 } from '../interface/Navigation.interface';
-import {NavigationContainer} from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import {
   DrawerContentComponentProps,
   createDrawerNavigator,
 } from '@react-navigation/drawer';
 import CustomDrawer from '../components/organisms/CustomDrawer';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {createStackNavigator} from '@react-navigation/stack';
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import {colors} from '../constants/colors'; 
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { colors } from '../constants/colors';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {Image} from 'react-native';
+import { Image } from 'react-native';
 import DietScreen from '../screens/Home/DietScreen';
 import AddDietScreen from '../screens/Home/AddDietScreen';
 import DietDetailScreen from '../screens/Home/DietDetailScreen';
@@ -57,9 +57,9 @@ const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 const BottomTabScreen = () => {
   return (
     <BottomTab.Navigator
-      screenOptions={({route}) => ({
+      screenOptions={({ route }) => ({
         headerShown: false,
-        tabBarIcon: ({focused}) => {
+        tabBarIcon: ({ focused }) => {
           let iconName;
           let rn = route.name;
           if (rn === 'HomeScreen') {
@@ -95,26 +95,27 @@ const BottomTabScreen = () => {
         tabBarIconStyle: {
           marginTop: 15,
         },
+
       })}>
       <BottomTab.Screen
         name={'HomeScreen'}
-        component={HomeStackScreen}
-        options={{tabBarLabel: 'Home'}}
+        component={HomeScreen}
+        options={{ tabBarLabel: 'Home' }}
       />
       <BottomTab.Screen
         name={'CarePlanScreen'}
         component={CarePlanScreen}
-        options={{tabBarLabel: 'Care Plan'}}
+        options={{ tabBarLabel: 'Care Plan' }}
       />
       <BottomTab.Screen
         name={'EngageScreen'}
         component={EngageStackScreen}
-        options={{tabBarLabel: 'Engage'}}
+        options={{ tabBarLabel: 'Engage' }}
       />
       <BottomTab.Screen
         name={'Exercies'}
         component={ExerciesStackScreen}
-        options={{tabBarLabel: 'Exercies'}}
+        options={{ tabBarLabel: 'Exercies' }}
       />
     </BottomTab.Navigator>
   );
@@ -143,12 +144,12 @@ const TabScreen = () => {
       <Tab.Screen
         name={'RoutineScreen'}
         component={RoutineScreen}
-        options={{tabBarLabel: 'My Routine'}}
+        options={{ tabBarLabel: 'My Routine' }}
       />
       <Tab.Screen
         name={'ExplorScreen'}
         component={ExplorScreen}
-        options={{tabBarLabel: 'Explore'}}
+        options={{ tabBarLabel: 'Explore' }}
       />
     </Tab.Navigator>
   );
@@ -159,7 +160,7 @@ const EngageStackScreen = () => {
   return (
     <EngageStack.Navigator
       initialRouteName="EngageScreen"
-      screenOptions={{headerShown: false}}>
+      screenOptions={{ headerShown: false }}>
       <EngageStack.Screen name="EngageScreen" component={EngageScreen} />
       <EngageStack.Screen
         name="EngageDetailScreen"
@@ -173,7 +174,7 @@ const ExerciesStackScreen = () => {
   return (
     <ExerciesStack.Navigator
       initialRouteName="ExplorScreen"
-      screenOptions={{headerShown: false}}>
+      screenOptions={{ headerShown: false }}>
       <ExerciesStack.Screen name="ExplorScreen" component={TabScreen} />
       <ExerciesStack.Screen
         name="ExerciseDetailScreen"
@@ -198,18 +199,15 @@ const AuthStackScreen = () => {
   );
 };
 
-const HomeStack = createStackNavigator<HomeStackParamList>();
-const HomeStackScreen = () => {
+const DietStack = createStackNavigator<DietStackParamList>();
+const DietStackScreen = () => {
   return (
-    <HomeStack.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}>
-      <HomeStack.Screen name="HomeScreen" component={HomeScreen} />
-      <HomeStack.Screen name="DietScreen" component={DietScreen} />
-      <HomeStack.Screen name="AddDiet" component={AddDietScreen} />
-      <HomeStack.Screen name="DietDetail" component={DietDetailScreen} />
-    </HomeStack.Navigator>
+    <DietStack.Navigator screenOptions={{ headerShown: false, }} initialRouteName="DietScreen" >
+      <DietStack.Screen name="HomeScreen" component={HomeScreen} />
+      <DietStack.Screen name="DietScreen" component={DietScreen} />
+      <DietStack.Screen name="AddDiet" component={AddDietScreen} />
+      <DietStack.Screen name="DietDetail" component={DietDetailScreen} />
+    </DietStack.Navigator>
   );
 };
 const AppStack = createStackNavigator<AppStackParamList>();
@@ -221,9 +219,11 @@ const Router = () => {
         screenOptions={{
           headerShown: false,
         }}>
-        <AppStack.Screen name={'TabScreen'} component={TabScreen} />
+        {/* <AppStack.Screen name={'TabScreen'} component={TabScreen} /> */}
         <AppStack.Screen name={'AuthStackScreen'} component={AuthStackScreen} />
         <AppStack.Screen name={'DrawerScreen'} component={DrawerScreen} />
+        <AppStack.Screen name={'DietStackScreen'} component={DietStackScreen} />
+
       </AppStack.Navigator>
     </NavigationContainer>
   );

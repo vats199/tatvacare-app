@@ -26,6 +26,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {AppProvider} from './src/context/app.context';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import SplashScreen from 'react-native-splash-screen';
+import { MenuProvider } from 'react-native-popup-menu';
 
 const App = () => {
   const {height, width} = useWindowDimensions();
@@ -157,6 +158,7 @@ const App = () => {
   };
 
   return (
+    <MenuProvider>
     <GestureHandlerRootView style={{height, width}}>
       <AppProvider>
         <SafeAreaView style={{flex:1}}>
@@ -171,6 +173,7 @@ const App = () => {
         </SafeAreaView>
       </AppProvider>
     </GestureHandlerRootView>
+    </MenuProvider>
   );
 };
 

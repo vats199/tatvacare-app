@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useState} from 'react';
 import CalendarStrip from 'react-native-calendar-strip';
 import {StyleSheet, Text, View} from 'react-native';
 import {colors} from '../../constants/colors';
@@ -6,17 +6,22 @@ import {Icons} from '../../constants/icons';
 
 type DietHeaderProps = {
   onPressBack: () => void;
+  onPressOfNextAndPerviousDate: (data: any) => void;
 };
 
-const DietHeader: React.FC<DietHeaderProps> = ({onPressBack}) => {
+const DietHeader: React.FC<DietHeaderProps> = ({
+  onPressBack,
+  onPressOfNextAndPerviousDate,
+}) => {
   //const calendarStripRef = useRef(null);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [calendarKey, setCalendarKey] = useState(0);
-
+ 
   const handleNextWeek = () => {
     const nextWeek = new Date(selectedDate);
     nextWeek.setDate(nextWeek.getDate() + 7);
     setSelectedDate(nextWeek);
+    onPressOfNextAndPerviousDate(nextWeek);
     setCalendarKey(calendarKey + 1);
   };
 
@@ -24,6 +29,7 @@ const DietHeader: React.FC<DietHeaderProps> = ({onPressBack}) => {
     const previousWeek = new Date(selectedDate);
     previousWeek.setDate(previousWeek.getDate() - 7);
     setSelectedDate(previousWeek);
+    onPressOfNextAndPerviousDate(previousWeek);
     setCalendarKey(calendarKey - 1);
   };
 
@@ -58,6 +64,7 @@ const DietHeader: React.FC<DietHeaderProps> = ({onPressBack}) => {
     const nextMonth = new Date(selectedDate);
     nextMonth.setMonth(nextMonth.getMonth() + 1);
     setSelectedDate(nextMonth);
+    onPressOfNextAndPerviousDate(nextMonth);
     setCalendarKey(calendarKey + 1);
   };
 
@@ -75,7 +82,7 @@ const DietHeader: React.FC<DietHeaderProps> = ({onPressBack}) => {
                 {getMonthRangeText(selectedDate)}
               </Text>
             </View>
-            <Icons.ChevronRightGrey
+            <Icons.RightArrow
               height={20}
               width={20}
               onPress={handleNextMonth}
@@ -83,12 +90,12 @@ const DietHeader: React.FC<DietHeaderProps> = ({onPressBack}) => {
           </View>
           <View style={styles.leftRightContent}>
             <Icons.backArrow
-              height={13}
-              width={13}
+              height={11}
+              width={11}
               onPress={handlePreviousWeek}
               style={{marginRight: 20}}
             />
-            <Icons.ChevronRightGrey
+            <Icons.RightArrow
               height={22}
               width={22}
               onPress={handleNextWeek}
@@ -102,6 +109,9 @@ const DietHeader: React.FC<DietHeaderProps> = ({onPressBack}) => {
           key={calendarKey}
           showMonth={false}
           //headerText={}
+          onDateSelected={date => {
+            onPressOfNextAndPerviousDate(date);
+          }}
           calendarAnimation={{
             type: 'sequence',
             duration: 30,
@@ -171,8 +181,9 @@ const styles = StyleSheet.create({
   highlighetdDateNumberStyle: {
     fontSize: 14,
     backgroundColor: '#760FB1',
-    borderRadius: 10,
+    borderRadius: 8,
     color: 'white',
+    overflow: 'hidden',
   },
   leftRightContent: {
     flexDirection: 'row',

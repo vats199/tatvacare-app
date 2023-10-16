@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
-import {View, StyleSheet, Text, ViewStyle, TextStyle} from 'react-native';
-import {Dropdown as ElementDropdown} from 'react-native-element-dropdown';
-import {Icons} from '../../constants/icons';
+import React, { useState } from 'react';
+import { View, StyleSheet, Text, ViewStyle, TextStyle } from 'react-native';
+import { Dropdown as ElementDropdown } from 'react-native-element-dropdown';
+import { Icons } from '../../constants/icons';
 
 interface DropdownProps {
-  data: Array<{label: string; value: string}>;
+  data: Array<{ label: string; value: string }>;
   dropdownStyle?: ViewStyle;
   labelStyle?: TextStyle;
   placeholderStyle?: TextStyle;
@@ -12,6 +12,8 @@ interface DropdownProps {
   iconStyle?: TextStyle;
   inputSearchStyle?: TextStyle;
   placeholder?: string;
+  selectedItem: (data: string) => void;
+  isDisable: boolean;
 }
 
 const DropdownComponent: React.FC<DropdownProps> = ({
@@ -23,30 +25,36 @@ const DropdownComponent: React.FC<DropdownProps> = ({
   iconStyle,
   inputSearchStyle,
   placeholder,
+  selectedItem, isDisable
+
 }) => {
   const [value, setValue] = useState<string | null>(null);
   const [isFocus, setIsFocus] = useState(false);
-
+  const handeSelectItem = (item: string) => {
+    selectedItem(item)
+  }
   return (
     <View style={[styles.container, dropdownStyle]}>
       <ElementDropdown
-        style={[styles.dropdown, isFocus && {borderColor: 'blue'}]}
+        style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
         placeholderStyle={[styles.placeholderStyle, placeholderStyle]}
         selectedTextStyle={[styles.selectedTextStyle, selectedTextStyle]}
         inputSearchStyle={[styles.inputSearchStyle, inputSearchStyle]}
         iconStyle={[styles.iconStyle]}
         iconColor="black"
         data={data}
-        search
+        // search
         maxHeight={300}
         labelField="label"
         valueField="value"
-        placeholder={!isFocus ? placeholder : '...'}
+        placeholder={!isFocus ? placeholder : 'select'}
         searchPlaceholder="Search..."
         value={value}
+        disable={isDisable}
         onFocus={() => setIsFocus(true)}
         onBlur={() => setIsFocus(false)}
         onChange={item => {
+          handeSelectItem(item.value)
           setValue(item.value);
           setIsFocus(false);
         }}
