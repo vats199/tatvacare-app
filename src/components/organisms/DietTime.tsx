@@ -1,5 +1,5 @@
 import { StyleSheet, ScrollView, View, Text } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import DietExactTime from '../molecules/DietExactTime';
 
 type DietTimeProps = {
@@ -9,13 +9,7 @@ type DietTimeProps = {
   onpressOfEdit: (editeData: FoodItems) => void;
   onPressOfDelete: (deleteFoodItemId: string) => void;
 };
-
-type DietTimeItem = {
-  title: 'Breakfast' | 'Lunch' | 'Snacks' | 'Dinner';
-  description: string;
-};
-
-
+ 
 type MealsData = {
   diet_meal_type_rel_id: string,
   diet_plan_id: string,
@@ -107,7 +101,9 @@ const DietTime: React.FC<DietTimeProps> = ({ onPressPlus, dietOption, dietPlane,
     onPressPlus(optionId)
   }
 
-  const renderDietTimeItem = (item: MealsData, index: number) => {
+  
+    const renderDietTimeItem = (item: MealsData, index: number) => {
+    
     return (
       <DietExactTime
         key={index}

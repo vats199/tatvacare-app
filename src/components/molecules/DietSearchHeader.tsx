@@ -8,9 +8,9 @@ type DietSearchHeaderProps = {
   onSearch: (text: string) => void;
 };
 
-const DietSearchHeader: React.FC<DietSearchHeaderProps> = ({ onPressBack,onSearch }) => {
+const DietSearchHeader: React.FC<DietSearchHeaderProps> = ({ onPressBack, onSearch }) => {
   const [searchText, setSearchText] = useState<string>('');
- 
+
   const handleSerache = (text: string) => {
     onSearch(text)
   }
@@ -22,7 +22,12 @@ const DietSearchHeader: React.FC<DietSearchHeaderProps> = ({ onPressBack,onSearc
         placeholder="Search foods"
         placeholderTextColor="gray"
         value={searchText}
-        onChangeText={text =>{setSearchText(text), handleSerache(text)}}
+        onChangeText={text => {
+          setSearchText(text)
+          if (text.length >= 0) {
+            handleSerache(text)
+          }
+         }}
       />
     </View>
   );

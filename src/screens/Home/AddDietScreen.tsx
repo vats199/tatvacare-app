@@ -1,8 +1,5 @@
 import { StyleSheet, Text, View, TextInput } from 'react-native';
 import React, { useEffect } from 'react';
-import { CompositeScreenProps } from '@react-navigation/native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { DietStackParamList } from '../../interface/Navigation.interface';
 import RecentSearchDiet from '../../components/organisms/RecentSearchFood';
 import DietSearchHeader from '../../components/molecules/DietSearchHeader';
@@ -39,29 +36,33 @@ type SearcheFood = {
 const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
   const { userData } = useApp();
   const { optionId, healthCoachId } = route.params
-  const [searchResult, setSearchResult] = React.useState([])
   const [recentSerach, setRecentSerach] = React.useState([])
-  const [title, setTitle] = React.useState<string>('Search Result')
+  const [searchResult, setSearchResult] = React.useState([])
+  const [title, setTitle] = React.useState<string>('Recent Search')
 
 
   useEffect(() => {
     const getRecentSerache = async () => {
       const recentSearchResults = await AsyncStorage.getItem('recentSearchResults');
-      let updatedResults = recentSearchResults ? JSON.parse(recentSearchResults) : [];
-      setRecentSerach(updatedResults)
-      // console.log("updatedResults", updatedResults);
-      // if (!searchResult) {
-      //   setSearchResult(updatedResults)
-      // }
+      let results = recentSearchResults ? JSON.parse(recentSearchResults) : [];
+      if (results.length > 3) {
+        const updatedResult = results.slice(0, 4)
+        setRecentSerach(updatedResult)
+        setSearchResult(updatedResult)
+      } else {
+        setRecentSerach(results)
+        setSearchResult(results)
+      }
+
     }
     getRecentSerache()
   }, [])
+
 
   const onPressBack = () => {
     navigation.goBack();
   };
   const handlePressPlus = async (data: SearcheFood) => {
-    // setSelectedFoodItem(data)
     const FoodItems = {
       diet_plan_food_item_id: 'null',
       diet_meal_options_id: optionId,
@@ -93,25 +94,26 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
       healthCoachId: healthCoachId
     }
     navigation.navigate('DietDetail', { foodItem: FoodItems, buttonText: 'Add' })
-    // const seletedItem = recentSerach
-    // seletedItem.unshift(data);
-    // setRecentSerach(seletedItem)
-    // await AsyncStorage.setItem('recentSearchResults', JSON.stringify(recentSerach));
+    const seletedItem = recentSerach
+    seletedItem.unshift(data);
+    setRecentSerach(seletedItem)
+    await AsyncStorage.setItem('recentSearchResults', JSON.stringify(recentSerach));
   };
 
   const handleSerach = async (text: string) => {
     const result = await Diet.searchFoodItem({ "food_name": text }, {}, { token: userData?.token },)
     setSearchResult(result?.data)
-    console.log("result", result);
 
-    // if (result.code === '0' || result.code === '2') {
-    //   setSearchResult(recentSerach)
-    //   setTitle('Recent Search')
-    // } else {
-    //   setSearchResult(result?.data)
-    //   setTitle('Search Result')
-
-    // }
+    if (result.code === '0' || text.length === 0) {
+      setSearchResult(recentSerach)
+      setTitle('Recent Search')
+    } else if (result.code === '2') {
+      setTitle('Search Result')
+      setSearchResult([])
+    } else {
+      setSearchResult(result?.data)
+      setTitle('Search Result')
+    }
 
   }
 

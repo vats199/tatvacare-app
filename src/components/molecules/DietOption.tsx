@@ -166,9 +166,11 @@ const styles = StyleSheet.create({
   },
   leftContainer: {
     flexDirection: 'row',
+    width:'70%'
   },
   titleDescription: {
     marginLeft: 10,
+    width:'80%', 
   },
   title: {
     fontSize: 15,

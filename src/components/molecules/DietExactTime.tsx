@@ -113,6 +113,9 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
   const handlePulsIconPress = () => {
     onPressPlus(foodItmeData?.diet_meal_options_id)
   }
+  // const sum = cardData?.reduce((accumulator : any, currentValue:any) => accumulator + currentValue, 0);
+  // console.log("sum", sum);
+
   return (
     <View style={styles.container}>
       <View style={styles.innerContainer}>

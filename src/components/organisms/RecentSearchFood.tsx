@@ -53,7 +53,11 @@ const RecentSearchDiet: React.FC<RecentSerachDietProps> = ({ onPressPlus, search
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <Text style={styles.text}>{title}</Text>
-      {searchData?.map(renderRecentSearchItem)}
+      {searchData?.length>0 ?searchData?.map(renderRecentSearchItem):(
+        <View>
+          <Text>sorry but no such food item found in our database please try with some other keyword</Text>
+        </View>
+      )}
     </ScrollView>
   );
 };

@@ -50,6 +50,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
     setLoader(true)
     const date = moment(selectedDate).format('YYYY/MM/DD');
     const diet = await Diet.getDietPlan({ date: date }, {}, { token: userData?.token },);
+// console.log("diet",diet?.data[0]?.meals);
 
     if (diet?.code === '1') {
       setLoader(false)
