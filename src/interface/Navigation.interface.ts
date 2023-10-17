@@ -5,6 +5,7 @@ export type AppStackParamList = {
   AuthStackScreen: AuthStackParamList;
   TabScreen: TabParamList;
   AppointmentStackScreen:AppointmentStackParamList;
+  DeviceConnectionScreen:undefined
 };
 
 export type DrawerParamList = {
@@ -17,6 +18,11 @@ export type TabParamList = {
   RoutineScreen: undefined;
   ExplorScreen: undefined;
 };
+
+export type HomeStackParamList = {
+  HomeScreen: undefined;
+  SpirometerScreen:undefined,
+}
 export type ExerciesStackParamList = {
   ExplorScreen: TabParamList;
   ExerciseDetailScreen: {Data: any};
@@ -29,7 +35,7 @@ export type AppointmentStackParamList = {
 };
 
 export type BottomTabParamList = {
-  HomeScreen: undefined;
+  HomeScreen: HomeStackParamList;
   Exercies: ExerciesStackParamList;
   EngageScreen: undefined;
   CarePlanScreen:undefined

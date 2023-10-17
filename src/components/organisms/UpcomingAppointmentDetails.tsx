@@ -2,7 +2,7 @@ import {StyleSheet, View, ViewStyle} from 'react-native';
 import React from 'react';
 import {AppointmentDetailsScreenProps} from '../../screens/Appointment/AppointmentDetailsScreen';
 import CoachDetailsCard from '../molecules/CoachDetailsCard';
-import IconTitle from '../atoms/IconTitle';
+import IconButton from '../atoms/IconButton';
 import {Icons} from '../../constants/icons';
 import moment from 'moment';
 import {colors} from '../../constants/colors';
@@ -34,17 +34,23 @@ const UpcomingAppointmentDetails: React.FC<UpcomingAppointmentDetailsProp> = ({
         profileImageStyle={styles.coachProfile}
       />
       <View style={styles.seprator} />
-      <IconTitle
+      <IconButton
         numberOfLines={1}
         title={moment(data?.date).format('dddd, DD MMM, YYYY')}
-        icon={<Icons.CalendarRound />}
+        style={{
+          marginLeft: Matrics.s(7),
+        }}
+        leftIcon={<Icons.CalendarRound />}
       />
-      <IconTitle
+      <IconButton
         numberOfLines={1}
         title={`${data?.timeZone}, ${data?.time} ${moment(
           data?.time.split('-'),
         ).format('A')}`}
-        icon={<Icons.Clock />}
+        style={{
+          marginLeft: Matrics.s(7),
+        }}
+        leftIcon={<Icons.Clock />}
       />
       {children}
     </View>

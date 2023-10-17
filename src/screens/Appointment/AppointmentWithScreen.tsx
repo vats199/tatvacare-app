@@ -9,7 +9,6 @@ import {
 import {colors} from '../../constants/colors';
 import {StackScreenProps} from '@react-navigation/stack';
 import {AppointmentStackParamList} from '../../interface/Navigation.interface';
-import AppointmentHeader from '../../components/molecules/AppointmentHeader';
 import {Matrics} from '../../constants';
 import AppointmentDaySlot from '../../components/organisms/AppointmentDaySlot';
 import AppointmentTimeSlot from '../../components/organisms/AppointmentTimeSlot';
@@ -18,6 +17,7 @@ import CoachDetailsCard from '../../components/molecules/CoachDetailsCard';
 import {BottomSheetModal} from '@gorhom/bottom-sheet';
 import AppointmentAllSlots from '../../components/organisms/AppointmentAllSlots';
 import {AppointmentDetailsScreenProps} from './AppointmentDetailsScreen';
+import CommonHeader from '../../components/molecules/CommonHeader';
 
 type AppointmentScreenProps = StackScreenProps<
   AppointmentStackParamList,
@@ -339,7 +339,7 @@ const AppointmentWithScreen: React.FC<AppointmentScreenProps> = ({
 
   return (
     <View style={styles.container}>
-      <AppointmentHeader
+      <CommonHeader
         onPress={() => {
           navigation.goBack();
         }}

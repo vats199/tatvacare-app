@@ -8,7 +8,6 @@ import {
   View,
 } from 'react-native';
 import AppointmentCarePlanCard from '../../components/molecules/AppointmentCarePlanCard';
-import AppointmentHeader from '../../components/molecules/AppointmentHeader';
 import AppointmentYourServices from '../../components/organisms/AppointmentYourServices';
 import YourBenefits from '../../components/organisms/YourBenefits';
 import AppointmentFaqs from '../../components/organisms/AppointmentFaqs';
@@ -26,6 +25,7 @@ import {AppointmentStackParamList} from '../../interface/Navigation.interface';
 import {StackScreenProps} from '@react-navigation/stack';
 import UpcomingAppointmentDetails from '../../components/organisms/UpcomingAppointmentDetails';
 import Button from '../../components/atoms/Button';
+import CommonHeader from '../../components/molecules/CommonHeader';
 
 type AppointmentType = {
   id: number;
@@ -117,7 +117,7 @@ const AppointmentScreen: React.FC<AppointmentScreenProps> = ({
 
   return (
     <View style={styles.container}>
-      <AppointmentHeader
+      <CommonHeader
         onPress={() => {
           navigation.goBack();
         }}

@@ -1,14 +1,25 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, View, ViewStyle} from 'react-native';
 import React, {useState} from 'react';
 import {colors} from '../../constants/colors';
 import {Fonts, Matrics} from '../../constants';
 import ProgressBar from '../atoms/ProgressBar';
 
-const AppointmentCarePlanCard = () => {
+type AppointmentCarePlanCardProps = {
+  containerStyle?: ViewStyle;
+};
+
+const AppointmentCarePlanCard: React.FC<AppointmentCarePlanCardProps> = ({
+  containerStyle,
+}) => {
   const [progress, setProgress] = useState<number>(50);
 
   return (
-    <View style={[styles.carePlanContainer, styles.containerShadow]}>
+    <View
+      style={[
+        styles.carePlanContainer,
+        styles.containerShadow,
+        containerStyle,
+      ]}>
       <View style={styles.carePlanSubContainer}>
         <>
           <Text numberOfLines={1} style={styles.carePlanTxt}>

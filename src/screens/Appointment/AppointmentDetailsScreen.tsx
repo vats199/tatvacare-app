@@ -3,12 +3,12 @@ import React, {useEffect, useState} from 'react';
 import {CoachDetailsType} from './AppointmentWithScreen';
 import {StackScreenProps} from '@react-navigation/stack';
 import {AppointmentStackParamList} from '../../interface/Navigation.interface';
-import AppointmentHeader from '../../components/molecules/AppointmentHeader';
 import {colors} from '../../constants/colors';
 import {Fonts, Matrics} from '../../constants';
 import {Icons} from '../../constants/icons';
 import Button from '../../components/atoms/Button';
 import UpcomingAppointmentDetails from '../../components/organisms/UpcomingAppointmentDetails';
+import CommonHeader from '../../components/molecules/CommonHeader';
 
 export type AppointmentDetailsScreenProps = {
   id: number;
@@ -59,7 +59,7 @@ const AppointmentDetailsScreen: React.FC<AppointmentScreenProps> = ({
         </View>
       ) : (
         <>
-          <AppointmentHeader
+          <CommonHeader
             onPress={() => navigation.goBack()}
             title="Appointment Details"
           />

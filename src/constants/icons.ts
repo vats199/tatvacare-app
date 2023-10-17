@@ -72,6 +72,20 @@ import Afternoon from '../assets/icons/afternoon.svg';
 import Morning from '../assets/icons/morning.svg';
 import Clock from '../assets/icons/clock.svg';
 import CalendarRound from '../assets/icons/calendarRound.svg';
+import Menu from '../assets/icons/menu.svg';
+import Diet from '../assets/icons/diet.svg';
+import Medication from '../assets/icons/medication.svg';
+import Breathing from '../assets/icons/breathing.svg';
+import Exercise from '../assets/icons/exercise.svg';
+import Info from '../assets/icons/info.svg';
+import DownArrow from '../assets/icons/downArrow.svg';
+import LungFunction from '../assets/icons/lungFunction.svg';
+import SmartAnalyser from '../assets/icons/smartAnalyser.svg';
+import Male from '../assets/icons/male.svg';
+import Female from '../assets/icons/female.svg';
+
+
+
 
 export const Icons = {
   HomeActive,
@@ -142,5 +156,16 @@ export const Icons = {
   Afternoon,
   Morning,
   Clock,
-  CalendarRound
+  CalendarRound,
+  Menu,
+  Diet,
+  Medication,
+  Breathing,
+  Exercise,
+  Info,
+  DownArrow,
+  LungFunction,
+  SmartAnalyser,
+  Male,
+  Female
 };

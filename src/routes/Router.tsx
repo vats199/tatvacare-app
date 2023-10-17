@@ -16,6 +16,7 @@ import {
   BottomTabParamList,
   ExerciesStackParamList,
   AppointmentStackParamList,
+  HomeStackParamList,
 } from '../interface/Navigation.interface';
 import {NavigationContainer} from '@react-navigation/native';
 import {
@@ -31,6 +32,9 @@ import {Image} from 'react-native';
 import AppointmentScreen from '../screens/Appointment/AppointmentScreen';
 import AppointmentWithScreen from '../screens/Appointment/AppointmentWithScreen';
 import AppointmentDetailsScreen from '../screens/Appointment/AppointmentDetailsScreen';
+import SpirometerScreen from '../screens/Spirometer/SpirometerScreen';
+import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
+import DeviceConnectionScreen from '../screens/Spirometer/DeviceConnectionScreen';
 
 const Drawer = createDrawerNavigator<DrawerParamList>();
 const DrawerScreen = () => {
@@ -94,7 +98,7 @@ const BottomTabScreen = () => {
       })}>
       <BottomTab.Screen
         name={'HomeScreen'}
-        component={HomeScreen}
+        component={HomeStackScreen}
         options={{tabBarLabel: 'Home'}}
       />
       <BottomTab.Screen
@@ -147,6 +151,16 @@ const TabScreen = () => {
         options={{tabBarLabel: 'Explore'}}
       />
     </Tab.Navigator>
+  );
+};
+
+const HomeStack = createStackNavigator<HomeStackParamList>();
+const HomeStackScreen = () => {
+  return (
+    <HomeStack.Navigator screenOptions={{headerShown: false}}>
+      <HomeStack.Screen name="HomeScreen" component={HomeScreen} />
+      <HomeStack.Screen name="SpirometerScreen" component={SpirometerScreen} />
+    </HomeStack.Navigator>
   );
 };
 
@@ -205,19 +219,25 @@ const AppStack = createStackNavigator<AppStackParamList>();
 const Router = () => {
   return (
     <NavigationContainer>
-      <AppStack.Navigator
-        initialRouteName="AuthStackScreen"
-        screenOptions={{
-          headerShown: false,
-        }}>
-        <AppStack.Screen name={'TabScreen'} component={TabScreen} />
-        <AppStack.Screen name={'AuthStackScreen'} component={AuthStackScreen} />
-        <AppStack.Screen name={'DrawerScreen'} component={DrawerScreen} />
-        <AppStack.Screen
-          name={'AppointmentStackScreen'}
-          component={AppointmentStackScreen}
-        />
-      </AppStack.Navigator>
+      <BottomSheetModalProvider>
+        <AppStack.Navigator
+          initialRouteName="DrawerScreen"
+          screenOptions={{
+            headerShown: false,
+          }}>
+          <AppStack.Screen name={'TabScreen'} component={TabScreen} />
+          {/* <AppStack.Screen name={'AuthStackScreen'} component={AuthStackScreen} /> */}
+          <AppStack.Screen name={'DrawerScreen'} component={DrawerScreen} />
+          <AppStack.Screen
+            name={'AppointmentStackScreen'}
+            component={AppointmentStackScreen}
+          />
+          <AppStack.Screen
+            name={'DeviceConnectionScreen'}
+            component={DeviceConnectionScreen}
+          />
+        </AppStack.Navigator>
+      </BottomSheetModalProvider>
     </NavigationContainer>
   );
 };

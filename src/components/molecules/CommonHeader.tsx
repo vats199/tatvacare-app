@@ -13,14 +13,14 @@ import {Icons} from '../../constants/icons';
 import {Image} from 'react-native-svg';
 import {Icon} from 'react-native-vector-icons/Icon';
 
-interface AppointmentHeaderProps {
+interface CommonHeaderProps {
   containerStyle?: ViewStyle;
   title: string;
   textStyle?: TextStyle;
 }
 
-const AppointmentHeader: React.FC<
-  AppointmentHeaderProps & TouchableOpacityProps
+const CommonHeader: React.FC<
+  CommonHeaderProps & TouchableOpacityProps
 > = props => {
   const {containerStyle, title, textStyle} = props;
   return (
@@ -33,7 +33,7 @@ const AppointmentHeader: React.FC<
   );
 };
 
-export default AppointmentHeader;
+export default CommonHeader;
 
 const styles = StyleSheet.create({
   container: {

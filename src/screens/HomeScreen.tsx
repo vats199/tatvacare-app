@@ -16,6 +16,7 @@ import {
   AppStackParamList,
   DrawerParamList,
   BottomTabParamList,
+  HomeStackParamList,
 } from '../interface/Navigation.interface';
 import {Container, Screen} from '../components/styled/Views';
 import {Icons} from '../constants/icons';
@@ -136,6 +137,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
     // navigation.toggleDrawer();
   };
   const onPressDevices = () => {
+    navigation.navigate('SpirometerScreen');
     // navigateTo('MyDevices');
   };
   const onPressDiet = () => {

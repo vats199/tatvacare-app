@@ -26,6 +26,18 @@ export const colors = {
   darkBorder:'#6b4581',
   lightBorder:'#e5e5e5',
   darkLightGray:'#666666',
+  lightGreen:'#b5edb5',
+  lightDarkGreen:'#c9f1c9',
+  lightOrange:'#fde5d1',
+  lightPink:'#fbdbe2',
+  veryLightPurple:'#d4b1ef',
+  darkLightPurple:'#F7D7FB',
+  progressBarGray:'#e9e9ee',
+  borderColor:'#F0F0F0',
+  genderActiveButton:'#f0f0f5',
+  genderActiveButtonBorder:'#b6b6b8',
+  genderInactiveButtonBorder:'#e8e8e8',
+
 
   OVERLAY_DARK_10: 'rgba(0,0,0,0.1)',
   OVERLAY_DARK_20: 'rgba(0,0,0,0.2)',
