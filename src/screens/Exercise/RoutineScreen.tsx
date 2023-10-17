@@ -40,7 +40,7 @@ const RoutineScreen: React.FC<ExerciseScreenProps> = ({navigation, route}) => {
   const handleVedio = () => {};
   return (
     <ScrollView style={styles.container}>
-      <RoutineHeader
+      {/* <RoutineHeader
         date={'17 Mar 2023'}
         Vadlidity={'Valid from 17 Mar 2023 to 21 Mar 2023'}
       />
@@ -50,7 +50,7 @@ const RoutineScreen: React.FC<ExerciseScreenProps> = ({navigation, route}) => {
           onpressOfVideo={handleVedio}
           exerciseData={exercise}
         />
-      </View>
+      </View> */}<Text>Routine Screen</Text>
     </ScrollView>
   );
 };

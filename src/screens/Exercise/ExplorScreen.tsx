@@ -80,7 +80,7 @@ const ExplorScreen: React.FC<ExplorScreenProps> = ({route, navigation}) => {
 
   return (
     <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
-      <View style={styles.Container}>
+      {/* <View style={styles.Container}>
         <View style={styles.titleContainer}>
           <Text style={styles.title}>Exercise Of the week</Text>
         </View>
@@ -106,7 +106,7 @@ const ExplorScreen: React.FC<ExplorScreenProps> = ({route, navigation}) => {
           </TouchableOpacity>
         </View>
         <ExplorExercies exerciseCardData={exercise} />
-      </View>
+      </View> */}<Text>Explor Screen</Text>
     </ScrollView>
   );
 };

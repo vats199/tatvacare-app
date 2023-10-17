@@ -13,7 +13,7 @@ const CalorieConsumer: React.FC<CalorieConsumerProps> = ({ totalConsumedcalories
     let vale = Math.round((totalConsumedcalories / totalcalories) * 100)
     setVAlues(vale)
   }, [totalConsumedcalories, totalcalories])
-  
+
   return (
     <View style={styles.container}>
       <View style={styles.innerContainer}>
