@@ -1,216 +1,236 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict>
-    <key>Apxor</key>
     <dict>
-        <key>APXPushPlugin</key>
-        <true/>
-        <key>APXRTAPlugin</key>
-        <true/>
-        <key>APXSurveyPlugin</key>
-        <true/>
-        <key>APXWYSIWYGPlugin</key>
-        <true/>
-        <key>Core</key>
-        <string>460d5566-b0cc-49d6-801a-97608a6068d4</string>
-    </dict>
-	<key>BGTaskSchedulerPermittedIdentifiers</key>
-	<array>
-		<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-	</array>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>$(DEVELOPMENT_LANGUAGE)</string>
-	<key>CFBundleDisplayName</key>
-	<string>MyTatva</string>
-	<key>CFBundleExecutable</key>
-	<string>$(EXECUTABLE_NAME)</string>
-	<key>CFBundleIdentifier</key>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundleName</key>
-	<string>$(PRODUCT_NAME)</string>
-	<key>CFBundlePackageType</key>
-	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
-	<key>CFBundleShortVersionString</key>
-	<string>$(MARKETING_VERSION)</string>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLName</key>
-			<string>https://mytatva.page.link/</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>com.mytatva.patient</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>fb253851173225318</string>
-			</array>
-		</dict>
+        <key>LSApplicationCategoryType</key>
+        <string></string>
+        <key>CFBundleGetInfoString</key>
+        <string></string>
+        <key>Apxor</key>
         <dict>
-            <key>CFBundleTypeRole</key>
-            <string>Editor</string>
-            <key>CFBundleURLName</key>
-            <string>DeepLink</string>
-            <key>CFBundleURLSchemes</key>
-            <array>
-                <string>com.mytatva.patient</string>
-            </array>
+            <key>APXPushPlugin</key>
+            <true/>
+            <key>APXRTAPlugin</key>
+            <true/>
+            <key>APXSurveyPlugin</key>
+            <true/>
+            <key>APXWYSIWYGPlugin</key>
+            <true/>
+            <key>Core</key>
+            <string>460d5566-b0cc-49d6-801a-97608a6068d4</string>
         </dict>
-	</array>
-	<key>CFBundleVersion</key>
-	<string>$(CURRENT_PROJECT_VERSION)</string>
-	<key>FacebookAppID</key>
-	<string>253851173225318</string>
-	<key>FacebookDisplayName</key>
-	<string>MyTatva</string>
-	<key>FirebaseDynamicLinksCustomDomains</key>
-	<array>
-		<string>https://mytatva.page.link/</string>
-	</array>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>tel</string>
-		<string>telprompt</string>
-		<string>googlechromes</string>
-		<string>comgooglemaps</string>
-		<string>comgooglemaps-x-callback</string>
-	</array>
-	<key>LSRequiresIPhoneOS</key>
-	<true/>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSExceptionDomains</key>
-		<dict>
-			<key>localhost</key>
-			<string>NSTemporaryExceptionAllowsInsecureHTTPLoads</string>
-		</dict>
-		<key>NSAllowsArbitraryLoadsUsageDescription</key>
+        <key>BGTaskSchedulerPermittedIdentifiers</key>
+        <array>
+            <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+        </array>
+        <key>CFBundleDevelopmentRegion</key>
+        <string>$(DEVELOPMENT_LANGUAGE)</string>
+        <key>CFBundleDisplayName</key>
+        <string>MyTatva</string>
+        <key>CFBundleExecutable</key>
+        <string>$(EXECUTABLE_NAME)</string>
+        <key>CFBundleIdentifier</key>
+        <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+        <key>CFBundleInfoDictionaryVersion</key>
+        <string>6.0</string>
+        <key>CFBundleName</key>
+        <string>$(PRODUCT_NAME)</string>
+        <key>CFBundlePackageType</key>
+        <string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
+        <key>CFBundleShortVersionString</key>
+        <string>$(MARKETING_VERSION)</string>
+        <key>CFBundleURLTypes</key>
+        <array>
+            <dict>
+                <key>CFBundleTypeRole</key>
+                <string>Editor</string>
+                <key>CFBundleURLName</key>
+                <string>https://mytatva.page.link/</string>
+                <key>CFBundleURLSchemes</key>
+                <array>
+                    <string>com.mytatva.patient</string>
+                </array>
+            </dict>
+            <dict>
+                <key>CFBundleTypeRole</key>
+                <string>Editor</string>
+                <key>CFBundleURLSchemes</key>
+                <array>
+                    <string>fb253851173225318</string>
+                </array>
+            </dict>
+            <dict>
+                <key>CFBundleTypeRole</key>
+                <string>Editor</string>
+                <key>CFBundleURLName</key>
+                <string>DeepLink</string>
+                <key>CFBundleURLSchemes</key>
+                <array>
+                    <string>com.mytatva.patient</string>
+                </array>
+            </dict>
+        </array>
+        <key>CFBundleVersion</key>
+        <string>$(CURRENT_PROJECT_VERSION)</string>
+        <key>FacebookAppID</key>
+        <string>253851173225318</string>
+        <key>FacebookDisplayName</key>
+        <string>MyTatva</string>
+        <key>FirebaseDynamicLinksCustomDomains</key>
+        <array>
+            <string>https://mytatva.page.link/</string>
+        </array>
+        <key>LSApplicationQueriesSchemes</key>
+        <array>
+            <string>tel</string>
+            <string>telprompt</string>
+            <string>googlechromes</string>
+            <string>comgooglemaps</string>
+            <string>comgooglemaps-x-callback</string>
+        </array>
+        <key>LSRequiresIPhoneOS</key>
         <true/>
-        <key>NSAllowsArbitraryLoads</key>
+        <key>NSAppTransportSecurity</key>
+        <dict>
+            <key>NSExceptionDomains</key>
+            <dict>
+                <key>localhost</key>
+                <string>NSTemporaryExceptionAllowsInsecureHTTPLoads</string>
+            </dict>
+            <key>NSAllowsArbitraryLoadsUsageDescription</key>
+            <true/>
+            <key>NSAllowsArbitraryLoads</key>
+            <true/>
+        </dict>
+        <key>NSBluetoothAlwaysUsageDescription</key>
+        <string>$(PRODUCT_NAME) wants to use your bluetooth to connect to Smart Analyser.</string>
+        <key>NSBluetoothPeripheralUsageDescription</key>
+        <string>$(PRODUCT_NAME) wants to use your bluetooth to connect to Smart Analyser.</string>
+        <key>NSCalendarsUsageDescription</key>
+        <string>$(PRODUCT_NAME) wants to use your calendar to add appointments</string>
+        <key>NSCameraUsageDescription</key>
+        <string>$(PRODUCT_NAME) wants to take pictures for health data.</string>
+        <key>NSFaceIDUsageDescription</key>
+        <string>For enhanced app security</string>
+        <key>NSHealthShareUsageDescription</key>
+        <string>$(PRODUCT_NAME) wants to privately share your health data to deliver personalized health and fitness records</string>
+        <key>NSHealthUpdateUsageDescription</key>
+        <string>$(PRODUCT_NAME) wants to access your health data to deliver personalized health and fitness records</string>
+        <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+        <string>$(PRODUCT_NAME) wants to use your location to fetch profile address</string>
+        <key>NSLocationUsageDescription</key>
+        <string>$(PRODUCT_NAME) wants to use your location to fetch profile address</string>
+        <key>NSLocationWhenInUseUsageDescription</key>
+        <string>$(PRODUCT_NAME) wants to use your location to fetch profile address</string>
+        <key>NSMicrophoneUsageDescription</key>
+        <string>$(PRODUCT_NAME) wants to access microphone for appointment calls</string>
+        <key>NSMotionUsageDescription</key>
+        <string>$(PRODUCT_NAME) wants to use your movement to access distance of steps</string>
+        <key>NSPhotoLibraryUsageDescription</key>
+        <string>$(PRODUCT_NAME) wants to use your photos for health data</string>
+        <key>NSUserTrackingUsageDescription</key>
+        <string>Your data will be used to deliver personalized health and fitness records</string>
+        <key>S3TransferUtility</key>
+        <dict>
+            <key>Default</key>
+            <dict>
+                <key>Region</key>
+                <string>&quot;us-east-1&quot;</string>
+            </dict>
+        </dict>
+        <key>UIAppFonts</key>
+        <array>
+            <string>Poppins-Bold.ttf</string>
+            <string>Poppins-Light.ttf</string>
+            <string>Poppins-Medium.ttf</string>
+            <string>Poppins-Regular.ttf</string>
+            <string>Poppins-SemiBold.ttf</string>
+            <string>play_fair_display_black.ttf</string>
+            <string>playfairdisplay_black.ttf</string>
+            <string>playfairdisplay_bold.ttf</string>
+            <string>SFProDisplay-Heavy.otf</string>
+            <string>SFProDisplay-Italic.otf</string>
+            <string>SFProDisplay-Light.otf</string>
+            <string>SFProDisplay-Medium.otf</string>
+            <string>SFProDisplay-Regular.otf</string>
+            <string>SFProDisplay-Semibold.otf</string>
+            <string>SFProDisplay-Thin.otf</string>
+            <string>SFProDisplay-Ultralight.otf</string>
+            <string>SFProDisplay-Bold.ttf</string>
+            <string>Gilroy-Bold.ttf</string>
+            <string>Gilroy-Medium.ttf</string>
+            <string>Gilroy-Regular.ttf</string>
+            <string>Gilroy-SemiBold.ttf</string>
+            <string>AntDesign.ttf</string>
+            <string>Entypo.ttf</string>
+            <string>EvilIcons.ttf</string>
+            <string>Feather.ttf</string>
+            <string>FontAwesome.ttf</string>
+            <string>FontAwesome5_Brands.ttf</string>
+            <string>FontAwesome5_Regular.ttf</string>
+            <string>FontAwesome5_Solid.ttf</string>
+            <string>Foundation.ttf</string>
+            <string>Ionicons.ttf</string>
+            <string>MaterialCommunityIcons.ttf</string>
+            <string>MaterialIcons.ttf</string>
+            <string>Octicons.ttf</string>
+            <string>SimpleLineIcons.ttf</string>
+            <string>Zocial.ttf</string>
+            <string>Fontisto.ttf</string>
+        </array>
+        <key>UIApplicationSceneManifest</key>
+        <dict>
+            <key>UIApplicationSupportsMultipleScenes</key>
+            <false/>
+            <key>UISceneConfigurations</key>
+            <dict>
+                <key>UIWindowSceneSessionRoleApplication</key>
+                <array>
+                    <dict>
+                        <key>UISceneConfigurationName</key>
+                        <string>Default Configuration</string>
+                        <key>UISceneDelegateClassName</key>
+                        <string>$(PRODUCT_MODULE_NAME).SceneDelegate</string>
+                        <key>UISceneStoryboardFile</key>
+                        <string>Authentication</string>
+                    </dict>
+                </array>
+            </dict>
+        </dict>
+        <key>UIApplicationSupportsIndirectInputEvents</key>
         <true/>
-	</dict>
-	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>$(PRODUCT_NAME) wants to use your bluetooth to connect to Smart Analyser.</string>
-	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>$(PRODUCT_NAME) wants to use your bluetooth to connect to Smart Analyser.</string>
-	<key>NSCalendarsUsageDescription</key>
-	<string>$(PRODUCT_NAME) wants to use your calendar to add appointments</string>
-	<key>NSCameraUsageDescription</key>
-	<string>$(PRODUCT_NAME) wants to take pictures for health data.</string>
-	<key>NSFaceIDUsageDescription</key>
-	<string>For enhanced app security</string>
-	<key>NSHealthShareUsageDescription</key>
-	<string>$(PRODUCT_NAME) wants to privately share your health data to deliver personalized health and fitness records</string>
-	<key>NSHealthUpdateUsageDescription</key>
-	<string>$(PRODUCT_NAME) wants to access your health data to deliver personalized health and fitness records</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>$(PRODUCT_NAME) wants to use your location to fetch profile address</string>
-	<key>NSLocationUsageDescription</key>
-	<string>$(PRODUCT_NAME) wants to use your location to fetch profile address</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>$(PRODUCT_NAME) wants to use your location to fetch profile address</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>$(PRODUCT_NAME) wants to access microphone for appointment calls</string>
-	<key>NSMotionUsageDescription</key>
-	<string>$(PRODUCT_NAME) wants to use your movement to access distance of steps</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>$(PRODUCT_NAME) wants to use your photos for health data</string>
-	<key>NSUserTrackingUsageDescription</key>
-	<string>Your data will be used to deliver personalized health and fitness records</string>
-	<key>S3TransferUtility</key>
-	<dict>
-		<key>Default</key>
-		<dict>
-			<key>Region</key>
-			<string>&quot;us-east-1&quot;</string>
-		</dict>
-	</dict>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Poppins-Bold.ttf</string>
-		<string>Poppins-Light.ttf</string>
-		<string>Poppins-Medium.ttf</string>
-		<string>Poppins-Regular.ttf</string>
-		<string>Poppins-SemiBold.ttf</string>
-		<string>play_fair_display_black.ttf</string>
-		<string>playfairdisplay_black.ttf</string>
-		<string>playfairdisplay_bold.ttf</string>
-		<string>SFProDisplay-Heavy.otf</string>
-		<string>SFProDisplay-Italic.otf</string>
-		<string>SFProDisplay-Light.otf</string>
-		<string>SFProDisplay-Medium.otf</string>
-		<string>SFProDisplay-Regular.otf</string>
-		<string>SFProDisplay-Semibold.otf</string>
-		<string>SFProDisplay-Thin.otf</string>
-		<string>SFProDisplay-Ultralight.otf</string>
-		<string>SFProDisplay-Bold.ttf</string>
-		<string>Gilroy-Bold.ttf</string>
-		<string>Gilroy-Medium.ttf</string>
-		<string>Gilroy-Regular.ttf</string>
-		<string>Gilroy-SemiBold.ttf</string>
-	</array>
-	<key>UIApplicationSceneManifest</key>
-	<dict>
-		<key>UIApplicationSupportsMultipleScenes</key>
-		<false/>
-		<key>UISceneConfigurations</key>
-		<dict>
-			<key>UIWindowSceneSessionRoleApplication</key>
-			<array>
-				<dict>
-					<key>UISceneConfigurationName</key>
-					<string>Default Configuration</string>
-					<key>UISceneDelegateClassName</key>
-					<string>$(PRODUCT_MODULE_NAME).SceneDelegate</string>
-					<key>UISceneStoryboardFile</key>
-					<string>Authentication</string>
-				</dict>
-			</array>
-		</dict>
-	</dict>
-	<key>UIApplicationSupportsIndirectInputEvents</key>
-	<true/>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>audio</string>
-		<string>bluetooth-central</string>
-		<string>fetch</string>
-		<string>processing</string>
-		<string>remote-notification</string>
-	</array>
-	<key>UIBackgroundModes	</key>
-	<array>
-		<string>fetch</string>
-		<string>processing</string>
-	</array>
-	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
-	<key>UIMainStoryboardFile</key>
-	<string>Authentication</string>
-	<key>UIRequiredDeviceCapabilities</key>
-	<array>
-		<string>armv7</string>
-	</array>
-	<key>UISupportedInterfaceOrientations</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-	</array>
-	<key>UIUserInterfaceStyle</key>
-	<string>Light</string>
-	<key>WEGEnvironment	</key>
-	<string>$(WEGEnvironment)</string>
-	<key>WEGLicenseCode</key>
-	<string>82617b48</string>
-	<key>WEGLogLevel</key>
-	<string></string>
-</dict>
+        <key>UIBackgroundModes</key>
+        <array>
+            <string>audio</string>
+            <string>bluetooth-central</string>
+            <string>fetch</string>
+            <string>processing</string>
+            <string>remote-notification</string>
+        </array>
+        <key>UIBackgroundModes	</key>
+        <array>
+            <string>fetch</string>
+            <string>processing</string>
+        </array>
+        <key>UILaunchStoryboardName</key>
+        <string>LaunchScreen</string>
+        <key>UIMainStoryboardFile</key>
+        <string>Authentication</string>
+        <key>UIRequiredDeviceCapabilities</key>
+        <array>
+            <string>armv7</string>
+        </array>
+        <key>UISupportedInterfaceOrientations</key>
+        <array>
+            <string>UIInterfaceOrientationPortrait</string>
+        </array>
+        <key>UIUserInterfaceStyle</key>
+        <string>Light</string>
+        <key>WEGEnvironment	</key>
+        <string>$(WEGEnvironment)</string>
+        <key>WEGLicenseCode</key>
+        <string>82617b48</string>
+        <key>WEGLogLevel</key>
+        <string></string>
+    </dict>
 </plist>

@@ -1,21 +1,15 @@
 import {
-  Alert,
-  Image,
-  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
   NativeModules,
-  requireNativeComponent,
-  SafeAreaView,
   NativeEventEmitter,
   LayoutRectangle,
   Animated,
 } from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
-import {CompositeScreenProps, useIsFocused} from '@react-navigation/native';
-import Geolocation from 'react-native-geolocation-service';
+import React, {useEffect} from 'react';
+import {CompositeScreenProps} from '@react-navigation/native';
 import {
   AppStackParamList,
   DrawerParamList,
@@ -23,9 +17,6 @@ import {
 import {Container, Screen} from '../components/styled/Views';
 import {Icons} from '../constants/icons';
 import {colors} from '../constants/colors';
-import InputField, {
-  AnimatedInputFieldRef,
-} from '../components/atoms/AnimatedInputField';
 import CarePlanView from '../components/organisms/CarePlanView';
 import HealthTip from '../components/organisms/HealthTip';
 import MyHealthInsights from '../components/organisms/MyHealthInsights';
@@ -33,12 +24,9 @@ import MyHealthDiary from '../components/organisms/MyHealthDiary';
 import HomeHeader from '../components/molecules/HomeHeader';
 import AdditionalCareServices from '../components/organisms/AdditionalCareServices';
 import Learn from '../components/organisms/Learn';
-import SearchModal from '../components/molecules/SearchModal';
 import {DrawerScreenProps} from '@react-navigation/drawer';
 import {
   navigateTo,
-  navigateToPlan,
-  navigateToMedicines,
   navigateToEngagement,
   navigateToIncident,
   openUpdateReading,
@@ -49,7 +37,6 @@ import {
   navigateToDiscover,
   navigateToChronicCareProgram,
   openPlanDetails,
-  onPressRenewPlan,
   openMedicineExerciseDiet,
 } from '../routes/Router';
 import Home from '../api/home';
@@ -57,6 +44,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {StackScreenProps} from '@react-navigation/stack';
 import {useApp} from '../context/app.context';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import TatvaLoader from '../components/atoms/TatvaLoader';
 
 const {RNEventEmitter} = NativeModules;
 const eventEmitter = new NativeEventEmitter(RNEventEmitter);
@@ -67,9 +55,9 @@ type HomeScreenProps = CompositeScreenProps<
 >;
 
 const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
-  const {top} = useSafeAreaInsets();
-
   const {setUserData, setUserLocation} = useApp();
+
+  const [loading, setLoading] = React.useState<boolean>(true);
 
   const [location, setLocation] = React.useState<object>({});
   const [carePlanData, setCarePlanData] = React.useState<any>({});
@@ -179,10 +167,6 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
     };
   }, []);
 
-  // useEffect(() => {
-  //   onPressLocation(); //Update location on all home screen focus
-  // }, [isFocused]);
-
   const getCurrentLocation = async () => {
     const currentLocation = await AsyncStorage.getItem('location');
     setLocation(currentLocation ? JSON.parse(currentLocation) : {});
@@ -203,6 +187,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   };
 
   const getHomeCarePlan = async () => {
+    setLoading(true);
     const homeCarePlan = await Home.getPatientCarePlan({});
     const {city, state, country} = homeCarePlan?.data;
     if (city && state && country) {
@@ -210,6 +195,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
     }
     setCarePlanData(homeCarePlan?.data);
     setUserData(homeCarePlan?.data);
+    setLoading(false);
   };
 
   const getLearnMoreData = async () => {
@@ -218,87 +204,37 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   };
 
   const getPlans = async () => {
+    setLoading(true);
     const allPlans = await Home.getHomePagePlans({}, {page: 0});
     setAllPlans(allPlans?.data ?? []);
+    setLoading(false);
   };
 
   const getHCDevicePlans = async () => {
+    setLoading(true);
     const hcDevicePlans = await Home.getHCDevicePlan();
     setHcDevicePlans(hcDevicePlans?.data);
+    setLoading(false);
   };
 
   const getMyHealthInsights = async () => {
+    setLoading(true);
     const goalsAndReadings = await Home.getMyHealthInsights();
     setHealthInsights({
       goals: goalsAndReadings?.data?.goal_data,
       readings: goalsAndReadings?.data?.readings_response,
     });
+    setLoading(false);
   };
 
   const getMyHealthDiaries = async () => {
+    setLoading(true);
     const diaries = await Home.getMyHealthDiaries({});
     setHealthDiaries(diaries?.data);
-  };
-
-  const getLocationFromLatLng = async (lat: any, long: any) => {
-    const res = await fetch(
-      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&key=AIzaSyD8zxk4kvKlAMGaOQrABy8xqdRKIWGBJlo`,
-      {
-        method: 'get',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      },
-    );
-
-    const data = await res.json();
-
-    if (
-      (data?.results || []).length > 0 &&
-      (data?.results[0]?.address_components || []).length > 0
-    ) {
-      const city = data?.results[0]?.address_components.find((a: any) =>
-        a?.types.includes('administrative_area_level_3'),
-      );
-      const state = data?.results[0]?.address_components.find((a: any) =>
-        a?.types.includes('administrative_area_level_1'),
-      );
-      const country = data?.results[0]?.address_components.find((a: any) =>
-        a?.types.includes('country'),
-      );
-      const pincode = data?.results[0]?.address_components.find((a: any) =>
-        a?.types.includes('postal_code'),
-      );
-
-      const locationPayload = {
-        city: city?.long_name,
-        state: state?.long_name,
-        country: country?.long_name,
-        pincode: pincode?.long_name,
-      };
-
-      setLocation({
-        ...locationPayload,
-      });
-      await AsyncStorage.setItem('location', JSON.stringify(locationPayload));
-      await Home.updatePatientLocation({}, locationPayload);
-      setUserLocation(locationPayload);
-    }
+    setLoading(false);
   };
 
   const onPressLocation = () => {
-    // Geolocation.getCurrentPosition(
-    //   async position => {
-    //     await getLocationFromLatLng(
-    //       position?.coords?.latitude,
-    //       position?.coords?.longitude,
-    //     );
-    //   },
-    //   error => {
-    //     // Handle location error here
-    //   },
-    //   {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
-    // );
     navigateTo('SetLocationVC');
   };
 
@@ -315,13 +251,9 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
     navigateTo('FoodDiaryParentVC');
   };
   const onPressExercise = (filteredData: any) => {
-    // navigateToMedicines('test');
     navigateToExercise([{filteredData: filteredData}, {firstRow: 'exercise'}]);
-    // navigateTo('navigateToExercise');
   };
   const onPressMedicine = (filteredData: any) => {
-    // console.log(filteredData);
-    // navigateToMedicines('test');
     openMedicineExerciseDiet([
       {filteredData: filteredData},
       {firstRow: 'medication'},
@@ -334,9 +266,6 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   const onPressConsultNutritionist = () => {
     if (canBookHealthCoach) {
       navigateToBookAppointment('HC');
-      // } else if (Object.values(hcDevicePlans.nutritionist).length > 0) {
-      //   // Navigate to plan in this object
-      //   openPlanDetails([{planDetails: hcDevicePlans.nutritionist}]);
     } else {
       navigateToChronicCareProgram();
     }
@@ -344,9 +273,6 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   const onPressConsultPhysio = (type: 'HC' | 'D') => {
     if (canBookHealthCoach) {
       navigateToBookAppointment(type);
-      // } else if (Object.values(hcDevicePlans.physiotherapist).length > 0) {
-      //   // Navigate to plan in this object
-      //   openPlanDetails([{planDetails: hcDevicePlans.physiotherapist}]);
     } else {
       navigateToChronicCareProgram();
     }
@@ -365,10 +291,6 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
     openPlanDetails([{planDetails: plan}]);
   };
 
-  // const onPressRenew = (plan: any) => {
-  //   onPressRenewPlan([{planDetails: plan}]);
-  // };
-
   const onPressReading = (filteredData: any, firstRow: any) => {
     openUpdateReading([{filteredData: filteredData}, {firstRow: firstRow}]);
   };
@@ -378,7 +300,6 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   };
 
   const onPressViewAllLearn = () => {
-    // navigation.navigate('AllLearnItemsScreen');
     navigateToDiscover();
   };
 
@@ -405,6 +326,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   return (
     <>
       <Screen>
+        {loading && <TatvaLoader />}
         <Container>
           <Animated.ScrollView
             showsVerticalScrollIndicator={false}

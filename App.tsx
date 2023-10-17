@@ -21,6 +21,7 @@ import Home from './src/api/home';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {AppProvider} from './src/context/app.context';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {PaperProvider} from 'react-native-paper';
 
 const App = () => {
   const {height, width} = useWindowDimensions();
@@ -52,7 +53,7 @@ const App = () => {
         ) {
           Linking.openSettings();
         } else {
-          await BottomSheetRef.current?.show();
+          BottomSheetRef.current?.show();
         }
       } else {
         const granted = await request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
@@ -66,7 +67,7 @@ const App = () => {
             [
               {
                 text: 'Go to Settings',
-                onPress: () => Linking.openURL('app-settings:'),
+                onPress: () => Linking.openSettings(),
               },
               {
                 text: 'Close',
@@ -74,15 +75,10 @@ const App = () => {
             ],
           );
         } else {
-          console.log('throw');
-
           BottomSheetRef.current?.show();
         }
       }
     } catch (err) {
-      console.log('catch');
-
-      // hideTabBarNative()
       BottomSheetRef.current?.show();
     }
   };
@@ -200,16 +196,18 @@ const App = () => {
   return (
     <GestureHandlerRootView style={{height, width}}>
       <SafeAreaProvider>
-        <AppProvider>
-          <Router />
-          <LocationBottomSheet
-            ref={BottomSheetRef}
-            setLocation={setLocation}
-            requestLocationPermission={requestLocationPermission}
-            setLocationPermission={setLocationPermission}
-            locationPermission={locationPermission}
-          />
-        </AppProvider>
+        <PaperProvider>
+          <AppProvider>
+            <Router />
+            <LocationBottomSheet
+              ref={BottomSheetRef}
+              setLocation={setLocation}
+              requestLocationPermission={requestLocationPermission}
+              setLocationPermission={setLocationPermission}
+              locationPermission={locationPermission}
+            />
+          </AppProvider>
+        </PaperProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );

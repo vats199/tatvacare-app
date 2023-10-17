@@ -11,6 +11,7 @@ import {
   BottomSheetModalProps,
 } from '@gorhom/bottom-sheet';
 import {
+  ActivityIndicator,
   FlatList,
   Platform,
   Pressable,
@@ -26,6 +27,7 @@ import InputField from '../atoms/AnimatedInputField';
 import Home from '../../api/home';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useApp} from '../../context/app.context';
+import {TextInput} from 'react-native-paper';
 
 type LocationBottomSheetProps = {
   requestLocationPermission?: (goToSettings: boolean) => void;
@@ -72,6 +74,18 @@ const LocationBottomSheet = forwardRef<
     const [pincode, setPincode] = useState<string>('');
     const [error, setError] = useState<string>('');
 
+    const onPressUseCurrentLocation = () => {
+      if (Platform.OS === 'android') {
+        requestLocationPermission(
+          ['blocked', 'never_ask_again'].includes(locationPermission || '')
+            ? true
+            : false,
+        );
+      } else {
+        requestLocationPermission(true);
+      }
+    };
+
     const onChangePin = (val: string) => {
       if (val?.length <= 6) {
         if (val && val != '') {
@@ -85,7 +99,10 @@ const LocationBottomSheet = forwardRef<
       }
     };
 
+    const [loading, setLoading] = React.useState<boolean>(false);
+
     const onApplyPincode = async () => {
+      setLoading(true);
       const res = await fetch(
         `https://maps.googleapis.com/maps/api/geocode/json?address=${pincode}&key=AIzaSyD8zxk4kvKlAMGaOQrABy8xqdRKIWGBJlo`,
         {
@@ -125,8 +142,10 @@ const LocationBottomSheet = forwardRef<
         await AsyncStorage.setItem('location', JSON.stringify(locationPayload));
         setUserLocation(locationPayload);
         setLocationPermission('granted');
+        setLoading(false);
         bottomSheetModalRef.current?.dismiss();
       } else {
+        setLoading(false);
         switch (data.status) {
           case 'ZERO_RESULTS':
             setError('Enter a valid pincode');
@@ -175,7 +194,7 @@ const LocationBottomSheet = forwardRef<
                         : colors.inputBoxLightBorder,
                     },
                   ]}>
-                  <InputField
+                  {/* <InputField
                     editable={pincode?.length <= 6}
                     value={pincode}
                     showAnimatedLabel={true}
@@ -185,36 +204,44 @@ const LocationBottomSheet = forwardRef<
                     placeholder="Enter Pincode"
                     style={styles.pincodeInputStyle}
                     keyboardType="decimal-pad"
+                  /> */}
+                  <TextInput
+                    value={pincode}
+                    maxLength={6}
+                    label={'Enter Pincode'}
+                    onChangeText={onChangePin}
+                    keyboardType={'decimal-pad'}
+                    underlineStyle={{width: 0}}
+                    placeholderTextColor={colors.subTitleLightGray}
                     onBlur={() => bottomSheetModalRef.current?.snapToIndex(0)}
                     onFocus={() => bottomSheetModalRef.current?.expand()}
+                    style={styles.pincodeInputStyle}
+                    theme={{colors: {primary: colors.subTitleLightGray}}}
                   />
-                  <TouchableOpacity
-                    onPress={onApplyPincode}
-                    disabled={pincode?.length == 6 ? false : true}
-                    activeOpacity={0.6}>
-                    <Text
-                      style={
-                        pincode?.length == 6
-                          ? styles.activeApplyText
-                          : styles.inactiveApplyText
-                      }>
-                      Apply
-                    </Text>
-                  </TouchableOpacity>
+                  {loading ? (
+                    <ActivityIndicator
+                      size={'small'}
+                      color={colors.themePurple}
+                    />
+                  ) : (
+                    <TouchableOpacity
+                      onPress={onApplyPincode}
+                      disabled={pincode?.length == 6 ? false : true}
+                      activeOpacity={0.6}>
+                      <Text
+                        style={
+                          pincode?.length == 6
+                            ? styles.activeApplyText
+                            : styles.inactiveApplyText
+                        }>
+                        Apply
+                      </Text>
+                    </TouchableOpacity>
+                  )}
                 </View>
                 {error.length > 0 && <Text style={styles.error}>{error}</Text>}
                 <TouchableOpacity
-                  onPress={() => {
-                    Platform.OS == 'android'
-                      ? requestLocationPermission(
-                          ['blocked', 'never_ask_again'].includes(
-                            locationPermission || '',
-                          )
-                            ? true
-                            : false,
-                        )
-                      : requestLocationPermission(true);
-                  }}
+                  onPress={onPressUseCurrentLocation}
                   style={styles.currentLocationContainer}
                   activeOpacity={0.6}>
                   <Icons.LocationSymbol />
@@ -294,10 +321,10 @@ const styles = StyleSheet.create({
     // flex: 1,
     width: '100%',
     alignItems: 'center',
-    // justifyContent: 'space-between',
   },
   smallHeight: {
     height: '40%',
+    justifyContent: 'space-between',
   },
   tallHeight: {
     height: '30%',
@@ -365,8 +392,11 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   pincodeInputStyle: {
-    borderWidth: 0,
-    width: '80%',
+    flex: 1,
+    backgroundColor: colors.white,
+    color: colors.black,
+    fontWeight: '600',
+    fontSize: 14,
   },
   activeApplyText: {
     fontSize: 12,

@@ -12,7 +12,6 @@ import {
 import CustomDrawer from '../components/organisms/CustomDrawer';
 import {NativeModules} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
-import AllLearnItemsScreen from '../screens/AllLearnItemsScreen';
 
 const Navigation = NativeModules.Navigation;
 export const navigateTo = Navigation.navigateTo;
@@ -52,10 +51,6 @@ const DrawerScreen = () => {
       }}>
       <Drawer.Screen name={'HomeScreen'} component={HomeScreen} />
       <Drawer.Screen name={'AboutUsScreen'} component={AboutUsScreen} />
-      <Drawer.Screen
-        name={'AllLearnItemsScreen'}
-        component={AllLearnItemsScreen}
-      />
     </Drawer.Navigator>
   );
 };
