@@ -9,7 +9,8 @@ interface AnimatedInputFieldProps extends TextInputProps {
     label?: string;
     error?: string;
     showErrorText?: boolean,
-    showAnimatedLabel?: boolean
+    showAnimatedLabel?: boolean,
+
 }
 
 export type AnimatedInputFieldRef = {
@@ -22,6 +23,7 @@ const AnimatedInputField = forwardRef<AnimatedInputFieldRef, AnimatedInputFieldP
     textStyle,
     style,
     placeholder,
+    placeholderTextColor,
     value,
     onChangeText,
     editable = true,
@@ -91,7 +93,7 @@ const AnimatedInputField = forwardRef<AnimatedInputFieldRef, AnimatedInputFieldP
                         {showAnimatedLabel && (isFocused || (value?.length ?? 0) > 0) && <Animated.Text style={{ position: 'absolute', transform: [{ translateY }], color: colors.subTitleLightGray }}>{placeholder}</Animated.Text>}
                         <TextInput
                             placeholder={showAnimatedLabel || !isFocused ? placeholder : ''}
-                            placeholderTextColor={colors.subTitleLightGray}
+                            placeholderTextColor={placeholderTextColor ? placeholderTextColor : colors.subTitleLightGray}
                             value={value}
                             editable={editable}
                             keyboardType={keyboardType}

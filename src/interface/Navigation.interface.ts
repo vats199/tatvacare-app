@@ -42,4 +42,19 @@ export type HomeStackParamList={
   DietScreen:undefined;
   AddDiet:undefined;
   DietDetail:undefined;
+  AllLabTest:undefined;
+  LabTestCart:{item :TestItem [] | undefined } | { coupan :string  | undefined};
+  ApplyCoupan:undefined;
+  ConfirmLocation:undefined;
+  SearchLabTest:undefined;
+  AddPatientDetails:undefined;
 }
+type TestItem = {
+  id: number;
+  title: string;
+  description: string;
+  newPrice: number;
+  oldPrice: number;
+  discount: number;
+  isAdded: boolean;
+};

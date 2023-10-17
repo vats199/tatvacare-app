@@ -1,6 +1,6 @@
-import {StyleSheet, Text, View} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import {colors} from '../../constants/colors';
+import { colors } from '../../constants/colors';
 import RecentDietItem from '../molecules/RecentFoodItem';
 
 type RecentSerachDietProps = {
@@ -14,7 +14,7 @@ type RecentSearchItem = {
   calorieValue: number;
 };
 
-const RecentSearchDiet: React.FC<RecentSerachDietProps> = ({onPressPlus}) => {
+const RecentSearchDiet: React.FC<RecentSerachDietProps> = ({ onPressPlus }) => {
   const options: RecentSearchItem[] = [
     {
       id: 1,

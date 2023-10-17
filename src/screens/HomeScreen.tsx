@@ -170,6 +170,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   };
   const onPressBookDiagnostic = () => {
     // navigateTo('LabTestListVC');
+    navigation.navigate("AllLabTest");
   };
   const onPressBookDevices = () => {
     // navigateTo('MyDevices');
