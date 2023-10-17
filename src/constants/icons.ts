@@ -64,6 +64,28 @@ import calendar from '../assets/icons/calendar.svg';
 import restDay from '../assets/icons/restDay.svg';
 import backArrow from '../assets/icons/backArrow.svg';
 import Filter from '../assets/icons/filter.svg';
+import Correct from '../assets/icons/correct.svg';
+import RoundCalendar from '../assets/icons/roundCalendar.svg';
+import RoundLab from '../assets/icons/roundLab.svg';
+import Moon from '../assets/icons/moon.svg';
+import Afternoon from '../assets/icons/afternoon.svg';
+import Morning from '../assets/icons/morning.svg';
+import Clock from '../assets/icons/clock.svg';
+import CalendarRound from '../assets/icons/calendarRound.svg';
+import Menu from '../assets/icons/menu.svg';
+import Diet from '../assets/icons/diet.svg';
+import Medication from '../assets/icons/medication.svg';
+import Breathing from '../assets/icons/breathing.svg';
+import Exercise from '../assets/icons/exercise.svg';
+import Info from '../assets/icons/info.svg';
+import DownArrow from '../assets/icons/downArrow.svg';
+import LungFunction from '../assets/icons/lungFunction.svg';
+import SmartAnalyser from '../assets/icons/smartAnalyser.svg';
+import Male from '../assets/icons/male.svg';
+import Female from '../assets/icons/female.svg';
+import Other from '../assets/icons/other.svg';
+import QrCodeScanner from '../assets/icons/qrCodeScanner.svg';
+
 import Vector from '../assets/icons/Vector.svg';
 import AddCircle from '../assets/icons/addcircle.svg';
 import Ellipse from '../assets/icons/Ellipse.svg';
@@ -148,6 +170,27 @@ export const Icons = {
   restDay,
   backArrow,
   Filter,
+  Correct,
+  RoundCalendar,
+  RoundLab,
+  Moon,
+  Afternoon,
+  Morning,
+  Clock,
+  CalendarRound,
+  Menu,
+  Diet,
+  Medication,
+  Breathing,
+  Exercise,
+  Info,
+  DownArrow,
+  LungFunction,
+  SmartAnalyser,
+  Male,
+  Female,
+  Other,
+  QrCodeScanner,
   Vector,
   AddCircle,
   Ellipse,
