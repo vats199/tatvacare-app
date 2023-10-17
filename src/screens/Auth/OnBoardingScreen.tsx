@@ -189,12 +189,10 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({
         buttonStyle={styles.buttonStyle}
         onPress={() => onPressGetStarted()}
       />
-      ​
       <LoginBottomSheet
         ref={BottomSheetRef}
         onPressContinue={onPressContinue}
       />
-      ​
       <Loader visible={isLoading} />
     </SafeAreaView>
   );
