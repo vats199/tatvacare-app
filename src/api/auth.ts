@@ -34,39 +34,6 @@ const Auth = {
             payload
         });
     }
-    // 
-    //   getPatientCarePlan: (query: object) => {
-    //     const route = bindQueryParams('/patient/get_patient_details', query);
-    //     return Ajax.request(route, {
-    //       method: Ajax.POST,
-    //       priv: true,
-    //     });
-    //   },
-
-    //   getHCDevicePlan: () => {
-    //     const route = '/patient_plans/hc_device_plan';
-    //     return Ajax.request(route, {
-    //       method: Ajax.POST,
-    //       priv: true,
-    //     });
-    //   },
-    //   getGoalsAndReadings: (headers: object) => {
-    //     const route = '/goal_readings/daily_summary';
-    //     return Ajax.request(route, {
-    //       method: Ajax.POST,
-    //       priv: true,
-    //       headers,
-    //     });
-    //   },
-
-    //   addBookmark: (query: object, payload: object) => {
-    //     const route = bindQueryParams('/content/update_bookmarks', query);
-    //     return Ajax.request(route, {
-    //       method: Ajax.POST,
-    //       priv: true,
-    //       payload,
-    //     });
-    //   },
 
 };
 export default Auth

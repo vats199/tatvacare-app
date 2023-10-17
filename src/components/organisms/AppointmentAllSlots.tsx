@@ -18,8 +18,9 @@ import SlotDetailsCard from '../molecules/SlotDetailsCard';
 import Button from '../atoms/Button';
 import moment from 'moment';
 import {FlatList} from 'react-native-gesture-handler';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
-const BottomSheetSnapPointValue = '95%';
+const BottomSheetSnapPointValue = '85%';
 
 type AppointmentAllSlotsProps = {
   coachDetails: CoachDataType;
@@ -35,7 +36,7 @@ const AppointmentAllSlots = React.forwardRef<
   AppointmentAllSlotsProps
 >(({coachDetails, selectedData, setSelectedData, onPress}, ref) => {
   const snapPoints = useMemo(() => [BottomSheetSnapPointValue], []);
-
+  const insets = useSafeAreaInsets();
   const renderBackdrop = React.useCallback(
     (props: BottomSheetBackdropProps) => (
       <BottomSheetBackdrop
@@ -103,7 +104,8 @@ const AppointmentAllSlots = React.forwardRef<
                 styles.bottomBtn,
                 styles.bottomBtnShadow,
                 {
-                  marginBottom: Platform.OS == 'android' ? Matrics.s(20) : 0,
+                  paddingBottom:
+                    insets.bottom !== 0 ? insets.bottom : Matrics.vs(16),
                 },
               ]}>
               <Button
@@ -179,7 +181,6 @@ const styles = StyleSheet.create({
   },
   bottomBtn: {
     backgroundColor: colors.white,
-    paddingHorizontal: Matrics.s(15),
     paddingVertical: Matrics.s(10),
   },
   bottomBtnShadow: {

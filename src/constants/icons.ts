@@ -83,8 +83,8 @@ import LungFunction from '../assets/icons/lungFunction.svg';
 import SmartAnalyser from '../assets/icons/smartAnalyser.svg';
 import Male from '../assets/icons/male.svg';
 import Female from '../assets/icons/female.svg';
-
-
+import Other from '../assets/icons/other.svg';
+import QrCodeScanner from '../assets/icons/qrCodeScanner.svg';
 
 
 export const Icons = {
@@ -167,5 +167,7 @@ export const Icons = {
   LungFunction,
   SmartAnalyser,
   Male,
-  Female
+  Female,
+  Other,
+  QrCodeScanner
 };

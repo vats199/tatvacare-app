@@ -9,6 +9,7 @@ import {Icons} from '../../constants/icons';
 import Button from '../../components/atoms/Button';
 import UpcomingAppointmentDetails from '../../components/organisms/UpcomingAppointmentDetails';
 import CommonHeader from '../../components/molecules/CommonHeader';
+import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 
 export type AppointmentDetailsScreenProps = {
   id: number;
@@ -30,6 +31,7 @@ const AppointmentDetailsScreen: React.FC<AppointmentScreenProps> = ({
   const appointmentDetails = route.params.appointmentDetails;
 
   const [appointmentBooked, setAppointmentBooked] = useState<boolean>(false);
+  const insets = useSafeAreaInsets();
 
   const onPressBook = () => {
     setAppointmentBooked(true);
@@ -47,7 +49,7 @@ const AppointmentDetailsScreen: React.FC<AppointmentScreenProps> = ({
   }, [appointmentBooked]);
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView edges={['top']} style={styles.container}>
       {appointmentBooked ? (
         <View style={styles.appointmentBookedContainer}>
           <Icons.Correct height={Matrics.s(85)} width={Matrics.s(85)} />
@@ -70,7 +72,8 @@ const AppointmentDetailsScreen: React.FC<AppointmentScreenProps> = ({
                 styles.bottomBtn,
                 styles.bottomBtnShadow,
                 {
-                  marginBottom: Platform.OS == 'android' ? Matrics.s(20) : 0,
+                  paddingBottom:
+                    insets.bottom !== 0 ? insets.bottom : Matrics.vs(16),
                 },
               ]}>
               <Button
@@ -87,7 +90,7 @@ const AppointmentDetailsScreen: React.FC<AppointmentScreenProps> = ({
           </View>
         </>
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -128,7 +131,6 @@ const styles = StyleSheet.create({
   },
   bottomBtn: {
     backgroundColor: colors.white,
-    paddingHorizontal: Matrics.s(15),
     paddingVertical: Matrics.s(10),
   },
   bottomBtnShadow: {

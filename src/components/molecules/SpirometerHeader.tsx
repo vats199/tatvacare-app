@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingVertical: Matrics.s(10),
+    paddingBottom: Matrics.s(10),
     paddingHorizontal: Matrics.s(15),
   },
   commonHeaderContainer: {

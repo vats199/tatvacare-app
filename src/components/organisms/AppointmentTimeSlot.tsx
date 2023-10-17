@@ -114,21 +114,4 @@ const styles = StyleSheet.create({
     color: colors.labelTitleDarkGray,
     flex: 1,
   },
-  timeContainerSlot: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: Matrics.s(12),
-    borderWidth: Matrics.s(1),
-    paddingHorizontal: Matrics.s(7),
-    paddingVertical: Matrics.vs(7),
-    marginRight: Matrics.s(10),
-    marginBottom: Matrics.vs(10),
-  },
-  timeContainerShadow: {
-    shadowColor: colors.black,
-    shadowOffset: {width: 0, height: 0},
-    shadowOpacity: 0.04,
-    shadowRadius: 3,
-    elevation: 1,
-  },
 });

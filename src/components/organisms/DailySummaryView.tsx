@@ -31,7 +31,7 @@ const DailySummaryView = () => {
       subTitle: '0 of 3 doses',
       value: 60,
       color: colors.lightOrange,
-      icon: <Icons.Breathing height={Matrics.s(29)} width={Matrics.s(29)} />,
+      icon: <Icons.Medication height={Matrics.s(29)} width={Matrics.s(29)} />,
     },
     {
       id: 1,
@@ -39,7 +39,7 @@ const DailySummaryView = () => {
       subTitle: '0 of 22 minutes',
       value: 98,
       color: colors.lightPink,
-      icon: <Icons.Medication height={Matrics.s(29)} width={Matrics.s(29)} />,
+      icon: <Icons.Breathing height={Matrics.s(29)} width={Matrics.s(29)} />,
     },
     {
       id: 1,

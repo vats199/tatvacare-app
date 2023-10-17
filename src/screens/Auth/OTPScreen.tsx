@@ -15,6 +15,7 @@ import AuthHeader from '../../components/molecules/AuthHeader';
 import Auth from '../../api/auth';
 import { useApp } from '../../context/app.context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Loader from '../../components/atoms/Loader';
 
 
 type OTPScreenProps = CompositeScreenProps<
@@ -29,6 +30,7 @@ const OTPScreen: React.FC<OTPScreenProps> = ({ navigation, route }) => {
   const { setUserData } = useApp();
   const [otp, setOtp] = React.useState<string>('')
   const [timer, setTimer] = React.useState<number>(30)
+  const [isLoading, setIsLoading] = React.useState<boolean>(false)
 
   React.useEffect(() => {
     //Implementing the setInterval method 
@@ -47,6 +49,7 @@ const OTPScreen: React.FC<OTPScreenProps> = ({ navigation, route }) => {
 
   const onCodeFilled = async (code: string) => {
     let data
+    setIsLoading(true)
     if (route?.params?.isLoginOTP) {
       data = await Auth.verifyOTPLogin({
         contact_no: route?.params?.contact_no.trim(),
@@ -61,8 +64,12 @@ const OTPScreen: React.FC<OTPScreenProps> = ({ navigation, route }) => {
 
     if (data?.code == 1) {
       // success data
-      await AsyncStorage.setItem('userData', JSON.stringify(data?.data));
-      setUserData(data?.data)
+      let userData = data?.data;
+      await AsyncStorage.setItem('accessToken', userData?.token);
+      await AsyncStorage.setItem('userData', JSON.stringify(userData));
+      await AsyncStorage.setItem('isUserLoggedIn', "true");
+      setIsLoading(false)
+      setUserData(userData)
       navigation.navigate('DrawerScreen')
     }
 
@@ -110,6 +117,7 @@ const OTPScreen: React.FC<OTPScreenProps> = ({ navigation, route }) => {
         </View>
 
       </View>
+      <Loader visible={isLoading} />
     </SafeAreaView>
   );
 };

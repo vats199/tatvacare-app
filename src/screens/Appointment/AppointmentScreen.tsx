@@ -26,6 +26,7 @@ import {StackScreenProps} from '@react-navigation/stack';
 import UpcomingAppointmentDetails from '../../components/organisms/UpcomingAppointmentDetails';
 import Button from '../../components/atoms/Button';
 import CommonHeader from '../../components/molecules/CommonHeader';
+import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 
 type AppointmentType = {
   id: number;
@@ -44,10 +45,6 @@ const AppointmentScreen: React.FC<AppointmentScreenProps> = ({
   navigation,
 }) => {
   const appointmentDetails = route.params?.appointmentDetails;
-  console.log(
-    '🚀 ~ file: AppointmentScreen.tsx:45 ~ appointmentDetails:',
-    appointmentDetails,
-  );
 
   const typeOfAppointment = [
     {
@@ -61,7 +58,7 @@ const AppointmentScreen: React.FC<AppointmentScreenProps> = ({
   ];
 
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
-
+  const insets = useSafeAreaInsets();
   const snapPoints = useMemo(() => [BottomSheetSnapPointValue], []);
 
   const handlePresentModalPress = useCallback(() => {
@@ -116,7 +113,7 @@ const AppointmentScreen: React.FC<AppointmentScreenProps> = ({
   );
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView edges={['top']} style={styles.container}>
       <CommonHeader
         onPress={() => {
           navigation.goBack();
@@ -160,7 +157,14 @@ const AppointmentScreen: React.FC<AppointmentScreenProps> = ({
         />
         <YourBenefits />
         <AppointmentFaqs />
-        <View style={[styles.bottomBtnContainer]}>
+        <View
+          style={[
+            styles.bottomBtnContainer,
+            {
+              paddingBottom:
+                insets.bottom !== 0 ? insets.bottom : Matrics.vs(16),
+            },
+          ]}>
           <ContactUs />
         </View>
       </ScrollView>
@@ -182,7 +186,7 @@ const AppointmentScreen: React.FC<AppointmentScreenProps> = ({
           </View>
         </BottomSheetModal>
       </BottomSheetModalProvider>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -196,7 +200,6 @@ const styles = StyleSheet.create({
   bottomBtnContainer: {
     backgroundColor: colors.white,
     paddingTop: Matrics.s(15),
-    paddingBottom: Matrics.s(Platform.OS == 'ios' ? 15 : 30),
   },
   overlay: {
     backgroundColor: 'rgba(0,0,0,0.5)',
@@ -270,8 +273,9 @@ const styles = StyleSheet.create({
   },
   joinCallBtn: {
     paddingHorizontal: Matrics.s(35),
-    paddingVertical: Matrics.vs(9),
+    height: Matrics.vs(30),
     borderRadius: Matrics.s(15),
+    marginHorizontal: 0,
   },
   joinCallTxt: {
     fontSize: Matrics.mvs(12),

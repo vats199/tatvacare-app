@@ -17,6 +17,7 @@ import {
   ExerciesStackParamList,
   AppointmentStackParamList,
   HomeStackParamList,
+  SetupProfileStackParamList,
 } from '../interface/Navigation.interface';
 import {NavigationContainer} from '@react-navigation/native';
 import {
@@ -35,6 +36,12 @@ import AppointmentDetailsScreen from '../screens/Appointment/AppointmentDetailsS
 import SpirometerScreen from '../screens/Spirometer/SpirometerScreen';
 import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 import DeviceConnectionScreen from '../screens/Spirometer/DeviceConnectionScreen';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Splash from '../screens/Auth/Splash';
+import WelcomeScreen from '../screens/SetupProfile/WelcomeScreen';
+import QuestionOneScreen from '../screens/SetupProfile/QuestionOneScreen';
+import ScanCodeScreen from '../screens/SetupProfile/ScanCodeScreen';
+import QuestionListScreen from '../screens/SetupProfile/QuestionListScreen';
 
 const Drawer = createDrawerNavigator<DrawerParamList>();
 const DrawerScreen = () => {
@@ -205,30 +212,66 @@ const AuthStack = createStackNavigator<AuthStackParamList>();
 const AuthStackScreen = () => {
   return (
     <AuthStack.Navigator
-      initialRouteName="OnBoardingScreen"
+      initialRouteName="Splash"
       screenOptions={{
         headerShown: false,
       }}>
+      <AuthStack.Screen name="Splash" component={Splash} />
       <AuthStack.Screen name="LoginScreen" component={LoginScreen} />
       <AuthStack.Screen name="OTPScreen" component={OTPScreen} />
       <AuthStack.Screen name="OnBoardingScreen" component={OnBoardingScreen} />
     </AuthStack.Navigator>
   );
 };
+
+const SetupProfileStack = createStackNavigator<SetupProfileStackParamList>();
+const SetupProfileScreen = () => {
+  return (
+    <SetupProfileStack.Navigator
+      initialRouteName="WelcomeScreen"
+      screenOptions={{
+        headerShown: false,
+      }}>
+      <SetupProfileStack.Screen
+        name="WelcomeScreen"
+        component={WelcomeScreen}
+      />
+      <SetupProfileStack.Screen
+        name="QuestionOneScreen"
+        component={QuestionOneScreen}
+      />
+
+      <SetupProfileStack.Screen
+        name="ScanCodeScreen"
+        component={ScanCodeScreen}
+      />
+
+      <SetupProfileStack.Screen
+        name="QuestionListScreen"
+        component={QuestionListScreen}
+      />
+    </SetupProfileStack.Navigator>
+  );
+};
+
 const AppStack = createStackNavigator<AppStackParamList>();
 const Router = () => {
   return (
     <NavigationContainer>
-      <BottomSheetModalProvider>
-        <AppStack.Navigator
-          initialRouteName="DrawerScreen"
-          screenOptions={{
-            headerShown: false,
-          }}>
-          <AppStack.Screen name={'TabScreen'} component={TabScreen} />
-          {/* <AppStack.Screen name={'AuthStackScreen'} component={AuthStackScreen} /> */}
-          <AppStack.Screen name={'DrawerScreen'} component={DrawerScreen} />
-          <AppStack.Screen
+        <BottomSheetModalProvider>
+      <AppStack.Navigator
+        initialRouteName="AuthStackScreen"
+        screenOptions={{
+          headerShown: false,
+        }}>
+        <AppStack.Screen
+          name={'SetupProfileScreen'}
+          component={SetupProfileScreen}
+        />
+        <AppStack.Screen name={'TabScreen'} component={TabScreen} />
+        <AppStack.Screen name={'AuthStackScreen'} component={AuthStackScreen} />
+        <AppStack.Screen name={'DrawerScreen'} component={DrawerScreen} />
+        <AppStack.Screen
             name={'AppointmentStackScreen'}
             component={AppointmentStackScreen}
           />
@@ -236,7 +279,7 @@ const Router = () => {
             name={'DeviceConnectionScreen'}
             component={DeviceConnectionScreen}
           />
-        </AppStack.Navigator>
+      </AppStack.Navigator>
       </BottomSheetModalProvider>
     </NavigationContainer>
   );

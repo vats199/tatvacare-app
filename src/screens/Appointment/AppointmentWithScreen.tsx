@@ -18,6 +18,7 @@ import {BottomSheetModal} from '@gorhom/bottom-sheet';
 import AppointmentAllSlots from '../../components/organisms/AppointmentAllSlots';
 import {AppointmentDetailsScreenProps} from './AppointmentDetailsScreen';
 import CommonHeader from '../../components/molecules/CommonHeader';
+import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 
 type AppointmentScreenProps = StackScreenProps<
   AppointmentStackParamList,
@@ -240,6 +241,7 @@ const AppointmentWithScreen: React.FC<AppointmentScreenProps> = ({
   );
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const insets = useSafeAreaInsets();
   const type = route?.params?.type;
 
   const timeFrom = (count: number) => {
@@ -338,7 +340,7 @@ const AppointmentWithScreen: React.FC<AppointmentScreenProps> = ({
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView edges={['top']} style={styles.container}>
       <CommonHeader
         onPress={() => {
           navigation.goBack();
@@ -356,7 +358,7 @@ const AppointmentWithScreen: React.FC<AppointmentScreenProps> = ({
           styles.bottomBtn,
           styles.bottomBtnShadow,
           {
-            marginBottom: Platform.OS == 'android' ? Matrics.s(20) : 0,
+            paddingBottom: insets.bottom !== 0 ? insets.bottom : Matrics.vs(16),
           },
         ]}>
         <Button
@@ -378,7 +380,7 @@ const AppointmentWithScreen: React.FC<AppointmentScreenProps> = ({
         setSelectedData={setAppointments}
         onPress={onPressSaveNextBtn}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -415,7 +417,6 @@ const styles = StyleSheet.create({
   },
   bottomBtn: {
     backgroundColor: colors.white,
-    paddingHorizontal: Matrics.s(15),
     paddingVertical: Matrics.s(10),
   },
   bottomBtnShadow: {

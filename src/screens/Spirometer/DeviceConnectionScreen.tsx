@@ -14,6 +14,7 @@ import * as yup from 'yup';
 import CommonBottomSheetModal from '../../components/molecules/CommonBottomSheetModal';
 import {BottomSheetModal, BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 import TabButton from '../../components/atoms/TabButton';
+import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 
 type DeviceConnectionScreenProps = StackScreenProps<
   AppStackParamList,
@@ -37,6 +38,7 @@ const DeviceConnectionScreen: React.FC<DeviceConnectionScreenProps> = ({
 }) => {
   const [isMale, setIsMale] = useState<boolean>(true);
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const insets = useSafeAreaInsets();
   const onPressBackArrow = () => {
     navigation.goBack();
   };
@@ -58,7 +60,8 @@ const DeviceConnectionScreen: React.FC<DeviceConnectionScreenProps> = ({
   });
 
   return (
-    <View
+    <SafeAreaView
+      edges={['top']}
       style={{
         flex: 1,
         backgroundColor: colors.lightPurple,
@@ -171,8 +174,8 @@ const DeviceConnectionScreen: React.FC<DeviceConnectionScreenProps> = ({
           styles.bottomBtnContainerShadow,
           {
             backgroundColor: colors.white,
-            paddingHorizontal: Matrics.s(15),
             paddingVertical: Matrics.vs(8),
+            paddingBottom: insets.bottom !== 0 ? insets.bottom : Matrics.vs(16),
           },
         ]}>
         <Button
@@ -225,7 +228,7 @@ const DeviceConnectionScreen: React.FC<DeviceConnectionScreenProps> = ({
           </View>
         </CommonBottomSheetModal>
       </BottomSheetModalProvider>
-    </View>
+    </SafeAreaView>
   );
 };
 

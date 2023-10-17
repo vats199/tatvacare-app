@@ -1,6 +1,11 @@
-import {StyleSheet, TextStyle, ViewStyle} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TextStyle,
+  TouchableOpacity,
+  ViewStyle,
+} from 'react-native';
 import React from 'react';
-import Button from './Button';
 import {colors} from '../../constants/colors';
 import {Fonts, Matrics} from '../../constants';
 
@@ -18,19 +23,15 @@ const SlotButton: React.FC<SlotButtonProps> = ({
   titleStyle,
 }) => {
   return (
-    <Button
-      title={title}
+    <TouchableOpacity
       onPress={onPress}
-      buttonStyle={{
-        ...styles.timeContainerSlot,
-        ...styles.timeContainerShadow,
-        ...buttonStyle,
-      }}
-      titleStyle={{
-        ...styles.titleTxt,
-        ...titleStyle,
-      }}
-    />
+      style={[
+        styles.timeContainerSlot,
+        styles.timeContainerShadow,
+        buttonStyle,
+      ]}>
+      <Text style={[styles.titleTxt, titleStyle]}>{title}</Text>
+    </TouchableOpacity>
   );
 };
 
@@ -49,7 +50,8 @@ const styles = StyleSheet.create({
     borderRadius: Matrics.s(12),
     borderWidth: Matrics.s(1),
     paddingHorizontal: Matrics.s(7),
-    paddingVertical: Matrics.vs(7),
+    paddingVertical: Matrics.vs(8),
+    marginHorizontal: 0,
     marginRight: Matrics.s(10),
     marginBottom: Matrics.vs(10),
   },

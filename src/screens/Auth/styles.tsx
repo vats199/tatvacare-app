@@ -9,7 +9,6 @@ export const OnBoardStyle = StyleSheet.create({
     },
     buttonStyle: {
         marginHorizontal: Matrics.s(20),
-        borderRadius: Matrics.mvs(16),
         marginBottom: Matrics.vs(12)
     },
     spaceView: {

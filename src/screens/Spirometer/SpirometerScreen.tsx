@@ -24,6 +24,8 @@ import {
 } from '../../interface/Navigation.interface';
 import {StackScreenProps} from '@react-navigation/stack';
 import {CompositeScreenProps} from '@react-navigation/native';
+import {Screen} from '../../components/styled/Views';
+import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 
 type SpirometerScreenProps = CompositeScreenProps<
   StackScreenProps<AppStackParamList>,
@@ -37,7 +39,7 @@ const SpirometerScreen: React.FC<SpirometerScreenProps> = ({
   const [selectedItem, setSelectedItem] = useState<string>('');
 
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
-
+  const insets = useSafeAreaInsets();
   const onPressConnect = (title: string) => {
     setSelectedItem(title);
     bottomSheetModalRef.current?.present();
@@ -53,7 +55,7 @@ const SpirometerScreen: React.FC<SpirometerScreenProps> = ({
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView edges={['top']} style={styles.container}>
       <SpirometerHeader />
       <ScrollView>
         <View style={styles.dailySummaryContainer}>
@@ -72,9 +74,10 @@ const SpirometerScreen: React.FC<SpirometerScreenProps> = ({
           device={selectedItem}
           onPressAccept={onPressAccept}
           onPressCancel={onPressCancel}
+          insets={insets}
         />
       </CommonBottomSheetModal>
-    </View>
+    </SafeAreaView>
   );
 };
 

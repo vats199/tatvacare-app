@@ -3,20 +3,21 @@ import React from 'react';
 import {colors} from '../../constants/colors';
 import {Fonts, Matrics} from '../../constants';
 import Button from '../atoms/Button';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {EdgeInsets} from 'react-native-safe-area-context';
 
 type DeviceBottomSheetProps = {
   device: string;
   onPressCancel: () => void;
   onPressAccept: () => void;
+  insets: EdgeInsets;
 };
 
 const DeviceBottomSheet: React.FC<DeviceBottomSheetProps> = ({
   device,
   onPressAccept,
   onPressCancel,
+  insets,
 }) => {
-  const insets = useSafeAreaInsets();
   return (
     <View style={styles.bottomSheetContainer}>
       <View style={styles.deviceDetailsContainer}>
@@ -116,6 +117,8 @@ const styles = StyleSheet.create({
     borderWidth: Matrics.s(1),
     borderColor: colors.themePurple,
     borderRadius: Matrics.s(19),
+    marginHorizontal: 0,
+    height: Matrics.vs(40),
   },
   noPurchaseTxt: {
     color: colors.themePurple,
@@ -135,5 +138,7 @@ const styles = StyleSheet.create({
     paddingVertical: Matrics.vs(9),
     paddingHorizontal: Matrics.s(25),
     borderRadius: Matrics.s(19),
+    marginHorizontal: 0,
+    height: Matrics.vs(40),
   },
 });

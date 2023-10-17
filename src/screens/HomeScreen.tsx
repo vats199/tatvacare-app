@@ -31,6 +31,8 @@ import MyHealthDiary from '../components/organisms/MyHealthDiary';
 import HomeHeader from '../components/molecules/HomeHeader';
 import AdditionalCareServices from '../components/organisms/AdditionalCareServices';
 import Learn from '../components/organisms/Learn';
+import SearchModal from '../components/molecules/SearchModal';
+import {DrawerScreenProps} from '@react-navigation/drawer';
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 // import {
 //   navigateTo,
@@ -46,6 +48,8 @@ import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import Home from '../api/home';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {StackScreenProps} from '@react-navigation/stack';
+import {useApp} from '../context/app.context';
+import Loader from '../components/atoms/Loader';
 
 type HomeScreenProps = CompositeScreenProps<
   BottomTabScreenProps<BottomTabParamList, 'HomeScreen'>,
@@ -60,6 +64,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   const [learnMoreData, setLearnMoreData] = React.useState<any>([]);
   const [healthInsights, setHealthInsights] = React.useState<any>({});
   const [healthDiaries, setHealthDiaries] = React.useState<any>([]);
+  const {userData} = useApp();
 
   useEffect(() => {
     getCurrentLocation();
@@ -256,6 +261,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
           </ScrollView>
         </Container>
       </Screen>
+      {/* <Loader visible={true} /> */}
     </>
   );
 };
