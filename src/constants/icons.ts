@@ -86,6 +86,25 @@ import Female from '../assets/icons/female.svg';
 import Other from '../assets/icons/other.svg';
 import QrCodeScanner from '../assets/icons/qrCodeScanner.svg';
 
+import Vector from '../assets/icons/Vector.svg';
+import AddCircle from '../assets/icons/addcircle.svg';
+import Ellipse from '../assets/icons/Ellipse.svg';
+import Success from '../assets/icons/success.svg';
+import ThreeDot from '../assets/icons/three-dot.svg';
+import Flame from '../assets/icons/flame.svg';
+import Cart from '../assets/icons/Cart.svg';
+import forwardArrow from '../assets/icons/arrowForward.svg';
+import MedicineBlack from '../assets/icons/medicineBlacksvg.svg';
+import LiverTest from '../assets/icons/TestLiver.svg';
+import Location from '../assets/icons/location.svg';
+import Delete from '../assets/icons/delete.svg';
+import Offer from '../assets/icons/offer.svg';
+import Liver from '../assets/icons/icon_liver.svg';
+import Gps from '../assets/icons/gps.svg';
+import upArrow from '../assets/icons/upArrow.svg';
+import Person from "../assets/icons/personicon.svg";
+import MaleIcon from '../assets/icons/maleIcon.svg';
+import FemaleIcon from '../assets/icons/femaleIcon.svg';
 
 export const Icons = {
   HomeActive,
@@ -169,5 +188,24 @@ export const Icons = {
   Male,
   Female,
   Other,
-  QrCodeScanner
+  QrCodeScanner,
+  Vector,
+  AddCircle,
+  Ellipse,
+  Success,
+  ThreeDot,
+  Flame,
+  Cart,
+  forwardArrow,
+  MedicineBlack,
+  LiverTest,
+  Location,
+  Delete,
+  Offer,
+  Liver,
+  Gps,
+  upArrow,
+  Person,
+  MaleIcon,
+  FemaleIcon
 };

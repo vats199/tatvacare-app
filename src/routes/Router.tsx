@@ -16,8 +16,8 @@ import {
   BottomTabParamList,
   ExerciesStackParamList,
   AppointmentStackParamList,
-  HomeStackParamList,
   SetupProfileStackParamList,
+  HomeStackParamList,
 } from '../interface/Navigation.interface';
 import {NavigationContainer} from '@react-navigation/native';
 import {
@@ -42,6 +42,16 @@ import WelcomeScreen from '../screens/SetupProfile/WelcomeScreen';
 import QuestionOneScreen from '../screens/SetupProfile/QuestionOneScreen';
 import ScanCodeScreen from '../screens/SetupProfile/ScanCodeScreen';
 import QuestionListScreen from '../screens/SetupProfile/QuestionListScreen';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import DietScreen from '../screens/Home/DietScreen';
+import AddDietScreen from '../screens/Home/AddDietScreen';
+import DietDetailScreen from '../screens/Home/DietDetailScreen';
+import AllLabTestScreen from '../screens/Home/AllLabTestScreen';
+import LabTestCartScreen from '../screens/Home/LabTestCartScreen';
+import ApplyCoupanScreen from '../screens/Home/ApplyCoupanScreen';
+import ConfirmLocationScreen from '../screens/Home/ConfirmLocationScreen';
+import SearchLabTestScreen from '../screens/Home/SearchLabTestScreen';
+import AddPatientDetailsScreen from '../screens/Home/AddPatientDetailsScreen';
 
 const Drawer = createDrawerNavigator<DrawerParamList>();
 const DrawerScreen = () => {
@@ -161,16 +171,6 @@ const TabScreen = () => {
   );
 };
 
-const HomeStack = createStackNavigator<HomeStackParamList>();
-const HomeStackScreen = () => {
-  return (
-    <HomeStack.Navigator screenOptions={{headerShown: false}}>
-      <HomeStack.Screen name="HomeScreen" component={HomeScreen} />
-      <HomeStack.Screen name="SpirometerScreen" component={SpirometerScreen} />
-    </HomeStack.Navigator>
-  );
-};
-
 const ExerciesStack = createStackNavigator<ExerciesStackParamList>();
 const ExerciesStackScreen = () => {
   return (
@@ -254,24 +254,51 @@ const SetupProfileScreen = () => {
   );
 };
 
+const HomeStack = createStackNavigator<HomeStackParamList>();
+const HomeStackScreen = () => {
+  return (
+    <HomeStack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}>
+      <HomeStack.Screen name="HomeScreen" component={HomeScreen} />
+      <HomeStack.Screen name="DietScreen" component={DietScreen} />
+      <HomeStack.Screen name="AddDiet" component={AddDietScreen} />
+      <HomeStack.Screen name="DietDetail" component={DietDetailScreen} />
+      <HomeStack.Screen
+        name="ConfirmLocation"
+        component={ConfirmLocationScreen}
+      />
+      <HomeStack.Screen name="SearchLabTest" component={SearchLabTestScreen} />
+      <HomeStack.Screen
+        name="AddPatientDetails"
+        component={AddPatientDetailsScreen}
+      />
+      <HomeStack.Screen name="SpirometerScreen" component={SpirometerScreen} />
+    </HomeStack.Navigator>
+  );
+};
 const AppStack = createStackNavigator<AppStackParamList>();
 const Router = () => {
   return (
     <NavigationContainer>
-        <BottomSheetModalProvider>
-      <AppStack.Navigator
-        initialRouteName="AuthStackScreen"
-        screenOptions={{
-          headerShown: false,
-        }}>
-        <AppStack.Screen
-          name={'SetupProfileScreen'}
-          component={SetupProfileScreen}
-        />
-        <AppStack.Screen name={'TabScreen'} component={TabScreen} />
-        <AppStack.Screen name={'AuthStackScreen'} component={AuthStackScreen} />
-        <AppStack.Screen name={'DrawerScreen'} component={DrawerScreen} />
-        <AppStack.Screen
+      <BottomSheetModalProvider>
+        <AppStack.Navigator
+          initialRouteName="AuthStackScreen"
+          screenOptions={{
+            headerShown: false,
+          }}>
+          <AppStack.Screen
+            name={'SetupProfileScreen'}
+            component={SetupProfileScreen}
+          />
+          <AppStack.Screen name={'TabScreen'} component={TabScreen} />
+          <AppStack.Screen
+            name={'AuthStackScreen'}
+            component={AuthStackScreen}
+          />
+          <AppStack.Screen name={'DrawerScreen'} component={DrawerScreen} />
+          <AppStack.Screen
             name={'AppointmentStackScreen'}
             component={AppointmentStackScreen}
           />
@@ -279,7 +306,13 @@ const Router = () => {
             name={'DeviceConnectionScreen'}
             component={DeviceConnectionScreen}
           />
-      </AppStack.Navigator>
+          <AppStack.Screen
+            name="AllLabTestScreen"
+            component={AllLabTestScreen}
+          />
+          <AppStack.Screen name="LabTestCart" component={LabTestCartScreen} />
+          <AppStack.Screen name="ApplyCoupan" component={ApplyCoupanScreen} />
+        </AppStack.Navigator>
       </BottomSheetModalProvider>
     </NavigationContainer>
   );

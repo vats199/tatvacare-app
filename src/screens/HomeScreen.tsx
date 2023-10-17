@@ -52,8 +52,11 @@ import {useApp} from '../context/app.context';
 import Loader from '../components/atoms/Loader';
 
 type HomeScreenProps = CompositeScreenProps<
-  BottomTabScreenProps<BottomTabParamList, 'HomeScreen'>,
-  StackScreenProps<AppStackParamList, 'DrawerScreen'>
+  StackScreenProps<HomeStackParamList, 'HomeScreen'>,
+  CompositeScreenProps<
+    BottomTabScreenProps<BottomTabParamList, 'HomeScreen'>,
+    StackScreenProps<AppStackParamList, 'DrawerScreen'>
+  >
 >;
 const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   const [search, setSearch] = React.useState<string>('');
@@ -147,6 +150,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   };
   const onPressDiet = () => {
     // navigateTo('FoodDiaryParentVC');
+    navigation.navigate('DietScreen');
   };
   const onPressExercise = (filteredData: any) => {
     // navigateToMedicines('test');
@@ -170,6 +174,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   };
   const onPressBookDiagnostic = () => {
     // navigateTo('LabTestListVC');
+    navigation.navigate('AllLabTestScreen');
   };
   const onPressBookDevices = () => {
     // navigateTo('MyDevices');

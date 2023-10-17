@@ -1,0 +1,121 @@
+import {StyleSheet, Text, View} from 'react-native';
+import React from 'react';
+import {Icons} from '../../constants/icons';
+import {colors} from '../../constants/colors';
+
+type NutritionData = {
+  name: string;
+  value: number;
+};
+
+const MicronutrientsInformation: React.FC = () => {
+  const options: NutritionData[] = [
+    {
+      name: 'Nutrition Name',
+      value: 8,
+    },
+    {
+      name: 'Nutrition Name',
+      value: 8,
+    },
+    {
+      name: 'Nutrition Name',
+      value: 8,
+    },
+    {
+      name: 'Nutrition Name',
+      value: 8,
+    },
+  ];
+
+  const renderNutritionDataItem = (item: NutritionData, index: number) => {
+    return (
+      <View style={styles.belowRow} key={index}>
+        <View style={styles.topRow}>
+          <View style={styles.square} />
+          <Text style={styles.name}>{item.name}</Text>
+        </View>
+        <Text style={styles.value}>{item.value}gm</Text>
+      </View>
+    );
+  };
+
+  return (
+    <View style={styles.outerContainer}>
+      <Text style={styles.title}>Micronutriets Information</Text>
+      <View style={styles.container}>
+        <View style={styles.innerContainer}>
+          <View style={styles.topRow}>
+            <View>
+              <Text style={styles.calorieValue}>180</Text>
+              <Text>Calories</Text>
+            </View>
+            <Icons.Flame />
+          </View>
+          <View style={styles.borderline} />
+          <View>{options.map(renderNutritionDataItem)}</View>
+        </View>
+      </View>
+    </View>
+  );
+};
+
+export default MicronutrientsInformation;
+
+const styles = StyleSheet.create({
+  outerContainer: {
+    marginHorizontal: 10,
+  },
+  title: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    color: colors.black,
+    marginVertical: 8,
+    marginLeft: 2,
+  },
+  container: {
+    borderWidth: 0.1,
+    borderColor: '#808080',
+    overflow: 'hidden',
+    borderRadius: 12,
+  },
+  innerContainer: {
+    backgroundColor: 'white',
+    padding: 14,
+  },
+  topRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  calorieValue: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: colors.black,
+  },
+  borderline: {
+    borderBottomWidth: 0.2,
+    borederColor: colors.lightGrey,
+    marginVertical: 10,
+  },
+  belowRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginVertical: 6,
+  },
+  square: {
+    width: 25,
+    height: 25,
+    backgroundColor: '#F3F3F3',
+    marginRight: 10,
+  },
+  name: {
+    fontSize: 14,
+    color: colors.subTitleLightGray,
+  },
+  value: {
+    fontSize: 14,
+    color: colors.subTitleLightGray,
+  },
+});

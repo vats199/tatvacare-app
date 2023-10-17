@@ -8,7 +8,8 @@ export const colors = {
   subTitleLightGray: '#616161',
   inputValueDarkGray: '#212121',
   lightPurple:'#f9f9ff',
-
+  lightGreyishBlue: '#F9F9FF',
+  veryLightGreyishBlue: '#EFEFF4',
   inputBoxLightBorder: '#E0E0E0',
   inputBoxDarkBorder: '#230435',
   labelDarkGray: '#313131',

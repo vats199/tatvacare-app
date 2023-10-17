@@ -7,6 +7,10 @@ export type AppStackParamList = {
   AppointmentStackScreen:AppointmentStackParamList;
   DeviceConnectionScreen:undefined
   SetupProfileScreen: SetupProfileStackParamList;
+  AllLabTestScreen:undefined;
+  LabTestCart:{item :TestItem [] | undefined } | { coupan :string  | undefined};
+  ApplyCoupan:undefined;
+
 };
 
 export type DrawerParamList = {
@@ -20,10 +24,6 @@ export type TabParamList = {
   ExplorScreen: undefined;
 };
 
-export type HomeStackParamList = {
-  HomeScreen: undefined;
-  SpirometerScreen:undefined,
-}
 export type ExerciesStackParamList = {
   ExplorScreen: TabParamList;
   ExerciseDetailScreen: {Data: any};
@@ -57,4 +57,24 @@ export type SetupProfileStackParamList = {
   QuestionOneScreen: undefined;
   ScanCodeScreen: undefined;
   QuestionListScreen: undefined;
+};
+
+export type HomeStackParamList={
+  HomeScreen:undefined;
+  DietScreen:undefined;
+  AddDiet:undefined;
+  DietDetail:undefined;
+  ConfirmLocation:undefined;
+  SearchLabTest:undefined;
+  AddPatientDetails:undefined;
+  SpirometerScreen:undefined,
+}
+type TestItem = {
+  id: number;
+  title: string;
+  description: string;
+  newPrice: number;
+  oldPrice: number;
+  discount: number;
+  isAdded: boolean;
 };
