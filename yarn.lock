@@ -2140,7 +2140,7 @@
 
 "@types/geojson@^7946.0.10":
   version "7946.0.11"
-  resolved "https://registry.yarnpkg.com/@types/geojson/-/geojson-7946.0.11.tgz#012c17cb2256ad8de78560da851ab914a7b9b40e"
+  resolved "https://registry.npmjs.org/@types/geojson/-/geojson-7946.0.11.tgz"
   integrity sha512-L7A0AINMXQpVwxHJ4jxD6/XjZ4NDufaRlUJHjNIFKYUFBH1SvOW+neaqb0VTRSLW5suSrSu19ObFEFnfNcr+qg==
 
 "@types/graceful-fs@^4.1.3":
@@ -4276,7 +4276,7 @@ internal-slot@^1.0.3, internal-slot@^1.0.5:
     has "^1.0.3"
     side-channel "^1.0.4"
 
-invariant@*, invariant@^2.2.4:
+invariant@*, invariant@^2.2.2, invariant@^2.2.4:
   version "2.2.4"
   resolved "https://registry.npmjs.org/invariant/-/invariant-2.2.4.tgz"
   integrity sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA==
@@ -6485,7 +6485,7 @@ react-native-element-dropdown@^2.10.0:
 
 react-native-floating-label-input@^1.4.2:
   version "1.4.2"
-  resolved "https://registry.yarnpkg.com/react-native-floating-label-input/-/react-native-floating-label-input-1.4.2.tgz#4db85aca6ef8509f0c4fb369b55b1fd1915ebe1e"
+  resolved "https://registry.npmjs.org/react-native-floating-label-input/-/react-native-floating-label-input-1.4.2.tgz"
   integrity sha512-fHN+gQC+ghZgRuB+gJfNNo5IJRDy0grOia0gJpEmXbx9YqPud6nonQYunGWaHc9/b9GpL5n1q4VgWvZDTV+QLQ==
 
 react-native-geolocation-service@^5.3.1:
@@ -6511,10 +6511,17 @@ react-native-image-crop-picker@^0.40.0:
 
 react-native-maps@^1.8.0:
   version "1.8.0"
-  resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-1.8.0.tgz#1f2471dec6f406725d22f2545f326c6fb6d9abf9"
+  resolved "https://registry.npmjs.org/react-native-maps/-/react-native-maps-1.8.0.tgz"
   integrity sha512-KfVZ03L42+a22Fkcl2uDe5d+73BweTlcRUzm2G+aQUJ7fHrBxj7CuXWtKMSNpVDiO3YDCWcshiiyjSXxkd/qOw==
   dependencies:
     "@types/geojson" "^7946.0.10"
+
+react-native-onesignal@^5.0.2:
+  version "5.0.2"
+  resolved "https://registry.npmjs.org/react-native-onesignal/-/react-native-onesignal-5.0.2.tgz"
+  integrity sha512-8CsEQRRwoiNX6JhW0FWbCgkKz5OrsgtmW2BLmOkg7TwNA9Fge2obMda3DSeZniZVDFs6viz6DXkgtZnJjdgNvg==
+  dependencies:
+    invariant "^2.2.2"
 
 react-native-pager-view@^6.2.1:
   version "6.2.1"
@@ -6525,6 +6532,11 @@ react-native-permissions@^3.8.4:
   version "3.9.3"
   resolved "https://registry.npmjs.org/react-native-permissions/-/react-native-permissions-3.9.3.tgz"
   integrity sha512-2UqG2Em4xHxLq0E1XynXMdQ//XZltxVUjTn/i4fPIZuuZ0cQ+ydAQmLXqDPxOXvG0sICwc3oe0orJmQdqpa1sQ==
+
+react-native-radio-buttons-group@^3.0.5:
+  version "3.0.5"
+  resolved "https://registry.yarnpkg.com/react-native-radio-buttons-group/-/react-native-radio-buttons-group-3.0.5.tgz#302f1e4ab310cdc35cf70bcd605642dba573197b"
+  integrity sha512-4JQAUJFW2D0txqgktLL1QyXuy6yUWg3r8O2+h1XLUHV9Jby8xnL6IgJsoew3jxXM6uwN+zQcya1wGTRgEB+/KQ==
 
 react-native-reanimated@^3.4.2:
   version "3.4.2"

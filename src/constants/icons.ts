@@ -83,6 +83,8 @@ import upArrow from '../assets/icons/upArrow.svg';
 import Person from "../assets/icons/personicon.svg";
 import MaleIcon from '../assets/icons/maleIcon.svg';
 import FemaleIcon from '../assets/icons/femaleIcon.svg';
+import LocationActive from '../assets/icons/locationActive.svg';
+import LocationColoredSymbol from '../assets/icons/my_location.svg'
 
 export const Icons = {
   HomeActive,
@@ -164,5 +166,7 @@ export const Icons = {
   upArrow,
   Person,
   MaleIcon,
-  FemaleIcon
+  FemaleIcon,
+  LocationActive,
+  LocationColoredSymbol
 };
