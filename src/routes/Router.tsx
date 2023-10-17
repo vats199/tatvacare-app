@@ -35,6 +35,7 @@ import Splash from '../screens/Auth/Splash';
 import WelcomeScreen from '../screens/SetupProfile/WelcomeScreen';
 import QuestionOneScreen from '../screens/SetupProfile/QuestionOneScreen';
 import ScanCodeScreen from '../screens/SetupProfile/ScanCodeScreen';
+import QuestionListScreen from '../screens/SetupProfile/QuestionListScreen';
 
 const Drawer = createDrawerNavigator<DrawerParamList>();
 const DrawerScreen = () => {
@@ -205,6 +206,11 @@ const SetupProfileScreen = () => {
       <SetupProfileStack.Screen
         name="ScanCodeScreen"
         component={ScanCodeScreen}
+      />
+
+      <SetupProfileStack.Screen
+        name="QuestionListScreen"
+        component={QuestionListScreen}
       />
     </SetupProfileStack.Navigator>
   );

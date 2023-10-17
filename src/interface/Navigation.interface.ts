@@ -43,4 +43,5 @@ export type SetupProfileStackParamList = {
   WelcomeScreen: undefined;
   QuestionOneScreen: undefined;
   ScanCodeScreen: undefined;
+  QuestionListScreen: undefined;
 };
