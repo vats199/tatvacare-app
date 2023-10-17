@@ -10,6 +10,7 @@ import DrawerUserInfo from '../molecules/DrawerUserInfo';
 import DrawerMyHealthDiary from '../molecules/DrawerMyHealthDiary';
 import DrawerBookings from '../molecules/DrawerBookings';
 import DrawerMore from '../molecules/DrawerMore';
+import DeviceInfo from 'react-native-device-info';
 
 const CustomDrawer = (props: DrawerContentComponentProps) => {
   const onPressAboutUs = () => {
@@ -26,7 +27,7 @@ const CustomDrawer = (props: DrawerContentComponentProps) => {
         <DrawerMyHealthDiary />
         <DrawerBookings />
         <DrawerMore onPressAboutUs={onPressAboutUs} />
-        <Text style={styles.version}>Version 1.0</Text>
+        <Text style={styles.version}>Version {DeviceInfo.getVersion()}</Text>
       </DrawerContentScrollView>
     </View>
   );
