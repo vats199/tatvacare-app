@@ -9,13 +9,46 @@ type AddDietProps = {
   onPressAdd: () => void;
   buttonText: string;
   onSeleteQty: (qty: string) => void;
-  measureUnit:string
+  Data:FoodItems;
+  mealName:string
 };
-
+type FoodItems = {
+  diet_plan_food_item_id: string,
+  diet_meal_options_id: string,
+  food_item_id: number,
+  food_item_name: string,
+  quantity: number,
+  measure_id: null,
+  measure_name: string,
+  protein: string,
+  carbs: string,
+  fats: string,
+  fibers: string,
+  calories: string,
+  sodium: string,
+  potassium: string,
+  sugar: string,
+  saturated_fatty_acids: null,
+  monounsaturated_fatty_acids: null,
+  polyunsaturated_fatty_acids: null,
+  fatty_acids: string,
+  is_active: string,
+  is_deleted: string,
+  updated_by: string,
+  created_at: string,
+  updated_at: string,
+  consumption: any,
+  is_consumed: boolean,
+  consumed_calories: number
+}
+type NutritionData = {
+  name: string;
+  value: string;
+};
 const AddDiet: React.FC<AddDietProps> = ({
   onPressAdd,
   buttonText,
-  onSeleteQty,measureUnit
+  onSeleteQty,Data,mealName
 }) => {
   const data = [
     {label: '1', value: '1'},
@@ -32,7 +65,7 @@ const AddDiet: React.FC<AddDietProps> = ({
   return (
     <View style={styles.container}>
       <View style={styles.innerContainer}>
-        <Text style={styles.title}>Add Roti as Breakfast</Text>
+        <Text style={styles.title}>{"Add " + Data?.food_item_name+ " as "+mealName}</Text>
         <View style={styles.borderline} />
         <View style={styles.belowBox}>
           <View style={styles.belowBoxContent}>
@@ -44,6 +77,7 @@ const AddDiet: React.FC<AddDietProps> = ({
                 placeholderStyle={styles.dropdownTitleText}
                 selectedItem={handleSelectedQty}
                 isDisable={false}
+                containerStyle={styles.conatiner}
               />
               {/* <DropdownComponent
                 data={data}
@@ -54,7 +88,7 @@ const AddDiet: React.FC<AddDietProps> = ({
                 selectedItem={handleSelectedMeasures}
               /> */}
               <View style={styles.measureContainer}>
-                <Text style={styles.dropdownTitleText}>{measureUnit}</Text>
+                <Text style={styles.dropdownTitleText}>{Data?.measure_name}</Text>
                 <Icons.DropdownIcon />
               </View>
             </View>
@@ -112,6 +146,10 @@ const styles = StyleSheet.create({
     fontSize: 17,
     paddingLeft: 7,
     color: colors.black,
+    textTransform:'capitalize'
+  },
+  conatiner : {
+  bottom:5
   },
   outlinedButtonText: {
     fontSize: 18,

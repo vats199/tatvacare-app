@@ -26,8 +26,7 @@ const Diet = {
     });
   },
   searchFoodItem: (payload: object, query: object, token: object) => {
-    // console.log('Serach payload', payload);
-
+ 
     const route = bindQueryParams(
       '/goal_readings/search_food_with_nutrition',
       query,
@@ -51,9 +50,18 @@ const Diet = {
     });
   },
   updateFoodItem: (payload: object, query: object, token: object) => {
-    console.log('update payload', payload);
-
     const route = bindQueryParams('/patient_hc/update_food_item_patient', query);
+    return Ajax.request(route, {
+      method: Ajax.POST,
+      priv: true,
+      payload: payload,
+      headers: token,
+    });
+  },
+  updateFoodConsumption: (payload: object, query: object, token: object) => {
+        // console.log('add payload', payload);
+
+    const route = bindQueryParams('/patient_hc/update_food_consumption', query);
     return Ajax.request(route, {
       method: Ajax.POST,
       priv: true,

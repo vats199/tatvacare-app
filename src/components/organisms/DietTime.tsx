@@ -3,13 +3,15 @@ import React, { useEffect } from 'react';
 import DietExactTime from '../molecules/DietExactTime';
 
 type DietTimeProps = {
-  onPressPlus: (optionId: string) => void;
+  onPressPlus: (optionId: string, mealName: string) => void;
   dietOption: boolean;
   dietPlane: MealsData[];
-  onpressOfEdit: (editeData: FoodItems) => void;
+  onpressOfEdit: (editeData: FoodItems, mealName: string) => void;
   onPressOfDelete: (deleteFoodItemId: string) => void;
+  onPressOfcomplete: (consumptionData: Consumption) => void;
+  getCalories: (calories: Options) => void;
 };
- 
+
 type MealsData = {
   diet_meal_type_rel_id: string,
   diet_plan_id: string,
@@ -90,20 +92,23 @@ type Consumption = {
   date: string,
   diet_plan_food_consumption_id: null
 }
-const DietTime: React.FC<DietTimeProps> = ({ onPressPlus, dietOption, dietPlane, onpressOfEdit, onPressOfDelete }) => {
-  const handaleEdit = (data: FoodItems) => {
-    onpressOfEdit(data);
+const DietTime: React.FC<DietTimeProps> = ({ onPressPlus, dietOption, dietPlane, onpressOfEdit, onPressOfDelete, onPressOfcomplete, getCalories }) => {
+  const handaleEdit = (data: FoodItems, mealName: string) => {
+    onpressOfEdit(data, mealName);
   };
   const handaleDelete = (Id: string) => {
     onPressOfDelete(Id);
   };
-  const handlePulsIconPress = (optionId: string) => {
-    onPressPlus(optionId)
+  const handlePulsIconPress = (optionId: string, mealName: string) => {
+    onPressPlus(optionId, mealName)
   }
-
-  
-    const renderDietTimeItem = (item: MealsData, index: number) => {
-    
+  const handalecompletion = (item: Consumption) => {
+    onPressOfcomplete(item)
+  }
+  const handalTotleCalories = (calories: string) => {
+    getCalories(calories)
+  }
+  const renderDietTimeItem = (item: MealsData, index: number) => {
     return (
       <DietExactTime
         key={index}
@@ -112,6 +117,8 @@ const DietTime: React.FC<DietTimeProps> = ({ onPressPlus, dietOption, dietPlane,
         cardData={item}
         onpressOfEdit={handaleEdit}
         onPressOfDelete={handaleDelete}
+        onPressOfcomplete={handalecompletion}
+        getCalories={handalTotleCalories}
       />
     );
   };

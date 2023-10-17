@@ -24,10 +24,8 @@ const DietSearchHeader: React.FC<DietSearchHeaderProps> = ({ onPressBack, onSear
         value={searchText}
         onChangeText={text => {
           setSearchText(text)
-          if (text.length >= 0) {
-            handleSerache(text)
-          }
-         }}
+             handleSerache(text)
+          }}
       />
     </View>
   );

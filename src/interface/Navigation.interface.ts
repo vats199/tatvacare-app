@@ -85,6 +85,6 @@ export type AuthStackParamList = {
 export type DietStackParamList = {
   HomeScreen: undefined;
   DietScreen: undefined;
-  AddDiet: {optionId: string; healthCoachId: string};
-  DietDetail: { foodItem: FoodItems;  buttonText: string; healthCoachId: string; };
+  AddDiet: {optionId: string; healthCoachId: string,mealName:string};
+  DietDetail: { foodItem: FoodItems;  buttonText: string; healthCoachId: string; mealName:string };
 };

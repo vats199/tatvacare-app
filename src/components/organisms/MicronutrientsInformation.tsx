@@ -2,11 +2,8 @@ import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { Icons } from '../../constants/icons';
 import { colors } from '../../constants/colors';
-
-// type NutritionData = {
-//   name: string;
-//   value: number;
-// };
+import { Fonts } from '../../constants';
+ 
 type MicronutrientsInformationProps = {
   foodItemDetails: FoodItems
 };
@@ -48,7 +45,7 @@ const MicronutrientsInformation: React.FC<MicronutrientsInformationProps> = ({ f
   const options: NutritionData[] = [
     {
       name: 'Protein',
-      value: foodItemDetails?.protein,
+      value: foodItemDetails?.protein ,
     },
     {
       name: 'Carbs',
@@ -62,26 +59,8 @@ const MicronutrientsInformation: React.FC<MicronutrientsInformationProps> = ({ f
       name: 'Fibers',
       value: foodItemDetails?.fibers,
     },
-    {
-      name: 'Sodium',
-      value: foodItemDetails?.sodium,
-    },
-    {
-      name: 'Potassium',
-      value: foodItemDetails?.potassium,
-    },
-    {
-      name: 'Sugar',
-      value: foodItemDetails?.sugar,
-    },
-    {
-      name: 'Fatty Acids',
-      value: foodItemDetails?.fatty_acids,
-    },
-
-
   ];
-
+ 
   const renderNutritionDataItem = (item: NutritionData, index: number) => {
     return (
       <View style={styles.belowRow} key={index}>
@@ -89,19 +68,19 @@ const MicronutrientsInformation: React.FC<MicronutrientsInformationProps> = ({ f
           <View style={styles.square} />
           <Text style={styles.name}>{item.name}</Text>
         </View>
-        <Text style={styles.value}>{item.value}</Text>
+        <Text style={styles.value}>{item.value.replace("g","").replace("m","")}</Text>
       </View>
     );
   };
 
   return (
     <View style={styles.outerContainer}>
-      <Text style={styles.title}>Micronutriets Information</Text>
+      <Text style={styles.title}>Macronutrients Information</Text>
       <View style={styles.container}>
         <View style={styles.innerContainer}>
           <View style={styles.topRow}>
             <View>
-              <Text style={styles.calorieValue}>{foodItemDetails?.calories}</Text>
+              <Text style={styles.calorieValue}>{Math.round(Number(foodItemDetails?.calories))}</Text>
               <Text>Calories</Text>
             </View>
             <Icons.Flame />
@@ -121,9 +100,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   title: {
-    fontSize: 15,
-    fontWeight: 'bold',
-    color: colors.black,
+    fontSize: 16,
+    fontWeight: '700',
+    color: colors.labelDarkGray,
+    fontFamily: Fonts.BOLD,
     marginVertical: 8,
     marginLeft: 2,
   },

@@ -35,7 +35,7 @@ type SearcheFood = {
 }
 const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
   const { userData } = useApp();
-  const { optionId, healthCoachId } = route.params
+  const { optionId, healthCoachId, mealName } = route.params
   const [recentSerach, setRecentSerach] = React.useState([])
   const [searchResult, setSearchResult] = React.useState([])
   const [title, setTitle] = React.useState<string>('Recent Search')
@@ -45,6 +45,8 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
     const getRecentSerache = async () => {
       const recentSearchResults = await AsyncStorage.getItem('recentSearchResults');
       let results = recentSearchResults ? JSON.parse(recentSearchResults) : [];
+      console.log("results",results);
+      
       if (results.length > 3) {
         const updatedResult = results.slice(0, 4)
         setRecentSerach(updatedResult)
@@ -53,7 +55,6 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
         setRecentSerach(results)
         setSearchResult(results)
       }
-
     }
     getRecentSerache()
   }, [])
@@ -93,7 +94,7 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
       consumed_calories: null,
       healthCoachId: healthCoachId
     }
-    navigation.navigate('DietDetail', { foodItem: FoodItems, buttonText: 'Add' })
+    navigation.navigate('DietDetail', { foodItem: FoodItems, buttonText: 'Add', mealName: mealName })
     const seletedItem = recentSerach
     seletedItem.unshift(data);
     setRecentSerach(seletedItem)
@@ -101,9 +102,9 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
   };
 
   const handleSerach = async (text: string) => {
+
     const result = await Diet.searchFoodItem({ "food_name": text }, {}, { token: userData?.token },)
     setSearchResult(result?.data)
-
     if (result.code === '0' || text.length === 0) {
       setSearchResult(recentSerach)
       setTitle('Recent Search')
@@ -114,7 +115,6 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
       setSearchResult(result?.data)
       setTitle('Search Result')
     }
-
   }
 
   return (

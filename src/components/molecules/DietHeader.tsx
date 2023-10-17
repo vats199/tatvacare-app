@@ -112,10 +112,10 @@ const DietHeader: React.FC<DietHeaderProps> = ({
           onDateSelected={date => {
             onPressOfNextAndPerviousDate(date);
           }}
-          calendarAnimation={{
-            type: 'sequence',
-            duration: 30,
-          }}
+          // calendarAnimation={{
+          //   type: 'sequence',
+          //   duration: 30,
+          // }}
           daySelectionAnimation={{
             type: 'border',
             duration: 200,

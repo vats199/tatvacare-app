@@ -14,6 +14,7 @@ interface DropdownProps {
   placeholder?: string;
   selectedItem: (data: string) => void;
   isDisable: boolean;
+  containerStyle: TextStyle;
 }
 
 const DropdownComponent: React.FC<DropdownProps> = ({
@@ -25,7 +26,7 @@ const DropdownComponent: React.FC<DropdownProps> = ({
   iconStyle,
   inputSearchStyle,
   placeholder,
-  selectedItem, isDisable
+  selectedItem, isDisable, containerStyle
 
 }) => {
   const [value, setValue] = useState<string | null>(null);
@@ -44,7 +45,9 @@ const DropdownComponent: React.FC<DropdownProps> = ({
         iconColor="black"
         data={data}
         // search
-        maxHeight={300}
+        containerStyle={containerStyle}
+        dropdownPosition={'top'}
+         maxHeight={300}
         labelField="label"
         valueField="value"
         placeholder={!isFocus ? placeholder : 'select'}

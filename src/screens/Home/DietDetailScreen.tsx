@@ -8,11 +8,13 @@ import AddDiet from '../../components/organisms/AddDiet';
 import { StackScreenProps } from '@react-navigation/stack';
 import Deit from '../../api/diet'
 import { useApp } from '../../context/app.context';
+import { Fonts } from '../../constants';
  
 type DietDetailProps = StackScreenProps<DietStackParamList, 'DietDetail'>
 
 const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
-  const { foodItem, buttonText, healthCoachId } = route.params
+  const { foodItem, buttonText, healthCoachId ,mealName} = route.params
+   
   const [qty, setQty] = React.useState<string>()
   const { userData } = useApp();
 
@@ -67,15 +69,13 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
 
     if (buttonText === "Add") {
       const result = await Deit?.addFoodItem(addPayload, {}, { token: userData?.token })
-      console.log("added", result?.code);
-
+ 
       if (result?.code === '1') {
         navigation.popToTop()
       }
     } else {
       const result = await Deit?.updateFoodItem(updatePayload, {}, { token: userData?.token })
-      console.log("upadted", result?.code);
-      if (result?.code === '1') {
+       if (result?.code === '1') {
         navigation.popToTop()
       }
     }
@@ -92,7 +92,7 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
       </View>
       <View style={styles.belowContainer}>
         <MicronutrientsInformation foodItemDetails={foodItem} />
-        <AddDiet onPressAdd={onPressAdd} buttonText={buttonText} onSeleteQty={handleSeletedQty} measureUnit={foodItem?.measure_name}/>
+        <AddDiet onPressAdd={onPressAdd} buttonText={buttonText} onSeleteQty={handleSeletedQty} Data={foodItem} mealName={mealName}/>
       </View>
     </View>
   );
@@ -109,10 +109,11 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   dietTitle: {
-    fontSize: 19,
-    fontWeight: 'bold',
-    color: colors.black,
+    fontSize: 16,
+    fontWeight: '700',
+    color: colors.labelDarkGray,
     marginLeft: 10,
+    fontFamily:Fonts.BOLD
   },
   belowContainer: {
     flex: 1,

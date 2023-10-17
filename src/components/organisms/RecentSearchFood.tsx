@@ -39,7 +39,7 @@ const RecentSearchDiet: React.FC<RecentSerachDietProps> = ({ onPressPlus, search
     return (
       <TouchableOpacity style={styles.container} onPress={() => onPressPlus(item)}>
         <View style={{ flex: 0.78 }}>
-          <Text style={styles.titleText}>{item?.ALIAS_NAME}</Text>
+          <Text style={styles.titleText}>{item?.food_name}</Text>
           <Text style={styles.messageText}>{' Quantity| Micronutrients'}</Text>
         </View>
         <View style={styles.leftContainer}>
@@ -53,10 +53,10 @@ const RecentSearchDiet: React.FC<RecentSerachDietProps> = ({ onPressPlus, search
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <Text style={styles.text}>{title}</Text>
-      {searchData?.length>0 ?searchData?.map(renderRecentSearchItem):(
-        <View>
-          <Text>sorry but no such food item found in our database please try with some other keyword</Text>
-        </View>
+      {searchData?.length>0 ?searchData?.map(renderRecentSearchItem):(null
+        // <View>
+        //   <Text style={{textTransform:'capitalize'}}>sorry but no such food item found in our database please try with some other keyword</Text>
+        // </View>
       )}
     </ScrollView>
   );
@@ -81,7 +81,8 @@ const styles = StyleSheet.create({
     fontSize: 17,
     // fontWeight: 'bold',
     color: colors.labelDarkGray,
-    padding: 5
+    padding: 5,
+    textTransform:'capitalize'
   },
   messageText: {
     fontSize: 13,

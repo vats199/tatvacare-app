@@ -1,18 +1,22 @@
 import { DrawerItemList } from '@react-navigation/drawer';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { colors } from '../../constants/colors';
 import { Icons } from '../../constants/icons';
 import DietOption from './DietOption';
 import { Fonts, Matrics } from '../../constants';
 import fonts from '../../constants/fonts';
+import moment from 'moment'
+import { useFocusEffect } from '@react-navigation/native';
 
 interface ExactTimeProps {
-  onPressPlus: (optionId: string) => void;
+  onPressPlus: (optionId: string, mealName: string) => void;
   dietOption: boolean;
   cardData: MealsData;
-  onpressOfEdit: (editeData: FoodItems) => void;
+  onpressOfEdit: (editeData: FoodItems, mealName: string) => void;
   onPressOfDelete: (deleteFoodItemId: string) => void;
+  onPressOfcomplete: (consumptionData: Consumption) => void;
+  getCalories: (calories: Options) => void;
 }
 
 
@@ -35,6 +39,7 @@ type MealsData = {
 }
 
 type Options = {
+  consumed_calories: number
   diet_meal_options_id: string,
   diet_meal_type_rel_id: string,
   options_name: string,
@@ -99,22 +104,48 @@ type Consumption = {
 const DietExactTime: React.FC<ExactTimeProps> = ({
   cardData,
   onPressPlus,
-  dietOption, onpressOfEdit, onPressOfDelete
+  dietOption, onpressOfEdit, onPressOfDelete, onPressOfcomplete, getCalories
 }) => {
   const [foodItmeData, setFoodItemData] = React.useState<Options | null>(cardData?.options[0])
 
+  useEffect(() => {
+    getCalories(foodItmeData)
+  }, [foodItmeData])
+
+  // useFocusEffect(
+  //   React.useCallback(() => {
+  //     getCalories(foodItmeData)
+  
+  //   }, [foodItmeData])
+  // );
+
   const handaleEdit = (data: FoodItems) => {
 
-    onpressOfEdit(data);
+    onpressOfEdit(data, cardData.meal_name);
   };
   const handaleDelete = (Id: string) => {
     onPressOfDelete(Id);
   };
   const handlePulsIconPress = () => {
-    onPressPlus(foodItmeData?.diet_meal_options_id)
+    onPressPlus(foodItmeData?.diet_meal_options_id, cardData.meal_name)
   }
-  // const sum = cardData?.reduce((accumulator : any, currentValue:any) => accumulator + currentValue, 0);
-  // console.log("sum", sum);
+  const handalecompletion = (item: Consumption) => {
+    onPressOfcomplete(item)
+  }
+
+  const mealMessage = (name: string) => {
+    switch (name) {
+      case "Breakfast":
+        return "Breakfast is a passport to morning.";
+      case "Dinner":
+        return "Dinner is a passport to better sleep.";
+      case "Lunch":
+        return "Lunch is a passport to noon.";
+      default:
+        return "Snacks is a passport to evening.";
+    }
+  }
+
 
   return (
     <View style={styles.container}>
@@ -125,15 +156,15 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
             <View style={styles.textContainer}>
               <Text style={styles.title}>{cardData?.meal_name}</Text>
               <Text style={styles.textBelowTitle}>
-                Ideal Time | 0 of 600 cal
+                {moment(cardData?.start_time, 'HH:mm:ss').format('h:mm A') + "-" + moment(cardData?.end_time, 'HH:mm:ss').format('h:mm A') + " | " + Math.round(Number(foodItmeData?.consumed_calories)) + " of " + Math.round(Number(foodItmeData?.total_calories)) + "cal"}
               </Text>
             </View>
           </View>
-          {cardData.patient_permission === "W" ?
-            <TouchableOpacity onPress={handlePulsIconPress} style={styles.iconContainer}>
-              <Icons.AddCircle height={25} width={25} />
-            </TouchableOpacity>
-            : null}
+          {/* {cardData.patient_permission === "W" ? */}
+          <TouchableOpacity onPress={handlePulsIconPress} style={styles.iconContainer}>
+            <Icons.AddCircle height={25} width={25} />
+          </TouchableOpacity>
+          {/* : null} */}
         </View>
         <View style={styles.line} />
         <View style={styles.belowRow}>
@@ -150,11 +181,11 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
                   )
                 })}
               </View>
-              <DietOption foodItmeData={foodItmeData} patient_permission={cardData.patient_permission} onpressOfEdit={handaleEdit} onPressOfDelete={handaleDelete} />
+              <DietOption foodItmeData={foodItmeData} patient_permission={cardData.patient_permission} onpressOfEdit={handaleEdit} onPressOfDelete={handaleDelete} onPressOfcomplete={handalecompletion} />
             </>
           ) : (
             <View style={styles.messageContainer}>
-              <Text>{"Breakfast is a passport to morning"}</Text>
+              <Text style={styles.message}>{mealMessage(cardData.meal_name)}</Text>
             </View>
           )}
         </View>
@@ -206,7 +237,7 @@ const styles = StyleSheet.create({
     color: '#444444',
   },
   line: {
-    borderBottomWidth: 0.2,
+    borderBottomWidth: 0.3,
     borderColor: '#808080',
   },
   belowRow: {
@@ -217,11 +248,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   message: {
-    fontSize: 13,
-    color: '#C5C5C5',
+    fontSize: 12,
+    color: '#919191',
+    fontWeight: '400',
+    fontFamily: Fonts.REGULAR
   },
   optionContainer: {
-    height: Matrics.vs(30),
+    height: Matrics.vs(28),
     width: Matrics.s(60),
     borderRadius: Matrics.mvs(8),
     justifyContent: 'center',
