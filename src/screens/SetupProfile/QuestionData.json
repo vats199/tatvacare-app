@@ -1,0 +1,108 @@
+{
+  "Question": [
+    {
+      "question": "Which condirtion",
+      "description": "test test",
+      "type": 1,
+      "option": [
+        {
+          "image": null,
+          "title": "Fatty Live"
+        },
+        {
+          "image": null,
+          "title": "COPD"
+        },
+        {
+          "image": null,
+          "title": "Asthama"
+        },
+        {
+          "image": null,
+          "title": "Diabetes"
+        },
+        {
+          "image": null,
+          "title": "Other"
+        }
+      ]
+    },
+    {
+      "question": "With Fatty liver",
+      "description": "test test",
+      "type": 2,
+      "option": [
+        {
+          "image": null,
+          "title": "Less then 6 months ago"
+        },
+        {
+          "image": null,
+          "title": "6 months to 1 year"
+        },
+        {
+          "image": null,
+          "title": "1 year to 5 years"
+        },
+        {
+          "image": null,
+          "title": "More than 5 years"
+        }
+      ]
+    },
+    {
+      "question": "How tall you are?",
+      "description": "test test",
+      "type": 3,
+      "option": [
+        {
+          "image": null,
+          "title": "Less then 6 months ago"
+        },
+        {
+          "image": null,
+          "title": "6 months to 1 year"
+        },
+        {
+          "image": null,
+          "title": "1 year to 5 years"
+        },
+        {
+          "image": null,
+          "title": "More than 5 years"
+        }
+      ]
+    },
+    {
+      "question": "How tall you are?",
+      "description": "test test",
+      "type": 4,
+      "option": [
+        {
+          "image": null,
+          "title": "0"
+        },
+        {
+          "image": null,
+          "title": "1"
+        },
+        {
+          "image": null,
+          "title": "2"
+        },
+        {
+          "image": null,
+          "title": "2"
+        },
+        {
+          "image": null,
+          "title": "4"
+        },
+        {
+          "image": null,
+          "title": "5"
+        }
+      ]
+    }
+  ]
+}

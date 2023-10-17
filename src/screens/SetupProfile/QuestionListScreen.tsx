@@ -1,4 +1,4 @@
-import {Text, View} from 'react-native';
+import {FlatList, Text, View} from 'react-native';
 import React, {useState} from 'react';
 import {CompositeScreenProps} from '@react-navigation/native';
 import {StackScreenProps} from '@react-navigation/stack';
@@ -18,7 +18,7 @@ import {colors} from '../../constants/colors';
 import AnimatedDatePicker from '../../components/atoms/AnimatedDatePicker';
 import {TouchableOpacity} from 'react-native';
 import {Icons} from '../../constants/icons';
-
+import QuestionData from './QuestionData.json';
 type QuestionOneScreenProps = CompositeScreenProps<
   StackScreenProps<SetupProfileStackParamList, 'QuestionOneScreen'>,
   StackScreenProps<AppStackParamList, 'SetupProfileScreen'>
@@ -38,34 +38,12 @@ const QuestionListScreen: React.FC<QuestionOneScreenProps> = ({
   const [selectedGenderIndex, setSelectedGenderIndex] = useState<number | null>(
     null,
   );
-
+  console.log(QuestionData, 'QuestionDataQuestionData');
   const isButtonDisable = React.useMemo(() => {
     return name != '' && dob != null && selectedGenderIndex != null;
   }, [name, dob, selectedGenderIndex]);
 
-  const [arr, setArr] = React.useState<
-    Array<{
-      id: number;
-      title: string;
-      icon: React.ReactNode;
-    }>
-  >([
-    {
-      id: 1,
-      title: 'Male',
-      icon: <Icons.Male />,
-    },
-    {
-      id: 2,
-      title: 'Female',
-      icon: <Icons.Female />,
-    },
-    {
-      id: 3,
-      title: 'Other',
-      icon: <Icons.Other />,
-    },
-  ]);
+  const [arr, setArr] = useState(QuestionData.Question);
 
   // ==================== function ====================//
   const onChangeName = (text: string) => {
@@ -83,6 +61,15 @@ const QuestionListScreen: React.FC<QuestionOneScreenProps> = ({
   const onPressGenderSelection = (index: number) => {
     setSelectedGenderIndex(index);
   };
+
+  const renderItem = ({item, index}: {item: any; index: number}) => {
+    return (
+      <View>
+        <View></View>
+      </View>
+    );
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
@@ -90,124 +77,12 @@ const QuestionListScreen: React.FC<QuestionOneScreenProps> = ({
           onPressBack={() => {
             navigation.goBack();
           }}
+          isShowSkipButton={true}
         />
-
-        <SetupProfileHeading title={'Setup your profile'} />
-        <View
-          style={[
-            styles.inputCont,
-            {
-              borderColor: name?.length
-                ? colors.inputBoxDarkBorder
-                : colors.inputBoxLightBorder,
-            },
-          ]}>
-          <InputField
-            value={name}
-            showAnimatedLabel={true}
-            onChangeText={setName}
-            textStyle={name === '' ? styles.inputBoxStyle : styles.inputBoxFill}
-            placeholder="Your Name"
-            style={styles.pincodeInputStyle}
-          />
-        </View>
-
-        {/* <View style={[styles.inputCont, { borderColor: email?.length ? colors.inputBoxDarkBorder : colors.inputBoxLightBorder }]}>
-          <InputField
-            value={email}
-            showAnimatedLabel={true}
-            onChangeText={onChangeEmail}
-            textStyle={email == '' ? styles.inputBoxStyle : styles.inputBoxFill}
-            placeholder='Your Email'
-            style={styles.pincodeInputStyle} />
-
-        </View> */}
-
-        <TouchableOpacity
-          style={[
-            styles.inputCont,
-            {
-              borderColor:
-                dob != null
-                  ? colors.inputBoxDarkBorder
-                  : colors.inputBoxLightBorder,
-            },
-          ]}
-          activeOpacity={0.7}>
-          <AnimatedDatePicker
-            showAnimatedLabel={true}
-            placeholder={'Date of Birth'}
-          />
-        </TouchableOpacity>
-
-        <View style={styles.genderContainer}>
-          <Text style={styles.genderTitle}>{'Gender'}</Text>
-          <View style={styles.genderWrapper}>
-            {arr.map((ele, index) => {
-              return (
-                <TouchableOpacity
-                  style={[
-                    styles.itemWidth,
-                    index === selectedGenderIndex && {
-                      borderColor: colors.genderSelectedBorderColor,
-                      backgroundColor: colors.THEME_OVERLAY,
-                    },
-                  ]}
-                  activeOpacity={0.7}
-                  onPress={() => onPressGenderSelection(index)}>
-                  {ele.icon}
-                  <Text
-                    style={[
-                      styles.genderItemText,
-                      index === selectedGenderIndex && {
-                        color: colors.labelDarkGray,
-                      },
-                    ]}>
-                    {ele.title}
-                  </Text>
-                </TouchableOpacity>
-              );
-            })}
-          </View>
-        </View>
-        <>
-          <Text style={styles.doctorCodeTitle}>
-            {'Doctor Code '}
-            <Text style={styles.optionalText}>{'(Optional)'}</Text>
-          </Text>
-        </>
-
-        <View style={styles.wrapper}>
-          <View
-            style={[
-              styles.doctorCodeCont,
-              {
-                borderColor: doctorCode?.length
-                  ? colors.inputBoxDarkBorder
-                  : colors.inputBoxLightBorder,
-              },
-            ]}>
-            <InputField
-              value={doctorCode}
-              showAnimatedLabel={true}
-              onChangeText={onChangeCode}
-              textStyle={
-                doctorCode === '' ? styles.inputBoxStyle : styles.inputBoxFill
-              }
-              placeholder="Enter Code"
-              style={styles.pincodeInputStyle}
-            />
-          </View>
-
-          <TouchableOpacity
-            activeOpacity={0.7}
-            style={styles.scanButton}
-            onPress={() => navigation.navigate('ScanCodeScreen')}>
-            <Icons.QrCodeScanner />
-          </TouchableOpacity>
-        </View>
       </View>
+      <SetupProfileHeading title={arr[0].question} />
 
+      <FlatList data={arr} renderItem={renderItem} />
       <Button
         title={'Next'}
         type={Constants.BUTTON_TYPE.SECONDARY}
