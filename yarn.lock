@@ -6367,6 +6367,13 @@ react-is@^17.0.1:
   resolved "https://registry.npmjs.org/react-is/-/react-is-17.0.2.tgz"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
 
+react-native-barcode-mask@^1.2.4:
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/react-native-barcode-mask/-/react-native-barcode-mask-1.2.4.tgz#271b868d1d9040e04b9f8f32ec4ee6f6a2639b3b"
+  integrity sha512-Jh3mEs/xUBs/z9mKkj2mM07MMQ2SdtW9mU4FOo5DQyA2kDte6lW87vIYFkWw1nxpzc7sy28ahMsgId8LTtKZsg==
+  dependencies:
+    prop-types "^15.6.2"
+
 react-native-config@^1.5.1:
   version "1.5.1"
   resolved "https://registry.npmjs.org/react-native-config/-/react-native-config-1.5.1.tgz"
@@ -6503,6 +6510,11 @@ react-native-video@^5.2.1:
     keymirror "^0.1.1"
     prop-types "^15.7.2"
     shaka-player "^2.5.9"
+
+react-native-vision-camera@^3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/react-native-vision-camera/-/react-native-vision-camera-3.3.1.tgz#9dc6a74560535d6ce6deb85046b6b327615a45e3"
+  integrity sha512-OeoHvDTR4wlfij17azxmr7fwDtZc3nzEUe8ZJ3EYJx4HSGaDtvt578VRXUdxLpPs3jqS3J8g/8bivH2IHUkxtg==
 
 react-native@0.72.4:
   version "0.72.4"
@@ -7497,6 +7509,11 @@ vary@~1.1.2:
   version "1.1.2"
   resolved "https://registry.npmjs.org/vary/-/vary-1.1.2.tgz"
   integrity sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==
+
+vision-camera-code-scanner@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/vision-camera-code-scanner/-/vision-camera-code-scanner-0.2.0.tgz#8adc0694319a17f6a95f6dfacc02ab7ac29b4742"
+  integrity sha512-H5hVkXfbIcGdg9YlhuS8Y/xDX5e32Vo6eK5FyDQsE9AGVjlqEHMmSLHZg7BX8UUm4ADmiAZc8wzc4n8TUqGr0g==
 
 vlq@^1.0.0:
   version "1.0.1"

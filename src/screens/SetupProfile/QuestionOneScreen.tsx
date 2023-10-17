@@ -39,23 +39,31 @@ const QuestionOneScreen: React.FC<QuestionOneScreenProps> = ({
     null,
   );
 
+  const isButtonDisable = React.useMemo(() => {
+    return name != '' && dob != null && selectedGenderIndex != null;
+  }, [name, dob, selectedGenderIndex]);
+
   const [arr, setArr] = React.useState<
     Array<{
       id: number;
       title: string;
+      icon: React.ReactNode;
     }>
   >([
     {
       id: 1,
       title: 'Male',
+      icon: <Icons.Male />,
     },
     {
       id: 2,
       title: 'Female',
+      icon: <Icons.Female />,
     },
     {
       id: 3,
       title: 'Other',
+      icon: <Icons.Other />,
     },
   ]);
 
@@ -147,9 +155,7 @@ const QuestionOneScreen: React.FC<QuestionOneScreenProps> = ({
                   ]}
                   activeOpacity={0.7}
                   onPress={() => onPressGenderSelection(index)}>
-                  {index === 0 && <Icons.Male />}
-                  {index === 1 && <Icons.Female />}
-                  {index === 2 && <Icons.Other />}
+                  {ele.icon}
                   <Text
                     style={[
                       styles.genderItemText,
@@ -193,7 +199,10 @@ const QuestionOneScreen: React.FC<QuestionOneScreenProps> = ({
             />
           </View>
 
-          <TouchableOpacity activeOpacity={0.7} style={styles.scanButton}>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            style={styles.scanButton}
+            onPress={() => navigation.navigate('ScanCodeScreen')}>
             <Icons.QrCodeScanner />
           </TouchableOpacity>
         </View>
@@ -202,7 +211,7 @@ const QuestionOneScreen: React.FC<QuestionOneScreenProps> = ({
       <Button
         title={'Next'}
         type={Constants.BUTTON_TYPE.SECONDARY}
-        disabled={true}
+        disabled={!isButtonDisable}
         buttonStyle={{marginBottom: insets.bottom == 0 ? Matrics.vs(16) : 0}}
       />
     </SafeAreaView>

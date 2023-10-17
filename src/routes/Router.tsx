@@ -34,6 +34,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Splash from '../screens/Auth/Splash';
 import WelcomeScreen from '../screens/SetupProfile/WelcomeScreen';
 import QuestionOneScreen from '../screens/SetupProfile/QuestionOneScreen';
+import ScanCodeScreen from '../screens/SetupProfile/ScanCodeScreen';
 
 const Drawer = createDrawerNavigator<DrawerParamList>();
 const DrawerScreen = () => {
@@ -199,6 +200,11 @@ const SetupProfileScreen = () => {
       <SetupProfileStack.Screen
         name="QuestionOneScreen"
         component={QuestionOneScreen}
+      />
+
+      <SetupProfileStack.Screen
+        name="ScanCodeScreen"
+        component={ScanCodeScreen}
       />
     </SetupProfileStack.Navigator>
   );
