@@ -1,9 +1,22 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 import {Icons} from '../../constants/icons';
 import CircularProgress from 'react-native-circular-progress-indicator';
 
-const CalorieConsumer: React.FC = () => {
+type CalorieConsumerProps = {
+  totalConsumedcalories: number;
+  totalcalories: number;
+};
+const CalorieConsumer: React.FC<CalorieConsumerProps> = ({
+  totalConsumedcalories,
+  totalcalories,
+}) => {
+  const [values, setVAlues] = React.useState(0);
+  useEffect(() => {
+    let vale = Math.round((totalConsumedcalories / totalcalories) * 100);
+    setVAlues(vale);
+  }, [totalConsumedcalories, totalcalories]);
+
   return (
     <View style={styles.container}>
       <View style={styles.innerContainer}>
@@ -11,7 +24,7 @@ const CalorieConsumer: React.FC = () => {
           <View style={styles.leftContent}>
             <View style={{marginLeft: 8}}>
               <CircularProgress
-                value={75}
+                value={values}
                 inActiveStrokeColor={'#2ecc71'}
                 inActiveStrokeOpacity={0.2}
                 progressValueColor={'green'}
@@ -23,8 +36,10 @@ const CalorieConsumer: React.FC = () => {
             </View>
             <View style={styles.textContainer}>
               <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                <Text style={styles.boldTitle}>120 </Text>
-                <Text style={styles.regularTitle}>of 2300</Text>
+                <Text style={styles.boldTitle}>{totalConsumedcalories}</Text>
+                <Text style={styles.regularTitle}>
+                  {' of ' + totalcalories}
+                </Text>
               </View>
               <Text style={styles.textBelowTitle}>Calories Consumed Today</Text>
             </View>

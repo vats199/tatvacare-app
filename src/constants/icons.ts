@@ -105,6 +105,10 @@ import upArrow from '../assets/icons/upArrow.svg';
 import Person from "../assets/icons/personicon.svg";
 import MaleIcon from '../assets/icons/maleIcon.svg';
 import FemaleIcon from '../assets/icons/femaleIcon.svg';
+import Edit from '../assets/icons/editicon.svg';
+// import Delete from '../assets/icons/deletIcon.svg';
+import RightArrow from '../assets/icons/rightArrow.svg';
+import DropdownIcon from '../assets/icons/dropdownIcon.svg';
 
 export const Icons = {
   HomeActive,
@@ -207,5 +211,9 @@ export const Icons = {
   upArrow,
   Person,
   MaleIcon,
-  FemaleIcon
+  FemaleIcon,
+  Edit,
+  // Delete,
+  RightArrow,
+  DropdownIcon
 };

@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Alert, NativeModules } from 'react-native';
+import {Alert, NativeModules} from 'react-native';
 import config from './config';
 import Config from 'react-native-config';
 import CRYPTO from 'crypto-js';
@@ -55,10 +55,10 @@ export const getDecryptedData = (cipher: string) => {
   return decryptedData.toString(CRYPTO.enc.Utf8);
 };
 
-const getToken = async () => {
+export const getToken = async () => {
   try {
     const token = await AsyncStorage.getItem('accessToken');
-    console.log(token, 'tokentoken')
+    console.log('tokentoken', token);
     if (token !== null) {
       // token previously stored
       return token;
@@ -115,6 +115,7 @@ const request: any = async (
       body: getEncryptedText(payload),
     };
   }
+  
   // if (formData) {
   //   init = {
   //     ...init,
@@ -132,26 +133,29 @@ const request: any = async (
   //     Authorization: `Bearer ${token}`,
   //   };
   // }
+ 
+  return fetch(`${baseURL}${route}`, init)
+    .then(async res => {
+      if (!json) {
+        return res;
+      } else {
+      }
 
-  return fetch(`${baseURL}${route}`, init).then(async res => {
-    if (!json) {
+      res = await handleResponse(res);
+      // if (res?.status === 'new token') {
+      //   return request(route, {
+      //     method,
+      //     payload,
+      //     formData,
+      //     headers,
+      //     json,
+      //     priv,
+      //   });
+      // }
+
       return res;
-    }
-
-    res = await handleResponse(res);
-    // if (res?.status === 'new token') {
-    //   return request(route, {
-    //     method,
-    //     payload,
-    //     formData,
-    //     headers,
-    //     json,
-    //     priv,
-    //   });
-    // }
-
-    return res;
-  });
+    })
+    .catch(error => console.log('error', error));
 };
 
 const handleError = (error: any, msg = DEFAULT_ERROR) => {

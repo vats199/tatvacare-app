@@ -1,15 +1,19 @@
-import {StyleSheet, View, TextInput} from 'react-native';
-import React, {useState} from 'react';
-import {Icons} from '../../constants/icons';
+import { StyleSheet, View, TextInput } from 'react-native';
+import React, { useState } from 'react';
+import { Icons } from '../../constants/icons';
 
 
 type DietSearchHeaderProps = {
   onPressBack: () => void;
+  onSearch: (text: string) => void;
 };
 
-const DietSearchHeader: React.FC<DietSearchHeaderProps> = ({onPressBack}) => {
+const DietSearchHeader: React.FC<DietSearchHeaderProps> = ({ onPressBack, onSearch }) => {
   const [searchText, setSearchText] = useState<string>('');
-  //console.log(searchText);
+
+  const handleSerache = (text: string) => {
+    onSearch(text)
+  }
   return (
     <View style={styles.container}>
       <Icons.backArrow height={22} width={22} onPress={onPressBack} />
@@ -18,9 +22,11 @@ const DietSearchHeader: React.FC<DietSearchHeaderProps> = ({onPressBack}) => {
         placeholder="Search foods"
         placeholderTextColor="gray"
         value={searchText}
-        onChangeText={text => setSearchText(text)}
+        onChangeText={text => {
+          setSearchText(text)
+             handleSerache(text)
+          }}
       />
-      {/*<InputField style={styles.input} placeholder="Search Food" /> */}
     </View>
   );
 };

@@ -17,6 +17,7 @@ import {
   DrawerParamList,
   BottomTabParamList,
   HomeStackParamList,
+  DietStackParamList,
 } from '../interface/Navigation.interface';
 import {Container, Screen} from '../components/styled/Views';
 import {Icons} from '../constants/icons';
@@ -48,16 +49,15 @@ import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import Home from '../api/home';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {StackScreenProps} from '@react-navigation/stack';
-import {useApp} from '../context/app.context';
-import Loader from '../components/atoms/Loader';
 
 type HomeScreenProps = CompositeScreenProps<
-  StackScreenProps<HomeStackParamList, 'HomeScreen'>,
+  StackScreenProps<DietStackParamList, 'HomeScreen'>,
   CompositeScreenProps<
     BottomTabScreenProps<BottomTabParamList, 'HomeScreen'>,
     StackScreenProps<AppStackParamList, 'DrawerScreen'>
   >
 >;
+
 const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   const [search, setSearch] = React.useState<string>('');
   const [location, setLocation] = React.useState<object>({});
@@ -67,7 +67,6 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   const [learnMoreData, setLearnMoreData] = React.useState<any>([]);
   const [healthInsights, setHealthInsights] = React.useState<any>({});
   const [healthDiaries, setHealthDiaries] = React.useState<any>([]);
-  const {userData} = useApp();
 
   useEffect(() => {
     getCurrentLocation();
@@ -119,7 +118,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
 
   const getHCDevicePlans = async () => {
     const hcDevicePlans = await Home.getHCDevicePlan();
-    console.log('hcDevicePlanshcDevicePlanshcDevicePlans', hcDevicePlans);
+    // console.log('hcDevicePlanshcDevicePlanshcDevicePlans', hcDevicePlans);
   };
 
   const getMyHealthInsights = async () => {
@@ -150,7 +149,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   };
   const onPressDiet = () => {
     // navigateTo('FoodDiaryParentVC');
-    navigation.navigate('DietScreen');
+    navigation.navigate('DietStackScreen');
   };
   const onPressExercise = (filteredData: any) => {
     // navigateToMedicines('test');

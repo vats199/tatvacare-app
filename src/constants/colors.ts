@@ -43,7 +43,14 @@ export const colors = {
   genderSelectedBorderColor: '#3B0859',
 
   THEME_OVERLAY: 'rgba(118, 15, 178, 0.08)',
-  OVERLAY_DARK_10: 'rgba(0,0,0,0.1)',
+  // lightPurple: '#C57FFA',
+  // lightGreen: '#77DD77',
+  lightYellow: '#FFBD00',
+  lightRed: '#FF7F8C',
+  optionbackground:'#f4ecf9',
+
+  lightGrayBackgroundColor:'#DBDBDB',
+   OVERLAY_DARK_10: 'rgba(0,0,0,0.1)',
   OVERLAY_DARK_20: 'rgba(0,0,0,0.2)',
   OVERLAY_DARK_30: 'rgba(0,0,0,0.3)',
   OVERLAY_DARK_40: 'rgba(0,0,0,0.4)',

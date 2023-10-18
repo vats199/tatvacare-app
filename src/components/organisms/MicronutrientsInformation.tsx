@@ -1,33 +1,66 @@
-import {StyleSheet, Text, View} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import {Icons} from '../../constants/icons';
-import {colors} from '../../constants/colors';
-
-type NutritionData = {
-  name: string;
-  value: number;
+import { Icons } from '../../constants/icons';
+import { colors } from '../../constants/colors';
+import { Fonts } from '../../constants';
+ 
+type MicronutrientsInformationProps = {
+  foodItemDetails: FoodItems
 };
 
-const MicronutrientsInformation: React.FC = () => {
+type FoodItems = {
+  diet_plan_food_item_id: string,
+  diet_meal_options_id: string,
+  food_item_id: number,
+  food_item_name: string,
+  quantity: number,
+  measure_id: null,
+  measure_name: string,
+  protein: string,
+  carbs: string,
+  fats: string,
+  fibers: string,
+  calories: string,
+  sodium: string,
+  potassium: string,
+  sugar: string,
+  saturated_fatty_acids: null,
+  monounsaturated_fatty_acids: null,
+  polyunsaturated_fatty_acids: null,
+  fatty_acids: string,
+  is_active: string,
+  is_deleted: string,
+  updated_by: string,
+  created_at: string,
+  updated_at: string,
+  consumption: any,
+  is_consumed: boolean,
+  consumed_calories: number
+}
+type NutritionData = {
+  name: string;
+  value: string;
+};
+const MicronutrientsInformation: React.FC<MicronutrientsInformationProps> = ({ foodItemDetails }) => {
   const options: NutritionData[] = [
     {
-      name: 'Nutrition Name',
-      value: 8,
+      name: 'Protein',
+      value: foodItemDetails?.protein ,
     },
     {
-      name: 'Nutrition Name',
-      value: 8,
+      name: 'Carbs',
+      value: foodItemDetails?.carbs,
     },
     {
-      name: 'Nutrition Name',
-      value: 8,
+      name: 'Fats',
+      value: foodItemDetails?.fats,
     },
     {
-      name: 'Nutrition Name',
-      value: 8,
+      name: 'Fibers',
+      value: foodItemDetails?.fibers,
     },
   ];
-
+ 
   const renderNutritionDataItem = (item: NutritionData, index: number) => {
     return (
       <View style={styles.belowRow} key={index}>
@@ -35,19 +68,19 @@ const MicronutrientsInformation: React.FC = () => {
           <View style={styles.square} />
           <Text style={styles.name}>{item.name}</Text>
         </View>
-        <Text style={styles.value}>{item.value}gm</Text>
+        <Text style={styles.value}>{item.value.replace("g","").replace("m","")}</Text>
       </View>
     );
   };
 
   return (
     <View style={styles.outerContainer}>
-      <Text style={styles.title}>Micronutriets Information</Text>
+      <Text style={styles.title}>Macronutrients Information</Text>
       <View style={styles.container}>
         <View style={styles.innerContainer}>
           <View style={styles.topRow}>
             <View>
-              <Text style={styles.calorieValue}>180</Text>
+              <Text style={styles.calorieValue}>{Math.round(Number(foodItemDetails?.calories))}</Text>
               <Text>Calories</Text>
             </View>
             <Icons.Flame />
@@ -67,9 +100,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   title: {
-    fontSize: 15,
-    fontWeight: 'bold',
-    color: colors.black,
+    fontSize: 16,
+    fontWeight: '700',
+    color: colors.labelDarkGray,
+    fontFamily: Fonts.BOLD,
     marginVertical: 8,
     marginLeft: 2,
   },

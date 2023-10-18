@@ -23,8 +23,10 @@ import { request, check, PERMISSIONS, RESULTS } from 'react-native-permissions';
 import { Linking } from 'react-native';
 import Home from './src/api/home';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { AppProvider } from './src/context/app.context';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import {AppProvider} from './src/context/app.context';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
+import SplashScreen from 'react-native-splash-screen';
+import { MenuProvider } from 'react-native-popup-menu';
 
 const App = () => {
   const { height, width } = useWindowDimensions();
@@ -156,6 +158,7 @@ const App = () => {
 
   return (
     <GestureHandlerRootView style={{ height, width }}>
+    <MenuProvider>
       <AppProvider>
         {/* <SafeAreaView style={{flex:1}}> */}
         <Router />
@@ -168,6 +171,7 @@ const App = () => {
         />
         {/* </SafeAreaView> */}
       </AppProvider>
+    </MenuProvider>
     </GestureHandlerRootView>
   );
 };
