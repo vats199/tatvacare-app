@@ -36,6 +36,7 @@ import WelcomeScreen from '../screens/SetupProfile/WelcomeScreen';
 import QuestionOneScreen from '../screens/SetupProfile/QuestionOneScreen';
 import ScanCodeScreen from '../screens/SetupProfile/ScanCodeScreen';
 import QuestionListScreen from '../screens/SetupProfile/QuestionListScreen';
+import ProgressReportScreen from '../screens/SetupProfile/ProgressReportScreen';
 
 const Drawer = createDrawerNavigator<DrawerParamList>();
 const DrawerScreen = () => {
@@ -211,6 +212,11 @@ const SetupProfileScreen = () => {
       <SetupProfileStack.Screen
         name="QuestionListScreen"
         component={QuestionListScreen}
+      />
+
+      <SetupProfileStack.Screen
+        name="ProgressReportScreen"
+        component={ProgressReportScreen}
       />
     </SetupProfileStack.Navigator>
   );

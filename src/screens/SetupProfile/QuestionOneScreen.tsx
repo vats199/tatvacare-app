@@ -76,6 +76,9 @@ const QuestionOneScreen: React.FC<QuestionOneScreenProps> = ({
   //   setEmail(text);
   // };
 
+  const onPressNext = () => {
+    navigation.navigate('QuestionListScreen');
+  };
   const onChangeCode = (text: string) => {
     setDoctorCode(text);
   };
@@ -137,6 +140,9 @@ const QuestionOneScreen: React.FC<QuestionOneScreenProps> = ({
           <AnimatedDatePicker
             showAnimatedLabel={true}
             placeholder={'Date of Birth'}
+            onSetDate={(date: string) => {
+              setDob(date);
+            }}
           />
         </TouchableOpacity>
 
@@ -213,6 +219,7 @@ const QuestionOneScreen: React.FC<QuestionOneScreenProps> = ({
         type={Constants.BUTTON_TYPE.SECONDARY}
         disabled={!isButtonDisable}
         buttonStyle={{marginBottom: insets.bottom == 0 ? Matrics.vs(16) : 0}}
+        onPress={() => onPressNext()}
       />
     </SafeAreaView>
   );

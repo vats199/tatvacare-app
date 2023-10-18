@@ -8,7 +8,7 @@ import {
   Camera,
   FrameProcessor,
 } from 'react-native-vision-camera';
-import {useScanBarcodes, BarcodeFormat} from 'vision-camera-code-scanner';
+// import {useScanBarcodes, BarcodeFormat} from 'vision-camera-code-scanner';
 
 import {
   AppStackParamList,
@@ -33,9 +33,9 @@ const ScanCodeScreen: React.FC<ScanCodeScreenProps> = ({navigation, route}) => {
   const [isCameraActive, setCameraActive] = useState<boolean>(false);
   // const frameFPS = React.useRef<FrameProcessor | undefined>(5);
 
-  const [frame, codes] = useScanBarcodes([BarcodeFormat.QR_CODE], {
-    checkInverted: true,
-  });
+  // const [frame, codes] = useScanBarcodes([BarcodeFormat.QR_CODE], {
+  //   checkInverted: true,
+  // });
   // ==================== function ====================//
   const checkPermissions = async () => {
     const cameraPermission = await Camera.getCameraPermissionStatus();
@@ -46,14 +46,14 @@ const ScanCodeScreen: React.FC<ScanCodeScreenProps> = ({navigation, route}) => {
     }
   };
 
-  React.useEffect(() => {
-    if (codes && codes.length > 0) {
-      // if (codes[codes.length - 1].content.data != qrCodeData) {
-      // frameFPS.current = 0;
-      // setQRCodeData(codes[codes.length - 1].content.data)
-      // }
-    }
-  }, [codes]);
+  // React.useEffect(() => {
+  //   if (codes && codes.length > 0) {
+  //     // if (codes[codes.length - 1].content.data != qrCodeData) {
+  //     // frameFPS.current = 0;
+  //     // setQRCodeData(codes[codes.length - 1].content.data)
+  //     // }
+  //   }
+  // }, [codes]);
 
   useFocusEffect(
     useCallback(() => {
