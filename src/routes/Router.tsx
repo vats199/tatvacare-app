@@ -1,7 +1,7 @@
 import HomeScreen from '../screens/HomeScreen';
 import AboutUsScreen from '../screens/AboutUsScreen';
 import {
-  AppStackParamList,
+  AppStackParamList,DietStackParamList,
   DrawerParamList,
 } from '../interface/Navigation.interface';
 import {NavigationContainer} from '@react-navigation/native';
@@ -12,7 +12,9 @@ import {
 import CustomDrawer from '../components/organisms/CustomDrawer';
 import {NativeModules} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
-
+import DietScreen from '../screens/Home/DietScreen';
+import AddDietScreen from '../screens/Home/AddDietScreen';
+import DietDetailScreen from '../screens/Home/DietDetailScreen';
 const Navigation = NativeModules.Navigation;
 export const navigateTo = Navigation.navigateTo;
 export const navigateToHistory = Navigation.navigateToHistory;
@@ -47,7 +49,17 @@ const DrawerScreen = () => {
     </Drawer.Navigator>
   );
 };
-
+const DietStack = createStackNavigator<DietStackParamList>();
+const DietStackScreen = () => {
+  return (
+    <DietStack.Navigator screenOptions={{ headerShown: false, }} initialRouteName="DietScreen" >
+      <DietStack.Screen name="HomeScreen" component={HomeScreen} />
+      <DietStack.Screen name="DietScreen" component={DietScreen} />
+      <DietStack.Screen name="AddDiet" component={AddDietScreen} />
+      <DietStack.Screen name="DietDetail" component={DietDetailScreen} />
+    </DietStack.Navigator>
+  );
+};
 const AppStack = createStackNavigator<AppStackParamList>();
 const Router = () => {
   return (
@@ -57,6 +69,7 @@ const Router = () => {
           headerShown: false,
         }}>
         <AppStack.Screen name={'DrawerScreen'} component={DrawerScreen} />
+        <AppStack.Screen name={'DietStackScreen'} component={DietStackScreen} />
       </AppStack.Navigator>
     </NavigationContainer>
   );

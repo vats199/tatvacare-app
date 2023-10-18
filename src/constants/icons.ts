@@ -55,6 +55,19 @@ import BookmarkFilled from '../assets/icons/bookmarkFilled.svg';
 import BackIcon from '../assets/icons/backIcon.svg';
 import CloseIcon from '../assets/icons/close.svg';
 
+import backArrow from '../assets/icons/backArrow.svg';
+import Filter from '../assets/icons/filter.svg';
+import Vector from '../assets/icons/Vector.svg';
+import AddCircle from '../assets/icons/addcircle.svg';
+import Ellipse from '../assets/icons/Ellipse.svg';
+import Success from '../assets/icons/success.svg';
+import ThreeDot from '../assets/icons/three-dot.svg';
+import Flame from '../assets/icons/flame.svg';
+import Edit from '../assets/icons/editicon.svg';
+import Delete from '../assets/icons/deletIcon.svg';
+import RightArrow from '../assets/icons/rightArrow.svg';
+import DropdownIcon from '../assets/icons/dropdownIcon.svg';
+
 export const Icons = {
   HomeActive,
   HomeInactive,
@@ -109,4 +122,15 @@ export const Icons = {
   DrawerAboutUs,
   DrawerShareApp,
   DrawerRateApp,
+  backArrow,
+  Filter,
+  Vector,
+  AddCircle,
+  Ellipse,
+  Success,
+  ThreeDot,
+  Flame,
+  Edit,
+  Delete,
+  RightArrow,DropdownIcon
 };
