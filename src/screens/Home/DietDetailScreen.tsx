@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { DietStackParamList } from '../../interface/Navigation.interface';
 import { Icons } from '../../constants/icons';
@@ -8,21 +8,23 @@ import AddDiet from '../../components/organisms/AddDiet';
 import { StackScreenProps } from '@react-navigation/stack';
 import Deit from '../../api/diet'
 import { useApp } from '../../context/app.context';
-import Fonts  from '../../constants/fonts';
- 
+import Fonts from '../../constants/fonts';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import Matrics from '../../constants/Matrics';
+
 type DietDetailProps = StackScreenProps<DietStackParamList, 'DietDetail'>
 
 const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
-  const { foodItem, buttonText, healthCoachId ,mealName} = route.params
-   
+  const { foodItem, buttonText, healthCoachId, mealName, patient_id } = route.params
+
   const [qty, setQty] = React.useState<string>()
-  const { userData } = useApp();
+  // const { userData } = useApp();
 
   const onPressBack = () => { navigation.goBack(); };
 
   const onPressAdd = async () => {
     const addPayload = {
-      patient_id: userData?.patient_id,
+      patient_id: patient_id,
       food_item_id: foodItem?.food_item_id,
       food_item_name: foodItem?.food_item_name,
       quantity: qty,
@@ -44,7 +46,7 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
       health_coach_id: foodItem?.healthCoachId
     }
     const updatePayload = {
-      patient_id: userData?.patient_id,
+      patient_id: patient_id,
       food_item_id: foodItem?.food_item_id,
       food_item_name: foodItem?.food_item_name,
       quantity: qty,
@@ -68,14 +70,21 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
     }
 
     if (buttonText === "Add") {
-      const result = await Deit?.addFoodItem(addPayload, {}, { token: userData?.token })
- 
-      if (result?.code === '1') {
+      const result = await Deit?.addFoodItem(addPayload, {})
+      console.log("result", result);
+
+      // { token: userData?.token }
+      // if (result?.code === '1') {
+      if (result?.data === true) {
         navigation.popToTop()
       }
     } else {
-      const result = await Deit?.updateFoodItem(updatePayload, {}, { token: userData?.token })
-       if (result?.code === '1') {
+      const result = await Deit?.updateFoodItem(updatePayload, {})
+      console.log("result", result);
+
+      // , { token: userData?.token }
+      // if (result?.code === '1') {
+      if (result?.data === true) {
         navigation.popToTop()
       }
     }
@@ -85,16 +94,19 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
     setQty(item)
   }
   return (
-    <View style={{ flex: 1, backgroundColor: colors.lightGreyishBlue }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: colors.lightGreyishBlue, top: -Matrics.vs(60), height: '100%' }}>
+
+
       <View style={styles.header}>
         <Icons.backArrow onPress={onPressBack} height={23} width={23} />
         <Text style={styles.dietTitle}>{foodItem?.food_item_name}</Text>
       </View>
       <View style={styles.belowContainer}>
         <MicronutrientsInformation foodItemDetails={foodItem} />
-        <AddDiet onPressAdd={onPressAdd} buttonText={buttonText} onSeleteQty={handleSeletedQty} Data={foodItem} mealName={mealName}/>
+        <AddDiet onPressAdd={onPressAdd} buttonText={buttonText} onSeleteQty={handleSeletedQty} Data={foodItem} mealName={mealName} />
       </View>
-    </View>
+
+    </SafeAreaView>
   );
 };
 
@@ -107,17 +119,21 @@ const styles = StyleSheet.create({
     marginTop: 30,
     marginBottom: 20,
     marginLeft: 15,
+    flex: 0.05
   },
   dietTitle: {
     fontSize: 16,
     fontWeight: '700',
     color: colors.labelDarkGray,
     marginLeft: 10,
-    fontFamily:Fonts.BOLD
+    fontFamily: Fonts.BOLD
   },
   belowContainer: {
-    flex: 1,
+    flex: 0.95,
     justifyContent: 'space-between',
     marginBottom: 10,
+    height: '100%',
+    position: 'absolute',
+    bottom: 0
   },
 });

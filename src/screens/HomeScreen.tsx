@@ -148,7 +148,8 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
     navigateTo('MyDevices');
   };
   const onPressDiet = () => {
-    navigateTo('FoodDiaryParentVC');
+    // navigateTo('FoodDiaryParentVC');
+    navigation.navigate('DietStackScreen')
   };
   const onPressExercise = (filteredData: any) => {
     // navigateToMedicines('test');

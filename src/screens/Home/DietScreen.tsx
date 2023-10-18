@@ -12,7 +12,8 @@ import { StackScreenProps } from '@react-navigation/stack';
 import Diet from '../../api/diet';
 import { useApp } from '../../context/app.context';
 import moment from 'moment';
-
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { NativeModules } from 'react-native';
 type DietScreenProps = StackScreenProps<DietStackParamList, 'DietScreen'>
 
 const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
@@ -21,7 +22,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   const [loader, setLoader] = useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [dietPlane, setDiePlane] = useState<any>([]);
-  const { userData } = useApp();
+  // const { userData } = useApp();
   const [deletpayload, setDeletpayload] = useState<string | null>(null)
   const [modalVisible, setModalVisible] = React.useState<boolean>(false);
   const [stateOfAPIcall, setStateOfAPIcall] = React.useState<boolean>(false);
@@ -64,13 +65,13 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
     setDiePlane([])
     setLoader(true)
     const date = moment(selectedDate).format('YYYY/MM/DD');
-
-    const diet = await Diet.getDietPlan({ date: date }, {}, { token: userData?.token },);
-
-    if (diet?.code === '1') {
+    const diet = await Diet.getDietPlan({ date: date }, {});
+    console.log("diet", diet);
+    if (diet) {
       setLoader(false)
       setDiePlane(diet?.data[0]);
     } else {
+
       setDiePlane([]);
     }
   };
@@ -84,7 +85,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   };
 
   const handaleEdit = (data: any, mealName: string) => {
-    navigation.navigate('DietDetail', { foodItem: data, buttonText: 'Update', healthCoachId: dietPlane?.health_coach_id, mealName: mealName })
+    navigation.navigate('DietDetail', { foodItem: data, buttonText: 'Update', healthCoachId: dietPlane?.health_coach_id, mealName: mealName, patient_id: dietPlane?.patient_id })
   };
 
   const handaleDelete = (id: string) => {
@@ -94,25 +95,25 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
 
   const deleteFoodItem = async () => {
     setStateOfAPIcall(true)
-    const deleteFoodItem = await Diet.deleteFoodItem({ patient_id: dietPlane?.patient_id, health_coach_id: dietPlane?.health_coach_id, diet_plan_food_item_id: deletpayload, }, {}, { token: userData?.token });
+    const deleteFoodItem = await Diet.deleteFoodItem({ patient_id: dietPlane?.patient_id, health_coach_id: dietPlane?.health_coach_id, diet_plan_food_item_id: deletpayload, }, {});
+    console.log("deleteFoodItem", deleteFoodItem);
+
     getData()
-    if (deleteFoodItem?.code === '1') {
+    if (deleteFoodItem?.data === true) {
       setStateOfAPIcall(false)
       navigation.replace('DietScreen')
       setTimeout(() => { setModalVisible(false) }, 1000)
     }
   }
   const handlePulsIconPress = async (optionId: string, mealName: string) => {
-    navigation.navigate('AddDiet', { optionId: optionId, healthCoachId: dietPlane?.health_coach_id, mealName: mealName });
+    navigation.navigate('AddDiet', { optionId: optionId, healthCoachId: dietPlane?.health_coach_id, mealName: mealName, patient_id: dietPlane?.patient_id, });
   }
 
   const handalecompletion = async (item: any) => {
-    // setStateOfAPIcall(true)
-    const UpadteFoodItem = await Diet.updateFoodConsumption(item, {}, { token: userData?.token });
+    const UpadteFoodItem = await Diet.updateFoodConsumption(item, {});
     getData()
     if (UpadteFoodItem?.code === '1') {
-      // setStateOfAPIcall(false)
-      // navigation.replace('DietScreen')
+
     }
   }
 
@@ -129,14 +130,22 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
     });
   };
 
+  const handelOnpressOfprogressBar = () => {
+    navigation.navigate("ProgressBarInsightsScreen", { calories: caloriesArray })
+  }
+ 
   return (
-    <View style={{ flex: 1, }}>
+
+    <View style={{ flex: 1, backgroundColor: colors.lightGreyishBlue, }}>
       <DietHeader
         onPressBack={onPressBack}
         onPressOfNextAndPerviousDate={handleDate}
+        title='Diet'
       />
       <View style={styles.belowContainer}>
-        <CalorieConsumer totalConsumedcalories={totalConsumedcalorie} totalcalories={totalcalorie} />
+        <TouchableOpacity onPress={handelOnpressOfprogressBar}>
+          <CalorieConsumer totalConsumedcalories={totalConsumedcalorie} totalcalories={totalcalorie} />
+        </TouchableOpacity>
         {Object.keys(dietPlane).length > 0 ? (
           <DietTime
             onPressPlus={handlePulsIconPress}
@@ -186,7 +195,6 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
           </View>
         </View>
       </Modal>
-
     </View>
   );
 };

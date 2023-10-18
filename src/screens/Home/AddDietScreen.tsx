@@ -8,6 +8,7 @@ import { StackScreenProps } from '@react-navigation/stack';
 import Diet from '../../api/diet';
 import { useApp } from '../../context/app.context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Container, Screen } from '../../components/styled/Views';
 
 
 type AddDietScreenProps = StackScreenProps<DietStackParamList, 'AddDiet'>
@@ -34,8 +35,8 @@ type SearcheFood = {
   total_polyunsaturated_fatty_acids: string
 }
 const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
-  const { userData } = useApp();
-  const { optionId, healthCoachId, mealName } = route.params
+  // const { userData } = useApp();
+  const { optionId, healthCoachId, mealName, patient_id } = route.params
   const [recentSerach, setRecentSerach] = React.useState([])
   const [searchResult, setSearchResult] = React.useState([])
   const [title, setTitle] = React.useState<string>('Recent Search')
@@ -45,8 +46,8 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
     const getRecentSerache = async () => {
       const recentSearchResults = await AsyncStorage.getItem('recentSearchResults');
       let results = recentSearchResults ? JSON.parse(recentSearchResults) : [];
-      console.log("results",results);
-      
+      console.log("results", results);
+
       if (results.length > 3) {
         const updatedResult = results.slice(0, 4)
         setRecentSerach(updatedResult)
@@ -94,7 +95,7 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
       consumed_calories: null,
       healthCoachId: healthCoachId
     }
-    navigation.navigate('DietDetail', { foodItem: FoodItems, buttonText: 'Add', mealName: mealName })
+    navigation.navigate('DietDetail', { foodItem: FoodItems, buttonText: 'Add', mealName: mealName, patient_id: patient_id })
     const seletedItem = recentSerach
     seletedItem.unshift(data);
     setRecentSerach(seletedItem)
@@ -103,7 +104,8 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
 
   const handleSerach = async (text: string) => {
 
-    const result = await Diet.searchFoodItem({ "food_name": text }, {}, { token: userData?.token },)
+    const result = await Diet.searchFoodItem({ "food_name": text }, {})
+    // , { token: userData?.token },
     setSearchResult(result?.data)
     if (result.code === '0' || text.length === 0) {
       setSearchResult(recentSerach)

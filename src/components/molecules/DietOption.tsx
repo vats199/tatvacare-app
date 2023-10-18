@@ -2,8 +2,8 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import { Icons } from '../../constants/icons';
 import { colors } from '../../constants/colors';
-import Matrics from '../../constants/Matrics';
 import Fonts from '../../constants/fonts';
+import Matrics from '../../constants/Matrics';
 import styled from 'styled-components/native';
 import {
   Menu,
@@ -73,6 +73,8 @@ type FoodItems = {
   consumption: Consumption;
   is_consumed: boolean;
   consumed_calories: number;
+  total_macronutrients: number;
+  total_micronutrients: number;
 };
 
 type Consumption = {
@@ -109,18 +111,18 @@ const DietOption: React.FC<DietOptionItem> = ({
       <View style={styles.OptionitemContainer} key={index}>
         <View style={styles.leftContainer}>
           {item?.is_consumed ? (
-            <TouchableOpacity onPress={() => handaleFoodConsumption(item)} style={{height:28,width:28,}}>
+            <TouchableOpacity onPress={() => handaleFoodConsumption(item)} style={{ height: 28, width: 28, }}>
               <Icons.Success height={28} width={28} />
             </TouchableOpacity>
           ) : (
-            <TouchableOpacity onPress={() => handaleFoodConsumption(item)}  style={{height:28,width:28, }}>
+            <TouchableOpacity onPress={() => handaleFoodConsumption(item)} style={{ height: 28, width: 28, }}>
               <Icons.Ellipse height={28} width={28} />
             </TouchableOpacity>
           )}
           <View style={styles.titleDescription}>
             <Text style={styles.title}>{item.food_item_name}</Text>
             <Text style={styles.description}>
-              {Math.round(Number(item?.quantity)) + ' | Micronutrients'}
+              {Math.round(Number(item?.quantity)) + ' | '+ Math.round(Number(item.total_micronutrients))+ " g"}
             </Text>
           </View>
         </View>

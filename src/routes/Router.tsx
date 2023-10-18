@@ -1,20 +1,22 @@
 import HomeScreen from '../screens/HomeScreen';
 import AboutUsScreen from '../screens/AboutUsScreen';
 import {
-  AppStackParamList,DietStackParamList,
+  AppStackParamList, DietStackParamList,
   DrawerParamList,
 } from '../interface/Navigation.interface';
-import {NavigationContainer} from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import {
   DrawerContentComponentProps,
   createDrawerNavigator,
 } from '@react-navigation/drawer';
 import CustomDrawer from '../components/organisms/CustomDrawer';
-import {NativeModules} from 'react-native';
-import {createStackNavigator} from '@react-navigation/stack';
+import { NativeModules } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
 import DietScreen from '../screens/Home/DietScreen';
 import AddDietScreen from '../screens/Home/AddDietScreen';
 import DietDetailScreen from '../screens/Home/DietDetailScreen';
+import ProgressBarInsightsScreen from '../screens/Home/ProgressBarInsightsScreen';
+
 const Navigation = NativeModules.Navigation;
 export const navigateTo = Navigation.navigateTo;
 export const navigateToHistory = Navigation.navigateToHistory;
@@ -57,6 +59,7 @@ const DietStackScreen = () => {
       <DietStack.Screen name="DietScreen" component={DietScreen} />
       <DietStack.Screen name="AddDiet" component={AddDietScreen} />
       <DietStack.Screen name="DietDetail" component={DietDetailScreen} />
+      <DietStack.Screen name="ProgressBarInsightsScreen" component={ProgressBarInsightsScreen} />
     </DietStack.Navigator>
   );
 };

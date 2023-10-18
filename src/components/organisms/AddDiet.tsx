@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     color: colors.black,
   },
   borderline: {
-    borderBottomWidth: 0.2,
+    borderBottomWidth: 0.3,
     borederColor: colors.lightGrey,
   },
   belowBox: {

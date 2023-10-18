@@ -1,22 +1,23 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import CalendarStrip from 'react-native-calendar-strip';
-import {StyleSheet, Text, View} from 'react-native';
-import {colors} from '../../constants/colors';
-import {Icons} from '../../constants/icons';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { colors } from '../../constants/colors';
+import { Icons } from '../../constants/icons';
 
 type DietHeaderProps = {
   onPressBack: () => void;
   onPressOfNextAndPerviousDate: (data: any) => void;
+  title: string
 };
 
 const DietHeader: React.FC<DietHeaderProps> = ({
   onPressBack,
-  onPressOfNextAndPerviousDate,
+  onPressOfNextAndPerviousDate, title
 }) => {
   //const calendarStripRef = useRef(null);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [calendarKey, setCalendarKey] = useState(0);
- 
+
   const handleNextWeek = () => {
     const nextWeek = new Date(selectedDate);
     nextWeek.setDate(nextWeek.getDate() + 7);
@@ -44,15 +45,15 @@ const DietHeader: React.FC<DietHeaderProps> = ({
       weekEndDate.setDate(weekEndDate.getDate() + 1);
     }
     //console.log(weekEndDate);
-    const startMonth = weekStartDate.toLocaleString('default', {month: 'long'});
-    const endMonth = weekEndDate.toLocaleString('default', {month: 'long'});
+    const startMonth = weekStartDate.toLocaleString('default', { month: 'long' });
+    const endMonth = weekEndDate.toLocaleString('default', { month: 'long' });
 
     const year = weekStartDate.getFullYear();
 
     if (
       startMonth !== endMonth ||
       weekEndDate.getDate() >
-        new Date(year, weekStartDate.getMonth() + 1, 0).getDate()
+      new Date(year, weekStartDate.getMonth() + 1, 0).getDate()
     ) {
       return `${startMonth} - ${endMonth} ${year}`;
     } else {
@@ -71,8 +72,10 @@ const DietHeader: React.FC<DietHeaderProps> = ({
   return (
     <View style={styles.upperContainer}>
       <View style={styles.customHeader}>
-        <Icons.backArrow onPress={onPressBack} height={20} width={20} />
-        <Text style={styles.customHeaderText}> Diet</Text>
+        <TouchableOpacity onPress={onPressBack} >
+          <Icons.backArrow height={20} width={20} />
+        </TouchableOpacity>
+        <Text style={styles.customHeaderText}> {title}</Text>
       </View>
       <View>
         <View style={styles.container}>
@@ -93,16 +96,17 @@ const DietHeader: React.FC<DietHeaderProps> = ({
               height={11}
               width={11}
               onPress={handlePreviousWeek}
-              style={{marginRight: 20}}
+              style={{ marginRight: 20 }}
             />
             <Icons.RightArrow
               height={22}
               width={22}
               onPress={handleNextWeek}
-              style={{marginRight: 20}}
+              style={{ marginRight: 20 }}
             />
           </View>
         </View>
+        {/* <View style={{backgroundColor:"red",}}> */}
         <CalendarStrip
           // ref={calendarStripRef}
           selectedDate={selectedDate}
@@ -122,7 +126,9 @@ const DietHeader: React.FC<DietHeaderProps> = ({
             borderWidth: 1,
             borderHighlightColor: 'white',
           }}
-          style={{height: 80}}
+          style={{
+            height: 80
+          }}
           calendarHeaderContainerStyle={{
             marginBottom: 30,
             alignSelf: 'flex-start',
@@ -134,29 +140,35 @@ const DietHeader: React.FC<DietHeaderProps> = ({
           }}
           calendarColor={colors.lightGreyishBlue}
           dateNumberStyle={styles.dateNumberStyle}
-          dateNameStyle={{color: 'black'}}
+          dateNameStyle={{ color: 'black' }}
           highlightDateNumberStyle={[
             styles.dateNumberStyle,
             styles.highlighetdDateNumberStyle,
           ]}
-          highlightDateNameStyle={{color: 'black'}}
-          disabledDateNameStyle={{color: 'grey'}}
-          disabledDateNumberStyle={{color: 'grey'}}
+          highlightDateNameStyle={{ color: 'black' }}
+          disabledDateNameStyle={{ color: 'grey' }}
+          disabledDateNumberStyle={{ color: 'grey' }}
           // iconContainer={{flex: 0.1}}
-          iconLeftStyle={{display: 'none'}}
-          iconRightStyle={{display: 'none'}}
+          iconLeftStyle={{ display: 'none' }}
+          iconRightStyle={{ display: 'none' }}
         />
       </View>
     </View>
+    // </View>
   );
 };
 
 const styles = StyleSheet.create({
   upperContainer: {
+
     backgroundColor: colors.lightGreyishBlue,
     borderBottomWidth: 0.3,
     borderBottomColor: '#E5E5E5',
     elevation: 0.2,
+    marginTop: '3%',
+    // overflow: 'hidden',
+    // borderBottomRightRadius: 10,
+    // borderBottomLeftRadius: 10,
   },
   customHeader: {
     flexDirection: 'row',

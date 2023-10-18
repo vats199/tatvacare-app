@@ -109,7 +109,9 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
   const [foodItmeData, setFoodItemData] = React.useState<Options | null>(cardData?.options[0])
 
   useEffect(() => {
-    getCalories(foodItmeData)
+    const data = foodItmeData
+    data.meal_name = cardData.meal_name
+    getCalories(data)
   }, [foodItmeData])
 
   // useFocusEffect(

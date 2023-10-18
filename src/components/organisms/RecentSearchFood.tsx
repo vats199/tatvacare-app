@@ -7,7 +7,7 @@ import { TouchableOpacity } from 'react-native';
 type RecentSerachDietProps = {
   onPressPlus: (data: SearcheFood) => void;
   searchData: SearcheFood[],
-  title:string
+  title: string
 
 }
 type SearcheFood = {
@@ -30,16 +30,20 @@ type SearcheFood = {
   added_sugar: string,
   total_saturated_fatty_acids: string,
   total_monounsaturated_fatty_acids: string,
-  total_polyunsaturated_fatty_acids: string
+  total_polyunsaturated_fatty_acids: string,
+  total_macronutrients: number;
+  total_micronutrients: number;
 }
-const RecentSearchDiet: React.FC<RecentSerachDietProps> = ({ onPressPlus, searchData,title }) => {
+const RecentSearchDiet: React.FC<RecentSerachDietProps> = ({ onPressPlus, searchData, title }) => {
 
   const renderRecentSearchItem = (item: SearcheFood, index: number) => {
+    console.log("item",item);
+    
     return (
       <TouchableOpacity style={styles.container} onPress={() => onPressPlus(item)}>
         <View style={{ flex: 0.78 }}>
           <Text style={styles.titleText}>{item?.food_name}</Text>
-          <Text style={styles.messageText}>{' Quantity| Micronutrients'}</Text>
+          <Text style={styles.messageText}>{  Math.round(Number(item.total_micronutrients))+' g'}</Text>
         </View>
         <View style={styles.leftContainer}>
           <Text style={styles.calorieText}>{item?.CALORIES_CALCULATED_FOR}cal</Text>
@@ -52,7 +56,7 @@ const RecentSearchDiet: React.FC<RecentSerachDietProps> = ({ onPressPlus, search
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <Text style={styles.text}>{title}</Text>
-      {searchData?.length>0 ?searchData?.map(renderRecentSearchItem):(null
+      {searchData?.length > 0 ? searchData?.map(renderRecentSearchItem) : (null
         // <View>
         //   <Text style={{textTransform:'capitalize'}}>sorry but no such food item found in our database please try with some other keyword</Text>
         // </View>
@@ -81,7 +85,7 @@ const styles = StyleSheet.create({
     // fontWeight: 'bold',
     color: colors.labelDarkGray,
     padding: 5,
-    textTransform:'capitalize'
+    textTransform: 'capitalize'
   },
   messageText: {
     fontSize: 13,

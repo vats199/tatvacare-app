@@ -24,8 +24,8 @@ const DietSearchHeader: React.FC<DietSearchHeaderProps> = ({ onPressBack, onSear
         value={searchText}
         onChangeText={text => {
           setSearchText(text)
-             handleSerache(text)
-          }}
+          handleSerache(text)
+        }}
       />
     </View>
   );
@@ -38,8 +38,8 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     marginBottom: 30,
-    marginTop: 20,
     alignItems: 'center',
+    marginTop: '10%'
   },
   input: {
     width: '90%',

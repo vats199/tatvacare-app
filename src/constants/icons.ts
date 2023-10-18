@@ -56,7 +56,6 @@ import BackIcon from '../assets/icons/backIcon.svg';
 import CloseIcon from '../assets/icons/close.svg';
 
 import backArrow from '../assets/icons/backArrow.svg';
-import Filter from '../assets/icons/filter.svg';
 import Vector from '../assets/icons/Vector.svg';
 import AddCircle from '../assets/icons/addcircle.svg';
 import Ellipse from '../assets/icons/Ellipse.svg';
@@ -123,7 +122,6 @@ export const Icons = {
   DrawerShareApp,
   DrawerRateApp,
   backArrow,
-  Filter,
   Vector,
   AddCircle,
   Ellipse,
