@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
   title: {
     marginLeft: 14,
     marginVertical: 20,
-    fontSize: Matrics.mvs(20),
+    fontSize: Matrics.mvs(16),
     fontWeight: 'bold',
     color: colors.black,
   },
