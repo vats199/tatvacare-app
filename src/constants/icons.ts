@@ -95,18 +95,21 @@ import Flame from '../assets/icons/flame.svg';
 import Cart from '../assets/icons/Cart.svg';
 import forwardArrow from '../assets/icons/arrowForward.svg';
 import MedicineBlack from '../assets/icons/medicineBlacksvg.svg';
-import LiverTest from '../assets/icons/TestLiver.svg';
 import Location from '../assets/icons/location.svg';
 import Delete from '../assets/icons/delete.svg';
 import Offer from '../assets/icons/offer.svg';
-import Liver from '../assets/icons/icon_liver.svg';
 import Gps from '../assets/icons/gps.svg';
 import upArrow from '../assets/icons/upArrow.svg';
 import Person from "../assets/icons/personicon.svg";
 import MaleIcon from '../assets/icons/maleIcon.svg';
 import FemaleIcon from '../assets/icons/femaleIcon.svg';
 import LocationActive from '../assets/icons/locationActive.svg';
-import LocationColoredSymbol from '../assets/icons/my_location.svg'
+import LocationColoredSymbol from '../assets/icons/my_location.svg';
+import Home from '../assets/icons/home.svg';
+import Kidney from '../assets/icons/kidney.svg';
+import Liver from '../assets/icons/liverIcon.svg';
+import RadioCheck from '../assets/icons/checkRadio.svg';
+import RadioUncheck from '../assets/icons/uncheckRadio.svg';
 
 export const Icons = {
   HomeActive,
@@ -200,16 +203,19 @@ export const Icons = {
   Cart,
   forwardArrow,
   MedicineBlack,
-  LiverTest,
-  Location,
+ Location,
   Delete,
   Offer,
-  Liver,
   Gps,
   upArrow,
   Person,
   MaleIcon,
   FemaleIcon,
   LocationActive,
-  LocationColoredSymbol
+  LocationColoredSymbol,
+  Home,
+  Kidney,
+  Liver,
+  RadioCheck,
+  RadioUncheck
 };

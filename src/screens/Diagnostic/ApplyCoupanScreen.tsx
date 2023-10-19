@@ -1,26 +1,18 @@
 import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react';
 import {
-    AppStackParamList,
-    DrawerParamList,
-    BottomTabParamList,
-    HomeStackParamList,
+    DiagnosticStackParamList
 } from '../../interface/Navigation.interface';
 import { Container, Screen } from '../../components/styled/Views';
 import { StackScreenProps } from '@react-navigation/stack';
-import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
-import { CompositeScreenProps } from '@react-navigation/native';
 import Header from '../../components/atoms/Header';
 import { colors } from '../../constants/colors';
 import { Fonts } from '../../constants';
 import CoupansForYou from '../../components/organisms/CoupansForYou';
 
-type ApplyCoupanScreenProps = CompositeScreenProps<
-    StackScreenProps<HomeStackParamList, 'ApplyCoupan'>,
-    CompositeScreenProps<
-        BottomTabScreenProps<BottomTabParamList, 'HomeScreen'>,
-        StackScreenProps<AppStackParamList, 'DrawerScreen'>
-    >
+type ApplyCoupanScreenProps = StackScreenProps<
+DiagnosticStackParamList,
+'ApplyCoupan'
 >;
 
 const ApplyCoupanScreen: React.FC<ApplyCoupanScreenProps> = ({ route, navigation }) => {

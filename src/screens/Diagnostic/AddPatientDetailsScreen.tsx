@@ -1,15 +1,10 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import {
-    AppStackParamList,
-    DrawerParamList,
-    BottomTabParamList,
-    HomeStackParamList,
+    DiagnosticStackParamList
 } from '../../interface/Navigation.interface';
 import { Container, Screen } from '../../components/styled/Views';
 import { StackScreenProps } from '@react-navigation/stack';
-import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
-import { CompositeScreenProps } from '@react-navigation/native';
 import { colors } from '../../constants/colors';
 import { Fonts } from '../../constants';
 import { Icons } from '../../constants/icons';
@@ -17,12 +12,9 @@ import AnimatedInputField from '../../components/atoms/AnimatedInputField';
 import DropdownComponent from '../../components/atoms/Dropdown';
 import Button from '../../components/atoms/Button';
 
-type AddPatientDetailsScreenProps = CompositeScreenProps<
-    StackScreenProps<HomeStackParamList, 'AddPatientDetails'>,
-    CompositeScreenProps<
-        BottomTabScreenProps<BottomTabParamList, 'HomeScreen'>,
-        StackScreenProps<AppStackParamList, 'DrawerScreen'>
-    >
+type AddPatientDetailsScreenProps = StackScreenProps<
+    DiagnosticStackParamList,
+    'AddPatientDetails'
 >;
 const AddPatientDetailsScreen: React.FC<AddPatientDetailsScreenProps> = ({ route, navigation }) => {
     const data = [
@@ -30,10 +22,14 @@ const AddPatientDetailsScreen: React.FC<AddPatientDetailsScreenProps> = ({ route
         { label: 'Item 2', value: '2' },
         { label: 'Item 3', value: '3' },
     ];
+
+    const onPressBack = () => {
+        navigation.goBack();
+    }
     return (
         <ScrollView style={{ flex: 1, backgroundColor: '#F9F9FF', padding: 15 }}>
             <View style={styles.upperHeader}>
-                <Icons.backArrow height={24} width={24} />
+                <Icons.backArrow height={24} width={24} onPress={onPressBack} />
                 <Text style={styles.headerText}>Add Patients Details</Text>
             </View>
             <View style={{ marginVertical: 8 }}>
@@ -114,7 +110,8 @@ const styles = StyleSheet.create({
     outlinedButton: {
         padding: 10,
         borderRadius: 16,
-        backgroundColor: colors.darkGray
+        backgroundColor: colors.darkGray,
+        marginHorizontal: 0
     },
     genderText: {
         fontSize: 14,

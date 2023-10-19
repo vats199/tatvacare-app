@@ -1,24 +1,16 @@
 import { StyleSheet, Text, View, TextInput } from 'react-native'
 import React, { useState } from 'react';
 import {
-    AppStackParamList,
-    DrawerParamList,
-    BottomTabParamList,
-    HomeStackParamList,
+    DiagnosticStackParamList
 } from '../../interface/Navigation.interface';
 import { Container, Screen } from '../../components/styled/Views';
 import { StackScreenProps } from '@react-navigation/stack';
-import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
-import { CompositeScreenProps } from '@react-navigation/native';
 import { colors } from '../../constants/colors';
 import { Fonts } from '../../constants';
 import { Icons } from '../../constants/icons';
-type SearchLabTestScreenProps = CompositeScreenProps<
-    StackScreenProps<HomeStackParamList, 'SearchLabTest'>,
-    CompositeScreenProps<
-        BottomTabScreenProps<BottomTabParamList, 'HomeScreen'>,
-        StackScreenProps<AppStackParamList, 'DrawerScreen'>
-    >
+type SearchLabTestScreenProps = StackScreenProps<
+DiagnosticStackParamList,
+'SearchLabTest'
 >;
 
 type RecentSearchItem = {

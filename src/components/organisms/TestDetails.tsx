@@ -19,15 +19,28 @@ type TestDetailsProps = {
     data: TestItem[];
 }
 
+
+
 const TestDetails: React.FC<TestDetailsProps> = ({ data }) => {
 
-    console.log("hye there", data);
+    const renderIcon = (
+        title: string
+    ) => {
+        switch (title) {
+            case 'Fitgen':
+                return <Icons.Liver height={36} width={36} />
+            case 'Lipid Profile':
+                return <Icons.Kidney height={36} width={36} />
+            case "COPD":
+                return <Icons.Kidney height={36} width={36} />
+        }
+    }
     const renderCartItem = (item: TestItem, index: number) => {
         return (
 
             <View style={styles.renderItemContainer}>
                 <View style={{ width: "15%", marginLeft: 5 }}>
-                    <Icons.Liver height={36} width={36} />
+                    {renderIcon(item.title)}
                 </View>
                 <View style={{ width: '85%', }}>
                     <View style={styles.rightContainer}>
@@ -40,7 +53,11 @@ const TestDetails: React.FC<TestDetailsProps> = ({ data }) => {
                             <Icons.Delete height={15} width={15} style={{ marginLeft: 10 }} />
                         </View>
                     </View>
-                    <View style={styles.border} />
+                    {
+                        (item.id < data.length) && (
+                            <View style={styles.border} />
+                        )
+                    }
                 </View>
             </View>
 
@@ -74,13 +91,15 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: "700",
         fontFamily: Fonts.BOLD,
-        color: colors.labelDarkGray
+        color: colors.labelDarkGray,
+        marginTop: 15
     },
     container: {
         backgroundColor: 'white',
         borderRadius: 12,
         padding: 10,
-        marginVertical: 10
+        marginVertical: 10,
+        elevation: 0.4
     },
     renderItemContainer: {
         width: '100%',
@@ -103,7 +122,8 @@ const styles = StyleSheet.create({
         width: "100%",
         borderWidth: 1,
         borderColor: colors.themePurple,
-        padding: 6,
+        paddingHorizontal: 6,
+        paddingVertical: 8,
         borderRadius: 12,
         justifyContent: 'center',
         alignItems: 'center'

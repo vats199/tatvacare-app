@@ -1,10 +1,7 @@
 import { ScrollView, StyleSheet, Text, View, TouchableOpacity, Modal, StatusBar } from 'react-native'
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import {
-    AppStackParamList,
-    DrawerParamList,
-    BottomTabParamList,
-    HomeStackParamList,
+    DiagnosticStackParamList
 } from '../../interface/Navigation.interface';
 import { Container, Screen } from '../../components/styled/Views';
 import { StackScreenProps } from '@react-navigation/stack';
@@ -18,12 +15,9 @@ import { Icons } from '../../constants/icons';
 import Billing from '../../components/organisms/Billing';
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 
-type LabTestCartScreenProps = CompositeScreenProps<
-    StackScreenProps<HomeStackParamList, 'LabTestCart'>,
-    CompositeScreenProps<
-        BottomTabScreenProps<BottomTabParamList, 'HomeScreen'>,
-        StackScreenProps<AppStackParamList, 'DrawerScreen'>
-    >
+type LabTestCartScreenProps = StackScreenProps<
+DiagnosticStackParamList,
+'LabTestCart'
 >;
 type TestItem = {
     id: number;
@@ -58,7 +52,7 @@ const LabTestCartScreen: React.FC<LabTestCartScreenProps> = ({ route, navigation
     }, []);
 
     const onPressApplyCoupan = () => {
-        navigation.navigate("ApplyCoupan", {});
+        navigation.navigate("ApplyCoupan");
     }
     const onBackPress = () => {
         navigation.goBack();
@@ -90,13 +84,13 @@ const LabTestCartScreen: React.FC<LabTestCartScreenProps> = ({ route, navigation
             emailAddress: "email address",
         },
         {
-            id: 1,
+            id: 2,
             name: "Patient Name",
             age: "Gender | Age",
             emailAddress: "email address",
         },
         {
-            id: 1,
+            id: 3,
             name: "Patient Name",
             age: "Gender | Age",
             emailAddress: "email address",
@@ -126,7 +120,7 @@ const LabTestCartScreen: React.FC<LabTestCartScreenProps> = ({ route, navigation
         <>
             <Screen>
 
-                <ScrollView style={{ flex: 1 }}>
+                <ScrollView style={{ flex: 1, marginBottom: 20 }}>
                     <Header
                         title="Lab Test Cart"
                         containerStyle={styles.upperHeader}
@@ -136,7 +130,7 @@ const LabTestCartScreen: React.FC<LabTestCartScreenProps> = ({ route, navigation
                     <Container >
                         <TestDetails data={data} />
                         <View >
-                            <Text style={styles.heading}>Offer & Promotion</Text>
+                            <Text style={styles.heading}>Offer & Promotions</Text>
                             <View style={styles.offerContainer}>
                                 <View style={{
                                     flexDirection: 'row',
@@ -247,24 +241,27 @@ const styles = StyleSheet.create({
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray,
+        marginTop: 10
     },
     offerContainer: {
         marginVertical: 10,
         padding: 12,
         backgroundColor: colors.white,
         borderRadius: 12,
+        elevation: 0.4,
         minHeight: 52,
         width: '100%',
         flexDirection: 'row',
         justifyContent: "space-between",
-        alignItems: 'center'
+        alignItems: 'center',
+
     },
     applyCoupanText: {
         fontSize: 14,
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray,
-        marginLeft: 20
+        marginLeft: 10
     },
     billingContainer: {
         marginVertical: 10,
@@ -281,6 +278,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         minHeight: 104,
         width: '100%',
+        elevation: 0.4
     },
     selectPatientButton: {
         marginVertical: 10,
@@ -333,10 +331,8 @@ const styles = StyleSheet.create({
     modal: {
         width: 288,
         height: 174,
-
         borderRadius: 14,
         backgroundColor: 'white',
-
     },
     orderAppliedText: {
         fontSize: 16,
@@ -357,13 +353,13 @@ const styles = StyleSheet.create({
         color: colors.themePurple,
         marginTop: 10
     },
-    container: {
-        flex: 1,
-        backgroundColor: '#F9F9FF'
-    },
+    // container: {
+    //     flex: 1,
+    //     backgroundColor: '#F9F9FF'
+    // },
     contentContainer: {
         flex: 1,
-        backgroundColor: '#F9F9FF'
+        //backgroundColor: colors.white
     },
     selectAddressTitle: {
         fontSize: 20,
@@ -402,6 +398,7 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 10,
         backgroundColor: 'white',
+        elevation: 0.8
     },
     patientName: {
         fontSize: 14,

@@ -28,7 +28,7 @@ const Billing: React.FC = () => {
                 </View>
                 <View style={styles.row}>
                     <Text style={styles.billingProperty}> Applied Coupan(FIRST25) </Text>
-                    <Text style={styles.billingProperty}>-25</Text>
+                    <Text style={[styles.billingProperty, { color: colors.green }]}>-25</Text>
                 </View>
                 <View style={styles.border} />
                 <View style={styles.row}>
@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray,
+        marginTop: 10
     },
 
     billingContainer: {
@@ -57,6 +58,7 @@ const styles = StyleSheet.create({
         borderRadius: 12,
         minHeight: 212,
         width: '100%',
+        elevation: 0.4
     },
     row: {
         flexDirection: 'row',

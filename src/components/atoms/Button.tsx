@@ -9,8 +9,8 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import React from 'react';
-import {colors} from '../../constants/colors';
-import {Constants, Fonts, Matrics} from '../../constants';
+import { colors } from '../../constants/colors';
+import { Constants, Fonts, Matrics } from '../../constants';
 
 interface MyButtonProps extends ButtonProps {
   buttonStyle?: ViewStyle;
@@ -38,7 +38,7 @@ const Button: React.FC<MyButtonProps> = ({
         <TouchableOpacity
           style={[
             styles.container,
-            disabled && {backgroundColor: colors.disableButton},
+            disabled && { backgroundColor: colors.disableButton },
             buttonStyle,
           ]}
           onPress={onPress}
@@ -71,7 +71,7 @@ const Button: React.FC<MyButtonProps> = ({
             <Text
               style={[
                 styles.title,
-                {color: disabled ? colors.disableButton : colors.themePurple},
+                { color: disabled ? colors.disableButton : colors.themePurple },
                 titleStyle,
               ]}>
               {title}
@@ -84,7 +84,7 @@ const Button: React.FC<MyButtonProps> = ({
         <TouchableOpacity
           style={[
             styles.tertiaryButtonContainer,
-            disabled && {borderBottomColor: colors.disableButton},
+            disabled && { borderBottomColor: colors.disableButton },
             buttonStyle,
           ]}
           onPress={onPress}
@@ -96,7 +96,7 @@ const Button: React.FC<MyButtonProps> = ({
             <Text
               style={[
                 styles.tertiaryText,
-                disabled && {color: colors.disableButton},
+                disabled && { color: colors.disableButton },
                 titleStyle,
               ]}>
               {title}

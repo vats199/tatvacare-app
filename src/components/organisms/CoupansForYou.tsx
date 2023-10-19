@@ -21,8 +21,6 @@ const CoupansForYou: React.FC<CoupansForYouProps> = ({ onApply }) => {
 
 
     const handleViewDetails = (id: number) => {
-
-
         if (showDetail.includes(id)) {
 
             setShowDetail(showDetail.filter((item) => item !== id));
@@ -30,8 +28,6 @@ const CoupansForYou: React.FC<CoupansForYouProps> = ({ onApply }) => {
 
             setShowDetail([...showDetail, id]);
         }
-
-
     }
 
     const onPressApply = (title: string) => {

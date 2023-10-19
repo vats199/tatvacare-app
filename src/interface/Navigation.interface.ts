@@ -7,11 +7,8 @@ export type AppStackParamList = {
   AppointmentStackScreen:AppointmentStackParamList;
   DeviceConnectionScreen:undefined
   SetupProfileScreen: SetupProfileStackParamList;
-  AllLabTestScreen:undefined;
-  LabTestCart:{item :TestItem [] | undefined } | { coupan :string  | undefined};
-  ApplyCoupan:undefined;
-
-};
+  DiagnosticStackScreen:DiagnosticStackParamList;
+  };
 
 export type DrawerParamList = {
   Home: BottomTabParamList;
@@ -34,6 +31,16 @@ export type AppointmentStackParamList = {
   AppointmentWithScreen:{type:string}
   AppointmentDetailsScreen:{appointmentDetails:AppointmentDetailsScreenProps}
 };
+
+export type DiagnosticStackParamList={
+  AllLabTestScreen:undefined;
+  LabTestCart:{item :TestItem [] | undefined } | { coupan :string  | undefined};
+  ApplyCoupan:undefined;
+  ConfirmLocation:undefined;
+SearchLabTest:undefined;
+  AddPatientDetails:undefined;
+  ViewAllTest:undefined;
+}
 
 export type BottomTabParamList = {
   HomeScreen: HomeStackParamList;
@@ -61,12 +68,6 @@ export type SetupProfileStackParamList = {
 
 export type HomeStackParamList={
   HomeScreen:undefined;
-  DietScreen:undefined;
-  AddDiet:undefined;
-  DietDetail:undefined;
-  ConfirmLocation:undefined;
-  SearchLabTest:undefined;
-  AddPatientDetails:undefined;
   SpirometerScreen:undefined,
 }
 type TestItem = {
