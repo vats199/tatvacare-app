@@ -1,16 +1,27 @@
-import {StyleSheet, Text, View, ViewStyle} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  ViewStyle,
+} from 'react-native';
 import React, {useState} from 'react';
 import {colors} from '../../constants/colors';
 import {Fonts, Matrics} from '../../constants';
 import Button from './Button';
+import SlotButton from './SlotButton';
 
 type TabButtonProps = {
   containerStyle?: ViewStyle;
   btnTitles: string[];
 };
 
-const TabButton: React.FC<TabButtonProps> = ({btnTitles}) => {
+const TabButton: React.FC<TabButtonProps> = ({btnTitles, containerStyle}) => {
   const [selectedBtn, setSelectedBtn] = useState<string>(btnTitles[0]);
+
+  const onPressTabBtn = (item: string) => {
+    setSelectedBtn(item);
+  };
 
   const renderBtn = (item: string) => {
     const itemSelected = item == selectedBtn;
@@ -18,54 +29,24 @@ const TabButton: React.FC<TabButtonProps> = ({btnTitles}) => {
       ? styles.activeBtn
       : styles.inActiveBtn;
     const selectedBtnTxtStyle = itemSelected
-      ? styles.activeBtn
-      : styles.inActiveBtn;
+      ? styles.activeBtnTxt
+      : styles.inActiveBtnTxt;
     return (
-      <Button
-        title="Feet"
+      <SlotButton
+        onPress={() => onPressTabBtn(item)}
+        title={item}
         buttonStyle={{
           ...styles.btnCommonContainer,
-          ...styles.activeBtn,
+          ...selectedBtnStyle,
         }}
-        titleStyle={{
-          fontFamily: Fonts.BOLD,
-          fontSize: Matrics.mvs(16),
-          fontWeight: '700',
-          lineHeight: Matrics.vs(20),
-          color: colors.labelDarkGray,
-        }}
+        titleStyle={{...styles.btnTxtCommon, ...selectedBtnTxtStyle}}
       />
     );
   };
 
   return (
-    <View style={[styles.container, styles.containerShadow]}>
+    <View style={[styles.container, styles.containerShadow, containerStyle]}>
       {btnTitles.map(renderBtn)}
-      {/* <Button
-        title="Feet"
-        buttonStyle={{
-          ...styles.btnCommonContainer,
-          ...styles.activeBtn,
-        }}
-        titleStyle={{
-          fontFamily: Fonts.BOLD,
-          fontSize: Matrics.mvs(16),
-          fontWeight: '700',
-          lineHeight: Matrics.vs(20),
-          color: colors.labelDarkGray,
-        }}
-      />
-      <Button
-        title="cm"
-        buttonStyle={{
-          ...styles.btnCommonContainer,
-          ...styles.inActiveBtn,
-        }}
-        titleStyle={{
-          color: colors.darkGray,
-          ...styles.btnTxtCommon,
-        }}
-      /> */}
     </View>
   );
 };
@@ -81,12 +62,12 @@ const styles = StyleSheet.create({
     borderRadius: Matrics.mvs(12),
     borderWidth: Matrics.s(1),
     borderColor: colors.inputBoxLightBorder,
-    overflow: 'hidden',
+    marginHorizontal: Matrics.s(15),
   },
   containerShadow: {
     shadowColor: colors.black,
     shadowOffset: {width: 0, height: 0},
-    shadowOpacity: 0.08,
+    shadowOpacity: 0.05,
     shadowRadius: 8,
     elevation: 2,
   },
@@ -95,11 +76,12 @@ const styles = StyleSheet.create({
     borderWidth: Matrics.s(1),
     paddingVertical: Matrics.vs(8),
     borderRadius: Matrics.mvs(12),
+    marginBottom: 0,
+    marginRight: 0,
   },
   btnTxtCommon: {
     fontFamily: Fonts.BOLD,
     fontSize: Matrics.mvs(16),
-    fontWeight: '700',
     lineHeight: Matrics.vs(20),
   },
   activeBtn: {
@@ -108,10 +90,13 @@ const styles = StyleSheet.create({
   },
   inActiveBtn: {
     borderWidth: 0,
-    backgroundColor: colors.white,
+    backgroundColor: colors.transparent,
   },
   activeBtnTxt: {
     color: colors.labelDarkGray,
   },
-  inActiveBtnTxt: {},
+  inActiveBtnTxt: {
+    color: colors.darkGray,
+    fontFamily: Fonts.MEDIUM,
+  },
 });

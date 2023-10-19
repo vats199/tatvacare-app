@@ -41,6 +41,7 @@ export const colors = {
   genderInactiveButtonBorder:'#e8e8e8',
 
   genderSelectedBorderColor: '#3B0859',
+  transparent:'transparent',
 
   THEME_OVERLAY: 'rgba(118, 15, 178, 0.08)',
   OVERLAY_DARK_10: 'rgba(0,0,0,0.1)',
