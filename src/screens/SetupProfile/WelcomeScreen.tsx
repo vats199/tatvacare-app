@@ -12,6 +12,7 @@ import {WelcomeScreenStyle as styles} from './styles';
 import images from '../../constants/images';
 import Button from '../../components/atoms/Button';
 import {Matrics} from '../../constants';
+import MyStatusbar from '../../components/atoms/MyStatusBar';
 
 type WelcomeScreenProps = CompositeScreenProps<
   StackScreenProps<SetupProfileStackParamList, 'WelcomeScreen'>,
@@ -23,6 +24,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({navigation}) => {
   const insets = useSafeAreaInsets();
   return (
     <SafeAreaView style={styles.container}>
+      <MyStatusbar translucent={true} />
       <Image
         source={images.MysteryBox}
         resizeMode="contain"

@@ -19,6 +19,7 @@ import AnimatedDatePicker from '../../components/atoms/AnimatedDatePicker';
 import {TouchableOpacity} from 'react-native';
 import {Icons} from '../../constants/icons';
 import QuestionData from './QuestionData.json';
+import MyStatusbar from '../../components/atoms/MyStatusBar';
 
 type QuestionOneScreenProps = CompositeScreenProps<
   StackScreenProps<SetupProfileStackParamList, 'QuestionListScreen'>,
@@ -224,6 +225,7 @@ const QuestionListScreen: React.FC<QuestionOneScreenProps> = ({
 
   return (
     <SafeAreaView style={styles.container}>
+      <MyStatusbar translucent={true} />
       <View style={styles.container}>
         <AuthHeader
           onPressBack={() => {

@@ -9,6 +9,7 @@ import {
 import {StackScreenProps} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
 import {useApp} from '../../context/app.context';
+import MyStatusbar from '../../components/atoms/MyStatusBar';
 type SplahScreenProps = CompositeScreenProps<
   StackScreenProps<AuthStackParamList, 'Splash'>,
   StackScreenProps<AppStackParamList, 'AuthStackScreen'>
@@ -44,7 +45,7 @@ const Splash: React.FC<SplahScreenProps> = ({navigation}) => {
     }
   };
 
-  return <View>{/* <Text>Splash</Text> */}</View>;
+  return <View>{/* <MyStatusbar /> */}</View>;
 };
 
 export default Splash;

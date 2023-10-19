@@ -64,12 +64,56 @@ import calendar from '../assets/icons/calendar.svg';
 import restDay from '../assets/icons/restDay.svg';
 import backArrow from '../assets/icons/backArrow.svg';
 import Filter from '../assets/icons/filter.svg';
-
+import Correct from '../assets/icons/correct.svg';
+import RoundCalendar from '../assets/icons/roundCalendar.svg';
+import RoundLab from '../assets/icons/roundLab.svg';
+import Moon from '../assets/icons/moon.svg';
+import Afternoon from '../assets/icons/afternoon.svg';
+import Morning from '../assets/icons/morning.svg';
+import Clock from '../assets/icons/clock.svg';
+import CalendarRound from '../assets/icons/calendarRound.svg';
+import Menu from '../assets/icons/menu.svg';
+import Diet from '../assets/icons/diet.svg';
+import Medication from '../assets/icons/medication.svg';
+import Breathing from '../assets/icons/breathing.svg';
+import Exercise from '../assets/icons/exercise.svg';
+import Info from '../assets/icons/info.svg';
+import DownArrow from '../assets/icons/downArrow.svg';
+import LungFunction from '../assets/icons/lungFunction.svg';
+import SmartAnalyser from '../assets/icons/smartAnalyser.svg';
 import Male from '../assets/icons/male.svg';
 import Female from '../assets/icons/female.svg';
 import Other from '../assets/icons/other.svg';
 import QrCodeScanner from '../assets/icons/qrCodeScanner.svg';
 
+import Vector from '../assets/icons/Vector.svg';
+import AddCircle from '../assets/icons/addcircle.svg';
+import Ellipse from '../assets/icons/Ellipse.svg';
+import Success from '../assets/icons/success.svg';
+import ThreeDot from '../assets/icons/three-dot.svg';
+import Flame from '../assets/icons/flame.svg';
+import Cart from '../assets/icons/Cart.svg';
+import forwardArrow from '../assets/icons/arrowForward.svg';
+import MedicineBlack from '../assets/icons/medicineBlacksvg.svg';
+import LiverTest from '../assets/icons/TestLiver.svg';
+import Location from '../assets/icons/location.svg';
+import Delete from '../assets/icons/delete.svg';
+import Offer from '../assets/icons/offer.svg';
+import Liver from '../assets/icons/icon_liver.svg';
+import Gps from '../assets/icons/gps.svg';
+import upArrow from '../assets/icons/upArrow.svg';
+import Person from '../assets/icons/personicon.svg';
+import MaleIcon from '../assets/icons/maleIcon.svg';
+import FemaleIcon from '../assets/icons/femaleIcon.svg';
+import Edit from '../assets/icons/editicon.svg';
+import remove from '../assets/icons/deletIcon.svg';
+import RightArrow from '../assets/icons/rightArrow.svg';
+import DropdownIcon from '../assets/icons/dropdownIcon.svg';
+
+import Fiber from '../assets/icons/fiber.svg';
+import Carbs from '../assets/icons/carbs.svg';
+import Fats from '../assets/icons/Fats.svg';
+import Protein from '../assets/icons/protein.svg';
 
 export const Icons = {
   HomeActive,
@@ -133,8 +177,52 @@ export const Icons = {
   restDay,
   backArrow,
   Filter,
+  Correct,
+  RoundCalendar,
+  RoundLab,
+  Moon,
+  Afternoon,
+  Morning,
+  Clock,
+  CalendarRound,
+  Menu,
+  Diet,
+  Medication,
+  Breathing,
+  Exercise,
+  Info,
+  DownArrow,
+  LungFunction,
+  SmartAnalyser,
   Male,
   Female,
   Other,
-  QrCodeScanner
+  QrCodeScanner,
+  Vector,
+  AddCircle,
+  Ellipse,
+  Success,
+  ThreeDot,
+  Flame,
+  Cart,
+  forwardArrow,
+  MedicineBlack,
+  LiverTest,
+  Location,
+  Delete,
+  Offer,
+  Liver,
+  Gps,
+  upArrow,
+  Person,
+  MaleIcon,
+  FemaleIcon,
+  Edit,
+  remove,
+  RightArrow,
+  DropdownIcon,
+  Protein,
+  Carbs,
+  Fiber,
+  Fats,
 };

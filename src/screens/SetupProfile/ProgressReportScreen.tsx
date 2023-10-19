@@ -20,6 +20,7 @@ import {TouchableOpacity} from 'react-native';
 import {Icons} from '../../constants/icons';
 import images from '../../constants/images';
 import constants from '../../constants/constants';
+import MyStatusbar from '../../components/atoms/MyStatusBar';
 
 type ProgressScreenProps = CompositeScreenProps<
   StackScreenProps<SetupProfileStackParamList, 'ProgressReportScreen'>,
@@ -46,8 +47,8 @@ const RiskType: RiskTypeProps[] = [
     textBg: colors.red,
     color: colors.red,
     title: 'Your Asthma Control Test (ACT) Score is very poor.',
-    desc: `Did you know?
-    Doing aerobic exercises at least thrice a week for more than 30 minutes can improve ACT score by 26%.`,
+    desc: `Did you know? 
+Doing aerobic exercises at least thrice a week for more than 30 minutes can improve ACT score by 26%.`,
   },
   {
     key: 'medium',
@@ -58,7 +59,7 @@ const RiskType: RiskTypeProps[] = [
     color: colors.yellow,
     title: 'Your Asthma Control Test (ACT) Score is poor.',
     desc: `Did you know?
-    Doing aerobic exercises at least thrice a week for more than 30 minutes can improve ACT score by 26%.`,
+Doing aerobic exercises at least thrice a week for more than 30 minutes can improve ACT score by 26%.`,
   },
   {
     key: 'low',
@@ -69,7 +70,7 @@ const RiskType: RiskTypeProps[] = [
     color: colors.green,
     title: 'Your Asthma Control Test (ACT) Score is poor.',
     desc: `Did you know?
-    Doing aerobic exercises at least thrice a week for more than 30 minutes can improve ACT score by 26%.`,
+Doing aerobic exercises at least thrice a week for more than 30 minutes can improve ACT score by 26%.`,
   },
 ];
 const ProgressReportScreen: React.FC<ProgressScreenProps> = ({
@@ -89,6 +90,10 @@ const ProgressReportScreen: React.FC<ProgressScreenProps> = ({
 
   return (
     <SafeAreaView style={styles.container} edges={['bottom']}>
+      <MyStatusbar
+        translucent={true}
+        backgroundColor={riskData?.backgroundColor}
+      />
       <View style={styles.container}>
         <View
           style={{

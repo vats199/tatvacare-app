@@ -1,5 +1,4 @@
 import HomeScreen from '../screens/HomeScreen';
-import AboutUsScreen from '../screens/AboutUsScreen';
 import RoutineScreen from '../screens/Exercise/RoutineScreen';
 import React from 'react';
 import ExplorScreen from '../screens/Exercise/ExplorScreen';
@@ -9,6 +8,7 @@ import OnBoardingScreen from '../screens/Auth/OnBoardingScreen';
 import OTPScreen from '../screens/Auth/OTPScreen';
 import EngageScreen from '../screens/Engage/EngageScreen';
 import CarePlanScreen from '../screens/CarePlan/CarePlanScreen';
+import EngageDetailScreen from '../screens/Engage/EngageDetailScreen';
 import {
   AppStackParamList,
   DrawerParamList,
@@ -16,7 +16,11 @@ import {
   TabParamList,
   BottomTabParamList,
   ExerciesStackParamList,
+  AppointmentStackParamList,
   SetupProfileStackParamList,
+  HomeStackParamList,
+  DietStackParamList,
+  EngageStackParamList,
 } from '../interface/Navigation.interface';
 import {NavigationContainer} from '@react-navigation/native';
 import {
@@ -28,14 +32,30 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {colors} from '../constants/colors';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Image} from 'react-native';
+import AppointmentScreen from '../screens/Appointment/AppointmentScreen';
+import AppointmentWithScreen from '../screens/Appointment/AppointmentWithScreen';
+import AppointmentDetailsScreen from '../screens/Appointment/AppointmentDetailsScreen';
+import SpirometerScreen from '../screens/Spirometer/SpirometerScreen';
+import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
+import DeviceConnectionScreen from '../screens/Spirometer/DeviceConnectionScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Splash from '../screens/Auth/Splash';
 import WelcomeScreen from '../screens/SetupProfile/WelcomeScreen';
 import QuestionOneScreen from '../screens/SetupProfile/QuestionOneScreen';
 import ScanCodeScreen from '../screens/SetupProfile/ScanCodeScreen';
 import QuestionListScreen from '../screens/SetupProfile/QuestionListScreen';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import DietScreen from '../screens/Home/DietScreen';
+import AddDietScreen from '../screens/Home/AddDietScreen';
+import DietDetailScreen from '../screens/Home/DietDetailScreen';
+import AllLabTestScreen from '../screens/Home/AllLabTestScreen';
+import LabTestCartScreen from '../screens/Home/LabTestCartScreen';
+import ApplyCoupanScreen from '../screens/Home/ApplyCoupanScreen';
+import ConfirmLocationScreen from '../screens/Home/ConfirmLocationScreen';
+import SearchLabTestScreen from '../screens/Home/SearchLabTestScreen';
+import AddPatientDetailsScreen from '../screens/Home/AddPatientDetailsScreen';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import ProgressReportScreen from '../screens/SetupProfile/ProgressReportScreen';
 
 const Drawer = createDrawerNavigator<DrawerParamList>();
@@ -100,7 +120,7 @@ const BottomTabScreen = () => {
       })}>
       <BottomTab.Screen
         name={'HomeScreen'}
-        component={HomeScreen}
+        component={HomeStackScreen}
         options={{tabBarLabel: 'Home'}}
       />
       <BottomTab.Screen
@@ -110,7 +130,7 @@ const BottomTabScreen = () => {
       />
       <BottomTab.Screen
         name={'EngageScreen'}
-        component={EngageScreen}
+        component={EngageStackScreen}
         options={{tabBarLabel: 'Engage'}}
       />
       <BottomTab.Screen
@@ -125,37 +145,55 @@ const BottomTabScreen = () => {
 const Tab = createMaterialTopTabNavigator<TabParamList>();
 const TabScreen = () => {
   return (
-    <Tab.Navigator
-      initialRouteName="RoutineScreen"
-      screenOptions={{
-        tabBarActiveTintColor: colors.themePurple,
-        tabBarInactiveTintColor: colors.tabTitleColor,
-        tabBarLabelStyle: {
-          textAlign: 'center',
-          fontSize: 18,
-          textTransform: 'none',
-          fontWeight: '600',
-        },
-        tabBarIndicatorStyle: {
-          borderBottomColor: colors.themePurple,
-          borderBottomWidth: 6,
-          borderRadius: 3,
-        },
-      }}>
-      <Tab.Screen
-        name={'RoutineScreen'}
-        component={RoutineScreen}
-        options={{tabBarLabel: 'My Routine'}}
-      />
-      <Tab.Screen
-        name={'ExplorScreen'}
-        component={ExplorScreen}
-        options={{tabBarLabel: 'Explore'}}
-      />
-    </Tab.Navigator>
+    <SafeAreaView
+      edges={['top']}
+      style={{flex: 1, backgroundColor: colors.white}}>
+      <Tab.Navigator
+        initialRouteName="RoutineScreen"
+        screenOptions={{
+          tabBarActiveTintColor: colors.themePurple,
+          tabBarInactiveTintColor: colors.tabTitleColor,
+          tabBarLabelStyle: {
+            textAlign: 'center',
+            fontSize: 18,
+            textTransform: 'none',
+            fontWeight: '600',
+          },
+          tabBarIndicatorStyle: {
+            borderBottomColor: colors.themePurple,
+            borderBottomWidth: 6,
+            borderRadius: 3,
+          },
+        }}>
+        <Tab.Screen
+          name={'RoutineScreen'}
+          component={RoutineScreen}
+          options={{tabBarLabel: 'My Routine'}}
+        />
+        <Tab.Screen
+          name={'ExplorScreen'}
+          component={ExplorScreen}
+          options={{tabBarLabel: 'Explore'}}
+        />
+      </Tab.Navigator>
+    </SafeAreaView>
   );
 };
 
+const EngageStack = createStackNavigator<EngageStackParamList>();
+const EngageStackScreen = () => {
+  return (
+    <EngageStack.Navigator
+      initialRouteName="EngageScreen"
+      screenOptions={{headerShown: false}}>
+      <EngageStack.Screen name="EngageScreen" component={EngageScreen} />
+      <EngageStack.Screen
+        name="EngageDetailScreen"
+        component={EngageDetailScreen}
+      />
+    </EngageStack.Navigator>
+  );
+};
 const ExerciesStack = createStackNavigator<ExerciesStackParamList>();
 const ExerciesStackScreen = () => {
   return (
@@ -168,6 +206,28 @@ const ExerciesStackScreen = () => {
         component={ExerciseDetailScreen}
       />
     </ExerciesStack.Navigator>
+  );
+};
+
+const AppointmentStack = createStackNavigator<AppointmentStackParamList>();
+const AppointmentStackScreen = () => {
+  return (
+    <AppointmentStack.Navigator
+      initialRouteName="AppointmentScreen"
+      screenOptions={{headerShown: false}}>
+      <AppointmentStack.Screen
+        name="AppointmentScreen"
+        component={AppointmentScreen}
+      />
+      <AppointmentStack.Screen
+        name={'AppointmentWithScreen'}
+        component={AppointmentWithScreen}
+      />
+      <AppointmentStack.Screen
+        name={'AppointmentDetailsScreen'}
+        component={AppointmentDetailsScreen}
+      />
+    </AppointmentStack.Navigator>
   );
 };
 
@@ -222,23 +282,83 @@ const SetupProfileScreen = () => {
   );
 };
 
+const HomeStack = createStackNavigator<HomeStackParamList>();
+const HomeStackScreen = () => {
+  return (
+    <HomeStack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}>
+      <HomeStack.Screen name="HomeScreen" component={HomeScreen} />
+      <HomeStack.Screen name="DietScreen" component={DietScreen} />
+      <HomeStack.Screen name="AddDiet" component={AddDietScreen} />
+      <HomeStack.Screen name="DietDetail" component={DietDetailScreen} />
+      <HomeStack.Screen
+        name="ConfirmLocation"
+        component={ConfirmLocationScreen}
+      />
+      <HomeStack.Screen name="SearchLabTest" component={SearchLabTestScreen} />
+      <HomeStack.Screen
+        name="AddPatientDetails"
+        component={AddPatientDetailsScreen}
+      />
+      <HomeStack.Screen name="SpirometerScreen" component={SpirometerScreen} />
+    </HomeStack.Navigator>
+  );
+};
+const DietStack = createStackNavigator<DietStackParamList>();
+const DietStackScreen = () => {
+  return (
+    <DietStack.Navigator
+      screenOptions={{headerShown: false}}
+      initialRouteName="DietScreen">
+      <DietStack.Screen name="HomeScreen" component={HomeScreen} />
+      <DietStack.Screen name="DietScreen" component={DietScreen} />
+      <DietStack.Screen name="AddDiet" component={AddDietScreen} />
+      <DietStack.Screen name="DietDetail" component={DietDetailScreen} />
+    </DietStack.Navigator>
+  );
+};
 const AppStack = createStackNavigator<AppStackParamList>();
 const Router = () => {
   return (
     <NavigationContainer>
-      <AppStack.Navigator
-        initialRouteName="AuthStackScreen"
-        screenOptions={{
-          headerShown: false,
-        }}>
-        <AppStack.Screen
-          name={'SetupProfileScreen'}
-          component={SetupProfileScreen}
-        />
-        <AppStack.Screen name={'TabScreen'} component={TabScreen} />
-        <AppStack.Screen name={'AuthStackScreen'} component={AuthStackScreen} />
-        <AppStack.Screen name={'DrawerScreen'} component={DrawerScreen} />
-      </AppStack.Navigator>
+      <BottomSheetModalProvider>
+        <AppStack.Navigator
+          initialRouteName="AuthStackScreen"
+          screenOptions={{
+            headerShown: false,
+          }}>
+          <AppStack.Screen
+            name={'SetupProfileScreen'}
+            component={SetupProfileScreen}
+          />
+          <AppStack.Screen name={'TabScreen'} component={TabScreen} />
+          <AppStack.Screen
+            name={'AuthStackScreen'}
+            component={AuthStackScreen}
+          />
+          <AppStack.Screen name={'DrawerScreen'} component={DrawerScreen} />
+          <AppStack.Screen
+            name={'AppointmentStackScreen'}
+            component={AppointmentStackScreen}
+          />
+          <AppStack.Screen
+            name={'DeviceConnectionScreen'}
+            component={DeviceConnectionScreen}
+          />
+          <AppStack.Screen
+            name="AllLabTestScreen"
+            component={AllLabTestScreen}
+          />
+          <AppStack.Screen name="LabTestCart" component={LabTestCartScreen} />
+          <AppStack.Screen name="ApplyCoupan" component={ApplyCoupanScreen} />
+          <AppStack.Screen
+            name={'DietStackScreen'}
+            component={DietStackScreen}
+          />
+        </AppStack.Navigator>
+      </BottomSheetModalProvider>
     </NavigationContainer>
   );
 };

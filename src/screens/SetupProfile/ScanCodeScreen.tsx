@@ -3,11 +3,11 @@ import React, {useState, useCallback} from 'react';
 import {CompositeScreenProps, useFocusEffect} from '@react-navigation/native';
 import {StackScreenProps} from '@react-navigation/stack';
 import {useSafeAreaInsets, SafeAreaView} from 'react-native-safe-area-context';
-import {
-  useCameraDevice,
-  Camera,
-  FrameProcessor,
-} from 'react-native-vision-camera';
+// import {
+//   useCameraDevice,
+//   Camera,
+//   FrameProcessor,
+// } from 'react-native-vision-camera';
 // import {useScanBarcodes, BarcodeFormat} from 'vision-camera-code-scanner';
 
 import {
@@ -26,7 +26,7 @@ type ScanCodeScreenProps = CompositeScreenProps<
 
 const ScanCodeScreen: React.FC<ScanCodeScreenProps> = ({navigation, route}) => {
   // state
-  const device = useCameraDevice('back');
+  // const device = useCameraDevice('back');
   const [permissionGranted, setPermissionGranted] = useState<boolean>(false);
   const [qrCodeData, setQRCodeData] = useState<string>('');
   const [isLoading, setLoading] = useState<boolean>(false);
@@ -37,14 +37,14 @@ const ScanCodeScreen: React.FC<ScanCodeScreenProps> = ({navigation, route}) => {
   //   checkInverted: true,
   // });
   // ==================== function ====================//
-  const checkPermissions = async () => {
-    const cameraPermission = await Camera.getCameraPermissionStatus();
-    if (cameraPermission !== 'granted') {
-      await Camera.requestCameraPermission();
-    } else {
-      setPermissionGranted(true);
-    }
-  };
+  // const checkPermissions = async () => {
+  //   const cameraPermission = await Camera.getCameraPermissionStatus();
+  //   if (cameraPermission !== 'granted') {
+  //     await Camera.requestCameraPermission();
+  //   } else {
+  //     setPermissionGranted(true);
+  //   }
+  // };
 
   // React.useEffect(() => {
   //   if (codes && codes.length > 0) {
@@ -58,7 +58,7 @@ const ScanCodeScreen: React.FC<ScanCodeScreenProps> = ({navigation, route}) => {
   useFocusEffect(
     useCallback(() => {
       setCameraActive(true);
-      checkPermissions();
+      // checkPermissions();
 
       return () => {
         setCameraActive(false);
@@ -75,35 +75,36 @@ const ScanCodeScreen: React.FC<ScanCodeScreenProps> = ({navigation, route}) => {
           }}
         />
         <View style={{flex: 1}}>
-          {device != null ? (
-            <>
-              <Camera
+          {/* {device != null ? ( */}
+          {/* {device != null ? ( */}
+          <>
+            {/* <Camera
                 isActive={isCameraActive}
                 device={device}
                 style={StyleSheet.absoluteFill}
                 // frameProcessor={frame}
                 audio={false}
+              /> */}
+            <View
+              style={{
+                borderWidth: 0,
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <BarcodeMask
+                width={300}
+                height={300}
+                edgeBorderWidth={15}
+                edgeColor={colors.white}
+                edgeHeight={40}
+                edgeWidth={40}
+                showAnimatedLine={false}
+                outerMaskOpacity={0}
               />
-              <View
-                style={{
-                  borderWidth: 0,
-                  flex: 1,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
-                <BarcodeMask
-                  width={300}
-                  height={300}
-                  edgeBorderWidth={15}
-                  edgeColor={colors.white}
-                  edgeHeight={40}
-                  edgeWidth={40}
-                  showAnimatedLine={false}
-                  outerMaskOpacity={0}
-                />
-              </View>
-            </>
-          ) : null}
+            </View>
+          </>
+          {/* ) : null} */}
         </View>
       </View>
     </SafeAreaView>

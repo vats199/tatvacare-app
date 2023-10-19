@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import {CompositeScreenProps} from '@react-navigation/native';
 import {StackScreenProps} from '@react-navigation/stack';
 import {useSafeAreaInsets, SafeAreaView} from 'react-native-safe-area-context';
-
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {
   AppStackParamList,
   SetupProfileStackParamList,
@@ -18,6 +18,7 @@ import {colors} from '../../constants/colors';
 import AnimatedDatePicker from '../../components/atoms/AnimatedDatePicker';
 import {TouchableOpacity} from 'react-native';
 import {Icons} from '../../constants/icons';
+import MyStatusbar from '../../components/atoms/MyStatusBar';
 
 type QuestionOneScreenProps = CompositeScreenProps<
   StackScreenProps<SetupProfileStackParamList, 'QuestionOneScreen'>,
@@ -88,34 +89,42 @@ const QuestionOneScreen: React.FC<QuestionOneScreenProps> = ({
   };
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.container}>
-        <AuthHeader
-          onPressBack={() => {
-            navigation.goBack();
-          }}
-        />
-
-        <SetupProfileHeading title={'Setup your profile'} />
-        <View
-          style={[
-            styles.inputCont,
-            {
-              borderColor: name?.length
-                ? colors.inputBoxDarkBorder
-                : colors.inputBoxLightBorder,
-            },
-          ]}>
-          <InputField
-            value={name}
-            showAnimatedLabel={true}
-            onChangeText={setName}
-            textStyle={name === '' ? styles.inputBoxStyle : styles.inputBoxFill}
-            placeholder="Your Name"
-            style={styles.pincodeInputStyle}
+      <MyStatusbar translucent={true} />
+      <KeyboardAwareScrollView
+        bounces={false}
+        keyboardShouldPersistTaps={'handled'}
+        keyboardOpeningTime={Number.MAX_SAFE_INTEGER}
+        showsVerticalScrollIndicator={false}>
+        <View style={styles.container}>
+          <AuthHeader
+            onPressBack={() => {
+              navigation.goBack();
+            }}
           />
-        </View>
 
-        {/* <View style={[styles.inputCont, { borderColor: email?.length ? colors.inputBoxDarkBorder : colors.inputBoxLightBorder }]}>
+          <SetupProfileHeading title={'Setup your profile'} />
+          <View
+            style={[
+              styles.inputCont,
+              {
+                borderColor: name?.length
+                  ? colors.inputBoxDarkBorder
+                  : colors.inputBoxLightBorder,
+              },
+            ]}>
+            <InputField
+              value={name}
+              showAnimatedLabel={true}
+              onChangeText={setName}
+              textStyle={
+                name === '' ? styles.inputBoxStyle : styles.inputBoxFill
+              }
+              placeholder="Your Name"
+              style={styles.pincodeInputStyle}
+            />
+          </View>
+
+          {/* <View style={[styles.inputCont, { borderColor: email?.length ? colors.inputBoxDarkBorder : colors.inputBoxLightBorder }]}>
           <InputField
             value={email}
             showAnimatedLabel={true}
@@ -126,93 +135,94 @@ const QuestionOneScreen: React.FC<QuestionOneScreenProps> = ({
 
         </View> */}
 
-        <TouchableOpacity
-          style={[
-            styles.inputCont,
-            {
-              borderColor:
-                dob != null
-                  ? colors.inputBoxDarkBorder
-                  : colors.inputBoxLightBorder,
-            },
-          ]}
-          activeOpacity={0.7}>
-          <AnimatedDatePicker
-            showAnimatedLabel={true}
-            placeholder={'Date of Birth'}
-            onSetDate={(date: string) => {
-              setDob(date);
-            }}
-          />
-        </TouchableOpacity>
-
-        <View style={styles.genderContainer}>
-          <Text style={styles.genderTitle}>{'Gender'}</Text>
-          <View style={styles.genderWrapper}>
-            {arr.map((ele, index) => {
-              return (
-                <TouchableOpacity
-                  style={[
-                    styles.itemWidth,
-                    index === selectedGenderIndex && {
-                      borderColor: colors.genderSelectedBorderColor,
-                      backgroundColor: colors.THEME_OVERLAY,
-                    },
-                  ]}
-                  activeOpacity={0.7}
-                  onPress={() => onPressGenderSelection(index)}>
-                  {ele.icon}
-                  <Text
-                    style={[
-                      styles.genderItemText,
-                      index === selectedGenderIndex && {
-                        color: colors.labelDarkGray,
-                      },
-                    ]}>
-                    {ele.title}
-                  </Text>
-                </TouchableOpacity>
-              );
-            })}
-          </View>
-        </View>
-        <>
-          <Text style={styles.doctorCodeTitle}>
-            {'Doctor Code '}
-            <Text style={styles.optionalText}>{'(Optional)'}</Text>
-          </Text>
-        </>
-
-        <View style={styles.wrapper}>
-          <View
-            style={[
-              styles.doctorCodeCont,
-              {
-                borderColor: doctorCode?.length
-                  ? colors.inputBoxDarkBorder
-                  : colors.inputBoxLightBorder,
-              },
-            ]}>
-            <InputField
-              value={doctorCode}
-              showAnimatedLabel={true}
-              onChangeText={onChangeCode}
-              textStyle={
-                doctorCode === '' ? styles.inputBoxStyle : styles.inputBoxFill
-              }
-              placeholder="Enter Code"
-              style={styles.pincodeInputStyle}
-            />
-          </View>
-
           <TouchableOpacity
-            activeOpacity={0.7}
-            style={styles.scanButton}
-            onPress={() => navigation.navigate('ScanCodeScreen')}>
-            <Icons.QrCodeScanner />
+            style={[
+              styles.inputCont,
+              {
+                borderColor:
+                  dob != null
+                    ? colors.inputBoxDarkBorder
+                    : colors.inputBoxLightBorder,
+              },
+            ]}
+            activeOpacity={0.7}>
+            <AnimatedDatePicker
+              showAnimatedLabel={true}
+              placeholder={'Date of Birth'}
+              onSetDate={(date: string) => {
+                setDob(date);
+              }}
+            />
           </TouchableOpacity>
+
+          <View style={styles.genderContainer}>
+            <Text style={styles.genderTitle}>{'Gender'}</Text>
+            <View style={styles.genderWrapper}>
+              {arr.map((ele, index) => {
+                return (
+                  <TouchableOpacity
+                    style={[
+                      styles.itemWidth,
+                      index === selectedGenderIndex && {
+                        borderColor: colors.genderSelectedBorderColor,
+                        backgroundColor: colors.THEME_OVERLAY,
+                      },
+                    ]}
+                    activeOpacity={0.7}
+                    onPress={() => onPressGenderSelection(index)}>
+                    {ele.icon}
+                    <Text
+                      style={[
+                        styles.genderItemText,
+                        index === selectedGenderIndex && {
+                          color: colors.labelDarkGray,
+                        },
+                      ]}>
+                      {ele.title}
+                    </Text>
+                  </TouchableOpacity>
+                );
+              })}
+            </View>
+          </View>
+          <>
+            <Text style={styles.doctorCodeTitle}>
+              {'Doctor Code '}
+              <Text style={styles.optionalText}>{'(Optional)'}</Text>
+            </Text>
+          </>
+
+          <View style={styles.wrapper}>
+            <View
+              style={[
+                styles.doctorCodeCont,
+                {
+                  borderColor: doctorCode?.length
+                    ? colors.inputBoxDarkBorder
+                    : colors.inputBoxLightBorder,
+                },
+              ]}>
+              <InputField
+                value={doctorCode}
+                showAnimatedLabel={true}
+                onChangeText={onChangeCode}
+                textStyle={
+                  doctorCode === '' ? styles.inputBoxStyle : styles.inputBoxFill
+                }
+                placeholder="Enter Code"
+                style={styles.pincodeInputStyle}
+              />
+            </View>
+
+            <TouchableOpacity
+              activeOpacity={0.7}
+              style={styles.scanButton}
+              onPress={() => navigation.navigate('ScanCodeScreen')}>
+              <Icons.QrCodeScanner />
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
+      </KeyboardAwareScrollView>
 
       <Button
         title={'Next'}

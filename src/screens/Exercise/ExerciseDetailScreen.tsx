@@ -12,7 +12,7 @@ import {DrawerScreenProps} from '@react-navigation/drawer';
 import {StackScreenProps} from '@react-navigation/stack';
 import {
   AppStackParamList,
-  DrawerParamList,
+  DrawerParamList,ExerciesStackParamList
 } from '../../interface/Navigation.interface';
 import ExerciseCard from '../../components/molecules/ExerciseCard';
 import {colors} from '../../constants/colors';
@@ -21,7 +21,7 @@ import {Icons} from '../../constants/icons';
 const {width} = Dimensions.get('window');
 
 type ExerciseDetailProps = CompositeScreenProps<
-  DrawerScreenProps<DrawerParamList, 'ExerciseDetailScreen'>,
+StackScreenProps<ExerciesStackParamList, 'ExerciseDetailScreen'>,
   StackScreenProps<AppStackParamList, 'TabScreen'>
 >;
 const ExerciseDetailScreen: React.FC<ExerciseDetailProps> = ({
