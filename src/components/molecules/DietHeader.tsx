@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.3,
     borderBottomColor: '#E5E5E5',
     elevation: 0.2,
-    marginTop: '3%',
+
     // overflow: 'hidden',
     // borderBottomRightRadius: 10,
     // borderBottomLeftRadius: 10,
@@ -174,7 +174,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginLeft: 15,
-    marginTop: 30,
     marginBottom: 20,
   },
   customHeaderText: {

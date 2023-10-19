@@ -67,6 +67,11 @@ import Delete from '../assets/icons/deletIcon.svg';
 import RightArrow from '../assets/icons/rightArrow.svg';
 import DropdownIcon from '../assets/icons/dropdownIcon.svg';
 
+import Fiber from '../assets/icons/fiber.svg';
+import Carbs from '../assets/icons/carbs.svg';
+import Fats from '../assets/icons/Fats.svg';
+import Protein from '../assets/icons/protein.svg';
+
 export const Icons = {
   HomeActive,
   HomeInactive,
@@ -130,5 +135,10 @@ export const Icons = {
   Flame,
   Edit,
   Delete,
-  RightArrow,DropdownIcon
+  RightArrow,
+  DropdownIcon,
+  Protein,
+  Carbs,
+  Fiber,
+  Fats,
 };

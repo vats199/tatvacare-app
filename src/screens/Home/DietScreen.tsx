@@ -12,8 +12,10 @@ import { StackScreenProps } from '@react-navigation/stack';
 import Diet from '../../api/diet';
 import { useApp } from '../../context/app.context';
 import moment from 'moment';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { NativeModules } from 'react-native';
+import Loader from '../../components/atoms/Loader';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import Matrics from '../../constants/Matrics';
+
 type DietScreenProps = StackScreenProps<DietStackParamList, 'DietScreen'>
 
 const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
@@ -29,6 +31,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   const [caloriesArray, setCaloriesArray] = React.useState<any[]>([]);
   const [totalcalorie, setTotalcalories] = useState<number | null>(null)
   const [totalConsumedcalorie, setTotalConsumedcalories] = useState<number | null>(null)
+  const insets = useSafeAreaInsets()
 
   useEffect(() => {
     getData();
@@ -133,10 +136,13 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   const handelOnpressOfprogressBar = () => {
     navigation.navigate("ProgressBarInsightsScreen", { calories: caloriesArray })
   }
- 
+
   return (
 
-    <View style={{ flex: 1, backgroundColor: colors.lightGreyishBlue, }}>
+    <SafeAreaView edges={['top']} style={{
+      flex: 1, backgroundColor: colors.lightGreyishBlue,
+      paddingBottom: insets.bottom !== 0 ? insets.bottom : Matrics.vs(16),
+    }}>
       <DietHeader
         onPressBack={onPressBack}
         onPressOfNextAndPerviousDate={handleDate}
@@ -195,7 +201,8 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
           </View>
         </View>
       </Modal>
-    </View>
+      <Loader visible={loader} />
+    </SafeAreaView>
   );
 };
 

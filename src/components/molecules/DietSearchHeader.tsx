@@ -1,6 +1,7 @@
 import { StyleSheet, View, TextInput } from 'react-native';
 import React, { useState } from 'react';
 import { Icons } from '../../constants/icons';
+import Matrics from '../../constants/Matrics';
 
 
 type DietSearchHeaderProps = {
@@ -37,9 +38,8 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     flexDirection: 'row',
-    marginBottom: 30,
+    marginBottom: Matrics.vs(30),
     alignItems: 'center',
-    marginTop: '10%'
   },
   input: {
     width: '90%',
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     marginHorizontal: 10,
     paddingLeft: 15,
-    fontSize: 16,
+    fontSize: Matrics.vs(12),
     color: 'gray',
   },
 });

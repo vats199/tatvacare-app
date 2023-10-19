@@ -7,6 +7,7 @@ import { colors } from '../../constants/colors';
 import fonts from '../../constants/fonts';
 import Matrics from '../../constants/Matrics';
 import CircularProgress from 'react-native-circular-progress-indicator';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 type ProgressBarInsightsScreenProps = StackScreenProps<DietStackParamList, 'ProgressBarInsightsScreen'>
 
@@ -23,14 +24,43 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({ n
     setSelectedDate(date);
   };
 
+  const arry = [
+    {
+      title: 'protine',
+      totalCalories: 280,
+      consumedClories: 140,
+      progressBarVale: 50, color: '#2ecc71'
+    },
+    {
+      title: 'Carbs',
+      totalCalories: 280,
+      consumedClories: 140,
+      progressBarVale: 50,
+      color: '#2ecc71'
+    },
+    {
+      title: 'Fiber',
+      totalCalories: 280,
+      consumedClories: 140,
+      progressBarVale: 50,
+      color: '#FAB000'
+    },
+    {
+      title: 'Fats',
+      totalCalories: 280,
+      consumedClories: 140,
+      progressBarVale: 50,
+      color: '#FF3333'
+    },
+  ]
   useEffect(() => {
     const data = calories.map((item: any) => {
       // let color:'green'
       // switch (key) {
       //   case value:
-          
+
       //     break;
-      
+
       //   default:
       //     break;
       // }
@@ -50,12 +80,13 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({ n
       <View style={style.calorieMainContainer}>
         <CircularProgress
           value={item?.progressBarVale}
-          inActiveStrokeColor={'#2ecc71'}
+          inActiveStrokeColor={item.color ? item.color : '#2ecc71'}
           inActiveStrokeOpacity={0.2}
           progressValueColor={'green'}
           valueSuffix={'%'}
           radius={Matrics.mvs(22)}
           activeStrokeWidth={3}
+          activeStrokeColor={item.color ? item.color : '#2ecc71'}
           inActiveStrokeWidth={3}
         />
         <View style={{ marginLeft: Matrics.s(10) }}>
@@ -71,17 +102,21 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({ n
   }
 
   return (
-    <View >
+    <SafeAreaView edges={['top']} style={{ flex: 1, backgroundColor: colors.lightGreyishBlue, }}>
       <DietHeader
         onPressBack={onPressBack}
         onPressOfNextAndPerviousDate={handleDate}
         title={'Insights'}
       />
       <Text style={style.title}>Daily Macronutrients Analysis</Text>
-      <View style={{backgroundColor:colors.white, marginHorizontal:Matrics.s(15), paddingVertical:Matrics.vs(5) , borderRadius:Matrics.mvs(12)}}>
-      {dailyCalories?.map((item) => { return (renderItem(item)) })}
+      <View style={{ backgroundColor: colors.white, marginHorizontal: Matrics.s(15), paddingVertical: Matrics.vs(5), borderRadius: Matrics.mvs(12) }}>
+        {arry?.map((item) => { return (renderItem(item)) })}
       </View>
-    </View>
+      <Text style={style.title}>Daily Macronutrients Analysis</Text>
+      <View style={{ backgroundColor: colors.white, marginHorizontal: Matrics.s(15), paddingVertical: Matrics.vs(5), borderRadius: Matrics.mvs(12) }}>
+        {dailyCalories?.map((item) => { return (renderItem(item)) })}
+      </View>
+    </SafeAreaView>
   )
 }
 

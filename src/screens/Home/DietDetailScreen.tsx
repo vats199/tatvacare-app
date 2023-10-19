@@ -9,7 +9,7 @@ import { StackScreenProps } from '@react-navigation/stack';
 import Deit from '../../api/diet'
 import { useApp } from '../../context/app.context';
 import Fonts from '../../constants/fonts';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import Matrics from '../../constants/Matrics';
 
 type DietDetailProps = StackScreenProps<DietStackParamList, 'DietDetail'>
@@ -19,6 +19,7 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
 
   const [qty, setQty] = React.useState<string>()
   // const { userData } = useApp();
+  const insets = useSafeAreaInsets()
 
   const onPressBack = () => { navigation.goBack(); };
 
@@ -94,8 +95,7 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
     setQty(item)
   }
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: colors.lightGreyishBlue, top: -Matrics.vs(60), height: '100%' }}>
-
+    <SafeAreaView edges={['top']} style={{ flex: 1, backgroundColor: colors.lightGreyishBlue, paddingBottom: insets.bottom !== 0 ? insets.bottom/2 : Matrics.vs(16), }}>
 
       <View style={styles.header}>
         <Icons.backArrow onPress={onPressBack} height={23} width={23} />
@@ -116,24 +116,22 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 30,
     marginBottom: 20,
-    marginLeft: 15,
-    flex: 0.05
+    marginHorizontal: Matrics.s(15)
+
   },
   dietTitle: {
     fontSize: 16,
     fontWeight: '700',
     color: colors.labelDarkGray,
     marginLeft: 10,
-    fontFamily: Fonts.BOLD
+    fontFamily: Fonts.BOLD, flexWrap: 'wrap',
   },
   belowContainer: {
     flex: 0.95,
     justifyContent: 'space-between',
     marginBottom: 10,
     height: '100%',
-    position: 'absolute',
-    bottom: 0
+
   },
 });

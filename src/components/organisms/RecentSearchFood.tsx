@@ -3,6 +3,7 @@ import React from 'react';
 import { colors } from '../../constants/colors';
 import { Icons } from '../../constants/icons';
 import { TouchableOpacity } from 'react-native';
+import Matrics from '../../constants/Matrics';
 
 type RecentSerachDietProps = {
   onPressPlus: (data: SearcheFood) => void;
@@ -37,13 +38,13 @@ type SearcheFood = {
 const RecentSearchDiet: React.FC<RecentSerachDietProps> = ({ onPressPlus, searchData, title }) => {
 
   const renderRecentSearchItem = (item: SearcheFood, index: number) => {
-    console.log("item",item);
-    
+    console.log("item", item);
+
     return (
       <TouchableOpacity style={styles.container} onPress={() => onPressPlus(item)}>
         <View style={{ flex: 0.78 }}>
           <Text style={styles.titleText}>{item?.food_name}</Text>
-          <Text style={styles.messageText}>{  Math.round(Number(item.total_micronutrients))+' g'}</Text>
+          <Text style={styles.messageText}>{"  "+(Math.round(Number(item.total_micronutrients))? Math.round(Number(item.total_micronutrients)):0 )+ ' g'}</Text>
         </View>
         <View style={styles.leftContainer}>
           <Text style={styles.calorieText}>{item?.CALORIES_CALCULATED_FOR}cal</Text>
@@ -69,7 +70,7 @@ export default RecentSearchDiet;
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: 17,
+    fontSize: Matrics.mvs(14),
     fontWeight: 'bold',
     color: colors.black,
     marginBottom: 5,
@@ -81,17 +82,17 @@ const styles = StyleSheet.create({
     marginVertical: 6,
   },
   titleText: {
-    fontSize: 17,
+    fontSize: Matrics.mvs(14),
     // fontWeight: 'bold',
     color: colors.labelDarkGray,
     padding: 5,
     textTransform: 'capitalize'
   },
   messageText: {
-    fontSize: 13,
+    fontSize: Matrics.mvs(13),
   },
   calorieText: {
-    fontSize: 15,
+    fontSize: Matrics.mvs(14),
     color: colors.labelDarkGray,
     marginRight: 10,
   },

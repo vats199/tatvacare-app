@@ -9,6 +9,8 @@ import Diet from '../../api/diet';
 import { useApp } from '../../context/app.context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Container, Screen } from '../../components/styled/Views';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import Matrics from '../../constants/Matrics';
 
 
 type AddDietScreenProps = StackScreenProps<DietStackParamList, 'AddDiet'>
@@ -120,10 +122,10 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
   }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView edges={['top']} style={styles.container}>
       <DietSearchHeader onPressBack={onPressBack} onSearch={handleSerach} />
       <RecentSearchDiet onPressPlus={handlePressPlus} searchData={searchResult} title={title} />
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -132,7 +134,7 @@ export default AddDietScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 15,
+    paddingHorizontal:Matrics.s(15),
     backgroundColor: colors.lightGreyishBlue,
   },
 });

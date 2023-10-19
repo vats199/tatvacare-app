@@ -12,23 +12,23 @@ import {
   SafeAreaView,
   useWindowDimensions,
 } from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
-import Router, {openHealthKitSyncView} from './src/routes/Router';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import React, { useEffect, useRef, useState } from 'react';
+import Router, { openHealthKitSyncView } from './src/routes/Router';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import LocationBottomSheet, {
   LocationBottomSheetRef,
 } from './src/components/molecules/LocationBottomSheet';
 import Geolocation from 'react-native-geolocation-service';
-import {request, check, PERMISSIONS, RESULTS} from 'react-native-permissions';
-import {Linking} from 'react-native';
+import { request, check, PERMISSIONS, RESULTS } from 'react-native-permissions';
+import { Linking } from 'react-native';
 import Home from './src/api/home';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {AppProvider} from './src/context/app.context';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
- import { MenuProvider } from 'react-native-popup-menu';
+import { AppProvider } from './src/context/app.context';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { MenuProvider } from 'react-native-popup-menu';
 
 const App = () => {
-  const {height, width} = useWindowDimensions();
+  const { height, width } = useWindowDimensions();
   const [location, setLocation] = useState<object>({});
   const BottomSheetRef = useRef<LocationBottomSheetRef>(null);
   const [locationPermission, setLocationPermission] = useState<string>('');
@@ -76,7 +76,7 @@ const App = () => {
         // Handle location error here
         requestLocationPermission(false);
       },
-      {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 },
     );
   };
 
@@ -157,8 +157,8 @@ const App = () => {
 
   return (
     <MenuProvider>
-    <GestureHandlerRootView style={{height, width}}>
-      <SafeAreaProvider>
+      <GestureHandlerRootView style={{ height, width }}>
+
         <AppProvider>
           <Router />
           <LocationBottomSheet
@@ -169,8 +169,8 @@ const App = () => {
             locationPermission={locationPermission}
           />
         </AppProvider>
-      </SafeAreaProvider>
-    </GestureHandlerRootView>
+
+      </GestureHandlerRootView>
     </MenuProvider>
   );
 };
