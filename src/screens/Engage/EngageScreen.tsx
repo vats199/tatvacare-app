@@ -7,20 +7,21 @@ import {
   ScrollView,
 } from 'react-native';
 import React from 'react';
-import {CompositeScreenProps} from '@react-navigation/native';
+import { CompositeScreenProps } from '@react-navigation/native';
 import {
   AppStackParamList,
   BottomTabParamList,
-   EngageStackParamList,
+  EngageStackParamList,
 } from '../../interface/Navigation.interface';
-import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
-import {StackScreenProps} from '@react-navigation/stack';
-import {EngageStyle as style} from './styles';
-import {Icons} from '../../constants/icons';
-import {Images} from '../../constants';
-import {colors} from '../../constants/colors';
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import { StackScreenProps } from '@react-navigation/stack';
+import { EngageStyle as style } from './styles';
+import { Icons } from '../../constants/icons';
+import { Images, Matrics } from '../../constants';
+import { colors } from '../../constants/colors';
 import DiscoverCard from '../../components/molecules/DiscoverCard';
-  
+import { SafeAreaView } from 'react-native-safe-area-context';
+
 type ExplorScreenProps = CompositeScreenProps<
   StackScreenProps<EngageStackParamList, 'EngageScreen'>,
   CompositeScreenProps<
@@ -30,14 +31,14 @@ type ExplorScreenProps = CompositeScreenProps<
 >;
 
 const EngageScreen: React.FC<ExplorScreenProps> = () => {
-  const handleFilter = () => {};
+  const handleFilter = () => { };
   const [cateegory, setCategory] = React.useState([
-    {title: 'Condition Basics', icons: Images.GroupIcon, selected: false},
-    {title: 'LifeStyle', icons: Images.LifeStyleIcon, selected: false},
-    {title: 'Trending', icons: Images.HearRateIcon, selected: false},
-    {title: 'Medication & Vitals', icons: Images.MedicalIcon, selected: false},
-    {title: 'Diet', icons: Images.Diet, selected: false},
-    {title: 'Exercies', icons: Images.Exercies, selected: false},
+    { title: 'Condition Basics', icons: Images.GroupIcon, selected: false },
+    { title: 'LifeStyle', icons: Images.LifeStyleIcon, selected: false },
+    { title: 'Trending', icons: Images.HearRateIcon, selected: false },
+    { title: 'Medication & Vitals', icons: Images.MedicalIcon, selected: false },
+    { title: 'Diet', icons: Images.Diet, selected: false },
+    { title: 'Exercies', icons: Images.Exercies, selected: false },
   ]);
 
   const toggleCategorySelection = (index: number) => {
@@ -87,12 +88,12 @@ const EngageScreen: React.FC<ExplorScreenProps> = () => {
   ]);
 
   const arrsyColors = [
-    colors.lightPurple,
-    colors.lightGreen,
+    colors.Purple,
+    colors.Green,
     colors.lightYellow,
     colors.lightRed,
   ];
-  const renderCategory = ({item, index}: {item: any; index: number}) => {
+  const renderCategory = ({ item, index }: { item: any; index: number }) => {
     return (
       <TouchableOpacity
         onPress={() => toggleCategorySelection(index)}
@@ -112,14 +113,14 @@ const EngageScreen: React.FC<ExplorScreenProps> = () => {
     );
   };
   return (
-    <View style={style.mainContainer}>
+    <SafeAreaView edges={['top']} style={style.mainContainer}>
       <View style={style.headerContainer}>
         <Text style={style.headerText}>Engage</Text>
         <TouchableOpacity onPress={handleFilter}>
           <Icons.Filter />
         </TouchableOpacity>
       </View>
-      <View>
+      <View >
         <FlatList
           data={cateegory}
           renderItem={renderCategory}
@@ -137,12 +138,12 @@ const EngageScreen: React.FC<ExplorScreenProps> = () => {
         <FlatList
           data={cateegoryData}
           showsVerticalScrollIndicator={false}
-          renderItem={({item}) => {
+          renderItem={({ item }) => {
             return <DiscoverCard CardData={item} />;
           }}
         />
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

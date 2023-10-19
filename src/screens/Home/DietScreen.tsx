@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {CompositeScreenProps, useFocusEffect} from '@react-navigation/native';
+import React, { useState, useEffect } from 'react';
+import { CompositeScreenProps, useFocusEffect } from '@react-navigation/native';
 import {
   ActivityIndicator,
   Modal,
@@ -8,28 +8,28 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 
 import CalorieConsumer from '../../components/molecules/CalorieConsumer';
 import DietHeader from '../../components/molecules/DietHeader';
 import DietTime from '../../components/organisms/DietTime';
-import {colors} from '../../constants/colors';
-import {DietStackParamList} from '../../interface/Navigation.interface';
-import {StackScreenProps} from '@react-navigation/stack';
+import { colors } from '../../constants/colors';
+import { DietStackParamList } from '../../interface/Navigation.interface';
+import { StackScreenProps } from '@react-navigation/stack';
 import Diet from '../../api/diet';
-import {useApp} from '../../context/app.context';
+import { useApp } from '../../context/app.context';
 import moment from 'moment';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 type DietScreenProps = StackScreenProps<DietStackParamList, 'DietScreen'>;
 
-const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
+const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   const title = route.params?.dietData;
   const [dietOption, setDietOption] = useState<boolean>(false);
   const [loader, setLoader] = useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [dietPlane, setDiePlane] = useState<any>([]);
-  const {userData} = useApp();
+  const { userData } = useApp();
   const [deletpayload, setDeletpayload] = useState<string | null>(null);
   const [modalVisible, setModalVisible] = React.useState<boolean>(false);
   const [stateOfAPIcall, setStateOfAPIcall] = React.useState<boolean>(false);
@@ -79,9 +79,9 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
     const date = moment(selectedDate).format('YYYY/MM/DD');
 
     const diet = await Diet.getDietPlan(
-      {date: date},
+      { date: date },
       {},
-      {token: userData?.token},
+      { token: userData?.token },
     );
 
     if (diet?.code === '1') {
@@ -123,7 +123,7 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
         diet_plan_food_item_id: deletpayload,
       },
       {},
-      {token: userData?.token},
+      { token: userData?.token },
     );
     getData();
     if (deleteFoodItem?.code === '1') {
@@ -147,7 +147,7 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
     const UpadteFoodItem = await Diet.updateFoodConsumption(
       item,
       {},
-      {token: userData?.token},
+      { token: userData?.token },
     );
     getData();
     if (UpadteFoodItem?.code === '1') {
@@ -173,7 +173,7 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
   };
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView edges={['top']} style={styles.mainContienr}>
       <DietHeader
         onPressBack={onPressBack}
         onPressOfNextAndPerviousDate={handleDate}
@@ -195,7 +195,7 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
           />
         ) : (
           <View style={styles.messageContainer}>
-            <Text style={{fontSize: 15}}>{'No diet plan available'}</Text>
+            <Text style={{ fontSize: 15 }}>{'No diet plan available'}</Text>
           </View>
         )}
       </View>
@@ -214,7 +214,7 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
             {loader ? (
               <ActivityIndicator size={'large'} color={colors.themePurple} />
             ) : (
-              <View style={{flexDirection: 'row'}}>
+              <View style={{ flexDirection: 'row' }}>
                 <TouchableOpacity
                   style={styles.okButton}
                   onPress={() => deleteFoodItem()}>
@@ -235,6 +235,7 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
 };
 
 const styles = StyleSheet.create({
+  mainContienr: { flex: 1, backgroundColor: colors.lightGreyishBlue, },
   belowContainer: {
     flex: 1,
     paddingHorizontal: 15,

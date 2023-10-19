@@ -1,14 +1,15 @@
-import {StyleSheet, Text, View, TextInput} from 'react-native';
-import React, {useEffect} from 'react';
-import {DietStackParamList} from '../../interface/Navigation.interface';
+import { StyleSheet, Text, View, TextInput } from 'react-native';
+import React, { useEffect } from 'react';
+import { DietStackParamList } from '../../interface/Navigation.interface';
 import RecentSearchDiet from '../../components/organisms/RecentSearchFood';
 import DietSearchHeader from '../../components/molecules/DietSearchHeader';
-import {colors} from '../../constants/colors';
-import {StackScreenProps} from '@react-navigation/stack';
+import { colors } from '../../constants/colors';
+import { StackScreenProps } from '@react-navigation/stack';
 import Diet from '../../api/diet';
-import {useApp} from '../../context/app.context';
+import { useApp } from '../../context/app.context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Matrics } from '../../constants';
 
 type AddDietScreenProps = StackScreenProps<DietStackParamList, 'AddDiet'>;
 type SearcheFood = {
@@ -33,9 +34,9 @@ type SearcheFood = {
   total_monounsaturated_fatty_acids: string;
   total_polyunsaturated_fatty_acids: string;
 };
-const AddDietScreen: React.FC<AddDietScreenProps> = ({navigation, route}) => {
-  const {userData} = useApp();
-  const {optionId, healthCoachId, mealName} = route.params;
+const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
+  const { userData } = useApp();
+  const { optionId, healthCoachId, mealName } = route.params;
   const [recentSerach, setRecentSerach] = React.useState([]);
   const [searchResult, setSearchResult] = React.useState([]);
   const [title, setTitle] = React.useState<string>('Recent Search');
@@ -110,9 +111,9 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({navigation, route}) => {
 
   const handleSerach = async (text: string) => {
     const result = await Diet.searchFoodItem(
-      {food_name: text},
+      { food_name: text },
       {},
-      {token: userData?.token},
+      { token: userData?.token },
     );
     setSearchResult(result?.data);
     if (result.code === '0' || text.length === 0) {
@@ -128,7 +129,7 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({navigation, route}) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView edges={['top']} style={styles.container} >
       <DietSearchHeader onPressBack={onPressBack} onSearch={handleSerach} />
       <RecentSearchDiet
         onPressPlus={handlePressPlus}
@@ -144,7 +145,7 @@ export default AddDietScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 15,
+    paddingHorizontal: Matrics.mvs(15),
     backgroundColor: colors.lightGreyishBlue,
   },
 });

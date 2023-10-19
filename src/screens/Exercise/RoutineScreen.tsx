@@ -1,25 +1,25 @@
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import {CompositeScreenProps} from '@react-navigation/native';
-import {MaterialTopTabScreenProps} from '@react-navigation/material-top-tabs';
+import { CompositeScreenProps } from '@react-navigation/native';
+import { MaterialTopTabScreenProps } from '@react-navigation/material-top-tabs';
 import {
   AppStackParamList,
   TabParamList,
 } from '../../interface/Navigation.interface';
-import {colors} from '../../constants/colors';
-import {StackScreenProps} from '@react-navigation/stack';
+import { colors } from '../../constants/colors';
+import { StackScreenProps } from '@react-navigation/stack';
 import RoutineHeader from '../../components/molecules/RoutineHeader';
 import RoutineExercises from '../../components/organisms/RoutineExercises';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 type ExerciseScreenProps = CompositeScreenProps<
   MaterialTopTabScreenProps<TabParamList, 'RoutineScreen'>,
   StackScreenProps<AppStackParamList, 'TabScreen'>
 >;
 
-const RoutineScreen: React.FC<ExerciseScreenProps> = ({navigation, route}) => {
+const RoutineScreen: React.FC<ExerciseScreenProps> = ({ navigation, route }) => {
   const exercise = [
-    {id: 1, video: require('../../assets/video/Exercise.mp4'), levle: null},
+    { id: 1, video: require('../../assets/video/Exercise.mp4'), levle: null },
     {
       id: 2,
       video: require('../../assets/video/Workout.mp4'),
@@ -36,11 +36,11 @@ const RoutineScreen: React.FC<ExerciseScreenProps> = ({navigation, route}) => {
       levle: 'Difficulty',
     },
   ];
-  const handleDone = () => {};
-  const handleVedio = () => {};
+  const handleDone = () => { };
+  const handleVedio = () => { };
   return (
     <ScrollView style={styles.container}>
-      {/* <RoutineHeader
+      <RoutineHeader
         date={'17 Mar 2023'}
         Vadlidity={'Valid from 17 Mar 2023 to 21 Mar 2023'}
       />
@@ -50,7 +50,7 @@ const RoutineScreen: React.FC<ExerciseScreenProps> = ({navigation, route}) => {
           onpressOfVideo={handleVedio}
           exerciseData={exercise}
         />
-      </View> */}<Text>Routine Screen</Text>
+      </View>
     </ScrollView>
   );
 };
@@ -62,9 +62,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.white,
   },
-  haederContainer: {flex: 0.15, margin: 5, marginHorizontal: 20},
-  headerTitleContainer: {flexDirection: 'row', justifyContent: 'space-between'},
-  headerTitle: {fontSize: 22, fontWeight: '700'},
+  haederContainer: { flex: 0.15, margin: 5, marginHorizontal: 20 },
+  headerTitleContainer: { flexDirection: 'row', justifyContent: 'space-between' },
+  headerTitle: { fontSize: 22, fontWeight: '700' },
   dateBox: {
     height: 30,
     width: 103,
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     textAlign: 'center',
   },
-  haederContent: {fontSize: 14, color: colors.darkBlue, marginTop: 12},
+  haederContent: { fontSize: 14, color: colors.darkBlue, marginTop: 12 },
   routineTab: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -100,6 +100,7 @@ const styles = StyleSheet.create({
   exerciesContainer: {
     backgroundColor: colors.lightGray,
     flex: 0.8,
-    borderRadius: 30,
+    borderTopLeftRadius: 30, borderTopRightRadius: 30,
+    paddingBottom: '10%'
   },
 });

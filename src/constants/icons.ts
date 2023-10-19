@@ -102,13 +102,18 @@ import Offer from '../assets/icons/offer.svg';
 import Liver from '../assets/icons/icon_liver.svg';
 import Gps from '../assets/icons/gps.svg';
 import upArrow from '../assets/icons/upArrow.svg';
-import Person from "../assets/icons/personicon.svg";
+import Person from '../assets/icons/personicon.svg';
 import MaleIcon from '../assets/icons/maleIcon.svg';
 import FemaleIcon from '../assets/icons/femaleIcon.svg';
 import Edit from '../assets/icons/editicon.svg';
-// import Delete from '../assets/icons/deletIcon.svg';
+import remove from '../assets/icons/deletIcon.svg';
 import RightArrow from '../assets/icons/rightArrow.svg';
 import DropdownIcon from '../assets/icons/dropdownIcon.svg';
+
+import Fiber from '../assets/icons/fiber.svg';
+import Carbs from '../assets/icons/carbs.svg';
+import Fats from '../assets/icons/Fats.svg';
+import Protein from '../assets/icons/protein.svg';
 
 export const Icons = {
   HomeActive,
@@ -213,7 +218,11 @@ export const Icons = {
   MaleIcon,
   FemaleIcon,
   Edit,
-  // Delete,
+  remove,
   RightArrow,
-  DropdownIcon
+  DropdownIcon,
+  Protein,
+  Carbs,
+  Fiber,
+  Fats,
 };

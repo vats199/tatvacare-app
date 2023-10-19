@@ -1,6 +1,7 @@
 import { StyleSheet, View, TextInput } from 'react-native';
 import React, { useState } from 'react';
 import { Icons } from '../../constants/icons';
+import { Matrics } from '../../constants';
 
 
 type DietSearchHeaderProps = {
@@ -24,8 +25,8 @@ const DietSearchHeader: React.FC<DietSearchHeaderProps> = ({ onPressBack, onSear
         value={searchText}
         onChangeText={text => {
           setSearchText(text)
-             handleSerache(text)
-          }}
+          handleSerache(text)
+        }}
       />
     </View>
   );
@@ -37,20 +38,19 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     flexDirection: 'row',
-    marginBottom: 30,
-    marginTop: 20,
+    marginBottom: Matrics.vs(30),
     alignItems: 'center',
   },
   input: {
     width: '90%',
-    height: 45,
+    height: Matrics.vs(42),
     borderWidth: 0.2,
     borderColor: 'black',
     backgroundColor: 'white',
-    borderRadius: 6,
-    marginHorizontal: 10,
-    paddingLeft: 15,
-    fontSize: 16,
+    borderRadius: Matrics.mvs(12),
+    marginHorizontal: Matrics.s(10),
+    paddingLeft: Matrics.s(15),
+    fontSize: Matrics.mvs(12),
     color: 'gray',
   },
 });

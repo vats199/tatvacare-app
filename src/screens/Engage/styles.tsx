@@ -1,11 +1,11 @@
-import {StyleSheet} from 'react-native';
-import {Fonts, Matrics} from '../../constants';
-import {colors} from '../../constants/colors';
+import { StyleSheet } from 'react-native';
+import { Fonts, Matrics } from '../../constants';
+import { colors } from '../../constants/colors';
 
 export const EngageStyle = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    backgroundColor: colors.white,
+    backgroundColor: colors.white, paddingBottom: 0
   },
   headerContainer: {
     flex: 0.1,
@@ -49,7 +49,7 @@ export const EngageStyle = StyleSheet.create({
     backgroundColor: colors.lightGray,
     borderTopRightRadius: Matrics.mvs(28),
     borderTopLeftRadius: Matrics.mvs(28),
-    height:'100%'
+    height: '100%'
   },
   dropdownContainer: {
     flexDirection: 'row',
@@ -63,8 +63,8 @@ export const EngageStyle = StyleSheet.create({
     width: Matrics.s(100),
     borderRadius: Matrics.mvs(5),
   },
-  dropdownText:{
-     color: colors.white, 
-     margin: Matrics.s(5.5)
+  dropdownText: {
+    color: colors.white,
+    margin: Matrics.s(5.5)
   }
 });

@@ -4,11 +4,12 @@ import { colors } from '../../constants/colors';
 import RecentDietItem from '../molecules/RecentFoodItem';
 import { Icons } from '../../constants/icons';
 import { TouchableOpacity } from 'react-native';
+import { Matrics } from '../../constants';
 
 type RecentSerachDietProps = {
   onPressPlus: (data: SearcheFood) => void;
   searchData: SearcheFood[],
-  title:string
+  title: string
 
 }
 type SearcheFood = {
@@ -33,7 +34,7 @@ type SearcheFood = {
   total_monounsaturated_fatty_acids: string,
   total_polyunsaturated_fatty_acids: string
 }
-const RecentSearchDiet: React.FC<RecentSerachDietProps> = ({ onPressPlus, searchData,title }) => {
+const RecentSearchDiet: React.FC<RecentSerachDietProps> = ({ onPressPlus, searchData, title }) => {
 
   const renderRecentSearchItem = (item: SearcheFood, index: number) => {
     return (
@@ -53,7 +54,7 @@ const RecentSearchDiet: React.FC<RecentSerachDietProps> = ({ onPressPlus, search
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <Text style={styles.text}>{title}</Text>
-      {searchData?.length>0 ?searchData?.map(renderRecentSearchItem):(null
+      {searchData?.length > 0 ? searchData?.map(renderRecentSearchItem) : (null
         // <View>
         //   <Text style={{textTransform:'capitalize'}}>sorry but no such food item found in our database please try with some other keyword</Text>
         // </View>
@@ -66,7 +67,7 @@ export default RecentSearchDiet;
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: 17,
+    fontSize: Matrics.mvs(14),
     fontWeight: 'bold',
     color: colors.black,
     marginBottom: 5,
@@ -82,7 +83,7 @@ const styles = StyleSheet.create({
     // fontWeight: 'bold',
     color: colors.labelDarkGray,
     padding: 5,
-    textTransform:'capitalize'
+    textTransform: 'capitalize'
   },
   messageText: {
     fontSize: 13,

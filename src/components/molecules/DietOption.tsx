@@ -1,8 +1,8 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
-import {Icons} from '../../constants/icons';
-import {colors} from '../../constants/colors';
-import {Fonts, Matrics} from '../../constants';
+import { Icons } from '../../constants/icons';
+import { colors } from '../../constants/colors';
+import { Fonts, Matrics } from '../../constants';
 import styled from 'styled-components/native';
 import {
   Menu,
@@ -114,13 +114,13 @@ const DietOption: React.FC<DietOptionItem> = ({
           {item?.is_consumed ? (
             <TouchableOpacity
               onPress={() => handaleFoodConsumption(item)}
-              style={{height: 28, width: 28}}>
+              style={{ height: 28, width: 28 }}>
               <Icons.Success height={28} width={28} />
             </TouchableOpacity>
           ) : (
             <TouchableOpacity
               onPress={() => handaleFoodConsumption(item)}
-              style={{height: 28, width: 28}}>
+              style={{ height: 28, width: 28 }}>
               <Icons.Ellipse height={28} width={28} />
             </TouchableOpacity>
           )}
@@ -131,7 +131,7 @@ const DietOption: React.FC<DietOptionItem> = ({
             </Text>
           </View>
         </View>
-        <View style={{flexDirection: 'row'}}>
+        <View style={{ flexDirection: 'row' }}>
           <Text style={styles.value}>
             {Math.round(Number(item.calories))}cal
           </Text>
@@ -155,7 +155,7 @@ const DietOption: React.FC<DietOptionItem> = ({
                 <MenuOption
                   onSelect={() => handaleDelete(item?.diet_plan_food_item_id)}>
                   <View style={styles.optionContainer}>
-                    <Icons.Delete />
+                    <Icons.remove />
                     <Text style={styles.optionText}>Delete</Text>
                   </View>
                 </MenuOption>
@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
     width: Matrics.s(80),
     marginTop: Matrics.vs(22),
   },
-  optionContainer: {flexDirection: 'row', paddingHorizontal: 5},
+  optionContainer: { flexDirection: 'row', paddingHorizontal: 5 },
   optionText: {
     paddingHorizontal: 10,
     lineHeight: 15,

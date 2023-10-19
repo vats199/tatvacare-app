@@ -3,7 +3,7 @@ import React from 'react';
 import { Icons } from '../../constants/icons';
 import { colors } from '../../constants/colors';
 import { Fonts } from '../../constants';
- 
+
 type MicronutrientsInformationProps = {
   foodItemDetails: FoodItems
 };
@@ -40,35 +40,43 @@ type FoodItems = {
 type NutritionData = {
   name: string;
   value: string;
+  icon: any;
 };
 const MicronutrientsInformation: React.FC<MicronutrientsInformationProps> = ({ foodItemDetails }) => {
   const options: NutritionData[] = [
     {
       name: 'Protein',
-      value: foodItemDetails?.protein ,
+      value: foodItemDetails?.protein,
+      icons: <Icons.Protein />
     },
     {
       name: 'Carbs',
       value: foodItemDetails?.carbs,
+      icons: <Icons.Carbs />
+
     },
     {
       name: 'Fats',
       value: foodItemDetails?.fats,
+      icons: <Icons.Fats />
+
     },
     {
       name: 'Fibers',
       value: foodItemDetails?.fibers,
+      icons: <Icons.Fiber />
+
     },
   ];
- 
+
   const renderNutritionDataItem = (item: NutritionData, index: number) => {
     return (
       <View style={styles.belowRow} key={index}>
         <View style={styles.topRow}>
-          <View style={styles.square} />
+          <View style={styles.square} >{item.icons}</View>
           <Text style={styles.name}>{item.name}</Text>
         </View>
-        <Text style={styles.value}>{item.value.replace("g","").replace("m","")}</Text>
+        <Text style={styles.value}>{item.value.replace("g", "").replace("m", "")}</Text>
       </View>
     );
   };
@@ -143,6 +151,7 @@ const styles = StyleSheet.create({
     height: 25,
     backgroundColor: '#F3F3F3',
     marginRight: 10,
+    justifyContent: "center", alignItems: "center"
   },
   name: {
     fontSize: 14,

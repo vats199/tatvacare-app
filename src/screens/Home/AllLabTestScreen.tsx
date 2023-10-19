@@ -6,23 +6,24 @@ import {
   TextInput,
   ScrollView,
 } from 'react-native';
-import React, {useState} from 'react';
-import {Container, Screen} from '../../components/styled/Views';
+import React, { useState } from 'react';
+import { Container, Screen } from '../../components/styled/Views';
 import {
   AppStackParamList,
   DrawerParamList,
   BottomTabParamList,
   HomeStackParamList,
 } from '../../interface/Navigation.interface';
-import {StackScreenProps} from '@react-navigation/stack';
-import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
-import {CompositeScreenProps} from '@react-navigation/native';
+import { StackScreenProps } from '@react-navigation/stack';
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import { CompositeScreenProps } from '@react-navigation/native';
 import Header from '../../components/atoms/Header';
-import {Icons} from '../../constants/icons';
-import {colors} from '../../constants/colors';
+import { Icons } from '../../constants/icons';
+import { colors } from '../../constants/colors';
 import LabTest from '../../components/organisms/LabTest';
-import {Fonts} from '../../constants';
-import {useApp} from '../../context/app.context';
+import { Fonts } from '../../constants';
+import { useApp } from '../../context/app.context';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 type AllLabTestProps = CompositeScreenProps<
   StackScreenProps<AppStackParamList, 'AllLabTestScreen'>,
@@ -42,10 +43,10 @@ type TestItem = {
   isAdded: boolean;
 };
 
-const AllLabTestScreen: React.FC<AllLabTestProps> = ({route, navigation}) => {
+const AllLabTestScreen: React.FC<AllLabTestProps> = ({ route, navigation }) => {
   const [addedCartItem, setAddedCartItem] = useState<TestItem[]>([]);
 
-  const {location} = useApp();
+  const { location } = useApp();
   console.log(location);
 
   const handleItemAdded = (item: TestItem) => {
@@ -55,116 +56,118 @@ const AllLabTestScreen: React.FC<AllLabTestProps> = ({route, navigation}) => {
 
   const addedItem = addedCartItem.length;
   console.log(addedItem);
-  const iconPress = () => {};
-  const onPressUploadPerscription = () => {};
-  const onPressViewFreeTests = () => {};
-  const onPressAdd = () => {};
-  const onPressViewAll = () => {};
+  const iconPress = () => { };
+  const onPressUploadPerscription = () => { };
+  const onPressViewFreeTests = () => { };
+  const onPressAdd = () => { };
+  const onPressViewAll = () => { };
   const onBackPress = () => {
     navigation.goBack();
   };
   const onPressViewCart = () => {
-    navigation.navigate('LabTestCart', {item: addedCartItem});
+    navigation.navigate('LabTestCart', { item: addedCartItem });
   };
   return (
-    <>
-      <View style={styles.screen}>
-        <ScrollView>
-          <Header
-            title="All Lab test"
-            isIcon={true}
-            icon={<Icons.Cart height={24} width={24} />}
-            containerStyle={styles.upperHeader}
-            titleStyle={styles.titleStyle}
-            onIconPress={iconPress}
-            onBackPress={onBackPress}
-          />
-          <View style={styles.location}>
-            <Icons.Location />
-          </View>
 
-          <View style={{flex: 1, paddingHorizontal: 15}}>
-            <TouchableOpacity
-              style={styles.searchContainer}
-              activeOpacity={1}
-              onPress={() => {
-                navigation.navigate('SearchLabTest');
+    <SafeAreaView edges={['top']} style={styles.screen}>
+
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Header
+          title="All Lab test"
+          isIcon={true}
+          icon={<Icons.Cart height={24} width={24} />}
+          containerStyle={styles.upperHeader}
+          titleStyle={styles.titleStyle}
+          onIconPress={iconPress}
+          onBackPress={onBackPress}
+        />
+        <View style={styles.location}>
+          <Icons.Location />
+        </View>
+
+        <View style={{ flex: 1, paddingHorizontal: 15 }}>
+          <TouchableOpacity
+            style={styles.searchContainer}
+            activeOpacity={1}
+            onPress={() => {
+              navigation.navigate('SearchLabTest');
+            }}>
+            <Icons.Search />
+            {/* <TextInput placeholder='Search for Tests, Health Packages' /> */}
+            <Text> Search for Tests, Health Packages</Text>
+          </TouchableOpacity>
+          <View style={styles.perscription}>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
               }}>
-              <Icons.Search />
-              {/* <TextInput placeholder='Search for Tests, Health Packages' /> */}
-              <Text> Search for Tests, Health Packages</Text>
-            </TouchableOpacity>
-            <View style={styles.perscription}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                }}>
-                <Icons.MedicineBlack height={36} width={36} />
-                <View style={styles.textBox}>
-                  <Text style={styles.uploadPerscription}>
-                    Upload Prescription
-                  </Text>
-                  <Text style={styles.arrangeMedicine}>
-                    We Will Arrange Medicine For you
-                  </Text>
-                </View>
-              </View>
-              <View>
-                <Icons.forwardArrow
-                  height={12}
-                  width={12}
-                  onPress={onPressUploadPerscription}
-                />
+              <Icons.MedicineBlack height={36} width={36} />
+              <View style={styles.textBox}>
+                <Text style={styles.uploadPerscription}>
+                  Upload Prescription
+                </Text>
+                <Text style={styles.arrangeMedicine}>
+                  We Will Arrange Medicine For you
+                </Text>
               </View>
             </View>
-            <View style={styles.freeTestBox}>
-              <Text style={styles.freeTestText}>
-                {' '}
-                Free Test Available for you
-              </Text>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  flex: 1,
-                  alignItems: 'center',
-                }}>
-                <View style={{flex: 0.85}}>
-                  <Text style={styles.freeText}>
-                    Since you are on paid plan you can get free test aslo done
-                    accor to your health
-                  </Text>
-                </View>
-                <TouchableOpacity style={{flex: 0.15}} onPress={onPressAdd}>
-                  <Text style={styles.textAddButton}> Add</Text>
-                </TouchableOpacity>
+            <View>
+              <Icons.forwardArrow
+                height={12}
+                width={12}
+                onPress={onPressUploadPerscription}
+              />
+            </View>
+          </View>
+          <View style={styles.freeTestBox}>
+            <Text style={styles.freeTestText}>
+              {' '}
+              Free Test Available for you
+            </Text>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                flex: 1,
+                alignItems: 'center',
+              }}>
+              <View style={{ flex: 0.85 }}>
+                <Text style={styles.freeText}>
+                  Since you are on paid plan you can get free test aslo done
+                  accor to your health
+                </Text>
               </View>
-              <TouchableOpacity onPress={onPressViewFreeTests}>
-                <Text style={styles.textViewButton}>View Free Test</Text>
+              <TouchableOpacity style={{ flex: 0.15 }} onPress={onPressAdd}>
+                <Text style={styles.textAddButton}> Add</Text>
               </TouchableOpacity>
             </View>
-
-            <LabTest title="Liver Test" onAdded={handleItemAdded} />
-            <LabTest title="Kindney Test" onAdded={handleItemAdded} />
-          </View>
-        </ScrollView>
-        {addedCartItem.length > 0 && (
-          <View style={styles.belowContainer}>
-            <View>
-              <Text>{addedItem} test added</Text>
-              <Text style={styles.textViewButton}> View Details</Text>
-            </View>
-            <TouchableOpacity
-              style={styles.viewCartButton}
-              onPress={onPressViewCart}>
-              <Text style={styles.viewCartText}>View cart</Text>
+            <TouchableOpacity onPress={onPressViewFreeTests}>
+              <Text style={styles.textViewButton}>View Free Test</Text>
             </TouchableOpacity>
           </View>
-        )}
-      </View>
-    </>
+
+          <LabTest title="Liver Test" onAdded={handleItemAdded} />
+          <LabTest title="Kindney Test" onAdded={handleItemAdded} />
+        </View>
+      </ScrollView>
+      {addedCartItem.length > 0 && (
+        <View style={styles.belowContainer}>
+          <View>
+            <Text>{addedItem} test added</Text>
+            <Text style={styles.textViewButton}> View Details</Text>
+          </View>
+          <TouchableOpacity
+            style={styles.viewCartButton}
+            onPress={onPressViewCart}>
+            <Text style={styles.viewCartText}>View cart</Text>
+          </TouchableOpacity>
+        </View>
+      )}
+
+    </SafeAreaView>
+
   );
 };
 
@@ -178,7 +181,7 @@ const styles = StyleSheet.create({
   upperHeader: {
     marginHorizontal: 20,
     // marginTop:20,
-    paddingVertical: 15,
+
     // marginBottom:5
   },
   titleStyle: {
