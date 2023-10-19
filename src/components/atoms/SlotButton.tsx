@@ -3,6 +3,7 @@ import {
   Text,
   TextStyle,
   TouchableOpacity,
+  TouchableOpacityProps,
   ViewStyle,
 } from 'react-native';
 import React from 'react';
@@ -16,21 +17,19 @@ type SlotButtonProps = {
   titleStyle?: TextStyle;
 };
 
-const SlotButton: React.FC<SlotButtonProps> = ({
-  onPress,
-  title,
-  buttonStyle,
-  titleStyle,
-}) => {
+const SlotButton: React.FC<SlotButtonProps & TouchableOpacityProps> = props => {
+  const {title, buttonStyle, titleStyle} = props;
   return (
     <TouchableOpacity
-      onPress={onPress}
       style={[
         styles.timeContainerSlot,
         styles.timeContainerShadow,
         buttonStyle,
-      ]}>
-      <Text style={[styles.titleTxt, titleStyle]}>{title}</Text>
+      ]}
+      {...props}>
+      <Text numberOfLines={1} style={[styles.titleTxt, titleStyle]}>
+        {title}
+      </Text>
     </TouchableOpacity>
   );
 };

@@ -40,6 +40,7 @@ const DropdownField: React.FC<DropdownFieldProps> = ({
   const haveError = error !== '';
   return (
     <TouchableOpacity
+      activeOpacity={0.8}
       onPress={onPress}
       style={[
         styles.container,

@@ -1,5 +1,5 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {colors} from '../../constants/colors';
 import CommonHeader from '../../components/molecules/CommonHeader';
 import {StackScreenProps} from '@react-navigation/stack';
@@ -15,6 +15,8 @@ import CommonBottomSheetModal from '../../components/molecules/CommonBottomSheet
 import {BottomSheetModal, BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 import TabButton from '../../components/atoms/TabButton';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+import WheelPicker from '../../components/organisms/WheelPicker';
+import {Picker} from '@react-native-picker/picker';
 
 type DeviceConnectionScreenProps = StackScreenProps<
   AppStackParamList,
@@ -23,6 +25,9 @@ type DeviceConnectionScreenProps = StackScreenProps<
 
 const city = '50';
 const other = '55';
+
+const heightSubTypes = ['feet', 'Cm'];
+const weightSubTypes = ['kgs', 'lbs'];
 
 const PersonDetailsValidationSchema = yup.object().shape({
   height: yup.string().required('Please select height'),
@@ -37,7 +42,14 @@ const DeviceConnectionScreen: React.FC<DeviceConnectionScreenProps> = ({
   route,
 }) => {
   const [isMale, setIsMale] = useState<boolean>(true);
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const [heightList, setHeightList] = useState<string[]>([]);
+  const [subHeight, setSubHeight] = useState<string[]>([]);
+  const [selectedType, setSelectedType] = useState<{
+    type: string;
+    subType: string;
+  } | null>(null);
   const insets = useSafeAreaInsets();
   const onPressBackArrow = () => {
     navigation.goBack();
@@ -45,6 +57,37 @@ const DeviceConnectionScreen: React.FC<DeviceConnectionScreenProps> = ({
 
   const onPressGenderBtn = (value: string) => {
     setIsMale(value == 'Male' ? true : false);
+  };
+
+  useEffect(() => {
+    generateHeight();
+  }, []);
+
+  const generateHeight = () => {
+    const hightArray = [];
+    for (let i = 0; i < 10; i++) {
+      hightArray.push(i.toString());
+    }
+    console.log(
+      '🚀 ~ file: DeviceConnectionScreen.tsx:69 ~ generateHeight ~ hightArray:',
+      hightArray,
+    );
+    generateSubHeight();
+    setHeightList(hightArray);
+  };
+
+  useEffect(() => {
+    console.log(
+      '🚀 ~ file: DeviceConnectionScreen.tsx:81 ~ heightList:',
+      heightList,
+    );
+  }, [heightList]);
+  const generateSubHeight = () => {
+    const subHeightArray = [];
+    for (let i = 0; i < 100; i++) {
+      subHeightArray.push(i.toString());
+    }
+    setSubHeight(subHeightArray);
   };
 
   const {values, errors, touched, handleChange, handleSubmit} = useFormik({
@@ -58,6 +101,29 @@ const DeviceConnectionScreen: React.FC<DeviceConnectionScreenProps> = ({
     validationSchema: PersonDetailsValidationSchema,
     onSubmit(values, formikHelpers) {},
   });
+
+  const [centimeterItemList, setCentimeterItemList] = useState<string[]>([]);
+
+  const onPreesHeight = () => {
+    setSelectedType({
+      subType: 'feet',
+      type: 'Height',
+    });
+    bottomSheetModalRef.current?.present();
+
+    // const ft=cm*0.032808
+    // for (let index = 0; index < array.length; index++) {
+    //   const element = array[index];
+    // }
+  };
+
+  const onPreesWeight = () => {
+    setSelectedType({
+      subType: 'kgs',
+      type: 'Weight',
+    });
+    bottomSheetModalRef.current?.present();
+  };
 
   return (
     <SafeAreaView
@@ -88,7 +154,7 @@ const DeviceConnectionScreen: React.FC<DeviceConnectionScreenProps> = ({
             values correctly.
           </Text>
           <DropdownField
-            onPress={() => {}}
+            onPress={onPreesHeight}
             title="Select Height *"
             value={'sad'}
             containerStyle={{
@@ -96,7 +162,7 @@ const DeviceConnectionScreen: React.FC<DeviceConnectionScreenProps> = ({
             }}
           />
           <DropdownField
-            onPress={() => {}}
+            onPress={onPreesWeight}
             title="Select Weight *"
             value={''}
           />
@@ -188,9 +254,7 @@ const DeviceConnectionScreen: React.FC<DeviceConnectionScreenProps> = ({
           buttonStyle={{
             borderRadius: Matrics.s(19),
           }}
-          onPress={() => {
-            bottomSheetModalRef.current?.present();
-          }}
+          onPress={() => {}}
         />
       </View>
       <BottomSheetModalProvider>
@@ -202,7 +266,7 @@ const DeviceConnectionScreen: React.FC<DeviceConnectionScreenProps> = ({
             style={{
               flex: 1,
               backgroundColor: colors.white,
-              padding: Matrics.s(15),
+              paddingVertical: Matrics.s(15),
             }}>
             <Text
               style={{
@@ -210,19 +274,69 @@ const DeviceConnectionScreen: React.FC<DeviceConnectionScreenProps> = ({
                 fontSize: Matrics.mvs(20),
                 fontWeight: '700',
                 lineHeight: Matrics.vs(26),
+                paddingHorizontal: Matrics.s(15),
               }}>
-              Select Height
+              {`Select ${selectedType?.type}`}
             </Text>
             <View
               style={{
                 height: Matrics.vs(1),
                 backgroundColor: colors.lightGrey,
                 marginVertical: Matrics.vs(10),
+                marginHorizontal: Matrics.s(15),
               }}
             />
+            <TabButton
+              containerStyle={{
+                marginTop: Matrics.vs(5),
+              }}
+              btnTitles={
+                selectedType?.type == 'Height' ? heightSubTypes : weightSubTypes
+              }
+            />
+            <WheelPicker
+              selectedIndex={selectedIndex}
+              seprator={'"'}
+              options={heightList}
+              itemTextStyle={{
+                fontFamily: Fonts.BOLD,
+                fontSize: Matrics.mvs(25),
+              }}
+              containerStyle={{
+                marginVertical: Matrics.vs(10),
+                backgroundColor: 'green',
+              }}
+              onChange={index => setSelectedIndex(index)}
+              sideIcon={{
+                right: false,
+                left: true,
+              }}
+            />
+            {/* <WheelPicker
+              selectedIndex={selectedIndex}
+              seprator={'"'}
+              options={heightList}
+              itemTextStyle={{
+                fontFamily: Fonts.BOLD,
+                fontSize: Matrics.mvs(25),
+              }}
+              containerStyle={{
+                marginVertical: Matrics.vs(10),
+                backgroundColor: 'red',
+              }}
+              onChange={index => setSelectedIndex(index)}
+            /> */}
 
-            <TabButton btnTitles={['Feet', 'cm']} />
-            {/* <View style={{}}>
+            {/* <View
+              style={[
+                {
+                  paddingBottom:
+                    insets.bottom !== 0 ? insets.bottom : Matrics.vs(16),
+                  backgroundColor: colors.white,
+                  paddingVertical: Matrics.vs(10),
+                },
+                styles.bottomBtnContainerShadow,
+              ]}>
               <Button title="Save" />
             </View> */}
           </View>

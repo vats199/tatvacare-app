@@ -20,12 +20,15 @@ import {TouchableOpacity} from 'react-native';
 import {Icons} from '../../constants/icons';
 import QuestionData from './QuestionData.json';
 import MyStatusbar from '../../components/atoms/MyStatusBar';
+import TabButton from '../../components/atoms/TabButton';
+import WheelPicker from '../../components/organisms/WheelPicker';
 
 type QuestionOneScreenProps = CompositeScreenProps<
   StackScreenProps<SetupProfileStackParamList, 'QuestionListScreen'>,
   StackScreenProps<AppStackParamList, 'SetupProfileScreen'>
 >;
-
+const heightSubTypes = ['feet', 'Cm'];
+const weightSubTypes = ['kgs', 'lbs'];
 const QuestionListScreen: React.FC<QuestionOneScreenProps> = ({
   navigation,
   route,
@@ -39,12 +42,50 @@ const QuestionListScreen: React.FC<QuestionOneScreenProps> = ({
   const [progressPercentage, setProgressPercentage] = useState<
     DimensionValue | undefined
   >(undefined);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [heightList, setHeightList] = useState<string[]>([]);
+  const [subHeight, setSubHeight] = useState<string[]>([]);
+  const [selectedType, setSelectedType] = useState<{
+    type: string;
+    subType: string;
+  } | null>(null);
 
   // ==================== function ====================//
   useEffect(() => {
     let percent = (activeIndex / arr.length) * 100;
     setProgressPercentage(`${Math.ceil(percent)}%`);
   }, [activeIndex]);
+
+  useEffect(() => {
+    generateHeight();
+  }, []);
+
+  const generateHeight = () => {
+    const hightArray = [];
+    for (let i = 0; i < 10; i++) {
+      hightArray.push(i.toString());
+    }
+    console.log(
+      '🚀 ~ file: DeviceConnectionScreen.tsx:69 ~ generateHeight ~ hightArray:',
+      hightArray,
+    );
+    generateSubHeight();
+    setHeightList(hightArray);
+  };
+
+  useEffect(() => {
+    console.log(
+      '🚀 ~ file: DeviceConnectionScreen.tsx:81 ~ heightList:',
+      heightList,
+    );
+  }, [heightList]);
+  const generateSubHeight = () => {
+    const subHeightArray = [];
+    for (let i = 0; i < 100; i++) {
+      subHeightArray.push(i.toString());
+    }
+    setSubHeight(subHeightArray);
+  };
 
   const renderItem = ({item, index}: {item: any; index: number}) => {
     console.log(item, 'itemitem');
@@ -191,6 +232,37 @@ const QuestionListScreen: React.FC<QuestionOneScreenProps> = ({
                 {item?.max_tag_text ?? ''}
               </Text>
             </View>
+          </>
+        )}
+
+        {item.type == 3 && (
+          <>
+            <TabButton
+              containerStyle={{
+                marginTop: Matrics.vs(5),
+              }}
+              btnTitles={
+                selectedType?.type == 'Height' ? heightSubTypes : weightSubTypes
+              }
+            />
+            <WheelPicker
+              selectedIndex={selectedIndex}
+              seprator={'"'}
+              options={heightList}
+              itemTextStyle={{
+                fontFamily: Fonts.BOLD,
+                fontSize: Matrics.mvs(25),
+              }}
+              containerStyle={{
+                marginVertical: Matrics.vs(10),
+                backgroundColor: 'green',
+              }}
+              onChange={index => setSelectedIndex(index)}
+              sideIcon={{
+                right: false,
+                left: true,
+              }}
+            />
           </>
         )}
       </View>
