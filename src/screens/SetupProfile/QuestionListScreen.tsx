@@ -1,4 +1,4 @@
-import {FlatList, Image, Text, View} from 'react-native';
+import {DimensionValue, FlatList, Image, Text, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {CompositeScreenProps} from '@react-navigation/native';
 import {StackScreenProps} from '@react-navigation/stack';
@@ -35,9 +35,15 @@ const QuestionListScreen: React.FC<QuestionOneScreenProps> = ({
 
   const [arr, setArr] = useState(QuestionData.Question);
   const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [progressPercentage, setProgressPercentage] = useState<
+    DimensionValue | undefined
+  >(undefined);
 
   // ==================== function ====================//
-  useEffect(() => {}, []);
+  useEffect(() => {
+    let percent = (activeIndex / arr.length) * 100;
+    setProgressPercentage(`${Math.ceil(percent)}%`);
+  }, [activeIndex]);
 
   const renderItem = ({item, index}: {item: any; index: number}) => {
     console.log(item, 'itemitem');
@@ -253,8 +259,10 @@ const QuestionListScreen: React.FC<QuestionOneScreenProps> = ({
             ? Constants.BUTTON_TYPE.PRIMARY
             : Constants.BUTTON_TYPE.SECONDARY
         }
-        // disabled={!isButtonDisable}
+        // disabled={true}
         buttonStyle={{marginBottom: insets.bottom == 0 ? Matrics.vs(16) : 0}}
+        progressPercentage={progressPercentage}
+        isShowProgress={true}
       />
     </SafeAreaView>
   );
