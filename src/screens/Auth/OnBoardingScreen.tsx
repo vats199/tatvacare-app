@@ -150,7 +150,7 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({
   };
   return (
     <SafeAreaView edges={['bottom']} style={styles.container}>
-      {/* <View style={[styles.wrapper, {paddingTop: insets.top}]}>
+      <View style={[styles.wrapper, { paddingTop: insets.top }]}>
         <FlatList
           ref={flatListRef}
           // onScroll={_onscroll}
@@ -162,8 +162,8 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({
           pagingEnabled
           keyExtractor={item => item.id}
           showsHorizontalScrollIndicator={false}
-          // onViewableItemsChanged={_onViewableItemsChanged}
-          // viewabilityConfig={_viewabilityConfig}
+        // onViewableItemsChanged={_onViewableItemsChanged}
+        // viewabilityConfig={_viewabilityConfig}
         />
         <View style={styles.pagingCont}>
           {arr.map((ele, index) => {
@@ -182,7 +182,7 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({
             );
           })}
         </View>
-      </View> */}
+      </View>
       <View style={styles.spaceView} />
       <Button
         title="Get Started"
