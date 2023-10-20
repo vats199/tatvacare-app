@@ -254,7 +254,10 @@ const QuestionListScreen: React.FC<QuestionOneScreenProps> = ({
                 selectedType?.type == 'Height' ? heightSubTypes : weightSubTypes
               }
             />
-            <WheelPicker isShowMultiplePicker={true} />
+            <WheelPicker
+              isShowMultiplePicker={false}
+              onChangeValue={() => {}}
+            />
           </>
         )}
       </View>
