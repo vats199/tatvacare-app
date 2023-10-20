@@ -32,15 +32,18 @@ const TabButton: React.FC<TabButtonProps> = ({btnTitles, containerStyle}) => {
       ? styles.activeBtnTxt
       : styles.inActiveBtnTxt;
     return (
-      <SlotButton
-        onPress={() => onPressTabBtn(item)}
-        title={item}
-        buttonStyle={{
-          ...styles.btnCommonContainer,
+      <TouchableOpacity
+        style={{
           ...selectedBtnStyle,
         }}
-        titleStyle={{...styles.btnTxtCommon, ...selectedBtnTxtStyle}}
-      />
+        onPress={() => onPressTabBtn(item)}>
+        <Text
+          style={{
+            ...selectedBtnTxtStyle,
+          }}>
+          {item}
+        </Text>
+      </TouchableOpacity>
     );
   };
 
@@ -59,21 +62,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: colors.white,
-    borderRadius: Matrics.mvs(12),
-    borderWidth: Matrics.s(1),
+    borderRadius: Matrics.mvs(16),
+    borderWidth: 1,
+    height: Matrics.mvs(44),
     borderColor: colors.inputBoxLightBorder,
     marginHorizontal: Matrics.s(15),
+    overflow: 'hidden',
   },
   containerShadow: {
-    shadowColor: colors.black,
+    shadowColor: colors.OVERLAY_DARK_50,
     shadowOffset: {width: 0, height: 0},
     shadowOpacity: 0.05,
-    shadowRadius: 8,
-    elevation: 2,
+    shadowRadius: 4,
+    elevation: 1,
   },
   btnCommonContainer: {
     width: '50%',
-    borderWidth: Matrics.s(1),
+    borderWidth: 1,
     paddingVertical: Matrics.vs(8),
     borderRadius: Matrics.mvs(12),
     marginBottom: 0,
@@ -85,18 +90,33 @@ const styles = StyleSheet.create({
     lineHeight: Matrics.vs(20),
   },
   activeBtn: {
+    height: '100%',
+    width: '50%',
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: colors.boxLightPurple,
     borderColor: colors.themePurple,
+    borderWidth: 1,
+    borderRadius: Matrics.mvs(16),
   },
   inActiveBtn: {
+    height: '100%',
+    width: '50%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.white,
+    borderColor: colors.themePurple,
     borderWidth: 0,
-    backgroundColor: colors.transparent,
+    borderRadius: Matrics.mvs(16),
   },
   activeBtnTxt: {
     color: colors.labelDarkGray,
+    fontSize: Matrics.mvs(16),
+    fontFamily: Fonts.BOLD,
   },
   inActiveBtnTxt: {
     color: colors.darkGray,
-    fontFamily: Fonts.MEDIUM,
+    fontSize: Matrics.mvs(16),
+    fontFamily: Fonts.REGULAR,
   },
 });

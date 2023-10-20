@@ -54,7 +54,7 @@ export const colors = {
   lightYellow: '#FFBD00',
   lightRed: '#FF7F8C',
   optionbackground: '#f4ecf9',
-
+  transparent: 'transparent',
   lightGrayBackgroundColor: '#DBDBDB',
   OVERLAY_DARK_10: 'rgba(0,0,0,0.1)',
   OVERLAY_DARK_20: 'rgba(0,0,0,0.2)',
