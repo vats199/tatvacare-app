@@ -120,8 +120,13 @@ const LocationBottomSheet = forwardRef<
         (data?.results[0]?.address_components || []).length > 0
       ) {
         const city = data?.results[0]?.address_components.find((a: any) =>
-          a?.types.includes('administrative_area_level_3'),
+          a?.types.includes('locality'),
         );
+        if (!city) {
+          setLoading(false);
+          setError('No locality found with this pincode.');
+          return;
+        }
         const state = data?.results[0]?.address_components.find((a: any) =>
           a?.types.includes('administrative_area_level_1'),
         );

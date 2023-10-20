@@ -743,7 +743,6 @@
 		8F1E96692AD3F73B00C7F19E /* ApplyCouponPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1E96682AD3F73B00C7F19E /* ApplyCouponPopupVC.swift */; };
 		8F1E966D2AD3F75000C7F19E /* DiscountCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F1E966B2AD3F74F00C7F19E /* DiscountCell.xib */; };
 		8F1E966E2AD3F75000C7F19E /* DiscountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1E966C2AD3F74F00C7F19E /* DiscountCell.swift */; };
-		8F4B37B22ADD13420052E58E /* SelectPatientDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4B37B12ADD13410052E58E /* SelectPatientDetailsVC.swift */; };
 		8F8545B72ADE4C1F0019128D /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8F8545A42ADE4C1E0019128D /* FontAwesome5_Brands.ttf */; };
 		8F8545B82ADE4C1F0019128D /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8F8545A52ADE4C1E0019128D /* FontAwesome.ttf */; };
 		8F8545B92ADE4C1F0019128D /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8F8545A62ADE4C1E0019128D /* Feather.ttf */; };
@@ -763,10 +762,12 @@
 		8F8545C72ADE4C1F0019128D /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8F8545B42ADE4C1F0019128D /* Entypo.ttf */; };
 		8F8545C82ADE4C1F0019128D /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8F8545B52ADE4C1F0019128D /* AntDesign.ttf */; };
 		8F8545C92ADE4C1F0019128D /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8F8545B62ADE4C1F0019128D /* EvilIcons.ttf */; };
+		8F93C5CA2AE10149002C4F81 /* SelectPatientDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F93C5C92AE10149002C4F81 /* SelectPatientDetailsVC.swift */; };
 		8F9D2C9E2AD3CA68007F43FB /* DiscountListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9D2C9D2AD3CA68007F43FB /* DiscountListModel.swift */; };
 		8F9D2CA92AD3CCBE007F43FB /* BCANewAddressListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F9D2CA72AD3CCBE007F43FB /* BCANewAddressListCell.xib */; };
 		8F9D2CAA2AD3CCBE007F43FB /* BCANewAddressListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9D2CA82AD3CCBE007F43FB /* BCANewAddressListCell.swift */; };
 		8FC8710F2AD98113004BA610 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FC8710E2AD98112004BA610 /* Images.xcassets */; };
+		8FE0005F2AE291740027EFB9 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 8FE0005E2AE291740027EFB9 /* main.jsbundle */; };
 		910276A02679237800C55C2D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9102763F2679237700C55C2D /* AppDelegate.swift */; };
 		910276A12679237800C55C2D /* AppDelegate+PushNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910276412679237700C55C2D /* AppDelegate+PushNotification.swift */; };
 		910276A22679237800C55C2D /* PushNotificationTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910276422679237700C55C2D /* PushNotificationTag.swift */; };
@@ -831,7 +832,6 @@
 		9AF1E62629FF9C0E002CF3D8 /* SomeoneElsePopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF1E62529FF9C0E002CF3D8 /* SomeoneElsePopupVC.swift */; };
 		9AF1E62829FFA1C0002CF3D8 /* SomeoneElsePopupVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF1E62729FFA1C0002CF3D8 /* SomeoneElsePopupVM.swift */; };
 		9AF1E62A29FFA4CE002CF3D8 /* SomeoneElseDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF1E62929FFA4CE002CF3D8 /* SomeoneElseDataModel.swift */; };
-		A3CE4A7B2AD95E190047AAD2 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = A3CE4A7A2AD95E190047AAD2 /* main.jsbundle */; };
 		A3FAD6282ACAA2F50026CE46 /* DevicesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FAD6272ACAA2F50026CE46 /* DevicesVC.swift */; };
 		A3FAD62B2ACABB060026CE46 /* DevicesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FAD62A2ACABB060026CE46 /* DevicesViewModel.swift */; };
 		B8604DF02E0C2D06389976FD /* Pods_MyTatvaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8812ED21F4E5B3EE77B1ABF /* Pods_MyTatvaTests.framework */; };
@@ -1706,7 +1706,6 @@
 		8F1E96682AD3F73B00C7F19E /* ApplyCouponPopupVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplyCouponPopupVC.swift; sourceTree = "<group>"; };
 		8F1E966B2AD3F74F00C7F19E /* DiscountCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DiscountCell.xib; sourceTree = "<group>"; };
 		8F1E966C2AD3F74F00C7F19E /* DiscountCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountCell.swift; sourceTree = "<group>"; };
-		8F4B37B12ADD13410052E58E /* SelectPatientDetailsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SelectPatientDetailsVC.swift; path = ../../../../../../../../../../../.Trash/SelectPatientDetailsVC.swift; sourceTree = "<group>"; };
 		8F8545A42ADE4C1E0019128D /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome5_Brands.ttf; path = "../../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		8F8545A52ADE4C1E0019128D /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome.ttf; path = "../../../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		8F8545A62ADE4C1E0019128D /* Feather.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Feather.ttf; path = "../../../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
@@ -1726,10 +1725,12 @@
 		8F8545B42ADE4C1F0019128D /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Entypo.ttf; path = "../../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		8F8545B52ADE4C1F0019128D /* AntDesign.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = AntDesign.ttf; path = "../../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		8F8545B62ADE4C1F0019128D /* EvilIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = EvilIcons.ttf; path = "../../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
+		8F93C5C92AE10149002C4F81 /* SelectPatientDetailsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectPatientDetailsVC.swift; sourceTree = "<group>"; };
 		8F9D2C9D2AD3CA68007F43FB /* DiscountListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountListModel.swift; sourceTree = "<group>"; };
 		8F9D2CA72AD3CCBE007F43FB /* BCANewAddressListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BCANewAddressListCell.xib; sourceTree = "<group>"; };
 		8F9D2CA82AD3CCBE007F43FB /* BCANewAddressListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCANewAddressListCell.swift; sourceTree = "<group>"; };
 		8FC8710E2AD98112004BA610 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "../../../../../../Downloads/MyTatavIOS-BCP_Changes/MyTatva/Resources/Images.xcassets"; sourceTree = "<group>"; };
+		8FE0005E2AE291740027EFB9 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		9102763F2679237700C55C2D /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		910276412679237700C55C2D /* AppDelegate+PushNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppDelegate+PushNotification.swift"; sourceTree = "<group>"; };
 		910276422679237700C55C2D /* PushNotificationTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationTag.swift; sourceTree = "<group>"; };
@@ -1805,7 +1806,6 @@
 		A179FD1F8E011AB49DB4344E /* Pods_MyTatva.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyTatva.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A309C6272AC858590095AADF /* GoogleMaps.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = GoogleMaps.xcframework; path = Pods/GoogleMaps/Maps/Frameworks/GoogleMaps.xcframework; sourceTree = "<group>"; };
 		A36CD15F12E71C79351A3420 /* BcaVitalsDetailsTypeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BcaVitalsDetailsTypeVC.swift; sourceTree = "<group>"; };
-		A3CE4A7A2AD95E190047AAD2 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		A3FAD6272ACAA2F50026CE46 /* DevicesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesVC.swift; sourceTree = "<group>"; };
 		A3FAD62A2ACABB060026CE46 /* DevicesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesViewModel.swift; sourceTree = "<group>"; };
 		A6FEE104F66D229A87C5E44C /* Pods-NotificationViewController.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationViewController.release.xcconfig"; path = "Target Support Files/Pods-NotificationViewController/Pods-NotificationViewController.release.xcconfig"; sourceTree = "<group>"; };
@@ -4583,7 +4583,7 @@
 		61B7B53F27E1D9E500C777B3 /* SelectPatientDetails */ = {
 			isa = PBXGroup;
 			children = (
-				8F4B37B12ADD13410052E58E /* SelectPatientDetailsVC.swift */,
+				8F93C5C92AE10149002C4F81 /* SelectPatientDetailsVC.swift */,
 				61B7B54327E1DA7B00C777B3 /* ViewModel */,
 				61E7F8C727E9E08F00464916 /* AddPatientDetails */,
 			);
@@ -5979,7 +5979,7 @@
 		91A1754026789CC500297B66 = {
 			isa = PBXGroup;
 			children = (
-				A3CE4A7A2AD95E190047AAD2 /* main.jsbundle */,
+				8FE0005E2AE291740027EFB9 /* main.jsbundle */,
 				91A1754B26789CC500297B66 /* MyTatva */,
 				6169A390272BE1D70081C3B7 /* MyTatvaNotificationService */,
 				618AFEF6272C0884003C244C /* NotificationViewController */,
@@ -6623,6 +6623,7 @@
 				618606F827070AD300C38236 /* GoalSummaryChartCell.xib in Resources */,
 				61738D4F2768D7F500B58953 /* CustomThemeFileOld.plist in Resources */,
 				61849ADE26CBC25A00C3DD61 /* soda_loader.json in Resources */,
+				8FE0005F2AE291740027EFB9 /* main.jsbundle in Resources */,
 				4097D64D2A2E050500D5574B /* Gilroy-SemiBold.ttf in Resources */,
 				8F8545C92ADE4C1F0019128D /* EvilIcons.ttf in Resources */,
 				61AD9C8A2799709200F86EBC /* GaneshToPaldi.gpx in Resources */,
@@ -6676,7 +6677,6 @@
 				6186B03927019259009BEC12 /* Goal.storyboard in Resources */,
 				6196788428F563C6008CC4E5 /* doc.json in Resources */,
 				61C33C6C291BDFCE005E37D0 /* mytatva_01.json in Resources */,
-				A3CE4A7B2AD95E190047AAD2 /* main.jsbundle in Resources */,
 				8F8545C62ADE4C1F0019128D /* MaterialIcons.ttf in Resources */,
 				5371B1BA130E70EFA40B354A /* BCA.storyboard in Resources */,
 				73578501955AF9595139CDD3 /* Weigth_scale.json in Resources */,
@@ -7102,7 +7102,6 @@
 				61FEB389269C41390087ED58 /* CurrencyCell.swift in Sources */,
 				5D1C1D672726CDB400B32926 /* UploadRecordVC.swift in Sources */,
 				6183AB1827E8A4990074871E /* AllLabTestListVM.swift in Sources */,
-				8F4B37B22ADD13420052E58E /* SelectPatientDetailsVC.swift in Sources */,
 				9ACB03842A4C56DE00B176B8 /* DeviceDetailsModel.swift in Sources */,
 				6105EC82272834CD00385103 /* FSCalendarConstants.m in Sources */,
 				61D1D1FE26E6295800E483D3 /* AddAccountDetailsVC.swift in Sources */,
@@ -7549,6 +7548,7 @@
 				6118E39C2701F246004C3EBC /* UpdateWaterPopupVC.swift in Sources */,
 				91116307267B372600170567 /* SignupOTPVC.swift in Sources */,
 				61B06709287C0EDB0080B847 /* SearchFoodVC.swift in Sources */,
+				8F93C5CA2AE10149002C4F81 /* SelectPatientDetailsVC.swift in Sources */,
 				618186D3277B372700CE8064 /* PaymentHistoryListVC.swift in Sources */,
 				61FEB347269C3D130087ED58 /* UIContol+Extension.swift in Sources */,
 				616466A226E7441300BE4279 /* ForgotPasswordOTPVM.swift in Sources */,
@@ -7769,10 +7769,12 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MyTatvaNotificationService/MyTatvaNotificationService.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = U7V9239BVN;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = U7V9239BVN;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = s;
 				INFOPLIST_FILE = MyTatvaNotificationService/Info.plist;
@@ -7786,6 +7788,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mytatva.patient.MyTatvaNotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "MyTatvaNotificationService Distribution";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/MyTatvaNotificationService/NotificationService-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -7800,10 +7803,12 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MyTatvaNotificationService/MyTatvaNotificationService.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = U7V9239BVN;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = U7V9239BVN;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = MyTatvaNotificationService/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -7816,6 +7821,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mytatva.patient.MyTatvaNotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "MyTatvaNotificationService Distribution";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/MyTatvaNotificationService/NotificationService-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Osize";
@@ -7854,17 +7860,15 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = U7V9239BVN;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.videolistdemo.MyTatvaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -7904,17 +7908,15 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = U7V9239BVN;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.videolistdemo.MyTatvaTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -7928,12 +7930,14 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NotificationViewController/NotificationViewController.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEPLOYMENT_POSTPROCESSING = YES;
-				DEVELOPMENT_TEAM = U7V9239BVN;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = U7V9239BVN;
 				ENABLE_BITCODE = NO;
 				GCC_OPTIMIZATION_LEVEL = s;
 				INFOPLIST_FILE = NotificationViewController/Info.plist;
@@ -7947,6 +7951,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mytatva.patient.MyTatvaNotificationContent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "MyTatvaNotificationContent Distribution";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/NotificationViewController/NotificationContent-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -7961,11 +7966,13 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NotificationViewController/NotificationViewController.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEPLOYMENT_POSTPROCESSING = YES;
-				DEVELOPMENT_TEAM = U7V9239BVN;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = U7V9239BVN;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = NotificationViewController/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -7978,6 +7985,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mytatva.patient.MyTatvaNotificationContent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "MyTatvaNotificationContent Distribution";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/NotificationViewController/NotificationContent-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Osize";
@@ -8140,12 +8148,14 @@
 				CODE_SIGN_ALLOW_ENTITLEMENTS_MODIFICATION = Yes;
 				CODE_SIGN_ENTITLEMENTS = MyTatva/MyTatva.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEPLOYMENT_POSTPROCESSING = NO;
-				DEVELOPMENT_TEAM = U7V9239BVN;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = U7V9239BVN;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -8161,12 +8171,13 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.2;
+				MARKETING_VERSION = 2.0.5;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CODE_SIGN_FLAGS = "--generate-entitlement-der";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mytatva.patient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "MyTatva Distribution";
 				STRIP_INSTALLED_PRODUCT = YES;
 				STRIP_SWIFT_SYMBOLS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/MyTatva/Resources/MyTatva-Bridging-Header.h";
@@ -8186,12 +8197,14 @@
 				CODE_SIGN_ALLOW_ENTITLEMENTS_MODIFICATION = Yes;
 				CODE_SIGN_ENTITLEMENTS = MyTatva/MyTatva.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEPLOYMENT_POSTPROCESSING = NO;
-				DEVELOPMENT_TEAM = U7V9239BVN;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = U7V9239BVN;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "i386 arm64";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -8206,12 +8219,13 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.2;
+				MARKETING_VERSION = 2.0.5;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CODE_SIGN_FLAGS = "--generate-entitlement-der";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mytatva.patient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "MyTatva Distribution";
 				STRIP_INSTALLED_PRODUCT = YES;
 				STRIP_SWIFT_SYMBOLS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/MyTatva/Resources/MyTatva-Bridging-Header.h";

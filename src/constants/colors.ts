@@ -8,13 +8,17 @@ export const colors = {
   subTitleLightGray: '#616161',
   inputValueDarkGray: '#212121',
   orange: '#FAB000',
+  orangeBg: '#FAB0001A',
+  orangeLineBg: '#F0CE7C',
+  green: '#1BB333',
+  greenBg: '#1BB3331A',
+  greenLineBg: '#9EDBA7',
   red: '#FF3333',
 
   inputBoxLightBorder: '#E0E0E0',
   inputBoxDarkBorder: '#230435',
   labelDarkGray: '#313131',
   lightGrey: '#E0E0E0',
-  green: '#1BB333',
   purple: '#605AE0',
   secondaryLabel: '#999999',
 };

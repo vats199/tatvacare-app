@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZoP-E5-uid">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZoP-E5-uid">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -138,7 +138,7 @@
                                 <rect key="frame" x="16" y="5.6666666666666679" width="92" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" text="Discover" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KB9-T5-duZ" customClass="SemiBoldBlackTitle" customModule="MyTatva" customModuleProvider="target">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" text="Learn" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KB9-T5-duZ" customClass="SemiBoldBlackTitle" customModule="MyTatva" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="92" height="33"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -5194,6 +5194,7 @@ Basics</string>
                                 <rect key="frame" x="345" y="141.33333333333334" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="N05-s1-NSL"/>
+                                    <constraint firstAttribute="width" secondItem="cnO-Il-vvE" secondAttribute="height" id="vm9-g6-9Mj"/>
                                 </constraints>
                                 <state key="normal" image="cross_ic"/>
                             </button>
@@ -5211,7 +5212,6 @@ Basics</string>
                             <constraint firstAttribute="trailing" secondItem="8Lv-jE-UjJ" secondAttribute="trailing" id="jc6-XO-53V"/>
                             <constraint firstItem="bGh-DK-Ff6" firstAttribute="leading" secondItem="aQT-6Q-Uy6" secondAttribute="leading" constant="25" id="l98-Ug-Dev"/>
                             <constraint firstItem="8Lv-jE-UjJ" firstAttribute="leading" secondItem="aQT-6Q-Uy6" secondAttribute="leading" id="sEB-MR-3yC"/>
-                            <constraint firstItem="cnO-Il-vvE" firstAttribute="width" secondItem="cnO-Il-vvE" secondAttribute="height" id="vm9-g6-9Mj"/>
                         </constraints>
                     </view>
                     <nil key="simulatedTopBarMetrics"/>
@@ -5325,6 +5325,7 @@ Basics</string>
                                 <rect key="frame" x="345" y="236.66666666666663" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="ece-no-aY5"/>
+                                    <constraint firstAttribute="width" secondItem="ozg-a4-n1T" secondAttribute="height" id="tn7-vB-0J6"/>
                                 </constraints>
                                 <state key="normal" image="cross_ic"/>
                             </button>
@@ -5342,7 +5343,6 @@ Basics</string>
                             <constraint firstItem="kWM-Zy-yfb" firstAttribute="leading" secondItem="yL4-gh-Dng" secondAttribute="leading" constant="25" id="iNa-mG-K8P"/>
                             <constraint firstItem="wdn-hs-6co" firstAttribute="top" secondItem="2Da-5v-AmS" secondAttribute="top" id="kJ7-qu-Xd7"/>
                             <constraint firstAttribute="trailing" secondItem="wdn-hs-6co" secondAttribute="trailing" id="mEx-pu-3kv"/>
-                            <constraint firstItem="ozg-a4-n1T" firstAttribute="width" secondItem="ozg-a4-n1T" secondAttribute="height" id="tn7-vB-0J6"/>
                             <constraint firstItem="kWM-Zy-yfb" firstAttribute="centerY" secondItem="yL4-gh-Dng" secondAttribute="centerY" id="vZQ-0D-QLB"/>
                             <constraint firstItem="wdn-hs-6co" firstAttribute="leading" secondItem="yL4-gh-Dng" secondAttribute="leading" id="za9-qG-q5z"/>
                         </constraints>
@@ -5363,29 +5363,17 @@ Basics</string>
         </scene>
     </scenes>
     <designables>
-        <designable name="4bf-oH-5Te">
-            <size key="intrinsicContentSize" width="47" height="34"/>
-        </designable>
         <designable name="Iya-SB-TfV"/>
         <designable name="KB9-T5-duZ">
-            <size key="intrinsicContentSize" width="66.333333333333329" height="20.333333333333332"/>
+            <size key="intrinsicContentSize" width="43" height="20.333333333333332"/>
         </designable>
         <designable name="SeI-aB-0iQ">
             <size key="intrinsicContentSize" width="85.333333333333329" height="20.333333333333332"/>
         </designable>
-        <designable name="UIV-Dc-gae">
-            <size key="intrinsicContentSize" width="47" height="34"/>
-        </designable>
         <designable name="Wy2-v4-3VM">
             <size key="intrinsicContentSize" width="105.33333333333333" height="20.333333333333332"/>
         </designable>
-        <designable name="XC0-4b-vFX">
-            <size key="intrinsicContentSize" width="57" height="34"/>
-        </designable>
         <designable name="ZyR-Kf-zis"/>
-        <designable name="gOl-Xj-iDd">
-            <size key="intrinsicContentSize" width="-1" height="33"/>
-        </designable>
         <designable name="i0C-s0-ui5"/>
         <designable name="jez-kA-0RY">
             <size key="intrinsicContentSize" width="6" height="22"/>
@@ -5463,16 +5451,16 @@ Basics</string>
             <color red="1" green="0.74901960784313726" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="labelColor">
-            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="linkColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray6Color">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

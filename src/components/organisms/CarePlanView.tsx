@@ -187,7 +187,7 @@ export default CarePlanView;
 
 const styles = StyleSheet.create({
   compcontainer: {
-    marginVertical: 10,
+    marginTop: 10,
     backgroundColor: colors.white,
     borderRadius: 12,
     padding: 10,
@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
   },
   rowBetween: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     justifyContent: 'space-between',
   },
   renew: {
@@ -216,7 +216,7 @@ const styles = StyleSheet.create({
     width: 10,
   },
   container: {
-    marginVertical: 10,
+    marginTop: 10,
     marginRight: 10,
     backgroundColor: colors.white,
     borderRadius: 12,
@@ -241,12 +241,12 @@ const styles = StyleSheet.create({
     color: colors.labelDarkGray,
     fontWeight: '600',
     fontSize: 14,
+    marginBottom: 5,
   },
   details: {
     marginRight: 5,
     display: 'flex',
     flexDirection: 'column',
-    flex: 1,
   },
   title: {
     color: colors.labelDarkGray,

@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "arrow_back_ios_FILL0_wght400_GRAD0_opsz48 1.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "arrow_back_ios_FILL0_wght400_GRAD0_opsz48 1@2x.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "arrow_back_ios_FILL0_wght400_GRAD0_opsz48 1@3x.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

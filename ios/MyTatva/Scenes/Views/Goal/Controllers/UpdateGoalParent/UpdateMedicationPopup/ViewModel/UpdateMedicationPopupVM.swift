@@ -3,7 +3,7 @@
 import Foundation
 
 class UpdateMedicationPopupVM {
-
+    
     
     //MARK:- Class Variable
     
@@ -109,8 +109,8 @@ extension UpdateMedicationPopupVM {
         
         /*
          {
-           "patient_dose_rel_id": "string",
-           "dose_taken": "string"
+         "patient_dose_rel_id": "string",
+         "dose_taken": "string"
          }
          */
         
@@ -118,20 +118,20 @@ extension UpdateMedicationPopupVM {
         
         let start_dt = GFunction.shared.convertDateFormate(dt: medication_date,
                                                            inputFormat: appDateFormat,
-                                                       outputFormat: DateTimeFormaterEnum.yyyymmdd.rawValue,
-                                                       status: .NOCONVERSION)
+                                                           outputFormat: DateTimeFormaterEnum.yyyymmdd.rawValue,
+                                                           status: .NOCONVERSION)
         
         params["medication_date"]       = start_dt.0
         //params["page"]                  = self.page
         
-//        params = params.filter({ (obj) -> Bool in
-//            if obj.value as? String != "" {
-//                return true
-//            }
-//            else {
-//                return false
-//            }
-//        })
+        //        params = params.filter({ (obj) -> Bool in
+        //            if obj.value as? String != "" {
+        //                return true
+        //            }
+        //            else {
+        //                return false
+        //            }
+        //        })
         
         print(JSON(params))
         
@@ -157,7 +157,7 @@ extension UpdateMedicationPopupVM {
                     arr.append(contentsOf: self.object.medication)
                     self.arrList.append(contentsOf: arr)
                     tblView.reloadData()
-                
+                    
                     break
                 case .emptyData:
                     
@@ -186,7 +186,7 @@ extension UpdateMedicationPopupVM {
                     break
                 case .underMaintenance:
                     break
-              
+                    
                 case .socialIdNotRegister:
                     break
                 case .userSessionExpire:
@@ -212,20 +212,20 @@ extension UpdateMedicationPopupVM {
                        medication_date: String,
                        goalMasterId: String) {
         
-//        // Check validation
-//        if let error = self.isValidView(vc: vc,
-//                                        date: date,
-//                                        time: time,
-//                                        exercise: exercise,
-//                                        exercise_duration: exercise_duration,
-//                                        exerciseListModel: exerciseListModel,
-//                                        goalListModel: goalListModel) {
-//
-//            //Set data for binding
-//            self.vmResult.value = .failure(error)
-//            return
-//        }
-//
+        //        // Check validation
+        //        if let error = self.isValidView(vc: vc,
+        //                                        date: date,
+        //                                        time: time,
+        //                                        exercise: exercise,
+        //                                        exercise_duration: exercise_duration,
+        //                                        exerciseListModel: exerciseListModel,
+        //                                        goalListModel: goalListModel) {
+        //
+        //            //Set data for binding
+        //            self.vmResult.value = .failure(error)
+        //            return
+        //        }
+        //
         if self.arrList.count > 0 {
             GlobalAPI.shared.update_patient_dosesAPI(arr: self.arrList,
                                                      medication_date: medication_date,
@@ -233,14 +233,19 @@ extension UpdateMedicationPopupVM {
                 guard let self = self else {return}
                 if isDone {
                     self.vmResult.value = .success(nil)
-                    RNEventEmitter.emitter.sendEvent(withName: "updatedGoalReadingSuccess", body: [:])
+                    Settings().isHidden(setting: .home_from_react_native) { isFromRN in
+                        if isFromRN {
+                            RNEventEmitter.emitter.sendEvent(withName: "updatedGoalReadingSuccess", body: [:])
+                        }
+                    }
+                    
                 }
             }
         }
         else {
             self.vmResult.value = .success(nil)
         }
-          
+        
     }
 }
 

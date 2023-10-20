@@ -45,7 +45,7 @@ extension EditProfileViewModel {
         else if !email.isValid(.email) {
             return AppError.validation(type: .enterValidEmail)
         }
-       
+        
         return nil
     }
 }
@@ -54,10 +54,10 @@ extension EditProfileViewModel {
 extension EditProfileViewModel {
     
     func apiUpdatePatientDetails(vc: UIViewController,
-                          profileImage: UIImage,
-                          name: String,
-                          email: String,
-                          dob: String) {
+                                 profileImage: UIImage,
+                                 name: String,
+                                 email: String,
+                                 dob: String) {
         
         // Check validation
         if let error = self.isValidView(profileImage: profileImage,
@@ -77,11 +77,15 @@ extension EditProfileViewModel {
                                               address: "") { [weak self] (isDone) in
                 guard let self = self else {return}
                 if isDone {
-                    RNEventEmitter.emitter.sendEvent(withName: "profileUpdatedSuccess", body: [:])
+                    Settings().isHidden(setting: .home_from_react_native) { isFromRN in
+                        if isFromRN {
+                            RNEventEmitter.emitter.sendEvent(withName: "profileUpdatedSuccess", body: [:])
+                        }
+                    }
                     self.vmResult.value = .success(nil)
                 }
             }
-          
+            
         }
         
         func imageUploadSetup(){
@@ -96,12 +100,12 @@ extension EditProfileViewModel {
                                            nil,
                                            BlobContainer.kAppContainer,
                                            prefix: .user) { (str1, str2) in
-//                print(str1)
-//                print(str2)
+                //                print(str1)
+                //                print(str2)
                 self.strProfileImage = str2 ?? ""
                 dispatchGroup.leave()
             }
-           
+            
             
             dispatchGroup.notify(queue: .main) {
                 //When media images upload done

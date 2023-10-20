@@ -13,6 +13,7 @@ class TabbarVC: BFPaperTabBarController {
     
     //MARK: -------------------------- Class Variable --------------------------
     private var showEngageVC = true
+    private var isFromRN = true
     private var currentIndex = 0
     
     //MARK: -------------------------- Memory Management Method --------------------------
@@ -35,10 +36,13 @@ class TabbarVC: BFPaperTabBarController {
             if isHidden {
                 self.showEngageVC = false
             }
-            self.setTabbarViewControllers()
-            self.setTabbar()
-            self.setTabTheme()
-            self.selectedIndex = self.currentIndex
+            Settings().isHidden(setting: .home_from_react_native) { isFromRN in
+                self.isFromRN = isFromRN
+                self.setTabbarViewControllers()
+                self.setTabbar()
+                self.setTabTheme()
+                self.selectedIndex = self.currentIndex
+            }
         }
     }
     
@@ -111,6 +115,13 @@ class TabbarVC: BFPaperTabBarController {
         tab4.title          = "Exercise"
         tab4.imageInsets    = UIEdgeInsets(top: paddingTop, left: 0, bottom: paddingBottom, right: 0)
         
+        if !self.isFromRN {
+            let tab5            = self.tabBar.items![index]
+            tab5.image          = UIImage(named: "more_unselected")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+            tab5.selectedImage  = UIImage(named: "more_selected")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+            tab5.title          = "More"
+            tab5.imageInsets    = UIEdgeInsets(top: paddingTop, left: 0, bottom: paddingBottom, right: 0)
+        }
     }
     
     fileprivate func setTabbarViewControllers(){
@@ -144,34 +155,37 @@ class TabbarVC: BFPaperTabBarController {
         let vc = UIViewController()
         vc.view = rootView
         var homeVC: UIViewController!
-        Settings().isHidden(setting: .home_from_react_native) { isFromRN in
-            if isFromRN {
-                homeVC = vc
-            } else {
-                homeVC = HomeVC.instantiate(fromAppStoryboard: .home)
-            }
+        
+        if self.isFromRN {
+            homeVC = vc
+        } else {
+            homeVC = HomeVC.instantiate(fromAppStoryboard: .home)
         }
         
         
         let carePlanVC          = CarePlanVC.instantiate(fromAppStoryboard: .carePlan)
         let engageVC            = EngageParentVC.instantiate(fromAppStoryboard: .engage)
         let exerciseVC          = ExerciseParentVC.instantiate(fromAppStoryboard: .exercise)
+        let moreVC              = MenuVC.instantiate(fromAppStoryboard: .home)
         
         var arrVC       = [homeVC!, carePlanVC, exerciseVC]
         if self.showEngageVC {
             arrVC       = [homeVC!, carePlanVC, engageVC, exerciseVC]
         }
         
+        if !self.isFromRN {
+                arrVC.append(moreVC)
+            }
+        
         self.viewControllers    = arrVC
         self.viewControllers    = arrVC.map({ (vc) in
             UINavigationController(rootViewController: vc)
         })
         
-        Settings().isHidden(setting: .home_from_react_native) { isFromRN in
-            if isFromRN {
+            if self.isFromRN {
                 self.viewControllers?[0] = homeVC
             }
-        }
+        
         
     }
     
@@ -211,11 +225,10 @@ class TabbarVC: BFPaperTabBarController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        Settings().isHidden(setting: .home_from_react_native) { isFromRN in
-            if isFromRN {
+            if self.isFromRN {
                 self.navigationController?.setNavigationBarHidden(true, animated: animated)
             }
-        }
+        
         NotificationCenter.default.removeObserver(self)
         NotificationCenter.default.addObserver(self, selector: #selector(self.appStatusActivity), name: UIApplication.didBecomeActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.appStatusActivity), name: UIApplication.willResignActiveNotification, object: nil)
@@ -230,6 +243,14 @@ class TabbarVC: BFPaperTabBarController {
                 }
                 else {
                     hide_incident_surveyMain = true
+                }
+            }
+            if self.isFromRN {
+                GlobalAPI.shared.getPatientDetailsAPI { [weak self] (isDone) in
+                    guard let self = self else {return}
+                    if isDone {
+                        //self.updateAppData()
+                    }
                 }
             }
         }
@@ -292,8 +313,24 @@ extension TabbarVC: TransitionableTab {
     }
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        RNEventEmitter.emitter.sendEvent(withName: "bottomTabNavigationInitiated", body: [:])
+        
+            if self.isFromRN {
+                RNEventEmitter.emitter.sendEvent(withName: "bottomTabNavigationInitiated", body: [:])
+            }
+        
         let vcs = viewController.children[0]
+        
+        if let _ = vcs as? MenuVC {
+            var params: [String: Any] = [:]
+            FIRAnalytics.FIRLogEvent(eventName: .USER_CLICKED_ON_MENU,
+                                     screen: .Home,
+                                     parameter: params)
+            
+            params[AnalyticsParameters.module.rawValue] = "More"
+            FIRAnalytics.FIRLogEvent(eventName: .USER_TAPS_ON_BOTTOM_NAV,
+                                     screen: .Home,
+                                     parameter: params)
+        }
         
         if let _ = vcs as? ExerciseParentVC {
             var params: [String: Any] = [:]

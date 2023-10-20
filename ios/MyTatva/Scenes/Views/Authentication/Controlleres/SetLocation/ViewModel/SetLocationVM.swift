@@ -59,8 +59,8 @@ extension SetLocationVM {
             return
         }
         
-//        UserModel.shared.storeUserEntryDetails(withJSON: response.data)
-//        UIApplication.shared.manageLogin()
+        //        UserModel.shared.storeUserEntryDetails(withJSON: response.data)
+        //        UIApplication.shared.manageLogin()
         
         //LocationManager.shared.getLocation()
         
@@ -69,11 +69,16 @@ extension SetLocationVM {
                                            country: country) { [weak self] (isDone) in
             guard let self = self else {return}
             if isDone {
-                RNEventEmitter.emitter.sendEvent(withName: "locationUpdatedSuccessfully", body: ["city":city,"state":state,"country":country])
+                Settings().isHidden(setting: .home_from_react_native) { isFromRN in
+                    if isFromRN {
+                        RNEventEmitter.emitter.sendEvent(withName: "locationUpdatedSuccessfully", body: ["city":city,"state":state,"country":country])
+                    }
+                }
+                
                 self.vmResult.value = .success(nil)
             }
         }
-
+        
     }
 }
 

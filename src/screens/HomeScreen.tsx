@@ -251,7 +251,10 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
     navigateTo('FoodDiaryParentVC');
   };
   const onPressExercise = (filteredData: any) => {
-    navigateToExercise([{filteredData: filteredData}, {firstRow: 'exercise'}]);
+    openMedicineExerciseDiet([
+      {filteredData: filteredData},
+      {firstRow: 'exercise'},
+    ]);
   };
   const onPressMedicine = (filteredData: any) => {
     openMedicineExerciseDiet([

@@ -132,6 +132,7 @@ const MyHealthInsights: React.FC<MyHealthInsightsProps> = ({
             resizeMode="contain"
             style={styles.imageStyle}
             source={{uri: item?.image_url || ''}}
+            tintColor={item?.icon_color}
           />
           <Text style={styles.hiItemTitle}>{item?.goal_name || '-'}</Text>
         </View>
@@ -180,7 +181,7 @@ export default MyHealthInsights;
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 10,
+    marginTop: 10,
   },
   flex: {
     flex: 1,

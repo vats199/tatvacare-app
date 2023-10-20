@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="H1n-41-CiN">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="H1n-41-CiN">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -552,7 +552,7 @@
                     <navigationItem key="navigationItem" id="qXv-Zj-wYg">
                         <leftBarButtonItems>
                             <barButtonItem style="plain" id="OTn-iC-fhg">
-                                <view key="customView" contentMode="scaleToFill" ambiguous="YES" id="awE-ZT-OcD">
+                                <view key="customView" contentMode="scaleToFill" id="awE-ZT-OcD">
                                     <rect key="frame" x="20" y="5.5" width="71" height="33"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
@@ -2152,7 +2152,7 @@
                     <navigationItem key="navigationItem" id="DYW-nq-WTk">
                         <leftBarButtonItems>
                             <barButtonItem style="plain" id="UkZ-Hc-FM5">
-                                <view key="customView" contentMode="scaleToFill" ambiguous="YES" id="PXW-jW-u5W">
+                                <view key="customView" contentMode="scaleToFill" id="PXW-jW-u5W">
                                     <rect key="frame" x="20" y="5.5" width="71" height="33"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
@@ -10355,20 +10355,11 @@ Breach Candy, Cumballa Hill, Mumbai</string>
         <designable name="5MW-pH-sYk">
             <size key="intrinsicContentSize" width="117" height="20.5"/>
         </designable>
-        <designable name="5dY-3u-Lei">
-            <size key="intrinsicContentSize" width="60" height="34"/>
-        </designable>
         <designable name="6T0-Mt-LyY">
             <size key="intrinsicContentSize" width="41" height="18.5"/>
         </designable>
         <designable name="9VZ-HO-mjY">
             <size key="intrinsicContentSize" width="40.5" height="20.5"/>
-        </designable>
-        <designable name="AKs-ML-f7z">
-            <size key="intrinsicContentSize" width="30" height="34"/>
-        </designable>
-        <designable name="AbK-Io-0Nm">
-            <size key="intrinsicContentSize" width="37" height="30"/>
         </designable>
         <designable name="BId-Nt-8Kn">
             <size key="intrinsicContentSize" width="45" height="18.5"/>
@@ -10385,9 +10376,6 @@ Breach Candy, Cumballa Hill, Mumbai</string>
         <designable name="GwK-My-uvX">
             <size key="intrinsicContentSize" width="34.5" height="18.5"/>
         </designable>
-        <designable name="HMP-OX-vAV">
-            <size key="intrinsicContentSize" width="39" height="34"/>
-        </designable>
         <designable name="If9-CJ-t7v">
             <size key="intrinsicContentSize" width="63" height="20.5"/>
         </designable>
@@ -10399,12 +10387,6 @@ Breach Candy, Cumballa Hill, Mumbai</string>
         </designable>
         <designable name="MAw-XB-SGC">
             <size key="intrinsicContentSize" width="41" height="18.5"/>
-        </designable>
-        <designable name="MEs-YX-fPP">
-            <size key="intrinsicContentSize" width="54" height="34"/>
-        </designable>
-        <designable name="MeK-8m-73y">
-            <size key="intrinsicContentSize" width="57" height="34"/>
         </designable>
         <designable name="Ng2-gO-Q2b">
             <size key="intrinsicContentSize" width="53.5" height="20.5"/>
@@ -10421,14 +10403,8 @@ Breach Candy, Cumballa Hill, Mumbai</string>
         <designable name="RM1-kV-0Kg">
             <size key="intrinsicContentSize" width="234.5" height="20.5"/>
         </designable>
-        <designable name="TjN-7y-2xK">
-            <size key="intrinsicContentSize" width="83" height="30"/>
-        </designable>
         <designable name="VEN-SL-L6M">
             <size key="intrinsicContentSize" width="34.5" height="18.5"/>
-        </designable>
-        <designable name="XEV-pI-8Ko">
-            <size key="intrinsicContentSize" width="39" height="34"/>
         </designable>
         <designable name="a3j-Wb-1e6">
             <size key="intrinsicContentSize" width="128.5" height="20.5"/>
@@ -10450,17 +10426,8 @@ Breach Candy, Cumballa Hill, Mumbai</string>
         <designable name="jle-m2-e6x">
             <size key="intrinsicContentSize" width="166.5" height="20.5"/>
         </designable>
-        <designable name="lD8-br-QLN">
-            <size key="intrinsicContentSize" width="154" height="34"/>
-        </designable>
-        <designable name="lzt-44-BsN">
-            <size key="intrinsicContentSize" width="57" height="34"/>
-        </designable>
         <designable name="nL6-ee-3t2">
             <size key="intrinsicContentSize" width="96" height="20.5"/>
-        </designable>
-        <designable name="ocg-Ta-TiP">
-            <size key="intrinsicContentSize" width="39" height="34"/>
         </designable>
         <designable name="oy5-Cc-ZU2">
             <size key="intrinsicContentSize" width="82" height="20.5"/>
@@ -10469,14 +10436,8 @@ Breach Candy, Cumballa Hill, Mumbai</string>
             <size key="intrinsicContentSize" width="41" height="18.5"/>
         </designable>
         <designable name="pnG-Q0-9qb"/>
-        <designable name="qgZ-I4-NAW">
-            <size key="intrinsicContentSize" width="57" height="34"/>
-        </designable>
         <designable name="rzw-Bm-AVG">
             <size key="intrinsicContentSize" width="158.5" height="18.5"/>
-        </designable>
-        <designable name="tjX-Pt-2pM">
-            <size key="intrinsicContentSize" width="39" height="34"/>
         </designable>
         <designable name="uk1-4H-WJP">
             <size key="intrinsicContentSize" width="33" height="20.5"/>
@@ -10492,7 +10453,7 @@ Breach Candy, Cumballa Hill, Mumbai</string>
         <image name="acc_setting_arrow_right" width="6.5" height="11.5"/>
         <image name="address_coach" width="24.5" height="24.5"/>
         <image name="alert_ic" width="120" height="120"/>
-        <image name="arrow_right" width="6.5" height="11.5"/>
+        <image name="arrow_right" width="6.5" height="11"/>
         <image name="arrow_right_tint" width="6.5" height="11.5"/>
         <image name="b1" width="130" height="75"/>
         <image name="back_ic" width="9.5" height="17"/>
@@ -10604,7 +10565,7 @@ Breach Candy, Cumballa Hill, Mumbai</string>
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="linkColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

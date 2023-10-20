@@ -338,9 +338,6 @@ extension UpdateFibroScanReadingPopupVC {
 
 //MARK: --------------------- UITextFieldDelegate Method ---------------------
 extension UpdateFibroScanReadingPopupVC : UITextFieldDelegate {
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        return true
-    }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         switch textField {

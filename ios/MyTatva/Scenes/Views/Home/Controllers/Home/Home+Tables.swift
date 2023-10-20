@@ -65,7 +65,7 @@ class MyDevicesCell2 : UITableViewCell {
         
         self.imgIcon.image = UIImage(named: "icon_BCA")
         
-        self.vwBG.cornerRadius(cornerRadius: 10, clips: true).borderColor(color: .lightGray, borderWidth: 0.5)
+        self.vwBG.cornerRadius(cornerRadius: 10, clips: true)
         
         self.vwBG.applyViewShadow(shadowOffset: .zero, shadowColor: UIColor.ThemeDeviceShadow, shadowOpacity: 0.2)
     }

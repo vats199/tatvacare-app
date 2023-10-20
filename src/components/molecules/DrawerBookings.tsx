@@ -2,7 +2,7 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {colors} from '../../constants/colors';
 import {Icons} from '../../constants/icons';
-import {navigateTo} from '../../routes/Router';
+import {navigateTo, navigateToHistory} from '../../routes/Router';
 
 type DrawerBookingsProps = {};
 
@@ -11,7 +11,8 @@ const DrawerBookings: React.FC<DrawerBookingsProps> = ({}) => {
     navigateTo('AppointmentsHistoryVC');
   };
   const onPressLabTests = () => {
-    navigateTo('LabTestListVC');
+    // navigateTo('LabTestListVC');
+    navigateToHistory('Tests');
   };
 
   return (

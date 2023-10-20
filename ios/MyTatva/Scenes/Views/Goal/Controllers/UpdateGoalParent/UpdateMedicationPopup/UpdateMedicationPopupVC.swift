@@ -143,8 +143,8 @@ class UpdateMedicationPopupVC: ClearNavigationFontBlackBaseVC {
     
     fileprivate func setUpView() {
         
-        //self.lblTitle.font(name: .bold, size: 22)
-        //    .textColor(color: UIColor.themeBlack)
+        self.lblTitle.font(name: .semibold, size: 18)
+            .textColor(color: UIColor.themeBlack)
         self.txtDate.font(name: .medium, size: 12)
             .textColor(color: UIColor.themeBlack)
         self.txtDate.delegate = self

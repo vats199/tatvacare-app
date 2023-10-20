@@ -17,7 +17,7 @@
 		<key>APXWYSIWYGPlugin</key>
 		<true/>
 		<key>Core</key>
-		<string>460d5566-b0cc-49d6-801a-97608a6068d4</string>
+		<string>21082762-78d5-46f7-80a0-c46a260f71fe</string>
 	</dict>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
@@ -90,18 +90,8 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSExceptionDomains</key>
-		<dict>
-			<key>localhost</key>
-			<string>NSTemporaryExceptionAllowsInsecureHTTPLoads</string>
-		</dict>
-		<key>NSAllowsArbitraryLoadsUsageDescription</key>
-		<true/>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
-	</dict>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>$(PRODUCT_NAME) wants to use your bluetooth to connect to Smart Analyser.</string>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>$(PRODUCT_NAME) wants to use your bluetooth to connect to Smart Analyser.</string>
 	<key>NSCalendarsUsageDescription</key>
@@ -227,7 +217,7 @@
 	<key>WEGEnvironment	</key>
 	<string>$(WEGEnvironment)</string>
 	<key>WEGLicenseCode</key>
-	<string>82617b48</string>
+	<string>311c4c4b</string>
 	<key>WEGLogLevel</key>
 	<string></string>
 </dict>

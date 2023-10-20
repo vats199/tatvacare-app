@@ -65,8 +65,8 @@ class BCANewAddressListCell: UITableViewCell {
         self.lblDelete.font(name: .regular, size: 12)
             .textColor(color: UIColor.ThemeGray61).text = "Delete"
         
-        self.imgEdit.image = UIImage(named: "ic_edit_gray")
-        self.imgDelete.image = UIImage(named: "ic_delete_gray")
+        self.imgEdit.image = UIImage(named: "ic_Edit_gray")
+        self.imgDelete.image = UIImage(named: "ic_Delete_gray")
         
         self.vwBtn.isHidden = true
         self.imgLine.backGroundColor(color: .themeBorder2)

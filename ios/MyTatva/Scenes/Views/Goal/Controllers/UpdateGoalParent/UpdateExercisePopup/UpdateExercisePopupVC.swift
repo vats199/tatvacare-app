@@ -101,8 +101,8 @@ class UpdateExercisePopupVC: ClearNavigationFontBlackBaseVC {
         
         self.btnAddotherExercise.font(name: .medium, size: 11.0).textColor(color: .themePurple).setTitle("Performed a different exercise ? Log here", for: UIControl.State())
         
-        //self.lblTitle.font(name: .bold, size: 15)
-        //    .textColor(color: UIColor.themeBlack)
+        self.lblTitle.font(name: .semibold, size: 15)
+            .textColor(color: UIColor.themeBlack)
         self.lblProgress.font(name: .medium, size: 12)
             .textColor(color: UIColor.themeBlack)
         

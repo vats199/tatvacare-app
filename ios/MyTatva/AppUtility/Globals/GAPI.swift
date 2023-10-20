@@ -3428,7 +3428,12 @@ class GlobalAPI : NSObject {
             var msg     = ""
             switch result {
             case .success(let response):
-                RNEventEmitter.emitter.sendEvent(withName: "bookmarkUpdated", body: [:])
+                Settings().isHidden(setting: .home_from_react_native) { isFromRN in
+                    if isFromRN {
+                        RNEventEmitter.emitter.sendEvent(withName: "bookmarkUpdated", body: [:])
+                    }
+                }
+                
                 var returnVal = false
                 switch response.apiCode {
                 case .invalidOrFail:

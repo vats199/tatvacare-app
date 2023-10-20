@@ -6,7 +6,7 @@
 import UIKit
 
 enum GlobalSearchType: String, CaseIterable {
-    case Discover       = "Discover"
+    case Discover       = "Learn"
     case AskExpert      = "Ask an expert"
     case MyRoutine      = "My Routine"
     case Explore        = "Explore"

@@ -2107,11 +2107,8 @@ extension AVPlayerViewController {
 
 extension GFunction {
     static func getConfigKeyForBCP() -> String {
-        if NetworkManager.environment == .live {
-            //Production key will expire on 18/07/2025...
-            return "aebeb6bce4dc7ecec7e3083f2a292e494ff8ec2f690c338b576a9827db8e0b0f7474324e1c90ea74b9d552395a14acdba1cad03035b0ae4f01850f60db962d37ebd29f4aa91242dc08febf7d0344077a8175fcaff43e7157f3c02be65df0da5b9497c669cc71d4cbbae9a2db7e701ba9a6e6584e1a8ab9d4372ac728a4bf701309a166ce46e231ddd0bd59c94ca84e4ba843dfccb41129b260f56b34f5a1a6db"
-        }else {
-            return "aebeb6bce4dc7ecec7e3083f2a292e494ff8ec2f690c338b576a9827db8e0b0f7474324e1c90ea74b9d552395a14acdba1cad03035b0ae4f01850f60db962d37ebd29f4aa91242dc08febf7d0344077a8175fcaff43e7157f3c02be65df0da5b9497c669cc71d4cbbae9a2db7e701ba9327cd61ddf1a768acb6ed529c89c3b43bf7f7fb494b6dbdb58f4cdc2fd16f327b0478608a8ed3222fa26b179052257f401d480183ae4dc7594cbea12814063d9"
-        }
+        //Production key will expire on 18/07/2025...
+        return "aebeb6bce4dc7ecec7e3083f2a292e494ff8ec2f690c338b576a9827db8e0b0f7474324e1c90ea74b9d552395a14acdba1cad03035b0ae4f01850f60db962d37ebd29f4aa91242dc08febf7d0344077a8175fcaff43e7157f3c02be65df0da5b9497c669cc71d4cbbae9a2db7e701ba9a6e6584e1a8ab9d4372ac728a4bf701309a166ce46e231ddd0bd59c94ca84e4ba843dfccb41129b260f56b34f5a1a6db"
+        
     }
 }

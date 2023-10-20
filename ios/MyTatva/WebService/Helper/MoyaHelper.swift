@@ -25,10 +25,10 @@ enum APIEnvironment {
         switch state {
         case .live:
             return (ip : "https://api.mytatva.in",
-                    baseurl : "https://api.mytatva.in/api/v6/")
+                    baseurl : "https://api.mytatva.in/api/v7/")
         case .uat:
             return (ip : "https://api-uat.mytatva.in",
-                    baseurl : "https://api-uat.mytatva.in/api/v6/")
+                    baseurl : "https://api-uat.mytatva.in/api/v7/")
         case .local:
             return (ip : "https://api.mytatvadev.in",
                     baseurl : "https://api.mytatvadev.in/api/v6/")
@@ -42,7 +42,7 @@ enum APIEnvironment {
 /// NetworkManagerr
 struct NetworkManager  {
     let provider = MoyaProvider<ApiManager>(plugins: [NetworkLoggerPlugin()])
-    static let environment : APIEnvironment = .uat
+    static let environment : APIEnvironment = .live
 }
 
 /// Moya String Helper Extenstions
