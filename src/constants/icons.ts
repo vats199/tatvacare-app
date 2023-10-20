@@ -110,6 +110,10 @@ import Kidney from '../assets/icons/kidney.svg';
 import Liver from '../assets/icons/liverIcon.svg';
 import RadioCheck from '../assets/icons/checkRadio.svg';
 import RadioUncheck from '../assets/icons/uncheckRadio.svg';
+import Camera from '../assets/icons/camera.svg';
+import Gallery from '../assets/icons/gallery.svg';
+import File from '../assets/icons/file.svg';
+import Article from '../assets/icons/article.svg';
 
 export const Icons = {
   HomeActive,
@@ -217,5 +221,9 @@ export const Icons = {
   Kidney,
   Liver,
   RadioCheck,
-  RadioUncheck
+  RadioUncheck,
+  Camera,
+  Gallery,
+  File,
+  Article
 };

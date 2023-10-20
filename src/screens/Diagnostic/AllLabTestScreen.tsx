@@ -3,13 +3,18 @@ import {
     Text,
     View,
     TouchableOpacity,
-    TextInput,
     ScrollView,
+    Image
 } from 'react-native';
-import React, { useState } from 'react';
-import { Container, Screen } from '../../components/styled/Views';
+import React, { useState, useRef, useCallback, useMemo, useEffect } from 'react';
+import DocumentPicker, {
+    DirectoryPickerResponse,
+    DocumentPickerResponse,
+    isCancel,
+    isInProgress,
+    types,
+} from 'react-native-document-picker'
 import {
-
     DiagnosticStackParamList,
 } from '../../interface/Navigation.interface';
 import { StackScreenProps } from '@react-navigation/stack';
@@ -19,6 +24,11 @@ import { colors } from '../../constants/colors';
 import LabTest from '../../components/organisms/LabTest';
 import { Fonts } from '../../constants';
 import { useApp } from '../../context/app.context';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import UploadPrescription from '../../components/molecules/UploadPrescription';
+import FreeTest from '../../components/molecules/FreeTest';
+import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import ImagePicker from 'react-native-image-crop-picker';
 
 type AllLabTestProps = StackScreenProps<
     DiagnosticStackParamList,
@@ -34,22 +44,118 @@ type TestItem = {
     discount: number;
     isAdded: boolean;
 };
+// type prescription = {
+//     date?: any;
+//     items: {
+//         id:number;
+//         uri?: string;
+//     }[];
+// };
+type perscription = {
+    id: number;
+    uri?: string;
+    date?: any
+}
 
 const AllLabTestScreen: React.FC<AllLabTestProps> = ({ route, navigation }) => {
     const [addedCartItem, setAddedCartItem] = useState<TestItem[]>([]);
+    const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+    const [selectedImage, setSelectedImage] = useState<string>();
+    const [result, setResult] = React.useState<
+        Array<DocumentPickerResponse> | DirectoryPickerResponse | undefined | null
+    >();
+    const [uploadedPerscription, setUploadedPerscription] = useState<perscription[]>([]);
+
+    console.log("item>>>", uploadedPerscription);
+    useEffect(() => {
+        console.log(JSON.stringify(result, null, 2))
+    }, [result])
+
+    const handleError = (err: unknown) => {
+        if (isCancel(err)) {
+            console.warn('cancelled')
+        } else if (isInProgress(err)) {
+            console.warn('multiple pickers were opened, only the last will be considered')
+        } else {
+            throw err
+        }
+    }
 
     const { location } = useApp();
-    console.log(location);
+
+    const snapPoints = useMemo(() => ['10%', '65%'], []);
+
+    const selectImageFromCamera = async () => {
+        try {
+            const image = await ImagePicker.openCamera({
+                width: 300,
+                height: 400,
+                cropping: true,
+            });
+            setNewPerscription(image.path);
+            setSelectedImage(image.path);
+        } catch (error) {
+            console.log('Error selecting image from camera:', error);
+        }
+    }
+    const setNewPerscription = (uri: string) => {
+        const id = Math.floor(Math.random() * 1000);
+
+
+        const today = new Date();
+        console.log
+        const date = today.toISOString().split('T')[0];
+
+
+        const newPrescription: perscription = {
+            id,
+            date,
+            uri: uri,
+        };
+
+
+        setUploadedPerscription([...uploadedPerscription, newPrescription]);
+    }
+
+    const selectImageFromGallery = async () => {
+        try {
+            const image = await ImagePicker.openPicker({
+                width: 300,
+                height: 400,
+                cropping: true,
+            });
+            setNewPerscription(image.path);
+            setSelectedImage(image.path);
+        } catch (error) {
+            console.log('Error selecting image from gallery:', error);
+        }
+    }
+
+    const onPressUploadFile = async () => {
+        try {
+            const pickerResult = await DocumentPicker.pickSingle({
+                presentationStyle: 'fullScreen',
+                copyTo: 'cachesDirectory',
+            })
+            console.log("hey", pickerResult.uri);
+            setResult([pickerResult])
+        } catch (e) {
+            handleError(e)
+        }
+    }
+
 
     const handleItemAdded = (item: TestItem) => {
         setAddedCartItem(prevAddedItems => [...prevAddedItems, item]);
     };
-    console.log(addedCartItem);
+
 
     const addedItem = addedCartItem.length;
     console.log(addedItem);
     const iconPress = () => { };
-    const onPressUploadPerscription = () => { };
+    const onPressUploadPerscription = useCallback(() => {
+        bottomSheetModalRef.current?.present();
+    }, []);
     const onPressViewFreeTests = () => { };
     const onPressAdd = () => { };
     const onPressViewAll = () => {
@@ -58,120 +164,131 @@ const AllLabTestScreen: React.FC<AllLabTestProps> = ({ route, navigation }) => {
     const onBackPress = () => {
         navigation.goBack();
     };
+
     const onPressViewCart = () => {
         console.log("pressed")
         navigation.navigate('LabTestCart', { item: addedCartItem });
     };
+
+
     return (
-        <>
-            <View style={styles.screen}>
-                <ScrollView>
-                    <Header
-                        title="All Lab test"
-                        isIcon={true}
-                        icon={<Icons.Cart height={24} width={24} />}
-                        containerStyle={styles.upperHeader}
-                        titleStyle={styles.titleStyle}
-                        onIconPress={iconPress}
-                        onBackPress={onBackPress}
-                    />
-                    <View style={styles.location}>
-                        <Icons.Location />
+        <SafeAreaView edges={['top']} style={styles.screen}>
+            <ScrollView>
+                <Header
+                    title="All Lab test"
+                    isIcon={true}
+                    icon={<Icons.Cart height={24} width={24} />}
+                    containerStyle={styles.upperHeader}
+                    titleStyle={styles.titleStyle}
+                    onIconPress={iconPress}
+                    onBackPress={onBackPress}
+                />
+                <View style={styles.location}>
+                    <Icons.Location />
+                </View>
+
+                <View style={{ flex: 1, paddingHorizontal: 15 }}>
+                    <TouchableOpacity
+                        style={styles.searchContainer}
+                        activeOpacity={1}
+                        onPress={() => {
+                            navigation.navigate('SearchLabTest');
+                        }}>
+                        <Icons.Search height={20} width={20} />
+                        {/* <TextInput placeholder='Search for Tests, Health Packages' /> */}
+                        <Text style={styles.placeholderText}> Search for Tests, Health Packages</Text>
+                    </TouchableOpacity>
+
+                    <UploadPrescription onPressUpload={onPressUploadPerscription} />
+                    <FreeTest onPressAdd={onPressAdd} onPressViewFreeTest={onPressViewFreeTests} />
+
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20, marginBottom: 5 }}>
+                        <Text style={styles.title}>Liver Test</Text>
+                        <TouchableOpacity onPress={onPressViewAll} >
+                            <Text style={styles.textViewButton}>View all</Text>
+                        </TouchableOpacity>
                     </View>
 
-                    <View style={{ flex: 1, paddingHorizontal: 15 }}>
-                        <TouchableOpacity
-                            style={styles.searchContainer}
-                            activeOpacity={1}
-                            onPress={() => {
-                                navigation.navigate('SearchLabTest');
-                            }}>
-                            <Icons.Search height={20} width={20} />
-                            {/* <TextInput placeholder='Search for Tests, Health Packages' /> */}
-                            <Text style={styles.placeholderText}> Search for Tests, Health Packages</Text>
+                    <LabTest title="Liver Test" onAdded={handleItemAdded} />
+
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20, marginBottom: 5 }}>
+                        <Text style={styles.title}>Kidney Test</Text>
+                        <TouchableOpacity  >
+                            <Text style={styles.textViewButton}>View all</Text>
                         </TouchableOpacity>
-                        <View style={styles.perscription}>
-                            <View
-                                style={{
-                                    flexDirection: 'row',
-                                    justifyContent: 'space-between',
-                                    alignItems: 'center',
-                                }}>
-                                <Icons.MedicineBlack height={36} width={36} />
-                                <View style={styles.textBox}>
-                                    <Text style={styles.uploadPerscription}>
-                                        Upload Prescription
-                                    </Text>
-                                    <Text style={styles.arrangeMedicine}>
-                                        We Will Arrange Medicine For you
-                                    </Text>
-                                </View>
-                            </View>
-                            <View>
-                                <Icons.forwardArrow
-                                    height={12}
-                                    width={12}
-                                    onPress={onPressUploadPerscription}
-                                />
-                            </View>
-                        </View>
-                        <View style={styles.freeTestBox}>
-                            <Text style={styles.freeTestText}>
-                                {' '}
-                                Free Test Available for you
-                            </Text>
-                            <View
-                                style={{
-                                    flexDirection: 'row',
-                                    justifyContent: 'space-between',
-                                    flex: 1,
-                                    alignItems: 'center',
-                                }}>
-                                <View style={{ flex: 0.85 }}>
-                                    <Text style={styles.freeText}>
-                                        Since you are on paid plan you can get free test aslo done
-                                        accor to your health
-                                    </Text>
-                                </View>
-                                <TouchableOpacity style={{ flex: 0.15 }} onPress={onPressAdd}>
-                                    <Text style={styles.textAddButton}> Add</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <TouchableOpacity onPress={onPressViewFreeTests}>
-                                <Text style={styles.textViewButton}>View Free Test</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 15, marginBottom: 5 }}>
-                            <Text style={styles.title}>Liver Test</Text>
-                            <TouchableOpacity onPress={onPressViewAll} >
-                                <Text style={styles.textViewButton}>View all</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <LabTest title="Liver Test" onAdded={handleItemAdded} />
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 15, marginBottom: 5 }}>
-                            <Text style={styles.title}>Kidney Test</Text>
-                            <TouchableOpacity  >
-                                <Text style={styles.textViewButton}>View all</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <LabTest title="Kindney Test" onAdded={handleItemAdded} />
                     </View>
-                </ScrollView>
-                {addedCartItem.length > 0 && (
-                    <View style={styles.belowContainer}>
+                    <LabTest title="Kindney Test" onAdded={handleItemAdded} />
+                </View>
+            </ScrollView>
+            {addedCartItem.length > 0 && (
+                <View style={styles.belowContainer}>
+                    <View>
+                        <Text>{addedItem} test added</Text>
+                        <Text style={styles.textViewButton}> View Details</Text>
+                    </View>
+                    <TouchableOpacity
+                        style={styles.viewCartButton}
+                        onPress={onPressViewCart}>
+                        <Text style={styles.viewCartText}>View cart</Text>
+                    </TouchableOpacity>
+                </View>
+            )}
+            <BottomSheetModalProvider>
+                <BottomSheetModal
+                    ref={bottomSheetModalRef}
+                    index={1}
+                    snapPoints={snapPoints}>
+                    <View style={styles.contentContainer}>
+                        <Text style={styles.uploadPerscriptionTitle}>Upload Perscription</Text>
+                        <View style={{ flexDirection: 'row', alignItems: "center", marginVertical: 5 }}>
+                            <Icons.Camera />
+                            <TouchableOpacity
+                                onPress={selectImageFromCamera}>
+                                <Text style={styles.subTitle}>Click a Photo</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{ flexDirection: 'row', alignItems: "center", marginVertical: 5 }}>
+                            <Icons.Gallery />
+                            <TouchableOpacity
+                                onPress={selectImageFromGallery}>
+                                <Text style={styles.subTitle}>Choose from Gallery</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{ flexDirection: 'row', alignItems: "center", marginVertical: 5 }}>
+                            <Icons.File />
+                            <TouchableOpacity onPress={onPressUploadFile}>
+                                <Text style={styles.subTitle}>Upload File</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{ flexDirection: 'row', alignItems: "center", marginVertical: 5 }}>
+                            <Icons.Article />
+                            <TouchableOpacity onPress={() => navigation.navigate("MyPerscription", { data: uploadedPerscription })}>
+                                <Text style={styles.subTitle}>My Prescriptions</Text>
+                            </TouchableOpacity>
+                        </View>
+
                         <View>
-                            <Text>{addedItem} test added</Text>
-                            <Text style={styles.textViewButton}> View Details</Text>
+                            <Text style={styles.guidePerscriptionTitle}>Guide for a valid prescription</Text>
+                            {/* <Text style={styles.guideSubtitle} numberOfLines={7}>
+                                Don't crop out any part of the image{'\n'}
+                                Avoid blurred image{'\n'}
+                                Include details of doctor and patient + clinic visit date{'\n'}
+                                Medicines will be dispensed as per prescription{'\n'}
+                                Supported files type: jpeg, jpg, png, pdf{'\n'}
+                                Maximum allowed file size: 5MB{'\n'}
+
+                            </Text> */}
+                            <Text style={styles.guideSubtitle}>{'\u2022'}  Don't crop out any part of the image</Text>
+                            <Text style={styles.guideSubtitle}>{'\u2022'}  Avoid blurred image</Text>
+                            <Text style={styles.guideSubtitle}>{'\u2022'}  Include details of doctor and patient + clinic visit date</Text>
+                            <Text style={styles.guideSubtitle}>{'\u2022'}  Medicines will be dispensed as per prescription</Text>
+                            <Text style={styles.guideSubtitle}>{'\u2022'}  Supported files type: jpeg, jpg, png, pdf</Text>
+                            <Text style={styles.guideSubtitle}>{'\u2022'}  Maximum allowed file size: 5MB</Text>
                         </View>
-                        <TouchableOpacity
-                            style={styles.viewCartButton}
-                            onPress={onPressViewCart}>
-                            <Text style={styles.viewCartText}>View cart</Text>
-                        </TouchableOpacity>
                     </View>
-                )}
-            </View>
-        </>
+                </BottomSheetModal>
+            </BottomSheetModalProvider>
+        </SafeAreaView>
     );
 };
 
@@ -181,12 +298,11 @@ const styles = StyleSheet.create({
     screen: {
         flex: 1,
         backgroundColor: colors.lightGreyishBlue,
-        marginBottom: 50
     },
     upperHeader: {
-        marginHorizontal: 15,
-        paddingTop: 25,
-        paddingBottom: 15
+        marginHorizontal: 20,
+        marginTop: 30,
+        marginBottom: 20
     },
     titleStyle: {
         fontSize: 16,
@@ -219,72 +335,11 @@ const styles = StyleSheet.create({
         color: colors.subTitleLightGray,
         marginLeft: 10,
     },
-    perscription: {
-        marginVertical: 10,
-        padding: 14,
-        backgroundColor: colors.white,
-        borderRadius: 12,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        minHeight: 70,
-        elevation: 0.4,
-        shadowColor: colors.inputValueDarkGray,
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.5
-    },
-    textBox: {
-        marginLeft: 10,
-    },
-    uploadPerscription: {
-        fontSize: 14,
-        fontWeight: '700',
-        fontFamily: Fonts.BOLD,
-        color: colors.labelDarkGray,
-    },
-    arrangeMedicine: {
-        color: colors.darkGray,
-        fontSize: 12,
-        fontWeight: '400',
-        fontFamily: Fonts.BOLD,
-    },
-    freeTestBox: {
-        marginVertical: 5,
-        padding: 12,
-        backgroundColor: colors.white,
-        borderRadius: 12,
-        minHeight: 110,
-        width: '100%',
-        elevation: 0.4,
-        shadowColor: colors.inputValueDarkGray,
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.5
-    },
-    freeTestText: {
-        fontSize: 14,
-        fontWeight: '700',
-        fontFamily: Fonts.BOLD,
-        color: colors.labelDarkGray,
-    },
-    freeText: {
-        color: colors.darkGray,
-        fontSize: 12,
-        fontWeight: '300',
-        fontFamily: Fonts.BOLD,
-        //marginVertical:5,
-    },
     title: {
         fontSize: 16,
         fontWeight: "700",
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray
-    },
-    textAddButton: {
-        fontSize: 12,
-        fontWeight: '700',
-        color: colors.themePurple,
-        fontFamily: Fonts.BOLD,
-        marginLeft: 18,
     },
     textViewButton: {
         fontSize: 12,
@@ -292,6 +347,7 @@ const styles = StyleSheet.create({
         fontFamily: Fonts.BOLD,
         color: colors.themePurple,
     },
+
     belowContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -299,12 +355,11 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
         paddingVertical: 10,
         backgroundColor: colors.white,
-        elevation: 5,
+        elevation: 10,
         shadowColor: '#313131',
         shadowOffset: { width: 0, height: 1 }
     },
     viewCartButton: {
-        // height: 46,
         paddingHorizontal: 16,
         paddingVertical: 12,
         backgroundColor: colors.themePurple,
@@ -327,5 +382,40 @@ const styles = StyleSheet.create({
         fontWeight: '400',
         fontFamily: Fonts.BOLD,
         color: colors.inactiveGray,
+    },
+    contentContainer: {
+        flex: 1,
+        backgroundColor: colors.white,
+        padding: 15,
+        elevation: 2
+    },
+    uploadPerscriptionTitle: {
+        fontSize: 20,
+        fontWeight: '700',
+        fontFamily: Fonts.BOLD,
+        color: colors.inputValueDarkGray,
+        marginBottom: 10
+    },
+    subTitle: {
+        fontSize: 14,
+        fontWeight: '500',
+        fontFamily: Fonts.BOLD,
+        color: colors.inputValueDarkGray,
+        marginLeft: 10
+    },
+    guidePerscriptionTitle: {
+        fontSize: 15,
+        fontWeight: '600',
+        fontFamily: Fonts.BOLD,
+        color: colors.labelDarkGray,
+        marginTop: 25,
+        marginBottom: 5
+    },
+    guideSubtitle: {
+        fontSize: 12,
+        fontWeight: '400',
+        fontFamily: Fonts.BOLD,
+        color: colors.inactiveGray,
+        marginLeft: 4
     }
 });

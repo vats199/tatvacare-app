@@ -7,6 +7,7 @@ export const colors = {
   darkGray: '#919191',
   subTitleLightGray: '#616161',
   inputValueDarkGray: '#212121',
+  dimGray:'#222222',
   lightPurple:'#f9f9ff',
   lightGreyishBlue: '#F9F9FF',
   veryLightGreyishBlue: '#EFEFF4',

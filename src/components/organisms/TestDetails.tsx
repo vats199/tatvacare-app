@@ -23,6 +23,8 @@ type TestDetailsProps = {
 
 const TestDetails: React.FC<TestDetailsProps> = ({ data }) => {
 
+    const rupee = '\u20B9';
+
     const renderIcon = (
         title: string
     ) => {
@@ -49,7 +51,7 @@ const TestDetails: React.FC<TestDetailsProps> = ({ data }) => {
                             <Text style={styles.reportText}>reported by date</Text>
                         </View>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: "center", marginRight: 20 }}>
-                            <Text>{item.newPrice}</Text>
+                            <Text>{rupee}{item.newPrice}</Text>
                             <Icons.Delete height={15} width={15} style={{ marginLeft: 10 }} />
                         </View>
                     </View>
@@ -66,7 +68,7 @@ const TestDetails: React.FC<TestDetailsProps> = ({ data }) => {
     }
     return (
         <View >
-            <Text style={styles.title}>TestDetails</Text>
+            <Text style={styles.title}>Test Details</Text>
 
             <View style={styles.container}>
                 {data && data.map(renderCartItem)}
@@ -92,14 +94,17 @@ const styles = StyleSheet.create({
         fontWeight: "700",
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray,
-        marginTop: 15
+        marginTop: 20,
+        marginBottom: 10
     },
     container: {
         backgroundColor: 'white',
         borderRadius: 12,
         padding: 10,
         marginVertical: 10,
-        elevation: 0.4
+        elevation: 0.2,
+        shadowColor: colors.inputValueDarkGray,
+        shadowOffset: { width: 0, height: 1 },
     },
     renderItemContainer: {
         width: '100%',

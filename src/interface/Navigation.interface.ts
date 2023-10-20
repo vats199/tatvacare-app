@@ -37,9 +37,10 @@ export type DiagnosticStackParamList={
   LabTestCart:{item :TestItem [] | undefined } | { coupan :string  | undefined};
   ApplyCoupan:undefined;
   ConfirmLocation:undefined;
-SearchLabTest:undefined;
+  SearchLabTest:undefined;
   AddPatientDetails:undefined;
   ViewAllTest:undefined;
+  MyPerscription:{data:perscription[] };
 }
 
 export type BottomTabParamList = {
@@ -79,3 +80,8 @@ type TestItem = {
   discount: number;
   isAdded: boolean;
 };
+type perscription = {
+  id: number;
+  date?: any;
+  uri?: string;
+}

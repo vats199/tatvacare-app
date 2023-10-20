@@ -9,8 +9,8 @@ import { colors } from '../../constants/colors';
 import { Fonts } from '../../constants';
 import { Icons } from '../../constants/icons';
 type SearchLabTestScreenProps = StackScreenProps<
-DiagnosticStackParamList,
-'SearchLabTest'
+    DiagnosticStackParamList,
+    'SearchLabTest'
 >;
 
 type RecentSearchItem = {
@@ -22,6 +22,10 @@ type RecentSearchItem = {
 const SearchLabTestScreen: React.FC<SearchLabTestScreenProps> = ({ route, navigation }) => {
     const [isFocused, setIsFocused] = useState<boolean>(false);
     const [searchItem, setSearchItem] = useState<string>();
+
+    const onPressBack = () => {
+        navigation.goBack();
+    }
 
     const options: RecentSearchItem[] = [
         {
@@ -65,7 +69,7 @@ const SearchLabTestScreen: React.FC<SearchLabTestScreenProps> = ({ route, naviga
         <>
             <Screen>
                 <View style={styles.header}>
-                    <Icons.backArrow height={24} width={24} />
+                    <Icons.backArrow height={24} width={24} onPressBack={onPressBack} />
                     <View style={[styles.inputContainer, { borderColor: isFocused ? "black" : colors.inputBoxLightBorder }]}>
                         <TextInput placeholder='Search for lab test' onFocus={() => setIsFocused(true)} onBlur={() => setIsFocused(false)}
                             onChangeText={text => setSearchItem(text)}

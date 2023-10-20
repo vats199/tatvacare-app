@@ -9,7 +9,6 @@ type LabTestProp = {
     onAdded?: (item: TestItem) => void,
 
 }
-
 type TestItem = {
     id: number;
     title: string;
@@ -19,9 +18,9 @@ type TestItem = {
     discount: number;
     isAdded: boolean;
 };
-
-
 const LabTest: React.FC<LabTestProp> = ({ title, onAdded }) => {
+
+    const rupee = '\u20B9';
 
     const [options, setOptions] = useState<TestItem[]>([
         {
@@ -69,25 +68,20 @@ const LabTest: React.FC<LabTestProp> = ({ title, onAdded }) => {
         setOptions(updatedOptions);
     }
 
-
-
     const renderTestItem = (item: TestItem, index: number) => {
-
-
         return (
             <View style={styles.renderItemContainer} key={index}>
                 <View style={{ width: "15%" }}>
                     {
                         title === 'Liver Test' ? <Icons.Liver /> : <Icons.Kidney />
                     }
-
                 </View>
                 <View style={{ width: "85%" }}>
                     <Text style={styles.titleStyle}>{item.title} </Text>
                     <Text style={styles.description}>{item.description}</Text>
                     <View style={styles.priceRow}>
-                        <Text style={styles.price}>{item.newPrice}</Text>
-                        <Text style={{ textDecorationLine: 'line-through' }}>{item.oldPrice}</Text>
+                        <Text style={styles.price}>{rupee}{item.newPrice}</Text>
+                        <Text style={{ textDecorationLine: 'line-through' }}>{rupee}{item.oldPrice}</Text>
                         <Text style={styles.discount}> {item.discount}% off</Text>
                     </View>
                     <TouchableOpacity
@@ -137,7 +131,6 @@ const styles = StyleSheet.create({
         elevation: 0.4,
         shadowColor: colors.inputValueDarkGray,
         shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.5
     },
     renderItemContainer: {
         width: '100%',
@@ -155,7 +148,8 @@ const styles = StyleSheet.create({
         fontSize: 12,
         fontWeight: '400',
         fontFamily: Fonts.BOLD,
-        color: colors.inactiveGray
+        color: colors.inactiveGray,
+        marginBottom: 5
     },
     priceRow: {
         flexDirection: 'row',
@@ -188,7 +182,8 @@ const styles = StyleSheet.create({
         width: "100%",
         borderWidth: 1,
         borderColor: colors.themePurple,
-        padding: 6,
+        paddingHorizontal: 6,
+        paddingVertical: 8,
         borderRadius: 12,
         justifyContent: 'center',
         alignItems: 'center'

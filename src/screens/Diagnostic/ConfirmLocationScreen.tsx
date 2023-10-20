@@ -1,22 +1,17 @@
-import { StyleSheet, Text, View, KeyboardAvoidingView, TouchableOpacity, TextInput } from 'react-native'
-import React, { useRef, useMemo, useCallback, useEffect, useState } from 'react';
-import RadioGroup, { RadioButtonProps } from 'react-native-radio-buttons-group';
+import { StyleSheet, Text, View, KeyboardAvoidingView, TouchableOpacity } from 'react-native'
+import React, { useRef, useCallback, useEffect, useState } from 'react';
 import MapView, { Marker } from 'react-native-maps';
 import {
     DiagnosticStackParamList
 } from '../../interface/Navigation.interface';
 import AnimatedInputField from '../../components/atoms/AnimatedInputField';
-import { Container, Screen } from '../../components/styled/Views';
 import { StackScreenProps } from '@react-navigation/stack';
 import { colors } from '../../constants/colors';
 import { Fonts } from '../../constants';
 import { Icons } from '../../constants/icons';
 import Button from '../../components/atoms/Button';
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
-import Geocoder from 'react-native-geocoding';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-
-// import MapView from 'react-native-maps';
 
 type ConfirmLocationScreenProps = StackScreenProps<
     DiagnosticStackParamList,
@@ -31,81 +26,32 @@ type location = {
     lat?: any;
     lng?: any;
 }
+type address = {
+    streetName?: string;
+    cityName?: string;
+}
+
 
 const API_KEY = "AIzaSyD8zxk4kvKlAMGaOQrABy8xqdRKIWGBJlo";
-Geocoder.init("AIzaSyD8zxk4kvKlAMGaOQrABy8xqdRKIWGBJlo");
+
 
 const ConfirmLocationScreen: React.FC<ConfirmLocationScreenProps> = ({ route, navigation }) => {
 
     const bottomSheetModalRef = useRef<BottomSheetModal>(null);
     const [selectedButton, setSelectedButton] = useState<string | undefined>('');
     const [selectedBottomsheet, setSelectedBottomsheet] = useState<string>("Location");
-    const [selectedLocation, setSelectedLocation] = useState<location>();
-    const [selectedAddress, setSelectedAddress] = useState<string>();
-    const [searchText, setSearchText] = useState<string>();
-
-    console.log("selected Location::", selectedLocation);
+    const [selectedLocation, setSelectedLocation] = useState<location>({ lat: 37.78825, lng: -122.4324 });
+    const [selectedAddress, setSelectedAddress] = useState<address>({});
 
     useEffect(() => {
-        console.log("inside the address useeffect");
+
         if (selectedLocation) {
-            console.log("inside the calling the address");
             getAddress(selectedLocation.lat, selectedLocation.lng);
         }
     }, [selectedLocation])
 
-    // useEffect(() => {
-    //     console.log("inside the search useeffect");
-    //     if (searchText) {
-    //         console.log("inside the calling the search");
-    //         Geocoder.from(searchText)
-    //             .then(json => {
-    //                 var location = json.results[0];
-    //                 console.log("location", location);
-
-    //                 //setSelectedLocation(location);
-    //                 console.log("hry")
-    //             })
-    //             .catch(error => console.warn(error));
-    //     }
-    // }, [searchText])
-
-    useEffect(() => {
-        if (searchText) {
-
-            getLatitudeLongitude(searchText);
-
-        }
-
-    }, [searchText])
-
-    const getLatitudeLongitude = async (searchText: string) => {
-        console.log("inside lattitude");
-        const encodedAddress = encodeURIComponent(searchText);
-        const geocodingUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAddress}&key=${API_KEY}`;
-
-        try {
-            const response = await fetch(geocodingUrl);
-            if (!response.ok) {
-                throw new Error('Request failed');
-            }
-            const data = await response.json();
-            if (data.status === 'OK') {
-                const location = data.results[0].geometry.location;
-                const latitude = location.lat;
-                const longitude = location.lng;
-                console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
-            } else {
-                console.error('Geocoding request failed:', data.status);
-            }
-        } catch (error) {
-            console.error('Error fetching geocoding data:', error);
-        }
-    }
-
-
     const getAddress = async (lat: any, lng: any) => {
-        console.log("inside the getting the address");
+
         const uri = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${API_KEY}&enable_address_descriptor=true`;
         const response = await fetch(uri);
         if (!response.ok) {
@@ -113,28 +59,12 @@ const ConfirmLocationScreen: React.FC<ConfirmLocationScreenProps> = ({ route, na
         }
 
         const data = await response.json();
-        const address = data.results[0].formatted_address;
-        console.log(address);
-        setSelectedAddress(address);
+        const street = data.results[0].address_components[1].long_name;
+        console.log("new", street);
+        const city = data.results[0].address_components[0].long_name;
+        setSelectedAddress({ streetName: street, cityName: city });
     }
 
-    // const radioButtons = useMemo(() => ([
-    //     {
-    //         id: '1',
-    //         label: 'Home',
-    //         value: 'option1'
-    //     },
-    //     {
-    //         id: '2',
-    //         label: 'Office',
-    //         value: 'option2'
-    //     },
-    //     {
-    //         id: '3',
-    //         label: 'Other',
-    //         value: 'option2'
-    //     }
-    // ]), []);
 
     const options: addressItem[] = [
         {
@@ -155,7 +85,7 @@ const ConfirmLocationScreen: React.FC<ConfirmLocationScreenProps> = ({ route, na
     ]
 
 
-    const snapPoints = (selectedBottomsheet === "Location") ? ["10%", "30%"] : ["10%", '80%'];
+    const snapPoints = (selectedBottomsheet === "Location") ? ["20%", "40%"] : ["20%", '80%'];
 
     useEffect(() => {
         handlePresentModalPress();
@@ -164,15 +94,13 @@ const ConfirmLocationScreen: React.FC<ConfirmLocationScreenProps> = ({ route, na
         bottomSheetModalRef.current?.present();
     }, []);
     const handleSheetChanges = useCallback((index: number) => {
-        console.log('handleSheetChanges', index);
+        // console.log('handleSheetChanges', index);
     }, []);
 
     const onPressBack = () => {
         navigation.goBack();
     }
     const locationPicker = (event: any) => {
-        console.log("inside the location picker");
-
         const lat = event.nativeEvent.coordinate.latitude;
         const lng = event.nativeEvent.coordinate.longitude;
         console.log(lat, lng);
@@ -213,17 +141,15 @@ const ConfirmLocationScreen: React.FC<ConfirmLocationScreenProps> = ({ route, na
             <View style={{ flex: 1, position: 'relative' }}>
                 <MapView
                     style={{ height: '100%', width: "100%" }}
-                    initialRegion={selectedLocation ? {
+                    region=
+                    {{
                         latitude: selectedLocation.lat,
                         longitude: selectedLocation.lng,
                         latitudeDelta: 0.0922,
                         longitudeDelta: 0.0421,
-                    } : {
-                        latitude: 37.78825,
-                        longitude: -122.4324,
-                        latitudeDelta: 0.0922,
-                        longitudeDelta: 0.0421,
                     }}
+
+
                     onPress={locationPicker}
                 >
                     {
@@ -240,11 +166,13 @@ const ConfirmLocationScreen: React.FC<ConfirmLocationScreenProps> = ({ route, na
                     >
                         <Icons.Search />
                         <GooglePlacesAutocomplete
+                            //ref={ref}
                             placeholder='Search for area,stree name...'
                             onPress={(data, details = null) => {
                                 // 'details' is provided when fetchDetails = true
-                                console.log(data, details);
+                                setSelectedLocation({ lat: details?.geometry?.location.lat, lng: details?.geometry?.location.lng })
                             }}
+                            fetchDetails
                             query={{
                                 key: 'AIzaSyD8zxk4kvKlAMGaOQrABy8xqdRKIWGBJlo',
                                 language: 'en',
@@ -252,7 +180,7 @@ const ConfirmLocationScreen: React.FC<ConfirmLocationScreenProps> = ({ route, na
                         />
                     </TouchableOpacity>
                 </View>
-                <View style={{ width: "50%", position: "absolute", left: 80, bottom: 160 }}>
+                <View style={{ width: "50%", position: "absolute", left: 80, bottom: 200 }}>
                     <View style={styles.useCurrentLocationContainer}>
                         <Icons.LocationColoredSymbol width={16} height={16} />
                         <Text style={styles.useCurrentlocationtext}>use current Location</Text>
@@ -268,6 +196,9 @@ const ConfirmLocationScreen: React.FC<ConfirmLocationScreenProps> = ({ route, na
                     snapPoints={snapPoints}
                     onChange={handleSheetChanges}
                     keyboardBehavior="interactive"
+                    overDragResistanceFactor={3.8}
+                // enableDynamicSizing={true}
+
                 >
                     {
                         (selectedBottomsheet === 'Add Address') && (
@@ -291,12 +222,7 @@ const ConfirmLocationScreen: React.FC<ConfirmLocationScreenProps> = ({ route, na
                                     </View>
                                     <View>
                                         <Text style={styles.addessTypeText}>Address Type</Text>
-                                        {/* <RadioGroup
-                                            radioButtons={radioButtons}
-                                            layout='row'
-                                        // containerStyle={{ backgroundColor: 'red' }}
 
-                                        /> */}
                                         <View style={{ flexDirection: "row", alignItems: "center" }}>
                                             <View style={{ flexDirection: "row", alignItems: "center", marginRight: 20 }}>
                                                 <TouchableOpacity onPress={() => setSelectedButton("Home")} >
@@ -334,8 +260,7 @@ const ConfirmLocationScreen: React.FC<ConfirmLocationScreenProps> = ({ route, na
                                         <Button
                                             title="Save Adddress"
                                             titleStyle={styles.outlinedButtonText}
-                                            buttonStyle={styles.outlinedButton}
-
+                                            buttonStyle={styles.saveAddressButton}
                                         />
                                     </View>
                                 </View>
@@ -348,8 +273,8 @@ const ConfirmLocationScreen: React.FC<ConfirmLocationScreenProps> = ({ route, na
                                 <View style={{ flexDirection: "row", justifyContent: "flex-start" }}>
                                     <Icons.LocationActive height={24} width={24} style={{ marginTop: 5 }} />
                                     <View style={{ marginLeft: 15 }}>
-                                        <Text style={styles.locationTitle}>{selectedAddress}</Text>
-                                        <Text style={styles.locationDescription}>LBS Marg</Text>
+                                        <Text style={styles.locationTitle}>{selectedAddress.streetName}</Text>
+                                        <Text style={styles.locationDescription}>{selectedAddress.cityName}</Text>
                                     </View>
                                 </View>
                                 <View style={{ marginTop: 20 }}>
@@ -365,19 +290,21 @@ const ConfirmLocationScreen: React.FC<ConfirmLocationScreenProps> = ({ route, na
                     }
                     {
                         (selectedBottomsheet === 'Select Address') && (
-                            <View style={styles.contentContainer}>
-                                <View style={styles.upperRow}>
-                                    <Text style={styles.selectAddressTitle}> Select Address</Text>
-                                    <TouchableOpacity style={styles.upperSubRow} onPress={() => setSelectedBottomsheet("Add Address")} >
-                                        <Icons.AddCircle height={13} width={13} />
-                                        <Text style={styles.addNewText}> Add New</Text>
-                                    </TouchableOpacity>
+                            <KeyboardAvoidingView style={styles.contentContainer} behavior="padding">
+                                <View >
+                                    <View style={styles.upperRow}>
+                                        <Text style={styles.selectAddressTitle}> Select Address</Text>
+                                        <TouchableOpacity style={styles.upperSubRow} onPress={() => setSelectedBottomsheet("Add Address")} >
+                                            <Icons.AddCircle height={13} width={13} />
+                                            <Text style={styles.addNewText}> Add New</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <View style={styles.border} />
                                 </View>
-                                <View style={styles.border} />
-                                <View style={{ padding: 10 }}>
+                                <View style={styles.belowContainer}>
                                     {options.map(renderAddressItem)}
                                 </View>
-                            </View>
+                            </KeyboardAvoidingView>
                         )
                     }
                 </BottomSheetModal>
@@ -392,7 +319,7 @@ export default ConfirmLocationScreen
 
 const styles = StyleSheet.create({
     headerContainer: {
-        paddingTop: 40,
+        paddingTop: 30,
         paddingBottom: 20,
         paddingLeft: 20,
         backgroundColor: "white",
@@ -428,7 +355,6 @@ const styles = StyleSheet.create({
     border: {
         borderBottomWidth: 1,
         borderBottomColor: "#E9E9E9",
-        marginTop: 10
     },
     disclaimerBox: {
         padding: 10,
@@ -468,6 +394,13 @@ const styles = StyleSheet.create({
         backgroundColor: colors.themePurple,
         marginHorizontal: 0
     },
+    saveAddressButton: {
+        padding: 10,
+        height: 40,
+        borderRadius: 16,
+        backgroundColor: colors.inactiveGray,
+        marginHorizontal: 0
+    },
     searchContainer: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -478,7 +411,6 @@ const styles = StyleSheet.create({
         borderRadius: 12,
         paddingHorizontal: 10,
         minHeight: 44
-
     },
     useCurrentLocationContainer: {
         flexDirection: "row",
@@ -524,17 +456,19 @@ const styles = StyleSheet.create({
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray,
-
+        marginLeft: 10
     },
-    // border: {
-    //     borderBottomWidth: 1,
-    //     borderBottomColor: "#7D7D7D"
-    // },
+    belowContainer: {
+        flex: 1,
+        paddingVertical: 10,
+        paddingHorizontal: 15,
+        backgroundColor: "#f9f9f9"
+    },
     upperRow: {
         flexDirection: 'row',
         justifyContent: "space-between",
         alignItems: "center",
-        paddingHorizontal: 15
+        marginBottom: 20,
     },
     upperSubRow: {
         flexDirection: 'row',
@@ -546,7 +480,7 @@ const styles = StyleSheet.create({
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.themePurple,
-
+        marginRight: 10
     },
     addressItemContainer: {
         flexDirection: "row",
@@ -555,10 +489,7 @@ const styles = StyleSheet.create({
         backgroundColor: colors.white,
         borderRadius: 10,
         marginVertical: 10,
-        // marginHorizontal: 15,
-        borderWidth: 1,
-        borderColor: colors.white,
-        elevation: 2
+        elevation: 0.1
     },
     addressTitleText: {
         fontSize: 14,

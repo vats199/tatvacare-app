@@ -11,8 +11,8 @@ import { Fonts } from '../../constants';
 import CoupansForYou from '../../components/organisms/CoupansForYou';
 
 type ApplyCoupanScreenProps = StackScreenProps<
-DiagnosticStackParamList,
-'ApplyCoupan'
+    DiagnosticStackParamList,
+    'ApplyCoupan'
 >;
 
 const ApplyCoupanScreen: React.FC<ApplyCoupanScreenProps> = ({ route, navigation }) => {
@@ -23,6 +23,7 @@ const ApplyCoupanScreen: React.FC<ApplyCoupanScreenProps> = ({ route, navigation
 
     const handleSelectedCoupan = (title: string) => {
         setSelectedCoupan(title);
+        navigation.navigate("LabTestCart", { coupan: selectedCoupan });
     }
     console.log(selectedCoupan);
     const onPressApply = () => {
@@ -41,7 +42,7 @@ const ApplyCoupanScreen: React.FC<ApplyCoupanScreenProps> = ({ route, navigation
                     />
                     <Container>
                         <View style={[styles.inputContainer, { borderColor: isFocused ? "black" : colors.inputBoxLightBorder }]}>
-                            <TextInput placeholder='enter the coupan code' onFocus={() => setIsFocused(true)} onBlur={() => setIsFocused(false)} />
+                            <TextInput placeholder='Enter the coupan code' onFocus={() => setIsFocused(true)} onBlur={() => setIsFocused(false)} />
                             <TouchableOpacity onPress={onPressApply}>
                                 <Text style={styles.applyText}>Apply</Text>
                             </TouchableOpacity>
@@ -76,6 +77,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         borderWidth: 1,
         borderColor: colors.inputBoxLightBorder,
+        backgroundColor: colors.white,
         borderRadius: 12,
         paddingHorizontal: 10,
         minHeight: 44

@@ -51,6 +51,7 @@ import ConfirmLocationScreen from '../screens/Diagnostic/ConfirmLocationScreen';
 import SearchLabTestScreen from '../screens/Diagnostic/SearchLabTestScreen';
 import AddPatientDetailsScreen from '../screens/Diagnostic/AddPatientDetailsScreen';
 import ViewAllTestScreen from '../screens/Diagnostic/ViewAllTestScreen';
+import MyPrescriptionScreen from '../screens/Diagnostic/MyPrescriptionScreen';
 
 
 const Drawer = createDrawerNavigator<DrawerParamList>();
@@ -241,6 +242,10 @@ const DiagnosticStackScreen = () => {
       <DiagnosticStack.Screen
         name={'ViewAllTest'}
         component={ViewAllTestScreen}
+      />
+      <DiagnosticStack.Screen
+        name={'MyPerscription'}
+        component={MyPrescriptionScreen}
       />
 
     </DiagnosticStack.Navigator>
