@@ -12,24 +12,24 @@ import {
   SafeAreaView,
   useWindowDimensions,
 } from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Router from './src/routes/Router';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import LocationBottomSheet, {
   LocationBottomSheetRef,
 } from './src/components/molecules/LocationBottomSheet';
 import Geolocation from 'react-native-geolocation-service';
-import {request, check, PERMISSIONS, RESULTS} from 'react-native-permissions';
-import {Linking} from 'react-native';
+import { request, check, PERMISSIONS, RESULTS } from 'react-native-permissions';
+import { Linking } from 'react-native';
 import Home from './src/api/home';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {AppProvider} from './src/context/app.context';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
+import { AppProvider } from './src/context/app.context';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import SplashScreen from 'react-native-splash-screen';
-import {MenuProvider} from 'react-native-popup-menu';
+import { MenuProvider } from 'react-native-popup-menu';
 
 const App = () => {
-  const {height, width} = useWindowDimensions();
+  const { height, width } = useWindowDimensions();
   const [location, setLocation] = useState<object>({});
   const BottomSheetRef = useRef<LocationBottomSheetRef>(null);
   const [locationPermission, setLocationPermission] = useState<string>('');
@@ -77,7 +77,7 @@ const App = () => {
         // Handle location error here
         requestLocationPermission(false);
       },
-      {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 },
     );
   };
 
@@ -157,7 +157,7 @@ const App = () => {
   };
 
   return (
-    <GestureHandlerRootView style={{height, width}}>
+    <GestureHandlerRootView style={{ height, width }}>
       <MenuProvider>
         <AppProvider>
           {/* <SafeAreaView style={{flex:1}}> */}

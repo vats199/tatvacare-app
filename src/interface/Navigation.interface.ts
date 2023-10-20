@@ -81,11 +81,7 @@ export type AppStackParamList = {
   AppointmentStackScreen: AppointmentStackParamList;
   DeviceConnectionScreen: undefined;
   SetupProfileScreen: SetupProfileStackParamList;
-  AllLabTestScreen: undefined;
-  LabTestCart: {item: TestItem[] | undefined} | {coupan: string | undefined};
-  ApplyCoupan: undefined;
-  DietStackScreen: DietStackParamList;
-  SpirometerScreen: undefined;
+  DiagnosticStackScreen: DiagnosticStackParamList;
 };
 
 export type DrawerParamList = {
@@ -112,6 +108,17 @@ export type AppointmentStackParamList = {
   AppointmentScreen: {appointmentDetails?: AppointmentDetailsScreenProps};
   AppointmentWithScreen: {type: string};
   AppointmentDetailsScreen: {appointmentDetails: AppointmentDetailsScreenProps};
+};
+
+export type DiagnosticStackParamList = {
+  AllLabTestScreen: undefined;
+  LabTestCart: {item: TestItem[] | undefined} | {coupan: string | undefined};
+  ApplyCoupan: undefined;
+  ConfirmLocation: undefined;
+  SearchLabTest: undefined;
+  AddPatientDetails: undefined;
+  ViewAllTest: undefined;
+  MyPerscription: {data: perscription[]};
 };
 
 export type BottomTabParamList = {
@@ -152,13 +159,17 @@ export type SetupProfileStackParamList = {
   ProgressReportScreen: undefined;
 };
 
+// export type HomeStackParamList = {
+//   HomeScreen: undefined;
+//   DietScreen: undefined;
+//   AddDiet: undefined;
+//   DietDetail: undefined;
+// };
+
 export type HomeStackParamList = {
   HomeScreen: undefined;
-  DietScreen: undefined;
-  AddDiet: undefined;
-  DietDetail: undefined;
+  SpirometerScreen: undefined;
 };
-
 type TestItem = {
   id: number;
   title: string;
@@ -167,4 +178,9 @@ type TestItem = {
   oldPrice: number;
   discount: number;
   isAdded: boolean;
+};
+type perscription = {
+  id: number;
+  date?: any;
+  uri?: string;
 };

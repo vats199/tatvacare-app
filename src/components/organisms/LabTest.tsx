@@ -6,9 +6,9 @@ import { Fonts } from '../../constants';
 
 type LabTestProp = {
     title: string,
-    onAdded: (item: TestItem) => void,
-}
+    onAdded?: (item: TestItem) => void,
 
+}
 type TestItem = {
     id: number;
     title: string;
@@ -18,9 +18,9 @@ type TestItem = {
     discount: number;
     isAdded: boolean;
 };
-
-
 const LabTest: React.FC<LabTestProp> = ({ title, onAdded }) => {
+
+    const rupee = '\u20B9';
 
     const [options, setOptions] = useState<TestItem[]>([
         {
@@ -55,8 +55,10 @@ const LabTest: React.FC<LabTestProp> = ({ title, onAdded }) => {
 
     const addCartHandler = (id: number) => {
         const updatedOptions = options.map((item) => {
-            if (item.id === id) {
-                onAdded(item);
+            if (item.id === id && item.isAdded === false) {
+                if (onAdded) {
+                    onAdded(item);
+                }
                 return { ...item, isAdded: true };
             }
             return item;
@@ -66,22 +68,20 @@ const LabTest: React.FC<LabTestProp> = ({ title, onAdded }) => {
         setOptions(updatedOptions);
     }
 
-
-
     const renderTestItem = (item: TestItem, index: number) => {
-
-
         return (
             <View style={styles.renderItemContainer} key={index}>
-                <View style={{ width: "15%", marginLeft: 5 }}>
-                    <Icons.LiverTest height={36} width={36} />
+                <View style={{ width: "15%" }}>
+                    {
+                        title === 'Liver Test' ? <Icons.Liver /> : <Icons.Kidney />
+                    }
                 </View>
                 <View style={{ width: "85%" }}>
                     <Text style={styles.titleStyle}>{item.title} </Text>
                     <Text style={styles.description}>{item.description}</Text>
                     <View style={styles.priceRow}>
-                        <Text style={styles.price}>{item.newPrice}</Text>
-                        <Text style={{ textDecorationLine: 'line-through' }}>{item.oldPrice}</Text>
+                        <Text style={styles.price}>{rupee}{item.newPrice}</Text>
+                        <Text style={{ textDecorationLine: 'line-through' }}>{rupee}{item.oldPrice}</Text>
                         <Text style={styles.discount}> {item.discount}% off</Text>
                     </View>
                     <TouchableOpacity
@@ -92,19 +92,17 @@ const LabTest: React.FC<LabTestProp> = ({ title, onAdded }) => {
                             item.isAdded ? (<Text style={styles.addedText}> Added</Text>) : <Text style={styles.addCartText}> Add to Cart</Text>
                         }
                     </TouchableOpacity>
-                    <View style={styles.border} />
+                    {
+                        (item.id < options.length) && (
+                            <View style={styles.border} />
+                        )
+                    }
                 </View>
             </View>
         );
     };
     return (
-        <View>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 }}>
-                <Text style={styles.title}> {title}</Text>
-                <TouchableOpacity  >
-                    <Text style={styles.textViewButton}>View all</Text>
-                </TouchableOpacity>
-            </View>
+        <View style={{ flex: 1 }}>
 
             <View style={styles.container}>
                 {options.map(renderTestItem)}
@@ -117,12 +115,7 @@ const LabTest: React.FC<LabTestProp> = ({ title, onAdded }) => {
 export default LabTest
 
 const styles = StyleSheet.create({
-    title: {
-        fontSize: 16,
-        fontWeight: "700",
-        fontFamily: Fonts.BOLD,
-        color: colors.labelDarkGray
-    },
+
     textViewButton: {
         fontSize: 12,
         fontWeight: '700',
@@ -134,7 +127,10 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderRadius: 12,
         padding: 10,
-        marginVertical: 10
+        marginVertical: 10,
+        elevation: 0.4,
+        shadowColor: colors.inputValueDarkGray,
+        shadowOffset: { width: 0, height: 1 },
     },
     renderItemContainer: {
         width: '100%',
@@ -152,7 +148,8 @@ const styles = StyleSheet.create({
         fontSize: 12,
         fontWeight: '400',
         fontFamily: Fonts.BOLD,
-        color: colors.inactiveGray
+        color: colors.inactiveGray,
+        marginBottom: 5
     },
     priceRow: {
         flexDirection: 'row',
@@ -180,11 +177,13 @@ const styles = StyleSheet.create({
         marginLeft: 10
     },
     addCartButton: {
-        marginVertical: 10,
+        marginTop: 10,
+        marginBottom: 15,
         width: "100%",
         borderWidth: 1,
         borderColor: colors.themePurple,
-        padding: 6,
+        paddingHorizontal: 6,
+        paddingVertical: 8,
         borderRadius: 12,
         justifyContent: 'center',
         alignItems: 'center'
@@ -205,8 +204,8 @@ const styles = StyleSheet.create({
         color: colors.darkGray,
     },
     border: {
-        borderBottomWidth: 1,
-        borderBottomColor: "#D3D3D3"
+        borderBottomWidth: 0.5,
+        borderBottomColor: "#999999"
     }
 
 })

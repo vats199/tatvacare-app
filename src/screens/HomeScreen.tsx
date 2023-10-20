@@ -50,6 +50,8 @@ import Home from '../api/home';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StackScreenProps } from '@react-navigation/stack';
 import MyStatusbar from '../components/atoms/MyStatusBar';
+import { useApp } from '../context/app.context';
+import Loader from '../components/atoms/Loader';
 
 type HomeScreenProps = CompositeScreenProps<
   StackScreenProps<DietStackParamList, 'HomeScreen'>,
@@ -68,6 +70,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
   const [learnMoreData, setLearnMoreData] = React.useState<any>([]);
   const [healthInsights, setHealthInsights] = React.useState<any>({});
   const [healthDiaries, setHealthDiaries] = React.useState<any>([]);
+  const { userData } = useApp();
 
   useEffect(() => {
     getCurrentLocation();
@@ -151,6 +154,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
   const onPressDiet = () => {
     // navigateTo('FoodDiaryParentVC');
     navigation.navigate('DietStackScreen');
+
   };
   const onPressExercise = (filteredData: any) => {
     // navigateToMedicines('test');
@@ -174,7 +178,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
   };
   const onPressBookDiagnostic = () => {
     // navigateTo('LabTestListVC');
-    navigation.navigate('AllLabTestScreen');
+    navigation.navigate('DiagnosticStackScreen');
   };
   const onPressBookDevices = () => {
     // navigateTo('MyDevices');

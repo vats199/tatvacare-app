@@ -21,6 +21,7 @@ import {
   HomeStackParamList,
   DietStackParamList,
   EngageStackParamList,
+  DiagnosticStackParamList,
 } from '../interface/Navigation.interface';
 import { NavigationContainer } from '@react-navigation/native';
 import {
@@ -53,6 +54,15 @@ import ProgressBarInsightsScreen from '../screens/FoodDiary/ProgressBarInsightsS
 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ProgressReportScreen from '../screens/SetupProfile/ProgressReportScreen';
+import AllLabTestScreen from '../screens/Diagnostic/AllLabTestScreen';
+import LabTestCartScreen from '../screens/Diagnostic/LabTestCartScreen';
+import ApplyCoupanScreen from '../screens/Diagnostic/ApplyCoupanScreen';
+import ConfirmLocationScreen from '../screens/Diagnostic/ConfirmLocationScreen';
+import SearchLabTestScreen from '../screens/Diagnostic/SearchLabTestScreen';
+import AddPatientDetailsScreen from '../screens/Diagnostic/AddPatientDetailsScreen';
+import ViewAllTestScreen from '../screens/Diagnostic/ViewAllTestScreen';
+import MyPrescriptionScreen from '../screens/Diagnostic/MyPrescriptionScreen';
+
 
 const Drawer = createDrawerNavigator<DrawerParamList>();
 const DrawerScreen = () => {
@@ -227,6 +237,49 @@ const AppointmentStackScreen = () => {
   );
 };
 
+const DiagnosticStack = createStackNavigator<DiagnosticStackParamList>();
+const DiagnosticStackScreen = () => {
+  return (
+    <DiagnosticStack.Navigator
+      initialRouteName="AllLabTestScreen"
+      screenOptions={{ headerShown: false }}>
+      <DiagnosticStack.Screen
+        name="AllLabTestScreen"
+        component={AllLabTestScreen}
+      />
+      <DiagnosticStack.Screen
+        name={'LabTestCart'}
+        component={LabTestCartScreen}
+      />
+      <DiagnosticStack.Screen
+        name={'ApplyCoupan'}
+        component={ApplyCoupanScreen}
+      />
+      <DiagnosticStack.Screen
+        name={'ConfirmLocation'}
+        component={ConfirmLocationScreen}
+      />
+      <DiagnosticStack.Screen
+        name={'SearchLabTest'}
+        component={SearchLabTestScreen}
+      />
+      <DiagnosticStack.Screen
+        name={'AddPatientDetails'}
+        component={AddPatientDetailsScreen}
+      />
+      <DiagnosticStack.Screen
+        name={'ViewAllTest'}
+        component={ViewAllTestScreen}
+      />
+      <DiagnosticStack.Screen
+        name={'MyPerscription'}
+        component={MyPrescriptionScreen}
+      />
+
+    </DiagnosticStack.Navigator>
+  );
+};
+
 const AuthStack = createStackNavigator<AuthStackParamList>();
 const AuthStackScreen = () => {
   return (
@@ -286,9 +339,7 @@ const HomeStackScreen = () => {
         headerShown: false,
       }}>
       <HomeStack.Screen name="HomeScreen" component={HomeScreen} />
-      <HomeStack.Screen name="DietScreen" component={DietScreen} />
-      <HomeStack.Screen name="AddDiet" component={AddDietScreen} />
-      <HomeStack.Screen name="DietDetail" component={DietDetailScreen} />
+      <HomeStack.Screen name="SpirometerScreen" component={SpirometerScreen} />
     </HomeStack.Navigator>
   );
 };
@@ -331,6 +382,10 @@ const Router = () => {
             component={AppointmentStackScreen}
           />
           <AppStack.Screen
+            name={'DiagnosticStackScreen'}
+            component={DiagnosticStackScreen}
+          />
+          <AppStack.Screen
             name={'DeviceConnectionScreen'}
             component={DeviceConnectionScreen}
           />
@@ -342,9 +397,10 @@ const Router = () => {
             name={'SpirometerScreen'}
             component={SpirometerScreen}
           />
-        </AppStack.Navigator>
-      </BottomSheetModalProvider>
-    </NavigationContainer>
+
+        </AppStack.Navigator >
+      </BottomSheetModalProvider >
+    </NavigationContainer >
   );
 };
 
