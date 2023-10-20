@@ -12,7 +12,10 @@ type PickerDataTypeProps = {
   label: string;
   value: number;
 };
-
+type onChangeTypeProps = {
+  value: number;
+  type: string;
+};
 export interface Props {
   selectedValue?: string | null;
   containerStyle?: ViewStyle | undefined;
@@ -24,10 +27,12 @@ export interface Props {
   rightArrowStyle?: ViewStyle | undefined;
   pickerWrapperStyle?: ViewStyle | undefined;
   data?: PickerDataTypeProps;
+  additionalData?: PickerDataTypeProps;
   isShowMultiplePicker?: boolean;
   rowContainerStyle?: ViewStyle | undefined;
   leftPickerContStyle?: ViewStyle | undefined;
   rightPickerContStyle?: ViewStyle | undefined;
+  onChangeValue: (value: onChangeTypeProps) => void;
 }
 
 const WheelPicker: React.FC<Props> = ({
@@ -41,10 +46,12 @@ const WheelPicker: React.FC<Props> = ({
   rightArrowStyle,
   pickerWrapperStyle,
   data = dummyData,
+  additionalData = [],
   isShowMultiplePicker = false,
   rowContainerStyle,
   leftPickerContStyle,
   rightPickerContStyle,
+  onChangeValue = () => {},
 }) => {
   return (
     <>
@@ -59,7 +66,8 @@ const WheelPicker: React.FC<Props> = ({
             selectedValue={selectedValue}
             selectLineSize={0}
             pickerData={data}
-            onValueChange={value => {
+            onValueChange={(value: number) => {
+              onChangeValue({value: value, type: 'left'});
               console.log(value, 'valueeeeeee');
             }}
           />
@@ -80,7 +88,8 @@ const WheelPicker: React.FC<Props> = ({
               selectedValue={selectedValue}
               selectLineSize={0}
               pickerData={data}
-              onValueChange={value => {
+              onValueChange={(value: number) => {
+                onChangeValue({value: value, type: 'left'});
                 console.log(value, 'valueeeeeee');
               }}
             />
@@ -94,8 +103,9 @@ const WheelPicker: React.FC<Props> = ({
               textColor={textColor}
               selectedValue={selectedValue}
               selectLineSize={0}
-              pickerData={data}
-              onValueChange={value => {
+              pickerData={additionalData}
+              onValueChange={(value: number) => {
+                onChangeValue({value: value, type: 'right'});
                 console.log(value, 'valueeeeeee');
               }}
             />
