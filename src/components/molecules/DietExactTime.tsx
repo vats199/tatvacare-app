@@ -1,13 +1,13 @@
-import {DrawerItemList} from '@react-navigation/drawer';
-import React, {useEffect} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {colors} from '../../constants/colors';
-import {Icons} from '../../constants/icons';
+import { DrawerItemList } from '@react-navigation/drawer';
+import React, { useEffect } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { colors } from '../../constants/colors';
+import { Icons } from '../../constants/icons';
 import DietOption from './DietOption';
-import {Fonts, Matrics} from '../../constants';
+import { Fonts, Matrics } from '../../constants';
 import fonts from '../../constants/fonts';
 import moment from 'moment';
-import {useFocusEffect} from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 
 interface ExactTimeProps {
   onPressPlus: (optionId: string, mealName: string) => void;
@@ -114,8 +114,10 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
   );
 
   useEffect(() => {
-    getCalories(foodItmeData);
-  }, [foodItmeData]);
+    const data = foodItmeData
+    data.meal_name = cardData.meal_name
+    getCalories(data)
+  }, [foodItmeData])
 
   // useFocusEffect(
   //   React.useCallback(() => {
@@ -182,7 +184,7 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
         <View style={styles.belowRow}>
           {cardData?.options?.length > 0 ? (
             <>
-              <View style={{flexDirection: 'row'}}>
+              <View style={{ flexDirection: 'row' }}>
                 {cardData?.options?.map((item: Options, index: number) => {
                   const isOptionSelected =
                     foodItmeData?.diet_meal_options_id ===

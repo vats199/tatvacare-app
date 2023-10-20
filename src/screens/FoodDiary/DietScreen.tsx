@@ -21,6 +21,8 @@ import { useApp } from '../../context/app.context';
 import moment from 'moment';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Matrics } from '../../constants';
+import Loader from '../../components/atoms/Loader';
+
 
 type DietScreenProps = StackScreenProps<DietStackParamList, 'DietScreen'>;
 
@@ -40,6 +42,8 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   const [totalConsumedcalorie, setTotalConsumedcalories] = useState<
     number | null
   >(null);
+
+
 
   useEffect(() => {
     getData();
@@ -76,21 +80,21 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   );
 
   const getData = async () => {
-    setDiePlane([]);
     setLoader(true);
     const date = moment(selectedDate).format('YYYY/MM/DD');
-
     const diet = await Diet.getDietPlan(
       { date: date },
       {},
       { token: userData?.token },
     );
+    console.log("diet", diet);
 
     if (diet?.code === '1') {
       setLoader(false);
       setDiePlane(diet?.data[0]);
     } else {
       setDiePlane([]);
+      setLoader(false)
     }
   };
 
@@ -145,16 +149,15 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   };
 
   const handalecompletion = async (item: any) => {
-    // setStateOfAPIcall(true)
     const UpadteFoodItem = await Diet.updateFoodConsumption(
       item,
       {},
       { token: userData?.token },
     );
+    setDiePlane([]);
     getData();
     if (UpadteFoodItem?.code === '1') {
-      // setStateOfAPIcall(false)
-      // navigation.replace('DietScreen')
+
     }
   };
 
@@ -174,17 +177,25 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
     });
   };
 
+
+  const handelOnpressOfprogressBar = () => {
+    navigation.navigate("ProgressBarInsightsScreen", { calories: caloriesArray })
+  }
+
   return (
     <SafeAreaView edges={['top']} style={[styles.mainContienr, { paddingTop: insets.top !== 0 ? 0 : Matrics.vs(15), paddingBottom: insets.bottom !== 0 ? 0 : Matrics.vs(15), }]}>
       <DietHeader
         onPressBack={onPressBack}
         onPressOfNextAndPerviousDate={handleDate}
+        title='Diet'
       />
       <View style={styles.belowContainer}>
-        <CalorieConsumer
-          totalConsumedcalories={totalConsumedcalorie}
-          totalcalories={totalcalorie}
-        />
+        <TouchableOpacity onPress={handelOnpressOfprogressBar}>
+          <CalorieConsumer
+            totalConsumedcalories={totalConsumedcalorie}
+            totalcalories={totalcalorie}
+          />
+        </TouchableOpacity>
         {Object.keys(dietPlane).length > 0 ? (
           <DietTime
             onPressPlus={handlePulsIconPress}
@@ -232,6 +243,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
           </View>
         </View>
       </Modal>
+      <Loader visible={loader} />
     </SafeAreaView>
   );
 };

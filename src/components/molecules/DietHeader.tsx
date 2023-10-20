@@ -1,21 +1,31 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import CalendarStrip from 'react-native-calendar-strip';
-import {StyleSheet, Text, View} from 'react-native';
-import {colors} from '../../constants/colors';
-import {Icons} from '../../constants/icons';
+import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import { colors } from '../../constants/colors';
+import { Icons } from '../../constants/icons';
+import { TouchableOpacity } from 'react-native';
+import { LocaleConfig, CalendarList } from 'react-native-calendars';
+import { Fonts, Matrics } from '../../constants';
+import moment from 'moment';
 
+const { width } = Dimensions.get('window')
 type DietHeaderProps = {
   onPressBack: () => void;
   onPressOfNextAndPerviousDate: (data: any) => void;
+  title: string;
 };
 
 const DietHeader: React.FC<DietHeaderProps> = ({
   onPressBack,
   onPressOfNextAndPerviousDate,
+  title,
 }) => {
   //const calendarStripRef = useRef(null);
+
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [calendarKey, setCalendarKey] = useState(0);
+  const [calendarKey, setCalendarKey] = useState(0)
+  const [seletedDay, setseletedDay] = useState(moment(selectedDate).format('YYYY-MM-DD'));
+  console.log("selectedDate", selectedDate);
 
   const handleNextWeek = () => {
     const nextWeek = new Date(selectedDate);
@@ -33,6 +43,29 @@ const DietHeader: React.FC<DietHeaderProps> = ({
     setCalendarKey(calendarKey - 1);
   };
 
+  LocaleConfig.locales['en'] = {
+    monthNames: [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December'
+    ],
+    monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+    dayNamesShort: ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'],
+    today: "Today"
+  };
+
+  LocaleConfig.defaultLocale = 'en';
+
   const getMonthRangeText = (date: Date) => {
     const weekStartDate = new Date(date);
     const weekEndDate = new Date(weekStartDate);
@@ -44,15 +77,15 @@ const DietHeader: React.FC<DietHeaderProps> = ({
       weekEndDate.setDate(weekEndDate.getDate() + 1);
     }
     //console.log(weekEndDate);
-    const startMonth = weekStartDate.toLocaleString('default', {month: 'long'});
-    const endMonth = weekEndDate.toLocaleString('default', {month: 'long'});
+    const startMonth = weekStartDate.toLocaleString('default', { month: 'long' });
+    const endMonth = weekEndDate.toLocaleString('default', { month: 'long' });
 
     const year = weekStartDate.getFullYear();
 
     if (
       startMonth !== endMonth ||
       weekEndDate.getDate() >
-        new Date(year, weekStartDate.getMonth() + 1, 0).getDate()
+      new Date(year, weekStartDate.getMonth() + 1, 0).getDate()
     ) {
       return `${startMonth} - ${endMonth} ${year}`;
     } else {
@@ -71,8 +104,10 @@ const DietHeader: React.FC<DietHeaderProps> = ({
   return (
     <View style={styles.upperContainer}>
       <View style={styles.customHeader}>
-        <Icons.backArrow onPress={onPressBack} height={20} width={20} />
-        <Text style={styles.customHeaderText}> Diet</Text>
+        <TouchableOpacity onPress={onPressBack}>
+          <Icons.backArrow height={20} width={20} />
+        </TouchableOpacity>
+        <Text style={styles.customHeaderText}> {title}</Text>
       </View>
       <View>
         <View style={styles.container}>
@@ -93,59 +128,104 @@ const DietHeader: React.FC<DietHeaderProps> = ({
               height={11}
               width={11}
               onPress={handlePreviousWeek}
-              style={{marginRight: 20}}
+              style={{ marginRight: 20 }}
             />
             <Icons.RightArrow
               height={22}
               width={22}
               onPress={handleNextWeek}
-              style={{marginRight: 20}}
+              style={{ marginRight: 20 }}
             />
           </View>
         </View>
-        <CalendarStrip
-          // ref={calendarStripRef}
-          selectedDate={selectedDate}
-          key={calendarKey}
-          showMonth={false}
-          //headerText={}
-          onDateSelected={date => {
-            onPressOfNextAndPerviousDate(date);
-          }}
-          // calendarAnimation={{
-          //   type: 'sequence',
-          //   duration: 30,
-          // }}
-          daySelectionAnimation={{
-            type: 'border',
-            duration: 200,
-            borderWidth: 1,
-            borderHighlightColor: 'white',
-          }}
-          style={{height: 80}}
-          calendarHeaderContainerStyle={{
-            marginBottom: 30,
-            alignSelf: 'flex-start',
-          }}
-          calendarHeaderStyle={{
-            fontSize: 13,
-            color: colors.black,
-            marginLeft: 15,
-          }}
-          calendarColor={colors.lightGreyishBlue}
-          dateNumberStyle={styles.dateNumberStyle}
-          dateNameStyle={{color: 'black'}}
-          highlightDateNumberStyle={[
-            styles.dateNumberStyle,
-            styles.highlighetdDateNumberStyle,
-          ]}
-          highlightDateNameStyle={{color: 'black'}}
-          disabledDateNameStyle={{color: 'grey'}}
-          disabledDateNumberStyle={{color: 'grey'}}
-          // iconContainer={{flex: 0.1}}
-          iconLeftStyle={{display: 'none'}}
-          iconRightStyle={{display: 'none'}}
-        />
+        <View style={{ paddingHorizontal: 10 }}>
+          <CalendarStrip
+            selectedDate={selectedDate}
+            key={calendarKey}
+            showMonth={false}
+            onDateSelected={date => {
+              onPressOfNextAndPerviousDate(date);
+            }}
+            weekendDateNameStyle={{ textTransform: 'capitalize' }}
+            daySelectionAnimation={{
+              type: 'border',
+              duration: 200,
+              borderWidth: 1,
+              borderHighlightColor: 'white',
+            }}
+            style={{ height: 80 }}
+            calendarColor={colors.lightGreyishBlue}
+            dateNumberStyle={styles.dateNumberStyle}
+            dateNameStyle={{ color: 'black', }}
+            highlightDateNumberStyle={[
+              styles.dateNumberStyle,
+              styles.highlighetdDateNumberStyle
+            ]}
+            highlightDateNameStyle={{ color: 'black', }}
+            disabledDateNameStyle={{ color: 'grey' }}
+            disabledDateNumberStyle={{ color: 'grey' }}
+            iconLeftStyle={{ display: 'none' }}
+            iconRightStyle={{ display: 'none' }}
+          />
+        </View>
+        <View style={{ backgroundColor: "red", height: Matrics.vs(240) }}>
+          <CalendarList
+            firstDay={1}
+            horizontal={true}
+            pagingEnabled={true}
+            onDayPress={day => {
+              let date = new Date(day?.dateString)
+              onPressOfNextAndPerviousDate(date)
+              setSelectedDate(date)
+              setseletedDay(day?.dateString)
+            }}
+            onMonthChange={(day) => {
+              let date = new Date(day?.dateString)
+              setSelectedDate(date)
+            }}
+            markedDates={{
+              [seletedDay]: { selected: true, marked: true, }
+            }}
+            calendarWidth={width}
+            theme={{
+              backgroundColor: colors.lightGreyishBlue,
+              calendarBackground: colors.lightGreyishBlue,
+              textSectionTitleColor: 'black',
+              textSectionTitleDisabledColor: 'black',
+              selectedDayBackgroundColor: colors.themePurple,
+              selectedDayTextColor: '#ffffff',
+              dayTextColor: 'black',
+              textDisabledColor: '#d9e1e8',
+              todayTextColor: 'black',
+              // dotColor: '#00adf5',
+              selectedDotColor: colors.themePurple,
+              disabledArrowColor: '#d9e1e8',
+              textDayFontFamily: Fonts.MEDIUM,
+              textMonthFontFamily: Fonts.MEDIUM,
+              textDayFontWeight: '400',
+              // textMonthFontWeight: 'bold',
+              textDayHeaderFontWeight: '400',
+              textDayFontSize: 13,
+              textMonthFontSize: 13,
+              textDayHeaderFontSize: 11,
+              arrowColor: 'white',
+              'stylesheet.calendar.header': {
+                header: {
+                  height: 0,
+                  opacity: 0
+                },
+              },
+              'stylesheet.day.period': {
+                base: {
+                  overflow: 'hidden',
+                  height: 34,
+                  alignItems: 'center',
+                  width: 38,
+                }
+              }
+            }}
+          />
+        </View>
       </View>
     </View>
   );

@@ -46,15 +46,11 @@ import QuestionOneScreen from '../screens/SetupProfile/QuestionOneScreen';
 import ScanCodeScreen from '../screens/SetupProfile/ScanCodeScreen';
 import QuestionListScreen from '../screens/SetupProfile/QuestionListScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import DietScreen from '../screens/Home/DietScreen';
-import AddDietScreen from '../screens/Home/AddDietScreen';
-import DietDetailScreen from '../screens/Home/DietDetailScreen';
-import AllLabTestScreen from '../screens/Home/AllLabTestScreen';
-import LabTestCartScreen from '../screens/Home/LabTestCartScreen';
-import ApplyCoupanScreen from '../screens/Home/ApplyCoupanScreen';
-import ConfirmLocationScreen from '../screens/Home/ConfirmLocationScreen';
-import SearchLabTestScreen from '../screens/Home/SearchLabTestScreen';
-import AddPatientDetailsScreen from '../screens/Home/AddPatientDetailsScreen';
+import DietScreen from '../screens/FoodDiary/DietScreen';
+import AddDietScreen from '../screens/FoodDiary/AddDietScreen';
+import DietDetailScreen from '../screens/FoodDiary/DietDetailScreen';
+import ProgressBarInsightsScreen from '../screens/FoodDiary/ProgressBarInsightsScreen';
+
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Drawer = createDrawerNavigator<DrawerParamList>();
@@ -285,16 +281,6 @@ const HomeStackScreen = () => {
       <HomeStack.Screen name="DietScreen" component={DietScreen} />
       <HomeStack.Screen name="AddDiet" component={AddDietScreen} />
       <HomeStack.Screen name="DietDetail" component={DietDetailScreen} />
-      <HomeStack.Screen
-        name="ConfirmLocation"
-        component={ConfirmLocationScreen}
-      />
-      <HomeStack.Screen name="SearchLabTest" component={SearchLabTestScreen} />
-      <HomeStack.Screen
-        name="AddPatientDetails"
-        component={AddPatientDetailsScreen}
-      />
-      <HomeStack.Screen name="SpirometerScreen" component={SpirometerScreen} />
     </HomeStack.Navigator>
   );
 };
@@ -308,6 +294,7 @@ const DietStackScreen = () => {
       <DietStack.Screen name="DietScreen" component={DietScreen} />
       <DietStack.Screen name="AddDiet" component={AddDietScreen} />
       <DietStack.Screen name="DietDetail" component={DietDetailScreen} />
+      <DietStack.Screen name="ProgressBarInsightsScreen" component={ProgressBarInsightsScreen} />
     </DietStack.Navigator>
   );
 };
@@ -339,12 +326,6 @@ const Router = () => {
             name={'DeviceConnectionScreen'}
             component={DeviceConnectionScreen}
           />
-          <AppStack.Screen
-            name="AllLabTestScreen"
-            component={AllLabTestScreen}
-          />
-          <AppStack.Screen name="LabTestCart" component={LabTestCartScreen} />
-          <AppStack.Screen name="ApplyCoupan" component={ApplyCoupanScreen} />
           <AppStack.Screen
             name={'DietStackScreen'}
             component={DietStackScreen}
