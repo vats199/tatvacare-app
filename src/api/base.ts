@@ -88,7 +88,7 @@ const request: any = async (
   route: string,
   {
     // baseURL = config.BASE_URL,
-    baseURL = 'https://api-uat.mytatva.in/api/v6',
+    baseURL = 'https://api.mytatva.in/api/v7',
     method = GET,
     payload = null,
     formData = null,
@@ -132,6 +132,8 @@ const request: any = async (
   //     Authorization: `Bearer ${token}`,
   //   };
   // }
+
+  console.log(`${baseURL}${route}`);
 
   return fetch(`${baseURL}${route}`, init).then(async res => {
     if (!json) {

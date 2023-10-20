@@ -766,8 +766,8 @@
 		8F9D2C9E2AD3CA68007F43FB /* DiscountListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9D2C9D2AD3CA68007F43FB /* DiscountListModel.swift */; };
 		8F9D2CA92AD3CCBE007F43FB /* BCANewAddressListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F9D2CA72AD3CCBE007F43FB /* BCANewAddressListCell.xib */; };
 		8F9D2CAA2AD3CCBE007F43FB /* BCANewAddressListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9D2CA82AD3CCBE007F43FB /* BCANewAddressListCell.swift */; };
+		8FBDA3FC2AE2ADF9006C918A /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 8FBDA3FB2AE2ADF9006C918A /* main.jsbundle */; };
 		8FC8710F2AD98113004BA610 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FC8710E2AD98112004BA610 /* Images.xcassets */; };
-		8FE0005F2AE291740027EFB9 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 8FE0005E2AE291740027EFB9 /* main.jsbundle */; };
 		910276A02679237800C55C2D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9102763F2679237700C55C2D /* AppDelegate.swift */; };
 		910276A12679237800C55C2D /* AppDelegate+PushNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910276412679237700C55C2D /* AppDelegate+PushNotification.swift */; };
 		910276A22679237800C55C2D /* PushNotificationTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910276422679237700C55C2D /* PushNotificationTag.swift */; };
@@ -1729,8 +1729,8 @@
 		8F9D2C9D2AD3CA68007F43FB /* DiscountListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountListModel.swift; sourceTree = "<group>"; };
 		8F9D2CA72AD3CCBE007F43FB /* BCANewAddressListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BCANewAddressListCell.xib; sourceTree = "<group>"; };
 		8F9D2CA82AD3CCBE007F43FB /* BCANewAddressListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCANewAddressListCell.swift; sourceTree = "<group>"; };
+		8FBDA3FB2AE2ADF9006C918A /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		8FC8710E2AD98112004BA610 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "../../../../../../Downloads/MyTatavIOS-BCP_Changes/MyTatva/Resources/Images.xcassets"; sourceTree = "<group>"; };
-		8FE0005E2AE291740027EFB9 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		9102763F2679237700C55C2D /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		910276412679237700C55C2D /* AppDelegate+PushNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppDelegate+PushNotification.swift"; sourceTree = "<group>"; };
 		910276422679237700C55C2D /* PushNotificationTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationTag.swift; sourceTree = "<group>"; };
@@ -5979,7 +5979,7 @@
 		91A1754026789CC500297B66 = {
 			isa = PBXGroup;
 			children = (
-				8FE0005E2AE291740027EFB9 /* main.jsbundle */,
+				8FBDA3FB2AE2ADF9006C918A /* main.jsbundle */,
 				91A1754B26789CC500297B66 /* MyTatva */,
 				6169A390272BE1D70081C3B7 /* MyTatvaNotificationService */,
 				618AFEF6272C0884003C244C /* NotificationViewController */,
@@ -6623,7 +6623,7 @@
 				618606F827070AD300C38236 /* GoalSummaryChartCell.xib in Resources */,
 				61738D4F2768D7F500B58953 /* CustomThemeFileOld.plist in Resources */,
 				61849ADE26CBC25A00C3DD61 /* soda_loader.json in Resources */,
-				8FE0005F2AE291740027EFB9 /* main.jsbundle in Resources */,
+				8FBDA3FC2AE2ADF9006C918A /* main.jsbundle in Resources */,
 				4097D64D2A2E050500D5574B /* Gilroy-SemiBold.ttf in Resources */,
 				8F8545C92ADE4C1F0019128D /* EvilIcons.ttf in Resources */,
 				61AD9C8A2799709200F86EBC /* GaneshToPaldi.gpx in Resources */,
@@ -8151,7 +8151,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEPLOYMENT_POSTPROCESSING = NO;
 				DEVELOPMENT_TEAM = "";
@@ -8200,7 +8200,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEPLOYMENT_POSTPROCESSING = NO;
 				DEVELOPMENT_TEAM = "";
