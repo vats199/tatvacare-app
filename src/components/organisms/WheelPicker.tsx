@@ -1,239 +1,158 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
-import {
-  StyleProp,
-  TextStyle,
-  NativeSyntheticEvent,
-  NativeScrollEvent,
-  Animated,
-  ViewStyle,
-  View,
-  ViewProps,
-  FlatListProps,
-  FlatList,
-  StyleSheet,
-} from 'react-native';
-import WheelPickerItem from '../molecules/WheelPickerItem';
+import {StyleSheet, View, ViewStyle} from 'react-native';
+import {Picker, DatePicker} from 'react-native-wheel-pick';
+
 import {Matrics} from '../../constants';
 import {colors} from '../../constants/colors';
-import {
-  useAnimatedProps,
-  useAnimatedStyle,
-  useSharedValue,
-  withTiming,
-} from 'react-native-reanimated';
-import WheelPickerList from './WheelPickerList';
+
+const dummyData = [...new Array(100)].map((item, index) => {
+  return {label: String(index + 1), value: index + 1};
+});
+type PickerDataTypeProps = {
+  label: string;
+  value: number;
+};
 
 export interface Props {
-  selectedIndex: number;
-  options: string[];
-  onChange: (index: number) => void;
-  selectedIndicatorStyle?: StyleProp<ViewStyle>;
-  itemTextStyle?: TextStyle;
-  itemStyle?: ViewStyle;
-  itemHeight?: number;
-  containerStyle?: ViewStyle;
-  containerProps?: Omit<ViewProps, 'style'>;
-  scaleFunction?: (x: number) => number;
-  rotationFunction?: (x: number) => number;
-  opacityFunction?: (x: number) => number;
-  visibleRest?: number;
-  decelerationRate?: 'normal' | 'fast' | number;
-  flatListProps?: Omit<FlatListProps<string | null>, 'data' | 'renderItem'>;
-  seprator?: string;
-  sideIcon?: {left?: boolean; right?: boolean};
+  selectedValue?: string | null;
+  containerStyle?: ViewStyle | undefined;
+  textSize?: number;
+  selectTextColor?: string;
+  textColor?: string;
+  isShowSelectBackground?: boolean;
+  leftArrowStyle?: ViewStyle | undefined;
+  rightArrowStyle?: ViewStyle | undefined;
+  pickerWrapperStyle?: ViewStyle | undefined;
+  data?: PickerDataTypeProps;
+  isShowMultiplePicker?: boolean;
+  rowContainerStyle?: ViewStyle | undefined;
+  leftPickerContStyle?: ViewStyle | undefined;
+  rightPickerContStyle?: ViewStyle | undefined;
 }
 
 const WheelPicker: React.FC<Props> = ({
-  selectedIndex,
-  options,
-  onChange,
-  selectedIndicatorStyle = {},
-  containerStyle = {},
-  itemStyle = {},
-  itemTextStyle = {},
-  itemHeight = 40,
-  scaleFunction = (x: number) => 1.0 ** x,
-  rotationFunction = (x: number) => 1 - Math.pow(1 / 1.5, x),
-  opacityFunction = (x: number) => Math.pow(1 / 4.5, x),
-  visibleRest = 2,
-  decelerationRate = 'fast',
-  containerProps = {},
-  flatListProps = {},
-  seprator,
+  selectedValue,
+  containerStyle,
+  textSize = Matrics.mvs(30),
+  selectTextColor = colors.labelDarkGray,
+  textColor = colors.subTitleLightGray,
+  isShowSelectBackground = false,
+  leftArrowStyle,
+  rightArrowStyle,
+  pickerWrapperStyle,
+  data = dummyData,
+  isShowMultiplePicker = false,
+  rowContainerStyle,
+  leftPickerContStyle,
+  rightPickerContStyle,
 }) => {
-  const containerHeight = (1 + visibleRest * 2) * itemHeight;
-  const flatListRef = useRef<FlatList>(null);
-  const [scrollY] = useState(new Animated.Value(0));
-
-  useEffect(() => {
-    // if (selectedIndex < 0 || selectedIndex >= options.length) {
-    //   throw new Error(
-    //     `Selected index ${selectedIndex} is out of bounds [0, ${
-    //       options.length - 1
-    //     }]`,
-    //   );
-    // }
-  }, [selectedIndex, options]);
-
-  /**
-   * If selectedIndex is changed from outside (not via onChange) we need to scroll to the specified index.
-   * This ensures that what the user sees as selected in the picker always corresponds to the value state.
-   */
-  useEffect(() => {
-    flatListRef.current?.scrollToIndex({
-      index: selectedIndex,
-      animated: false,
-    });
-  }, [selectedIndex]);
-
-  const paddedOptions = useMemo(() => {
-    // const array: (string | null)[] = [...options];
-    const array: (string | null)[] = options.map(item => {
-      return `${item}${seprator}`;
-    });
-    for (let i = 0; i < visibleRest; i++) {
-      array.unshift(null);
-      array.push(null);
-    }
-    return array;
-  }, [options, visibleRest]);
-
-  const offsets = useMemo(
-    () => [...Array(paddedOptions.length)].map((x, i) => i * itemHeight),
-    [paddedOptions, itemHeight],
-  );
-
-  const currentScrollIndex = useMemo(
-    () => Animated.add(Animated.divide(scrollY, itemHeight), visibleRest),
-    [visibleRest, scrollY, itemHeight],
-  );
-
-  const handleMomentumScrollEnd = (
-    event: NativeSyntheticEvent<NativeScrollEvent>,
-  ) => {
-    // Due to list bounciness when scrolling to the start or the end of the list
-    // the offset might be negative or over the last item.
-    // We therefore clamp the offset to the supported range.
-    const offsetY = Math.min(
-      itemHeight * (options.length - 1),
-      Math.max(event.nativeEvent.contentOffset.y, 0),
-    );
-
-    let index = Math.floor(Math.floor(offsetY) / itemHeight);
-    const last = Math.floor(offsetY % itemHeight);
-    if (last > itemHeight / 2) index++;
-
-    if (index !== selectedIndex) {
-      onChange(index);
-    }
-  };
   return (
-    <View
-      style={[styles.container, {height: containerHeight}, containerStyle]}
-      {...containerProps}>
-      <View
-        style={[
-          styles.selectedIndicator,
-          selectedIndicatorStyle,
-          {
-            transform: [{translateY: -itemHeight / 2.5}],
-            height: itemHeight,
-          },
-        ]}>
-        <View
-          style={[
-            styles.commonTriangle,
-            {
-              left: Matrics.s(-20),
-            },
-          ]}
-        />
+    <>
+      {!isShowMultiplePicker && (
+        <View style={[styles.container, containerStyle]}>
+          <Picker
+            style={[styles.pickerStyle, pickerWrapperStyle]}
+            textSize={textSize}
+            isShowSelectBackground={isShowSelectBackground}
+            selectTextColor={selectTextColor}
+            textColor={textColor}
+            selectedValue={selectedValue}
+            selectLineSize={0}
+            pickerData={data}
+            onValueChange={value => {
+              console.log(value, 'valueeeeeee');
+            }}
+          />
+          <View style={[styles.leftArrow, leftArrowStyle]}></View>
+          <View style={[styles.rightArrow, rightArrowStyle]}></View>
+        </View>
+      )}
 
-        <View
-          style={[
-            styles.commonTriangle,
-            {
-              right: Matrics.s(-20),
-            },
-          ]}
-        />
-      </View>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'center',
-        }}>
-        {/* <WheelPickerList {...flatListProps} /> */}
-        <Animated.FlatList<string | null>
-          {...flatListProps}
-          ref={flatListRef}
-          style={styles.scrollView}
-          showsVerticalScrollIndicator={false}
-          onScroll={Animated.event(
-            [{nativeEvent: {contentOffset: {y: scrollY}}}],
-            {useNativeDriver: true},
-          )}
-          onMomentumScrollEnd={handleMomentumScrollEnd}
-          snapToOffsets={offsets}
-          decelerationRate={decelerationRate}
-          initialScrollIndex={selectedIndex}
-          getItemLayout={(data, index) => ({
-            length: itemHeight,
-            offset: itemHeight * index,
-            index,
-          })}
-          data={paddedOptions}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({item: option, index}) => {
-            return (
-              <WheelPickerItem
-                key={`option-${index}`}
-                index={index}
-                option={option}
-                style={itemStyle}
-                textStyle={{
-                  ...itemTextStyle,
-                }}
-                height={itemHeight}
-                currentScrollIndex={currentScrollIndex}
-                scaleFunction={scaleFunction}
-                rotationFunction={rotationFunction}
-                opacityFunction={opacityFunction}
-                visibleRest={visibleRest}
-              />
-            );
-          }}
-        />
-      </View>
-    </View>
+      {isShowMultiplePicker && (
+        <View style={[styles.rowContainer, rowContainerStyle]}>
+          <View style={[styles.leftPickerCont, leftPickerContStyle]}>
+            <Picker
+              style={styles.leftPicker}
+              textSize={textSize}
+              isShowSelectBackground={isShowSelectBackground}
+              selectTextColor={selectTextColor}
+              textColor={textColor}
+              selectedValue={selectedValue}
+              selectLineSize={0}
+              pickerData={data}
+              onValueChange={value => {
+                console.log(value, 'valueeeeeee');
+              }}
+            />
+          </View>
+          <View style={[styles.rightPickerCont, rightPickerContStyle]}>
+            <Picker
+              style={styles.rightPikcer}
+              textSize={textSize}
+              isShowSelectBackground={isShowSelectBackground}
+              selectTextColor={selectTextColor}
+              textColor={textColor}
+              selectedValue={selectedValue}
+              selectLineSize={0}
+              pickerData={data}
+              onValueChange={value => {
+                console.log(value, 'valueeeeeee');
+              }}
+            />
+          </View>
+          <View style={[styles.leftArrow, leftArrowStyle]}></View>
+          <View style={[styles.rightArrow, rightArrowStyle]}></View>
+        </View>
+      )}
+    </>
   );
 };
 
 export default WheelPicker;
 
 const styles = StyleSheet.create({
-  container: {
-    position: 'relative',
+  container: {flex: 1, justifyContent: 'center'},
+  pickerStyle: {
+    backgroundColor: colors.white,
+    width: Matrics.screenWidth,
+    marginVertical: 16,
+    height: Matrics.vs(250),
   },
-  selectedIndicator: {
-    position: 'absolute',
-    width: '100%',
-    borderRadius: 5,
-    top: '50%',
-  },
-
-  option: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 16,
-    zIndex: 100,
-  },
-  commonTriangle: {
-    height: Matrics.mvs(30),
-    width: Matrics.mvs(30),
+  rightArrow: {
+    height: Matrics.mvs(32),
+    width: Matrics.mvs(32),
     backgroundColor: colors.themePurple,
     transform: [{rotate: '45deg'}],
     position: 'absolute',
-    top: Matrics.vs(3),
+    right: Matrics.s(-16),
+  },
+  leftArrow: {
+    height: Matrics.mvs(32),
+    width: Matrics.mvs(32),
+    backgroundColor: colors.themePurple,
+    transform: [{rotate: '45deg'}],
+    position: 'absolute',
+    left: Matrics.s(-16),
+  },
+  rowContainer: {flex: 1, flexDirection: 'row', alignItems: 'center'},
+  leftPickerCont: {
+    width: Matrics.screenWidth / 2,
+    height: Matrics.vs(250),
+    alignItems: 'flex-end',
+  },
+  rightPickerCont: {
+    width: Matrics.screenWidth / 2,
+    height: Matrics.vs(250),
+    alignItems: 'flex-start',
+  },
+  leftPicker: {
+    backgroundColor: colors.white,
+    width: Matrics.s(70),
+    height: Matrics.vs(250),
+  },
+  rightPikcer: {
+    backgroundColor: colors.white,
+    width: Matrics.s(40),
+    height: Matrics.vs(250),
   },
 });

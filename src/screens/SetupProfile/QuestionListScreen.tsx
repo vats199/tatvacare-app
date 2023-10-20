@@ -28,7 +28,7 @@ type QuestionOneScreenProps = CompositeScreenProps<
   StackScreenProps<AppStackParamList, 'SetupProfileScreen'>
 >;
 const heightSubTypes = ['feet', 'Cm'];
-const weightSubTypes = ['kgs', 'lbs'];
+const weightSubTypes = ['kg', 'lbs'];
 const QuestionListScreen: React.FC<QuestionOneScreenProps> = ({
   navigation,
   route,
@@ -87,6 +87,15 @@ const QuestionListScreen: React.FC<QuestionOneScreenProps> = ({
     setSubHeight(subHeightArray);
   };
 
+  console.log(
+    Array.apply(null, {length: 100}).map((value, index) => {
+      return {
+        value: String(index + 1),
+        label: String(index + 1),
+      };
+    }),
+    'sdkjkfjskf',
+  );
   const renderItem = ({item, index}: {item: any; index: number}) => {
     console.log(item, 'itemitem');
     return (
@@ -239,30 +248,13 @@ const QuestionListScreen: React.FC<QuestionOneScreenProps> = ({
           <>
             <TabButton
               containerStyle={{
-                marginTop: Matrics.vs(5),
+                marginTop: Matrics.vs(16),
               }}
               btnTitles={
                 selectedType?.type == 'Height' ? heightSubTypes : weightSubTypes
               }
             />
-            <WheelPicker
-              selectedIndex={selectedIndex}
-              seprator={'"'}
-              options={heightList}
-              itemTextStyle={{
-                fontFamily: Fonts.BOLD,
-                fontSize: Matrics.mvs(25),
-              }}
-              containerStyle={{
-                marginVertical: Matrics.vs(10),
-                backgroundColor: 'green',
-              }}
-              onChange={index => setSelectedIndex(index)}
-              sideIcon={{
-                right: false,
-                left: true,
-              }}
-            />
+            <WheelPicker isShowMultiplePicker={true} />
           </>
         )}
       </View>
