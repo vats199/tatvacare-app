@@ -5,9 +5,14 @@ import {Picker, DatePicker} from 'react-native-wheel-pick';
 import {Matrics} from '../../constants';
 import {colors} from '../../constants/colors';
 
-const dummyData = [...new Array(100)].map((item, index) => {
-  return {label: String(index + 1), value: index + 1};
+const dummyData = [...new Array(12)].map((item, index) => {
+  return {label: `${String(index + 1)}`, value: index + 1};
 });
+
+const additionalDataArr = [...new Array(12)].map((item, index) => {
+  return {label: `${String(index + 1)}`, value: index + 1};
+});
+
 type PickerDataTypeProps = {
   label: string;
   value: number;
@@ -46,7 +51,7 @@ const WheelPicker: React.FC<Props> = ({
   rightArrowStyle,
   pickerWrapperStyle,
   data = dummyData,
-  additionalData = [],
+  additionalData = additionalDataArr,
   isShowMultiplePicker = false,
   rowContainerStyle,
   leftPickerContStyle,
