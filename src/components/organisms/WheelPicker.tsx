@@ -5,7 +5,7 @@ import {Picker, DatePicker} from 'react-native-wheel-pick';
 import {Matrics} from '../../constants';
 import {colors} from '../../constants/colors';
 
-const dummyData = [...new Array(12)].map((item, index) => {
+const dummyData = [...new Array(200)].map((item, index) => {
   return {label: `${String(index + 1)}`, value: index + 1};
 });
 
