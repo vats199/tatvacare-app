@@ -9,11 +9,12 @@ import { StackScreenProps } from '@react-navigation/stack';
 import Deit from '../../api/diet';
 import { useApp } from '../../context/app.context';
 import { Fonts, Matrics } from '../../constants';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type DietDetailProps = StackScreenProps<DietStackParamList, 'DietDetail'>;
 
 const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
+  const insets = useSafeAreaInsets();
   const { foodItem, buttonText, healthCoachId, mealName } = route.params;
 
   const [qty, setQty] = React.useState<string>();
@@ -96,7 +97,7 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
     setQty(item);
   };
   return (
-    <SafeAreaView edges={['top']} style={{ flex: 1, backgroundColor: colors.lightGreyishBlue }}>
+    <SafeAreaView edges={['top']} style={{ flex: 1, backgroundColor: colors.lightGreyishBlue, paddingTop: insets.top !== 0 ? 0 : Matrics.vs(15), paddingBottom: 0 !== 0 ? insets.bottom : Matrics.vs(15), }}>
       <View style={styles.header}>
         <Icons.backArrow onPress={onPressBack} height={23} width={23} />
         <Text style={styles.dietTitle}>{foodItem?.food_item_name}</Text>
