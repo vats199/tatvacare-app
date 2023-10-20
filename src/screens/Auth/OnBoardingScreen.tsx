@@ -6,6 +6,7 @@ import {
   View,
   Modal,
   KeyboardAvoidingView,
+  StatusBar,
 } from 'react-native';
 import React from 'react';
 import {CompositeScreenProps} from '@react-navigation/native';
@@ -150,6 +151,11 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({
   };
   return (
     <SafeAreaView edges={['bottom']} style={styles.container}>
+      <StatusBar
+        translucent={true}
+        backgroundColor={colors.white}
+        barStyle={'dark-content'}
+      />
       <View style={[styles.wrapper, {paddingTop: insets.top}]}>
         <FlatList
           ref={flatListRef}
@@ -184,9 +190,14 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({
         </View>
       </View>
       <View style={styles.spaceView} />
-      <Button
+      {/* <Button
         title="Get Started"
         buttonStyle={styles.buttonStyle}
+        onPress={() => onPressGetStarted()}
+      /> */}
+      <Button
+        title="Get Started"
+        buttonStyle={{marginBottom: insets.bottom == 0 ? Matrics.vs(16) : 0}}
         onPress={() => onPressGetStarted()}
       />
       <LoginBottomSheet

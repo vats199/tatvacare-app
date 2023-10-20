@@ -52,6 +52,7 @@ import DietDetailScreen from '../screens/FoodDiary/DietDetailScreen';
 import ProgressBarInsightsScreen from '../screens/FoodDiary/ProgressBarInsightsScreen';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
+import ProgressReportScreen from '../screens/SetupProfile/ProgressReportScreen';
 
 const Drawer = createDrawerNavigator<DrawerParamList>();
 const DrawerScreen = () => {
@@ -140,7 +141,9 @@ const BottomTabScreen = () => {
 const Tab = createMaterialTopTabNavigator<TabParamList>();
 const TabScreen = () => {
   return (
-    <SafeAreaView edges={['top']} style={{ flex: 1, backgroundColor: colors.white }}>
+    <SafeAreaView
+      edges={['top']}
+      style={{ flex: 1, backgroundColor: colors.white }}>
       <Tab.Navigator
         initialRouteName="RoutineScreen"
         screenOptions={{
@@ -266,6 +269,11 @@ const SetupProfileScreen = () => {
         name="QuestionListScreen"
         component={QuestionListScreen}
       />
+
+      <SetupProfileStack.Screen
+        name="ProgressReportScreen"
+        component={ProgressReportScreen}
+      />
     </SetupProfileStack.Navigator>
   );
 };
@@ -329,6 +337,10 @@ const Router = () => {
           <AppStack.Screen
             name={'DietStackScreen'}
             component={DietStackScreen}
+          />
+          <AppStack.Screen
+            name={'SpirometerScreen'}
+            component={SpirometerScreen}
           />
         </AppStack.Navigator>
       </BottomSheetModalProvider>

@@ -57,7 +57,7 @@ const LoginBottomSheet = forwardRef<LoginBottomSheetRef, LoginBottomSheetProps>(
             height: Matrics.vs(4),
           }}
           index={0}
-          snapPoints={['75%']}
+          snapPoints={['85%']}
           enablePanDownToClose={true}
           // enableContentPanningGesture={false}
           keyboardBehavior="interactive"

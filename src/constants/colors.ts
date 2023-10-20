@@ -40,8 +40,14 @@ export const colors = {
   genderActiveButtonBorder: '#b6b6b8',
   genderInactiveButtonBorder: '#e8e8e8',
   genderSelectedBorderColor: '#3B0859',
+  highRiskBg: 'rgb(255,232,232)',
+  mediumRisk: 'rgb(255,247,228)',
+  lowRisk: 'rgb(223,248,233)',
+  red: '#FF3333',
+  yellow: '#FAB000',
 
   THEME_OVERLAY: 'rgba(118, 15, 178, 0.08)',
+  SECONDARY_BUTTON_OPACITY: 'rgba(158, 158, 158, 0.08)',
   Purple: '#C57FFA',
   Green: '#77DD77',
   lightYellow: '#FFBD00',
@@ -52,6 +58,7 @@ export const colors = {
   progressBarRed: '#FF3333',
   progressBarYellow: '#FAB000',
 
+  transparent: 'transparent',
   lightGrayBackgroundColor: '#DBDBDB',
   OVERLAY_DARK_10: 'rgba(0,0,0,0.1)',
   OVERLAY_DARK_20: 'rgba(0,0,0,0.2)',

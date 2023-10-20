@@ -85,6 +85,7 @@ export type AppStackParamList = {
   LabTestCart: {item: TestItem[] | undefined} | {coupan: string | undefined};
   ApplyCoupan: undefined;
   DietStackScreen: DietStackParamList;
+  SpirometerScreen: undefined;
 };
 
 export type DrawerParamList = {
@@ -148,6 +149,7 @@ export type SetupProfileStackParamList = {
   QuestionOneScreen: undefined;
   ScanCodeScreen: undefined;
   QuestionListScreen: undefined;
+  ProgressReportScreen: undefined;
 };
 
 export type HomeStackParamList = {

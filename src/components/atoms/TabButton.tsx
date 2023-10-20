@@ -1,16 +1,27 @@
-import {StyleSheet, Text, View, ViewStyle} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  ViewStyle,
+} from 'react-native';
 import React, {useState} from 'react';
 import {colors} from '../../constants/colors';
 import {Fonts, Matrics} from '../../constants';
 import Button from './Button';
+import SlotButton from './SlotButton';
 
 type TabButtonProps = {
   containerStyle?: ViewStyle;
   btnTitles: string[];
 };
 
-const TabButton: React.FC<TabButtonProps> = ({btnTitles}) => {
+const TabButton: React.FC<TabButtonProps> = ({btnTitles, containerStyle}) => {
   const [selectedBtn, setSelectedBtn] = useState<string>(btnTitles[0]);
+
+  const onPressTabBtn = (item: string) => {
+    setSelectedBtn(item);
+  };
 
   const renderBtn = (item: string) => {
     const itemSelected = item == selectedBtn;
@@ -18,54 +29,27 @@ const TabButton: React.FC<TabButtonProps> = ({btnTitles}) => {
       ? styles.activeBtn
       : styles.inActiveBtn;
     const selectedBtnTxtStyle = itemSelected
-      ? styles.activeBtn
-      : styles.inActiveBtn;
+      ? styles.activeBtnTxt
+      : styles.inActiveBtnTxt;
     return (
-      <Button
-        title="Feet"
-        buttonStyle={{
-          ...styles.btnCommonContainer,
-          ...styles.activeBtn,
+      <TouchableOpacity
+        style={{
+          ...selectedBtnStyle,
         }}
-        titleStyle={{
-          fontFamily: Fonts.BOLD,
-          fontSize: Matrics.mvs(16),
-          fontWeight: '700',
-          lineHeight: Matrics.vs(20),
-          color: colors.labelDarkGray,
-        }}
-      />
+        onPress={() => onPressTabBtn(item)}>
+        <Text
+          style={{
+            ...selectedBtnTxtStyle,
+          }}>
+          {item}
+        </Text>
+      </TouchableOpacity>
     );
   };
 
   return (
-    <View style={[styles.container, styles.containerShadow]}>
+    <View style={[styles.container, styles.containerShadow, containerStyle]}>
       {btnTitles.map(renderBtn)}
-      {/* <Button
-        title="Feet"
-        buttonStyle={{
-          ...styles.btnCommonContainer,
-          ...styles.activeBtn,
-        }}
-        titleStyle={{
-          fontFamily: Fonts.BOLD,
-          fontSize: Matrics.mvs(16),
-          fontWeight: '700',
-          lineHeight: Matrics.vs(20),
-          color: colors.labelDarkGray,
-        }}
-      />
-      <Button
-        title="cm"
-        buttonStyle={{
-          ...styles.btnCommonContainer,
-          ...styles.inActiveBtn,
-        }}
-        titleStyle={{
-          color: colors.darkGray,
-          ...styles.btnTxtCommon,
-        }}
-      /> */}
     </View>
   );
 };
@@ -78,40 +62,61 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: colors.white,
-    borderRadius: Matrics.mvs(12),
-    borderWidth: Matrics.s(1),
+    borderRadius: Matrics.mvs(16),
+    borderWidth: 1,
+    height: Matrics.mvs(44),
     borderColor: colors.inputBoxLightBorder,
+    marginHorizontal: Matrics.s(15),
     overflow: 'hidden',
   },
   containerShadow: {
-    shadowColor: colors.black,
+    shadowColor: colors.OVERLAY_DARK_50,
     shadowOffset: {width: 0, height: 0},
-    shadowOpacity: 0.08,
-    shadowRadius: 8,
-    elevation: 2,
+    shadowOpacity: 0.05,
+    shadowRadius: 4,
+    elevation: 1,
   },
   btnCommonContainer: {
     width: '50%',
-    borderWidth: Matrics.s(1),
+    borderWidth: 1,
     paddingVertical: Matrics.vs(8),
     borderRadius: Matrics.mvs(12),
+    marginBottom: 0,
+    marginRight: 0,
   },
   btnTxtCommon: {
     fontFamily: Fonts.BOLD,
     fontSize: Matrics.mvs(16),
-    fontWeight: '700',
     lineHeight: Matrics.vs(20),
   },
   activeBtn: {
+    height: '100%',
+    width: '50%',
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: colors.boxLightPurple,
     borderColor: colors.themePurple,
+    borderWidth: 1,
+    borderRadius: Matrics.mvs(16),
   },
   inActiveBtn: {
-    borderWidth: 0,
+    height: '100%',
+    width: '50%',
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: colors.white,
+    borderColor: colors.themePurple,
+    borderWidth: 0,
+    borderRadius: Matrics.mvs(16),
   },
   activeBtnTxt: {
     color: colors.labelDarkGray,
+    fontSize: Matrics.mvs(16),
+    fontFamily: Fonts.BOLD,
   },
-  inActiveBtnTxt: {},
+  inActiveBtnTxt: {
+    color: colors.darkGray,
+    fontSize: Matrics.mvs(16),
+    fontFamily: Fonts.REGULAR,
+  },
 });
