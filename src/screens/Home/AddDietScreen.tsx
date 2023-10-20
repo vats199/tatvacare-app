@@ -8,7 +8,7 @@ import { StackScreenProps } from '@react-navigation/stack';
 import Diet from '../../api/diet';
 import { useApp } from '../../context/app.context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Matrics } from '../../constants';
 
 type AddDietScreenProps = StackScreenProps<DietStackParamList, 'AddDiet'>;
@@ -35,6 +35,7 @@ type SearcheFood = {
   total_polyunsaturated_fatty_acids: string;
 };
 const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
+  const insets = useSafeAreaInsets();
   const { userData } = useApp();
   const { optionId, healthCoachId, mealName } = route.params;
   const [recentSerach, setRecentSerach] = React.useState([]);
@@ -129,7 +130,7 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
   };
 
   return (
-    <SafeAreaView edges={['top']} style={styles.container} >
+    <SafeAreaView edges={['top']} style={[styles.container, { paddingTop: insets.top !== 0 ? 0 : Matrics.vs(15), paddingBottom: 0 !== 0 ? insets.bottom : Matrics.vs(15), }]} >
       <DietSearchHeader onPressBack={onPressBack} onSearch={handleSerach} />
       <RecentSearchDiet
         onPressPlus={handlePressPlus}

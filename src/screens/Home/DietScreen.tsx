@@ -19,11 +19,13 @@ import { StackScreenProps } from '@react-navigation/stack';
 import Diet from '../../api/diet';
 import { useApp } from '../../context/app.context';
 import moment from 'moment';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Matrics } from '../../constants';
 
 type DietScreenProps = StackScreenProps<DietStackParamList, 'DietScreen'>;
 
 const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
+  const insets = useSafeAreaInsets();
   const title = route.params?.dietData;
   const [dietOption, setDietOption] = useState<boolean>(false);
   const [loader, setLoader] = useState<boolean>(false);
@@ -173,7 +175,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   };
 
   return (
-    <SafeAreaView edges={['top']} style={styles.mainContienr}>
+    <SafeAreaView edges={['top']} style={[styles.mainContienr, { paddingTop: insets.top !== 0 ? 0 : Matrics.vs(15), paddingBottom: insets.bottom !== 0 ? 0 : Matrics.vs(15), }]}>
       <DietHeader
         onPressBack={onPressBack}
         onPressOfNextAndPerviousDate={handleDate}

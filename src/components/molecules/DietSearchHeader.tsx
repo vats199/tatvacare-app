@@ -44,10 +44,10 @@ const styles = StyleSheet.create({
   input: {
     width: '90%',
     height: Matrics.vs(42),
-    borderWidth: 0.2,
+    borderWidth: 0.3,
     borderColor: 'black',
     backgroundColor: 'white',
-    borderRadius: Matrics.mvs(12),
+    borderRadius: 10,
     marginHorizontal: Matrics.s(10),
     paddingLeft: Matrics.s(15),
     fontSize: Matrics.mvs(12),
