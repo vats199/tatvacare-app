@@ -17,22 +17,22 @@ import AddDietScreen from '../screens/Home/AddDietScreen';
 import DietDetailScreen from '../screens/Home/DietDetailScreen';
 import ProgressBarInsightsScreen from '../screens/Home/ProgressBarInsightsScreen';
 
-const Navigation = NativeModules.Navigation;
-export const navigateTo = Navigation.navigateTo;
-export const navigateToHistory = Navigation.navigateToHistory;
-export const navigateToBookmark = Navigation.navigateToBookmark;
-export const navigateToPlan = Navigation.navigateToPlan;
-export const navigateToEngagement = Navigation.navigateToEngagement;
-export const navigateToMedicines = Navigation.navigateToMedicines;
-export const navigateToIncident = Navigation.navigateToIncident;
-export const navigateToShareKit = Navigation.navigateToShareKit;
-export const openUpdateReading = Navigation.openUpdateReading;
-export const navigateToExercise = Navigation.navigateToExercise;
-export const openUpdateGoal = Navigation.openUpdateGoal;
-export const openHealthKitSyncView = Navigation.openHealthKitSyncView;
-export const getHomeScreenDataStatus = Navigation.getHomeScreenDataStatus;
+const Navigation = NativeModules?.Navigation;
+export const navigateTo = Navigation?.navigateTo;
+export const navigateToHistory = Navigation?.navigateToHistory;
+export const navigateToBookmark = Navigation?.navigateToBookmark;
+export const navigateToPlan = Navigation?.navigateToPlan;
+export const navigateToEngagement = Navigation?.navigateToEngagement;
+export const navigateToMedicines = Navigation?.navigateToMedicines;
+export const navigateToIncident = Navigation?.navigateToIncident;
+export const navigateToShareKit = Navigation?.navigateToShareKit;
+export const openUpdateReading = Navigation?.openUpdateReading;
+export const navigateToExercise = Navigation?.navigateToExercise;
+export const openUpdateGoal = Navigation?.openUpdateGoal;
+export const openHealthKitSyncView = Navigation?.openHealthKitSyncView;
+export const getHomeScreenDataStatus = Navigation?.getHomeScreenDataStatus;
 
-export const goBack = Navigation.goBack();
+export const goBack = Navigation?.goBack();
 
 const Drawer = createDrawerNavigator<DrawerParamList>();
 const DrawerScreen = () => {

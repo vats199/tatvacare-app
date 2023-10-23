@@ -4,6 +4,7 @@ import Button from '../atoms/Button';
 import DropdownComponent from '../atoms/Dropdown';
 import {colors} from '../../constants/colors';
 import {Icons} from '../../constants/icons';
+import Matrics from '../../constants/Matrics';
 
 type AddDietProps = {
   onPressAdd: () => void;
@@ -79,15 +80,7 @@ const AddDiet: React.FC<AddDietProps> = ({
                 isDisable={false}
                 containerStyle={styles.conatiner}
               />
-              {/* <DropdownComponent
-                data={data}
-                dropdownStyle={{ width: '48%' }}
-                placeholder="Measure"
-                placeholderStyle={styles.dropdownTitleText}
-                 isDisable={true}
-                selectedItem={handleSelectedMeasures}
-              /> */}
-              <View style={styles.measureContainer}>
+               <View style={styles.measureContainer}>
                 <Text style={styles.dropdownTitleText}>{Data?.measure_name}</Text>
                 <Icons.DropdownIcon />
               </View>
@@ -107,66 +100,70 @@ const AddDiet: React.FC<AddDietProps> = ({
 
 export default AddDiet;
 
-const styles = StyleSheet.create({
-  container: {
-    borderWidth: 0.1,
-    borderColor: '#808080',
-    overflow: 'hidden',
-    borderRadius: 14,
-    margin: 5,
-    elevation: 8,
-  },
-  innerContainer: {
-    backgroundColor: 'white',
-  },
-  title: {
-    marginLeft: 14,
-    marginVertical: 20,
-    fontSize: 17,
-    fontWeight: 'bold',
-    color: colors.black,
-  },
-  borderline: {
-    borderBottomWidth: 0.3,
-    borederColor: colors.lightGrey,
-  },
-  belowBox: {
-    paddingHorizontal: 16,
-    paddingBottom: 20,
-  },
-  belowBoxContent: {
-    width: '100%',
-  },
-  dropdownContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginVertical: 25,
-  },
-  dropdownTitleText: {
-    fontSize: 17,
-    paddingLeft: 7,
-    color: colors.black,
-    textTransform:'capitalize'
-  },
-  conatiner : {
-  bottom:5
-  },
-  outlinedButtonText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  outlinedButton: {
-    padding: 10,
-    borderRadius: 16,
-  },
-  measureContainer: {
-    borderRadius: 10,
-    borderWidth: 0.4,
-    width: '50%',
-    height: '98%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 8,
-  },
-});
+ 
+  const styles = StyleSheet.create({
+    container: {
+      borderWidth: 0.1,
+      borderColor: '#808080',
+      overflow: 'hidden',
+      borderRadius: 14,
+ 
+      elevation: 8,
+    },
+    innerContainer: {
+      backgroundColor: 'white',
+    },
+    title: {
+      marginLeft: 14,
+      marginVertical: 20,
+      fontSize: Matrics.mvs(16),
+      fontWeight: 'bold',
+      color: colors.black,
+    },
+    borderline: {
+      borderBottomWidth: Matrics.mvs(0.3),
+      borederColor: colors.lightGrey,
+    },
+    belowBox: {
+      paddingHorizontal: 16,
+      paddingBottom: 20,
+    },
+    belowBoxContent: {
+      width: '100%',
+      justifyContent: 'center', alignItems: 'center'
+    },
+    dropdownContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginVertical: 25,
+    },
+    dropdownTitleText: {
+      fontSize: 17,
+      paddingLeft: 7,
+      color: colors.black,
+      textTransform: 'capitalize'
+    },
+    conatiner: {
+      bottom: 5
+    },
+    outlinedButtonText: {
+      fontSize: 18,
+      fontWeight: 'bold',
+    },
+    outlinedButton: {
+      borderRadius: Matrics.mvs(16),
+      width: '100%',
+      height: Matrics.vs(40)
+    },
+    measureContainer: {
+      borderRadius: 10,
+      borderWidth: 0.4,
+      width: '50%',
+      height: '98%',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      paddingHorizontal: 8,
+    },
+  });
+  

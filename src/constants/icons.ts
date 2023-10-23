@@ -71,6 +71,12 @@ import Fiber from '../assets/icons/fiber.svg';
 import Carbs from '../assets/icons/carbs.svg';
 import Fats from '../assets/icons/Fats.svg';
 import Protein from '../assets/icons/protein.svg';
+import Breakfast from '../assets/icons/breakfast.svg';
+import Dinner from '../assets/icons/dinner.svg';
+import Lunch from '../assets/icons/lunch.svg';
+import Snacks from '../assets/icons/snacks.svg';
+import ShowLess from '../assets/icons/showLessArrow.svg';
+import ShowMore from '../assets/icons/showMoreArrow.svg';
 
 export const Icons = {
   HomeActive,
@@ -141,4 +147,10 @@ export const Icons = {
   Carbs,
   Fiber,
   Fats,
+  ShowLess,
+  ShowMore,
+  Breakfast,
+  Lunch,
+  Dinner,
+  Snacks,
 };

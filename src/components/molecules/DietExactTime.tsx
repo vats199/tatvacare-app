@@ -114,15 +114,7 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
     getCalories(data)
   }, [foodItmeData])
 
-  // useFocusEffect(
-  //   React.useCallback(() => {
-  //     getCalories(foodItmeData)
-
-  //   }, [foodItmeData])
-  // );
-
   const handaleEdit = (data: FoodItems) => {
-
     onpressOfEdit(data, cardData.meal_name);
   };
   const handaleDelete = (Id: string) => {
@@ -147,14 +139,25 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
         return "Snacks is a passport to evening.";
     }
   }
-
+  const mealIcons = (name: string) => {
+    switch (name) {
+      case 'Breakfast':
+        return <Icons.Breakfast />
+      case 'Dinner':
+        return <Icons.Dinner />
+      case 'Lunch':
+        return <Icons.Lunch />
+      default:
+        return <Icons.Snacks />
+    }
+  };
 
   return (
     <View style={styles.container}>
       <View style={styles.innerContainer}>
         <View style={styles.topRow}>
           <View style={styles.leftContent}>
-            <View style={styles.circle} />
+            <View style={styles.circle} >{mealIcons(cardData.meal_name)}</View>
             <View style={styles.textContainer}>
               <Text style={styles.title}>{cardData?.meal_name}</Text>
               <Text style={styles.textBelowTitle}>
@@ -224,7 +227,8 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 20,
     backgroundColor: '#F3F3F3',
-    marginRight: 10,
+    marginRight: 10, justifyContent: "center",
+    alignItems: 'center'
   },
   textContainer: {
     flex: 1,

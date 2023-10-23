@@ -44,11 +44,11 @@ const RecentSearchDiet: React.FC<RecentSerachDietProps> = ({ onPressPlus, search
       <TouchableOpacity style={styles.container} onPress={() => onPressPlus(item)}>
         <View style={{ flex: 0.78 }}>
           <Text style={styles.titleText}>{item?.food_name}</Text>
-          <Text style={styles.messageText}>{"  "+(Math.round(Number(item.total_micronutrients))? Math.round(Number(item.total_micronutrients)):0 )+ ' g'}</Text>
+          <Text style={styles.messageText}>{"  " + (Math.round(Number(item.total_micronutrients)) ? Math.round(Number(item.total_micronutrients)) : 0) + ' g'}</Text>
         </View>
         <View style={styles.leftContainer}>
           <Text style={styles.calorieText}>{item?.CALORIES_CALCULATED_FOR}cal</Text>
-          <Icons.AddCircle height={25} width={25} />
+          <Icons.AddCircle height={24} width={24} />
         </View>
       </TouchableOpacity>
     );

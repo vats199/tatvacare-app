@@ -95,8 +95,7 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
     setQty(item)
   }
   return (
-    <SafeAreaView edges={['top']} style={{ flex: 1, backgroundColor: colors.lightGreyishBlue, paddingBottom: insets.bottom !== 0 ? insets.bottom/2 : Matrics.vs(16), }}>
-
+    <SafeAreaView edges={['top']} style={{ flex: 1, backgroundColor: colors.lightGreyishBlue, paddingBottom: insets.bottom !== 0 ? insets.bottom / 2 : Matrics.vs(16), }}>
       <View style={styles.header}>
         <Icons.backArrow onPress={onPressBack} height={23} width={23} />
         <Text style={styles.dietTitle}>{foodItem?.food_item_name}</Text>
@@ -105,7 +104,6 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
         <MicronutrientsInformation foodItemDetails={foodItem} />
         <AddDiet onPressAdd={onPressAdd} buttonText={buttonText} onSeleteQty={handleSeletedQty} Data={foodItem} mealName={mealName} />
       </View>
-
     </SafeAreaView>
   );
 };

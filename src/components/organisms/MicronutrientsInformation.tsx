@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
   square: {
     width: 25,
     height: 25,
-    backgroundColor: '#F3F3F3',
+    // backgroundColor: '#F3F3F3',
     marginRight: 10, justifyContent: "center", alignItems: "center"
   },
   name: {

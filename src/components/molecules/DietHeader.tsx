@@ -1,27 +1,40 @@
 import React, { useState } from 'react';
 import CalendarStrip from 'react-native-calendar-strip';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import { colors } from '../../constants/colors';
 import { Icons } from '../../constants/icons';
+import { TouchableOpacity } from 'react-native';
+import { LocaleConfig, CalendarList } from 'react-native-calendars';
+import Fonts from '../../constants/fonts';
+import Matrics from '../../constants/Matrics';
+import moment from 'moment';
 
+const { width } = Dimensions.get('window');
 type DietHeaderProps = {
   onPressBack: () => void;
   onPressOfNextAndPerviousDate: (data: any) => void;
-  title: string
+  title: string;
 };
 
 const DietHeader: React.FC<DietHeaderProps> = ({
   onPressBack,
-  onPressOfNextAndPerviousDate, title
+  onPressOfNextAndPerviousDate,
+  title,
 }) => {
   //const calendarStripRef = useRef(null);
+
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [calendarKey, setCalendarKey] = useState(0);
+  const [seletedDay, setseletedDay] = useState(
+    moment(selectedDate).format('YYYY-MM-DD'),
+  );
+  const [showMore, setShowMore] = useState<boolean>(false);
 
   const handleNextWeek = () => {
     const nextWeek = new Date(selectedDate);
     nextWeek.setDate(nextWeek.getDate() + 7);
     setSelectedDate(nextWeek);
+
     onPressOfNextAndPerviousDate(nextWeek);
     setCalendarKey(calendarKey + 1);
   };
@@ -34,6 +47,50 @@ const DietHeader: React.FC<DietHeaderProps> = ({
     setCalendarKey(calendarKey - 1);
   };
 
+  LocaleConfig.locales['en'] = {
+    monthNames: [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ],
+    monthNamesShort: [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ],
+    dayNames: [
+      'Sunday',
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+    ],
+    dayNamesShort: ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'],
+    today: 'Today',
+  };
+
+  LocaleConfig.defaultLocale = 'en';
+
   const getMonthRangeText = (date: Date) => {
     const weekStartDate = new Date(date);
     const weekEndDate = new Date(weekStartDate);
@@ -44,7 +101,6 @@ const DietHeader: React.FC<DietHeaderProps> = ({
     while (weekEndDate.getDay() !== 0) {
       weekEndDate.setDate(weekEndDate.getDate() + 1);
     }
-    //console.log(weekEndDate);
     const startMonth = weekStartDate.toLocaleString('default', { month: 'long' });
     const endMonth = weekEndDate.toLocaleString('default', { month: 'long' });
 
@@ -70,110 +126,176 @@ const DietHeader: React.FC<DietHeaderProps> = ({
   };
 
   return (
-    <View style={styles.upperContainer}>
-      <View style={styles.customHeader}>
-        <TouchableOpacity onPress={onPressBack} >
-          <Icons.backArrow height={20} width={20} />
-        </TouchableOpacity>
-        <Text style={styles.customHeaderText}> {title}</Text>
-      </View>
-      <View>
-        <View style={styles.container}>
-          <View style={styles.leftRightContent}>
-            <View style={styles.row}>
-              <Text style={styles.monthYearStyle}>
-                {getMonthRangeText(selectedDate)}
-              </Text>
-            </View>
-            <Icons.RightArrow
-              height={20}
-              width={20}
-              onPress={handleNextMonth}
-            />
-          </View>
-          <View style={styles.leftRightContent}>
-            <Icons.backArrow
-              height={11}
-              width={11}
-              onPress={handlePreviousWeek}
-              style={{ marginRight: 20 }}
-            />
-            <Icons.RightArrow
-              height={22}
-              width={22}
-              onPress={handleNextWeek}
-              style={{ marginRight: 20 }}
-            />
-          </View>
+    <View style={{ backgroundColor: colors.veryLightGreyishBlue, paddingBottom: 10 }}>
+      <View style={styles.upperContainer}>
+        <View style={styles.customHeader}>
+          <TouchableOpacity onPress={onPressBack}>
+            <Icons.backArrow height={20} width={20} />
+          </TouchableOpacity>
+          <Text style={styles.customHeaderText}> {title}</Text>
         </View>
-        {/* <View style={{backgroundColor:"red",}}> */}
-        <CalendarStrip
-          // ref={calendarStripRef}
-          selectedDate={selectedDate}
-          key={calendarKey}
-          showMonth={false}
-          //headerText={}
-          onDateSelected={date => {
-            onPressOfNextAndPerviousDate(date);
-          }}
-          // calendarAnimation={{
-          //   type: 'sequence',
-          //   duration: 30,
-          // }}
-          daySelectionAnimation={{
-            type: 'border',
-            duration: 200,
-            borderWidth: 1,
-            borderHighlightColor: 'white',
-          }}
-          style={{
-            height: 80
-          }}
-          calendarHeaderContainerStyle={{
-            marginBottom: 30,
-            alignSelf: 'flex-start',
-          }}
-          calendarHeaderStyle={{
-            fontSize: 13,
-            color: colors.black,
-            marginLeft: 15,
-          }}
-          calendarColor={colors.lightGreyishBlue}
-          dateNumberStyle={styles.dateNumberStyle}
-          dateNameStyle={{ color: 'black' }}
-          highlightDateNumberStyle={[
-            styles.dateNumberStyle,
-            styles.highlighetdDateNumberStyle,
-          ]}
-          highlightDateNameStyle={{ color: 'black' }}
-          disabledDateNameStyle={{ color: 'grey' }}
-          disabledDateNumberStyle={{ color: 'grey' }}
-          // iconContainer={{flex: 0.1}}
-          iconLeftStyle={{ display: 'none' }}
-          iconRightStyle={{ display: 'none' }}
-        />
+        <View>
+          <View style={styles.container}>
+            <View style={styles.leftRightContent}>
+              <View style={styles.row}>
+                <Text style={styles.monthYearStyle}>
+                  {getMonthRangeText(selectedDate)}
+                </Text>
+              </View>
+              <Icons.RightArrow
+                height={20}
+                width={20}
+                onPress={handleNextMonth}
+              />
+            </View>
+            <View style={styles.leftRightContent}>
+              <Icons.backArrow
+                height={11}
+                width={11}
+                onPress={handlePreviousWeek}
+                style={{ marginRight: 20 }}
+              />
+              <Icons.RightArrow
+                height={22}
+                width={22}
+                onPress={handleNextWeek}
+                style={{ marginRight: 20 }}
+              />
+            </View>
+          </View>
+          {!showMore ? (
+            <View style={{ paddingHorizontal: 10 }}>
+              <CalendarStrip
+                selectedDate={selectedDate}
+                key={calendarKey}
+                showMonth={false}
+                onDateSelected={date => {
+                  setSelectedDate(date);
+                  onPressOfNextAndPerviousDate(date);
+                }}
+                weekendDateNameStyle={{ textTransform: 'capitalize' }}
+                daySelectionAnimation={{
+                  type: 'border',
+                  duration: 200,
+                  borderWidth: 1,
+                  borderHighlightColor: 'white',
+                }}
+                style={{ height: Matrics.vs(60), }}
+                calendarColor={colors.lightGreyishBlue}
+                dateNumberStyle={styles.dateNumberStyle}
+                dateNameStyle={{ color: 'black' }}
+                highlightDateNumberStyle={[
+                  styles.dateNumberStyle,
+                  styles.highlighetdDateNumberStyle,
+                ]}
+                highlightDateNameStyle={{ color: 'black' }}
+                disabledDateNameStyle={{ color: 'grey' }}
+                disabledDateNumberStyle={{ color: 'grey' }}
+                iconLeftStyle={{ display: 'none' }}
+                iconRightStyle={{ display: 'none' }}
+              />
+            </View>
+          ) : (
+            <View style={{ height: Matrics.vs(240) }}>
+              <CalendarList
+                firstDay={1}
+                horizontal={true}
+                pagingEnabled={true}
+                onDayPress={day => {
+                  let date = new Date(day?.dateString);
+                  onPressOfNextAndPerviousDate(date);
+                  setSelectedDate(date);
+                  setseletedDay(day?.dateString);
+                }}
+                onMonthChange={day => {
+                  if (selectedDate) {
+                    setSelectedDate(selectedDate);
+                    setseletedDay(moment(selectedDate).format('YYYY-MM-DD'))
+                    let date = new Date(day?.dateString);
+                    setSelectedDate(date);
+                  }
+                  else {
+                    let date = new Date(day?.dateString);
+                    setSelectedDate(date);
+                  }
+
+                }}
+                markingType='custom'
+                markedDates={{
+                  [seletedDay]: {
+                    customStyles: {
+                      container: {
+                        backgroundColor: colors.themePurple,
+                        borderRadius: Matrics.mvs(10),
+                        height: Matrics.vs(30),
+                        width: Matrics.s(35),
+                        justifyContent: "center", alignItems: "center"
+                      },
+                      text: {
+                        color: 'white',
+                        fontWeight: '700'
+                      }
+                    }
+                  },
+                }}
+                calendarWidth={width}
+                theme={{
+                  backgroundColor: colors.lightGreyishBlue,
+                  calendarBackground: colors.lightGreyishBlue,
+                  textSectionTitleColor: 'black',
+                  textSectionTitleDisabledColor: 'black',
+                  dayTextColor: 'black',
+                  textDisabledColor: '#d9e1e8',
+                  todayTextColor: 'black',
+                  disabledArrowColor: '#d9e1e8',
+                  textDayFontFamily: Fonts.MEDIUM,
+                  textMonthFontFamily: Fonts.MEDIUM,
+                  textDayFontWeight: '400',
+                  textDayHeaderFontWeight: '400',
+                  textDayFontSize: 13,
+                  textMonthFontSize: 13,
+                  textDayHeaderFontSize: 11,
+                  arrowColor: 'white',
+                  'stylesheet.calendar.header': {
+                    header: {
+                      height: 0,
+                      opacity: 0,
+                    },
+                  },
+                }}
+              />
+            </View>
+          )}
+        </View>
+        <TouchableOpacity
+          style={styles.dropDwonIcon}
+          onPress={() => setShowMore(!showMore)}>
+          {showMore ? <Icons.ShowMore /> : <Icons.ShowLess />}
+        </TouchableOpacity>
       </View>
     </View>
-    // </View>
   );
 };
 
 const styles = StyleSheet.create({
   upperContainer: {
-
     backgroundColor: colors.lightGreyishBlue,
     borderBottomWidth: 0.3,
     borderBottomColor: '#E5E5E5',
+    paddingBottom: 5,
     elevation: 0.2,
-
-    // overflow: 'hidden',
-    // borderBottomRightRadius: 10,
-    // borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 20,
+    borderBottomLeftRadius: 20,
+    shadowOffset: { width: -2, height: 2 },
+    shadowColor: '#171717',
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
   },
   customHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     marginLeft: 15,
+    // marginTop: 30,
     marginBottom: 20,
   },
   customHeaderText: {
@@ -186,8 +308,8 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: '#656566',
     marginVertical: 10,
-    height: 40,
-    padding: 11,
+    height: Matrics.vs(30),
+    padding: Matrics.mvs(8),
   },
   highlighetdDateNumberStyle: {
     fontSize: 14,
@@ -218,6 +340,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: colors.black,
     marginLeft: 5,
+  },
+  dropDwonIcon: {
+    opacity: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: Matrics.vs(5),
   },
 });
 
