@@ -107,6 +107,8 @@ import Edit from '../assets/icons/editicon.svg';
 import remove from '../assets/icons/deletIcon.svg';
 import RightArrow from '../assets/icons/rightArrow.svg';
 import DropdownIcon from '../assets/icons/dropdownIcon.svg';
+import ShowLess from '../assets/icons/showLessArrow.svg';
+import ShowMore from '../assets/icons/showMoreArrow.svg';
 
 import Fiber from '../assets/icons/fiber.svg';
 import Carbs from '../assets/icons/carbs.svg';
@@ -243,4 +245,6 @@ export const Icons = {
   Gallery,
   File,
   Article,
+  ShowLess,
+  ShowMore,
 };

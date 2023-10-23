@@ -7,6 +7,7 @@ import { TouchableOpacity } from 'react-native';
 import { LocaleConfig, CalendarList } from 'react-native-calendars';
 import { Fonts, Matrics } from '../../constants';
 import moment from 'moment';
+import { Icon } from 'react-native-vector-icons/Icon';
 
 const { width } = Dimensions.get('window')
 type DietHeaderProps = {
@@ -25,7 +26,7 @@ const DietHeader: React.FC<DietHeaderProps> = ({
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [calendarKey, setCalendarKey] = useState(0)
   const [seletedDay, setseletedDay] = useState(moment(selectedDate).format('YYYY-MM-DD'));
-  console.log("selectedDate", selectedDate);
+  const [showMore, setShowMore] = useState<boolean>(false)
 
   const handleNextWeek = () => {
     const nextWeek = new Date(selectedDate);
@@ -227,6 +228,9 @@ const DietHeader: React.FC<DietHeaderProps> = ({
           />
         </View>
       </View>
+      {/* <View>
+        <Icons.ShowLess
+      </View> */}
     </View>
   );
 };
