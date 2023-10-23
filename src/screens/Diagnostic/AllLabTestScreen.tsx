@@ -60,6 +60,7 @@ type perscription = {
 const AllLabTestScreen: React.FC<AllLabTestProps> = ({ route, navigation }) => {
     const [addedCartItem, setAddedCartItem] = useState<TestItem[]>([]);
     const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+    const [selectedBottomsheet, setSelectedBottomsheet] = useState<string>("");
     const [selectedImage, setSelectedImage] = useState<string>();
     const [result, setResult] = React.useState<
         Array<DocumentPickerResponse> | DirectoryPickerResponse | undefined | null
@@ -83,7 +84,7 @@ const AllLabTestScreen: React.FC<AllLabTestProps> = ({ route, navigation }) => {
 
     const { location } = useApp();
 
-    const snapPoints = useMemo(() => ['10%', '65%'], []);
+    const snapPoints = (selectedBottomsheet === "FreeTest") ? ["20%", "30%"] : ["20%", '63%'];
 
     const selectImageFromCamera = async () => {
         try {
@@ -154,9 +155,13 @@ const AllLabTestScreen: React.FC<AllLabTestProps> = ({ route, navigation }) => {
     console.log(addedItem);
     const iconPress = () => { };
     const onPressUploadPerscription = useCallback(() => {
+        setSelectedBottomsheet("Perscription");
         bottomSheetModalRef.current?.present();
     }, []);
-    const onPressViewFreeTests = () => { };
+    const onPressViewFreeTests = useCallback(() => {
+        setSelectedBottomsheet("FreeTest");
+        bottomSheetModalRef.current?.present();
+    }, []);
     const onPressAdd = () => { };
     const onPressViewAll = () => {
         navigation.navigate("ViewAllTest");
@@ -169,6 +174,11 @@ const AllLabTestScreen: React.FC<AllLabTestProps> = ({ route, navigation }) => {
         console.log("pressed")
         navigation.navigate('LabTestCart', { item: addedCartItem });
     };
+
+    const onPressTest = () => {
+        // console.log("pressed");
+        navigation.navigate("TestDetail");
+    }
 
 
     return (
@@ -209,7 +219,7 @@ const AllLabTestScreen: React.FC<AllLabTestProps> = ({ route, navigation }) => {
                         </TouchableOpacity>
                     </View>
 
-                    <LabTest title="Liver Test" onAdded={handleItemAdded} />
+                    <LabTest title="Liver Test" onAdded={handleItemAdded} onPressTest={onPressTest} />
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20, marginBottom: 5 }}>
                         <Text style={styles.title}>Kidney Test</Text>
@@ -217,7 +227,7 @@ const AllLabTestScreen: React.FC<AllLabTestProps> = ({ route, navigation }) => {
                             <Text style={styles.textViewButton}>View all</Text>
                         </TouchableOpacity>
                     </View>
-                    <LabTest title="Kindney Test" onAdded={handleItemAdded} />
+                    <LabTest title="Kindney Test" onAdded={handleItemAdded} onPressTest={onPressTest} />
                 </View>
             </ScrollView>
             {addedCartItem.length > 0 && (
@@ -239,52 +249,63 @@ const AllLabTestScreen: React.FC<AllLabTestProps> = ({ route, navigation }) => {
                     index={1}
                     snapPoints={snapPoints}>
                     <View style={styles.contentContainer}>
-                        <Text style={styles.uploadPerscriptionTitle}>Upload Perscription</Text>
-                        <View style={{ flexDirection: 'row', alignItems: "center", marginVertical: 5 }}>
-                            <Icons.Camera />
-                            <TouchableOpacity
-                                onPress={selectImageFromCamera}>
-                                <Text style={styles.subTitle}>Click a Photo</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={{ flexDirection: 'row', alignItems: "center", marginVertical: 5 }}>
-                            <Icons.Gallery />
-                            <TouchableOpacity
-                                onPress={selectImageFromGallery}>
-                                <Text style={styles.subTitle}>Choose from Gallery</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={{ flexDirection: 'row', alignItems: "center", marginVertical: 5 }}>
-                            <Icons.File />
-                            <TouchableOpacity onPress={onPressUploadFile}>
-                                <Text style={styles.subTitle}>Upload File</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={{ flexDirection: 'row', alignItems: "center", marginVertical: 5 }}>
-                            <Icons.Article />
-                            <TouchableOpacity onPress={() => navigation.navigate("MyPerscription", { data: uploadedPerscription })}>
-                                <Text style={styles.subTitle}>My Prescriptions</Text>
-                            </TouchableOpacity>
-                        </View>
+                        {
+                            (selectedBottomsheet === "Perscription") && (
+                                <View style={{ padding: 15 }}>
+                                    <Text style={styles.bottomSheetTitle}>Upload Perscription</Text>
+                                    <View style={{ flexDirection: 'row', alignItems: "center", marginVertical: 5 }}>
+                                        <Icons.Camera />
+                                        <TouchableOpacity
+                                            onPress={selectImageFromCamera}>
+                                            <Text style={styles.subTitle}>Click a Photo</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <View style={{ flexDirection: 'row', alignItems: "center", marginVertical: 5 }}>
+                                        <Icons.Gallery />
+                                        <TouchableOpacity
+                                            onPress={selectImageFromGallery}>
+                                            <Text style={styles.subTitle}>Choose from Gallery</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <View style={{ flexDirection: 'row', alignItems: "center", marginVertical: 5 }}>
+                                        <Icons.File />
+                                        <TouchableOpacity onPress={onPressUploadFile}>
+                                            <Text style={styles.subTitle}>Upload File</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <View style={{ flexDirection: 'row', alignItems: "center", marginVertical: 5 }}>
+                                        <Icons.Article />
+                                        <TouchableOpacity onPress={() => navigation.navigate("MyPerscription", { data: uploadedPerscription })}>
+                                            <Text style={styles.subTitle}>My Prescriptions</Text>
+                                        </TouchableOpacity>
+                                    </View>
 
-                        <View>
-                            <Text style={styles.guidePerscriptionTitle}>Guide for a valid prescription</Text>
-                            {/* <Text style={styles.guideSubtitle} numberOfLines={7}>
-                                Don't crop out any part of the image{'\n'}
-                                Avoid blurred image{'\n'}
-                                Include details of doctor and patient + clinic visit date{'\n'}
-                                Medicines will be dispensed as per prescription{'\n'}
-                                Supported files type: jpeg, jpg, png, pdf{'\n'}
-                                Maximum allowed file size: 5MB{'\n'}
+                                    <View>
+                                        <Text style={styles.guidePerscriptionTitle}>Guide for a valid prescription</Text>
 
-                            </Text> */}
-                            <Text style={styles.guideSubtitle}>{'\u2022'}  Don't crop out any part of the image</Text>
-                            <Text style={styles.guideSubtitle}>{'\u2022'}  Avoid blurred image</Text>
-                            <Text style={styles.guideSubtitle}>{'\u2022'}  Include details of doctor and patient + clinic visit date</Text>
-                            <Text style={styles.guideSubtitle}>{'\u2022'}  Medicines will be dispensed as per prescription</Text>
-                            <Text style={styles.guideSubtitle}>{'\u2022'}  Supported files type: jpeg, jpg, png, pdf</Text>
-                            <Text style={styles.guideSubtitle}>{'\u2022'}  Maximum allowed file size: 5MB</Text>
-                        </View>
+                                        <Text style={styles.guideSubtitle}>{'\u2022'}  Don't crop out any part of the image</Text>
+                                        <Text style={styles.guideSubtitle}>{'\u2022'}  Avoid blurred image</Text>
+                                        <Text style={styles.guideSubtitle}>{'\u2022'}  Include details of doctor and patient + clinic visit date</Text>
+                                        <Text style={styles.guideSubtitle}>{'\u2022'}  Medicines will be dispensed as per prescription</Text>
+                                        <Text style={styles.guideSubtitle}>{'\u2022'}  Supported files type: jpeg, jpg, png, pdf</Text>
+                                        <Text style={styles.guideSubtitle}>{'\u2022'}  Maximum allowed file size: 5MB</Text>
+                                    </View>
+                                </View>
+                            )
+                        }
+                        {
+                            (selectedBottomsheet === 'FreeTest') && (
+                                <View>
+                                    <Text style={[styles.bottomSheetTitle, { marginLeft: 20 }]}>Free Tests</Text>
+                                    <View style={styles.border} />
+                                    <View style={{ padding: 10 }}>
+                                        <Text style={[styles.subTitle, { marginVertical: 5 }]}>Test Name 1</Text>
+                                        <Text style={[styles.subTitle, { marginVertical: 5 }]}>Test Name 2</Text>
+                                        <Text style={[styles.subTitle, { marginVertical: 5 }]}>Test Name 3</Text>
+                                    </View>
+                                </View>
+                            )
+                        }
                     </View>
                 </BottomSheetModal>
             </BottomSheetModalProvider>
@@ -298,6 +319,7 @@ const styles = StyleSheet.create({
     screen: {
         flex: 1,
         backgroundColor: colors.lightGreyishBlue,
+        marginBottom: 50
     },
     upperHeader: {
         marginHorizontal: 20,
@@ -386,10 +408,10 @@ const styles = StyleSheet.create({
     contentContainer: {
         flex: 1,
         backgroundColor: colors.white,
-        padding: 15,
+        // padding: 15,
         elevation: 2
     },
-    uploadPerscriptionTitle: {
+    bottomSheetTitle: {
         fontSize: 20,
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
@@ -417,5 +439,12 @@ const styles = StyleSheet.create({
         fontFamily: Fonts.BOLD,
         color: colors.inactiveGray,
         marginLeft: 4
+    },
+    border: {
+        borderBottomWidth: 2,
+        borderBottomColor: "#D7D7D7",
+    },
+    testText: {
+
     }
 });

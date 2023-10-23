@@ -7,7 +7,7 @@ import { Fonts } from '../../constants';
 type LabTestProp = {
     title: string,
     onAdded?: (item: TestItem) => void,
-
+    onPressTest?: () => void,
 }
 type TestItem = {
     id: number;
@@ -18,7 +18,7 @@ type TestItem = {
     discount: number;
     isAdded: boolean;
 };
-const LabTest: React.FC<LabTestProp> = ({ title, onAdded }) => {
+const LabTest: React.FC<LabTestProp> = ({ title, onAdded, onPressTest }) => {
 
     const rupee = '\u20B9';
 
@@ -77,7 +77,9 @@ const LabTest: React.FC<LabTestProp> = ({ title, onAdded }) => {
                     }
                 </View>
                 <View style={{ width: "85%" }}>
-                    <Text style={styles.titleStyle}>{item.title} </Text>
+                    <TouchableOpacity onPress={onPressTest}>
+                        <Text style={styles.titleStyle}>{item.title} </Text>
+                    </TouchableOpacity>
                     <Text style={styles.description}>{item.description}</Text>
                     <View style={styles.priceRow}>
                         <Text style={styles.price}>{rupee}{item.newPrice}</Text>

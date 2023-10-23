@@ -125,6 +125,11 @@ import Camera from '../assets/icons/camera.svg';
 import Gallery from '../assets/icons/gallery.svg';
 import File from '../assets/icons/file.svg';
 import Article from '../assets/icons/article.svg';
+import Mail from '../assets/icons/mail.svg';
+import Call from '../assets/icons/call.svg';
+import Heart from '../assets/icons/heart.svg';
+import Schedule from '../assets/icons/schedule.svg';
+import Event from '../assets/icons/event.svg';
 
 export const Icons = {
   HomeActive,
@@ -247,4 +252,9 @@ export const Icons = {
   Article,
   ShowLess,
   ShowMore,
+  Mail,
+  Call,
+  Heart,
+  Schedule,
+  Event
 };

@@ -26,6 +26,9 @@ const AddPatientDetailsScreen: React.FC<AddPatientDetailsScreenProps> = ({ route
     const onPressBack = () => {
         navigation.goBack();
     }
+    const onPressSave = () => {
+        navigation.navigate("SelectTestSlot");
+    }
     return (
         <ScrollView style={{ flex: 1, backgroundColor: '#F9F9FF', padding: 15 }}>
             <View style={styles.upperHeader}>
@@ -65,6 +68,7 @@ const AddPatientDetailsScreen: React.FC<AddPatientDetailsScreenProps> = ({ route
                     title="Save"
                     titleStyle={styles.outlinedButtonText}
                     buttonStyle={styles.outlinedButton}
+                    onPress={onPressSave}
 
                 />
             </View>
