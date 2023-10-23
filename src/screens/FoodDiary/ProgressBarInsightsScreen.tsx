@@ -111,7 +111,7 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({ n
 
   const renderItem = (item: any, index: number) => {
     return (
-      <SafeAreaView edges={['top']} style={[style.calorieMainContainer, { paddingVertical: Matrics.vs(5) }]} key={index?.toString()}>
+      <View style={[style.calorieMainContainer, { paddingVertical: Matrics.vs(5) }]} key={index?.toString()}>
         <CircularProgress
           value={item?.progressBarVale}
           inActiveStrokeColor={item.progresBarColor ? item.progresBarColor : '#2ecc71'}
@@ -131,7 +131,7 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({ n
             <Text style={[style.consumedCalries, { fontWeight: '400' }]}>{item?.totalCalories}</Text>
           </View>
         </View>
-      </SafeAreaView>
+      </View>
     )
   }
 
@@ -147,7 +147,7 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({ n
         <View style={{ backgroundColor: colors.white, marginHorizontal: Matrics.s(15), paddingVertical: Matrics.vs(5), borderRadius: Matrics.mvs(12) }}>
           {macroNuitrientes?.map((item, index) => { return (renderItem(item, index)) })}
         </View>
-        <Text style={style.title}>Daily Macronutrients Analysis</Text>
+        <Text style={style.title}>Meal Energy Distribution</Text>
         <View style={{ backgroundColor: colors.white, marginHorizontal: Matrics.s(15), paddingVertical: Matrics.vs(5), borderRadius: Matrics.mvs(12) }}>
           {dailyCalories?.map((item, index) => { return (renderItem(item, index)) })}
         </View>

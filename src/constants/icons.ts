@@ -125,6 +125,10 @@ import Camera from '../assets/icons/camera.svg';
 import Gallery from '../assets/icons/gallery.svg';
 import File from '../assets/icons/file.svg';
 import Article from '../assets/icons/article.svg';
+import Breakfast from '../assets/icons/breakfast.svg';
+import Dinner from '../assets/icons/dinner.svg';
+import Lunch from '../assets/icons/lunch.svg';
+import Snacks from '../assets/icons/snacks.svg';
 
 export const Icons = {
   HomeActive,
@@ -247,4 +251,8 @@ export const Icons = {
   Article,
   ShowLess,
   ShowMore,
+  Breakfast,
+  Lunch,
+  Dinner,
+  Snacks,
 };
