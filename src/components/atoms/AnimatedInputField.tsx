@@ -9,10 +9,10 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import React, { forwardRef, useImperativeHandle } from 'react';
-import { colors } from '../../constants/colors';
-import { TapGestureHandler } from 'react-native-gesture-handler';
-import { Fonts, Matrics } from '../../constants';
+import React, {forwardRef, useImperativeHandle} from 'react';
+import {colors} from '../../constants/colors';
+import {TapGestureHandler} from 'react-native-gesture-handler';
+import {Fonts, Matrics} from '../../constants';
 
 interface AnimatedInputFieldProps extends TextInputProps {
   style?: ViewStyle;
@@ -51,8 +51,8 @@ const AnimatedInputField = forwardRef<
       showErrorText = true,
       autoFocus = false,
       showAnimatedLabel = false,
-      onFocus = () => { },
-      onBlur = () => { },
+      onFocus = () => {},
+      onBlur = () => {},
     },
     ref,
   ) => {
@@ -113,9 +113,9 @@ const AnimatedInputField = forwardRef<
                 <Animated.Text
                   style={{
                     position: 'absolute',
-                    transform: [{ translateY }],
+                    transform: [{translateY}],
                     color: colors.subTitleLightGray,
-                    fontSize: Matrics.mvs(12),
+                    fontSize: Matrics.mvs(10),
                     fontFamily: Fonts.REGULAR,
                   }}>
                   {placeholder}
@@ -126,8 +126,8 @@ const AnimatedInputField = forwardRef<
                   isFocused
                     ? ''
                     : showAnimatedLabel || !isFocused
-                      ? placeholder
-                      : ''
+                    ? placeholder
+                    : ''
                 }
                 placeholderTextColor={colors.subTitleLightGray}
                 value={value}
@@ -147,7 +147,7 @@ const AnimatedInputField = forwardRef<
                   editable ? styles.canEdit : styles.cannotEdit,
                   textStyle,
                   showAnimatedLabel &&
-                  (isFocused || (value?.length ?? 0) > 0) && { paddingTop: 15 },
+                    (isFocused || (value?.length ?? 0) > 0) && {paddingTop: 15},
                 ]}
               />
             </Animated.View>
@@ -165,12 +165,12 @@ export default AnimatedInputField;
 
 const styles = StyleSheet.create({
   container: {
-    borderWidth: 1,
-    borderRadius: 5,
-    borderColor: 'gray',
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-    marginVertical: 5,
+    // borderWidth: 1,
+    // borderRadius: 5,
+    // borderColor: 'gray',
+    // paddingVertical: Matrics.vs(5),
+    paddingHorizontal: Matrics.s(10),
+    marginVertical: Matrics.vs(5),
   },
   errorContainer: {
     borderColor: 'red',
@@ -189,11 +189,11 @@ const styles = StyleSheet.create({
   },
   label: {
     color: colors.labelTitleDarkGray,
-    fontSize: 14,
+    fontSize: Matrics.mvs(14),
   },
   rightlabel: {
     color: 'black',
-    fontSize: 10,
+    fontSize: Matrics.mvs(10),
   },
   canEdit: {
     padding: 0,

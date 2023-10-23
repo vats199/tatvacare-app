@@ -119,7 +119,7 @@ const AnimatedDatePicker = forwardRef<
                     position: 'absolute',
                     transform: [{translateY}],
                     color: colors.subTitleLightGray,
-                    fontSize: Matrics.mvs(12),
+                    fontSize: Matrics.mvs(10),
                     fontFamily: Fonts.REGULAR,
                   }}>
                   {placeholder}
@@ -164,10 +164,11 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     // borderRadius: 5,
     // borderColor: 'gray',
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-    marginVertical: 5,
+    // paddingVertical: Matrics.vs(5),
+    paddingHorizontal: Matrics.s(10),
+    marginVertical: Matrics.vs(5),
     flex: 1,
+    // backgroundColor: 'red',
   },
   placeholderText: {
     color: colors.subTitleLightGray,
@@ -178,7 +179,7 @@ const styles = StyleSheet.create({
     color: colors.inputValueDarkGray,
     fontFamily: Fonts.MEDIUM,
     fontSize: Matrics.mvs(14),
-    paddingTop: 15,
+    paddingTop: Matrics.vs(15),
   },
   errorContainer: {
     borderColor: 'red',
@@ -197,18 +198,18 @@ const styles = StyleSheet.create({
   },
   label: {
     color: colors.labelTitleDarkGray,
-    fontSize: 14,
+    fontSize: Matrics.mvs(14),
   },
   rightlabel: {
     color: 'black',
-    fontSize: 10,
+    fontSize: Matrics.mvs(10),
   },
   canEdit: {
     padding: 0,
     flex: 1,
     color: colors.inputValueDarkGray,
     fontWeight: '600',
-    fontSize: 16,
+    fontSize: Matrics.mvs(14),
   },
   cannotEdit: {
     color: 'gray',
