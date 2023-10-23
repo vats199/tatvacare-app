@@ -209,11 +209,14 @@ const DietHeader: React.FC<DietHeaderProps> = ({
                 if (selectedDate) {
                   setSelectedDate(selectedDate);
                   setseletedDay(moment(selectedDate).format('YYYY-MM-DD'))
+                  let date = new Date(day?.dateString);
+                  setSelectedDate(date);
                 }
                 else {
                   let date = new Date(day?.dateString);
                   setSelectedDate(date);
                 }
+
               }}
               markingType='custom'
               markedDates={{
