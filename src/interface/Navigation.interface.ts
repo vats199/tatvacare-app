@@ -119,6 +119,9 @@ export type DiagnosticStackParamList = {
   AddPatientDetails: undefined;
   ViewAllTest: undefined;
   MyPerscription: {data: perscription[]};
+  TestDetail:undefined;
+  SelectTestSlot:undefined;
+  LabTestSummary:undefined;
 };
 
 export type BottomTabParamList = {

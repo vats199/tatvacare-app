@@ -17,11 +17,12 @@ type TestItem = {
 
 type TestDetailsProps = {
     data: TestItem[];
+    title?: string
 }
 
 
 
-const TestDetails: React.FC<TestDetailsProps> = ({ data }) => {
+const TestDetails: React.FC<TestDetailsProps> = ({ data, title }) => {
 
     const rupee = '\u20B9';
 
@@ -32,9 +33,12 @@ const TestDetails: React.FC<TestDetailsProps> = ({ data }) => {
             case 'Fitgen':
                 return <Icons.Liver height={36} width={36} />
             case 'Lipid Profile':
-                return <Icons.Kidney height={36} width={36} />
+                return <Icons.Heart height={36} width={36} />
             case "COPD":
                 return <Icons.Kidney height={36} width={36} />
+
+            case 'Fitgen Endo':
+                return <Icons.Liver height={36} width={36} />
         }
     }
     const renderCartItem = (item: TestItem, index: number) => {
@@ -52,7 +56,11 @@ const TestDetails: React.FC<TestDetailsProps> = ({ data }) => {
                         </View>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: "center", marginRight: 20 }}>
                             <Text>{rupee}{item.newPrice}</Text>
-                            <Icons.Delete height={15} width={15} style={{ marginLeft: 10 }} />
+                            {
+                                (title === 'Test Details') && (
+                                    <Icons.Delete height={15} width={15} style={{ marginLeft: 10 }} />
+                                )
+                            }
                         </View>
                     </View>
                     {
@@ -68,17 +76,21 @@ const TestDetails: React.FC<TestDetailsProps> = ({ data }) => {
     }
     return (
         <View >
-            <Text style={styles.title}>Test Details</Text>
+            <Text style={styles.title}>{title}</Text>
 
             <View style={styles.container}>
                 {data && data.map(renderCartItem)}
-                <TouchableOpacity
-                    style={styles.addCartButton}
+                {
+                    (title === "Test Details") && (
+                        <TouchableOpacity
+                            style={styles.addCartButton}
 
-                >
-                    <Text style={styles.addCartText}> Add more test</Text>
+                        >
+                            <Text style={styles.addCartText}> Add more test</Text>
 
-                </TouchableOpacity>
+                        </TouchableOpacity>
+                    )
+                }
             </View>
 
 

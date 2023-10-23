@@ -69,6 +69,9 @@ const LabTestCartScreen: React.FC<LabTestCartScreenProps> = ({ route, navigation
     const addNewPressHandler = () => {
         navigation.navigate("AddPatientDetails");
     }
+    const onPressPatient = () => {
+        navigation.navigate("LabTestSummary", { data: data })
+    }
 
     useEffect(() => {
         if (coupanTitle?.length > 0) {
@@ -100,7 +103,9 @@ const LabTestCartScreen: React.FC<LabTestCartScreenProps> = ({ route, navigation
 
     const renderPatientItem = (item: patientItem, index: number) => {
         return (
-            <View style={styles.patientItem}>
+            <TouchableOpacity style={styles.patientItem}
+                onPress={onPressPatient}
+            >
                 <View style={{ flexDirection: "row" }}>
                     <Icons.Person height={28} width={28} />
                     <View style={{ marginLeft: 10 }}>
@@ -112,7 +117,7 @@ const LabTestCartScreen: React.FC<LabTestCartScreenProps> = ({ route, navigation
                 <View>
                     <Icons.ThreeDot />
                 </View>
-            </View>
+            </TouchableOpacity>
         )
     }
 
@@ -127,7 +132,7 @@ const LabTestCartScreen: React.FC<LabTestCartScreenProps> = ({ route, navigation
                     onBackPress={onBackPress}
                 />
                 <Container >
-                    <TestDetails data={data} />
+                    <TestDetails data={data} title='Test Details' />
                     <View >
                         <Text style={styles.heading}>Offer & Promotions</Text>
                         <View style={styles.offerContainer}>

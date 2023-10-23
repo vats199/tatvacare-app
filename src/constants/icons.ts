@@ -129,6 +129,11 @@ import Breakfast from '../assets/icons/breakfast.svg';
 import Dinner from '../assets/icons/dinner.svg';
 import Lunch from '../assets/icons/lunch.svg';
 import Snacks from '../assets/icons/snacks.svg';
+import Mail from '../assets/icons/mail.svg';
+import Call from '../assets/icons/call.svg';
+import Heart from '../assets/icons/heart.svg';
+import Schedule from '../assets/icons/schedule.svg';
+import Event from '../assets/icons/event.svg';
 
 export const Icons = {
   HomeActive,
@@ -255,4 +260,9 @@ export const Icons = {
   Lunch,
   Dinner,
   Snacks,
+  Mail,
+  Call,
+  Heart,
+  Schedule,
+  Event,
 };
