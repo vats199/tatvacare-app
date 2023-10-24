@@ -166,24 +166,17 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
             <View style={styles.textContainer}>
               <Text style={styles.title}>{cardData?.meal_name}</Text>
               <Text style={styles.textBelowTitle}>
-                {moment(cardData?.start_time, 'HH:mm:ss').format('h:mm A') +
-                  '-' +
-                  moment(cardData?.end_time, 'HH:mm:ss').format('h:mm A') +
-                  ' | ' +
-                  Math.round(Number(foodItmeData?.consumed_calories)) +
-                  ' of ' +
-                  Math.round(Number(foodItmeData?.total_calories)) +
-                  'cal'}
+                {moment(cardData?.start_time, 'HH:mm:ss').format('h:mm A') + "-" + moment(cardData?.end_time, 'HH:mm:ss').format('h:mm A') + " | " + (isNaN(Math.round(Number(foodItmeData?.consumed_calories))) ? 0 : Math.round(Number(foodItmeData?.consumed_calories))) + " of " + Math.round(Number(foodItmeData?.total_calories)) + "cal"}
               </Text>
             </View>
           </View>
-          {/* {cardData.patient_permission === "W" ? */}
-          <TouchableOpacity
-            onPress={handlePulsIconPress}
-            style={styles.iconContainer}>
-            <Icons.AddCircle height={25} width={25} />
-          </TouchableOpacity>
-          {/* : null} */}
+          {cardData.patient_permission === "W" ?
+            <TouchableOpacity
+              onPress={handlePulsIconPress}
+              style={styles.iconContainer}>Í
+              <Icons.AddCircle height={25} width={25} />
+            </TouchableOpacity>
+            : null}
         </View>
         <View style={styles.line} />
         <View style={styles.belowRow}>

@@ -125,151 +125,153 @@ const DietHeader: React.FC<DietHeaderProps> = ({
   };
 
   return (
-    <View style={styles.upperContainer}>
-      <View style={styles.customHeader}>
-        <TouchableOpacity onPress={onPressBack}>
-          <Icons.backArrow height={20} width={20} />
-        </TouchableOpacity>
-        <Text style={styles.customHeaderText}> {title}</Text>
-      </View>
-      <View>
-        <View style={styles.container}>
-          <View style={styles.leftRightContent}>
-            <View style={styles.row}>
-              <Text style={styles.monthYearStyle}>
-                {getMonthRangeText(selectedDate)}
-              </Text>
-            </View>
-            <Icons.RightArrow
-              height={20}
-              width={20}
-              onPress={handleNextMonth}
-            />
-          </View>
-          <View style={styles.leftRightContent}>
-            <Icons.backArrow
-              height={11}
-              width={11}
-              onPress={handlePreviousWeek}
-              style={{ marginRight: 20 }}
-            />
-            <Icons.RightArrow
-              height={22}
-              width={22}
-              onPress={handleNextWeek}
-              style={{ marginRight: 20 }}
-            />
-          </View>
+    <View style={{ backgroundColor: 'transparent', paddingBottom: 10, overflow: 'hidden' }}>
+      <View style={styles.upperContainer}>
+        <View style={styles.customHeader}>
+          <TouchableOpacity onPress={onPressBack}>
+            <Icons.backArrow height={20} width={20} />
+          </TouchableOpacity>
+          <Text style={styles.customHeaderText}> {title}</Text>
         </View>
-        {!showMore ? (
-          <View style={{ paddingHorizontal: 10 }}>
-            <CalendarStrip
-              selectedDate={selectedDate}
-              key={calendarKey}
-              showMonth={false}
-              onDateSelected={date => {
-                setSelectedDate(date);
-                onPressOfNextAndPerviousDate(date);
-              }}
-              weekendDateNameStyle={{ textTransform: 'capitalize' }}
-              daySelectionAnimation={{
-                type: 'border',
-                duration: 200,
-                borderWidth: 1,
-                borderHighlightColor: 'white',
-              }}
-              style={{ height: Matrics.vs(60), }}
-              calendarColor={colors.lightGreyishBlue}
-              dateNumberStyle={styles.dateNumberStyle}
-              dateNameStyle={{ color: 'black' }}
-              highlightDateNumberStyle={[
-                styles.dateNumberStyle,
-                styles.highlighetdDateNumberStyle,
-              ]}
-              highlightDateNameStyle={{ color: 'black' }}
-              disabledDateNameStyle={{ color: 'grey' }}
-              disabledDateNumberStyle={{ color: 'grey' }}
-              iconLeftStyle={{ display: 'none' }}
-              iconRightStyle={{ display: 'none' }}
-            />
+        <View>
+          <View style={styles.container}>
+            <View style={styles.leftRightContent}>
+              <View style={styles.row}>
+                <Text style={styles.monthYearStyle}>
+                  {getMonthRangeText(selectedDate)}
+                </Text>
+              </View>
+              <Icons.RightArrow
+                height={20}
+                width={20}
+                onPress={handleNextMonth}
+              />
+            </View>
+            <View style={styles.leftRightContent}>
+              <Icons.backArrow
+                height={11}
+                width={11}
+                onPress={handlePreviousWeek}
+                style={{ marginRight: 20 }}
+              />
+              <Icons.RightArrow
+                height={22}
+                width={22}
+                onPress={handleNextWeek}
+                style={{ marginRight: 20 }}
+              />
+            </View>
           </View>
-        ) : (
-          <View style={{ height: Matrics.vs(240) }}>
-            <CalendarList
-              firstDay={1}
-              horizontal={true}
-              pagingEnabled={true}
-              onDayPress={day => {
-                let date = new Date(day?.dateString);
-                onPressOfNextAndPerviousDate(date);
-                setSelectedDate(date);
-                setseletedDay(day?.dateString);
-              }}
-              onMonthChange={day => {
-                if (selectedDate) {
-                  setSelectedDate(selectedDate);
-                  setseletedDay(moment(selectedDate).format('YYYY-MM-DD'))
-                  let date = new Date(day?.dateString);
+          {!showMore ? (
+            <View style={{ paddingHorizontal: 10 }}>
+              <CalendarStrip
+                selectedDate={selectedDate}
+                key={calendarKey}
+                showMonth={false}
+                onDateSelected={date => {
                   setSelectedDate(date);
-                }
-                else {
+                  onPressOfNextAndPerviousDate(date);
+                }}
+                weekendDateNameStyle={{ textTransform: 'capitalize' }}
+                daySelectionAnimation={{
+                  type: 'border',
+                  duration: 200,
+                  borderWidth: 1,
+                  borderHighlightColor: 'white',
+                }}
+                style={{ height: Matrics.vs(60), }}
+                calendarColor={colors.lightGreyishBlue}
+                dateNumberStyle={styles.dateNumberStyle}
+                dateNameStyle={{ color: 'black' }}
+                highlightDateNumberStyle={[
+                  styles.dateNumberStyle,
+                  styles.highlighetdDateNumberStyle,
+                ]}
+                highlightDateNameStyle={{ color: 'black' }}
+                disabledDateNameStyle={{ color: 'grey' }}
+                disabledDateNumberStyle={{ color: 'grey' }}
+                iconLeftStyle={{ display: 'none' }}
+                iconRightStyle={{ display: 'none' }}
+              />
+            </View>
+          ) : (
+            <View style={{ height: Matrics.vs(240) }}>
+              <CalendarList
+                firstDay={1}
+                horizontal={true}
+                pagingEnabled={true}
+                onDayPress={day => {
                   let date = new Date(day?.dateString);
+                  onPressOfNextAndPerviousDate(date);
                   setSelectedDate(date);
-                }
-
-              }}
-              markingType='custom'
-              markedDates={{
-                [seletedDay]: {
-                  customStyles: {
-                    container: {
-                      backgroundColor: colors.themePurple,
-                      borderRadius: Matrics.mvs(10),
-                      height: Matrics.vs(30),
-                      width: Matrics.s(35),
-                      justifyContent: "center", alignItems: "center"
-                    },
-                    text: {
-                      color: 'white',
-                      fontWeight: '700'
-                    }
+                  setseletedDay(day?.dateString);
+                }}
+                onMonthChange={day => {
+                  if (selectedDate) {
+                    setSelectedDate(selectedDate);
+                    setseletedDay(moment(selectedDate).format('YYYY-MM-DD'))
+                    let date = new Date(day?.dateString);
+                    setSelectedDate(date);
                   }
-                },
-              }}
-              calendarWidth={width}
-              theme={{
-                backgroundColor: colors.lightGreyishBlue,
-                calendarBackground: colors.lightGreyishBlue,
-                textSectionTitleColor: 'black',
-                textSectionTitleDisabledColor: 'black',
-                dayTextColor: 'black',
-                textDisabledColor: '#d9e1e8',
-                todayTextColor: 'black',
-                disabledArrowColor: '#d9e1e8',
-                textDayFontFamily: Fonts.MEDIUM,
-                textMonthFontFamily: Fonts.MEDIUM,
-                textDayFontWeight: '400',
-                textDayHeaderFontWeight: '400',
-                textDayFontSize: 13,
-                textMonthFontSize: 13,
-                textDayHeaderFontSize: 11,
-                arrowColor: 'white',
-                'stylesheet.calendar.header': {
-                  header: {
-                    height: 0,
-                    opacity: 0,
+                  else {
+                    let date = new Date(day?.dateString);
+                    setSelectedDate(date);
+                  }
+
+                }}
+                markingType='custom'
+                markedDates={{
+                  [seletedDay]: {
+                    customStyles: {
+                      container: {
+                        backgroundColor: colors.themePurple,
+                        borderRadius: Matrics.mvs(10),
+                        height: Matrics.vs(30),
+                        width: Matrics.s(35),
+                        justifyContent: "center", alignItems: "center"
+                      },
+                      text: {
+                        color: 'white',
+                        fontWeight: '700'
+                      }
+                    }
                   },
-                },
-              }}
-            />
-          </View>
-        )}
+                }}
+                calendarWidth={width}
+                theme={{
+                  backgroundColor: colors.lightGreyishBlue,
+                  calendarBackground: colors.lightGreyishBlue,
+                  textSectionTitleColor: 'black',
+                  textSectionTitleDisabledColor: 'black',
+                  dayTextColor: 'black',
+                  textDisabledColor: '#d9e1e8',
+                  todayTextColor: 'black',
+                  disabledArrowColor: '#d9e1e8',
+                  textDayFontFamily: Fonts.MEDIUM,
+                  textMonthFontFamily: Fonts.MEDIUM,
+                  textDayFontWeight: '400',
+                  textDayHeaderFontWeight: '400',
+                  textDayFontSize: 13,
+                  textMonthFontSize: 13,
+                  textDayHeaderFontSize: 11,
+                  arrowColor: 'white',
+                  'stylesheet.calendar.header': {
+                    header: {
+                      height: 0,
+                      opacity: 0,
+                    },
+                  },
+                }}
+              />
+            </View>
+          )}
+        </View>
+        <TouchableOpacity
+          style={styles.dropDwonIcon}
+          onPress={() => setShowMore(!showMore)}>
+          {showMore ? <Icons.ShowMore /> : <Icons.ShowLess />}
+        </TouchableOpacity>
       </View>
-      <TouchableOpacity
-        style={styles.dropDwonIcon}
-        onPress={() => setShowMore(!showMore)}>
-        {showMore ? <Icons.ShowMore /> : <Icons.ShowLess />}
-      </TouchableOpacity>
     </View>
   );
 };

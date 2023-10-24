@@ -127,7 +127,7 @@ const DietOption: React.FC<DietOptionItem> = ({
           <View style={styles.titleDescription}>
             <Text style={styles.title}>{item.food_item_name}</Text>
             <Text style={styles.description}>
-              {Math.round(Number(item?.quantity)) + ' | Micronutrients'}
+              {Math.round(Number(item?.quantity)) + ' | ' + Math.round(Number(item.total_micronutrients)) + " g"}
             </Text>
           </View>
         </View>
@@ -135,36 +135,36 @@ const DietOption: React.FC<DietOptionItem> = ({
           <Text style={styles.value}>
             {Math.round(Number(item.calories))}cal
           </Text>
-          {/* {patient_permission === 'W' ? ( */}
-          <View>
-            <Menu>
-              <MenuTrigger>
-                <Icons.ThreeDot />
-              </MenuTrigger>
-              <MenuOptions
-                customStyles={{
-                  optionsContainer: styles.menuOptionsContainer,
-                }}>
-                <MenuOption onSelect={() => handaleEdit(item)}>
-                  <View style={styles.optionContainer}>
-                    <Icons.Edit />
-                    <Text style={styles.optionText}>Edit</Text>
-                  </View>
-                </MenuOption>
-                <View style={styles.line}></View>
-                <MenuOption
-                  onSelect={() => handaleDelete(item?.diet_plan_food_item_id)}>
-                  <View style={styles.optionContainer}>
-                    <Icons.remove />
-                    <Text style={styles.optionText}>Delete</Text>
-                  </View>
-                </MenuOption>
-              </MenuOptions>
-            </Menu>
-          </View>
-          {/* // ) : (
-          //   <View style={styles.threeDot}></View>
-          // )} */}
+          {patient_permission === 'W' ? (
+            <View>
+              <Menu>
+                <MenuTrigger>
+                  <Icons.ThreeDot />
+                </MenuTrigger>
+                <MenuOptions
+                  customStyles={{
+                    optionsContainer: styles.menuOptionsContainer,
+                  }}>
+                  <MenuOption onSelect={() => handaleEdit(item)}>
+                    <View style={styles.optionContainer}>
+                      <Icons.Edit />
+                      <Text style={styles.optionText}>Edit</Text>
+                    </View>
+                  </MenuOption>
+                  <View style={styles.line}></View>
+                  <MenuOption
+                    onSelect={() => handaleDelete(item?.diet_plan_food_item_id)}>
+                    <View style={styles.optionContainer}>
+                      <Icons.remove />
+                      <Text style={styles.optionText}>Delete</Text>
+                    </View>
+                  </MenuOption>
+                </MenuOptions>
+              </Menu>
+            </View>
+          ) : (
+            <View style={styles.threeDot}></View>
+          )}
         </View>
       </View>
     );

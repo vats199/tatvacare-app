@@ -42,7 +42,7 @@ const CalorieConsumer: React.FC<CalorieConsumerProps> = ({
             </View>
             <View style={styles.textContainer}>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={styles.boldTitle}>{totalConsumedcalories}</Text>
+                <Text style={styles.boldTitle}>{isNaN(totalConsumedcalories) ? 0 : totalConsumedcalories}</Text>
                 <Text style={styles.regularTitle}>
                   {' of ' + totalcalories}
                 </Text>
