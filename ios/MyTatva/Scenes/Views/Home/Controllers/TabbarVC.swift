@@ -15,6 +15,7 @@ class TabbarVC: BFPaperTabBarController {
     private var showEngageVC = true
     private var isFromRN = true
     private var currentIndex = 0
+    private var tempVariable = false
     
     //MARK: -------------------------- Memory Management Method --------------------------
     override func didReceiveMemoryWarning() {
