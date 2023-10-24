@@ -121,7 +121,7 @@ export type DiagnosticStackParamList = {
   MyPerscription: {data: perscription[]};
   TestDetail:undefined;
   SelectTestSlot:undefined;
-  LabTestSummary:undefined;
+  LabTestSummary:{data:TestItem[]};
 };
 
 export type BottomTabParamList = {

@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, FlatList } from 'react-native'
 import React, { useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import {
     DiagnosticStackParamList,
 } from '../../interface/Navigation.interface';
@@ -9,9 +9,8 @@ import { Icons } from '../../constants/icons';
 import { colors } from '../../constants/colors';
 import { Fonts, Matrics } from '../../constants';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Button from '../../components/atoms/Button';
-import SlotDetailsCard from '../../components/molecules/SlotDetailsCard';
 import SlotButton from '../../components/atoms/SlotButton';
+import Button from '../../components/atoms/Button';
 
 type SelectTestSlotScreenProps = StackScreenProps<
     DiagnosticStackParamList,
@@ -24,18 +23,19 @@ type SlotDetailsType = {
     slots: string[];
 };
 
-
 const SelectTestSlotScreen: React.FC<SelectTestSlotScreenProps> = ({ route, navigation }) => {
+    const [selectedTimes, setSelectedTimes] = useState<{ [timeZone: string]: string }>({});
 
-    const [selectedTime, setSelectedTime] = useState<String>("");
+    console.log(selectedTimes);
 
     const onPressBack = () => {
         navigation.goBack();
     }
-    const onPressReviewDetails = () => {
 
-        navigation.navigate("LabTestSummary");
+    const onPressReviewDetails = () => {
+        // navigation.navigate("LabTestSummary");
     }
+
     const slots: SlotDetailsType[] = [
         {
             id: 1,
@@ -43,8 +43,8 @@ const SelectTestSlotScreen: React.FC<SelectTestSlotScreenProps> = ({ route, navi
             slots: [
                 '05:30 - 07:30',
                 '07:30 - 09:30',
-                '05:30 - 07:30',
-                '07:30 - 09:30',
+                '09:30 - 10:30',
+                '10:30 - 11:30',
             ],
         },
         {
@@ -53,8 +53,8 @@ const SelectTestSlotScreen: React.FC<SelectTestSlotScreenProps> = ({ route, navi
             slots: [
                 '05:30 - 07:30',
                 '07:30 - 09:30',
-                '05:30 - 07:30',
-                '07:30 - 09:30',
+                '09:30 - 10:30',
+                '10:30 - 11:30',
             ],
         },
         {
@@ -63,31 +63,27 @@ const SelectTestSlotScreen: React.FC<SelectTestSlotScreenProps> = ({ route, navi
             slots: [
                 '05:30 - 07:30',
                 '07:30 - 09:30',
-                '05:30 - 07:30',
-                '07:30 - 09:30',
+                '09:30 - 10:30',
+                '10:30 - 11:30',
             ],
         },
     ]
 
-    const onPressTimeSlot = (item: string) => {
-        setSelectedTime(item)
+    const onPressTimeSlot = (timeZone: string, item: string) => {
+        setSelectedTimes({ ...selectedTimes, [timeZone]: item });
     }
 
-    const renderSlots = (it: string, index: number) => {
-        // const selectedTime =
-        //     selectedTimeSlot?.timeZone === item.timeZone &&
-        //     selectedTimeSlot?.time == it;
-        console.log(it);
+    const renderSlots = (timeZone: string, it: string, index: number) => {
         return (
             <SlotButton
                 title={it}
-                onPress={() => onPressTimeSlot(it)}
+                onPress={() => onPressTimeSlot(timeZone, it)}
                 buttonStyle={{
-                    backgroundColor: selectedTime ? colors.boxLightPurple : colors.white,
-                    borderColor: selectedTime ? colors.darkBorder : colors.lightBorder,
+                    backgroundColor: selectedTimes[timeZone] === it ? colors.boxLightPurple : colors.white,
+                    borderColor: selectedTimes[timeZone] === it ? colors.darkBorder : colors.lightBorder,
                 }}
                 titleStyle={
-                    selectedTime ? styles.activeTimeTxt : styles.inactiveTimeTxt
+                    selectedTimes[timeZone] === it ? styles.activeTimeTxt : styles.inactiveTimeTxt
                 }
             />
         );
@@ -107,23 +103,26 @@ const SelectTestSlotScreen: React.FC<SelectTestSlotScreenProps> = ({ route, navi
                 return null;
         }
     };
+
     const renderSlot = (item: SlotDetailsType, index: number) => {
         return (
-            <View style={[styles.container, styles.containerShadow]}>
+            <View style={[styles.container, styles.containerShadow]} key={item.id}>
                 {renderImage(item.timeZone)}
                 <View
                     style={{
                         marginLeft: Matrics.s(10),
                     }}>
                     <Text style={styles.timeZoneTxt}>{item.timeZone}</Text>
-                    <View style={styles.slotWraper}>{item.slots.map(renderSlots)}</View>
+                    <View style={styles.slotWraper}>
+                        {item.slots.map((slot, index) => renderSlots(item.timeZone, slot, index))}
+                    </View>
                 </View>
             </View>
         );
     }
 
     return (
-        <SafeAreaView edges={['top']} style={styles.screen} >
+        <SafeAreaView edges={['top']} style={styles.screen}>
             <Header
                 title='Select Test Slot'
                 isIcon={true}
@@ -153,7 +152,6 @@ const styles = StyleSheet.create({
     screen: {
         flex: 1,
         backgroundColor: colors.lightGreyishBlue,
-
     },
     upperHeader: {
         margin: 20
@@ -187,7 +185,7 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.08,
         shadowRadius: 8,
-        elevation: 2,
+        elevation: 0.5,
     },
     timeZoneTxt: {
         fontFamily: Fonts.BOLD,
@@ -231,4 +229,4 @@ const styles = StyleSheet.create({
         shadowRadius: 3,
         elevation: 1,
     },
-})
+});
