@@ -5,5 +5,6 @@ export type ResponseGenerator = {
   request?: any;
   status: number;
   statusText?: string;
-  code: 0 | 1 | 2 | 3 | -1;
+  message?: string;
+  code: '0' | '1' | '2' | '3' | '-1';
 };

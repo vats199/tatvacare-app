@@ -31,7 +31,7 @@ const Splash: React.FC<SplahScreenProps> = ({navigation}) => {
       navigation.dispatch(
         CommonActions.reset({
           index: 0,
-          routes: [{name: 'SetupProfileScreen'}],
+          routes: [{name: 'OnBoardingScreen'}],
         }),
       );
     } else {

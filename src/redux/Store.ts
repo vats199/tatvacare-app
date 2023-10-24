@@ -14,7 +14,7 @@ const reducers = persistReducer(
   {
     key: 'root',
     storage: AsyncStorage,
-    // whitelist: ['Common', 'Auth', 'Home'],
+    whitelist: ['Auth'],
   },
   appReducer,
 );
@@ -29,14 +29,12 @@ if (__DEV__) {
   middlewares.push(sagaMiddleware); // without logger
 }
 
-const Store = configureStore({
+export const Store = configureStore({
   reducer: reducers,
   middleware: middlewares,
   devTools: process.env.NODE_ENV !== 'production',
 });
 
-export type RootState = ReturnType<typeof Store.getState>;
-export type AppDispatch = typeof Store.dispatch;
 // // PersistStore contains all the data from store ----->>>>>
 export const Persistor = persistStore(Store);
 sagaMiddleware.run(rootSaga); // Run Saga

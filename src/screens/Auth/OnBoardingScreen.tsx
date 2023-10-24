@@ -33,7 +33,7 @@ import LoginBottomSheet, {
 import Loader from '../../components/atoms/Loader';
 import constants from '../../constants/constants';
 import * as actions from '../../redux/slices';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 type OnBoardingScreenProps = CompositeScreenProps<
   StackScreenProps<AuthStackParamList, 'OnBoardingScreen'>,
   StackScreenProps<AppStackParamList, 'AuthStackScreen'>
@@ -46,6 +46,7 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({
   route,
 }) => {
   const dispatch = useDispatch();
+  const {data} = useSelector(s => s.Auth.user);
   const insets = useSafeAreaInsets();
   const [activeIndex, setActiveIndex] = React.useState<number>(0);
   const activeIndexRef = React.useRef<number>(0);
@@ -79,6 +80,8 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({
       description: `Improve your vitals and biomarkers`,
     },
   ]);
+
+  console.log(data, 'userdata');
   React.useEffect(() => {
     setInterval(() => {
       if (activeIndexRef.current == arr.length - 1) {
@@ -91,6 +94,8 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({
         flatListRef.current?.scrollToIndex({index: activeIndexRef.current});
       }
     }, 4000);
+
+    console.log(data, 'userdata');
   }, []);
   const renderItem = ({item, index}: {item: any; index: number}) => {
     return (
@@ -113,7 +118,7 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({
     };
     new Promise((resolve, reject) => {
       dispatch(
-        actions.getUserRequestAction({
+        actions.loginRequestAction({
           payload,
           resolve,
           reject,
@@ -122,6 +127,11 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({
     })
       .then(res => {
         console.log(res, 'resss');
+        BottomSheetRef?.current?.hide();
+        navigation.navigate('OTPScreen', {
+          contact_no: contact_no.trim(),
+          isLoginOTP: true,
+        });
       })
       .catch(err => {
         console.log(err);
