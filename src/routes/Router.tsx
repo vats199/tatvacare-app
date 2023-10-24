@@ -69,7 +69,6 @@ import LabTestSummaryScreen from '../screens/Diagnostic/LabTestSummaryScreen';
 import CongratulationScreen from '../screens/Diagnostic/CongratulationScreen';
 import OrderDetailsScreen from '../screens/Diagnostic/OrderDetailsScreen';
 
-
 const Drawer = createDrawerNavigator<DrawerParamList>();
 const DrawerScreen = () => {
   return (
@@ -380,7 +379,10 @@ const DietStackScreen = () => {
       <DietStack.Screen name="DietScreen" component={DietScreen} />
       <DietStack.Screen name="AddDiet" component={AddDietScreen} />
       <DietStack.Screen name="DietDetail" component={DietDetailScreen} />
-      <DietStack.Screen name="ProgressBarInsightsScreen" component={ProgressBarInsightsScreen} />
+      <DietStack.Screen
+        name="ProgressBarInsightsScreen"
+        component={ProgressBarInsightsScreen}
+      />
     </DietStack.Navigator>
   );
 };
@@ -424,10 +426,9 @@ const Router = () => {
             name={'SpirometerScreen'}
             component={SpirometerScreen}
           />
-
-        </AppStack.Navigator >
-      </BottomSheetModalProvider >
-    </NavigationContainer >
+        </AppStack.Navigator>
+      </BottomSheetModalProvider>
+    </NavigationContainer>
   );
 };
 

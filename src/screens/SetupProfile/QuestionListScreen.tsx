@@ -21,7 +21,7 @@ import {Icons} from '../../constants/icons';
 import QuestionData from './QuestionData.json';
 import MyStatusbar from '../../components/atoms/MyStatusBar';
 import TabButton from '../../components/atoms/TabButton';
-import WheelPicker from '../../components/organisms/WheelPicker';
+import WheelPicker from '../../components/organisms/WheelPicker.android';
 
 type QuestionOneScreenProps = CompositeScreenProps<
   StackScreenProps<SetupProfileStackParamList, 'QuestionListScreen'>,
@@ -65,20 +65,10 @@ const QuestionListScreen: React.FC<QuestionOneScreenProps> = ({
     for (let i = 0; i < 10; i++) {
       hightArray.push(i.toString());
     }
-    console.log(
-      '🚀 ~ file: DeviceConnectionScreen.tsx:69 ~ generateHeight ~ hightArray:',
-      hightArray,
-    );
     generateSubHeight();
     setHeightList(hightArray);
   };
 
-  useEffect(() => {
-    console.log(
-      '🚀 ~ file: DeviceConnectionScreen.tsx:81 ~ heightList:',
-      heightList,
-    );
-  }, [heightList]);
   const generateSubHeight = () => {
     const subHeightArray = [];
     for (let i = 0; i < 100; i++) {
