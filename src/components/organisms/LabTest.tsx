@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { colors } from '../../constants/colors';
 import { Icons } from '../../constants/icons';
 import { Fonts } from '../../constants';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type LabTestProp = {
     title: string,
@@ -53,12 +54,40 @@ const LabTest: React.FC<LabTestProp> = ({ title, onAdded, onPressTest }) => {
     ]);
     //console.log(options);
 
+    const handleCartItem = async (item: TestItem) => {
+        try {
+            const cart = await AsyncStorage.getItem('cartItems');
+            let cartItems = JSON.parse(cart) || [];
+
+            if (!Array.isArray(cartItems)) {
+                // If the stored data is not an array, initialize it as an empty array
+                cartItems = [];
+            }
+
+            const existingItem = cartItems.find((cartItem: TestItem) => cartItem.id === item.id);
+            console.log("inside set", cartItems);
+            if (!existingItem) {
+                cartItems.push(item);
+            }
+
+            console.log("inside set", cartItems);
+            await AsyncStorage.setItem('cartItems', JSON.stringify(cartItems));
+        } catch (error) {
+            console.error('Error handling cart item:', error);
+        }
+    }
+
+
     const addCartHandler = (id: number) => {
         const updatedOptions = options.map((item) => {
+
             if (item.id === id && item.isAdded === false) {
                 if (onAdded) {
                     onAdded(item);
+
                 }
+                console.log("id>>", id);
+                handleCartItem(item);
                 return { ...item, isAdded: true };
             }
             return item;

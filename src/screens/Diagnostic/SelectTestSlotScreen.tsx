@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, FlatList } from 'react-native'
 import React, { useState } from 'react';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import {
     DiagnosticStackParamList,
 } from '../../interface/Navigation.interface';
@@ -9,33 +9,51 @@ import { Icons } from '../../constants/icons';
 import { colors } from '../../constants/colors';
 import { Fonts, Matrics } from '../../constants';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Button from '../../components/atoms/Button';
-import SlotDetailsCard from '../../components/molecules/SlotDetailsCard';
 import SlotButton from '../../components/atoms/SlotButton';
+import Button from '../../components/atoms/Button';
+import DietHeader from '../../components/molecules/DietHeader';
+import Calender from '../../components/atoms/Calender';
 
 type SelectTestSlotScreenProps = StackScreenProps<
     DiagnosticStackParamList,
     'SelectTestSlot'
 >;
-
+type selectTime = {
+    id?: number;
+    slot?: string;
+    timeZone?: string
+};
 type SlotDetailsType = {
     id: number;
     timeZone: string;
     slots: string[];
 };
-
+type TestItem = {
+    id: number;
+    title: string;
+    description: string;
+    newPrice: number;
+    oldPrice: number;
+    discount: number;
+    isAdded: boolean;
+};
 
 const SelectTestSlotScreen: React.FC<SelectTestSlotScreenProps> = ({ route, navigation }) => {
+    const [selectedTime, setSelectedTime] = useState<selectTime>({});
+    const [selectedDate, setSelectedDate] = useState(new Date());
 
-    const [selectedTime, setSelectedTime] = useState<String>("");
+    const handleDate = (date: any) => {
+        setSelectedDate(date);
+    };
 
     const onPressBack = () => {
         navigation.goBack();
     }
-    const onPressReviewDetails = () => {
 
-        navigation.navigate("LabTestSummary");
+    const onPressReviewDetails = () => {
+        navigation.navigate("LabTestSummary", { time: selectedTime });
     }
+
     const slots: SlotDetailsType[] = [
         {
             id: 1,
@@ -43,8 +61,8 @@ const SelectTestSlotScreen: React.FC<SelectTestSlotScreenProps> = ({ route, navi
             slots: [
                 '05:30 - 07:30',
                 '07:30 - 09:30',
-                '05:30 - 07:30',
-                '07:30 - 09:30',
+                '09:30 - 10:30',
+                '10:30 - 11:30',
             ],
         },
         {
@@ -53,8 +71,8 @@ const SelectTestSlotScreen: React.FC<SelectTestSlotScreenProps> = ({ route, navi
             slots: [
                 '05:30 - 07:30',
                 '07:30 - 09:30',
-                '05:30 - 07:30',
-                '07:30 - 09:30',
+                '09:30 - 10:30',
+                '10:30 - 11:30',
             ],
         },
         {
@@ -63,33 +81,30 @@ const SelectTestSlotScreen: React.FC<SelectTestSlotScreenProps> = ({ route, navi
             slots: [
                 '05:30 - 07:30',
                 '07:30 - 09:30',
-                '05:30 - 07:30',
-                '07:30 - 09:30',
+                '09:30 - 10:30',
+                '10:30 - 11:30',
             ],
         },
     ]
 
-    const onPressTimeSlot = (item: string) => {
-        setSelectedTime(item)
+    const onPressTimeSlot = (id: number, slot: string, timeZone: string) => {
+        setSelectedTime({ id: id, slot: slot, timeZone: timeZone });
     }
 
-    const renderSlots = (it: string, index: number) => {
-        // const selectedTime =
-        //     selectedTimeSlot?.timeZone === item.timeZone &&
-        //     selectedTimeSlot?.time == it;
-        console.log(it);
+    const renderSlots = (timeZone: string, id: number, slot: string, index: number) => {
         return (
             <SlotButton
-                title={it}
-                onPress={() => onPressTimeSlot(it)}
+                title={slot}
+                onPress={() => onPressTimeSlot(id, slot, timeZone)}
                 buttonStyle={{
-                    backgroundColor: selectedTime ? colors.boxLightPurple : colors.white,
-                    borderColor: selectedTime ? colors.darkBorder : colors.lightBorder,
+                    backgroundColor: selectedTime.id === id && selectedTime.timeZone === timeZone && selectedTime.slot === slot ? colors.boxLightPurple : colors.white,
+                    borderColor: selectedTime.id === id && selectedTime.timeZone === timeZone && selectedTime.slot === slot ? colors.darkBorder : colors.lightBorder,
                 }}
                 titleStyle={
-                    selectedTime ? styles.activeTimeTxt : styles.inactiveTimeTxt
+                    selectedTime.id === id && selectedTime.timeZone === timeZone ? styles.activeTimeTxt : styles.inactiveTimeTxt
                 }
             />
+
         );
     };
 
@@ -107,23 +122,26 @@ const SelectTestSlotScreen: React.FC<SelectTestSlotScreenProps> = ({ route, navi
                 return null;
         }
     };
+
     const renderSlot = (item: SlotDetailsType, index: number) => {
         return (
-            <View style={[styles.container, styles.containerShadow]}>
+            <View style={[styles.container, styles.containerShadow]} key={item.id}>
                 {renderImage(item.timeZone)}
                 <View
                     style={{
                         marginLeft: Matrics.s(10),
                     }}>
                     <Text style={styles.timeZoneTxt}>{item.timeZone}</Text>
-                    <View style={styles.slotWraper}>{item.slots.map(renderSlots)}</View>
+                    <View style={styles.slotWraper}>
+                        {item.slots.map((slot, index) => renderSlots(item.timeZone, item.id, slot, index))}
+                    </View>
                 </View>
             </View>
         );
     }
 
     return (
-        <SafeAreaView edges={['top']} style={styles.screen} >
+        <SafeAreaView edges={['top']} style={styles.screen}>
             <Header
                 title='Select Test Slot'
                 isIcon={true}
@@ -131,15 +149,20 @@ const SelectTestSlotScreen: React.FC<SelectTestSlotScreenProps> = ({ route, navi
                 containerStyle={styles.upperHeader}
                 onBackPress={onPressBack}
             />
+            <Calender onPressOfNextAndPerviousDate={handleDate} />
+            <ScrollView style={{}}>
+                <View>
+                    <Text style={styles.sampleText}>Sample Collection Time</Text>
+                    {slots.map(renderSlot)}
+                </View>
 
-            <View>
-                <Text style={styles.sampleText}>Sample Collection Time</Text>
-                {slots.map(renderSlot)}
-            </View>
 
-            <View>
+            </ScrollView>
+            <View style={styles.bottomContainer}>
                 <Button
-                    title='Review Details'
+                    title="Review Details"
+                    titleStyle={styles.buttonTextStyle}
+                    buttonStyle={{ marginHorizontal: 6 }}
                     onPress={onPressReviewDetails}
                 />
             </View>
@@ -153,7 +176,6 @@ const styles = StyleSheet.create({
     screen: {
         flex: 1,
         backgroundColor: colors.lightGreyishBlue,
-
     },
     upperHeader: {
         margin: 20
@@ -170,7 +192,8 @@ const styles = StyleSheet.create({
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray,
-        marginLeft: 20
+        marginLeft: 20,
+        marginTop: Matrics.s(20)
     },
     container: {
         flexDirection: 'row',
@@ -187,7 +210,7 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.08,
         shadowRadius: 8,
-        elevation: 2,
+        elevation: 0.5,
     },
     timeZoneTxt: {
         fontFamily: Fonts.BOLD,
@@ -231,4 +254,18 @@ const styles = StyleSheet.create({
         shadowRadius: 3,
         elevation: 1,
     },
-})
+    bottomContainer: {
+        backgroundColor: colors.white,
+        paddingHorizontal: 10,
+        paddingVertical: 15,
+        elevation: 4,
+        borderRadius: 12,
+        marginBottom: 40
+    },
+    buttonTextStyle: {
+        fontSize: Matrics.s(16),
+        fontWeight: '700',
+        fontFamily: Fonts.BOLD,
+        color: colors.white,
+    }
+});

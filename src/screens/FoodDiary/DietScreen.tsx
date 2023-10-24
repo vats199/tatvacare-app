@@ -180,7 +180,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   }
 
   return (
-    <SafeAreaView edges={['top']} style={[styles.mainContienr, { paddingTop: insets.top !== 0 ? insets.top : Matrics.vs(15), paddingBottom: insets.bottom !== 0 ? insets.bottom : Matrics.vs(15), }]}>
+    <SafeAreaView edges={['top']} style={[styles.mainContienr, { paddingTop: insets.top !== 0 ? 0 : Matrics.vs(15), paddingBottom: insets.bottom !== 0 ? Matrics.vs(30) : Matrics.vs(15), }]}>
       <DietHeader
         onPressBack={onPressBack}
         onPressOfNextAndPerviousDate={handleDate}
@@ -212,7 +212,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
       <BasicModal
         modalVisible={modalVisible}
         messgae={'Are you sure you want to delete this food item from your meal'}
-        NegativeButtonsText='Cancel'
+        NegativeButtonsText='Cancle'
         positiveButtonText='Ok'
         onPressOK={deleteFoodItem}
         onPressCancle={() => setModalVisible(!modalVisible)} />

@@ -15,6 +15,7 @@ import { Icons } from '../../constants/icons';
 import Billing from '../../components/organisms/Billing';
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type LabTestCartScreenProps = StackScreenProps<
     DiagnosticStackParamList,
@@ -39,16 +40,45 @@ type patientItem = {
 
 const LabTestCartScreen: React.FC<LabTestCartScreenProps> = ({ route, navigation }) => {
     const [isClicked, setIsClicked] = useState(false);
-    const data: TestItem[] = route.params?.item;
+    const [cartItems, setCartItems] = useState<TestItem[]>([]);
+
     const coupanTitle: string = route.params?.coupan;
-    // console.log(coupanTitle);
+
 
     const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+    const [selectedPatient, setSelectedPatient] = useState<string>();
+    const [selecetedCoupan, setSelectedCoupan] = useState<string>();
+
+    console.log("cartItems in lab Test Cart>>>", cartItems);
+
+    useEffect(() => {
+
+        const fetchData = async () => {
+            try {
+                const storedData = await AsyncStorage.getItem('cartItems');
+                if (storedData) {
+                    const cartData = JSON.parse(storedData);
+                    setCartItems(cartData);
+                }
+            } catch (error) {
+                console.error('Error retrieving data:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    useEffect(() => {
+        if (coupanTitle?.length > 0) {
+            setSelectedCoupan(coupanTitle);
+        }
+    }, [coupanTitle])
+    console.log(selectedPatient);
 
     const snapPoints = useMemo(() => ['10%', '65%'], []);
 
     const handlePresentModalPress = useCallback(() => {
-        console.log("ggg");
+        //console.log("ggg");
         bottomSheetModalRef.current?.present();
     }, []);
 
@@ -69,8 +99,17 @@ const LabTestCartScreen: React.FC<LabTestCartScreenProps> = ({ route, navigation
     const addNewPressHandler = () => {
         navigation.navigate("AddPatientDetails");
     }
-    const onPressPatient = () => {
-        navigation.navigate("LabTestSummary", { data: data })
+    const onPressPatient = (item: string) => {
+        // navigation.navigate("LabTestSummary", { data: data })
+        bottomSheetModalRef.current?.close();
+        setSelectedPatient(item);
+    }
+    const handleSelectPatient = () => {
+        if (selectedPatient && selecetedCoupan) {
+            navigation.navigate("SelectTestSlot")
+        } else {
+            handlePresentModalPress();
+        }
     }
 
     useEffect(() => {
@@ -104,7 +143,7 @@ const LabTestCartScreen: React.FC<LabTestCartScreenProps> = ({ route, navigation
     const renderPatientItem = (item: patientItem, index: number) => {
         return (
             <TouchableOpacity style={styles.patientItem}
-                onPress={onPressPatient}
+                onPress={() => onPressPatient(item.name)}
             >
                 <View style={{ flexDirection: "row" }}>
                     <Icons.Person height={28} width={28} />
@@ -132,7 +171,7 @@ const LabTestCartScreen: React.FC<LabTestCartScreenProps> = ({ route, navigation
                     onBackPress={onBackPress}
                 />
                 <Container >
-                    <TestDetails data={data} title='Test Details' />
+                    <TestDetails data={cartItems} title='Test Details' />
                     <View >
                         <Text style={styles.heading}>Offer & Promotions</Text>
                         <View style={styles.offerContainer}>
@@ -150,7 +189,7 @@ const LabTestCartScreen: React.FC<LabTestCartScreenProps> = ({ route, navigation
                                 }
                                 {
                                     (coupanTitle?.length > 0) ? (
-                                        <Text style={styles.applyCoupanText}>{coupanTitle}  Applied</Text>
+                                        <Text style={styles.applyCoupanText}>{selecetedCoupan}  Applied</Text>
                                     ) : (<Text style={styles.applyCoupanText}> Apply Coupan</Text>)
                                 }
                             </View>
@@ -174,7 +213,7 @@ const LabTestCartScreen: React.FC<LabTestCartScreenProps> = ({ route, navigation
                     <View style={styles.border} />
                     <TouchableOpacity
                         style={styles.selectPatientButton}
-                        onPress={handlePresentModalPress}
+                        onPress={handleSelectPatient}
                     >
                         <Text style={styles.selectPatientText}> Select Patient</Text>
 

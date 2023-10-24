@@ -30,6 +30,7 @@ import FreeTest from '../../components/molecules/FreeTest';
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import ImagePicker from 'react-native-image-crop-picker';
 
+
 type AllLabTestProps = StackScreenProps<
     DiagnosticStackParamList,
     'AllLabTestScreen'
@@ -171,8 +172,7 @@ const AllLabTestScreen: React.FC<AllLabTestProps> = ({ route, navigation }) => {
     };
 
     const onPressViewCart = () => {
-        console.log("pressed")
-        navigation.navigate('LabTestCart', { item: addedCartItem });
+        navigation.navigate('LabTestCart');
     };
 
     const onPressTest = () => {

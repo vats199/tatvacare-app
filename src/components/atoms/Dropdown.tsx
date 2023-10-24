@@ -13,9 +13,9 @@ interface DropdownProps {
   inputSearchStyle?: TextStyle;
   placeholder?: string;
   selectedItem: (data: string) => void;
-  isDisable: boolean;
-  containerStyle: TextStyle;
-  defaultValues: string
+  isDisable?: boolean;
+  containerStyle?: TextStyle;
+  defaultValues?: string
 
 }
 
@@ -32,7 +32,7 @@ const DropdownComponent: React.FC<DropdownProps> = ({
   isDisable,
   containerStyle, defaultValues
 }) => {
-  const [value, setValue] = useState<string | null>(defaultValues);
+  const [value, setValue] = useState<string | null>(defaultValues || null);
   const [isFocus, setIsFocus] = useState(false);
   const handeSelectItem = (item: string) => {
     selectedItem(item);
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   dropdown: {
-    height: 50,
+    height: 44,
     borderColor: '#E0E0E0',
     borderWidth: 1.3,
     borderRadius: 14,

@@ -183,7 +183,6 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
             <TouchableOpacity
               onPress={handlePulsIconPress}
               style={styles.iconContainer}>
-              Í
               <Icons.AddCircle height={25} width={25} />
             </TouchableOpacity>
           ) : null}
