@@ -73,8 +73,9 @@ const AddDiet: React.FC<AddDietProps> = ({
             <View style={styles.dropdownContainer}>
               <DropdownComponent
                 data={data}
+                defaultValues={Math.round(Number(Data?.quantity)).toString()}
                 dropdownStyle={{ width: '48%' }}
-                placeholder="Quality"
+                placeholder="Quantity"
                 placeholderStyle={styles.dropdownTitleText}
                 selectedItem={handleSelectedQty}
                 isDisable={false}
@@ -105,7 +106,8 @@ const styles = StyleSheet.create({
     borderWidth: 0.1,
     borderColor: '#808080',
     overflow: 'hidden',
-    borderRadius: 14,
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
     margin: 5,
     elevation: 8,
   },
@@ -120,8 +122,9 @@ const styles = StyleSheet.create({
     color: colors.black,
   },
   borderline: {
-    borderBottomWidth: Matrics.mvs(0.3),
-    borederColor: colors.lightGrey,
+    borderBottomWidth: Matrics.mvs(0.5),
+    borederColor: colors.inputBoxLightBorder,
+    opacity: 0.3
   },
   belowBox: {
     paddingHorizontal: 16,
@@ -146,13 +149,13 @@ const styles = StyleSheet.create({
     bottom: 5
   },
   outlinedButtonText: {
-    fontSize: 18,
+    fontSize: Matrics.mvs(16),
     fontWeight: 'bold',
   },
   outlinedButton: {
     borderRadius: Matrics.mvs(16),
     width: '100%',
-    height: Matrics.vs(40)
+    // height: Matrics.vs(40)
   },
   measureContainer: {
     borderRadius: 10,

@@ -158,7 +158,7 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
           {item?.consumedClories === 0 && item?.totalCalories === 0 ? null : (
             <View style={style.caloriesContainer}>
               <Text style={style.consumedCalries}>{isNaN(item?.consumedClories) ? 0 : item?.consumedClories}</Text>
-              <Text> or </Text>
+              <Text style={[style.consumedCalries, { fontWeight: '400' }]}> or </Text>
               <Text style={[style.consumedCalries, { fontWeight: '400' }]}>
                 {item?.totalCalories}
               </Text>
@@ -175,7 +175,8 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
       style={{
         flex: 1,
         backgroundColor: colors.lightGreyishBlue,
-        paddingVertical: insets.top !== 0 ? 0 : Matrics.vs(15),
+        paddingTop: insets.top !== 0 ? insets.top : Matrics.vs(15),
+        paddingBottom: insets.bottom !== 0 ? insets.bottom : Matrics.vs(15),
       }}>
       <DietHeader
         onPressBack={onPressBack}
@@ -184,13 +185,7 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
       />
       <ScrollView>
         <Text style={style.title}>Daily Macronutrients Analysis</Text>
-        <View
-          style={{
-            backgroundColor: colors.white,
-            marginHorizontal: Matrics.s(15),
-            paddingVertical: Matrics.vs(5),
-            borderRadius: Matrics.mvs(12),
-          }}>
+        <View style={style.boxContainer}>
           {macroNuitrientes?.map((item, index) => {
             return renderItem(item, index);
           })}
@@ -198,13 +193,7 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
         {dailyCalories.length > 0 ? (
           <View style={{ flex: 1 }}>
             <Text style={style.title}>Meal Energy Distribution</Text>
-            <View
-              style={{
-                backgroundColor: colors.white,
-                marginHorizontal: Matrics.s(15),
-                paddingVertical: Matrics.vs(5),
-                borderRadius: Matrics.mvs(12),
-              }}>
+            <View style={style.boxContainer}>
               {dailyCalories?.map((item, index) => {
                 return renderItem(item, index);
               })}
@@ -228,6 +217,7 @@ const style = StyleSheet.create({
     marginLeft: Matrics.s(10),
     fontFamily: fonts.BOLD,
     paddingVertical: Matrics.vs(15),
+    paddingHorizontal: Matrics.vs(5),
   },
   subtitle: {
     fontSize: Matrics.mvs(16),
@@ -254,5 +244,11 @@ const style = StyleSheet.create({
     marginLeft: Matrics.s(10),
     height: Matrics.vs(35),
     justifyContent: 'center',
+  },
+  boxContainer: {
+    backgroundColor: colors.white,
+    marginHorizontal: Matrics.s(15),
+    paddingVertical: Matrics.vs(5),
+    borderRadius: Matrics.mvs(12),
   },
 });

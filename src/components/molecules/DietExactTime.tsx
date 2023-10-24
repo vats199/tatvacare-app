@@ -114,10 +114,10 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
   );
 
   useEffect(() => {
-    const data = foodItmeData
-    data.meal_name = cardData.meal_name
-    getCalories(data)
-  }, [foodItmeData])
+    const data = foodItmeData;
+    data.meal_name = cardData.meal_name;
+    getCalories(data);
+  }, [foodItmeData]);
 
   const handaleEdit = (data: FoodItems) => {
     onpressOfEdit(data, cardData.meal_name);
@@ -147,13 +147,13 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
   const mealIcons = (name: string) => {
     switch (name) {
       case 'Breakfast':
-        return <Icons.Breakfast />
+        return <Icons.Breakfast />;
       case 'Dinner':
-        return <Icons.Dinner />
+        return <Icons.Dinner />;
       case 'Lunch':
-        return <Icons.Lunch />
+        return <Icons.Lunch />;
       default:
-        return <Icons.Snacks />
+        return <Icons.Snacks />;
     }
   };
 
@@ -162,21 +162,31 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
       <View style={styles.innerContainer}>
         <View style={styles.topRow}>
           <View style={styles.leftContent}>
-            <View style={styles.circle} >{mealIcons(cardData.meal_name)}</View>
+            <View style={styles.circle}>{mealIcons(cardData.meal_name)}</View>
             <View style={styles.textContainer}>
               <Text style={styles.title}>{cardData?.meal_name}</Text>
               <Text style={styles.textBelowTitle}>
-                {moment(cardData?.start_time, 'HH:mm:ss').format('h:mm A') + "-" + moment(cardData?.end_time, 'HH:mm:ss').format('h:mm A') + " | " + (isNaN(Math.round(Number(foodItmeData?.consumed_calories))) ? 0 : Math.round(Number(foodItmeData?.consumed_calories))) + " of " + Math.round(Number(foodItmeData?.total_calories)) + "cal"}
+                {moment(cardData?.start_time, 'HH:mm:ss').format('h:mm A') +
+                  ' - ' +
+                  moment(cardData?.end_time, 'HH:mm:ss').format('h:mm A') +
+                  ' | ' +
+                  (isNaN(Math.round(Number(foodItmeData?.consumed_calories)))
+                    ? 0
+                    : Math.round(Number(foodItmeData?.consumed_calories))) +
+                  ' of ' +
+                  Math.round(Number(foodItmeData?.total_calories)) +
+                  'cal'}
               </Text>
             </View>
           </View>
-          {cardData.patient_permission === "W" ?
+          {cardData.patient_permission === 'W' ? (
             <TouchableOpacity
               onPress={handlePulsIconPress}
-              style={styles.iconContainer}>Í
+              style={styles.iconContainer}>
+              Í
               <Icons.AddCircle height={25} width={25} />
             </TouchableOpacity>
-            : null}
+          ) : null}
         </View>
         <View style={styles.line} />
         <View style={styles.belowRow}>
@@ -201,7 +211,7 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
                         },
                       ]}
                       onPress={() => setFoodItemData(item)}>
-                      <Text>Option {index + 1}</Text>
+                      <Text style={styles.optionText}>Option {index + 1}</Text>
                     </TouchableOpacity>
                   );
                 })}
@@ -254,8 +264,11 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 20,
     backgroundColor: '#F3F3F3',
-    marginRight: 10, justifyContent: "center",
-    alignItems: 'center'
+    marginRight: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+    alignContent: 'center',
   },
   textContainer: {
     flex: 1,
@@ -299,6 +312,7 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.REGULAR,
     fontWeight: '500',
     color: colors.labelDarkGray,
+    fontSize: Matrics.mvs(12),
   },
   iconContainer: {
     height: 30,

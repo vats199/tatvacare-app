@@ -16,8 +16,8 @@ type DietDetailProps = StackScreenProps<DietStackParamList, 'DietDetail'>;
 const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
   const insets = useSafeAreaInsets();
   const { foodItem, buttonText, healthCoachId, mealName } = route.params;
-
-  const [qty, setQty] = React.useState<string>();
+  let quantity = Math.round(Number(foodItem?.quantity)).toString()
+  const [qty, setQty] = React.useState<string>(quantity)
   const { userData } = useApp();
 
   const onPressBack = () => {
@@ -97,7 +97,7 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
     setQty(item);
   };
   return (
-    <SafeAreaView edges={['top']} style={{ flex: 1, backgroundColor: colors.lightGreyishBlue, paddingTop: insets.top !== 0 ? 0 : Matrics.vs(15), paddingBottom: 0 !== 0 ? insets.bottom : Matrics.vs(15), }}>
+    <SafeAreaView edges={['top']} style={{ flex: 1, backgroundColor: colors.lightGreyishBlue, paddingTop: insets.top !== 0 ? insets.top : Matrics.vs(15) }}>
       <View style={styles.header}>
         <Icons.backArrow onPress={onPressBack} height={23} width={23} />
         <Text style={styles.dietTitle}>{foodItem?.food_item_name}</Text>

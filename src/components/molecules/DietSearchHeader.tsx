@@ -13,6 +13,8 @@ const DietSearchHeader: React.FC<DietSearchHeaderProps> = ({ onPressBack, onSear
   const [searchText, setSearchText] = useState<string>('');
 
   const handleSerache = (text: string) => {
+    const cleanedText = text.replace(/[^a-zA-Z\s]/g, '');
+    setSearchText(cleanedText);
     onSearch(text)
   }
   return (

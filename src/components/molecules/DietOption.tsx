@@ -72,6 +72,8 @@ type FoodItems = {
   consumption: Consumption;
   is_consumed: boolean;
   consumed_calories: number;
+  total_macronutrients: number;
+  total_micronutrients: number;
 };
 
 type Consumption = {

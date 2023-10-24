@@ -40,7 +40,7 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
   const { optionId, healthCoachId, mealName } = route.params;
   const [recentSerach, setRecentSerach] = React.useState([]);
   const [searchResult, setSearchResult] = React.useState([]);
-  const [title, setTitle] = React.useState<string>('Recent Search');
+  const [title, setTitle] = React.useState<string>('');
 
   useEffect(() => {
     const getRecentSerache = async () => {
@@ -48,15 +48,20 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
         'recentSearchResults',
       );
       let results = recentSearchResults ? JSON.parse(recentSearchResults) : [];
-      console.log('results', results);
 
-      if (results.length > 3) {
-        const updatedResult = results.slice(0, 4);
+      const unique = results.filter((obj: any, index: number) => {
+        return (
+          index === results.findIndex((o: any) => obj.food_name === o.food_name)
+        );
+      });
+
+      if (unique.length > 3) {
+        const updatedResult = unique.slice(0, 4);
         setRecentSerach(updatedResult);
         setSearchResult(updatedResult);
       } else {
-        setRecentSerach(results);
-        setSearchResult(results);
+        setRecentSerach(unique);
+        setSearchResult(unique);
       }
     };
     getRecentSerache();
@@ -130,7 +135,15 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
   };
 
   return (
-    <SafeAreaView edges={['top']} style={[styles.container, { paddingTop: insets.top !== 0 ? 0 : Matrics.vs(15), paddingBottom: 0 !== 0 ? insets.bottom : Matrics.vs(15), }]} >
+    <SafeAreaView
+      edges={['top']}
+      style={[
+        styles.container,
+        {
+          paddingTop: insets.top !== 0 ? insets.top : Matrics.vs(15),
+          paddingBottom: insets.bottom !== 0 ? insets.bottom : Matrics.vs(15),
+        },
+      ]}>
       <DietSearchHeader onPressBack={onPressBack} onSearch={handleSerach} />
       <RecentSearchDiet
         onPressPlus={handlePressPlus}
@@ -146,7 +159,7 @@ export default AddDietScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: Matrics.mvs(15),
+    paddingHorizontal: Matrics.s(15),
     backgroundColor: colors.lightGreyishBlue,
   },
 });

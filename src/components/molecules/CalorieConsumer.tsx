@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { Icons } from '../../constants/icons';
 import CircularProgress from 'react-native-circular-progress-indicator';
+import Matrics from '../../constants/Matrics';
 
 type CalorieConsumerProps = {
   totalConsumedcalories: number;
@@ -47,7 +48,7 @@ const CalorieConsumer: React.FC<CalorieConsumerProps> = ({
                   {' of ' + totalcalories}
                 </Text>
               </View>
-              <Text style={styles.textBelowTitle}>Calories Consumed Today</Text>
+              <Text style={styles.textBelowTitle}>Calories consumed today!</Text>
             </View>
           </View>
           <Icons.Vector />
@@ -68,6 +69,8 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     backgroundColor: 'white',
+    paddingHorizontal: Matrics.s(10)
+
   },
   topRow: {
     padding: 10,

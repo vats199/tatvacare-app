@@ -125,7 +125,12 @@ const DietHeader: React.FC<DietHeaderProps> = ({
   };
 
   return (
-    <View style={{ backgroundColor: 'transparent', paddingBottom: 10, overflow: 'hidden' }}>
+    <View
+      style={{
+        backgroundColor: 'transparent',
+        paddingBottom: 10,
+        overflow: 'hidden',
+      }}>
       <View style={styles.upperContainer}>
         <View style={styles.customHeader}>
           <TouchableOpacity onPress={onPressBack}>
@@ -179,7 +184,7 @@ const DietHeader: React.FC<DietHeaderProps> = ({
                   borderWidth: 1,
                   borderHighlightColor: 'white',
                 }}
-                style={{ height: Matrics.vs(60), }}
+                style={{ height: Matrics.vs(70) }}
                 calendarColor={colors.lightGreyishBlue}
                 dateNumberStyle={styles.dateNumberStyle}
                 dateNameStyle={{ color: 'black' }}
@@ -195,7 +200,7 @@ const DietHeader: React.FC<DietHeaderProps> = ({
               />
             </View>
           ) : (
-            <View style={{ height: Matrics.vs(240) }}>
+            <View style={{ height: Matrics.vs(310) }}>
               <CalendarList
                 firstDay={1}
                 horizontal={true}
@@ -209,32 +214,31 @@ const DietHeader: React.FC<DietHeaderProps> = ({
                 onMonthChange={day => {
                   if (selectedDate) {
                     setSelectedDate(selectedDate);
-                    setseletedDay(moment(selectedDate).format('YYYY-MM-DD'))
+                    setseletedDay(moment(selectedDate).format('YYYY-MM-DD'));
+                    let date = new Date(day?.dateString);
+                    setSelectedDate(date);
+                  } else {
                     let date = new Date(day?.dateString);
                     setSelectedDate(date);
                   }
-                  else {
-                    let date = new Date(day?.dateString);
-                    setSelectedDate(date);
-                  }
-
                 }}
-                markingType='custom'
+                markingType="custom"
                 markedDates={{
                   [seletedDay]: {
                     customStyles: {
                       container: {
                         backgroundColor: colors.themePurple,
                         borderRadius: Matrics.mvs(10),
-                        height: Matrics.vs(30),
-                        width: Matrics.s(35),
-                        justifyContent: "center", alignItems: "center"
+                        height: Matrics.vs(34),
+                        width: Matrics.s(40),
+                        justifyContent: 'center',
+                        alignItems: 'center',
                       },
                       text: {
                         color: 'white',
-                        fontWeight: '700'
-                      }
-                    }
+                        fontWeight: '700',
+                      },
+                    },
                   },
                 }}
                 calendarWidth={width}
@@ -304,10 +308,11 @@ const styles = StyleSheet.create({
     marginLeft: 6,
   },
   dateNumberStyle: {
-    fontSize: 13,
+    fontSize: 14,
     color: '#656566',
     marginVertical: 10,
-    height: Matrics.vs(30),
+    height: Matrics.vs(34),
+    width: Matrics.s(40),
     padding: Matrics.mvs(8),
   },
   highlighetdDateNumberStyle: {
@@ -338,7 +343,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: 'bold',
     color: colors.black,
-    marginLeft: 5,
+    marginLeft: Matrics.s(12),
   },
   dropDwonIcon: {
     opacity: 1,
