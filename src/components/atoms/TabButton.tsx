@@ -14,13 +14,21 @@ import SlotButton from './SlotButton';
 type TabButtonProps = {
   containerStyle?: ViewStyle;
   btnTitles: string[];
+  onPress?: (item: string) => void;
 };
 
-const TabButton: React.FC<TabButtonProps> = ({btnTitles, containerStyle}) => {
+const TabButton: React.FC<TabButtonProps> = ({
+  btnTitles,
+  containerStyle,
+  onPress,
+}) => {
   const [selectedBtn, setSelectedBtn] = useState<string>(btnTitles[0]);
 
   const onPressTabBtn = (item: string) => {
-    setSelectedBtn(item);
+    if (selectedBtn != item) {
+      setSelectedBtn(item);
+      onPress && onPress(item);
+    }
   };
 
   const renderBtn = (item: string) => {
