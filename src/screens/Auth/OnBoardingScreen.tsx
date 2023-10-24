@@ -9,29 +9,31 @@ import {
   StatusBar,
 } from 'react-native';
 import React from 'react';
-import { CompositeScreenProps } from '@react-navigation/native';
-import { DrawerScreenProps } from '@react-navigation/drawer';
+import {CompositeScreenProps} from '@react-navigation/native';
+import {DrawerScreenProps} from '@react-navigation/drawer';
 import {
   AppStackParamList,
   AuthStackParamList,
   DrawerParamList,
 } from '../../interface/Navigation.interface';
-import { colors } from '../../constants/colors';
-import { useSafeAreaInsets, SafeAreaView } from 'react-native-safe-area-context';
-import { StackScreenProps } from '@react-navigation/stack';
-import { OnBoardStyle as styles } from './styles';
+import {colors} from '../../constants/colors';
+import {useSafeAreaInsets, SafeAreaView} from 'react-native-safe-area-context';
+import {StackScreenProps} from '@react-navigation/stack';
+import {OnBoardStyle as styles} from './styles';
 import OnBoard from '../../interface/Auth.interface';
-import { Constants, Images, Matrics } from '../../constants';
+import {Constants, Images, Matrics} from '../../constants';
 import Button from '../../components/atoms/Button';
 import AnimatedInputField from '../../components/atoms/AnimatedInputField';
-import { Icons } from '../../constants/icons';
-import { TextInput } from 'react-native-gesture-handler';
+import {Icons} from '../../constants/icons';
+import {TextInput} from 'react-native-gesture-handler';
 import Auth from '../../api/auth';
 import LoginBottomSheet, {
   LoginBottomSheetRef,
 } from '../../components/molecules/LoginBottomSheet';
 import Loader from '../../components/atoms/Loader';
 import constants from '../../constants/constants';
+import * as actions from '../../redux/slices';
+import {useDispatch} from 'react-redux';
 type OnBoardingScreenProps = CompositeScreenProps<
   StackScreenProps<AuthStackParamList, 'OnBoardingScreen'>,
   StackScreenProps<AppStackParamList, 'AuthStackScreen'>
@@ -43,6 +45,7 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({
   navigation,
   route,
 }) => {
+  const dispatch = useDispatch();
   const insets = useSafeAreaInsets();
   const [activeIndex, setActiveIndex] = React.useState<number>(0);
   const activeIndexRef = React.useRef<number>(0);
@@ -81,19 +84,19 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({
       if (activeIndexRef.current == arr.length - 1) {
         activeIndexRef.current = 0;
         setActiveIndex(activeIndexRef.current);
-        flatListRef.current?.scrollToIndex({ index: 0 });
+        flatListRef.current?.scrollToIndex({index: 0});
       } else {
         activeIndexRef.current = activeIndexRef.current + 1;
         setActiveIndex(activeIndexRef.current);
-        flatListRef.current?.scrollToIndex({ index: activeIndexRef.current });
+        flatListRef.current?.scrollToIndex({index: activeIndexRef.current});
       }
     }, 4000);
   }, []);
-  const renderItem = ({ item, index }: { item: any; index: number }) => {
+  const renderItem = ({item, index}: {item: any; index: number}) => {
     return (
-      <View style={{ width: Matrics.screenWidth }}>
+      <View style={{width: Matrics.screenWidth}}>
         <Image source={item.image} style={styles.img} resizeMode="contain" />
-        <View style={{ alignItems: 'center' }}>
+        <View style={{alignItems: 'center'}}>
           <Text style={styles.title}>{item.title}</Text>
           <Text style={styles.desc}>{item.description}</Text>
         </View>
@@ -104,35 +107,53 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({
     // setModalVisible(true)
     BottomSheetRef?.current?.show();
   };
-  const onPressContinue = async (mobileNumber: string) => {
-    setIsLoading(true);
-    let data = await Auth.loginSendOtp({
-      contact_no: mobileNumber.trim(),
-    });
-    if (data?.code == 1) {
-      setIsLoading(false);
-      BottomSheetRef?.current?.hide();
-      navigation.navigate('OTPScreen', {
-        contact_no: mobileNumber.trim(),
-        isLoginOTP: true,
+  const onPressContinue = async (contact_no: string) => {
+    const payload = {
+      contact_no,
+    };
+    new Promise((resolve, reject) => {
+      dispatch(
+        actions.getUserRequestAction({
+          payload,
+          resolve,
+          reject,
+        }),
+      );
+    })
+      .then(res => {
+        console.log(res, 'resss');
+      })
+      .catch(err => {
+        console.log(err);
       });
-    } else if (data?.code == 0) {
-      let data = await Auth.sendSignUpOtp({
-        contact_no: mobileNumber.trim(),
-      });
-      if (data?.code == 1) {
-        setIsLoading(false);
-        BottomSheetRef?.current?.hide();
-        navigation.navigate('OTPScreen', {
-          contact_no: mobileNumber.trim(),
-          isLoginOTP: false,
-        });
-      } else {
-        //TODO: error message
-      }
-    } else {
-      //TODO: error message
-    }
+    // setIsLoading(true);
+    // let data = await Auth.loginSendOtp({
+    //   contact_no: mobileNumber.trim(),
+    // });
+    // if (data?.code == 1) {
+    //   setIsLoading(false);
+    //   BottomSheetRef?.current?.hide();
+    //   navigation.navigate('OTPScreen', {
+    //     contact_no: mobileNumber.trim(),
+    //     isLoginOTP: true,
+    //   });
+    // } else if (data?.code == 0) {
+    //   let data = await Auth.sendSignUpOtp({
+    //     contact_no: mobileNumber.trim(),
+    //   });
+    //   if (data?.code == 1) {
+    //     setIsLoading(false);
+    //     BottomSheetRef?.current?.hide();
+    //     navigation.navigate('OTPScreen', {
+    //       contact_no: mobileNumber.trim(),
+    //       isLoginOTP: false,
+    //     });
+    //   } else {
+    //     //TODO: error message
+    //   }
+    // } else {
+    //   //TODO: error message
+    // }
   };
   // TODO: remove if not in use later stage
   // const _onViewableItemsChanged = React.useCallback(({ viewableItems, changed }) => {
@@ -156,7 +177,7 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({
         backgroundColor={colors.white}
         barStyle={'dark-content'}
       />
-      <View style={[styles.wrapper, { paddingTop: insets.top }]}>
+      <View style={[styles.wrapper, {paddingTop: insets.top}]}>
         <FlatList
           ref={flatListRef}
           // onScroll={_onscroll}
@@ -168,8 +189,8 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({
           pagingEnabled
           keyExtractor={item => item.id}
           showsHorizontalScrollIndicator={false}
-        // onViewableItemsChanged={_onViewableItemsChanged}
-        // viewabilityConfig={_viewabilityConfig}
+          // onViewableItemsChanged={_onViewableItemsChanged}
+          // viewabilityConfig={_viewabilityConfig}
         />
         <View style={styles.pagingCont}>
           {arr.map((ele, index) => {
@@ -197,7 +218,7 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({
       /> */}
       <Button
         title="Get Started"
-        buttonStyle={{ marginBottom: insets.bottom == 0 ? Matrics.vs(16) : 0 }}
+        buttonStyle={{marginBottom: insets.bottom == 0 ? Matrics.vs(16) : 0}}
         onPress={() => onPressGetStarted()}
       />
       <LoginBottomSheet
