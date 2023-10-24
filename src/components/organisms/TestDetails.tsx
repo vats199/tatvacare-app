@@ -16,7 +16,7 @@ type TestItem = {
 };
 
 type TestDetailsProps = {
-    data: TestItem[];
+    data?: TestItem[];
     title?: string
 }
 
@@ -64,7 +64,7 @@ const TestDetails: React.FC<TestDetailsProps> = ({ data, title }) => {
                         </View>
                     </View>
                     {
-                        (item.id < data.length) && (
+                        (item.id < data?.length) && (
                             <View style={styles.border} />
                         )
                     }

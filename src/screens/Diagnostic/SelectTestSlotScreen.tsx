@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import {
     DiagnosticStackParamList,
 } from '../../interface/Navigation.interface';
@@ -11,29 +11,47 @@ import { Fonts, Matrics } from '../../constants';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import SlotButton from '../../components/atoms/SlotButton';
 import Button from '../../components/atoms/Button';
+import DietHeader from '../../components/molecules/DietHeader';
+import Calender from '../../components/atoms/Calender';
 
 type SelectTestSlotScreenProps = StackScreenProps<
     DiagnosticStackParamList,
     'SelectTestSlot'
 >;
-
+type selectTime = {
+    id?: number;
+    slot?: string;
+    timeZone?: string
+};
 type SlotDetailsType = {
     id: number;
     timeZone: string;
     slots: string[];
 };
+type TestItem = {
+    id: number;
+    title: string;
+    description: string;
+    newPrice: number;
+    oldPrice: number;
+    discount: number;
+    isAdded: boolean;
+};
 
 const SelectTestSlotScreen: React.FC<SelectTestSlotScreenProps> = ({ route, navigation }) => {
-    const [selectedTimes, setSelectedTimes] = useState<{ [timeZone: string]: string }>({});
+    const [selectedTime, setSelectedTime] = useState<selectTime>({});
+    const [selectedDate, setSelectedDate] = useState(new Date());
 
-    console.log(selectedTimes);
+    const handleDate = (date: any) => {
+        setSelectedDate(date);
+    };
 
     const onPressBack = () => {
         navigation.goBack();
     }
 
     const onPressReviewDetails = () => {
-        // navigation.navigate("LabTestSummary");
+        navigation.navigate("LabTestSummary", { time: selectedTime });
     }
 
     const slots: SlotDetailsType[] = [
@@ -69,23 +87,24 @@ const SelectTestSlotScreen: React.FC<SelectTestSlotScreenProps> = ({ route, navi
         },
     ]
 
-    const onPressTimeSlot = (timeZone: string, item: string) => {
-        setSelectedTimes({ ...selectedTimes, [timeZone]: item });
+    const onPressTimeSlot = (id: number, slot: string, timeZone: string) => {
+        setSelectedTime({ id: id, slot: slot, timeZone: timeZone });
     }
 
-    const renderSlots = (timeZone: string, it: string, index: number) => {
+    const renderSlots = (timeZone: string, id: number, slot: string, index: number) => {
         return (
             <SlotButton
-                title={it}
-                onPress={() => onPressTimeSlot(timeZone, it)}
+                title={slot}
+                onPress={() => onPressTimeSlot(id, slot, timeZone)}
                 buttonStyle={{
-                    backgroundColor: selectedTimes[timeZone] === it ? colors.boxLightPurple : colors.white,
-                    borderColor: selectedTimes[timeZone] === it ? colors.darkBorder : colors.lightBorder,
+                    backgroundColor: selectedTime.id === id && selectedTime.timeZone === timeZone && selectedTime.slot === slot ? colors.boxLightPurple : colors.white,
+                    borderColor: selectedTime.id === id && selectedTime.timeZone === timeZone && selectedTime.slot === slot ? colors.darkBorder : colors.lightBorder,
                 }}
                 titleStyle={
-                    selectedTimes[timeZone] === it ? styles.activeTimeTxt : styles.inactiveTimeTxt
+                    selectedTime.id === id && selectedTime.timeZone === timeZone ? styles.activeTimeTxt : styles.inactiveTimeTxt
                 }
             />
+
         );
     };
 
@@ -114,7 +133,7 @@ const SelectTestSlotScreen: React.FC<SelectTestSlotScreenProps> = ({ route, navi
                     }}>
                     <Text style={styles.timeZoneTxt}>{item.timeZone}</Text>
                     <View style={styles.slotWraper}>
-                        {item.slots.map((slot, index) => renderSlots(item.timeZone, slot, index))}
+                        {item.slots.map((slot, index) => renderSlots(item.timeZone, item.id, slot, index))}
                     </View>
                 </View>
             </View>
@@ -130,15 +149,20 @@ const SelectTestSlotScreen: React.FC<SelectTestSlotScreenProps> = ({ route, navi
                 containerStyle={styles.upperHeader}
                 onBackPress={onPressBack}
             />
+            <Calender onPressOfNextAndPerviousDate={handleDate} />
+            <ScrollView style={{}}>
+                <View>
+                    <Text style={styles.sampleText}>Sample Collection Time</Text>
+                    {slots.map(renderSlot)}
+                </View>
 
-            <View>
-                <Text style={styles.sampleText}>Sample Collection Time</Text>
-                {slots.map(renderSlot)}
-            </View>
 
-            <View>
+            </ScrollView>
+            <View style={styles.bottomContainer}>
                 <Button
-                    title='Review Details'
+                    title="Review Details"
+                    titleStyle={styles.buttonTextStyle}
+                    buttonStyle={{ marginHorizontal: 6 }}
                     onPress={onPressReviewDetails}
                 />
             </View>
@@ -168,7 +192,8 @@ const styles = StyleSheet.create({
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray,
-        marginLeft: 20
+        marginLeft: 20,
+        marginTop: Matrics.s(20)
     },
     container: {
         flexDirection: 'row',
@@ -229,4 +254,18 @@ const styles = StyleSheet.create({
         shadowRadius: 3,
         elevation: 1,
     },
+    bottomContainer: {
+        backgroundColor: colors.white,
+        paddingHorizontal: 10,
+        paddingVertical: 15,
+        elevation: 4,
+        borderRadius: 12,
+        marginBottom: 40
+    },
+    buttonTextStyle: {
+        fontSize: Matrics.s(16),
+        fontWeight: '700',
+        fontFamily: Fonts.BOLD,
+        color: colors.white,
+    }
 });

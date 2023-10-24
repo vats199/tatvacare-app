@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
-import {View, StyleSheet, Text, ViewStyle, TextStyle} from 'react-native';
-import {Dropdown as ElementDropdown} from 'react-native-element-dropdown';
-import {Icons} from '../../constants/icons';
+import React, { useState } from 'react';
+import { View, StyleSheet, Text, ViewStyle, TextStyle } from 'react-native';
+import { Dropdown as ElementDropdown } from 'react-native-element-dropdown';
+import { Icons } from '../../constants/icons';
 
 interface DropdownProps {
-  data: Array<{label: string; value: string}>;
+  data: Array<{ label: string; value: string }>;
   dropdownStyle?: ViewStyle;
   labelStyle?: TextStyle;
   placeholderStyle?: TextStyle;
@@ -12,9 +12,9 @@ interface DropdownProps {
   iconStyle?: TextStyle;
   inputSearchStyle?: TextStyle;
   placeholder?: string;
-  selectedItem: (data: string) => void;
-  isDisable: boolean;
-  containerStyle: TextStyle;
+  selectedItem?: (data: string) => void;
+  isDisable?: boolean;
+  containerStyle?: TextStyle;
 }
 
 const DropdownComponent: React.FC<DropdownProps> = ({
@@ -38,7 +38,7 @@ const DropdownComponent: React.FC<DropdownProps> = ({
   return (
     <View style={[styles.container, dropdownStyle]}>
       <ElementDropdown
-        style={[styles.dropdown, isFocus && {borderColor: 'blue'}]}
+        style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
         placeholderStyle={[styles.placeholderStyle, placeholderStyle]}
         selectedTextStyle={[styles.selectedTextStyle, selectedTextStyle]}
         inputSearchStyle={[styles.inputSearchStyle, inputSearchStyle]}
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   dropdown: {
-    height: 50,
+    height: 44,
     borderColor: '#E0E0E0',
     borderWidth: 1.3,
     borderRadius: 14,

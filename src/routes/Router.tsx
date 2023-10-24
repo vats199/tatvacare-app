@@ -66,6 +66,8 @@ import TestDetailScreen from '../screens/Diagnostic/TestDeatilScreen';
 import SelectTestSlotScreen from '../screens/Diagnostic/SelectTestSlotScreen';
 import LabTestSummary from '../screens/Diagnostic/LabTestSummaryScreen';
 import LabTestSummaryScreen from '../screens/Diagnostic/LabTestSummaryScreen';
+import CongratulationScreen from '../screens/Diagnostic/CongratulationScreen';
+import OrderDetailsScreen from '../screens/Diagnostic/OrderDetailsScreen';
 
 
 const Drawer = createDrawerNavigator<DrawerParamList>();
@@ -290,6 +292,14 @@ const DiagnosticStackScreen = () => {
       <DiagnosticStack.Screen
         name={'LabTestSummary'}
         component={LabTestSummaryScreen}
+      />
+      <DiagnosticStack.Screen
+        name={'CongratulationScreen'}
+        component={CongratulationScreen}
+      />
+      <DiagnosticStack.Screen
+        name={'OrderDetails'}
+        component={OrderDetailsScreen}
       />
 
 

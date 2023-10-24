@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     DiagnosticStackParamList
 } from '../../interface/Navigation.interface';
@@ -17,19 +17,23 @@ type ApplyCoupanScreenProps = StackScreenProps<
 
 const ApplyCoupanScreen: React.FC<ApplyCoupanScreenProps> = ({ route, navigation }) => {
 
-
     const [isFocused, setIsFocused] = useState<boolean>(false);
     const [selectedCoupan, setSelectedCoupan] = useState<string>('');
 
+    useEffect(() => {
+        if (selectedCoupan.length > 0) {
+            navigation.navigate("LabTestCart", { coupan: selectedCoupan });
+        }
+    }, [selectedCoupan]);
+
     const handleSelectedCoupan = (title: string) => {
         setSelectedCoupan(title);
-        navigation.navigate("LabTestCart", { coupan: selectedCoupan });
+
     }
     console.log(selectedCoupan);
     const onPressApply = () => {
         navigation.navigate("LabTestCart", { coupan: selectedCoupan });
     }
-
 
     return (
         <>

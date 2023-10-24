@@ -1,5 +1,5 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { ScrollView, StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import React, { useState } from 'react'
 import {
     DiagnosticStackParamList
 } from '../../interface/Navigation.interface';
@@ -11,23 +11,61 @@ import { Icons } from '../../constants/icons';
 import AnimatedInputField from '../../components/atoms/AnimatedInputField';
 import DropdownComponent from '../../components/atoms/Dropdown';
 import Button from '../../components/atoms/Button';
+import DropdownField from '../../components/atoms/DropdownField';
 
 type AddPatientDetailsScreenProps = StackScreenProps<
     DiagnosticStackParamList,
     'AddPatientDetails'
 >;
+
+const data = [
+    { label: 'Item 1', value: '1' },
+    { label: 'Item 2', value: '2' },
+    { label: 'Item 3', value: '3' },
+];
 const AddPatientDetailsScreen: React.FC<AddPatientDetailsScreenProps> = ({ route, navigation }) => {
-    const data = [
-        { label: 'Item 1', value: '1' },
-        { label: 'Item 2', value: '2' },
-        { label: 'Item 3', value: '3' },
-    ];
+
+
+    const [selectedAge, setSelectedAge] = useState<string>();
+    const [selectedRelation, setSelectedRelation] = useState<string>();
+    const [enteredName, setEnteredName] = useState<string>();
+    const [enteredEmail, setEnteredEmail] = useState<string>();
+    const [isMale, setIsMale] = useState<boolean>(false);
+    const [isFemale, setIsFemale] = useState<boolean>(false);
+    console.log(enteredName);
+
+    const color = (selectedAge && selectedRelation && enteredEmail && enteredName && (isMale || isFemale)) ? colors.themePurple : colors.darkGray;
+
+
+
+    const handleSelectedAge = (item: string) => {
+        setSelectedAge(item);
+    }
+    const handleSelectedRelation = (item: string) => {
+        setSelectedRelation(item);
+    }
+    const handleEnteredName = (item: string) => {
+        setEnteredName(item);
+    }
+    const handleEnteredEmail = (item: string) => {
+        setEnteredEmail(item);
+    }
+
+    const handleMaleSelection = () => {
+        setIsMale((prev) => !prev);
+        setIsFemale(false);
+    }
+    const handleFemaleSelection = () => {
+        setIsFemale((prev) => !prev);
+        setIsMale(false);
+    }
+    console.log(isMale);
 
     const onPressBack = () => {
         navigation.goBack();
     }
     const onPressSave = () => {
-        navigation.navigate("SelectTestSlot");
+        navigation.navigate("LabTestCart");
     }
     return (
         <ScrollView style={{ flex: 1, backgroundColor: '#F9F9FF', padding: 15 }}>
@@ -36,30 +74,57 @@ const AddPatientDetailsScreen: React.FC<AddPatientDetailsScreenProps> = ({ route
                 <Text style={styles.headerText}>Add Patients Details</Text>
             </View>
             <View style={{ marginVertical: 8 }}>
-                <DropdownComponent data={data} placeholder='relation' placeholderStyle={styles.placeholderText} />
+                <DropdownComponent
+                    data={data}
+                    placeholder='relation'
+                    placeholderStyle={styles.placeholderText} dropdownStyle={{ marginRight: 0 }}
+                    selectedItem={handleSelectedRelation}
+                />
                 <Text style={styles.messageText}>Select the relation with name of the account </Text>
             </View>
             <View style={{ marginVertical: 8 }}>
-                <AnimatedInputField placeholder='Name' style={styles.inputStyle} textStyle={styles.placeholderText} placeholderTextColor={colors.inactiveGray} />
+                <AnimatedInputField
+                    placeholder='Name'
+                    style={styles.inputStyle} textStyle={styles.placeholderText}
+                    placeholderTextColor={colors.inactiveGray}
+                    onChangeText={handleEnteredName}
+                />
             </View>
             <View style={{ marginVertical: 8 }}>
-                <AnimatedInputField placeholder='Email' style={styles.inputStyle} textStyle={styles.placeholderText} placeholderTextColor={colors.inactiveGray} />
+                <AnimatedInputField
+                    placeholder='Email'
+                    style={styles.inputStyle}
+                    textStyle={styles.placeholderText} placeholderTextColor={colors.inactiveGray}
+                    onChangeText={handleEnteredEmail}
+                />
                 <Text style={styles.messageText}>User will receive updates of order status and soft copy of reports on this email address </Text>
             </View>
             <View style={{ marginVertical: 8 }}>
-                <DropdownComponent data={data} placeholder='Age' placeholderStyle={styles.placeholderText} />
+                <DropdownComponent
+                    data={data}
+                    placeholder='Age'
+                    placeholderStyle={styles.placeholderText} dropdownStyle={{ marginRight: 0 }}
+                    selectedItem={handleSelectedAge}
+                />
+
             </View>
             <View style={{ marginTop: 8 }}>
                 <Text style={styles.genderText}> Gender</Text>
                 <View style={styles.genderBoxes}>
-                    <View style={[styles.genderBox, { marginRight: 10 }]}>
+                    <TouchableOpacity
+                        style={[styles.genderBox, { marginRight: 10 }, isMale && { backgroundColor: "#3B0859" }]}
+                        onPress={handleMaleSelection}
+                    >
                         <Icons.MaleIcon height={24} width={24} />
                         <Text style={styles.maleFemaleText}>Male</Text>
-                    </View>
-                    <View style={styles.genderBox}>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={[styles.genderBox, isFemale && { backgroundColor: "#3B0859" }]}
+                        onPress={handleFemaleSelection}
+                    >
                         <Icons.FemaleIcon height={24} width={24} />
                         <Text style={styles.maleFemaleText}>Female</Text>
-                    </View>
+                    </TouchableOpacity>
                 </View>
             </View>
 
@@ -67,9 +132,8 @@ const AddPatientDetailsScreen: React.FC<AddPatientDetailsScreenProps> = ({ route
                 <Button
                     title="Save"
                     titleStyle={styles.outlinedButtonText}
-                    buttonStyle={styles.outlinedButton}
+                    buttonStyle={[styles.outlinedButton, { backgroundColor: color }]}
                     onPress={onPressSave}
-
                 />
             </View>
         </ScrollView>
