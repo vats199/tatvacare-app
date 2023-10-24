@@ -324,6 +324,7 @@ export type IUserState = {
 // The users global state
 export type UsersStateType = {
   user: IUserState;
+  isUserLoggedIn: boolean;
   // Later, we can add other sub-states like:
   // list,
   // create,

@@ -57,48 +57,39 @@ const OTPScreen: React.FC<OTPScreenProps> = ({navigation, route}) => {
   };
 
   const onCodeFilled = async (code: string) => {
-    const payload = {
+    let payload = {
       contact_no: route?.params?.contact_no.trim(),
       otp: code,
     };
 
     new Promise((resolve, reject) => {
-      dispatch(
-        actions.verifyLoginOtpRequest({
-          payload,
-          resolve,
-          reject,
-        }),
-      );
+      if (route?.params?.isLoginOTP) {
+        dispatch(
+          actions.verifyLoginOtpRequest({
+            payload,
+            resolve,
+            reject,
+          }),
+        );
+      } else {
+        dispatch(
+          actions.verifySignUpOtpRequest({
+            payload,
+            resolve,
+            reject,
+          }),
+        );
+      }
     })
-      .then(res => console.log(res))
+      .then(res => {
+        //TODO: set token for user on global
+        //   await AsyncStorage.setItem('accessToken', userData?.token);
+        console.log(res, 'resssssss');
+        navigation.navigate('DrawerScreen'); // TODO: manange setup profile according to response
+      })
       .catch(err => {
         console.log(err);
       });
-    // let data
-    // setIsLoading(true)
-    // if (route?.params?.isLoginOTP) {
-    //   data = await Auth.verifyOTPLogin({
-    //     contact_no: route?.params?.contact_no.trim(),
-    //     otp: code
-    //   })
-    // } else {
-    //   data = await Auth.verifyOTPSignUp({
-    //     contact_no: route?.params?.contact_no.trim(),
-    //     otp: code
-    //   })
-    // }
-
-    // if (data?.code == 1) {
-    //   // success data
-    //   let userData = data?.data;
-    //   await AsyncStorage.setItem('accessToken', userData?.token);
-    //   await AsyncStorage.setItem('userData', JSON.stringify(userData));
-    //   await AsyncStorage.setItem('isUserLoggedIn', "true");
-    //   setIsLoading(false)
-    //   setUserData(userData)
-    //   navigation.navigate('DrawerScreen')
-    // }
   };
 
   return (

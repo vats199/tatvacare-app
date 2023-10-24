@@ -28,7 +28,8 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import SplashScreen from 'react-native-splash-screen';
 import {MenuProvider} from 'react-native-popup-menu';
 import {Provider} from 'react-redux';
-import {Store} from './src/redux/Store';
+import {Persistor, Store} from './src/redux/Store';
+import {PersistGate} from 'redux-persist/integration/react';
 const App = () => {
   const {height, width} = useWindowDimensions();
   const [location, setLocation] = useState<object>({});
@@ -159,22 +160,24 @@ const App = () => {
 
   return (
     <Provider store={Store}>
-      <GestureHandlerRootView style={{height, width}}>
-        <MenuProvider>
-          <AppProvider>
-            {/* <SafeAreaView style={{flex:1}}> */}
-            <Router />
-            <LocationBottomSheet
-              ref={BottomSheetRef}
-              setLocation={setLocation}
-              requestLocationPermission={requestLocationPermission}
-              setLocationPermission={setLocationPermission}
-              locationPermission={locationPermission}
-            />
-            {/* </SafeAreaView> */}
-          </AppProvider>
-        </MenuProvider>
-      </GestureHandlerRootView>
+      <PersistGate persistor={Persistor}>
+        <GestureHandlerRootView style={{height, width}}>
+          <MenuProvider>
+            <AppProvider>
+              {/* <SafeAreaView style={{flex:1}}> */}
+              <Router />
+              <LocationBottomSheet
+                ref={BottomSheetRef}
+                setLocation={setLocation}
+                requestLocationPermission={requestLocationPermission}
+                setLocationPermission={setLocationPermission}
+                locationPermission={locationPermission}
+              />
+              {/* </SafeAreaView> */}
+            </AppProvider>
+          </MenuProvider>
+        </GestureHandlerRootView>
+      </PersistGate>
     </Provider>
   );
 };

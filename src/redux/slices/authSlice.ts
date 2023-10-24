@@ -7,6 +7,7 @@ const usersInitialState: auth.UsersStateType = {
     isLoading: false,
     errors: '',
   },
+  isUserLoggedIn: false,
 };
 
 export const authSlice = createSlice({
@@ -28,7 +29,6 @@ export const authSlice = createSlice({
       action: PayloadAction<common.ResponseGenerator>,
     ) => {
       state.user.isLoading = false;
-      state.user.data = action.payload.data;
     },
     loginErrorAction: (
       state: auth.UsersStateType,
@@ -51,8 +51,53 @@ export const authSlice = createSlice({
     ) => {
       state.user.isLoading = false;
       state.user.data = action.payload.data;
+      state.isUserLoggedIn = true;
     },
     verifyLoginOtpError: (
+      state: auth.UsersStateType,
+      {payload: error}: PayloadAction<string>,
+    ) => {
+      state.user.isLoading = false;
+      state.user.errors = error;
+    },
+
+    signUpRequestAction: (
+      state: auth.UsersStateType,
+      action: PayloadAction<any>,
+    ) => {
+      state.user.isLoading = true;
+      state.user.errors = '';
+    },
+    signUpSuccessAction: (
+      state: auth.UsersStateType,
+      action: PayloadAction<common.ResponseGenerator>,
+    ) => {
+      state.user.isLoading = false;
+    },
+    signUpErrorAction: (
+      state: auth.UsersStateType,
+      {payload: error}: PayloadAction<string>,
+    ) => {
+      state.user.isLoading = false;
+      state.user.errors = error;
+    },
+
+    verifySignUpOtpRequest: (
+      state: auth.UsersStateType,
+      action: PayloadAction<any>,
+    ) => {
+      state.user.isLoading = true;
+      state.user.errors = '';
+    },
+    verifySignUpOtpSuccess: (
+      state: auth.UsersStateType,
+      action: PayloadAction<any>,
+    ) => {
+      state.user.isLoading = false;
+      state.user.data = action.payload.data;
+      state.isUserLoggedIn = true;
+    },
+    verifySignUpOtpError: (
       state: auth.UsersStateType,
       {payload: error}: PayloadAction<string>,
     ) => {
@@ -73,5 +118,11 @@ export const {
   verifyLoginOtpRequest,
   verifyLoginOtpSuccess,
   verifyLoginOtpError,
+  signUpRequestAction,
+  signUpSuccessAction,
+  signUpErrorAction,
+  verifySignUpOtpRequest,
+  verifySignUpOtpSuccess,
+  verifySignUpOtpError,
 } = authSlice.actions;
 export default authSlice.reducer;

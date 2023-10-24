@@ -20,7 +20,6 @@ import {colors} from '../../constants/colors';
 import {useSafeAreaInsets, SafeAreaView} from 'react-native-safe-area-context';
 import {StackScreenProps} from '@react-navigation/stack';
 import {OnBoardStyle as styles} from './styles';
-import OnBoard from '../../interface/Auth.interface';
 import {Constants, Images, Matrics} from '../../constants';
 import Button from '../../components/atoms/Button';
 import AnimatedInputField from '../../components/atoms/AnimatedInputField';
@@ -34,25 +33,24 @@ import Loader from '../../components/atoms/Loader';
 import constants from '../../constants/constants';
 import * as actions from '../../redux/slices';
 import {useDispatch, useSelector} from 'react-redux';
+import {RootState} from '../../redux/Store';
 type OnBoardingScreenProps = CompositeScreenProps<
   StackScreenProps<AuthStackParamList, 'OnBoardingScreen'>,
   StackScreenProps<AppStackParamList, 'AuthStackScreen'>
 >;
-interface OnBoardProps {
-  onBoards: OnBoard[];
-}
 const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({
   navigation,
   route,
 }) => {
   const dispatch = useDispatch();
-  const {data} = useSelector(s => s.Auth.user);
+  const {
+    user: {data, isLoading},
+  } = useSelector((s: RootState) => s.Auth);
   const insets = useSafeAreaInsets();
   const [activeIndex, setActiveIndex] = React.useState<number>(0);
   const activeIndexRef = React.useRef<number>(0);
   const flatListRef = React.useRef<FlatList>(null);
   const BottomSheetRef = React.useRef<LoginBottomSheetRef>(null);
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [arr, setArr] = React.useState<
     Array<{
       id: number;
@@ -81,7 +79,6 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({
     },
   ]);
 
-  console.log(data, 'userdata');
   React.useEffect(() => {
     setInterval(() => {
       if (activeIndexRef.current == arr.length - 1) {
@@ -95,7 +92,7 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({
       }
     }, 4000);
 
-    console.log(data, 'userdata');
+    console.log(data, 'data');
   }, []);
   const renderItem = ({item, index}: {item: any; index: number}) => {
     return (
@@ -134,36 +131,29 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({
         });
       })
       .catch(err => {
-        console.log(err);
+        console.log(err.message, 'errorroror');
+        if (err.message === '0') {
+          new Promise((resolve, reject) => {
+            dispatch(
+              actions.signUpRequestAction({
+                payload,
+                resolve,
+                reject,
+              }),
+            );
+          })
+            .then(res => {
+              BottomSheetRef?.current?.hide();
+              navigation.navigate('OTPScreen', {
+                contact_no: contact_no.trim(),
+                isLoginOTP: false,
+              });
+            })
+            .catch(error => {
+              //TODO: error popoup shown
+            });
+        }
       });
-    // setIsLoading(true);
-    // let data = await Auth.loginSendOtp({
-    //   contact_no: mobileNumber.trim(),
-    // });
-    // if (data?.code == 1) {
-    //   setIsLoading(false);
-    //   BottomSheetRef?.current?.hide();
-    //   navigation.navigate('OTPScreen', {
-    //     contact_no: mobileNumber.trim(),
-    //     isLoginOTP: true,
-    //   });
-    // } else if (data?.code == 0) {
-    //   let data = await Auth.sendSignUpOtp({
-    //     contact_no: mobileNumber.trim(),
-    //   });
-    //   if (data?.code == 1) {
-    //     setIsLoading(false);
-    //     BottomSheetRef?.current?.hide();
-    //     navigation.navigate('OTPScreen', {
-    //       contact_no: mobileNumber.trim(),
-    //       isLoginOTP: false,
-    //     });
-    //   } else {
-    //     //TODO: error message
-    //   }
-    // } else {
-    //   //TODO: error message
-    // }
   };
   // TODO: remove if not in use later stage
   // const _onViewableItemsChanged = React.useCallback(({ viewableItems, changed }) => {
@@ -235,7 +225,7 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({
         ref={BottomSheetRef}
         onPressContinue={onPressContinue}
       />
-      <Loader visible={isLoading} />
+      {/* <Loader visible={isLoading} /> */}
     </SafeAreaView>
   );
 };

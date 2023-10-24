@@ -63,7 +63,7 @@ const LoginBottomSheet = forwardRef<LoginBottomSheetRef, LoginBottomSheetProps>(
           keyboardBehavior="interactive"
           backgroundStyle={styles.container}>
           <View style={[styles.sheetContainer, styles.smallHeight]}>
-            <>
+            <View style={{paddingHorizontal: Matrics.s(20)}}>
               <Text
                 style={
                   styles.loginTitle
@@ -90,13 +90,13 @@ const LoginBottomSheet = forwardRef<LoginBottomSheetRef, LoginBottomSheetProps>(
                   </View>
                 </View>
               </View>
-              <Button
-                title="Continue"
-                buttonStyle={{marginVertical: Matrics.vs(20)}}
-                disabled={mobileNumber.length < 10}
-                onPress={() => onPressContinue(mobileNumber)}
-              />
-            </>
+            </View>
+            <Button
+              title="Continue"
+              buttonStyle={{marginVertical: Matrics.vs(20)}}
+              disabled={mobileNumber.length < 10}
+              onPress={() => onPressContinue(mobileNumber)}
+            />
           </View>
         </BottomSheetModal>
       </BottomSheetModalProvider>
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
   },
   sheetContainer: {
     width: '100%',
-    paddingHorizontal: Matrics.s(22),
+    // paddingHorizontal: Matrics.s(22),
   },
   smallHeight: {
     height: '40%',

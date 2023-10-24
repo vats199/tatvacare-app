@@ -1,0 +1,19 @@
+access_code: null
+contact_no: '8980320408'
+created_at: '2023-10-24 18:22:45'
+dob: null
+doctor_access_code: null
+email: null
+gender: null
+image_url: 'https://admin-uat.mytatva.in/assets/azure_images/onboarding_signup_1.gif'
+indication_name: null
+medical_condition_group_id: null
+name: null
+patient_id: '3a64b282-726c-11ee-bf01-0022486e34ba'
+relation: null
+step: 1
+sub_relation: null
+temp_patient_signup_id: '3a668c4a-726c-11ee-bf01-0022486e34ba'
+token: 'ILtFcw+xtbuy8IgsBCSyD6nSpgZd5AOz7T+g3N8Tef8ftH48OGFWM6wgoc47D2L7A7EwHNfOYLS4dPy6yFaAycrsvDgdCE1wVbjdoFRCLlLLybMv6lU1kIk86XDQpWB8qYKWTG94IKW+X6v565v2fj6h6POFZULpAYheMMen5KtZcuMK27vusLTIyBC8LcugNv5Jlhpo9A/iqANIW+dTfH/PZ6xPKec9AGvkE1eWJsqo7ct3pFqPQrk8N6XhpdO5PRQhhxpthzLzEav5xx2l17EA7I2NZEJNqqXdKJqz6hAQefs0i55v63lK4ZjiOj8n84hd5B8GnSpANDBbdk93mjBZTlCV5fbO5L4103nUOtI='
+updated_at: '2023-10-24 18:22:45'
+version: 1

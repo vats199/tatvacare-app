@@ -14,7 +14,7 @@ const reducers = persistReducer(
   {
     key: 'root',
     storage: AsyncStorage,
-    whitelist: ['Auth'],
+    // whitelist: ['Auth'],
   },
   appReducer,
 );
@@ -34,6 +34,11 @@ export const Store = configureStore({
   middleware: middlewares,
   devTools: process.env.NODE_ENV !== 'production',
 });
+
+// Infer the `RootState` and `AppDispatch` types from the store itself
+export type RootState = ReturnType<typeof Store.getState>;
+// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
+export type AppDispatch = typeof Store.dispatch;
 
 // // PersistStore contains all the data from store ----->>>>>
 export const Persistor = persistStore(Store);
