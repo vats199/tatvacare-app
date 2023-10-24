@@ -77,7 +77,7 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({ n
 
     const arry = [
       {
-        title: 'protine',
+        title: 'protein',
         totalCalories: Math.round(Number(sum.total_proteins)),
         consumedClories: Math.round(Number(sum.consumed_protine)),
         progressBarVale: Math.round((Number(sum.consumed_protine) / Number(sum.total_proteins) * 100)),
@@ -110,10 +110,12 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({ n
 
 
   const renderItem = (item: any, index: number) => {
+    console.log("item?.consumedClories === 0 && item?.totalCalories === 0 ", item?.consumedClories === 0 && item?.totalCalories === 0);
+
     return (
       <View style={[style.calorieMainContainer, { paddingVertical: Matrics.vs(5) }]} key={index?.toString()}>
         <CircularProgress
-          value={item?.progressBarVale}
+          value={isNaN(item?.progressBarVale) ? 0 : item?.progressBarVale}
           inActiveStrokeColor={item.progresBarColor ? item.progresBarColor : '#2ecc71'}
           inActiveStrokeOpacity={0.2}
           progressValueColor={'green'}
@@ -123,13 +125,13 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({ n
           activeStrokeColor={item.progresBarColor ? item.progresBarColor : '#2ecc71'}
           inActiveStrokeWidth={3}
         />
-        <View style={{ marginLeft: Matrics.s(10) }}>
+        <View style={{ marginLeft: Matrics.s(10), justifyContent: "center", alignItems: 'center', marginTop: item?.consumedClories === 0 && item?.totalCalories === 0 ? 10 : 0 }}>
           <Text style={style.subtitle}>{item?.title}</Text>
-          <View style={style.caloriesContainer}>
+          {item?.consumedClories === 0 && item?.totalCalories === 0 ? null : <View style={style.caloriesContainer}>
             <Text style={style.consumedCalries}>{item?.consumedClories}</Text>
             <Text> or </Text>
             <Text style={[style.consumedCalries, { fontWeight: '400' }]}>{item?.totalCalories}</Text>
-          </View>
+          </View>}
         </View>
       </View>
     )
@@ -147,10 +149,14 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({ n
         <View style={{ backgroundColor: colors.white, marginHorizontal: Matrics.s(15), paddingVertical: Matrics.vs(5), borderRadius: Matrics.mvs(12) }}>
           {macroNuitrientes?.map((item, index) => { return (renderItem(item, index)) })}
         </View>
-        <Text style={style.title}>Meal Energy Distribution</Text>
-        <View style={{ backgroundColor: colors.white, marginHorizontal: Matrics.s(15), paddingVertical: Matrics.vs(5), borderRadius: Matrics.mvs(12) }}>
-          {dailyCalories?.map((item, index) => { return (renderItem(item, index)) })}
-        </View>
+        {dailyCalories.length > 0 ?
+          <View style={{ flex: 1 }}>
+            <Text style={style.title}>Meal Energy Distribution</Text>
+            <View style={{ backgroundColor: colors.white, marginHorizontal: Matrics.s(15), paddingVertical: Matrics.vs(5), borderRadius: Matrics.mvs(12) }}>
+              {dailyCalories?.map((item, index) => { return (renderItem(item, index)) })}
+            </View>
+          </View>
+          : null}
       </ScrollView>
     </SafeAreaView>
   )
