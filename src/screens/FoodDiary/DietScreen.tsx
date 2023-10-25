@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { CompositeScreenProps, useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 import {
-  ActivityIndicator,
-  Modal,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
-
 import CalorieConsumer from '../../components/molecules/CalorieConsumer';
 import DietHeader from '../../components/molecules/DietHeader';
 import DietTime from '../../components/organisms/DietTime';
@@ -178,9 +174,10 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   const handelOnpressOfprogressBar = () => {
     navigation.navigate("ProgressBarInsightsScreen", { calories: caloriesArray })
   }
+  console.log("insets.bottom", insets.bottom);
 
   return (
-    <SafeAreaView edges={['top']} style={[styles.mainContienr, { paddingTop: insets.top !== 0 ? 0 : Matrics.vs(15), paddingBottom: insets.bottom !== 0 ? Matrics.vs(30) : Matrics.vs(15), }]}>
+    <SafeAreaView edges={['top',]} style={[styles.mainContienr, { paddingTop: insets.top !== 0 ? insets.top : Matrics.vs(15) }]}>
       <DietHeader
         onPressBack={onPressBack}
         onPressOfNextAndPerviousDate={handleDate}
@@ -209,6 +206,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
           </View>
         )}
       </View>
+      <View style={{ backgroundColor: colors.veryLightGreyishBlue, height: insets.bottom === 0 ? Matrics.vs(20) : insets.bottom }}></View>
       <BasicModal
         modalVisible={modalVisible}
         messgae={'Are you sure you want to delete this food item from your meal'}
@@ -225,30 +223,30 @@ const styles = StyleSheet.create({
   mainContienr: { flex: 1, backgroundColor: colors.lightGreyishBlue, },
   belowContainer: {
     flex: 1,
-    paddingHorizontal: 15,
+    paddingHorizontal: Matrics.s(15),
     backgroundColor: colors.veryLightGreyishBlue,
   },
   messageContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 100,
+    marginTop: Matrics.vs(100),
   },
 
   button: {
-    borderRadius: 20,
-    padding: 10,
+    borderRadius: Matrics.mvs(20),
+    padding: Matrics.mvs(10),
     elevation: 2,
   },
   buttonClose: {
     backgroundColor: colors.darkGray,
-    height: 18,
-    width: 18,
+    height: Matrics.vs(18),
+    width: Matrics.s(18),
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 8,
+    borderRadius: Matrics.mvs(-7),
     position: 'absolute',
-    right: -7,
-    top: -7,
+    right: Matrics.s(-7),
+    top: Matrics.vs(-7),
   },
 
 });

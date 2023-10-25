@@ -125,12 +125,7 @@ const DietHeader: React.FC<DietHeaderProps> = ({
   };
 
   return (
-    <View
-      style={{
-        backgroundColor: 'transparent',
-        paddingBottom: 10,
-        overflow: 'hidden',
-      }}>
+    <View style={styles.mainContainer}>
       <View style={styles.upperContainer}>
         <View style={styles.customHeader}>
           <TouchableOpacity onPress={onPressBack}>
@@ -168,7 +163,7 @@ const DietHeader: React.FC<DietHeaderProps> = ({
             </View>
           </View>
           {!showMore ? (
-            <View style={{ paddingHorizontal: 10 }}>
+            <View style={{ paddingHorizontal: Matrics.s(10) }}>
               <CalendarStrip
                 selectedDate={selectedDate}
                 key={calendarKey}
@@ -200,7 +195,7 @@ const DietHeader: React.FC<DietHeaderProps> = ({
               />
             </View>
           ) : (
-            <View style={{ height: Matrics.vs(310) }}>
+            <View style={{ height: Matrics.mvs(300) }}>
               <CalendarList
                 firstDay={1}
                 horizontal={true}
@@ -281,6 +276,13 @@ const DietHeader: React.FC<DietHeaderProps> = ({
 };
 
 const styles = StyleSheet.create({
+  mainContainer:
+  {
+    backgroundColor: 'transparent',
+    paddingBottom: 10,
+    overflow: 'hidden',
+  },
+
   upperContainer: {
     backgroundColor: colors.lightGreyishBlue,
     borderBottomWidth: 0.3,
