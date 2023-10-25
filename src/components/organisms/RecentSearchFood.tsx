@@ -5,12 +5,17 @@ import RecentDietItem from '../molecules/RecentFoodItem';
 import { Icons } from '../../constants/icons';
 import { TouchableOpacity } from 'react-native';
 import { Matrics } from '../../constants';
+import { log } from 'console';
 
 type RecentSerachDietProps = {
   onPressPlus: (data: SearcheFood) => void;
-  searchData: SearcheFood[];
+  searchData: data;
   title: string;
 };
+type data = {
+  code: string,
+  data: SearcheFood[];
+}
 type SearcheFood = {
   FOOD_ID: number;
   ALIAS_NAME: string;
@@ -39,6 +44,8 @@ const RecentSearchDiet: React.FC<RecentSerachDietProps> = ({
   title,
 }) => {
   const renderRecentSearchItem = (item: SearcheFood, index: number) => {
+
+
     return (
       <TouchableOpacity
         style={styles.container}
@@ -48,20 +55,25 @@ const RecentSearchDiet: React.FC<RecentSerachDietProps> = ({
           <Text style={styles.messageText}>{' Quantity| Micronutrients'}</Text>
         </View>
         <View style={styles.leftContainer}>
-          <Text style={styles.calorieText}>
-            {item?.CALORIES_CALCULATED_FOR}cal
-          </Text>
-          <Icons.AddCircle height={25} width={25} />
+          <View style={{ flex: 0.7 }}>
+            <Text style={styles.calorieText}>
+              {item?.CALORIES_CALCULATED_FOR}cal
+            </Text>
+          </View>
+          <View style={{ flex: 0.3, }}>
+            <Icons.AddCircle height={25} width={25} />
+          </View>
         </View>
       </TouchableOpacity>
     );
   };
+  console.log("searchData?.code === ", searchData?.code);
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <Text style={styles.text}>{title}</Text>
-      {searchData?.length > 0 ? (
-        searchData?.map(renderRecentSearchItem)
+      {searchData?.code !== "2" ? (
+        searchData?.data?.map(renderRecentSearchItem)
       ) : (
         <View>
           <Text style={{ textTransform: 'capitalize' }}>
@@ -109,5 +121,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     flex: 0.22,
+
   },
 });

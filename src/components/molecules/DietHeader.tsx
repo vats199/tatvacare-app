@@ -345,7 +345,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: 'bold',
     color: colors.black,
-    marginLeft: Matrics.s(12),
+    marginLeft: Matrics.s(14),
   },
   dropDwonIcon: {
     opacity: 1,

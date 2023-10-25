@@ -174,10 +174,9 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   const handelOnpressOfprogressBar = () => {
     navigation.navigate("ProgressBarInsightsScreen", { calories: caloriesArray })
   }
-  console.log("insets.bottom", insets.bottom);
 
   return (
-    <SafeAreaView edges={['top',]} style={[styles.mainContienr, { paddingTop: insets.top !== 0 ? insets.top : Matrics.vs(15) }]}>
+    <SafeAreaView edges={['top',]} style={[styles.mainContienr, { paddingTop: Matrics.vs(15) }]}>
       <DietHeader
         onPressBack={onPressBack}
         onPressOfNextAndPerviousDate={handleDate}

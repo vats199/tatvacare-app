@@ -10,6 +10,7 @@ import { useApp } from '../../context/app.context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Matrics } from '../../constants';
+import { log } from 'console';
 
 type AddDietScreenProps = StackScreenProps<DietStackParamList, 'AddDiet'>;
 type SearcheFood = {
@@ -40,6 +41,7 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
   const { optionId, healthCoachId, mealName } = route.params;
   const [recentSerach, setRecentSerach] = React.useState([]);
   const [searchResult, setSearchResult] = React.useState([]);
+  const [result, setResult] = React.useState([]);
   const [title, setTitle] = React.useState<string>('');
 
   useEffect(() => {
@@ -121,6 +123,7 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
       {},
       { token: userData?.token },
     );
+    setResult(result)
     setSearchResult(result?.data);
     if (result.code === '0' || text.length === 0) {
       setSearchResult(recentSerach);
@@ -147,7 +150,7 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
       <DietSearchHeader onPressBack={onPressBack} onSearch={handleSerach} />
       <RecentSearchDiet
         onPressPlus={handlePressPlus}
-        searchData={searchResult}
+        searchData={result}
         title={title}
       />
     </SafeAreaView>

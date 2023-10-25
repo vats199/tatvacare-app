@@ -179,13 +179,13 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
               </Text>
             </View>
           </View>
-          {cardData.patient_permission === 'W' ? (
-            <TouchableOpacity
-              onPress={handlePulsIconPress}
-              style={styles.iconContainer}>
-              <Icons.AddCircle height={25} width={25} />
-            </TouchableOpacity>
-          ) : null}
+          {/* {cardData.patient_permission === 'W' ? ( */}
+          <TouchableOpacity
+            onPress={handlePulsIconPress}
+            style={styles.iconContainer}>
+            <Icons.AddCircle height={25} width={25} />
+          </TouchableOpacity>
+          {/* // ) : null} */}
         </View>
         <View style={styles.line} />
         <View style={styles.belowRow}>
@@ -282,8 +282,9 @@ const styles = StyleSheet.create({
     color: '#444444',
   },
   line: {
-    borderBottomWidth: 0.3,
+    borderBottomWidth: Matrics.mvs(0.5),
     borderColor: '#808080',
+    opacity: 0.5
   },
   belowRow: {
     padding: 15,
