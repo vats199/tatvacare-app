@@ -2,7 +2,8 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {colors} from '../../constants/colors';
 import {Icons} from '../../constants/icons';
-import {navigateTo, navigateToShareKit} from '../../routes/Router';
+// import {navigateTo, navigateToShareKit} from '../../routes/Router';
+import {Fonts, Matrics} from '../../constants';
 
 type DrawerMoreProps = {
   onPressAboutUs: () => void;
@@ -10,13 +11,13 @@ type DrawerMoreProps = {
 
 const DrawerMore: React.FC<DrawerMoreProps> = ({onPressAboutUs = () => {}}) => {
   const onAccountSettingsPress = () => {
-    navigateTo('AccountSettingVC');
+    // navigateTo('AccountSettingVC');
   };
   const onHelpAndSupportPress = () => {
-    navigateTo('HelpAndSupportVC');
+    // navigateTo('HelpAndSupportVC');
   };
   const onShareAppPress = () => {
-    navigateToShareKit();
+    // navigateToShareKit();
   };
 
   return (
@@ -82,32 +83,35 @@ export default DrawerMore;
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: 10,
-    marginVertical: 5,
-    paddingVertical: 10,
+    marginHorizontal: Matrics.s(12),
+    marginVertical: Matrics.vs(5),
+    paddingVertical: Matrics.vs(12),
+    paddingHorizontal: Matrics.vs(12),
     backgroundColor: colors.white,
-    borderRadius: 12,
+    borderRadius: Matrics.mvs(12),
   },
   headerText: {
-    color: colors.black,
-    fontSize: 14,
-    fontWeight: '700',
-    marginHorizontal: 10,
+    color: colors.labelDarkGray,
+    fontSize: Matrics.mvs(14),
+    fontFamily: Fonts.BOLD,
   },
   itemContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 5,
+    paddingVertical: Matrics.vs(5),
   },
   icon: {
-    marginVertical: 5,
-    marginHorizontal: 10,
+    marginVertical: Matrics.vs(5),
   },
   mhdItemTextContainer: {
     flex: 1,
     borderBottomWidth: 0.5,
     borderBottomColor: colors.lightGrey,
-    padding: 10,
+    padding: Matrics.mvs(10),
   },
-  mhdItemText: {},
+  mhdItemText: {
+    fontSize: Matrics.mvs(14),
+    fontFamily: Fonts.REGULAR,
+    color: colors.labelDarkGray,
+  },
 });
