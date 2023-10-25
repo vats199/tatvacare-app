@@ -134,6 +134,7 @@ import Call from '../assets/icons/call.svg';
 import Heart from '../assets/icons/heart.svg';
 import Schedule from '../assets/icons/schedule.svg';
 import Event from '../assets/icons/event.svg';
+import dropArrow from '../assets/icons/dropArrow.svg';
 
 export const Icons = {
   HomeActive,
@@ -265,4 +266,5 @@ export const Icons = {
   Heart,
   Schedule,
   Event,
+  dropArrow
 };

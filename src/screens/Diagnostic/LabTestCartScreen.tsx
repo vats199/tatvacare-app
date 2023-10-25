@@ -49,6 +49,9 @@ const LabTestCartScreen: React.FC<LabTestCartScreenProps> = ({ route, navigation
     const [selectedPatient, setSelectedPatient] = useState<string>();
     const [selecetedCoupan, setSelectedCoupan] = useState<string>();
 
+
+    const buttonTitle = (selecetedCoupan && selectedPatient) ? "Select TimeSlot" : "Select Patient";
+
     console.log("cartItems in lab Test Cart>>>", cartItems);
 
     useEffect(() => {
@@ -215,7 +218,7 @@ const LabTestCartScreen: React.FC<LabTestCartScreenProps> = ({ route, navigation
                         style={styles.selectPatientButton}
                         onPress={handleSelectPatient}
                     >
-                        <Text style={styles.selectPatientText}> Select Patient</Text>
+                        <Text style={styles.selectPatientText}>{buttonTitle} </Text>
 
                     </TouchableOpacity>
                 </View>

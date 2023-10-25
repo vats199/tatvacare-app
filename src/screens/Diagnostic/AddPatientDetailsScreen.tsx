@@ -65,7 +65,7 @@ const AddPatientDetailsScreen: React.FC<AddPatientDetailsScreenProps> = ({ route
         navigation.goBack();
     }
     const onPressSave = () => {
-        navigation.navigate("LabTestCart");
+        navigation.navigate("LabTestCart",{});
     }
     return (
         <ScrollView style={{ flex: 1, backgroundColor: '#F9F9FF', padding: 15 }}>

@@ -121,7 +121,7 @@ export type DiagnosticStackParamList = {
   MyPerscription: {data: perscription[]};
   TestDetail:undefined;
   SelectTestSlot:undefined;
-  LabTestSummary:{time:any};
+  LabTestSummary:{time:selectTime};
   CongratulationScreen:undefined;
   OrderDetails:undefined;
 };
@@ -188,4 +188,10 @@ type perscription = {
   id: number;
   date?: any;
   uri?: string;
+};
+type selectTime = {
+  id?: number;
+  date?: any;
+  slot?: string;
+  timeZone?: string
 };

@@ -25,7 +25,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <MyStatusbar translucent={true} />
-      <Image
+      {/* <Image
         source={images.MysteryBox}
         resizeMode="contain"
         style={styles.image}
@@ -35,13 +35,13 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ navigation }) => {
         <Text style={styles.descText}>
           {'We want to know you better, to curate a plan.'}
         </Text>
-      </View>
+      </View> */}
       <Button
         title={`Let’s Begin`}
         buttonStyle={{ marginBottom: insets.bottom == 0 ? Matrics.vs(16) : 0 }}
         onPress={() => {
-          // navigation.navigate('DrawerScreen');
-          navigation.navigate('QuestionOneScreen');
+          navigation.navigate('DrawerScreen');
+          // navigation.navigate('QuestionOneScreen');
         }}
       />
     </SafeAreaView>

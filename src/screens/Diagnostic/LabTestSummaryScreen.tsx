@@ -29,13 +29,18 @@ type TestItem = {
     discount: number;
     isAdded: boolean;
 };
+type selectTime = {
+    id?: number;
+    date?: any;
+    slot?: string;
+    timeZone?: string
+};
 
 
 const LabTestSummaryScreen: React.FC<LabTestSummaryScreenProps> = ({ route, navigation }) => {
 
-
     const [cartItems, setCartItems] = useState<TestItem[]>([]);
-    const time: any = route.params?.time;
+    const time: selectTime = route.params?.time;
     console.log(time);
     const onPressBack = () => {
         navigation.goBack();
@@ -44,6 +49,19 @@ const LabTestSummaryScreen: React.FC<LabTestSummaryScreenProps> = ({ route, navi
         navigation.navigate("CongratulationScreen");
     }
 
+
+    const dateObj = new Date(time.date);
+
+    const dateOptions = {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric'
+    };
+
+    const formattedDate = dateObj.toLocaleDateString(undefined, dateOptions);
+
+    console.log("Formatted Date:", formattedDate);
 
     useEffect(() => {
 
@@ -73,7 +91,7 @@ const LabTestSummaryScreen: React.FC<LabTestSummaryScreenProps> = ({ route, navi
                     onBackPress={onPressBack}
                 />
                 <TestSummary />
-                <SampleCollection />
+                <SampleCollection slot={time.slot} timeZone={time.timeZone} dayAndDate={formattedDate} />
                 <TestDetails data={cartItems} title="Test" />
                 <View style={{ marginBottom: 50 }}>
                     <Billing />

@@ -4,18 +4,24 @@ import { Icons } from '../../constants/icons';
 import { colors } from '../../constants/colors';
 import { Fonts, Matrics } from '../../constants';
 
-const SampleCollection = () => {
+type SampleCollectionProps = {
+    slot?: string;
+    timeZone?: string;
+    dayAndDate?: string;
+}
+
+const SampleCollection: React.FC<SampleCollectionProps> = ({ slot, timeZone, dayAndDate }) => {
     return (
         <View>
             <Text style={styles.sampleText}>Sample Collection</Text>
             <View style={[styles.sampleBox, styles.containerShadow]}>
                 <View style={styles.row}>
                     <Icons.Event height={20} width={20} />
-                    <Text style={{ marginLeft: 10 }}> Address</Text>
+                    <Text style={{ marginLeft: 10 }}>{dayAndDate} </Text>
                 </View>
                 <View style={styles.row}>
                     <Icons.Schedule height={20} width={20} />
-                    <Text style={{ marginLeft: 10 }}>abc@gmail.com</Text>
+                    <Text style={{ marginLeft: 10 }}>{timeZone}, {slot} </Text>
                 </View>
             </View>
         </View>

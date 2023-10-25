@@ -20,6 +20,7 @@ type SelectTestSlotScreenProps = StackScreenProps<
 >;
 type selectTime = {
     id?: number;
+    date?: any;
     slot?: string;
     timeZone?: string
 };
@@ -28,15 +29,7 @@ type SlotDetailsType = {
     timeZone: string;
     slots: string[];
 };
-type TestItem = {
-    id: number;
-    title: string;
-    description: string;
-    newPrice: number;
-    oldPrice: number;
-    discount: number;
-    isAdded: boolean;
-};
+
 
 const SelectTestSlotScreen: React.FC<SelectTestSlotScreenProps> = ({ route, navigation }) => {
     const [selectedTime, setSelectedTime] = useState<selectTime>({});
@@ -88,7 +81,7 @@ const SelectTestSlotScreen: React.FC<SelectTestSlotScreenProps> = ({ route, navi
     ]
 
     const onPressTimeSlot = (id: number, slot: string, timeZone: string) => {
-        setSelectedTime({ id: id, slot: slot, timeZone: timeZone });
+        setSelectedTime({ id: id, date: selectedDate, slot: slot, timeZone: timeZone });
     }
 
     const renderSlots = (timeZone: string, id: number, slot: string, index: number) => {

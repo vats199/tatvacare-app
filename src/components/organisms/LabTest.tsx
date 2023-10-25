@@ -60,7 +60,6 @@ const LabTest: React.FC<LabTestProp> = ({ title, onAdded, onPressTest }) => {
             let cartItems = JSON.parse(cart) || [];
 
             if (!Array.isArray(cartItems)) {
-                // If the stored data is not an array, initialize it as an empty array
                 cartItems = [];
             }
 
