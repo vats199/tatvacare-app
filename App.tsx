@@ -1,17 +1,5 @@
 import 'react-native-gesture-handler';
-import {
-  Alert,
-  Dimensions,
-  PermissionsAndroid,
-  Permission,
-  Platform,
-  StatusBar,
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-  useWindowDimensions,
-} from 'react-native';
+import {Platform, StyleSheet, useWindowDimensions} from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import Router from './src/routes/Router';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
@@ -24,10 +12,7 @@ import {Linking} from 'react-native';
 import Home from './src/api/home';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {AppProvider} from './src/context/app.context';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
-import SplashScreen from 'react-native-splash-screen';
 import {MenuProvider} from 'react-native-popup-menu';
-
 const App = () => {
   const {height, width} = useWindowDimensions();
   const [location, setLocation] = useState<object>({});

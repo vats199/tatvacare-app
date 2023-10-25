@@ -82,6 +82,7 @@ export type AppStackParamList = {
   DeviceConnectionScreen: undefined;
   SetupProfileScreen: SetupProfileStackParamList;
   DiagnosticStackScreen: DiagnosticStackParamList;
+  AnalyserScreen:{type:string}
 };
 
 export type DrawerParamList = {
@@ -94,6 +95,12 @@ export type TabParamList = {
   RoutineScreen: undefined;
   ExplorScreen: undefined;
 };
+
+export type LungTabParamList = {
+  HealthInsightsScreen: undefined;
+  ExerciseInsightsScreen: undefined;
+};
+
 
 export type ExerciesStackParamList = {
   ExplorScreen: TabParamList;

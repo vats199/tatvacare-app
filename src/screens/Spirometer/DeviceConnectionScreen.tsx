@@ -1,4 +1,4 @@
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import {colors} from '../../constants/colors';
 import CommonHeader from '../../components/molecules/CommonHeader';
@@ -7,27 +7,28 @@ import {AppStackParamList} from '../../interface/Navigation.interface';
 import {Fonts, Matrics} from '../../constants';
 import DropdownField from '../../components/atoms/DropdownField';
 import Button from '../../components/atoms/Button';
-import IconButton from '../../components/atoms/IconButton';
 import {Icons} from '../../constants/icons';
 import {useFormik} from 'formik';
 import * as yup from 'yup';
 import CommonBottomSheetModal from '../../components/molecules/CommonBottomSheetModal';
 import {BottomSheetModal, BottomSheetModalProvider} from '@gorhom/bottom-sheet';
-import TabButton from '../../components/atoms/TabButton';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
-import {WheelPicker} from '../../components/organisms/WheelPicker';
 import {PickerDataTypeProps} from '../../components/organisms/WheelPicker.Ios';
 import DatePicker from 'react-native-date-picker';
-import moment from 'moment';
+import DeviceConnectGenderButtons from '../../components/molecules/DeviceConnectGenderButtons';
+import LungFuncationBottomSheet from '../../components/molecules/LungFunctionBottomSheet';
+import LungActionBottomSheet from '../../components/molecules/LungActionBottomSheet';
 
 type DeviceConnectionScreenProps = StackScreenProps<
   AppStackParamList,
   'DeviceConnectionScreen'
 >;
 
-const city = '50';
-const other = '55';
-
+export type LungFuncationProps = {
+  id: number;
+  title: string;
+  param: string;
+};
 const heightSubTypes = ['feet', 'Cm'];
 const weightSubTypes = ['kgs', 'lbs'];
 const ethniCity = [
@@ -36,6 +37,19 @@ const ethniCity = [
   'South Indian',
   'Asian',
   'Other',
+];
+
+const LungFuncationAction: LungFuncationProps[] = [
+  {
+    id: 1,
+    title: 'Measure Lung Health',
+    param: 'Lung Health',
+  },
+  {
+    id: 2,
+    title: 'Lung Exercise',
+    param: 'Lung Exercise',
+  },
 ];
 
 const PersonDetailsValidationSchema = yup.object().shape({
@@ -50,8 +64,9 @@ const DeviceConnectionScreen: React.FC<DeviceConnectionScreenProps> = ({
   navigation,
   route,
 }) => {
-  const [isMale, setIsMale] = useState<boolean>(true);
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+
+  // values
   const [heightList, setHeightList] = useState<
     PickerDataTypeProps[] | undefined
   >(undefined);
@@ -71,7 +86,8 @@ const DeviceConnectionScreen: React.FC<DeviceConnectionScreenProps> = ({
     PickerDataTypeProps[] | undefined
   >(undefined);
 
-  const [fristItemList, setFristItemList] = useState<
+  // wheel picker list
+  const [firstItemList, setfirstItemList] = useState<
     PickerDataTypeProps[] | undefined
   >(undefined);
   const [secondItemList, setSecondItemList] = useState<
@@ -87,6 +103,8 @@ const DeviceConnectionScreen: React.FC<DeviceConnectionScreenProps> = ({
     {left: string; right: string} | string
   >('');
   const [open, setOpen] = React.useState(false);
+  const [selectedDate, setSelectedDate] = React.useState(new Date());
+  const [selectAction, setSelectAction] = useState(false);
 
   const insets = useSafeAreaInsets();
   const onPressBackArrow = () => {
@@ -94,7 +112,7 @@ const DeviceConnectionScreen: React.FC<DeviceConnectionScreenProps> = ({
   };
 
   const onPressGenderBtn = (value: string) => {
-    setIsMale(value == 'Male' ? true : false);
+    setFieldValue('gender', value);
   };
 
   useEffect(() => {
@@ -104,95 +122,67 @@ const DeviceConnectionScreen: React.FC<DeviceConnectionScreenProps> = ({
     generateEthniCity();
   }, []);
 
-  // useEffect(() => {
-  //   if (selectedType?.type == 'Height' && selectedType.subType == 'feet') {
-  //     setMultiplePicker(true);
-  //   }
-  // }, [selectedType]);
-
   useEffect(() => {
     if (selectedType?.type == 'Height') {
       if (selectedType.subType == 'feet') {
-        setFristItemList(heightList);
+        setfirstItemList(heightList);
         setSecondItemList(subHeight);
       } else {
-        setFristItemList(centimeterItemList);
+        setfirstItemList(centimeterItemList);
       }
     } else if (selectedType?.type == 'Weight') {
       if (selectedType.subType == 'kgs') {
-        setFristItemList(kgsList);
+        setfirstItemList(kgsList);
       } else {
-        setFristItemList(lbsList);
+        setfirstItemList(lbsList);
       }
     } else {
-      setFristItemList(ethniCityList);
+      setfirstItemList(ethniCityList);
     }
   }, [selectedType]);
 
   const generateHeight = () => {
-    const hightArray: PickerDataTypeProps[] = [];
-    for (let i = 1; i < 10; i++) {
-      const tenpObj = {
-        label: `${i.toString()}'`,
-        value: i,
-      };
-      hightArray.push(tenpObj);
-    }
-    console.log(
-      '🚀 ~ file: DeviceConnectionScreen.tsx:69 ~ generateHeight ~ hightArray:',
-      hightArray,
-    );
+    const hightArray = arrayGenerator(10, "'");
     generateSubHeight();
     setHeightList(hightArray);
   };
 
   const generateSubHeight = () => {
-    const subHeightArray: PickerDataTypeProps[] = [];
-    for (let i = 1; i <= 12; i++) {
-      const tenpObj = {
-        label: `${i.toString()}"`,
-        value: i,
-      };
-      subHeightArray.push(tenpObj);
-    }
+    const subHeightArray = arrayGenerator(12, '"');
     setSubHeight(subHeightArray);
   };
 
   const generateCentimeter = () => {
-    const centimeterArray: PickerDataTypeProps[] = [];
-    for (let i = 1; i < 300; i++) {
-      const tenpObj = {
-        label: `${i.toString()} cm`,
-        value: i,
-      };
-      centimeterArray.push(tenpObj);
-    }
+    const centimeterArray = arrayGenerator(300, ' cm');
     setCentimeterItemList(centimeterArray);
   };
 
   const generateWeight = () => {
-    const weightArray: PickerDataTypeProps[] = [];
-    for (let i = 1; i < 200; i++) {
-      const tenpObj = {
-        label: i.toString(),
-        value: i,
-      };
-      weightArray.push(tenpObj);
-      setKgsList(weightArray);
-    }
+    const weightArray = arrayGenerator(200);
+    setKgsList(weightArray);
     generateLbs();
   };
 
-  const generateLbs = () => {
-    const lbsArray: PickerDataTypeProps[] = [];
-    for (let i = 1; i < 200; i++) {
-      const lbs = 2.205;
+  const arrayGenerator = (
+    number: number,
+    seprator?: string,
+    extra?: number,
+  ) => {
+    const arrayList: PickerDataTypeProps[] = [];
+    for (let i = 1; i < number; i++) {
       const tenpObj = {
-        label: (i * lbs).toFixed(3).toString(),
-        value: i * lbs,
+        label: `${extra ? (i * extra).toFixed(3) : i.toString()}${
+          seprator == '' || seprator == undefined ? '' : seprator
+        }`,
+        value: i,
       };
-      lbsArray.push(tenpObj);
+      arrayList.push(tenpObj);
     }
+    return arrayList;
+  };
+
+  const generateLbs = () => {
+    const lbsArray = arrayGenerator(200, '', 2.205);
     setLbsList(lbsArray);
   };
 
@@ -212,14 +202,18 @@ const DeviceConnectionScreen: React.FC<DeviceConnectionScreenProps> = ({
         height: '',
         weight: '',
         ethnicity: '',
-        age: new Date() ?? '',
-        gender: '',
+        age: '',
+        gender: 'Male',
       },
       validationSchema: PersonDetailsValidationSchema,
-      onSubmit(values, formikHelpers) {},
+      onSubmit(values, formikHelpers) {
+        setSelectAction(true);
+        bottomSheetModalRef.current?.present();
+      },
     });
 
   const onPreesHeight = () => {
+    selectAction && setSelectAction(false);
     setSelectedType({
       subType: 'feet',
       type: 'Height',
@@ -249,6 +243,7 @@ const DeviceConnectionScreen: React.FC<DeviceConnectionScreenProps> = ({
   };
 
   const onPreesWeight = () => {
+    selectAction && setSelectAction(false);
     setSelectedType({
       subType: 'kgs',
       type: 'Weight',
@@ -257,6 +252,7 @@ const DeviceConnectionScreen: React.FC<DeviceConnectionScreenProps> = ({
   };
 
   const onPreesEthniCity = () => {
+    selectAction && setSelectAction(false);
     setSelectedType({
       subType: '',
       type: 'EthniCity',
@@ -267,14 +263,13 @@ const DeviceConnectionScreen: React.FC<DeviceConnectionScreenProps> = ({
   const onSaveBtnPress = () => {
     if (selectedType?.type == 'Height') {
       if (selectedType.subType == 'feet') {
-        if (!selectedItem?.left || !selectedItem?.right) {
-          setFieldValue('height', heightList[0].label + subHeight[0].label);
-        } else {
-          setFieldValue(
-            'height',
-            `${selectedItem?.left}${selectedItem?.right}`,
-          );
-        }
+        const firstTxt = !selectedItem.left
+          ? heightList[0].label
+          : selectedItem.left;
+        const secondTxt = !selectedItem?.right
+          ? subHeight[0].label
+          : selectedItem?.right;
+        setFieldValue('height', `${firstTxt}${secondTxt}`);
       } else {
         setFieldValue(
           'height',
@@ -302,19 +297,23 @@ const DeviceConnectionScreen: React.FC<DeviceConnectionScreenProps> = ({
     setSelectedItem('');
   };
 
-  // const calculateAge = date => {
-  //   const birthDate = new Date(date);
-  //   const otherDate = new Date();
-  //   var years = otherDate.getFullYear() - birthDate.getFullYear();
-  //   if (
-  //     otherDate.getMonth() < birthDate.getMonth() ||
-  //     (otherDate.getMonth() == birthDate.getMonth() &&
-  //       otherDate.getDate() < birthDate.getDate())
-  //   ) {
-  //     years--;
-  //   }
-  //   return years;
-  // };
+  const calculateAge = date => {
+    const birthDate = new Date(date);
+    const otherDate = new Date();
+    var years = otherDate.getFullYear() - birthDate.getFullYear();
+    if (
+      otherDate.getMonth() < birthDate.getMonth() ||
+      (otherDate.getMonth() == birthDate.getMonth() &&
+        otherDate.getDate() < birthDate.getDate())
+    ) {
+      years--;
+    }
+    return years;
+  };
+
+  const onPressLungAction = (param: any) => {
+    navigation.navigate('AnalyserScreen', {type: param});
+  };
 
   return (
     <SafeAreaView
@@ -327,20 +326,7 @@ const DeviceConnectionScreen: React.FC<DeviceConnectionScreenProps> = ({
       <View>
         <CommonHeader title="Enter Details" onPress={onPressBackArrow} />
         <View style={{paddingHorizontal: Matrics.s(15)}}>
-          <Text
-            style={{
-              backgroundColor: colors.white,
-              padding: Matrics.s(10),
-              borderRadius: Matrics.s(15),
-              borderWidth: Matrics.s(1),
-              overflow: 'hidden',
-              borderColor: colors.borderColor,
-              fontFamily: Fonts.MEDIUM,
-              fontSize: Matrics.mvs(12),
-              fontWeight: '400',
-              color: colors.darkGray,
-              marginTop: Matrics.vs(15),
-            }}>
+          <Text style={styles.disclaimerTxt}>
             Disclaimer: We need this information to get your Lung Function
             values correctly.
           </Text>
@@ -351,16 +337,19 @@ const DeviceConnectionScreen: React.FC<DeviceConnectionScreenProps> = ({
             containerStyle={{
               marginTop: Matrics.vs(13),
             }}
+            error={errors.height}
           />
           <DropdownField
             onPress={onPreesWeight}
             title="Select Weight *"
             value={values.weight}
+            error={errors.weight}
           />
           <DropdownField
             onPress={onPreesEthniCity}
             title="Select Ethnicity *"
             value={values.ethnicity}
+            error={errors.ethnicity}
           />
           <DropdownField
             onPress={() => {
@@ -368,225 +357,78 @@ const DeviceConnectionScreen: React.FC<DeviceConnectionScreenProps> = ({
             }}
             title="Age *"
             value={values.age.toString()}
+            error={errors.age}
           />
           <DatePicker
             modal
             open={open}
-            date={values.age}
+            date={selectedDate}
             mode="date"
             onConfirm={date => {
               setOpen(false);
-              // const age = calculateAge(date);
-              // setFieldValue('age', age);
+              setSelectedDate(date);
+              const age = calculateAge(date);
+              setFieldValue('age', age);
             }}
             onCancel={() => {
               setOpen(false);
             }}
           />
-          <Text
-            style={{
-              fontFamily: Fonts.MEDIUM,
-              fontSize: Matrics.mvs(14),
-              fontWeight: '700',
-              color: colors.labelDarkGray,
-              lineHeight: Matrics.vs(18),
-              marginVertical: Matrics.vs(10),
-            }}>
-            Biological Sex*
-          </Text>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}>
-            <IconButton
-              onPressBtn={() => onPressGenderBtn('Male')}
-              containetStyle={{
-                backgroundColor: isMale
-                  ? colors.genderActiveButton
-                  : colors.white,
-                borderColor: isMale
-                  ? colors.genderActiveButtonBorder
-                  : colors.genderInactiveButtonBorder,
-                ...styles.genderBtnContainer,
-              }}
-              style={styles.genderBtnTxt}
-              title="Male"
-              leftIcon={
-                <Icons.Male
-                  height={Matrics.mvs(24)}
-                  weight={Matrics.mvs(24)}
-                  style={styles.genderIcon}
-                />
-              }
-            />
-            <IconButton
-              onPressBtn={() => onPressGenderBtn('Female')}
-              containetStyle={{
-                backgroundColor: isMale
-                  ? colors.white
-                  : colors.genderActiveButton,
-
-                borderColor: isMale
-                  ? colors.genderInactiveButtonBorder
-                  : colors.genderActiveButtonBorder,
-                ...styles.genderBtnContainer,
-              }}
-              style={styles.genderBtnTxt}
-              title="Female"
-              leftIcon={
-                <Icons.Female
-                  height={Matrics.mvs(24)}
-                  weight={Matrics.mvs(24)}
-                  style={styles.genderIcon}
-                />
-              }
-            />
-          </View>
+          <DeviceConnectGenderButtons
+            onPress={onPressGenderBtn}
+            error={errors.gender}
+          />
         </View>
       </View>
       <View
         style={[
           styles.bottomBtnContainerShadow,
+          styles.bottonBtnContainer,
           {
-            backgroundColor: colors.white,
-            paddingVertical: Matrics.vs(8),
             paddingBottom: insets.bottom !== 0 ? insets.bottom : Matrics.vs(16),
           },
         ]}>
         <Button
           title="Save & Next"
-          titleStyle={{
-            fontFamily: Fonts.BOLD,
-            fontSize: Matrics.mvs(16),
-            fontWeight: '700',
-          }}
+          titleStyle={styles.saveBtnTxt}
           buttonStyle={{
             borderRadius: Matrics.s(19),
           }}
-          onPress={() => {}}
+          onPress={() => handleSubmit()}
         />
       </View>
       <BottomSheetModalProvider>
         <CommonBottomSheetModal
           index={0}
-          snapPoints={['55%']}
-          ref={bottomSheetModalRef}>
-          <View
-            style={{
-              flex: 1,
-              backgroundColor: colors.white,
-              paddingVertical: Matrics.s(15),
-            }}>
-            <Text
-              style={{
-                fontFamily: Fonts.BOLD,
-                fontSize: Matrics.mvs(20),
-                fontWeight: '700',
-                lineHeight: Matrics.vs(26),
-                paddingHorizontal: Matrics.s(15),
-              }}>
-              {`Select ${selectedType?.type}`}
-            </Text>
-            <View
-              style={{
-                height: Matrics.vs(1),
-                backgroundColor: colors.lightGrey,
-                marginVertical: Matrics.vs(10),
-                marginHorizontal: Matrics.s(15),
-              }}
+          snapPoints={
+            selectAction
+              ? ['25%']
+              : [selectedType?.type == 'EthniCity' ? '50%' : '55%']
+          }
+          ref={bottomSheetModalRef}
+          onChange={index => {
+            index == -1 && setMultiplePicker(false);
+          }}>
+          {selectAction ? (
+            <LungActionBottomSheet
+              data={LungFuncationAction}
+              onPress={onPressLungAction}
             />
-            {selectedType?.type !== 'EthniCity' ? (
-              <TabButton
-                onPress={onPressTab}
-                containerStyle={{
-                  marginTop: Matrics.vs(5),
-                }}
-                btnTitles={
-                  selectedType?.type == 'Height'
-                    ? heightSubTypes
-                    : weightSubTypes
-                }
-              />
-            ) : null}
-            <WheelPicker
-              onChangeValue={item => {
-                if (selectedType?.type == 'Height') {
-                  if (selectedType?.subType == 'feet') {
-                    setSelectedItem({
-                      left:
-                        item.type == 'left'
-                          ? `${item.value}'`
-                          : selectedItem?.left,
-                      right:
-                        item.type == 'right'
-                          ? `${item.value}\"`
-                          : selectedItem?.right,
-                    });
-                  } else {
-                    setSelectedItem(item.value);
-                  }
-                } else if (selectedType?.type == 'Weight') {
-                  setSelectedItem(item.value);
-                } else {
-                  setSelectedItem(item.value);
-                }
-              }}
-              isShowMultiplePicker={multiplePicker}
-              data={fristItemList}
-              additionalData={secondItemList}
-              containerStyle={{
-                height: selectedType?.type == 'EthniCity' ? '65%' : undefined,
-              }}
+          ) : (
+            <LungFuncationBottomSheet
+              selectedType={selectedType}
+              onPressTab={onPressTab}
+              setSelectedItem={setSelectedItem}
+              btnTitles={
+                selectedType?.type == 'Height' ? heightSubTypes : weightSubTypes
+              }
+              firstItemList={firstItemList}
+              multiplePicker={multiplePicker}
+              onSaveBtnPress={onSaveBtnPress}
+              secondItemList={secondItemList}
+              selectedItem={selectedItem}
             />
-
-            {/* <WheelPicker
-              selectedIndex={selectedIndex}
-              seprator={'"'}
-              options={heightList}
-              itemTextStyle={{
-                fontFamily: Fonts.BOLD,
-                fontSize: Matrics.mvs(25),
-              }}
-              containerStyle={{
-                marginVertical: Matrics.vs(10),
-                backgroundColor: 'green',
-              }}
-              onChange={index => setSelectedIndex(index)}
-              sideIcon={{
-                right: false,
-                left: true,
-              }}
-            /> */}
-            {/* <WheelPicker
-              selectedIndex={selectedIndex}
-              seprator={'"'}
-              options={heightList}
-              itemTextStyle={{
-                fontFamily: Fonts.BOLD,
-                fontSize: Matrics.mvs(25),
-              }}
-              containerStyle={{
-                marginVertical: Matrics.vs(10),
-                backgroundColor: 'red',
-              }}
-              onChange={index => setSelectedIndex(index)}
-            /> */}
-
-            <View
-              style={[
-                {
-                  paddingBottom:
-                    insets.bottom !== 0 ? insets.bottom : Matrics.vs(12),
-                  backgroundColor: colors.white,
-                  paddingVertical: Matrics.vs(10),
-                },
-                styles.bottomBtnContainerShadow,
-              ]}>
-              <Button onPress={onSaveBtnPress} title="Save" />
-            </View>
-          </View>
+          )}
         </CommonBottomSheetModal>
       </BottomSheetModalProvider>
     </SafeAreaView>
@@ -596,32 +438,33 @@ const DeviceConnectionScreen: React.FC<DeviceConnectionScreenProps> = ({
 export default DeviceConnectionScreen;
 
 const styles = StyleSheet.create({
-  genderBtnContainer: {
-    padding: Matrics.s(8),
-    width: Matrics.s(150),
-    borderRadius: Matrics.s(10),
-    borderWidth: Matrics.s(1),
-    marginHorizontal: 0,
-    marginTop: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  genderBtnTxt: {
-    marginHorizontal: 0,
-    marginLeft: 0,
-    fontFamily: Fonts.MEDIUM,
-    fontSize: Matrics.mvs(12),
-    color: colors.disableButton,
-    fontWeight: '600',
-  },
-  genderIcon: {
-    marginRight: Matrics.s(5),
-  },
   bottomBtnContainerShadow: {
     shadowColor: colors.black,
     shadowOffset: {width: 0, height: 0},
     shadowOpacity: 0.08,
     shadowRadius: 8,
     elevation: 2,
+  },
+  disclaimerTxt: {
+    backgroundColor: colors.white,
+    padding: Matrics.s(10),
+    borderRadius: Matrics.s(15),
+    borderWidth: Matrics.s(1),
+    overflow: 'hidden',
+    borderColor: colors.borderColor,
+    fontFamily: Fonts.MEDIUM,
+    fontSize: Matrics.mvs(12),
+    fontWeight: '400',
+    color: colors.darkGray,
+    marginTop: Matrics.vs(15),
+  },
+  bottonBtnContainer: {
+    backgroundColor: colors.white,
+    paddingVertical: Matrics.vs(8),
+  },
+  saveBtnTxt: {
+    fontFamily: Fonts.BOLD,
+    fontSize: Matrics.mvs(16),
+    fontWeight: '700',
   },
 });

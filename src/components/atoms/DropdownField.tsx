@@ -39,54 +39,57 @@ const DropdownField: React.FC<DropdownFieldProps> = ({
   const haveValue = value !== '';
   const haveError = error !== '';
   return (
-    <TouchableOpacity
-      activeOpacity={0.8}
-      onPress={onPress}
-      style={[
-        styles.container,
-        styles.containerShadow,
-        {
-          paddingVertical: Matrics.vs(haveValue ? 5 : 12),
-          borderColor: haveError
-            ? 'red'
-            : haveValue
-            ? colors.disableButton
-            : colors.inputBoxLightBorder,
-        },
-        containerStyle,
-      ]}>
-      <View>
-        <Text
-          style={[
-            styles.titleTxt,
-            {
-              fontSize: Matrics.mvs(haveValue ? 10 : 14),
-              lineHeight: Matrics.vs(haveValue ? 12 : 18),
-              color: haveValue ? colors.disableButton : colors.darkGray,
-            },
-            titleTxtStyle,
-          ]}>
-          {title}
-        </Text>
-        {value !== '' ? (
+    <>
+      <TouchableOpacity
+        activeOpacity={0.8}
+        onPress={onPress}
+        style={[
+          styles.container,
+          styles.containerShadow,
+          {
+            paddingVertical: Matrics.vs(haveValue ? 5 : 12),
+            borderColor: haveError
+              ? 'red'
+              : haveValue
+              ? colors.disableButton
+              : colors.inputBoxLightBorder,
+          },
+          containerStyle,
+        ]}>
+        <View>
           <Text
             style={[
-              styles.valueTxt,
+              styles.titleTxt,
               {
+                fontSize: Matrics.mvs(haveValue ? 10 : 14),
+                lineHeight: Matrics.vs(haveValue ? 12 : 18),
                 color: haveValue ? colors.disableButton : colors.darkGray,
               },
-              subTitleTxtStyle,
+              titleTxtStyle,
             ]}>
-            {value}
+            {title}
           </Text>
-        ) : null}
-      </View>
-      <Image
-        source={icon ?? require('../../assets/images/downArrow.png')}
-        style={[styles.downArrowIcon, iconStyle]}
-        resizeMode="contain"
-      />
-    </TouchableOpacity>
+          {value !== '' ? (
+            <Text
+              style={[
+                styles.valueTxt,
+                {
+                  color: haveValue ? colors.disableButton : colors.darkGray,
+                },
+                subTitleTxtStyle,
+              ]}>
+              {value}
+            </Text>
+          ) : null}
+        </View>
+        <Image
+          source={icon ?? require('../../assets/images/downArrow.png')}
+          style={[styles.downArrowIcon, iconStyle]}
+          resizeMode="contain"
+        />
+      </TouchableOpacity>
+      {error ? <Text style={styles.errorTxt}>{error}</Text> : null}
+    </>
   );
 };
 
@@ -125,5 +128,9 @@ const styles = StyleSheet.create({
   downArrowIcon: {
     height: Matrics.mvs(16),
     width: Matrics.mvs(16),
+  },
+  errorTxt: {
+    marginHorizontal: Matrics.s(5),
+    color: colors.red,
   },
 });
