@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
-import { Icons } from '../../constants/icons';
+import React, {useEffect} from 'react';
+import {StyleSheet, View, Text} from 'react-native';
+import {Icons} from '../../constants/icons';
 import CircularProgress from 'react-native-circular-progress-indicator';
 import Matrics from '../../constants/Matrics';
 
@@ -18,10 +18,9 @@ const CalorieConsumer: React.FC<CalorieConsumerProps> = ({
     if (isNaN(vale)) {
       setVAlues(0);
     } else {
-      console.log("vale is a number");
+      console.log('vale is a number');
       setVAlues(vale);
     }
-
   }, [totalConsumedcalories, totalcalories]);
 
   return (
@@ -29,7 +28,7 @@ const CalorieConsumer: React.FC<CalorieConsumerProps> = ({
       <View style={styles.innerContainer}>
         <View style={styles.topRow}>
           <View style={styles.leftContent}>
-            <View style={{ marginLeft: 8 }}>
+            <View style={{marginLeft: 8}}>
               <CircularProgress
                 value={values}
                 inActiveStrokeColor={'#2ecc71'}
@@ -42,13 +41,17 @@ const CalorieConsumer: React.FC<CalorieConsumerProps> = ({
               />
             </View>
             <View style={styles.textContainer}>
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={styles.boldTitle}>{isNaN(totalConsumedcalories) ? 0 : totalConsumedcalories}</Text>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <Text style={styles.boldTitle}>
+                  {isNaN(totalConsumedcalories) ? 0 : totalConsumedcalories}
+                </Text>
                 <Text style={styles.regularTitle}>
                   {' of ' + totalcalories}
                 </Text>
               </View>
-              <Text style={styles.textBelowTitle}>Calories consumed today!</Text>
+              <Text style={styles.textBelowTitle}>
+                Calories consumed today!
+              </Text>
             </View>
           </View>
           <Icons.Vector />
@@ -69,8 +72,6 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     backgroundColor: 'white',
-    paddingHorizontal: Matrics.s(10)
-
   },
   topRow: {
     padding: 10,

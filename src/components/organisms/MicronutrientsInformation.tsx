@@ -1,8 +1,8 @@
-import { StyleSheet, Text, View } from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import { Icons } from '../../constants/icons';
-import { colors } from '../../constants/colors';
-import { Fonts } from '../../constants';
+import {Icons} from '../../constants/icons';
+import {colors} from '../../constants/colors';
+import {Fonts} from '../../constants';
 import Matrics from '../../constants/Matrics';
 
 type MicronutrientsInformationProps = {
@@ -95,7 +95,7 @@ const MicronutrientsInformation: React.FC<MicronutrientsInformationProps> = ({
               </Text>
               <Text>Calories</Text>
             </View>
-            <View style={styles.circle} >
+            <View style={styles.circle}>
               <Icons.Flame />
             </View>
           </View>
@@ -172,7 +172,9 @@ const styles = StyleSheet.create({
     width: Matrics.s(36),
     height: Matrics.vs(36),
     backgroundColor: '#F3F3F3',
-    marginRight: 10, justifyContent: "center", alignItems: "center",
-    borderRadius: 18
+    marginRight: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 18,
   },
 });
