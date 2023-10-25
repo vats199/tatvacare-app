@@ -46,7 +46,6 @@ import WelcomeScreen from '../screens/SetupProfile/WelcomeScreen';
 import QuestionOneScreen from '../screens/SetupProfile/QuestionOneScreen';
 import ScanCodeScreen from '../screens/SetupProfile/ScanCodeScreen';
 import QuestionListScreen from '../screens/SetupProfile/QuestionListScreen';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import DietScreen from '../screens/FoodDiary/DietScreen';
 import AddDietScreen from '../screens/FoodDiary/AddDietScreen';
 import DietDetailScreen from '../screens/FoodDiary/DietDetailScreen';
@@ -68,6 +67,7 @@ import LabTestSummary from '../screens/Diagnostic/LabTestSummaryScreen';
 import LabTestSummaryScreen from '../screens/Diagnostic/LabTestSummaryScreen';
 import CongratulationScreen from '../screens/Diagnostic/CongratulationScreen';
 import OrderDetailsScreen from '../screens/Diagnostic/OrderDetailsScreen';
+import { Matrics } from '../constants';
 
 const Drawer = createDrawerNavigator<DrawerParamList>();
 const DrawerScreen = () => {
@@ -96,13 +96,13 @@ const BottomTabScreen = () => {
           let iconName;
           let rn = route.name;
           if (rn === 'HomeScreen') {
-            iconName = require('../assets/images/Home.png');
+            iconName = require('../assets/images/home_default.png');
           } else if (rn === 'Exercies') {
-            iconName = require('../assets/images/Exercise.png');
+            iconName = require('../assets/images/exercise_default.png');
           } else if (rn === 'EngageScreen') {
-            iconName = require('../assets/images/Engage.png');
+            iconName = require('../assets/images/learn_default.png');
           } else if (rn === 'CarePlanScreen') {
-            iconName = require('../assets/images/Caree.png');
+            iconName = require('../assets/images/program_default.png');
           }
           return (
             <Image
@@ -116,17 +116,16 @@ const BottomTabScreen = () => {
         tabBarActiveTintColor: colors.themePurple,
         tabBarInactiveTintColor: colors.secondaryLabel,
         tabBarStyle: {
-          borderTopRightRadius: 30,
-          borderTopLeftRadius: 30,
-          flex: 0.1,
+          flex: 0.08,
         },
         tabBarLabelStyle: {
-          paddingBottom: 10,
-          fontSize: 12,
-          paddingTop: 10,
+          paddingBottom: Matrics.vs(10),
+          fontSize: Matrics.mvs(12),
         },
         tabBarIconStyle: {
-          marginTop: 15,
+          height: Matrics.mvs(20),
+          width: Matrics.mvs(20),
+          marginTop: Matrics.vs(5),
         },
       })}>
       <BottomTab.Screen
@@ -137,12 +136,12 @@ const BottomTabScreen = () => {
       <BottomTab.Screen
         name={'CarePlanScreen'}
         component={CarePlanScreen}
-        options={{ tabBarLabel: 'Care Plan' }}
+        options={{ tabBarLabel: 'Programs' }}
       />
       <BottomTab.Screen
         name={'EngageScreen'}
         component={EngageStackScreen}
-        options={{ tabBarLabel: 'Engage' }}
+        options={{ tabBarLabel: 'Learn' }}
       />
       <BottomTab.Screen
         name={'Exercies'}
@@ -300,8 +299,6 @@ const DiagnosticStackScreen = () => {
         name={'OrderDetails'}
         component={OrderDetailsScreen}
       />
-
-
     </DiagnosticStack.Navigator>
   );
 };

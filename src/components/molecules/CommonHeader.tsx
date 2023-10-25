@@ -8,10 +8,9 @@ import {
   ViewStyle,
 } from 'react-native';
 import React from 'react';
-import {Fonts, Matrics} from '../../constants';
-import {Icons} from '../../constants/icons';
-import {Image} from 'react-native-svg';
-import {Icon} from 'react-native-vector-icons/Icon';
+import { Fonts, Matrics } from '../../constants';
+import { Icons } from '../../constants/icons';
+import { Image } from 'react-native-svg';
 
 interface CommonHeaderProps {
   containerStyle?: ViewStyle;
@@ -22,7 +21,7 @@ interface CommonHeaderProps {
 const CommonHeader: React.FC<
   CommonHeaderProps & TouchableOpacityProps
 > = props => {
-  const {containerStyle, title, textStyle} = props;
+  const { containerStyle, title, textStyle } = props;
   return (
     <View style={[styles.container, containerStyle]}>
       <TouchableOpacity {...props} style={[styles.btnStyle, props.style]}>
