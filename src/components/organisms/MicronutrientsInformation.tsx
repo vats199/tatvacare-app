@@ -105,11 +105,10 @@ export default MicronutrientsInformation;
 
 const styles = StyleSheet.create({
   outerContainer: {
-    marginHorizontal: 10,
+    paddingHorizontal: Matrics.s(15),
   },
   title: {
-    fontSize: 16,
-    fontWeight: '700',
+    fontSize: Matrics.mvs(16),
     color: colors.labelDarkGray,
     fontFamily: Fonts.BOLD,
     marginVertical: 8,
@@ -131,7 +130,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   calorieValue: {
-    fontSize: 20,
+    fontSize: Matrics.mvs(20),
     fontWeight: 'bold',
     color: colors.black,
   },
@@ -153,11 +152,11 @@ const styles = StyleSheet.create({
     marginRight: 10, justifyContent: "center", alignItems: "center"
   },
   name: {
-    fontSize: 14,
+    fontSize: Matrics.mvs(14),
     color: colors.subTitleLightGray,
   },
   value: {
-    fontSize: 14,
+    fontSize: Matrics.mvs(14),
     color: colors.subTitleLightGray,
   },
 });
