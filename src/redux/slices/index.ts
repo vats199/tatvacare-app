@@ -1,18 +1,18 @@
 import {combineReducers} from 'redux';
 
-// import { Logout } from '../Types';
-// import AuthReducer, { INITIAL_STATE as INITIAL_AUTH } from './AuthReducer';
-// import HomeReducer from './HomeReducer';
-// import CommonReducer, { INITIAL_STATE as INITIAL_COMMON } from './CommonReducer';
-// import DetailsReducer from './DetailsReducer';
-// import ScanQRReducer from './ScanQRReducer';
-// import PaymentReducer from './PaymentReducer';
 import authSlice from './authSlice';
+import locationSlice from './locationSlice';
 
 let appReducer = combineReducers({
   Auth: authSlice,
-  // Home: HomeReducer,
+  Location: locationSlice,
 });
+
+// export all action
+export * from './authSlice';
+export * from './locationSlice';
+
+export default appReducer;
 
 // const rootReducer = (state, action) => {
 //   // if (action.type === Logout.SUCCESS) {
@@ -23,8 +23,3 @@ let appReducer = combineReducers({
 //   // }
 //   return appReducer(state, action);
 // };
-
-export default appReducer;
-
-// export all action
-export * from './authSlice';

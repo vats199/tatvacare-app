@@ -34,6 +34,7 @@ import constants from '../../constants/constants';
 import * as actions from '../../redux/slices';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../redux/Store';
+import Location from '../../api/location';
 type OnBoardingScreenProps = CompositeScreenProps<
   StackScreenProps<AuthStackParamList, 'OnBoardingScreen'>,
   StackScreenProps<AppStackParamList, 'AuthStackScreen'>
@@ -91,8 +92,6 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({
         flatListRef.current?.scrollToIndex({index: activeIndexRef.current});
       }
     }, 4000);
-
-    console.log(data, 'data');
   }, []);
   const renderItem = ({item, index}: {item: any; index: number}) => {
     return (
@@ -196,6 +195,7 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({
           {arr.map((ele, index) => {
             return (
               <View
+                key={index.toString()}
                 style={{
                   height: Matrics.vs(5),
                   width: Matrics.s(30),
@@ -211,15 +211,10 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({
         </View>
       </View>
       <View style={styles.spaceView} />
-      {/* <Button
-        title="Get Started"
-        buttonStyle={styles.buttonStyle}
-        onPress={() => onPressGetStarted()}
-      /> */}
       <Button
         title="Get Started"
         buttonStyle={{marginBottom: insets.bottom == 0 ? Matrics.vs(16) : 0}}
-        onPress={() => onPressGetStarted()}
+        onPress={onPressGetStarted}
       />
       <LoginBottomSheet
         ref={BottomSheetRef}

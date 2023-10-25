@@ -1,3 +1,4 @@
 import auth from './auth';
+import location from './location';
 
-export default {auth};
+export default {auth, location};
