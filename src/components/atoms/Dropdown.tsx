@@ -15,6 +15,7 @@ interface DropdownProps {
   selectedItem: (data: string) => void;
   isDisable: boolean;
   containerStyle: TextStyle;
+  defaultValues: string
 }
 
 const DropdownComponent: React.FC<DropdownProps> = ({
@@ -26,14 +27,16 @@ const DropdownComponent: React.FC<DropdownProps> = ({
   iconStyle,
   inputSearchStyle,
   placeholder,
-  selectedItem, isDisable, containerStyle
+  selectedItem, isDisable, containerStyle, defaultValues
 
 }) => {
-  const [value, setValue] = useState<string | null>(null);
+  const [value, setValue] = useState<string | null>(defaultValues);
   const [isFocus, setIsFocus] = useState(false);
   const handeSelectItem = (item: string) => {
     selectedItem(item)
   }
+
+
   return (
     <View style={[styles.container, dropdownStyle]}>
       <ElementDropdown
@@ -47,7 +50,7 @@ const DropdownComponent: React.FC<DropdownProps> = ({
         // search
         containerStyle={containerStyle}
         dropdownPosition={'top'}
-         maxHeight={300}
+        maxHeight={300}
         labelField="label"
         valueField="value"
         placeholder={!isFocus ? placeholder : 'select'}

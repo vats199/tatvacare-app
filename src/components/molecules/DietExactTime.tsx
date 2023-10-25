@@ -1,4 +1,3 @@
-import { DrawerItemList } from '@react-navigation/drawer';
 import React, { useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { colors } from '../../constants/colors';
@@ -7,7 +6,6 @@ import DietOption from './DietOption';
 import Matrics from '../../constants/Matrics';
 import Fonts from '../../constants/fonts';
 import moment from 'moment'
-import { useFocusEffect } from '@react-navigation/native';
 
 interface ExactTimeProps {
   onPressPlus: (optionId: string, mealName: string) => void;
@@ -151,7 +149,7 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
         return <Icons.Snacks />
     }
   };
-
+ 
   return (
     <View style={styles.container}>
       <View style={styles.innerContainer}>
@@ -161,15 +159,15 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
             <View style={styles.textContainer}>
               <Text style={styles.title}>{cardData?.meal_name}</Text>
               <Text style={styles.textBelowTitle}>
-                {moment(cardData?.start_time, 'HH:mm:ss').format('h:mm A') + "-" + moment(cardData?.end_time, 'HH:mm:ss').format('h:mm A') + " | " + Math.round(Number(foodItmeData?.consumed_calories)) + " of " + Math.round(Number(foodItmeData?.total_calories)) + "cal"}
+                {moment(cardData?.start_time, 'HH:mm:ss').format('h:mm A') + " - " + moment(cardData?.end_time, 'HH:mm:ss').format('h:mm A') + " | " + (isNaN(Math.round(Number(foodItmeData?.consumed_calories))) ? 0 : Math.round(Number(foodItmeData?.consumed_calories))) + " of " + Math.round(Number(foodItmeData?.total_calories)) + "cal"}
               </Text>
             </View>
           </View>
-          {/* {cardData.patient_permission === "W" ? */}
-          <TouchableOpacity onPress={handlePulsIconPress} style={styles.iconContainer}>
-            <Icons.AddCircle height={25} width={25} />
-          </TouchableOpacity>
-          {/* : null} */}
+          {cardData.patient_permission === "W" ?
+            <TouchableOpacity onPress={handlePulsIconPress} style={styles.iconContainer}>
+              <Icons.AddCircle height={25} width={25} />
+            </TouchableOpacity>
+            : null}
         </View>
         <View style={styles.line} />
         <View style={styles.belowRow}>
@@ -181,7 +179,7 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
                   const isOptionSelected = foodItmeData?.diet_meal_options_id === item?.diet_meal_options_id
                   return (
                     <TouchableOpacity style={[styles.optionContainer, { backgroundColor: isOptionSelected ? colors.optionbackground : colors.white, borderColor: isOptionSelected ? colors.themePurple : colors.inputBoxLightBorder }]} onPress={() => setFoodItemData(item)}>
-                      <Text >Option {index + 1}</Text>
+                      <Text style={styles.optionText}>Option {index + 1}</Text>
                     </TouchableOpacity>
                   )
                 })}
@@ -228,7 +226,9 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     backgroundColor: '#F3F3F3',
     marginRight: 10, justifyContent: "center",
-    alignItems: 'center'
+    alignItems: 'center',
+    alignSelf: "center",
+    alignContent: 'center'
   },
   textContainer: {
     flex: 1,
@@ -266,13 +266,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: "center",
     marginLeft: Matrics.s(10),
-    borderWidth: 1
+    borderWidth: 1,
+
   },
   optionText: {
     fontFamily: Fonts.REGULAR,
     fontWeight: "500",
     color: colors.labelDarkGray,
-
+    fontSize: Matrics.mvs(12)
   },
   iconContainer: { height: 30, width: 30, justifyContent: 'center', alignItems: 'center' }
 });

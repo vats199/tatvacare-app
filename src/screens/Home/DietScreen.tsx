@@ -56,6 +56,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
       return accumulator + Number(currentValue?.consumed_calories);
     }, 0);
     setTotalConsumedcalories(totalConsumedcalories)
+
   }, [caloriesArray]);
 
   useFocusEffect(
@@ -70,7 +71,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
     setLoader(true)
     const date = moment(selectedDate).format('YYYY/MM/DD');
     const diet = await Diet.getDietPlan({ date: date }, {});
-    console.log("diet", diet);
+
     if (diet) {
       setLoader(false)
       setDiePlane(diet?.data[0]);
@@ -100,8 +101,6 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   const deleteFoodItem = async () => {
     setStateOfAPIcall(true)
     const deleteFoodItem = await Diet.deleteFoodItem({ patient_id: dietPlane?.patient_id, health_coach_id: dietPlane?.health_coach_id, diet_plan_food_item_id: deletpayload, }, {});
-    console.log("deleteFoodItem", deleteFoodItem);
-
     getData()
     if (deleteFoodItem?.data === true) {
       setStateOfAPIcall(false)
@@ -171,7 +170,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
       <BasicModal
         modalVisible={modalVisible}
         messgae={'Are you sure you want to delete this food item from your meal'}
-        NegativeButtonsText='Cancle'
+        NegativeButtonsText='Cancel'
         positiveButtonText='Ok'
         onPressOK={deleteFoodItem}
         onPressCancle={() => setModalVisible(!modalVisible)} />
@@ -184,7 +183,7 @@ const styles = StyleSheet.create({
   belowContainer: {
     flex: 1,
     paddingHorizontal: 15,
-    backgroundColor: colors.veryLightGreyishBlue,
+    backgroundColor:colors.lightGreyishBlue,
   },
   messageContainer: {
     alignItems: 'center',

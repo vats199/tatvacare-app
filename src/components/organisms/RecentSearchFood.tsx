@@ -38,7 +38,6 @@ type SearcheFood = {
 const RecentSearchDiet: React.FC<RecentSerachDietProps> = ({ onPressPlus, searchData, title }) => {
 
   const renderRecentSearchItem = (item: SearcheFood, index: number) => {
-    console.log("item", item);
 
     return (
       <TouchableOpacity style={styles.container} onPress={() => onPressPlus(item)}>
@@ -57,10 +56,10 @@ const RecentSearchDiet: React.FC<RecentSerachDietProps> = ({ onPressPlus, search
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <Text style={styles.text}>{title}</Text>
-      {searchData?.length > 0 ? searchData?.map(renderRecentSearchItem) : (null
-        // <View>
-        //   <Text style={{textTransform:'capitalize'}}>sorry but no such food item found in our database please try with some other keyword</Text>
-        // </View>
+      {searchData?.length > 0 ? searchData?.map(renderRecentSearchItem) : (
+        <View>
+          <Text style={{ textTransform: 'capitalize' }}>sorry but no such food item found in our database please try with some other keyword</Text>
+        </View>
       )}
     </ScrollView>
   );
@@ -80,6 +79,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginVertical: 6,
+    marginHorizontal: 2
   },
   titleText: {
     fontSize: Matrics.mvs(14),

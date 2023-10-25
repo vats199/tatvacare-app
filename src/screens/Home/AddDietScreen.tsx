@@ -9,7 +9,7 @@ import Diet from '../../api/diet';
 import { useApp } from '../../context/app.context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Container, Screen } from '../../components/styled/Views';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import Matrics from '../../constants/Matrics';
 
 
@@ -41,22 +41,25 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
   const { optionId, healthCoachId, mealName, patient_id } = route.params
   const [recentSerach, setRecentSerach] = React.useState([])
   const [searchResult, setSearchResult] = React.useState([])
-  const [title, setTitle] = React.useState<string>('Recent Search')
-
+  const [title, setTitle] = React.useState<string>('')
+  const insets = useSafeAreaInsets()
 
   useEffect(() => {
     const getRecentSerache = async () => {
       const recentSearchResults = await AsyncStorage.getItem('recentSearchResults');
       let results = recentSearchResults ? JSON.parse(recentSearchResults) : [];
-      console.log("results", results);
 
-      if (results.length > 3) {
-        const updatedResult = results.slice(0, 4)
+      const unique = results.filter((obj: any, index: number) => {
+        return index === results.findIndex((o: any) => obj.food_name === o.food_name);
+      });
+
+      if (unique.length > 3) {
+        const updatedResult = unique.slice(0, 4)
         setRecentSerach(updatedResult)
         setSearchResult(updatedResult)
       } else {
-        setRecentSerach(results)
-        setSearchResult(results)
+        setRecentSerach(unique)
+        setSearchResult(unique)
       }
     }
     getRecentSerache()
@@ -122,7 +125,7 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
   }
 
   return (
-    <SafeAreaView edges={['top']} style={styles.container}>
+    <SafeAreaView edges={['top']} style={[styles.container, { paddingBottom: insets.bottom !== 0 ? insets.bottom : Matrics.vs(15), }]}>
       <DietSearchHeader onPressBack={onPressBack} onSearch={handleSerach} />
       <RecentSearchDiet onPressPlus={handlePressPlus} searchData={searchResult} title={title} />
     </SafeAreaView>
@@ -134,7 +137,7 @@ export default AddDietScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal:Matrics.s(15),
+    paddingHorizontal: Matrics.s(15),
     backgroundColor: colors.lightGreyishBlue,
   },
 });

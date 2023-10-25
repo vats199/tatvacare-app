@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { Icons } from '../../constants/icons';
 import CircularProgress from 'react-native-circular-progress-indicator';
+import Matrics from '../../constants/Matrics';
 
 type CalorieConsumerProps = {
   totalConsumedcalories: number,
@@ -20,30 +21,27 @@ const CalorieConsumer: React.FC<CalorieConsumerProps> = ({ totalConsumedcalories
     }
 
   }, [totalConsumedcalories, totalcalories])
-
   return (
     <View style={styles.container}>
       <View style={styles.innerContainer}>
         <View style={styles.topRow}>
           <View style={styles.leftContent}>
-            <View style={{ marginLeft: 8 }}>
-              <CircularProgress
-                value={values}
-                inActiveStrokeColor={'#2ecc71'}
-                inActiveStrokeOpacity={0.2}
-                progressValueColor={'green'}
-                valueSuffix={'%'}
-                radius={23}
-                activeStrokeWidth={3}
-                inActiveStrokeWidth={3}
-              />
-            </View>
+            <CircularProgress
+              value={values}
+              inActiveStrokeColor={'#2ecc71'}
+              inActiveStrokeOpacity={0.2}
+              progressValueColor={'green'}
+              valueSuffix={'%'}
+              radius={23}
+              activeStrokeWidth={3}
+              inActiveStrokeWidth={3}
+            />
             <View style={styles.textContainer}>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={styles.boldTitle}>{totalConsumedcalories}</Text>
+                <Text style={styles.boldTitle}>{isNaN(totalConsumedcalories) ? 0 : totalConsumedcalories}</Text>
                 <Text style={styles.regularTitle}>{" of " + totalcalories}</Text>
               </View>
-              <Text style={styles.textBelowTitle}>Calories Consumed Today</Text>
+              <Text style={styles.textBelowTitle}>Calories consumed today!</Text>
             </View>
           </View>
           <Icons.Vector />
@@ -64,11 +62,13 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     backgroundColor: 'white',
+    paddingHorizontal:Matrics.s(10)
   },
   topRow: {
     padding: 10,
     flexDirection: 'row',
     alignItems: 'center',
+
   },
   leftContent: {
     flexDirection: 'row',

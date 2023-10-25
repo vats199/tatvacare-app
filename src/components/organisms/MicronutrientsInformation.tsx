@@ -3,6 +3,7 @@ import React from 'react';
 import { Icons } from '../../constants/icons';
 import { colors } from '../../constants/colors';
 import Fonts from '../../constants/fonts';
+import Matrics from '../../constants/Matrics';
 
 type MicronutrientsInformationProps = {
   foodItemDetails: FoodItems
@@ -49,16 +50,16 @@ const MicronutrientsInformation: React.FC<MicronutrientsInformationProps> = ({ f
       value: foodItemDetails?.protein,
       icons: <Icons.Protein />
     },
+     {
+      name: 'Fats',
+      value: foodItemDetails?.fats,
+      icons: <Icons.Fats />
+
+    },
     {
       name: 'Carbs',
       value: foodItemDetails?.carbs,
       icons: <Icons.Carbs />
-
-    },
-    {
-      name: 'Fats',
-      value: foodItemDetails?.fats,
-      icons: <Icons.Fats />
 
     },
     {
@@ -91,7 +92,9 @@ const MicronutrientsInformation: React.FC<MicronutrientsInformationProps> = ({ f
               <Text style={styles.calorieValue}>{Math.round(Number(foodItemDetails?.calories))}</Text>
               <Text>Calories</Text>
             </View>
-            <Icons.Flame />
+            <View style={styles.circle} >
+              <Icons.Flame />
+            </View>
           </View>
           <View style={styles.borderline} />
           <View>{options.map(renderNutritionDataItem)}</View>
@@ -151,6 +154,13 @@ const styles = StyleSheet.create({
     height: 25,
     // backgroundColor: '#F3F3F3',
     marginRight: 10, justifyContent: "center", alignItems: "center"
+  },
+  circle: {
+    width: Matrics.s(36),
+    height: Matrics.vs(36),
+    backgroundColor: '#F3F3F3',
+    marginRight: 10, justifyContent: "center", alignItems: "center",
+    borderRadius: 18
   },
   name: {
     fontSize: 14,

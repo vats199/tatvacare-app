@@ -126,7 +126,7 @@ const DietHeader: React.FC<DietHeaderProps> = ({
   };
 
   return (
-    <View style={{ backgroundColor: colors.veryLightGreyishBlue, paddingBottom: 10 }}>
+    <View style={{ backgroundColor: 'transparent', paddingBottom: 10, overflow: 'hidden' }}>
       <View style={styles.upperContainer}>
         <View style={styles.customHeader}>
           <TouchableOpacity onPress={onPressBack}>
@@ -180,7 +180,7 @@ const DietHeader: React.FC<DietHeaderProps> = ({
                   borderWidth: 1,
                   borderHighlightColor: 'white',
                 }}
-                style={{ height: Matrics.vs(60), }}
+                style={{ height: Matrics.vs(70) }}
                 calendarColor={colors.lightGreyishBlue}
                 dateNumberStyle={styles.dateNumberStyle}
                 dateNameStyle={{ color: 'black' }}
@@ -196,7 +196,7 @@ const DietHeader: React.FC<DietHeaderProps> = ({
               />
             </View>
           ) : (
-            <View style={{ height: Matrics.vs(240) }}>
+            <View style={{ height: Matrics.vs(310) }}>
               <CalendarList
                 firstDay={1}
                 horizontal={true}
@@ -227,8 +227,8 @@ const DietHeader: React.FC<DietHeaderProps> = ({
                       container: {
                         backgroundColor: colors.themePurple,
                         borderRadius: Matrics.mvs(10),
-                        height: Matrics.vs(30),
-                        width: Matrics.s(35),
+                        height: Matrics.vs(34),
+                        width: Matrics.s(40),
                         justifyContent: "center", alignItems: "center"
                       },
                       text: {
@@ -286,7 +286,7 @@ const styles = StyleSheet.create({
     elevation: 0.2,
     borderBottomRightRadius: 20,
     borderBottomLeftRadius: 20,
-    shadowOffset: { width: -2, height: 2 },
+    shadowOffset: { width: 0, height: 0 },
     shadowColor: '#171717',
     shadowOpacity: 0.1,
     shadowRadius: 3,
@@ -294,7 +294,7 @@ const styles = StyleSheet.create({
   customHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginLeft: 15,
+    marginHorizontal: Matrics.s(15),
     // marginTop: 30,
     marginBottom: 20,
   },
@@ -305,10 +305,11 @@ const styles = StyleSheet.create({
     marginLeft: 6,
   },
   dateNumberStyle: {
-    fontSize: 13,
+    fontSize: 14,
     color: '#656566',
     marginVertical: 10,
-    height: Matrics.vs(30),
+    height: Matrics.vs(34),
+    width: Matrics.s(40),
     padding: Matrics.mvs(8),
   },
   highlighetdDateNumberStyle: {
@@ -339,7 +340,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: 'bold',
     color: colors.black,
-    marginLeft: 5,
+    marginLeft: Matrics.s(12),
   },
   dropDwonIcon: {
     opacity: 1,

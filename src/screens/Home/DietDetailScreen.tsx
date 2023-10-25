@@ -17,8 +17,8 @@ type DietDetailProps = StackScreenProps<DietStackParamList, 'DietDetail'>
 const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
   const { foodItem, buttonText, healthCoachId, mealName, patient_id } = route.params
 
-  const [qty, setQty] = React.useState<string>()
-  // const { userData } = useApp();
+  let quantity = Math.round(Number(foodItem?.quantity)).toString()
+  const [qty, setQty] = React.useState<string>(quantity)
   const insets = useSafeAreaInsets()
 
   const onPressBack = () => { navigation.goBack(); };
@@ -72,19 +72,11 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
 
     if (buttonText === "Add") {
       const result = await Deit?.addFoodItem(addPayload, {})
-      console.log("result", result);
-
-      // { token: userData?.token }
-      // if (result?.code === '1') {
       if (result?.data === true) {
         navigation.popToTop()
       }
     } else {
       const result = await Deit?.updateFoodItem(updatePayload, {})
-      console.log("result", result);
-
-      // , { token: userData?.token }
-      // if (result?.code === '1') {
       if (result?.data === true) {
         navigation.popToTop()
       }
@@ -95,7 +87,7 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
     setQty(item)
   }
   return (
-    <SafeAreaView edges={['top']} style={{ flex: 1, backgroundColor: colors.lightGreyishBlue, paddingBottom: insets.bottom !== 0 ? insets.bottom / 2 : Matrics.vs(16), }}>
+    <SafeAreaView edges={['top']} style={{ flex: 1, backgroundColor: colors.lightGreyishBlue, paddingTop: insets.top !== 0 ? insets.top : Matrics.vs(15) }}>
       <View style={styles.header}>
         <Icons.backArrow onPress={onPressBack} height={23} width={23} />
         <Text style={styles.dietTitle}>{foodItem?.food_item_name}</Text>

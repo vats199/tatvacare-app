@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		060402241F697779A3F2183D /* Pods_MyTatva.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A179FD1F8E011AB49DB4344E /* Pods_MyTatva.framework */; };
 		1C0C61CE69BF30A6AEFDB68F /* CPDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2317BBE666E57B48A4A6B37A /* CPDetailsModel.swift */; };
 		1FC36334486C59A7840670CC /* CommonPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD3903EB13A2CBC6E2A1627 /* CommonPageView.swift */; };
 		23DF427072AF5F21D90AA438 /* CarePlanDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D963BC24304C93876B7226BB /* CarePlanDetailsModel.swift */; };
@@ -42,6 +41,7 @@
 		40CFD7E52A53FCA60035B411 /* QuestionsStartingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CFD7E42A53FCA60035B411 /* QuestionsStartingVC.swift */; };
 		40CFD7E82A54010A0035B411 /* SetupProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CFD7E72A54010A0035B411 /* SetupProfileVC.swift */; };
 		4CF746F788778DFD35A7D544 /* BCAAddAddressVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0262DDC1C0487F7D313B7E62 /* BCAAddAddressVM.swift */; };
+		4F58BA106AC2126079DDB7D7 /* Pods_MyTatvaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C28B507837D40B13842EAA8 /* Pods_MyTatvaTests.framework */; };
 		5212E84D2AB18DD300076F2C /* RNShare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5212E84C2AB18DD300076F2C /* RNShare.swift */; };
 		5212E84F2AB191D500076F2C /* RNShare.m in Sources */ = {isa = PBXBuildFile; fileRef = 5212E84E2AB191D500076F2C /* RNShare.m */; };
 		5212E8512AB239DE00076F2C /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5212E8502AB239DE00076F2C /* Navigation.swift */; };
@@ -727,9 +727,8 @@
 		666B27E9AE9EAFA86D06169E /* BcaVitalsDetailsTypeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36CD15F12E71C79351A3420 /* BcaVitalsDetailsTypeVC.swift */; };
 		6CF363956818DA4529C664E6 /* BcaDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443841831242FD93403BECE1 /* BcaDetailVC.swift */; };
 		73578501955AF9595139CDD3 /* Weigth_scale.json in Resources */ = {isa = PBXBuildFile; fileRef = E4F51818B96D5002CA72C0C1 /* Weigth_scale.json */; };
-		777D644E71468EE68B0D2D08 /* Pods_MyTatva_MyTatvaUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3056644C2AAAC52608A331D7 /* Pods_MyTatva_MyTatvaUITests.framework */; };
-		78EC5639690A840A49120677 /* Pods_NotificationViewController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CC69669994823EA46144A6A /* Pods_NotificationViewController.framework */; };
 		8D11D59325B5DC8A00548102 /* BCASelectAddressListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7035E316A6C13E30B814D4CB /* BCASelectAddressListVM.swift */; };
+		8DD94E28CD8F2697C84F2718 /* Pods_NotificationViewController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A50F9EB274C66B5DBD098BE /* Pods_NotificationViewController.framework */; };
 		910276A02679237800C55C2D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9102763F2679237700C55C2D /* AppDelegate.swift */; };
 		910276A12679237800C55C2D /* AppDelegate+PushNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910276412679237700C55C2D /* AppDelegate+PushNotification.swift */; };
 		910276A22679237800C55C2D /* PushNotificationTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910276422679237700C55C2D /* PushNotificationTag.swift */; };
@@ -759,6 +758,7 @@
 		91D246C3267A5D6A0023FB1B /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D246C2267A5D6A0023FB1B /* ForgotPasswordViewModel.swift */; };
 		91DFB5CC26BD1DEE006431D9 /* MenuType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DFB5CB26BD1DEE006431D9 /* MenuType.swift */; };
 		958588627224D8DE84AD2EA4 /* PlanDataDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CE999B208A5524E8B7582B /* PlanDataDetailModel.swift */; };
+		967B248B4221A942B611987A /* Pods_MyTatva.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2055A202226C5B5B56ED79D0 /* Pods_MyTatva.framework */; };
 		9A2327552A4171FD0073137C /* ScheduleAppointmentVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2327542A4171FD0073137C /* ScheduleAppointmentVM.swift */; };
 		9A2327582A4176620073137C /* AppointmentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2327572A4176620073137C /* AppointmentModel.swift */; };
 		9A23275A2A4179720073137C /* NutritionistModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2327592A4179720073137C /* NutritionistModel.swift */; };
@@ -795,12 +795,12 @@
 		9AF1E62629FF9C0E002CF3D8 /* SomeoneElsePopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF1E62529FF9C0E002CF3D8 /* SomeoneElsePopupVC.swift */; };
 		9AF1E62829FFA1C0002CF3D8 /* SomeoneElsePopupVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF1E62729FFA1C0002CF3D8 /* SomeoneElsePopupVM.swift */; };
 		9AF1E62A29FFA4CE002CF3D8 /* SomeoneElseDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF1E62929FFA4CE002CF3D8 /* SomeoneElseDataModel.swift */; };
+		9C4F0371DDAB54A1E6605049 /* Pods_MyTatva_MyTatvaUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC58E56D59F44B2CE17EF44F /* Pods_MyTatva_MyTatvaUITests.framework */; };
 		A3FAD6252AC959030026CE46 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = A3FAD6242AC959030026CE46 /* main.jsbundle */; };
 		A3FAD6282ACAA2F50026CE46 /* DevicesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FAD6272ACAA2F50026CE46 /* DevicesVC.swift */; };
 		A3FAD62B2ACABB060026CE46 /* DevicesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FAD62A2ACABB060026CE46 /* DevicesViewModel.swift */; };
-		B8604DF02E0C2D06389976FD /* Pods_MyTatvaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8812ED21F4E5B3EE77B1ABF /* Pods_MyTatvaTests.framework */; };
+		BB288120D1431ABA214E5FD8 /* Pods_MyTatvaNotificationService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D93C21BD5F199C8A01FD79E /* Pods_MyTatvaNotificationService.framework */; };
 		BF33826EC9D0A0C48EE46588 /* BcaVitalsDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2509CDD5D4A1BE01B75F4BB1 /* BcaVitalsDetailsVC.swift */; };
-		BFAA0D6644207B582BFBA3CB /* Pods_MyTatvaNotificationService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF2F1970E270DDCE225DC47F /* Pods_MyTatvaNotificationService.framework */; };
 		BFDB903CF33A2B179655C699 /* BcaVitalsDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ADEFD0910C6B315614B875 /* BcaVitalsDetailsViewModel.swift */; };
 		C2D52F38E624A2E28825356E /* BCAAddAddressVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFDED6C635C9CBCE4693024 /* BCAAddAddressVC.swift */; };
 		C395B083F922D681FB27DBAE /* BcaListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F819BAA65E886BD76DA13854 /* BcaListCell.swift */; };
@@ -896,11 +896,10 @@
 		0262DDC1C0487F7D313B7E62 /* BCAAddAddressVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCAAddAddressVM.swift; sourceTree = "<group>"; };
 		1BC4F2BA61708A40D6BB9C72 /* WKWebView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WKWebView+Extension.swift"; sourceTree = "<group>"; };
 		1BD3903EB13A2CBC6E2A1627 /* CommonPageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonPageView.swift; sourceTree = "<group>"; };
-		1C5240145651A935B0DDD775 /* Pods-MyTatva-MyTatvaUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyTatva-MyTatvaUITests.debug.xcconfig"; path = "Target Support Files/Pods-MyTatva-MyTatvaUITests/Pods-MyTatva-MyTatvaUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		2055A202226C5B5B56ED79D0 /* Pods_MyTatva.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyTatva.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2317BBE666E57B48A4A6B37A /* CPDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPDetailsModel.swift; sourceTree = "<group>"; };
 		2509CDD5D4A1BE01B75F4BB1 /* BcaVitalsDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BcaVitalsDetailsVC.swift; sourceTree = "<group>"; };
-		2DAEE76AA0FCE9ABABCC38C4 /* Pods-MyTatvaNotificationService.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyTatvaNotificationService.release.xcconfig"; path = "Target Support Files/Pods-MyTatvaNotificationService/Pods-MyTatvaNotificationService.release.xcconfig"; sourceTree = "<group>"; };
-		3056644C2AAAC52608A331D7 /* Pods_MyTatva_MyTatvaUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyTatva_MyTatvaUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3B8FCF653D14DE3741E257B2 /* Pods-NotificationViewController.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationViewController.debug.xcconfig"; path = "Target Support Files/Pods-NotificationViewController/Pods-NotificationViewController.debug.xcconfig"; sourceTree = "<group>"; };
 		402B356E2A8357F600831958 /* SelectTestTimeSlotVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTestTimeSlotVC.swift; sourceTree = "<group>"; };
 		402B35702A83589E00831958 /* SelectTestTimeSlotVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTestTimeSlotVM.swift; sourceTree = "<group>"; };
 		405B24452A55582C00B0EB7B /* SetupProfileVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupProfileVM.swift; sourceTree = "<group>"; };
@@ -933,12 +932,14 @@
 		40CFD7E42A53FCA60035B411 /* QuestionsStartingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsStartingVC.swift; sourceTree = "<group>"; };
 		40CFD7E72A54010A0035B411 /* SetupProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupProfileVC.swift; sourceTree = "<group>"; };
 		443841831242FD93403BECE1 /* BcaDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BcaDetailVC.swift; sourceTree = "<group>"; };
-		4B3C116B86010EFE794904F5 /* Pods-NotificationViewController.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationViewController.debug.xcconfig"; path = "Target Support Files/Pods-NotificationViewController/Pods-NotificationViewController.debug.xcconfig"; sourceTree = "<group>"; };
 		5212E84C2AB18DD300076F2C /* RNShare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNShare.swift; sourceTree = "<group>"; };
 		5212E84E2AB191D500076F2C /* RNShare.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNShare.m; sourceTree = "<group>"; };
 		5212E8502AB239DE00076F2C /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
 		52ADEFD0910C6B315614B875 /* BcaVitalsDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BcaVitalsDetailsViewModel.swift; sourceTree = "<group>"; };
 		52ECBC9A2ABC214A00D74D55 /* NavigationModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationModule.m; sourceTree = "<group>"; };
+		533360F68D638699F5DC89BC /* Pods-MyTatvaNotificationService.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyTatvaNotificationService.debug.xcconfig"; path = "Target Support Files/Pods-MyTatvaNotificationService/Pods-MyTatvaNotificationService.debug.xcconfig"; sourceTree = "<group>"; };
+		5A50F9EB274C66B5DBD098BE /* Pods_NotificationViewController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NotificationViewController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5C28B507837D40B13842EAA8 /* Pods_MyTatvaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyTatvaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D07FE152A5D374000E9CD76 /* HCServicesLongestPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCServicesLongestPlan.swift; sourceTree = "<group>"; };
 		5D1C1D58272692FF00B32926 /* NotificationVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVM.swift; sourceTree = "<group>"; };
 		5D1C1D5A2726931B00B32926 /* NotificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVC.swift; sourceTree = "<group>"; };
@@ -997,6 +998,7 @@
 		5D90B9B7272FB84400EF5865 /* QueryReasonListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryReasonListModel.swift; sourceTree = "<group>"; };
 		5D93666C27298A3400B28483 /* FoodLogDonePopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodLogDonePopupVC.swift; sourceTree = "<group>"; };
 		5D93666E27298A4800B28483 /* FoodLogDonePopupVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodLogDonePopupVM.swift; sourceTree = "<group>"; };
+		5D93C21BD5F199C8A01FD79E /* Pods_MyTatvaNotificationService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyTatvaNotificationService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D94538929F6BAAC0098C178 /* LoginHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginHeaderView.xib; sourceTree = "<group>"; };
 		5D94538B29F6BC1F0098C178 /* LoginHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginHeaderView.swift; sourceTree = "<group>"; };
 		5DA6D9232A58388B00DDF6C6 /* ExcludingSundayHorizontalCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcludingSundayHorizontalCalendar.swift; sourceTree = "<group>"; };
@@ -1653,10 +1655,9 @@
 		61FED719276C9B9200A75D6A /* ImageViewerDismissalTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewerDismissalTransition.swift; sourceTree = "<group>"; };
 		61FED71A276C9B9200A75D6A /* ImageViewerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewerController.swift; sourceTree = "<group>"; };
 		7035E316A6C13E30B814D4CB /* BCASelectAddressListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCASelectAddressListVM.swift; sourceTree = "<group>"; };
-		70EDAA4CCF30980B07091618 /* Pods-MyTatva.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyTatva.release.xcconfig"; path = "Target Support Files/Pods-MyTatva/Pods-MyTatva.release.xcconfig"; sourceTree = "<group>"; };
+		758501BBC6A3D0B523AD80AF /* Pods-MyTatva.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyTatva.debug.xcconfig"; path = "Target Support Files/Pods-MyTatva/Pods-MyTatva.debug.xcconfig"; sourceTree = "<group>"; };
 		7A37D6723B2DA8E07A8C576A /* BCATitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCATitleCell.swift; sourceTree = "<group>"; };
-		7CAC2139AEFA1E3B8E941950 /* Pods-MyTatvaNotificationService.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyTatvaNotificationService.debug.xcconfig"; path = "Target Support Files/Pods-MyTatvaNotificationService/Pods-MyTatvaNotificationService.debug.xcconfig"; sourceTree = "<group>"; };
-		8CC69669994823EA46144A6A /* Pods_NotificationViewController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NotificationViewController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		81C8403202927E625C5534D9 /* Pods-MyTatvaNotificationService.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyTatvaNotificationService.release.xcconfig"; path = "Target Support Files/Pods-MyTatvaNotificationService/Pods-MyTatvaNotificationService.release.xcconfig"; sourceTree = "<group>"; };
 		9102763F2679237700C55C2D /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		910276412679237700C55C2D /* AppDelegate+PushNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppDelegate+PushNotification.swift"; sourceTree = "<group>"; };
 		910276422679237700C55C2D /* PushNotificationTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationTag.swift; sourceTree = "<group>"; };
@@ -1694,7 +1695,6 @@
 		91D246BE267A5D520023FB1B /* ForgotPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordVC.swift; sourceTree = "<group>"; };
 		91D246C2267A5D6A0023FB1B /* ForgotPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewModel.swift; sourceTree = "<group>"; };
 		91DFB5CB26BD1DEE006431D9 /* MenuType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuType.swift; sourceTree = "<group>"; };
-		9694DEBDEF3603D9D5D7346B /* Pods-MyTatva-MyTatvaUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyTatva-MyTatvaUITests.release.xcconfig"; path = "Target Support Files/Pods-MyTatva-MyTatvaUITests/Pods-MyTatva-MyTatvaUITests.release.xcconfig"; sourceTree = "<group>"; };
 		9A2327542A4171FD0073137C /* ScheduleAppointmentVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleAppointmentVM.swift; sourceTree = "<group>"; };
 		9A2327572A4176620073137C /* AppointmentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppointmentModel.swift; sourceTree = "<group>"; };
 		9A2327592A4179720073137C /* NutritionistModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionistModel.swift; sourceTree = "<group>"; };
@@ -1730,17 +1730,15 @@
 		9AF1E62529FF9C0E002CF3D8 /* SomeoneElsePopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomeoneElsePopupVC.swift; sourceTree = "<group>"; };
 		9AF1E62729FFA1C0002CF3D8 /* SomeoneElsePopupVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomeoneElsePopupVM.swift; sourceTree = "<group>"; };
 		9AF1E62929FFA4CE002CF3D8 /* SomeoneElseDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomeoneElseDataModel.swift; sourceTree = "<group>"; };
-		A179FD1F8E011AB49DB4344E /* Pods_MyTatva.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyTatva.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A309C6272AC858590095AADF /* GoogleMaps.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = GoogleMaps.xcframework; path = Pods/GoogleMaps/Maps/Frameworks/GoogleMaps.xcframework; sourceTree = "<group>"; };
 		A36CD15F12E71C79351A3420 /* BcaVitalsDetailsTypeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BcaVitalsDetailsTypeVC.swift; sourceTree = "<group>"; };
 		A3FAD6242AC959030026CE46 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		A3FAD6272ACAA2F50026CE46 /* DevicesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesVC.swift; sourceTree = "<group>"; };
 		A3FAD62A2ACABB060026CE46 /* DevicesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesViewModel.swift; sourceTree = "<group>"; };
-		A6FEE104F66D229A87C5E44C /* Pods-NotificationViewController.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationViewController.release.xcconfig"; path = "Target Support Files/Pods-NotificationViewController/Pods-NotificationViewController.release.xcconfig"; sourceTree = "<group>"; };
+		AD5E236B7D42E52125BE0A61 /* Pods-MyTatvaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyTatvaTests.debug.xcconfig"; path = "Target Support Files/Pods-MyTatvaTests/Pods-MyTatvaTests.debug.xcconfig"; sourceTree = "<group>"; };
+		AD6D76FA5F40063B017BED98 /* Pods-MyTatva-MyTatvaUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyTatva-MyTatvaUITests.release.xcconfig"; path = "Target Support Files/Pods-MyTatva-MyTatvaUITests/Pods-MyTatva-MyTatvaUITests.release.xcconfig"; sourceTree = "<group>"; };
 		BCFDED6C635C9CBCE4693024 /* BCAAddAddressVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCAAddAddressVC.swift; sourceTree = "<group>"; };
-		BDC02DF0FBC43D6C933CAE4A /* Pods-MyTatvaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyTatvaTests.debug.xcconfig"; path = "Target Support Files/Pods-MyTatvaTests/Pods-MyTatvaTests.debug.xcconfig"; sourceTree = "<group>"; };
-		C8812ED21F4E5B3EE77B1ABF /* Pods_MyTatvaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyTatvaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CF2F1970E270DDCE225DC47F /* Pods_MyTatvaNotificationService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyTatvaNotificationService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C74143A4EF3C1DEB9D483DAD /* Pods-MyTatva-MyTatvaUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyTatva-MyTatvaUITests.debug.xcconfig"; path = "Target Support Files/Pods-MyTatva-MyTatvaUITests/Pods-MyTatva-MyTatvaUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		D2078DA52A24BD08000E3291 /* BCASelectAddressListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCASelectAddressListVC.swift; sourceTree = "<group>"; };
 		D24561732A275BD9004FEF0D /* BCAOrderDetails + TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BCAOrderDetails + TableViewCell.swift"; sourceTree = "<group>"; };
 		D28A42042A285418007983FD /* OrderTestHelpPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTestHelpPopUpVC.swift; sourceTree = "<group>"; };
@@ -1751,15 +1749,17 @@
 		D2A6291E2A27424E00046F14 /* BCAOrderDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCAOrderDetailsViewModel.swift; sourceTree = "<group>"; };
 		D2A922072A25CFB5000FEC2F /* BCAAddressListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCAAddressListCell.swift; sourceTree = "<group>"; };
 		D2E1D5BD2A15DD1400F6AEE4 /* MultiColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiColorView.swift; sourceTree = "<group>"; };
-		D7B4D49AD9180E7F1FFF3046 /* Pods-MyTatva.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyTatva.debug.xcconfig"; path = "Target Support Files/Pods-MyTatva/Pods-MyTatva.debug.xcconfig"; sourceTree = "<group>"; };
 		D7CE999B208A5524E8B7582B /* PlanDataDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDataDetailModel.swift; sourceTree = "<group>"; };
 		D963BC24304C93876B7226BB /* CarePlanDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarePlanDetailsModel.swift; sourceTree = "<group>"; };
 		DAD76F3678F23771023D92FE /* BCA.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BCA.storyboard; sourceTree = "<group>"; };
+		DC58E56D59F44B2CE17EF44F /* Pods_MyTatva_MyTatvaUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyTatva_MyTatvaUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD191AAC4CA505CEA2E15FD3 /* Pods-MyTatvaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyTatvaTests.release.xcconfig"; path = "Target Support Files/Pods-MyTatvaTests/Pods-MyTatvaTests.release.xcconfig"; sourceTree = "<group>"; };
+		E17DEDDE62D88CCCF54C1BAF /* Pods-MyTatva.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyTatva.release.xcconfig"; path = "Target Support Files/Pods-MyTatva/Pods-MyTatva.release.xcconfig"; sourceTree = "<group>"; };
 		E4F51818B96D5002CA72C0C1 /* Weigth_scale.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Weigth_scale.json; sourceTree = "<group>"; };
 		E75E1C5F51F3C9172E7EB16D /* BcaDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BcaDetailViewModel.swift; sourceTree = "<group>"; };
 		E87033987CBEF1810B150E8D /* DurationDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationDetailModel.swift; sourceTree = "<group>"; };
-		EE2886FF35CA65A52803EB28 /* Pods-MyTatvaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyTatvaTests.release.xcconfig"; path = "Target Support Files/Pods-MyTatvaTests/Pods-MyTatvaTests.release.xcconfig"; sourceTree = "<group>"; };
 		F819BAA65E886BD76DA13854 /* BcaListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BcaListCell.swift; sourceTree = "<group>"; };
+		FCE43A85609EA294C7B0BA70 /* Pods-NotificationViewController.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationViewController.release.xcconfig"; path = "Target Support Files/Pods-NotificationViewController/Pods-NotificationViewController.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1767,7 +1767,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BFAA0D6644207B582BFBA3CB /* Pods_MyTatvaNotificationService.framework in Frameworks */,
+				BB288120D1431ABA214E5FD8 /* Pods_MyTatvaNotificationService.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1775,7 +1775,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				777D644E71468EE68B0D2D08 /* Pods_MyTatva_MyTatvaUITests.framework in Frameworks */,
+				9C4F0371DDAB54A1E6605049 /* Pods_MyTatva_MyTatvaUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1783,7 +1783,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B8604DF02E0C2D06389976FD /* Pods_MyTatvaTests.framework in Frameworks */,
+				4F58BA106AC2126079DDB7D7 /* Pods_MyTatvaTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1793,7 +1793,7 @@
 			files = (
 				618AFEF5272C0884003C244C /* UserNotificationsUI.framework in Frameworks */,
 				618AFEF3272C0884003C244C /* UserNotifications.framework in Frameworks */,
-				78EC5639690A840A49120677 /* Pods_NotificationViewController.framework in Frameworks */,
+				8DD94E28CD8F2697C84F2718 /* Pods_NotificationViewController.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1807,7 +1807,7 @@
 				61A0AAFE27455B37005E19DA /* AppTrackingTransparency.framework in Frameworks */,
 				618186CB277AEA2B00CE8064 /* StoreKit.framework in Frameworks */,
 				6164B63726A5E22A00C51438 /* WebKit.framework in Frameworks */,
-				060402241F697779A3F2183D /* Pods_MyTatva.framework in Frameworks */,
+				967B248B4221A942B611987A /* Pods_MyTatva.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1817,16 +1817,16 @@
 		1341A796993F8472755278EC /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				D7B4D49AD9180E7F1FFF3046 /* Pods-MyTatva.debug.xcconfig */,
-				70EDAA4CCF30980B07091618 /* Pods-MyTatva.release.xcconfig */,
-				1C5240145651A935B0DDD775 /* Pods-MyTatva-MyTatvaUITests.debug.xcconfig */,
-				9694DEBDEF3603D9D5D7346B /* Pods-MyTatva-MyTatvaUITests.release.xcconfig */,
-				7CAC2139AEFA1E3B8E941950 /* Pods-MyTatvaNotificationService.debug.xcconfig */,
-				2DAEE76AA0FCE9ABABCC38C4 /* Pods-MyTatvaNotificationService.release.xcconfig */,
-				BDC02DF0FBC43D6C933CAE4A /* Pods-MyTatvaTests.debug.xcconfig */,
-				EE2886FF35CA65A52803EB28 /* Pods-MyTatvaTests.release.xcconfig */,
-				4B3C116B86010EFE794904F5 /* Pods-NotificationViewController.debug.xcconfig */,
-				A6FEE104F66D229A87C5E44C /* Pods-NotificationViewController.release.xcconfig */,
+				758501BBC6A3D0B523AD80AF /* Pods-MyTatva.debug.xcconfig */,
+				E17DEDDE62D88CCCF54C1BAF /* Pods-MyTatva.release.xcconfig */,
+				C74143A4EF3C1DEB9D483DAD /* Pods-MyTatva-MyTatvaUITests.debug.xcconfig */,
+				AD6D76FA5F40063B017BED98 /* Pods-MyTatva-MyTatvaUITests.release.xcconfig */,
+				533360F68D638699F5DC89BC /* Pods-MyTatvaNotificationService.debug.xcconfig */,
+				81C8403202927E625C5534D9 /* Pods-MyTatvaNotificationService.release.xcconfig */,
+				AD5E236B7D42E52125BE0A61 /* Pods-MyTatvaTests.debug.xcconfig */,
+				DD191AAC4CA505CEA2E15FD3 /* Pods-MyTatvaTests.release.xcconfig */,
+				3B8FCF653D14DE3741E257B2 /* Pods-NotificationViewController.debug.xcconfig */,
+				FCE43A85609EA294C7B0BA70 /* Pods-NotificationViewController.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -6205,11 +6205,11 @@
 				6164B63626A5E22A00C51438 /* WebKit.framework */,
 				618AFEF2272C0884003C244C /* UserNotifications.framework */,
 				618AFEF4272C0884003C244C /* UserNotificationsUI.framework */,
-				A179FD1F8E011AB49DB4344E /* Pods_MyTatva.framework */,
-				3056644C2AAAC52608A331D7 /* Pods_MyTatva_MyTatvaUITests.framework */,
-				CF2F1970E270DDCE225DC47F /* Pods_MyTatvaNotificationService.framework */,
-				C8812ED21F4E5B3EE77B1ABF /* Pods_MyTatvaTests.framework */,
-				8CC69669994823EA46144A6A /* Pods_NotificationViewController.framework */,
+				2055A202226C5B5B56ED79D0 /* Pods_MyTatva.framework */,
+				DC58E56D59F44B2CE17EF44F /* Pods_MyTatva_MyTatvaUITests.framework */,
+				5D93C21BD5F199C8A01FD79E /* Pods_MyTatvaNotificationService.framework */,
+				5C28B507837D40B13842EAA8 /* Pods_MyTatvaTests.framework */,
+				5A50F9EB274C66B5DBD098BE /* Pods_NotificationViewController.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -6221,7 +6221,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6169A39A272BE1D80081C3B7 /* Build configuration list for PBXNativeTarget "MyTatvaNotificationService" */;
 			buildPhases = (
-				79D577F25AEE0B6F7C396ADA /* [CP] Check Pods Manifest.lock */,
+				B4C0389C585A9193FC7440F2 /* [CP] Check Pods Manifest.lock */,
 				6169A38B272BE1D70081C3B7 /* Sources */,
 				6169A38C272BE1D70081C3B7 /* Frameworks */,
 				6169A38D272BE1D70081C3B7 /* Resources */,
@@ -6239,12 +6239,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 618341942784135E00A55177 /* Build configuration list for PBXNativeTarget "MyTatvaUITests" */;
 			buildPhases = (
-				B4E083FC9213F0926FC2044F /* [CP] Check Pods Manifest.lock */,
+				7D1FF193E8F9C5100BDE6B0F /* [CP] Check Pods Manifest.lock */,
 				618341882784135E00A55177 /* Sources */,
 				618341892784135E00A55177 /* Frameworks */,
 				6183418A2784135E00A55177 /* Resources */,
-				8DC5A187BB6DD145BB399859 /* [CP] Embed Pods Frameworks */,
-				156F4460A8511F1BBE92F929 /* [CP] Copy Pods Resources */,
+				56D195A02EF945CD58360E66 /* [CP] Embed Pods Frameworks */,
+				4BCA6B480F05A218454D4464 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -6260,7 +6260,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 618341A12784136D00A55177 /* Build configuration list for PBXNativeTarget "MyTatvaTests" */;
 			buildPhases = (
-				FAF2AA1118AEFCF288CA7320 /* [CP] Check Pods Manifest.lock */,
+				186FD1F8A80E891013086AD3 /* [CP] Check Pods Manifest.lock */,
 				618341972784136D00A55177 /* Sources */,
 				618341982784136D00A55177 /* Frameworks */,
 				618341992784136D00A55177 /* Resources */,
@@ -6279,7 +6279,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 618AFF02272C0884003C244C /* Build configuration list for PBXNativeTarget "NotificationViewController" */;
 			buildPhases = (
-				5A33877030B39FCD82D0AEDC /* [CP] Check Pods Manifest.lock */,
+				9606351720DD4F9E6B6F0131 /* [CP] Check Pods Manifest.lock */,
 				618AFEED272C0884003C244C /* Sources */,
 				618AFEEE272C0884003C244C /* Frameworks */,
 				618AFEEF272C0884003C244C /* Resources */,
@@ -6297,17 +6297,17 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 91A1755D26789CC800297B66 /* Build configuration list for PBXNativeTarget "MyTatva" */;
 			buildPhases = (
-				3A244894BB50634EB047CC14 /* [CP] Check Pods Manifest.lock */,
+				0E107AB5B387D50AE1FE04F5 /* [CP] Check Pods Manifest.lock */,
 				91A1754526789CC500297B66 /* Sources */,
 				91A1754626789CC500297B66 /* Frameworks */,
 				91A1754726789CC500297B66 /* Resources */,
 				61987C4F27426C1E006DE385 /* Embed App Extensions */,
-				FFEB735D4C3DF8DC6CA111A5 /* [CP] Embed Pods Frameworks */,
 				9AADC7472A124214003D627D /* Embed Frameworks */,
 				615D0A4A272FE20A00FB69A7 /* ShellScript */,
 				5212E8552AB241FA00076F2C /* Run Script */,
 				A33614192AC5880D00CF5B14 /* Bundle React Native code and image */,
-				AB7F8DC37CA13C2EBD3D4E10 /* [CP] Copy Pods Resources */,
+				26CF6B7ECB373EE7E92AE478 /* [CP] Embed Pods Frameworks */,
+				70B6FAF33583CB0BADC433FF /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -6486,24 +6486,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		156F4460A8511F1BBE92F929 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MyTatva-MyTatvaUITests/Pods-MyTatva-MyTatvaUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MyTatva-MyTatvaUITests/Pods-MyTatva-MyTatvaUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MyTatva-MyTatvaUITests/Pods-MyTatva-MyTatvaUITests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		3A244894BB50634EB047CC14 /* [CP] Check Pods Manifest.lock */ = {
+		0E107AB5B387D50AE1FE04F5 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -6525,6 +6508,62 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		186FD1F8A80E891013086AD3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MyTatvaTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		26CF6B7ECB373EE7E92AE478 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MyTatva/Pods-MyTatva-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MyTatva/Pods-MyTatva-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MyTatva/Pods-MyTatva-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4BCA6B480F05A218454D4464 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MyTatva-MyTatvaUITests/Pods-MyTatva-MyTatvaUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MyTatva-MyTatvaUITests/Pods-MyTatva-MyTatvaUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MyTatva-MyTatvaUITests/Pods-MyTatva-MyTatvaUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		5212E8552AB241FA00076F2C /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -6543,26 +6582,21 @@
 			shellPath = /bin/sh;
 			shellScript = "./../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		5A33877030B39FCD82D0AEDC /* [CP] Check Pods Manifest.lock */ = {
+		56D195A02EF945CD58360E66 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MyTatva-MyTatvaUITests/Pods-MyTatva-MyTatvaUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
+			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-NotificationViewController-checkManifestLockResult.txt",
+				"${PODS_ROOT}/Target Support Files/Pods-MyTatva-MyTatvaUITests/Pods-MyTatva-MyTatvaUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MyTatva-MyTatvaUITests/Pods-MyTatva-MyTatvaUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		615D0A4A272FE20A00FB69A7 /* ShellScript */ = {
@@ -6585,64 +6619,7 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
 		};
-		79D577F25AEE0B6F7C396ADA /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MyTatvaNotificationService-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8DC5A187BB6DD145BB399859 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MyTatva-MyTatvaUITests/Pods-MyTatva-MyTatvaUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MyTatva-MyTatvaUITests/Pods-MyTatva-MyTatvaUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MyTatva-MyTatvaUITests/Pods-MyTatva-MyTatvaUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A33614192AC5880D00CF5B14 /* Bundle React Native code and image */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Bundle React Native code and image";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nexport NODE_BINARY=$(fish -c 'which node')\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
-		};
-		AB7F8DC37CA13C2EBD3D4E10 /* [CP] Copy Pods Resources */ = {
+		70B6FAF33583CB0BADC433FF /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -6659,7 +6636,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MyTatva/Pods-MyTatva-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B4E083FC9213F0926FC2044F /* [CP] Check Pods Manifest.lock */ = {
+		7D1FF193E8F9C5100BDE6B0F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -6681,7 +6658,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FAF2AA1118AEFCF288CA7320 /* [CP] Check Pods Manifest.lock */ = {
+		9606351720DD4F9E6B6F0131 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -6696,28 +6673,51 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MyTatvaTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-NotificationViewController-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FFEB735D4C3DF8DC6CA111A5 /* [CP] Embed Pods Frameworks */ = {
+		A33614192AC5880D00CF5B14 /* Bundle React Native code and image */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 12;
+			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MyTatva/Pods-MyTatva-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			inputPaths = (
+			);
+			name = "Bundle React Native code and image";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MyTatva/Pods-MyTatva-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MyTatva/Pods-MyTatva-frameworks.sh\"\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nexport NODE_BINARY=$(fish -c 'which node')\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
+		};
+		B4C0389C585A9193FC7440F2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MyTatvaNotificationService-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -7549,7 +7549,7 @@
 /* Begin XCBuildConfiguration section */
 		6169A398272BE1D80081C3B7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7CAC2139AEFA1E3B8E941950 /* Pods-MyTatvaNotificationService.debug.xcconfig */;
+			baseConfigurationReference = 533360F68D638699F5DC89BC /* Pods-MyTatvaNotificationService.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MyTatvaNotificationService/MyTatvaNotificationService.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -7580,7 +7580,7 @@
 		};
 		6169A399272BE1D80081C3B7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2DAEE76AA0FCE9ABABCC38C4 /* Pods-MyTatvaNotificationService.release.xcconfig */;
+			baseConfigurationReference = 81C8403202927E625C5534D9 /* Pods-MyTatvaNotificationService.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MyTatvaNotificationService/MyTatvaNotificationService.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -7610,7 +7610,7 @@
 		};
 		618341952784135E00A55177 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1C5240145651A935B0DDD775 /* Pods-MyTatva-MyTatvaUITests.debug.xcconfig */;
+			baseConfigurationReference = C74143A4EF3C1DEB9D483DAD /* Pods-MyTatva-MyTatvaUITests.debug.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -7634,7 +7634,7 @@
 		};
 		618341962784135E00A55177 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9694DEBDEF3603D9D5D7346B /* Pods-MyTatva-MyTatvaUITests.release.xcconfig */;
+			baseConfigurationReference = AD6D76FA5F40063B017BED98 /* Pods-MyTatva-MyTatvaUITests.release.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -7658,7 +7658,7 @@
 		};
 		618341A22784136D00A55177 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BDC02DF0FBC43D6C933CAE4A /* Pods-MyTatvaTests.debug.xcconfig */;
+			baseConfigurationReference = AD5E236B7D42E52125BE0A61 /* Pods-MyTatvaTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -7683,7 +7683,7 @@
 		};
 		618341A32784136D00A55177 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EE2886FF35CA65A52803EB28 /* Pods-MyTatvaTests.release.xcconfig */;
+			baseConfigurationReference = DD191AAC4CA505CEA2E15FD3 /* Pods-MyTatvaTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -7708,7 +7708,7 @@
 		};
 		618AFF00272C0884003C244C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4B3C116B86010EFE794904F5 /* Pods-NotificationViewController.debug.xcconfig */;
+			baseConfigurationReference = 3B8FCF653D14DE3741E257B2 /* Pods-NotificationViewController.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NotificationViewController/NotificationViewController.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -7741,7 +7741,7 @@
 		};
 		618AFF01272C0884003C244C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A6FEE104F66D229A87C5E44C /* Pods-NotificationViewController.release.xcconfig */;
+			baseConfigurationReference = FCE43A85609EA294C7B0BA70 /* Pods-NotificationViewController.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NotificationViewController/NotificationViewController.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -7916,7 +7916,7 @@
 		};
 		91A1755E26789CC800297B66 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D7B4D49AD9180E7F1FFF3046 /* Pods-MyTatva.debug.xcconfig */;
+			baseConfigurationReference = 758501BBC6A3D0B523AD80AF /* Pods-MyTatva.debug.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -7962,7 +7962,7 @@
 		};
 		91A1755F26789CC800297B66 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 70EDAA4CCF30980B07091618 /* Pods-MyTatva.release.xcconfig */;
+			baseConfigurationReference = E17DEDDE62D88CCCF54C1BAF /* Pods-MyTatva.release.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
