@@ -87,6 +87,7 @@ export type AppStackParamList = {
 export type DrawerParamList = {
   Home: BottomTabParamList;
   AboutUsScreen: undefined;
+  GoalScreen: undefined;
   // ExerciseDetailScreen: {Data: any};
   // ExplorScreen: undefined;
 };

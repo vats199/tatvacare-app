@@ -1,4 +1,4 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Alert, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {colors} from '../../constants/colors';
 import {Icons} from '../../constants/icons';
@@ -8,11 +8,31 @@ import {Icons} from '../../constants/icons';
 //   navigateToBookmark,
 // } from '../../routes/Router';
 import {Fonts, Matrics} from '../../constants';
+import {CompositeScreenProps} from '@react-navigation/native';
+import {
+  DrawerContentComponentProps,
+  DrawerScreenProps,
+} from '@react-navigation/drawer';
+import {
+  AppStackParamList,
+  DrawerParamList,
+} from '../../interface/Navigation.interface';
+import {StackScreenProps} from '@react-navigation/stack';
 
-type DrawerMyHealthDiaryProps = {};
+// type DrawerMyHealthDiaryProps = {
 
-const DrawerMyHealthDiary: React.FC<DrawerMyHealthDiaryProps> = ({}) => {
+// };
+
+type DrawerMyHealthDiaryProps = CompositeScreenProps<
+  DrawerScreenProps<DrawerParamList>,
+  StackScreenProps<AppStackParamList, 'DrawerScreen'>
+>;
+
+const DrawerMyHealthDiary: React.FC<DrawerContentComponentProps> = ({
+  navigation,
+}) => {
   const onPressGoals = () => {
+    navigation.navigate('GoalScreen');
     // navigateTo('SetGoalsVC');
   };
 

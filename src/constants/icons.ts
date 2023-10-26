@@ -125,6 +125,8 @@ import Camera from '../assets/icons/camera.svg';
 import Gallery from '../assets/icons/gallery.svg';
 import File from '../assets/icons/file.svg';
 import Article from '../assets/icons/article.svg';
+import DrawerRightIcon from '../assets/icons/drawerRightIcon.svg';
+import InfoPurple from '../assets/icons/infoPurple.svg';
 
 export const Icons = {
   HomeActive,
@@ -247,4 +249,6 @@ export const Icons = {
   Article,
   ShowLess,
   ShowMore,
+  DrawerRightIcon,
+  InfoPurple,
 };
