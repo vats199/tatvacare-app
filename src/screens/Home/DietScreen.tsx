@@ -114,7 +114,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
     const UpadteFoodItem = await Diet.updateFoodConsumption(item, {});
     getData()
     if (UpadteFoodItem?.code === '1') {
-
+      setModalVisible(false)
     }
   }
 
@@ -141,7 +141,10 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
       style={[
         styles.mainContienr,
         {
-          paddingTop: Platform.OS == 'android' ? Matrics.vs(10) : 0,
+          paddingTop:
+            Platform.OS == 'android' ? insets.top + Matrics.vs(10) : 0,
+          paddingBottom: insets.bottom == 0 ?
+            Matrics.vs(25) : insets.bottom
         },
       ]}>
       <MyStatusbar backgroundColor={colors.lightGreyishBlue} />
