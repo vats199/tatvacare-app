@@ -17,6 +17,8 @@ const DEFAULT_ERROR = 'Something went wrong, Please try again later';
 // encIV=9Ddyaf6rfywpiTvT
 // apiKey=
 
+console.log("NativeModules.RNShare.token,",NativeModules.RNShare.token,);
+
 export const getEncryptedText = (data: any) => {
   var truncHexKey = CRYPTO.SHA256(
     Config.encKey || '9Ddyaf6rfywpiTvTiax2iq6ykKpaxgJ6',

@@ -148,19 +148,21 @@ const DietHeader: React.FC<DietHeaderProps> = ({
                 onPress={handleNextMonth}
               />
             </View>
-            <View style={styles.leftRightContent}>
-              <Icons.backArrow
-                height={11}
-                width={11}
-                onPress={handlePreviousWeek}
-                style={{ marginRight: 20 }}
-              />
-              <Icons.RightArrow
-                height={22}
-                width={22}
-                onPress={handleNextWeek}
-                style={{ marginRight: 20 }}
-              />
+            <View style={[styles.leftRightContent, { width: Matrics.mvs(60) }]}>
+              <TouchableOpacity onPress={handlePreviousWeek} style={styles.arrowContainer}>
+                <Icons.backArrow
+                  height={11}
+                  width={11}
+                  style={{ marginRight: 20 }}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={handlePreviousWeek} style={styles.arrowContainer}>
+                <Icons.RightArrow
+                  height={22}
+                  width={22}
+                  style={{ marginRight: 20 }}
+                />
+              </TouchableOpacity>
             </View>
           </View>
           {!showMore ? (
@@ -347,7 +349,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingBottom: Matrics.vs(5),
-  },
+  },arrowContainer: {
+    height: Matrics.mvs(20), width: Matrics.mvs(30), justifyContent: 'center', alignItems: "center",
+  }
 });
 
 export default DietHeader;

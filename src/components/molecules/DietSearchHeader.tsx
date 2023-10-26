@@ -13,10 +13,11 @@ const DietSearchHeader: React.FC<DietSearchHeaderProps> = ({
   onSearch,
 }) => {
   const [searchText, setSearchText] = useState<string>('');
- 
+
 
   const handleSerache = (text: string) => {
-    const cleanedText = text.replace(/[^a-zA-Z\s]/g, '');
+    const trimmedText = text.trim();
+    const cleanedText = trimmedText.replace(/[^a-zA-Z\s]/g, '');
     setSearchText(cleanedText);
     onSearch(text);
   };
@@ -32,6 +33,7 @@ const DietSearchHeader: React.FC<DietSearchHeaderProps> = ({
           setSearchText(text);
           handleSerache(text);
         }}
+        keyboardType='ascii-capable'
       />
     </View>
   );
