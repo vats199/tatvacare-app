@@ -11,10 +11,6 @@ import Diet from '../../api/diet';
 import { useApp } from '../../context/app.context';
 import moment from 'moment';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
-<<<<<<<< HEAD:src/screens/Home/DietScreen.tsx
-========
-import { Matrics } from '../../constants';
->>>>>>>> 5e5a5c1 ( ch divyesh cahnge of bug):src/screens/FoodDiary/DietScreen.tsx
 import Loader from '../../components/atoms/Loader';
 import Matrics from '../../constants/Matrics';
 import BasicModal from '../../components/atoms/BasicModal';
@@ -23,19 +19,11 @@ import MyStatusbar from '../../components/atoms/MyStatusBar';
 type DietScreenProps = StackScreenProps<DietStackParamList, 'DietScreen'>
 
 const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
-<<<<<<<< HEAD:src/screens/Home/DietScreen.tsx
-========
-  const insets = useSafeAreaInsets();
->>>>>>>> 5e5a5c1 ( ch divyesh cahnge of bug):src/screens/FoodDiary/DietScreen.tsx
   const title = route.params?.dietData;
   const [dietOption, setDietOption] = useState<boolean>(false);
   const [loader, setLoader] = useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [dietPlane, setDiePlane] = useState<any>([]);
-<<<<<<<< HEAD:src/screens/Home/DietScreen.tsx
-========
-  const { userData } = useApp();
->>>>>>>> 5e5a5c1 ( ch divyesh cahnge of bug):src/screens/FoodDiary/DietScreen.tsx
   const [deletpayload, setDeletpayload] = useState<string | null>(null);
   const [modalVisible, setModalVisible] = React.useState<boolean>(false);
   const [stateOfAPIcall, setStateOfAPIcall] = React.useState<boolean>(false);
@@ -80,16 +68,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
     setDiePlane([])
     setLoader(true)
     const date = moment(selectedDate).format('YYYY/MM/DD');
-<<<<<<<< HEAD:src/screens/Home/DietScreen.tsx
     const diet = await Diet.getDietPlan({ date: date }, {});
-========
-    const diet = await Diet.getDietPlan(
-      { date: date },
-      {},
-      { token: userData?.token },
-    );
-    console.log('diet', diet);
->>>>>>>> 5e5a5c1 ( ch divyesh cahnge of bug):src/screens/FoodDiary/DietScreen.tsx
 
     if (diet) {
       setLoader(false)
@@ -118,7 +97,6 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   };
 
   const deleteFoodItem = async () => {
-<<<<<<<< HEAD:src/screens/Home/DietScreen.tsx
     setStateOfAPIcall(true)
     const deleteFoodItem = await Diet.deleteFoodItem({ patient_id: dietPlane?.patient_id, health_coach_id: dietPlane?.health_coach_id, diet_plan_food_item_id: deletpayload, }, {});
     getData()
@@ -126,25 +104,6 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
       setStateOfAPIcall(false)
       navigation.replace('DietScreen')
       setTimeout(() => { setModalVisible(false) }, 1000)
-========
-    setStateOfAPIcall(true);
-    const deleteFoodItem = await Diet.deleteFoodItem(
-      {
-        patient_id: dietPlane?.patient_id,
-        health_coach_id: dietPlane?.health_coach_id,
-        diet_plan_food_item_id: deletpayload,
-      },
-      {},
-      { token: userData?.token },
-    );
-    getData();
-    if (deleteFoodItem?.code === '1') {
-      setStateOfAPIcall(false);
-      navigation.replace('DietScreen');
-      setTimeout(() => {
-        setModalVisible(false);
-      }, 1000);
->>>>>>>> 5e5a5c1 ( ch divyesh cahnge of bug):src/screens/FoodDiary/DietScreen.tsx
     }
   }
   const handlePulsIconPress = async (optionId: string, mealName: string) => {
@@ -152,20 +111,10 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   }
 
   const handalecompletion = async (item: any) => {
-<<<<<<<< HEAD:src/screens/Home/DietScreen.tsx
     const UpadteFoodItem = await Diet.updateFoodConsumption(item, {});
     getData()
-========
-    const UpadteFoodItem = await Diet.updateFoodConsumption(
-      item,
-      {},
-      { token: userData?.token },
-    );
-    setDiePlane([]);
-    getData();
->>>>>>>> 5e5a5c1 ( ch divyesh cahnge of bug):src/screens/FoodDiary/DietScreen.tsx
     if (UpadteFoodItem?.code === '1') {
-
+      setModalVisible(false)
     }
   }
 
@@ -194,6 +143,8 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
         {
           paddingTop:
             Platform.OS == 'android' ? insets.top + Matrics.vs(10) : 0,
+          paddingBottom: insets.bottom == 0 ?
+            Matrics.vs(25) : insets.bottom
         },
       ]}>
       <MyStatusbar backgroundColor={colors.lightGreyishBlue} />
