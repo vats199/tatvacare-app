@@ -28,18 +28,16 @@ const CalorieConsumer: React.FC<CalorieConsumerProps> = ({
       <View style={styles.innerContainer}>
         <View style={styles.topRow}>
           <View style={styles.leftContent}>
-            <View style={{marginLeft: 8}}>
-              <CircularProgress
-                value={values}
-                inActiveStrokeColor={'#2ecc71'}
-                inActiveStrokeOpacity={0.2}
-                progressValueColor={'green'}
-                valueSuffix={'%'}
-                radius={23}
-                activeStrokeWidth={3}
-                inActiveStrokeWidth={3}
-              />
-            </View>
+            <CircularProgress
+              value={values}
+              inActiveStrokeColor={'#2ecc71'}
+              inActiveStrokeOpacity={0.2}
+              progressValueColor={'green'}
+              valueSuffix={'%'}
+              radius={23}
+              activeStrokeWidth={3}
+              inActiveStrokeWidth={3}
+            />
             <View style={styles.textContainer}>
               <View style={{flexDirection: 'row', alignItems: 'center'}}>
                 <Text style={styles.boldTitle}>
@@ -72,6 +70,7 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     backgroundColor: 'white',
+    paddingHorizontal: 10,
   },
   topRow: {
     padding: 10,
@@ -82,9 +81,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     flex: 1,
-  },
-  icon: {
-    marginRight: 10,
   },
   textContainer: {
     flex: 1,

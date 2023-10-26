@@ -175,7 +175,8 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
       style={[
         styles.mainContienr,
         {
-          paddingTop: Platform.OS == 'android' ? Matrics.vs(10) : 0,
+          paddingTop:
+            Platform.OS == 'android' ? insets.top + Matrics.vs(10) : 0,
         },
       ]}>
       <MyStatusbar backgroundColor={colors.lightGreyishBlue} />
@@ -207,11 +208,6 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
           </View>
         )}
       </View>
-      <View
-        style={{
-          backgroundColor: colors.veryLightGreyishBlue,
-          height: insets.bottom === 0 ? Matrics.vs(20) : insets.bottom,
-        }}></View>
       <BasicModal
         modalVisible={modalVisible}
         messgae={
