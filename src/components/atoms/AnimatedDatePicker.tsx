@@ -23,6 +23,7 @@ interface AnimatedInputFieldProps extends TextInputProps {
   error?: string;
   showErrorText?: boolean;
   showAnimatedLabel?: boolean;
+  onSetDate: (date: string) => void;
 }
 
 export type AnimatedInputFieldRef = {
@@ -43,6 +44,7 @@ const AnimatedDatePicker = forwardRef<
       showErrorText = true,
       showAnimatedLabel = true,
       onFocus = () => {},
+      onSetDate = () => {},
     },
     ref,
   ) => {
@@ -93,6 +95,7 @@ const AnimatedDatePicker = forwardRef<
     const handleConfirm = (dateVal: Date) => {
       handleFocus();
       setDate(moment(dateVal).format('YYYY-MM-DD'));
+      onSetDate(moment(dateVal).format('YYYY-MM-DD'));
       //   console.warn('A date has been picked: ', dateVal);
       hideDatePicker();
     };

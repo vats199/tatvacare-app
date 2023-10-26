@@ -39,10 +39,6 @@ const RecentSearchDiet: React.FC<RecentSerachDietProps> = ({
   title,
 }) => {
   const renderRecentSearchItem = (item: SearcheFood, index: number) => {
-    console.log(
-      '🚀 ~ file: RecentSearchFood.tsx:42 ~ renderRecentSearchItem ~ item:',
-      item,
-    );
     return (
       <TouchableOpacity
         style={styles.container}
@@ -60,16 +56,16 @@ const RecentSearchDiet: React.FC<RecentSerachDietProps> = ({
       </TouchableOpacity>
     );
   };
+  console.log('searchData?.code === ', searchData?.code);
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <Text style={styles.text}>{title}</Text>
-      {searchData?.length > 0
-        ? searchData?.map(renderRecentSearchItem)
-        : null
-          // <View>
-          //   <Text style={{textTransform:'capitalize'}}>sorry but no such food item found in our database please try with some other keyword</Text>
-          // </View>
+      {
+        searchData?.length > 0 ? searchData?.map(renderRecentSearchItem) : null
+        // <View>
+        //   <Text style={{textTransform:'capitalize'}}>sorry but no such food item found in our database please try with some other keyword</Text>
+        // </View>
       }
     </ScrollView>
   );
@@ -79,7 +75,7 @@ export default RecentSearchDiet;
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: 17,
+    fontSize: Matrics.mvs(14),
     fontWeight: 'bold',
     color: colors.black,
     marginBottom: 5,
@@ -89,6 +85,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginVertical: 6,
+    marginHorizontal: 2,
   },
   titleText: {
     fontSize: 17,

@@ -1,0 +1,602 @@
+{
+  "Question": [
+    {
+      "question": "Which chronic condition are you diagnosed with? ",
+      "description": "Choose the condition you need help with and get the support you deserve.",
+      "type": 1,
+      "option": [
+        {
+          "image": null,
+          "title": "Fatty Live",
+          "category_id": 1
+        },
+        {
+          "image": null,
+          "title": "COPD",
+          "category_id": 2
+        },
+        {
+          "image": null,
+          "title": "Asthama",
+          "category_id": 3
+        },
+        {
+          "image": null,
+          "title": "Diabetes",
+          "category_id": 4
+        },
+        {
+          "image": null,
+          "title": "Other",
+          "category_id": 5
+        }
+      ]
+    },
+    {
+      "question": "When were you diagnosed with Fatty Liver?",
+      "description": "",
+      "type": 2,
+      "category_id": 1,
+      "option": [
+        {
+          "image": null,
+          "title": "Less than 6 months ago"
+        },
+        {
+          "image": null,
+          "title": "6 months to 1 year"
+        },
+        {
+          "image": null,
+          "title": "1 year to 5 years"
+        },
+        {
+          "image": null,
+          "title": "More than 5 years ago"
+        }
+      ]
+    },
+    {
+      "question": "How tall you are?",
+      "description": "",
+      "type": 3,
+      "category_id": 1,
+      "option": []
+    },
+    {
+      "question": "Alright, what’s your weight?",
+      "description": "",
+      "type": 3,
+      "category_id": 1,
+      "option": []
+    },
+    {
+      "question": "Do you have diabetes?",
+      "description": "",
+      "type": 2,
+      "category_id": 1,
+      "option": [
+        {
+          "image": null,
+          "title": "Yes"
+        },
+        {
+          "image": null,
+          "title": "No"
+        }
+      ]
+    },
+    {
+      "question": "How often do you order food from outside?",
+      "description": "",
+      "type": 2,
+      "category_id": 1,
+      "option": [
+        {
+          "image": null,
+          "title": "Daily"
+        },
+        {
+          "image": null,
+          "title": "2-3 times a week"
+        },
+        {
+          "image": null,
+          "title": "Once a week"
+        },
+        {
+          "image": null,
+          "title": "< 2 times a week"
+        }
+      ]
+    },
+    {
+      "question": "How many minutes do you typically spend engaging in activities like walking or cycling each day?",
+      "description": "",
+      "type": 2,
+      "category_id": 1,
+      "option": [
+        {
+          "image": null,
+          "title": "None"
+        },
+        {
+          "image": null,
+          "title": "Less than 15 mins"
+        },
+        {
+          "image": null,
+          "title": "15-30 mins"
+        },
+        {
+          "image": null,
+          "title": "30-60 mins"
+        },
+        {
+          "image": null,
+          "title": "More than 60 mins"
+        }
+      ]
+    },
+    {
+      "question": "One last question, what is your waist circumference?",
+      "description": "",
+      "type": 2,
+      "category_id": 1,
+      "option": [
+        {
+          "image": null,
+          "title": "None"
+        },
+        {
+          "image": null,
+          "title": "Less than 15 mins"
+        },
+        {
+          "image": null,
+          "title": "15-30 mins"
+        },
+        {
+          "image": null,
+          "title": "30-60 mins"
+        },
+        {
+          "image": null,
+          "title": "More than 60 mins"
+        }
+      ]
+    },
+    {
+      "question": "When were you diagnosed with asthma?",
+      "description": "",
+      "type": 2,
+      "category_id": 3,
+      "option": [
+        {
+          "image": null,
+          "title": "Less than 6 months ago"
+        },
+        {
+          "image": null,
+          "title": "6 months to 1 year "
+        },
+        {
+          "image": null,
+          "title": "1 year to 5 years "
+        },
+        {
+          "image": null,
+          "title": "More than 5 years ago  "
+        }
+      ]
+    },
+    {
+      "question": "How often has Asthma hindered your productivity in the past month?",
+      "description": "Average work productivity loss due to asthma is 36%.",
+      "type": 2,
+      "category_id": 3,
+      "option": [
+        {
+          "image": null,
+          "title": "All of the time"
+        },
+        {
+          "image": null,
+          "title": "Most of the time"
+        },
+        {
+          "image": null,
+          "title": "Some of the time"
+        },
+        {
+          "image": null,
+          "title": "Very rarely"
+        },
+        {
+          "image": null,
+          "title": "None of the time"
+        }
+      ]
+    },
+    {
+      "question": "How often have you experienced shortness of breath in the last month?",
+      "description": "Shortness of breath is the most common symptom and can be an essential indicator.",
+      "type": 2,
+      "category_id": 3,
+      "option": [
+        {
+          "image": null,
+          "title": "More than once a day"
+        },
+        {
+          "image": null,
+          "title": "Once a day"
+        },
+        {
+          "image": null,
+          "title": "Three to six times a week"
+        },
+        {
+          "image": null,
+          "title": "Once or twice a week"
+        },
+        {
+          "image": null,
+          "title": "Not at all"
+        }
+      ]
+    },
+    {
+      "question": "In the last month, how often have you used your inhaler or nebulizer medication out of turn?",
+      "description": "The frequency of emergency use indicates the severity of asthma.",
+      "type": 2,
+      "category_id": 3,
+      "option": [
+        {
+          "image": null,
+          "title": "Three or more times a day"
+        },
+        {
+          "image": null,
+          "title": "Once or twice a day"
+        },
+        {
+          "image": null,
+          "title": "2-3 times per week"
+        },
+        {
+          "image": null,
+          "title": "Once or twice a week"
+        },
+        {
+          "image": null,
+          "title": "Not at all"
+        }
+      ]
+    },
+    {
+      "question": "How would you rate your asthma control over the last month?",
+      "description": "The magnitude and frequency of asthma symptoms is an essential factor to judge the severity.",
+      "type": 2,
+      "category_id": 3,
+      "option": [
+        {
+          "image": null,
+          "title": "Not controlled at all"
+        },
+        {
+          "image": null,
+          "title": "Poorly controlled"
+        },
+        {
+          "image": null,
+          "title": "Somewhat controlled"
+        },
+        {
+          "image": null,
+          "title": "Well controlled"
+        },
+        {
+          "image": null,
+          "title": "Completely controlled"
+        }
+      ]
+    },
+    {
+      "question": "When were you diagnosed with COPD?",
+      "description": "",
+      "type": 2,
+      "category_id": 2,
+      "option": [
+        {
+          "image": null,
+          "title": "Less than 6 months ago"
+        },
+        {
+          "image": null,
+          "title": "6 months to 1 year "
+        },
+        {
+          "image": null,
+          "title": "1 year to 5 years "
+        },
+        {
+          "image": null,
+          "title": "More than 5 years ago  "
+        }
+      ]
+    },
+    {
+      "question": "Alright, how often do you cough?",
+      "description": "Coughing is the most common symptom of COPD.",
+      "type": 4,
+      "category_id": 2,
+      "min_tag_text": "I never cough",
+      "max_tag_text": "I cough all the time",
+      "option": [
+        {
+          "image": null,
+          "title": "0"
+        },
+        {
+          "image": null,
+          "title": "1"
+        },
+        {
+          "image": null,
+          "title": "2"
+        },
+        {
+          "image": null,
+          "title": "3"
+        },
+        {
+          "image": null,
+          "title": "4"
+        },
+        {
+          "image": null,
+          "title": "5"
+        }
+      ]
+    },
+    {
+      "question": "Do you experience mucus/ phlegm with your cough?",
+      "description": "COPD stimulates the production of mucus-secreting cells.",
+      "type": 4,
+      "category_id": 2,
+      "min_tag_text": "I have no phlegm in my chest at all",
+      "max_tag_text": "My chest is full of phlegm (mucus)",
+      "option": [
+        {
+          "image": null,
+          "title": "0"
+        },
+        {
+          "image": null,
+          "title": "1"
+        },
+        {
+          "image": null,
+          "title": "2"
+        },
+        {
+          "image": null,
+          "title": "3"
+        },
+        {
+          "image": null,
+          "title": "4"
+        },
+        {
+          "image": null,
+          "title": "5"
+        }
+      ]
+    },
+    {
+      "question": "Do you also experience tightness in your chest?",
+      "description": "Chest tightness can occur even when you are at rest.",
+      "type": 4,
+      "category_id": 2,
+      "min_tag_text": "My chest does not feel tight at all",
+      "max_tag_text": "My chest feels very tight",
+      "option": [
+        {
+          "image": null,
+          "title": "0"
+        },
+        {
+          "image": null,
+          "title": "1"
+        },
+        {
+          "image": null,
+          "title": "2"
+        },
+        {
+          "image": null,
+          "title": "3"
+        },
+        {
+          "image": null,
+          "title": "4"
+        },
+        {
+          "image": null,
+          "title": "5"
+        }
+      ]
+    },
+    {
+      "question": "How fast do you get breathless during physical activities?",
+      "description": "For instance, let's consider walking up stairs.",
+      "type": 4,
+      "category_id": 2,
+      "min_tag_text": "I am not breathless when walking up stairs",
+      "max_tag_text": "I become breathless when walking up stairs",
+      "option": [
+        {
+          "image": null,
+          "title": "0"
+        },
+        {
+          "image": null,
+          "title": "1"
+        },
+        {
+          "image": null,
+          "title": "2"
+        },
+        {
+          "image": null,
+          "title": "3"
+        },
+        {
+          "image": null,
+          "title": "4"
+        },
+        {
+          "image": null,
+          "title": "5"
+        }
+      ]
+    },
+    {
+      "question": "How restricted do you feel while doing work at home?",
+      "description": "People living with COPD often face challenges even with basic household.",
+      "type": 4,
+      "category_id": 2,
+      "min_tag_text": "I am not limited while doing any activities at home",
+      "max_tag_text": "I am very limited while doing activities at home",
+      "option": [
+        {
+          "image": null,
+          "title": "0"
+        },
+        {
+          "image": null,
+          "title": "1"
+        },
+        {
+          "image": null,
+          "title": "2"
+        },
+        {
+          "image": null,
+          "title": "3"
+        },
+        {
+          "image": null,
+          "title": "4"
+        },
+        {
+          "image": null,
+          "title": "5"
+        }
+      ]
+    },
+    {
+      "question": "Do you feel confident leaving home because of your condition?",
+      "description": "People with COPD may have breathlessness attacks more frequently.",
+      "type": 4,
+      "category_id": 2,
+      "min_tag_text": "I am very confident leaving my home",
+      "max_tag_text": "I am not confident leaving my home",
+      "option": [
+        {
+          "image": null,
+          "title": "0"
+        },
+        {
+          "image": null,
+          "title": "1"
+        },
+        {
+          "image": null,
+          "title": "2"
+        },
+        {
+          "image": null,
+          "title": "3"
+        },
+        {
+          "image": null,
+          "title": "4"
+        },
+        {
+          "image": null,
+          "title": "5"
+        }
+      ]
+    },
+    {
+      "question": "How much sleep disturbance do you experience because of your respiratory condition?",
+      "description": "Reduced sleep time and sleep quality may occur.",
+      "type": 4,
+      "category_id": 2,
+      "min_tag_text": "I sleep soundly",
+      "max_tag_text": "I don’t sleep soundly because of my lung condition",
+      "option": [
+        {
+          "image": null,
+          "title": "0"
+        },
+        {
+          "image": null,
+          "title": "1"
+        },
+        {
+          "image": null,
+          "title": "2"
+        },
+        {
+          "image": null,
+          "title": "3"
+        },
+        {
+          "image": null,
+          "title": "4"
+        },
+        {
+          "image": null,
+          "title": "5"
+        }
+      ]
+    },
+    {
+      "question": "How tired do you feel due to your respiratory condition?",
+      "description": "It is common for people with COPD to experience fatigue.",
+      "type": 4,
+      "category_id": 2,
+      "min_tag_text": "I have lots of energy",
+      "max_tag_text": "I have no energy at all",
+      "option": [
+        {
+          "image": null,
+          "title": "0"
+        },
+        {
+          "image": null,
+          "title": "1"
+        },
+        {
+          "image": null,
+          "title": "2"
+        },
+        {
+          "image": null,
+          "title": "3"
+        },
+        {
+          "image": null,
+          "title": "4"
+        },
+        {
+          "image": null,
+          "title": "5"
+        }
+      ]
+    }
+  ]
+}

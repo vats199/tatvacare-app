@@ -7,9 +7,9 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React from 'react';
-import {CompositeScreenProps} from '@react-navigation/native';
-import {MaterialTopTabScreenProps} from '@react-navigation/material-top-tabs';
-import {StackScreenProps} from '@react-navigation/stack';
+import { CompositeScreenProps } from '@react-navigation/native';
+import { MaterialTopTabScreenProps } from '@react-navigation/material-top-tabs';
+import { StackScreenProps } from '@react-navigation/stack';
 import {
   TabParamList,
   AppStackParamList,
@@ -18,9 +18,9 @@ import {
 } from '../../interface/Navigation.interface';
 import ExerciseCard from '../../components/molecules/ExerciseCard';
 import ExplorExercies from '../../components/organisms/ExplorExercies';
-import {colors} from '../../constants/colors';
-import {DrawerScreenProps} from '@react-navigation/drawer';
-import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
+import { colors } from '../../constants/colors';
+import { DrawerScreenProps } from '@react-navigation/drawer';
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 
 type ExplorScreenProps = CompositeScreenProps<
   MaterialTopTabScreenProps<TabParamList, 'ExplorScreen'>,
@@ -33,7 +33,7 @@ type ExplorScreenProps = CompositeScreenProps<
   >
 >;
 
-const ExplorScreen: React.FC<ExplorScreenProps> = ({route, navigation}) => {
+const ExplorScreen: React.FC<ExplorScreenProps> = ({ route, navigation }) => {
   const [exerciseOfWeek, setExerciseOfWeek] = React.useState({
     id: 1,
     video: require('../../assets/video/Exercise.mp4'),
@@ -73,14 +73,14 @@ const ExplorScreen: React.FC<ExplorScreenProps> = ({route, navigation}) => {
       isPlaying: false,
     },
   ];
-  const handlePlay = () => {};
+  const handlePlay = () => { };
   const handleViewMore = () => {
-    navigation.navigate('ExerciseDetailScreen', {Data: exercise});
+    navigation.navigate('ExerciseDetailScreen', { Data: exercise });
   };
 
   return (
-    <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
-      {/* <View style={styles.Container}>
+    <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+      <View style={styles.Container}>
         <View style={styles.titleContainer}>
           <Text style={styles.title}>Exercise Of the week</Text>
         </View>
@@ -106,7 +106,7 @@ const ExplorScreen: React.FC<ExplorScreenProps> = ({route, navigation}) => {
           </TouchableOpacity>
         </View>
         <ExplorExercies exerciseCardData={exercise} />
-      </View> */}<Text>Explor Screen</Text>
+      </View>
     </ScrollView>
   );
 };

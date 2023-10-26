@@ -95,20 +95,45 @@ import Flame from '../assets/icons/flame.svg';
 import Cart from '../assets/icons/Cart.svg';
 import forwardArrow from '../assets/icons/arrowForward.svg';
 import MedicineBlack from '../assets/icons/medicineBlacksvg.svg';
-import LiverTest from '../assets/icons/TestLiver.svg';
 import Location from '../assets/icons/location.svg';
 import Delete from '../assets/icons/delete.svg';
 import Offer from '../assets/icons/offer.svg';
-import Liver from '../assets/icons/icon_liver.svg';
 import Gps from '../assets/icons/gps.svg';
 import upArrow from '../assets/icons/upArrow.svg';
-import Person from "../assets/icons/personicon.svg";
+import Person from '../assets/icons/personicon.svg';
 import MaleIcon from '../assets/icons/maleIcon.svg';
 import FemaleIcon from '../assets/icons/femaleIcon.svg';
 import Edit from '../assets/icons/editicon.svg';
-// import Delete from '../assets/icons/deletIcon.svg';
+import remove from '../assets/icons/deletIcon.svg';
 import RightArrow from '../assets/icons/rightArrow.svg';
 import DropdownIcon from '../assets/icons/dropdownIcon.svg';
+import ShowLess from '../assets/icons/showLessArrow.svg';
+import ShowMore from '../assets/icons/showMoreArrow.svg';
+
+import Fiber from '../assets/icons/fiber.svg';
+import Carbs from '../assets/icons/carbs.svg';
+import Fats from '../assets/icons/Fats.svg';
+import Protein from '../assets/icons/protein.svg';
+import LocationActive from '../assets/icons/locationActive.svg';
+import LocationColoredSymbol from '../assets/icons/my_location.svg';
+import Home from '../assets/icons/home.svg';
+import Kidney from '../assets/icons/kidney.svg';
+import Liver from '../assets/icons/liverIcon.svg';
+import RadioCheck from '../assets/icons/checkRadio.svg';
+import RadioUncheck from '../assets/icons/uncheckRadio.svg';
+import Camera from '../assets/icons/camera.svg';
+import Gallery from '../assets/icons/gallery.svg';
+import File from '../assets/icons/file.svg';
+import Article from '../assets/icons/article.svg';
+import Breakfast from '../assets/icons/breakfast.svg';
+import Dinner from '../assets/icons/dinner.svg';
+import Lunch from '../assets/icons/lunch.svg';
+import Snacks from '../assets/icons/snacks.svg';
+import Mail from '../assets/icons/mail.svg';
+import Call from '../assets/icons/call.svg';
+import Heart from '../assets/icons/heart.svg';
+import Schedule from '../assets/icons/schedule.svg';
+import Event from '../assets/icons/event.svg';
 
 export const Icons = {
   HomeActive,
@@ -202,18 +227,42 @@ export const Icons = {
   Cart,
   forwardArrow,
   MedicineBlack,
-  LiverTest,
   Location,
   Delete,
   Offer,
-  Liver,
   Gps,
   upArrow,
   Person,
   MaleIcon,
   FemaleIcon,
   Edit,
-  // Delete,
+  remove,
   RightArrow,
-  DropdownIcon
+  DropdownIcon,
+  Protein,
+  Carbs,
+  Fiber,
+  Fats,
+  LocationActive,
+  LocationColoredSymbol,
+  Home,
+  Kidney,
+  Liver,
+  RadioCheck,
+  RadioUncheck,
+  Camera,
+  Gallery,
+  File,
+  Article,
+  ShowLess,
+  ShowMore,
+  Breakfast,
+  Lunch,
+  Dinner,
+  Snacks,
+  Mail,
+  Call,
+  Heart,
+  Schedule,
+  Event,
 };

@@ -34,6 +34,7 @@ const DietHeader: React.FC<DietHeaderProps> = ({
     const nextWeek = new Date(selectedDate);
     nextWeek.setDate(nextWeek.getDate() + 7);
     setSelectedDate(nextWeek);
+
     onPressOfNextAndPerviousDate(nextWeek);
     setCalendarKey(calendarKey + 1);
   };
@@ -314,6 +315,11 @@ const DietHeader: React.FC<DietHeaderProps> = ({
 };
 
 const styles = StyleSheet.create({
+  mainContainer: {
+    backgroundColor: 'transparent',
+    paddingBottom: 10,
+    overflow: 'hidden',
+  },
   upperContainer: {
     backgroundColor: colors.lightGreyishBlue,
     borderBottomWidth: 0.3,

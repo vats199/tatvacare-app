@@ -1,8 +1,8 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
-import {Icons} from '../../constants/icons';
-import {colors} from '../../constants/colors';
-import {Fonts, Matrics} from '../../constants';
+import { Icons } from '../../constants/icons';
+import { colors } from '../../constants/colors';
+import { Fonts, Matrics } from '../../constants';
 import styled from 'styled-components/native';
 import {
   Menu,
@@ -72,6 +72,8 @@ type FoodItems = {
   consumption: Consumption;
   is_consumed: boolean;
   consumed_calories: number;
+  total_macronutrients: number;
+  total_micronutrients: number;
 };
 
 type Consumption = {
@@ -114,57 +116,57 @@ const DietOption: React.FC<DietOptionItem> = ({
           {item?.is_consumed ? (
             <TouchableOpacity
               onPress={() => handaleFoodConsumption(item)}
-              style={{height: 28, width: 28}}>
+              style={{ height: 28, width: 28 }}>
               <Icons.Success height={28} width={28} />
             </TouchableOpacity>
           ) : (
             <TouchableOpacity
               onPress={() => handaleFoodConsumption(item)}
-              style={{height: 28, width: 28}}>
+              style={{ height: 28, width: 28 }}>
               <Icons.Ellipse height={28} width={28} />
             </TouchableOpacity>
           )}
           <View style={styles.titleDescription}>
             <Text style={styles.title}>{item.food_item_name}</Text>
             <Text style={styles.description}>
-              {Math.round(Number(item?.quantity)) + ' | Micronutrients'}
+              {Math.round(Number(item?.quantity)) + ' | ' + Math.round(Number(item.total_micronutrients)) + " g"}
             </Text>
           </View>
         </View>
-        <View style={{flexDirection: 'row'}}>
+        <View style={{ flexDirection: 'row' }}>
           <Text style={styles.value}>
             {Math.round(Number(item.calories))}cal
           </Text>
-          {/* {patient_permission === 'W' ? ( */}
-          <View>
-            <Menu>
-              <MenuTrigger>
-                <Icons.ThreeDot />
-              </MenuTrigger>
-              <MenuOptions
-                customStyles={{
-                  optionsContainer: styles.menuOptionsContainer,
-                }}>
-                <MenuOption onSelect={() => handaleEdit(item)}>
-                  <View style={styles.optionContainer}>
-                    <Icons.Edit />
-                    <Text style={styles.optionText}>Edit</Text>
-                  </View>
-                </MenuOption>
-                <View style={styles.line}></View>
-                <MenuOption
-                  onSelect={() => handaleDelete(item?.diet_plan_food_item_id)}>
-                  <View style={styles.optionContainer}>
-                    <Icons.Delete />
-                    <Text style={styles.optionText}>Delete</Text>
-                  </View>
-                </MenuOption>
-              </MenuOptions>
-            </Menu>
-          </View>
-          {/* // ) : (
-          //   <View style={styles.threeDot}></View>
-          // )} */}
+          {patient_permission === 'W' ? (
+            <View>
+              <Menu>
+                <MenuTrigger>
+                  <Icons.ThreeDot />
+                </MenuTrigger>
+                <MenuOptions
+                  customStyles={{
+                    optionsContainer: styles.menuOptionsContainer,
+                  }}>
+                  <MenuOption onSelect={() => handaleEdit(item)}>
+                    <View style={styles.optionContainer}>
+                      <Icons.Edit />
+                      <Text style={styles.optionText}>Edit</Text>
+                    </View>
+                  </MenuOption>
+                  <View style={styles.line}></View>
+                  <MenuOption
+                    onSelect={() => handaleDelete(item?.diet_plan_food_item_id)}>
+                    <View style={styles.optionContainer}>
+                      <Icons.remove />
+                      <Text style={styles.optionText}>Delete</Text>
+                    </View>
+                  </MenuOption>
+                </MenuOptions>
+              </Menu>
+            </View>
+          ) : (
+            <View style={styles.threeDot}></View>
+          )}
         </View>
       </View>
     );
@@ -229,7 +231,7 @@ const styles = StyleSheet.create({
     width: Matrics.s(80),
     marginTop: Matrics.vs(22),
   },
-  optionContainer: {flexDirection: 'row', paddingHorizontal: 5},
+  optionContainer: { flexDirection: 'row', paddingHorizontal: 5 },
   optionText: {
     paddingHorizontal: 10,
     lineHeight: 15,

@@ -7,10 +7,12 @@ import {
   ViewStyle,
   TextStyle,
   ActivityIndicator,
+  DimensionValue,
+  Animated,
 } from 'react-native';
 import React from 'react';
-import {colors} from '../../constants/colors';
-import {Constants, Fonts, Matrics} from '../../constants';
+import { colors } from '../../constants/colors';
+import { Constants, Fonts, Matrics } from '../../constants';
 
 interface MyButtonProps extends ButtonProps {
   buttonStyle?: ViewStyle;
@@ -19,6 +21,8 @@ interface MyButtonProps extends ButtonProps {
   loading?: boolean;
   loaderColor?: string;
   type?: string;
+  progressPercentage?: DimensionValue | undefined;
+  isShowProgress?: boolean | false;
 }
 
 const Button: React.FC<MyButtonProps> = ({
@@ -30,6 +34,8 @@ const Button: React.FC<MyButtonProps> = ({
   disabled,
   loading = false,
   loaderColor = 'white',
+  progressPercentage,
+  isShowProgress,
   type = Constants.BUTTON_TYPE.PRIMARY,
 }) => {
   return (
@@ -38,7 +44,7 @@ const Button: React.FC<MyButtonProps> = ({
         <TouchableOpacity
           style={[
             styles.container,
-            disabled && {backgroundColor: colors.disableButton},
+            disabled && { backgroundColor: colors.disableButton },
             buttonStyle,
           ]}
           onPress={onPress}
@@ -71,11 +77,25 @@ const Button: React.FC<MyButtonProps> = ({
             <Text
               style={[
                 styles.title,
-                {color: disabled ? colors.disableButton : colors.themePurple},
+                { color: disabled ? colors.disableButton : colors.themePurple },
                 titleStyle,
               ]}>
               {title}
             </Text>
+          )}
+          {isShowProgress && (
+            <Animated.View
+              style={[
+                styles.overlay,
+                {
+                  width: progressPercentage,
+                  borderTopRightRadius:
+                    progressPercentage == '100%' ? Matrics.mvs(16) : 0,
+                  borderBottomRightRadius:
+                    progressPercentage == '100%' ? Matrics.mvs(16) : 0,
+                },
+                disabled && {backgroundColor: colors.SECONDARY_BUTTON_OPACITY},
+              ]}></Animated.View>
           )}
         </TouchableOpacity>
       )}
@@ -84,7 +104,7 @@ const Button: React.FC<MyButtonProps> = ({
         <TouchableOpacity
           style={[
             styles.tertiaryButtonContainer,
-            disabled && {borderBottomColor: colors.disableButton},
+            disabled && { borderBottomColor: colors.disableButton },
             buttonStyle,
           ]}
           onPress={onPress}
@@ -96,7 +116,7 @@ const Button: React.FC<MyButtonProps> = ({
             <Text
               style={[
                 styles.tertiaryText,
-                disabled && {color: colors.disableButton},
+                disabled && { color: colors.disableButton },
                 titleStyle,
               ]}>
               {title}
@@ -132,6 +152,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.themePurple,
     marginHorizontal: Matrics.s(16),
+    zIndex: 0,
   },
   tertiaryButtonContainer: {
     alignSelf: 'center',
@@ -142,5 +163,13 @@ const styles = StyleSheet.create({
     color: colors.themePurple,
     fontSize: Matrics.mvs(12),
     fontFamily: Fonts.BOLD,
+  },
+  overlay: {
+    backgroundColor: colors.THEME_OVERLAY,
+    position: 'absolute',
+    height: Matrics.vs(45),
+    left: 0,
+    borderTopLeftRadius: Matrics.mvs(16),
+    borderBottomLeftRadius: Matrics.mvs(16),
   },
 });

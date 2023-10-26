@@ -1,5 +1,5 @@
-import {StyleSheet, Text, View} from 'react-native';
-import React, {useRef, useState} from 'react';
+import {Platform, StyleSheet, Text, View} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
 import {colors} from '../../constants/colors';
 import CommonHeader from '../../components/molecules/CommonHeader';
 import {StackScreenProps} from '@react-navigation/stack';
@@ -15,6 +15,10 @@ import CommonBottomSheetModal from '../../components/molecules/CommonBottomSheet
 import {BottomSheetModal, BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 import TabButton from '../../components/atoms/TabButton';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+import {WheelPicker} from '../../components/organisms/WheelPicker';
+import {PickerDataTypeProps} from '../../components/organisms/WheelPicker.Ios';
+import DatePicker from 'react-native-date-picker';
+import moment from 'moment';
 
 type DeviceConnectionScreenProps = StackScreenProps<
   AppStackParamList,
@@ -23,6 +27,16 @@ type DeviceConnectionScreenProps = StackScreenProps<
 
 const city = '50';
 const other = '55';
+
+const heightSubTypes = ['feet', 'Cm'];
+const weightSubTypes = ['kgs', 'lbs'];
+const ethniCity = [
+  'Caucasian',
+  'North Indian',
+  'South Indian',
+  'Asian',
+  'Other',
+];
 
 const PersonDetailsValidationSchema = yup.object().shape({
   height: yup.string().required('Please select height'),
@@ -38,6 +52,42 @@ const DeviceConnectionScreen: React.FC<DeviceConnectionScreenProps> = ({
 }) => {
   const [isMale, setIsMale] = useState<boolean>(true);
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const [heightList, setHeightList] = useState<
+    PickerDataTypeProps[] | undefined
+  >(undefined);
+  const [subHeight, setSubHeight] = useState<PickerDataTypeProps[] | undefined>(
+    undefined,
+  );
+  const [kgsList, setKgsList] = useState<PickerDataTypeProps[] | undefined>(
+    undefined,
+  );
+  const [lbsList, setLbsList] = useState<PickerDataTypeProps[] | undefined>(
+    undefined,
+  );
+  const [centimeterItemList, setCentimeterItemList] = useState<
+    PickerDataTypeProps[] | undefined
+  >([]);
+  const [ethniCityList, setEthniCityList] = useState<
+    PickerDataTypeProps[] | undefined
+  >(undefined);
+
+  const [fristItemList, setFristItemList] = useState<
+    PickerDataTypeProps[] | undefined
+  >(undefined);
+  const [secondItemList, setSecondItemList] = useState<
+    PickerDataTypeProps[] | undefined
+  >(undefined);
+
+  const [selectedType, setSelectedType] = useState<{
+    type: string;
+    subType: string;
+  } | null>(null);
+  const [multiplePicker, setMultiplePicker] = useState(false);
+  const [selectedItem, setSelectedItem] = useState<
+    {left: string; right: string} | string
+  >('');
+  const [open, setOpen] = React.useState(false);
+
   const insets = useSafeAreaInsets();
   const onPressBackArrow = () => {
     navigation.goBack();
@@ -47,17 +97,224 @@ const DeviceConnectionScreen: React.FC<DeviceConnectionScreenProps> = ({
     setIsMale(value == 'Male' ? true : false);
   };
 
-  const {values, errors, touched, handleChange, handleSubmit} = useFormik({
-    initialValues: {
-      height: '',
-      weight: '',
-      ethnicity: '',
-      age: '',
-      gender: '',
-    },
-    validationSchema: PersonDetailsValidationSchema,
-    onSubmit(values, formikHelpers) {},
-  });
+  useEffect(() => {
+    generateHeight();
+    generateCentimeter();
+    generateWeight();
+    generateEthniCity();
+  }, []);
+
+  // useEffect(() => {
+  //   if (selectedType?.type == 'Height' && selectedType.subType == 'feet') {
+  //     setMultiplePicker(true);
+  //   }
+  // }, [selectedType]);
+
+  useEffect(() => {
+    if (selectedType?.type == 'Height') {
+      if (selectedType.subType == 'feet') {
+        setFristItemList(heightList);
+        setSecondItemList(subHeight);
+      } else {
+        setFristItemList(centimeterItemList);
+      }
+    } else if (selectedType?.type == 'Weight') {
+      if (selectedType.subType == 'kgs') {
+        setFristItemList(kgsList);
+      } else {
+        setFristItemList(lbsList);
+      }
+    } else {
+      setFristItemList(ethniCityList);
+    }
+  }, [selectedType]);
+
+  const generateHeight = () => {
+    const hightArray: PickerDataTypeProps[] = [];
+    for (let i = 1; i < 10; i++) {
+      const tenpObj = {
+        label: `${i.toString()}'`,
+        value: i,
+      };
+      hightArray.push(tenpObj);
+    }
+    console.log(
+      '🚀 ~ file: DeviceConnectionScreen.tsx:69 ~ generateHeight ~ hightArray:',
+      hightArray,
+    );
+    generateSubHeight();
+    setHeightList(hightArray);
+  };
+
+  const generateSubHeight = () => {
+    const subHeightArray: PickerDataTypeProps[] = [];
+    for (let i = 1; i <= 12; i++) {
+      const tenpObj = {
+        label: `${i.toString()}"`,
+        value: i,
+      };
+      subHeightArray.push(tenpObj);
+    }
+    setSubHeight(subHeightArray);
+  };
+
+  const generateCentimeter = () => {
+    const centimeterArray: PickerDataTypeProps[] = [];
+    for (let i = 1; i < 300; i++) {
+      const tenpObj = {
+        label: `${i.toString()} cm`,
+        value: i,
+      };
+      centimeterArray.push(tenpObj);
+    }
+    setCentimeterItemList(centimeterArray);
+  };
+
+  const generateWeight = () => {
+    const weightArray: PickerDataTypeProps[] = [];
+    for (let i = 1; i < 200; i++) {
+      const tenpObj = {
+        label: i.toString(),
+        value: i,
+      };
+      weightArray.push(tenpObj);
+      setKgsList(weightArray);
+    }
+    generateLbs();
+  };
+
+  const generateLbs = () => {
+    const lbsArray: PickerDataTypeProps[] = [];
+    for (let i = 1; i < 200; i++) {
+      const lbs = 2.205;
+      const tenpObj = {
+        label: (i * lbs).toFixed(3).toString(),
+        value: i * lbs,
+      };
+      lbsArray.push(tenpObj);
+    }
+    setLbsList(lbsArray);
+  };
+
+  const generateEthniCity = () => {
+    const tempArray = ethniCity.map((item, index) => {
+      return {
+        label: item,
+        value: index,
+      };
+    });
+    setEthniCityList(tempArray);
+  };
+
+  const {values, errors, touched, handleChange, handleSubmit, setFieldValue} =
+    useFormik({
+      initialValues: {
+        height: '',
+        weight: '',
+        ethnicity: '',
+        age: new Date() ?? '',
+        gender: '',
+      },
+      validationSchema: PersonDetailsValidationSchema,
+      onSubmit(values, formikHelpers) {},
+    });
+
+  const onPreesHeight = () => {
+    setSelectedType({
+      subType: 'feet',
+      type: 'Height',
+    });
+    setMultiplePicker(true);
+    bottomSheetModalRef.current?.present();
+  };
+
+  const onPressTab = (item: string) => {
+    if (selectedType?.type == 'Height') {
+      if (item == 'feet') {
+        setMultiplePicker(true);
+      } else {
+        setMultiplePicker(false);
+      }
+      setSelectedType({
+        ...selectedType,
+        subType: item,
+      });
+    } else if (selectedType?.type == 'Weight') {
+      setMultiplePicker(false);
+      setSelectedType({
+        ...selectedType,
+        subType: item,
+      });
+    }
+  };
+
+  const onPreesWeight = () => {
+    setSelectedType({
+      subType: 'kgs',
+      type: 'Weight',
+    });
+    bottomSheetModalRef.current?.present();
+  };
+
+  const onPreesEthniCity = () => {
+    setSelectedType({
+      subType: '',
+      type: 'EthniCity',
+    });
+    bottomSheetModalRef.current?.present();
+  };
+
+  const onSaveBtnPress = () => {
+    if (selectedType?.type == 'Height') {
+      if (selectedType.subType == 'feet') {
+        if (!selectedItem?.left || !selectedItem?.right) {
+          setFieldValue('height', heightList[0].label + subHeight[0].label);
+        } else {
+          setFieldValue(
+            'height',
+            `${selectedItem?.left}${selectedItem?.right}`,
+          );
+        }
+      } else {
+        setFieldValue(
+          'height',
+          selectedItem !== ''
+            ? `${selectedItem} cm`
+            : centimeterItemList[0].label,
+        );
+      }
+    } else if (selectedType?.type == 'Weight') {
+      setFieldValue(
+        'weight',
+        selectedItem !== ''
+          ? selectedItem
+          : selectedType?.subType == 'kgs'
+          ? kgsList[0].label
+          : lbsList[0].label,
+      );
+    } else {
+      const itemFound = ethniCityList?.filter(
+        (item, index) => index == selectedItem ?? 0,
+      )[0];
+      setFieldValue('ethnicity', itemFound?.label);
+    }
+    bottomSheetModalRef.current?.close();
+    setSelectedItem('');
+  };
+
+  // const calculateAge = date => {
+  //   const birthDate = new Date(date);
+  //   const otherDate = new Date();
+  //   var years = otherDate.getFullYear() - birthDate.getFullYear();
+  //   if (
+  //     otherDate.getMonth() < birthDate.getMonth() ||
+  //     (otherDate.getMonth() == birthDate.getMonth() &&
+  //       otherDate.getDate() < birthDate.getDate())
+  //   ) {
+  //     years--;
+  //   }
+  //   return years;
+  // };
 
   return (
     <SafeAreaView
@@ -88,24 +345,44 @@ const DeviceConnectionScreen: React.FC<DeviceConnectionScreenProps> = ({
             values correctly.
           </Text>
           <DropdownField
-            onPress={() => {}}
+            onPress={onPreesHeight}
             title="Select Height *"
-            value={'sad'}
+            value={values.height}
             containerStyle={{
               marginTop: Matrics.vs(13),
             }}
           />
           <DropdownField
-            onPress={() => {}}
+            onPress={onPreesWeight}
             title="Select Weight *"
-            value={''}
+            value={values.weight}
           />
           <DropdownField
-            onPress={() => {}}
+            onPress={onPreesEthniCity}
             title="Select Ethnicity *"
-            value={''}
+            value={values.ethnicity}
           />
-          <DropdownField onPress={() => {}} title="Age *" value={''} />
+          <DropdownField
+            onPress={() => {
+              setOpen(true);
+            }}
+            title="Age *"
+            value={values.age.toString()}
+          />
+          <DatePicker
+            modal
+            open={open}
+            date={values.age}
+            mode="date"
+            onConfirm={date => {
+              setOpen(false);
+              // const age = calculateAge(date);
+              // setFieldValue('age', age);
+            }}
+            onCancel={() => {
+              setOpen(false);
+            }}
+          />
           <Text
             style={{
               fontFamily: Fonts.MEDIUM,
@@ -188,9 +465,7 @@ const DeviceConnectionScreen: React.FC<DeviceConnectionScreenProps> = ({
           buttonStyle={{
             borderRadius: Matrics.s(19),
           }}
-          onPress={() => {
-            bottomSheetModalRef.current?.present();
-          }}
+          onPress={() => {}}
         />
       </View>
       <BottomSheetModalProvider>
@@ -202,7 +477,7 @@ const DeviceConnectionScreen: React.FC<DeviceConnectionScreenProps> = ({
             style={{
               flex: 1,
               backgroundColor: colors.white,
-              padding: Matrics.s(15),
+              paddingVertical: Matrics.s(15),
             }}>
             <Text
               style={{
@@ -210,21 +485,107 @@ const DeviceConnectionScreen: React.FC<DeviceConnectionScreenProps> = ({
                 fontSize: Matrics.mvs(20),
                 fontWeight: '700',
                 lineHeight: Matrics.vs(26),
+                paddingHorizontal: Matrics.s(15),
               }}>
-              Select Height
+              {`Select ${selectedType?.type}`}
             </Text>
             <View
               style={{
                 height: Matrics.vs(1),
                 backgroundColor: colors.lightGrey,
                 marginVertical: Matrics.vs(10),
+                marginHorizontal: Matrics.s(15),
+              }}
+            />
+            {selectedType?.type !== 'EthniCity' ? (
+              <TabButton
+                onPress={onPressTab}
+                containerStyle={{
+                  marginTop: Matrics.vs(5),
+                }}
+                btnTitles={
+                  selectedType?.type == 'Height'
+                    ? heightSubTypes
+                    : weightSubTypes
+                }
+              />
+            ) : null}
+            <WheelPicker
+              onChangeValue={item => {
+                if (selectedType?.type == 'Height') {
+                  if (selectedType?.subType == 'feet') {
+                    setSelectedItem({
+                      left:
+                        item.type == 'left'
+                          ? `${item.value}'`
+                          : selectedItem?.left,
+                      right:
+                        item.type == 'right'
+                          ? `${item.value}\"`
+                          : selectedItem?.right,
+                    });
+                  } else {
+                    setSelectedItem(item.value);
+                  }
+                } else if (selectedType?.type == 'Weight') {
+                  setSelectedItem(item.value);
+                } else {
+                  setSelectedItem(item.value);
+                }
+              }}
+              isShowMultiplePicker={multiplePicker}
+              data={fristItemList}
+              additionalData={secondItemList}
+              containerStyle={{
+                height: selectedType?.type == 'EthniCity' ? '65%' : undefined,
               }}
             />
 
-            <TabButton btnTitles={['Feet', 'cm']} />
-            {/* <View style={{}}>
-              <Button title="Save" />
-            </View> */}
+            {/* <WheelPicker
+              selectedIndex={selectedIndex}
+              seprator={'"'}
+              options={heightList}
+              itemTextStyle={{
+                fontFamily: Fonts.BOLD,
+                fontSize: Matrics.mvs(25),
+              }}
+              containerStyle={{
+                marginVertical: Matrics.vs(10),
+                backgroundColor: 'green',
+              }}
+              onChange={index => setSelectedIndex(index)}
+              sideIcon={{
+                right: false,
+                left: true,
+              }}
+            /> */}
+            {/* <WheelPicker
+              selectedIndex={selectedIndex}
+              seprator={'"'}
+              options={heightList}
+              itemTextStyle={{
+                fontFamily: Fonts.BOLD,
+                fontSize: Matrics.mvs(25),
+              }}
+              containerStyle={{
+                marginVertical: Matrics.vs(10),
+                backgroundColor: 'red',
+              }}
+              onChange={index => setSelectedIndex(index)}
+            /> */}
+
+            <View
+              style={[
+                {
+                  paddingBottom:
+                    insets.bottom !== 0 ? insets.bottom : Matrics.vs(12),
+                  backgroundColor: colors.white,
+                  paddingVertical: Matrics.vs(10),
+                },
+                styles.bottomBtnContainerShadow,
+              ]}>
+              <Button onPress={onSaveBtnPress} title="Save" />
+            </View>
           </View>
         </CommonBottomSheetModal>
       </BottomSheetModalProvider>

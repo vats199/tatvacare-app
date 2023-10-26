@@ -4,7 +4,7 @@ import { colors } from '../../constants/colors';
 import { Fonts } from '../../constants';
 
 const Billing: React.FC = () => {
-
+    const rupee = '\u20B9';
 
     return (
         <View>
@@ -12,28 +12,28 @@ const Billing: React.FC = () => {
             <View style={styles.billingContainer}>
                 <View style={styles.row}>
                     <Text style={styles.billingProperty}> Item Total</Text>
-                    <Text style={styles.billingProperty}> 2250</Text>
+                    <Text style={styles.billingProperty}>{rupee} 2250</Text>
                 </View>
                 <View style={styles.row}>
                     <Text style={styles.billingProperty}> Home Collection charge</Text>
-                    <Text style={styles.billingProperty}> 50</Text>
+                    <Text style={styles.billingProperty}>{rupee} 50</Text>
                 </View>
                 <View style={styles.row}>
                     <Text style={styles.billingProperty}> Service charge</Text>
-                    <Text style={styles.billingProperty}> 10</Text>
+                    <Text style={styles.billingProperty}>{rupee} 10</Text>
                 </View>
                 <View style={styles.row}>
                     <Text style={styles.billingProperty}> Discount of item(s)</Text>
-                    <Text style={styles.billingProperty}> -25</Text>
+                    <Text style={styles.billingProperty}>{rupee} -25</Text>
                 </View>
                 <View style={styles.row}>
                     <Text style={styles.billingProperty}> Applied Coupan(FIRST25) </Text>
-                    <Text style={styles.billingProperty}>-25</Text>
+                    <Text style={[styles.billingProperty, { color: colors.green }]}>{rupee}-25</Text>
                 </View>
                 <View style={styles.border} />
                 <View style={styles.row}>
                     <Text style={styles.totalAmount}> Amount to be Paid </Text>
-                    <Text style={styles.totalAmount}>210</Text>
+                    <Text style={styles.totalAmount}>{rupee}210</Text>
                 </View>
             </View>
         </View>
@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray,
+        marginTop: 10
     },
 
     billingContainer: {
@@ -57,6 +58,7 @@ const styles = StyleSheet.create({
         borderRadius: 12,
         minHeight: 212,
         width: '100%',
+        elevation: 0.4
     },
     row: {
         flexDirection: 'row',

@@ -1,48 +1,40 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
-import { colors } from '../../constants/colors';
-import { Fonts, Matrics } from '../../constants';
+import {colors} from '../../constants/colors';
+import {Fonts, Matrics} from '../../constants';
 
 type HeadingProps = {
-    title: string;
-    desc?: string;
+  title: string;
+  desc?: string | null;
 };
 
-const SetupProfileHeading: React.FC<HeadingProps> = ({
-    title,
-    desc = null
-}) => {
-    return (
-        <View style={styles.container}>
-            <Text style={styles.heading}>
-                {title}
-            </Text>
-            {desc && (
-                <Text style={styles.desc}>
-                    {desc}
-                </Text>
-            )}
-        </View>
-    );
+const SetupProfileHeading: React.FC<HeadingProps> = ({title, desc = null}) => {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.heading}>{title}</Text>
+      {desc && <Text style={styles.desc}>{desc}</Text>}
+    </View>
+  );
 };
 
 export default SetupProfileHeading;
 
 const styles = StyleSheet.create({
-    container: {
-        marginHorizontal: Matrics.s(20),
-        marginTop: Matrics.vs(16)
-    },
-    heading: {
-        fontSize: Matrics.mvs(20),
-        fontFamily: Fonts.BOLD,
-        color: colors.labelDarkGray,
-        textAlign: 'left'
-    },
-    desc: {
-        fontSize: Matrics.mvs(14),
-        fontFamily: Fonts.REGULAR,
-        color: colors.subTitleLightGray,
-        textAlign: 'left'
-    }
-})
+  container: {
+    marginHorizontal: Matrics.s(20),
+    marginTop: Matrics.vs(16),
+  },
+  heading: {
+    fontSize: Matrics.mvs(20),
+    fontFamily: Fonts.BOLD,
+    color: colors.labelDarkGray,
+    textAlign: 'left',
+  },
+  desc: {
+    fontSize: Matrics.mvs(14),
+    marginTop: Matrics.vs(12),
+    fontFamily: Fonts.REGULAR,
+    color: colors.subTitleLightGray,
+    textAlign: 'left',
+  },
+});

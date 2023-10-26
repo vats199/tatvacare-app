@@ -1,13 +1,13 @@
-import {DrawerItemList} from '@react-navigation/drawer';
-import React, {useEffect} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {colors} from '../../constants/colors';
-import {Icons} from '../../constants/icons';
+import { DrawerItemList } from '@react-navigation/drawer';
+import React, { useEffect } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { colors } from '../../constants/colors';
+import { Icons } from '../../constants/icons';
 import DietOption from './DietOption';
-import {Fonts, Matrics} from '../../constants';
+import { Fonts, Matrics } from '../../constants';
 import fonts from '../../constants/fonts';
 import moment from 'moment';
-import {useFocusEffect} from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 
 interface ExactTimeProps {
   onPressPlus: (optionId: string, mealName: string) => void;
@@ -114,15 +114,10 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
   );
 
   useEffect(() => {
-    getCalories(foodItmeData);
+    const data = foodItmeData;
+    data.meal_name = cardData.meal_name;
+    getCalories(data);
   }, [foodItmeData]);
-
-  // useFocusEffect(
-  //   React.useCallback(() => {
-  //     getCalories(foodItmeData)
-
-  //   }, [foodItmeData])
-  // );
 
   const handaleEdit = (data: FoodItems) => {
     onpressOfEdit(data, cardData.meal_name);
@@ -149,40 +144,54 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
         return 'Snacks is a passport to evening.';
     }
   };
+  const mealIcons = (name: string) => {
+    switch (name) {
+      case 'Breakfast':
+        return <Icons.Breakfast />;
+      case 'Dinner':
+        return <Icons.Dinner />;
+      case 'Lunch':
+        return <Icons.Lunch />;
+      default:
+        return <Icons.Snacks />;
+    }
+  };
 
   return (
     <View style={styles.container}>
       <View style={styles.innerContainer}>
         <View style={styles.topRow}>
           <View style={styles.leftContent}>
-            <View style={styles.circle} />
+            <View style={styles.circle}>{mealIcons(cardData.meal_name)}</View>
             <View style={styles.textContainer}>
               <Text style={styles.title}>{cardData?.meal_name}</Text>
               <Text style={styles.textBelowTitle}>
                 {moment(cardData?.start_time, 'HH:mm:ss').format('h:mm A') +
-                  '-' +
+                  ' - ' +
                   moment(cardData?.end_time, 'HH:mm:ss').format('h:mm A') +
                   ' | ' +
-                  Math.round(Number(foodItmeData?.consumed_calories)) +
+                  (isNaN(Math.round(Number(foodItmeData?.consumed_calories)))
+                    ? 0
+                    : Math.round(Number(foodItmeData?.consumed_calories))) +
                   ' of ' +
                   Math.round(Number(foodItmeData?.total_calories)) +
                   'cal'}
               </Text>
             </View>
           </View>
-          {/* {cardData.patient_permission === "W" ? */}
+          {/* {cardData.patient_permission === 'W' ? ( */}
           <TouchableOpacity
             onPress={handlePulsIconPress}
             style={styles.iconContainer}>
             <Icons.AddCircle height={25} width={25} />
           </TouchableOpacity>
-          {/* : null} */}
+          {/* // ) : null} */}
         </View>
         <View style={styles.line} />
         <View style={styles.belowRow}>
           {cardData?.options?.length > 0 ? (
             <>
-              <View style={{flexDirection: 'row'}}>
+              <View style={{ flexDirection: 'row' }}>
                 {cardData?.options?.map((item: Options, index: number) => {
                   const isOptionSelected =
                     foodItmeData?.diet_meal_options_id ===
@@ -201,7 +210,7 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
                         },
                       ]}
                       onPress={() => setFoodItemData(item)}>
-                      <Text>Option {index + 1}</Text>
+                      <Text style={styles.optionText}>Option {index + 1}</Text>
                     </TouchableOpacity>
                   );
                 })}
@@ -255,6 +264,10 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     backgroundColor: '#F3F3F3',
     marginRight: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+    alignContent: 'center',
   },
   textContainer: {
     flex: 1,
@@ -269,8 +282,9 @@ const styles = StyleSheet.create({
     color: '#444444',
   },
   line: {
-    borderBottomWidth: 0.3,
+    borderBottomWidth: Matrics.mvs(0.5),
     borderColor: '#808080',
+    opacity: 0.5
   },
   belowRow: {
     padding: 15,
@@ -298,6 +312,7 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.REGULAR,
     fontWeight: '500',
     color: colors.labelDarkGray,
+    fontSize: Matrics.mvs(12),
   },
   iconContainer: {
     height: 30,

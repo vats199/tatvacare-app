@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
   title: {
     marginLeft: 14,
     marginVertical: 20,
-    fontSize: 17,
+    fontSize: Matrics.mvs(16),
     fontWeight: 'bold',
     color: colors.black,
   },
@@ -155,12 +155,13 @@ const styles = StyleSheet.create({
     bottom: 5,
   },
   outlinedButtonText: {
-    fontSize: 18,
+    fontSize: Matrics.mvs(16),
     fontWeight: 'bold',
   },
   outlinedButton: {
-    padding: 10,
-    borderRadius: 16,
+    borderRadius: Matrics.mvs(16),
+    width: '100%',
+    // height: Matrics.vs(40)
   },
   measureContainer: {
     borderRadius: 10,

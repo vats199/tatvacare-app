@@ -21,8 +21,6 @@ const CoupansForYou: React.FC<CoupansForYouProps> = ({ onApply }) => {
 
 
     const handleViewDetails = (id: number) => {
-
-
         if (showDetail.includes(id)) {
 
             setShowDetail(showDetail.filter((item) => item !== id));
@@ -30,8 +28,6 @@ const CoupansForYou: React.FC<CoupansForYouProps> = ({ onApply }) => {
 
             setShowDetail([...showDetail, id]);
         }
-
-
     }
 
     const onPressApply = (title: string) => {
@@ -110,10 +106,10 @@ const CoupansForYou: React.FC<CoupansForYouProps> = ({ onApply }) => {
                             <View style={styles.viewDetailsContainer}>
                                 <Text style={styles.termsAndConditionText}>Terms and condition</Text>
                                 <View style={{ marginLeft: 5, marginVertical: 5 }}>
-                                    <Text style={styles.conditionText}>. Offer valid till Jul 31,2023</Text>
-                                    <Text style={styles.conditionText}>. Valid on Weekends OnlyOther T&C’s</Text>
-                                    <Text style={styles.conditionText}>. Other T&C’s</Text>
-                                    <Text style={styles.conditionText}>. Other T&C’s</Text>
+                                    <Text style={styles.conditionText}>{'\u2022'} Offer valid till Jul 31,2023</Text>
+                                    <Text style={styles.conditionText}>{'\u2022'} Valid on Weekends OnlyOther T&C’s</Text>
+                                    <Text style={styles.conditionText}>{'\u2022'} Other T&C’s</Text>
+                                    <Text style={styles.conditionText}>{'\u2022'} Other T&C’s</Text>
                                 </View>
                             </View>
                         </>

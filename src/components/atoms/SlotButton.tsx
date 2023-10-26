@@ -3,34 +3,33 @@ import {
   Text,
   TextStyle,
   TouchableOpacity,
+  TouchableOpacityProps,
   ViewStyle,
 } from 'react-native';
 import React from 'react';
-import {colors} from '../../constants/colors';
-import {Fonts, Matrics} from '../../constants';
+import { colors } from '../../constants/colors';
+import { Fonts, Matrics } from '../../constants';
 
 type SlotButtonProps = {
   title: string;
-  onPress: () => void;
+  onPress?: () => void;
   buttonStyle?: ViewStyle;
   titleStyle?: TextStyle;
 };
 
-const SlotButton: React.FC<SlotButtonProps> = ({
-  onPress,
-  title,
-  buttonStyle,
-  titleStyle,
-}) => {
+const SlotButton: React.FC<SlotButtonProps & TouchableOpacityProps> = props => {
+  const { title, buttonStyle, titleStyle } = props;
   return (
     <TouchableOpacity
-      onPress={onPress}
       style={[
         styles.timeContainerSlot,
         styles.timeContainerShadow,
         buttonStyle,
-      ]}>
-      <Text style={[styles.titleTxt, titleStyle]}>{title}</Text>
+      ]}
+      {...props}>
+      <Text numberOfLines={1} style={[styles.titleTxt, titleStyle]}>
+        {title}
+      </Text>
     </TouchableOpacity>
   );
 };
@@ -57,7 +56,7 @@ const styles = StyleSheet.create({
   },
   timeContainerShadow: {
     shadowColor: colors.black,
-    shadowOffset: {width: 0, height: 0},
+    shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.04,
     shadowRadius: 3,
     elevation: 1,

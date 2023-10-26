@@ -6,25 +6,26 @@ import {
   View,
   Modal,
   KeyboardAvoidingView,
+  StatusBar,
 } from 'react-native';
 import React from 'react';
-import {CompositeScreenProps} from '@react-navigation/native';
-import {DrawerScreenProps} from '@react-navigation/drawer';
+import { CompositeScreenProps } from '@react-navigation/native';
+import { DrawerScreenProps } from '@react-navigation/drawer';
 import {
   AppStackParamList,
   AuthStackParamList,
   DrawerParamList,
 } from '../../interface/Navigation.interface';
-import {colors} from '../../constants/colors';
-import {useSafeAreaInsets, SafeAreaView} from 'react-native-safe-area-context';
-import {StackScreenProps} from '@react-navigation/stack';
-import {OnBoardStyle as styles} from './styles';
+import { colors } from '../../constants/colors';
+import { useSafeAreaInsets, SafeAreaView } from 'react-native-safe-area-context';
+import { StackScreenProps } from '@react-navigation/stack';
+import { OnBoardStyle as styles } from './styles';
 import OnBoard from '../../interface/Auth.interface';
-import {Constants, Images, Matrics} from '../../constants';
+import { Constants, Images, Matrics } from '../../constants';
 import Button from '../../components/atoms/Button';
 import AnimatedInputField from '../../components/atoms/AnimatedInputField';
-import {Icons} from '../../constants/icons';
-import {TextInput} from 'react-native-gesture-handler';
+import { Icons } from '../../constants/icons';
+import { TextInput } from 'react-native-gesture-handler';
 import Auth from '../../api/auth';
 import LoginBottomSheet, {
   LoginBottomSheetRef,
@@ -80,19 +81,19 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({
       if (activeIndexRef.current == arr.length - 1) {
         activeIndexRef.current = 0;
         setActiveIndex(activeIndexRef.current);
-        flatListRef.current?.scrollToIndex({index: 0});
+        flatListRef.current?.scrollToIndex({ index: 0 });
       } else {
         activeIndexRef.current = activeIndexRef.current + 1;
         setActiveIndex(activeIndexRef.current);
-        flatListRef.current?.scrollToIndex({index: activeIndexRef.current});
+        flatListRef.current?.scrollToIndex({ index: activeIndexRef.current });
       }
     }, 4000);
   }, []);
-  const renderItem = ({item, index}: {item: any; index: number}) => {
+  const renderItem = ({ item, index }: { item: any; index: number }) => {
     return (
-      <View style={{width: Matrics.screenWidth}}>
+      <View style={{ width: Matrics.screenWidth }}>
         <Image source={item.image} style={styles.img} resizeMode="contain" />
-        <View style={{alignItems: 'center'}}>
+        <View style={{ alignItems: 'center' }}>
           <Text style={styles.title}>{item.title}</Text>
           <Text style={styles.desc}>{item.description}</Text>
         </View>
@@ -150,7 +151,12 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({
   };
   return (
     <SafeAreaView edges={['bottom']} style={styles.container}>
-      <View style={[styles.wrapper, {paddingTop: insets.top}]}>
+      <StatusBar
+        translucent={true}
+        backgroundColor={colors.white}
+        barStyle={'dark-content'}
+      />
+      <View style={[styles.wrapper, { paddingTop: insets.top }]}>
         <FlatList
           ref={flatListRef}
           // onScroll={_onscroll}
@@ -162,8 +168,8 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({
           pagingEnabled
           keyExtractor={item => item.id}
           showsHorizontalScrollIndicator={false}
-          // onViewableItemsChanged={_onViewableItemsChanged}
-          // viewabilityConfig={_viewabilityConfig}
+        // onViewableItemsChanged={_onViewableItemsChanged}
+        // viewabilityConfig={_viewabilityConfig}
         />
         <View style={styles.pagingCont}>
           {arr.map((ele, index) => {
@@ -184,9 +190,14 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({
         </View>
       </View>
       <View style={styles.spaceView} />
-      <Button
+      {/* <Button
         title="Get Started"
         buttonStyle={styles.buttonStyle}
+        onPress={() => onPressGetStarted()}
+      /> */}
+      <Button
+        title="Get Started"
+        buttonStyle={{ marginBottom: insets.bottom == 0 ? Matrics.vs(16) : 0 }}
         onPress={() => onPressGetStarted()}
       />
       <LoginBottomSheet
