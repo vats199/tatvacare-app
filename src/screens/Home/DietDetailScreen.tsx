@@ -19,12 +19,7 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({navigation, route}) => {
   const {foodItem, buttonText, healthCoachId, mealName} = route.params;
   let quantity = Math.round(Number(foodItem?.quantity)).toString();
   const [qty, setQty] = React.useState<string>(quantity);
-  const {userData} = useApp();
-
-  const [qty, setQty] = React.useState<string>();
   // const { userData } = useApp();
-  const insets = useSafeAreaInsets();
-
   const onPressBack = () => {
     navigation.goBack();
   };
