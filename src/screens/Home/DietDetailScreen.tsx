@@ -6,22 +6,23 @@ import { colors } from '../../constants/colors';
 import MicronutrientsInformation from '../../components/organisms/MicronutrientsInformation';
 import AddDiet from '../../components/organisms/AddDiet';
 import { StackScreenProps } from '@react-navigation/stack';
-import Deit from '../../api/diet'
+import Deit from '../../api/diet';
 import { useApp } from '../../context/app.context';
-import Fonts from '../../constants/fonts';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import Matrics from '../../constants/Matrics';
+import fonts from '../../constants/fonts';
 
-type DietDetailProps = StackScreenProps<DietStackParamList, 'DietDetail'>
+type DietDetailProps = StackScreenProps<DietStackParamList, 'DietDetail'>;
 
 const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
-  const { foodItem, buttonText, healthCoachId, mealName, patient_id } = route.params
-
+  const insets = useSafeAreaInsets();
+  const { foodItem, buttonText, healthCoachId, mealName ,patient_id} = route.params;
   let quantity = Math.round(Number(foodItem?.quantity)).toString()
   const [qty, setQty] = React.useState<string>(quantity)
-  const insets = useSafeAreaInsets()
 
-  const onPressBack = () => { navigation.goBack(); };
+  const onPressBack = () => {
+    navigation.goBack();
+  };
 
   const onPressAdd = async () => {
     const addPayload = {
@@ -44,8 +45,8 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
       monounsaturated_fatty_acids: foodItem?.monounsaturated_fatty_acids,
       polyunsaturated_fatty_acids: foodItem?.polyunsaturated_fatty_acids,
       diet_meal_options_id: foodItem?.diet_meal_options_id,
-      health_coach_id: foodItem?.healthCoachId
-    }
+      health_coach_id: foodItem?.healthCoachId,
+    };
     const updatePayload = {
       patient_id: patient_id,
       food_item_id: foodItem?.food_item_id,
@@ -67,16 +68,20 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
       polyunsaturated_fatty_acids: foodItem?.polyunsaturated_fatty_acids,
       diet_meal_options_id: foodItem?.diet_meal_options_id,
       health_coach_id: healthCoachId,
-      diet_plan_food_item_id: foodItem?.diet_plan_food_item_id
-    }
+      diet_plan_food_item_id: foodItem?.diet_plan_food_item_id,
+    };
 
     if (buttonText === "Add") {
       const result = await Deit?.addFoodItem(addPayload, {})
       if (result?.data === true) {
-        navigation.popToTop()
+        navigation.popToTop();
       }
     } else {
       const result = await Deit?.updateFoodItem(updatePayload, {})
+      console.log(
+        "result",result
+      );
+      
       if (result?.data === true) {
         navigation.popToTop()
       }
@@ -84,17 +89,25 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
   };
 
   const handleSeletedQty = (item: string) => {
-    setQty(item)
-  }
+    setQty(item);
+  };
   return (
-    <SafeAreaView edges={['top']} style={{ flex: 1, backgroundColor: colors.lightGreyishBlue, paddingTop: insets.top !== 0 ? insets.top : Matrics.vs(15) }}>
+    <SafeAreaView
+      edges={['top']}
+      style={{ flex: 1, backgroundColor: colors.lightGreyishBlue, paddingBottom:Matrics.vs(22) }}>
       <View style={styles.header}>
         <Icons.backArrow onPress={onPressBack} height={23} width={23} />
         <Text style={styles.dietTitle}>{foodItem?.food_item_name}</Text>
       </View>
       <View style={styles.belowContainer}>
         <MicronutrientsInformation foodItemDetails={foodItem} />
-        <AddDiet onPressAdd={onPressAdd} buttonText={buttonText} onSeleteQty={handleSeletedQty} Data={foodItem} mealName={mealName} />
+        <AddDiet
+          onPressAdd={onPressAdd}
+          buttonText={buttonText}
+          onSeleteQty={handleSeletedQty}
+          Data={foodItem}
+          mealName={mealName}
+        />
       </View>
     </SafeAreaView>
   );
@@ -106,22 +119,17 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 20,
-    marginHorizontal: Matrics.s(15)
-
+    marginBottom: Matrics.vs(20),
+    paddingHorizontal: Matrics.s(15),
   },
   dietTitle: {
     fontSize: 16,
-    fontWeight: '700',
     color: colors.labelDarkGray,
-    marginLeft: 10,
-    fontFamily: Fonts.BOLD, flexWrap: 'wrap',
+    marginLeft: Matrics.s(10),
+    fontFamily: fonts.BOLD,
   },
   belowContainer: {
     flex: 0.95,
     justifyContent: 'space-between',
-    marginBottom: 10,
-    height: '100%',
-
   },
 });

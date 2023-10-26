@@ -48,6 +48,7 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
     const getRecentSerache = async () => {
       const recentSearchResults = await AsyncStorage.getItem('recentSearchResults');
       let results = recentSearchResults ? JSON.parse(recentSearchResults) : [];
+   
 
       const unique = results.filter((obj: any, index: number) => {
         return index === results.findIndex((o: any) => obj.food_name === o.food_name);
@@ -110,6 +111,7 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
   const handleSerach = async (text: string) => {
 
     const result = await Diet.searchFoodItem({ "food_name": text }, {})
+    console.log("results", result);
     // , { token: userData?.token },
     setSearchResult(result?.data)
     if (result.code === '0' || text.length === 0) {

@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
   belowContainer: {
     flex: 1,
     paddingHorizontal: 15,
-    backgroundColor:colors.lightGreyishBlue,
+    backgroundColor: colors.lightGreyishBlue,
   },
   messageContainer: {
     alignItems: 'center',

@@ -3,22 +3,23 @@ import React, { useEffect, useState } from 'react';
 import { Icons } from '../../constants/icons';
 import Matrics from '../../constants/Matrics';
 
-
 type DietSearchHeaderProps = {
   onPressBack: () => void;
   onSearch: (text: string) => void;
 };
 
-const DietSearchHeader: React.FC<DietSearchHeaderProps> = ({ onPressBack, onSearch }) => {
+const DietSearchHeader: React.FC<DietSearchHeaderProps> = ({
+  onPressBack,
+  onSearch,
+}) => {
   const [searchText, setSearchText] = useState<string>('');
  
 
   const handleSerache = (text: string) => {
     const cleanedText = text.replace(/[^a-zA-Z\s]/g, '');
     setSearchText(cleanedText);
-    onSearch(text)
-  }
-  
+    onSearch(text);
+  };
   return (
     <View style={styles.container}>
       <Icons.backArrow height={22} width={22} onPress={onPressBack} />
@@ -28,8 +29,8 @@ const DietSearchHeader: React.FC<DietSearchHeaderProps> = ({ onPressBack, onSear
         placeholderTextColor="gray"
         value={searchText}
         onChangeText={text => {
-          setSearchText(text)
-          handleSerache(text)
+          setSearchText(text);
+          handleSerache(text);
         }}
       />
     </View>
@@ -44,6 +45,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: Matrics.vs(30),
     alignItems: 'center',
+    marginTop: Matrics.vs(10),
   },
   input: {
     width: '90%',
