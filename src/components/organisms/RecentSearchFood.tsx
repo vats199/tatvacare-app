@@ -9,13 +9,14 @@ import { log } from 'console';
 
 type RecentSerachDietProps = {
   onPressPlus: (data: SearcheFood) => void;
-  searchData: data;
+  searchData: SearcheFood[];
   title: string;
+  message: string
 };
-type data = {
-  code: string,
-  data: SearcheFood[];
-}
+// type data = {
+//   code: string,
+//   data: SearcheFood[];
+// }
 type SearcheFood = {
   FOOD_ID: number;
   ALIAS_NAME: string;
@@ -41,7 +42,7 @@ type SearcheFood = {
 const RecentSearchDiet: React.FC<RecentSerachDietProps> = ({
   onPressPlus,
   searchData,
-  title,
+  title, message
 }) => {
   const renderRecentSearchItem = (item: SearcheFood, index: number) => {
 
@@ -67,19 +68,15 @@ const RecentSearchDiet: React.FC<RecentSerachDietProps> = ({
       </TouchableOpacity>
     );
   };
-  console.log("searchData?.code === ", searchData?.code);
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <Text style={styles.text}>{title}</Text>
-      {searchData?.code !== "2" ? (
-        searchData?.data?.map(renderRecentSearchItem)
+      {searchData?.length ? (
+        searchData?.map(renderRecentSearchItem)
       ) : (
         <View>
-          <Text style={{ textTransform: 'capitalize' }}>
-            sorry but no such food item found in our database please try with
-            some other keyword
-          </Text>
+          <Text style={{ textTransform: 'capitalize' }}>{message}</Text>
         </View>
       )}
     </ScrollView>

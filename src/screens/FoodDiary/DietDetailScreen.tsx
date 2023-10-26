@@ -10,6 +10,7 @@ import Deit from '../../api/diet';
 import { useApp } from '../../context/app.context';
 import { Fonts, Matrics } from '../../constants';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { log } from 'console';
 
 type DietDetailProps = StackScreenProps<DietStackParamList, 'DietDetail'>;
 
@@ -110,6 +111,7 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
           onSeleteQty={handleSeletedQty}
           Data={foodItem}
           mealName={mealName}
+          isDisable={qty === "0" ? true : false}
         />
       </View>
     </SafeAreaView>

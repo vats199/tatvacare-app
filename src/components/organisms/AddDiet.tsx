@@ -5,13 +5,15 @@ import DropdownComponent from '../atoms/Dropdown';
 import { colors } from '../../constants/colors';
 import { Icons } from '../../constants/icons';
 import { Matrics } from '../../constants';
+import { log } from 'console';
 
 type AddDietProps = {
   onPressAdd: () => void;
   buttonText: string;
   onSeleteQty: (qty: string) => void;
   Data: FoodItems;
-  mealName: string
+  mealName: string;
+  isDisable: boolean
 };
 type FoodItems = {
   diet_plan_food_item_id: string,
@@ -49,8 +51,9 @@ type NutritionData = {
 const AddDiet: React.FC<AddDietProps> = ({
   onPressAdd,
   buttonText,
-  onSeleteQty, Data, mealName
+  onSeleteQty, Data, mealName, isDisable
 }) => {
+
   const data = [
     { label: '1', value: '1' },
     { label: '2', value: '2' },
@@ -62,6 +65,7 @@ const AddDiet: React.FC<AddDietProps> = ({
     onSeleteQty(ietm);
   };
   const handleSelectedMeasures = (ietm: string) => { };
+
 
   return (
     <View style={styles.container}>
@@ -91,6 +95,7 @@ const AddDiet: React.FC<AddDietProps> = ({
               titleStyle={styles.outlinedButtonText}
               buttonStyle={styles.outlinedButton}
               onPress={onPressAdd}
+              disabled={isDisable}
             />
           </View>
         </View>

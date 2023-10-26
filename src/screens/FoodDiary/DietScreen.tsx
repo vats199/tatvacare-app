@@ -209,7 +209,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
         messgae={
           'Are you sure you want to delete this food item from your meal'
         }
-        NegativeButtonsText="Cancle"
+        NegativeButtonsText="Cancel"
         positiveButtonText="Ok"
         onPressOK={deleteFoodItem}
         onPressCancle={() => setModalVisible(!modalVisible)}
