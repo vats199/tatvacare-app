@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { CompositeScreenProps, useFocusEffect } from '@react-navigation/native';
-import { ActivityIndicator, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
-
+import { useFocusEffect } from '@react-navigation/native';
+import { Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import CalorieConsumer from '../../components/molecules/CalorieConsumer';
 import DietHeader from '../../components/molecules/DietHeader';
 import DietTime from '../../components/organisms/DietTime';
@@ -12,11 +10,12 @@ import { StackScreenProps } from '@react-navigation/stack';
 import Diet from '../../api/diet';
 import { useApp } from '../../context/app.context';
 import moment from 'moment';
-import Loader from '../../components/atoms/Loader';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import Loader from '../../components/atoms/Loader';
 import Matrics from '../../constants/Matrics';
 import BasicModal from '../../components/atoms/BasicModal';
- 
+import MyStatusbar from '../../components/atoms/MyStatusBar';
+
 type DietScreenProps = StackScreenProps<DietStackParamList, 'DietScreen'>
 
 const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
@@ -25,8 +24,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   const [loader, setLoader] = useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [dietPlane, setDiePlane] = useState<any>([]);
-  // const { userData } = useApp();
-  const [deletpayload, setDeletpayload] = useState<string | null>(null)
+  const [deletpayload, setDeletpayload] = useState<string | null>(null);
   const [modalVisible, setModalVisible] = React.useState<boolean>(false);
   const [stateOfAPIcall, setStateOfAPIcall] = React.useState<boolean>(false);
   const [caloriesArray, setCaloriesArray] = React.useState<any[]>([]);
@@ -134,15 +132,19 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   };
 
   const handelOnpressOfprogressBar = () => {
-    navigation.navigate("ProgressBarInsightsScreen", { calories: caloriesArray })
-  }
+    navigation.navigate('ProgressBarInsightsScreen', { calories: caloriesArray });
+  };
 
   return (
-
-    <SafeAreaView edges={['top']} style={{
-      flex: 1, backgroundColor: colors.lightGreyishBlue,
-      paddingBottom: insets.bottom !== 0 ? insets.bottom : Matrics.vs(15),
-    }}>
+    <SafeAreaView
+      edges={['top']}
+      style={[
+        styles.mainContienr,
+        {
+          paddingTop: Platform.OS == 'android' ? Matrics.vs(10) : 0,
+        },
+      ]}>
+      <MyStatusbar backgroundColor={colors.lightGreyishBlue} />
       <DietHeader
         onPressBack={onPressBack}
         onPressOfNextAndPerviousDate={handleDate}
@@ -164,8 +166,9 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
           />
         ) : (
           <View style={styles.messageContainer}>
-            <Text style={{ fontSize: 15 }}>{"No diet plan available"}</Text>
-          </View>)}
+            <Text style={{ fontSize: 15 }}>{'No diet plan available'}</Text>
+          </View>
+        )}
       </View>
       <BasicModal
         modalVisible={modalVisible}
@@ -182,10 +185,11 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
 };
 
 const styles = StyleSheet.create({
+  mainContienr: { flex: 1, backgroundColor: colors.lightGreyishBlue },
   belowContainer: {
     flex: 1,
     paddingHorizontal: 15,
-    backgroundColor:colors.lightGreyishBlue,
+    backgroundColor: colors.lightGreyishBlue,
   },
   messageContainer: {
     alignItems: 'center',
