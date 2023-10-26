@@ -128,8 +128,8 @@ const DietHeader: React.FC<DietHeaderProps> = ({
     <View style={styles.mainContainer}>
       <View style={styles.upperContainer}>
         <View style={styles.customHeader}>
-          <TouchableOpacity onPress={onPressBack}>
-            <Icons.backArrow height={20} width={20} />
+          <TouchableOpacity hitSlop={8} onPress={onPressBack}>
+            <Icons.backArrow />
           </TouchableOpacity>
           <Text style={styles.customHeaderText}> {title}</Text>
         </View>
@@ -147,25 +147,23 @@ const DietHeader: React.FC<DietHeaderProps> = ({
                 onPress={handleNextMonth}
               />
             </View>
-            <View style={[styles.leftRightContent, { width: Matrics.mvs(60) }]}>
-              <TouchableOpacity onPress={handlePreviousWeek} style={styles.arrowContainer}>
+            <View style={styles.leftRightContent}>
+              <TouchableOpacity onPress={handlePreviousWeek} hitSlop={8}>
                 <Icons.backArrow
                   height={11}
                   width={11}
-                  style={{ marginRight: 20 }}
+                  style={{
+                    marginHorizontal: Matrics.s(12),
+                  }}
                 />
               </TouchableOpacity>
-              <TouchableOpacity onPress={handlePreviousWeek} style={styles.arrowContainer}>
-                <Icons.RightArrow
-                  height={22}
-                  width={22}
-                  style={{ marginRight: 20 }}
-                />
+              <TouchableOpacity onPress={handleNextWeek} hitSlop={8}>
+                <Icons.RightArrow height={22} width={22} />
               </TouchableOpacity>
             </View>
           </View>
           {!showMore ? (
-            <View style={{ paddingHorizontal: Matrics.s(10) }}>
+            <View style={{ paddingHorizontal: Matrics.s(7) }}>
               <CalendarStrip
                 selectedDate={selectedDate}
                 key={calendarKey}
@@ -182,6 +180,9 @@ const DietHeader: React.FC<DietHeaderProps> = ({
                   borderHighlightColor: 'white',
                 }}
                 style={{ height: Matrics.vs(70) }}
+                dayContainerStyle={{
+                  borderRadius: 0,
+                }}
                 calendarColor={colors.lightGreyishBlue}
                 dateNumberStyle={styles.dateNumberStyle}
                 dateNameStyle={{ color: 'black' }}
@@ -202,6 +203,7 @@ const DietHeader: React.FC<DietHeaderProps> = ({
                 firstDay={1}
                 horizontal={true}
                 pagingEnabled={true}
+                current={moment(selectedDate).format('YYYY-MM-DD')}
                 onDayPress={day => {
                   let date = new Date(day?.dateString);
                   onPressOfNextAndPerviousDate(date);
@@ -226,8 +228,6 @@ const DietHeader: React.FC<DietHeaderProps> = ({
                       container: {
                         backgroundColor: colors.themePurple,
                         borderRadius: Matrics.mvs(10),
-                        height: Matrics.vs(34),
-                        width: Matrics.s(40),
                         justifyContent: 'center',
                         alignItems: 'center',
                       },
@@ -279,16 +279,16 @@ const DietHeader: React.FC<DietHeaderProps> = ({
 
 const styles = StyleSheet.create({
   mainContainer: {
-    backgroundColor: 'transparent',
-    paddingBottom: 10,
+    backgroundColor: colors.lightGreyishBlue,
     overflow: 'hidden',
+    paddingBottom: Matrics.vs(2),
   },
   upperContainer: {
     backgroundColor: colors.lightGreyishBlue,
     borderBottomWidth: 0.3,
     borderBottomColor: '#E5E5E5',
     paddingBottom: 5,
-    elevation: 0.2,
+    elevation: 2,
     borderBottomRightRadius: 15,
     borderBottomLeftRadius: 15,
     shadowOffset: { width: 0, height: 0 },
@@ -299,9 +299,8 @@ const styles = StyleSheet.create({
   customHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginLeft: 15,
-    // marginTop: 30,
     marginBottom: 20,
+    paddingHorizontal: Matrics.s(15),
   },
   customHeaderText: {
     fontSize: 19,
@@ -310,17 +309,16 @@ const styles = StyleSheet.create({
     marginLeft: 6,
   },
   dateNumberStyle: {
-    fontSize: 14,
+    fontSize: Matrics.mvs(14),
     color: '#656566',
-    marginVertical: 10,
-    height: Matrics.vs(34),
-    width: Matrics.s(40),
-    padding: Matrics.mvs(8),
+    paddingVertical: Matrics.vs(8),
+    paddingHorizontal: Matrics.s(10),
+    marginTop: Matrics.vs(10),
   },
   highlighetdDateNumberStyle: {
-    fontSize: 14,
+    fontSize: Matrics.mvs(14),
     backgroundColor: '#760FB1',
-    borderRadius: 8,
+    borderRadius: Matrics.mvs(8),
     color: 'white',
     overflow: 'hidden',
   },
@@ -333,19 +331,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingLeft: 10,
     marginBottom: 10,
+    paddingHorizontal: Matrics.s(15),
   },
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginRight: 10,
   },
   monthYearStyle: {
-    fontSize: 14,
-    fontWeight: 'bold',
+    fontSize: Matrics.mvs(14),
+    fontFamily: Fonts.BOLD,
     color: colors.black,
-    marginLeft: Matrics.s(14),
   },
   dropDwonIcon: {
     opacity: 1,
