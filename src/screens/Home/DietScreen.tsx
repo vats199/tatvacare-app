@@ -169,9 +169,11 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
       </View>
       <BasicModal
         modalVisible={modalVisible}
-        messgae={'Are you sure you want to delete this food item from your meal'}
-        NegativeButtonsText='Cancel'
-        positiveButtonText='Ok'
+        messgae={
+          'Are you sure you want to delete this food item from your meal'
+        }
+        NegativeButtonsText="Cancel"
+        positiveButtonText="Ok"
         onPressOK={deleteFoodItem}
         onPressCancle={() => setModalVisible(!modalVisible)} />
       <Loader visible={loader} />

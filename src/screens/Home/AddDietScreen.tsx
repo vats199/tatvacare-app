@@ -11,6 +11,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Container, Screen } from '../../components/styled/Views';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import Matrics from '../../constants/Matrics';
+import { useFocusEffect } from '@react-navigation/native';
 
 
 type AddDietScreenProps = StackScreenProps<DietStackParamList, 'AddDiet'>
@@ -37,18 +38,22 @@ type SearcheFood = {
   total_polyunsaturated_fatty_acids: string
 }
 const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
-  // const { userData } = useApp();
-  const { optionId, healthCoachId, mealName, patient_id } = route.params
-  const [recentSerach, setRecentSerach] = React.useState([])
-  const [searchResult, setSearchResult] = React.useState([])
-  const [title, setTitle] = React.useState<string>('')
-  const insets = useSafeAreaInsets()
+  const insets = useSafeAreaInsets();
+  const { optionId, healthCoachId, mealName } = route.params;
+  const [recentSerach, setRecentSerach] = React.useState([]);
+  const [searchResult, setSearchResult] = React.useState([]);
+  const [message, setMessage] = React.useState('');
+  const [result, setResult] = React.useState([]);
+  const [title, setTitle] = React.useState<string>('');
+  const [searchQuery, setSearchQuery] = React.useState('');
+  const [timeoutId, setTimeoutId] = React.useState<number | undefined>(undefined);
+  const debouncingDelay = 500;
 
   useEffect(() => {
     const getRecentSerache = async () => {
       const recentSearchResults = await AsyncStorage.getItem('recentSearchResults');
       let results = recentSearchResults ? JSON.parse(recentSearchResults) : [];
-   
+
 
       const unique = results.filter((obj: any, index: number) => {
         return index === results.findIndex((o: any) => obj.food_name === o.food_name);
@@ -62,10 +67,18 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
         setRecentSerach(unique)
         setSearchResult(unique)
       }
-    }
-    getRecentSerache()
-  }, [])
+    };
+    getRecentSerache();
 
+  }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      if (recentSerach.length > 0) {
+        setTitle('Recent Search');
+      }
+    }, [recentSerach])
+  );
 
   const onPressBack = () => {
     navigation.goBack();
@@ -108,28 +121,60 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
     await AsyncStorage.setItem('recentSearchResults', JSON.stringify(recentSerach));
   };
 
-  const handleSerach = async (text: string) => {
+  const handleSearch = (text: string) => {
+    setSearchQuery(text);
 
-    const result = await Diet.searchFoodItem({ "food_name": text }, {})
-    console.log("results", result);
-    // , { token: userData?.token },
-    setSearchResult(result?.data)
-    if (result.code === '0' || text.length === 0) {
-      setSearchResult(recentSerach)
-      setTitle('Recent Search')
-    } else if (result.code === '2') {
-      setTitle('Search Result')
-      setSearchResult([])
-    } else {
-      setSearchResult(result?.data)
-      setTitle('Search Result')
+    if (timeoutId) {
+      clearTimeout(timeoutId);
     }
-  }
+
+    const newTimeoutId = setTimeout(() => {
+      const performSearch = async () => {
+        const result = await Diet.searchFoodItem(
+          { food_name: text },
+          {},
+        );
+        setResult(result);
+        setSearchResult(result?.data);
+
+        if (result.code === '0' || text.length === 0) {
+          setSearchResult(recentSerach);
+          setTitle(recentSerach.length > 0 ? 'Recent Search' : '');
+          setMessage('')
+        } else if (result.code === '2') {
+          setTitle('Search Result');
+          setSearchResult([]);
+          setMessage('Searched meal not found!')
+        } else {
+          setSearchResult(result?.data);
+          setTitle('Search Result');
+          setMessage('')
+        }
+      };
+
+      performSearch();
+    }, debouncingDelay);
+
+    setTimeoutId(newTimeoutId);
+  };
 
   return (
-    <SafeAreaView edges={['top']} style={[styles.container, { paddingBottom: insets.bottom !== 0 ? insets.bottom : Matrics.vs(15), }]}>
-      <DietSearchHeader onPressBack={onPressBack} onSearch={handleSerach} />
-      <RecentSearchDiet onPressPlus={handlePressPlus} searchData={searchResult} title={title} />
+    <SafeAreaView
+      edges={['top']}
+      style={[
+        styles.container,
+        {
+          // paddingTop: insets.top !== 0 ? insets.top : Matrics.vs(15),
+          // paddingBottom: insets.bottom !== 0 ? insets.bottom : Matrics.vs(15),
+        },
+      ]}>
+      <DietSearchHeader onPressBack={onPressBack} onSearch={handleSearch} />
+      <RecentSearchDiet
+        onPressPlus={handlePressPlus}
+        searchData={searchResult}
+        title={title}
+        message={message}
+      />
     </SafeAreaView>
   );
 };

@@ -5,12 +5,14 @@ import DropdownComponent from '../atoms/Dropdown';
 import { colors } from '../../constants/colors';
 import { Icons } from '../../constants/icons';
 import Matrics from '../../constants/Matrics';
+
 type AddDietProps = {
   onPressAdd: () => void;
   buttonText: string;
   onSeleteQty: (qty: string) => void;
   Data: FoodItems;
   mealName: string;
+  isDisable: boolean
 };
 type FoodItems = {
   diet_plan_food_item_id: string;
@@ -48,10 +50,9 @@ type NutritionData = {
 const AddDiet: React.FC<AddDietProps> = ({
   onPressAdd,
   buttonText,
-  onSeleteQty,
-  Data,
-  mealName,
+  onSeleteQty, Data, mealName, isDisable
 }) => {
+
   const data = [
     { label: '1', value: '1' },
     { label: '2', value: '2' },
@@ -67,22 +68,33 @@ const AddDiet: React.FC<AddDietProps> = ({
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>
-        {'Add ' + Data?.food_item_name + ' as ' + mealName}
-      </Text>
-      <View style={styles.borderline} />
-      <View style={styles.belowBox}>
-        <View style={styles.belowBoxContent}>
-          <View style={styles.dropdownContainer}>
-            <DropdownComponent
-              data={data}
-              defaultValues={Math.round(Number(Data?.quantity)).toString()}
-              dropdownStyle={{width: '48%'}}
-              placeholder="Quantity"
-              placeholderStyle={styles.dropdownTitleText}
-              selectedItem={handleSelectedQty}
-              isDisable={false}
-              containerStyle={styles.conatiner}
+      <View style={styles.innerContainer}>
+        <Text style={styles.title}>{"Add " + Data?.food_item_name + " as " + mealName}</Text>
+        <View style={styles.borderline} />
+        <View style={styles.belowBox}>
+          <View style={styles.belowBoxContent}>
+            <View style={styles.dropdownContainer}>
+              <DropdownComponent
+                data={data}
+                defaultValues={Math.round(Number(Data?.quantity)).toString()}
+                dropdownStyle={{ width: '48%' }}
+                placeholder="Quantity"
+                placeholderStyle={styles.dropdownTitleText}
+                selectedItem={handleSelectedQty}
+                isDisable={false}
+                containerStyle={styles.conatiner}
+              />
+              <View style={styles.measureContainer}>
+                <Text style={styles.dropdownTitleText}>{Data?.measure_name}</Text>
+                <Icons.DropdownIcon />
+              </View>
+            </View>
+            <Button
+              title={buttonText}
+              titleStyle={styles.outlinedButtonText}
+              buttonStyle={styles.outlinedButton}
+              onPress={onPressAdd}
+              disabled={isDisable}
             />
             <View style={styles.measureContainer}>
               <Text style={styles.dropdownTitleText}>{Data?.measure_name}</Text>

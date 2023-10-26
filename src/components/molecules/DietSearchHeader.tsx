@@ -16,8 +16,8 @@ const DietSearchHeader: React.FC<DietSearchHeaderProps> = ({
 
 
   const handleSerache = (text: string) => {
-    const trimmedText = text.trim();
-    const cleanedText = trimmedText.replace(/[^a-zA-Z\s]/g, '');
+    const spaceFree = text.trimStart()
+    const cleanedText = spaceFree.replace(/[^a-zA-Z\s]/g, '');
     setSearchText(cleanedText);
     onSearch(text);
   };
@@ -30,8 +30,7 @@ const DietSearchHeader: React.FC<DietSearchHeaderProps> = ({
         placeholderTextColor="gray"
         value={searchText}
         onChangeText={text => {
-          setSearchText(text);
-          handleSerache(text);
+          handleSerache(text)
         }}
         keyboardType='ascii-capable'
       />
