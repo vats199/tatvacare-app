@@ -16,7 +16,7 @@ import Loader from '../../components/atoms/Loader';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import Matrics from '../../constants/Matrics';
 import BasicModal from '../../components/atoms/BasicModal';
-
+ 
 type DietScreenProps = StackScreenProps<DietStackParamList, 'DietScreen'>
 
 const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
   belowContainer: {
     flex: 1,
     paddingHorizontal: 15,
-    backgroundColor: colors.lightGreyishBlue,
+    backgroundColor:colors.lightGreyishBlue,
   },
   messageContainer: {
     alignItems: 'center',

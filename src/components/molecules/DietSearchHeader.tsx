@@ -13,7 +13,7 @@ const DietSearchHeader: React.FC<DietSearchHeaderProps> = ({
   onSearch,
 }) => {
   const [searchText, setSearchText] = useState<string>('');
- 
+
 
   const handleSerache = (text: string) => {
     const spaceFree = text.trimStart()
