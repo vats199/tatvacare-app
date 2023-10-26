@@ -111,7 +111,7 @@ export default MicronutrientsInformation;
 
 const styles = StyleSheet.create({
   outerContainer: {
-    marginHorizontal: 10,
+    marginHorizontal: Matrics.s(15),
   },
   title: {
     fontSize: 16,
@@ -119,7 +119,6 @@ const styles = StyleSheet.create({
     color: colors.labelDarkGray,
     fontFamily: Fonts.BOLD,
     marginVertical: 8,
-    marginLeft: 2,
   },
   container: {
     borderWidth: 0.1,

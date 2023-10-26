@@ -3,21 +3,23 @@ import React, { useState } from 'react';
 import { Icons } from '../../constants/icons';
 import { Matrics } from '../../constants';
 
-
 type DietSearchHeaderProps = {
   onPressBack: () => void;
   onSearch: (text: string) => void;
 };
 
-const DietSearchHeader: React.FC<DietSearchHeaderProps> = ({ onPressBack, onSearch }) => {
+const DietSearchHeader: React.FC<DietSearchHeaderProps> = ({
+  onPressBack,
+  onSearch,
+}) => {
   const [searchText, setSearchText] = useState<string>('');
 
   const handleSerache = (text: string) => {
     const spaceFree = text.trimStart()
     const cleanedText = spaceFree.replace(/[^a-zA-Z\s]/g, '');
     setSearchText(cleanedText);
-    onSearch(text)
-  }
+    onSearch(text);
+  };
   return (
     <View style={styles.container}>
       <Icons.backArrow height={22} width={22} onPress={onPressBack} />
@@ -47,7 +49,7 @@ const styles = StyleSheet.create({
   input: {
     width: '90%',
     height: Matrics.vs(42),
-    borderWidth: 0.3,
+    borderWidth: StyleSheet.hairlineWidth,
     borderColor: 'black',
     backgroundColor: 'white',
     borderRadius: 10,

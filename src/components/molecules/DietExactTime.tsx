@@ -1,13 +1,13 @@
-import { DrawerItemList } from '@react-navigation/drawer';
-import React, { useEffect } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { colors } from '../../constants/colors';
-import { Icons } from '../../constants/icons';
+import {DrawerItemList} from '@react-navigation/drawer';
+import React, {useEffect} from 'react';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {colors} from '../../constants/colors';
+import {Icons} from '../../constants/icons';
 import DietOption from './DietOption';
-import { Fonts, Matrics } from '../../constants';
+import {Fonts, Matrics} from '../../constants';
 import fonts from '../../constants/fonts';
 import moment from 'moment';
-import { useFocusEffect } from '@react-navigation/native';
+import {useFocusEffect} from '@react-navigation/native';
 
 interface ExactTimeProps {
   onPressPlus: (optionId: string, mealName: string) => void;
@@ -191,7 +191,7 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
         <View style={styles.belowRow}>
           {cardData?.options?.length > 0 ? (
             <>
-              <View style={{ flexDirection: 'row' }}>
+              <View style={{flexDirection: 'row'}}>
                 {cardData?.options?.map((item: Options, index: number) => {
                   const isOptionSelected =
                     foodItmeData?.diet_meal_options_id ===
@@ -248,7 +248,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   topRow: {
-    paddingHorizontal: 18,
+    paddingHorizontal: Matrics.s(15),
     paddingVertical: 8,
     flexDirection: 'row',
     alignItems: 'center',
@@ -284,7 +284,7 @@ const styles = StyleSheet.create({
   line: {
     borderBottomWidth: Matrics.mvs(0.5),
     borderColor: '#808080',
-    opacity: 0.5
+    opacity: 0.5,
   },
   belowRow: {
     padding: 15,

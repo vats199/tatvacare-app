@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { DietStackParamList } from '../../interface/Navigation.interface';
 import { Icons } from '../../constants/icons';
@@ -10,15 +10,15 @@ import Deit from '../../api/diet';
 import { useApp } from '../../context/app.context';
 import { Fonts, Matrics } from '../../constants';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
-import { log } from 'console';
+import MyStatusbar from '../../components/atoms/MyStatusBar';
 
 type DietDetailProps = StackScreenProps<DietStackParamList, 'DietDetail'>;
 
 const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
   const insets = useSafeAreaInsets();
   const { foodItem, buttonText, healthCoachId, mealName } = route.params;
-  let quantity = Math.round(Number(foodItem?.quantity)).toString()
-  const [qty, setQty] = React.useState<string>(quantity)
+  let quantity = Math.round(Number(foodItem?.quantity)).toString();
+  const [qty, setQty] = React.useState<string>(quantity);
   const { userData } = useApp();
 
   const onPressBack = () => {
@@ -98,7 +98,14 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
     setQty(item);
   };
   return (
-    <SafeAreaView edges={['top']} style={{ flex: 1, backgroundColor: colors.lightGreyishBlue, paddingTop: insets.top !== 0 ? insets.top : Matrics.vs(15) }}>
+    <SafeAreaView
+      edges={['top']}
+      style={{
+        flex: 1,
+        backgroundColor: colors.lightGreyishBlue,
+        paddingTop: Platform.OS == 'android' ? insets.top + Matrics.vs(10) : 0,
+      }}>
+      <MyStatusbar backgroundColor={colors.lightGreyishBlue} />
       <View style={styles.header}>
         <Icons.backArrow onPress={onPressBack} height={23} width={23} />
         <Text style={styles.dietTitle}>{foodItem?.food_item_name}</Text>
@@ -138,6 +145,5 @@ const styles = StyleSheet.create({
   belowContainer: {
     flex: 1,
     justifyContent: 'space-between',
-    marginBottom: 10,
   },
 });

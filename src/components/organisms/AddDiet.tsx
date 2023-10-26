@@ -16,34 +16,34 @@ type AddDietProps = {
   isDisable: boolean
 };
 type FoodItems = {
-  diet_plan_food_item_id: string,
-  diet_meal_options_id: string,
-  food_item_id: number,
-  food_item_name: string,
-  quantity: number,
-  measure_id: null,
-  measure_name: string,
-  protein: string,
-  carbs: string,
-  fats: string,
-  fibers: string,
-  calories: string,
-  sodium: string,
-  potassium: string,
-  sugar: string,
-  saturated_fatty_acids: null,
-  monounsaturated_fatty_acids: null,
-  polyunsaturated_fatty_acids: null,
-  fatty_acids: string,
-  is_active: string,
-  is_deleted: string,
-  updated_by: string,
-  created_at: string,
-  updated_at: string,
-  consumption: any,
-  is_consumed: boolean,
-  consumed_calories: number
-}
+  diet_plan_food_item_id: string;
+  diet_meal_options_id: string;
+  food_item_id: number;
+  food_item_name: string;
+  quantity: number;
+  measure_id: null;
+  measure_name: string;
+  protein: string;
+  carbs: string;
+  fats: string;
+  fibers: string;
+  calories: string;
+  sodium: string;
+  potassium: string;
+  sugar: string;
+  saturated_fatty_acids: null;
+  monounsaturated_fatty_acids: null;
+  polyunsaturated_fatty_acids: null;
+  fatty_acids: string;
+  is_active: string;
+  is_deleted: string;
+  updated_by: string;
+  created_at: string;
+  updated_at: string;
+  consumption: any;
+  is_consumed: boolean;
+  consumed_calories: number;
+};
 type NutritionData = {
   name: string;
   value: string;
@@ -70,7 +70,9 @@ const AddDiet: React.FC<AddDietProps> = ({
   return (
     <View style={styles.container}>
       <View style={styles.innerContainer}>
-        <Text style={styles.title}>{"Add " + Data?.food_item_name + " as " + mealName}</Text>
+        <Text style={styles.title}>
+          {'Add ' + Data?.food_item_name + ' as ' + mealName}
+        </Text>
         <View style={styles.borderline} />
         <View style={styles.belowBox}>
           <View style={styles.belowBoxContent}>
@@ -86,7 +88,9 @@ const AddDiet: React.FC<AddDietProps> = ({
                 containerStyle={styles.conatiner}
               />
               <View style={styles.measureContainer}>
-                <Text style={styles.dropdownTitleText}>{Data?.measure_name}</Text>
+                <Text style={styles.dropdownTitleText}>
+                  {Data?.measure_name}
+                </Text>
                 <Icons.DropdownIcon />
               </View>
             </View>
@@ -113,14 +117,17 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
-    margin: 5,
-    elevation: 8,
+    elevation: 3,
+    shadowColor: '#808080',
+    shadowRadius: 5,
+    shadowOpacity: 1,
+    shadowOffset: { height: 0, width: 0 },
   },
   innerContainer: {
     backgroundColor: 'white',
+    paddingHorizontal: Matrics.s(15),
   },
   title: {
-    marginLeft: 14,
     marginVertical: 20,
     fontSize: Matrics.mvs(16),
     fontWeight: 'bold',
@@ -129,15 +136,15 @@ const styles = StyleSheet.create({
   borderline: {
     borderBottomWidth: Matrics.mvs(0.5),
     borederColor: colors.inputBoxLightBorder,
-    opacity: 0.3
+    opacity: 0.3,
   },
   belowBox: {
-    paddingHorizontal: 16,
     paddingBottom: 20,
   },
   belowBoxContent: {
     width: '100%',
-    justifyContent: 'center', alignItems: 'center'
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   dropdownContainer: {
     flexDirection: 'row',
@@ -148,10 +155,10 @@ const styles = StyleSheet.create({
     fontSize: 17,
     paddingLeft: 7,
     color: colors.black,
-    textTransform: 'capitalize'
+    textTransform: 'capitalize',
   },
   conatiner: {
-    bottom: 5
+    bottom: 5,
   },
   outlinedButtonText: {
     fontSize: Matrics.mvs(16),
@@ -160,7 +167,6 @@ const styles = StyleSheet.create({
   outlinedButton: {
     borderRadius: Matrics.mvs(16),
     width: '100%',
-    // height: Matrics.vs(40)
   },
   measureContainer: {
     borderRadius: 10,

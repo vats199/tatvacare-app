@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Platform } from 'react-native';
 import React, { useEffect } from 'react';
 import { DietStackParamList } from '../../interface/Navigation.interface';
 import RecentSearchDiet from '../../components/organisms/RecentSearchFood';
@@ -11,7 +11,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Matrics } from '../../constants';
 import { log } from 'console';
-import { useFocusEffect } from '@react-navigation/native';
+import MyStatusbar from '../../components/atoms/MyStatusBar';
 
 type AddDietScreenProps = StackScreenProps<DietStackParamList, 'AddDiet'>;
 type SearcheFood = {
@@ -175,10 +175,12 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
       style={[
         styles.container,
         {
-          // paddingTop: insets.top !== 0 ? insets.top : Matrics.vs(15),
-          // paddingBottom: insets.bottom !== 0 ? insets.bottom : Matrics.vs(15),
+          paddingTop:
+            Platform.OS == 'android' ? insets.top + Matrics.vs(10) : 0,
+          paddingBottom: insets.bottom !== 0 ? insets.bottom : Matrics.vs(15),
         },
       ]}>
+      <MyStatusbar backgroundColor={colors.lightGreyishBlue} />
       <DietSearchHeader onPressBack={onPressBack} onSearch={handleSearch} />
       <RecentSearchDiet
         onPressPlus={handlePressPlus}

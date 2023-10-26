@@ -11,33 +11,30 @@ import Diet from '../../api/diet';
 import { useApp } from '../../context/app.context';
 import moment from 'moment';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Matrics } from '../../constants';
 import Loader from '../../components/atoms/Loader';
+import Matrics from '../../constants/Matrics';
 import BasicModal from '../../components/atoms/BasicModal';
 import MyStatusbar from '../../components/atoms/MyStatusBar';
 
-type DietScreenProps = StackScreenProps<DietStackParamList, 'DietScreen'>;
+type DietScreenProps = StackScreenProps<DietStackParamList, 'DietScreen'>
 
 const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
-  const insets = useSafeAreaInsets();
   const title = route.params?.dietData;
   const [dietOption, setDietOption] = useState<boolean>(false);
   const [loader, setLoader] = useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [dietPlane, setDiePlane] = useState<any>([]);
-  const { userData } = useApp();
   const [deletpayload, setDeletpayload] = useState<string | null>(null);
   const [modalVisible, setModalVisible] = React.useState<boolean>(false);
   const [stateOfAPIcall, setStateOfAPIcall] = React.useState<boolean>(false);
   const [caloriesArray, setCaloriesArray] = React.useState<any[]>([]);
-  const [totalcalorie, setTotalcalories] = useState<number | null>(null);
-  const [totalConsumedcalorie, setTotalConsumedcalories] = useState<
-    number | null
-  >(null);
+  const [totalcalorie, setTotalcalories] = useState<number | null>(null)
+  const [totalConsumedcalorie, setTotalConsumedcalories] = useState<number | null>(null)
+  const insets = useSafeAreaInsets()
 
   useEffect(() => {
     getData();
-    return () => setDiePlane([]);
+    return () => setDiePlane([])
   }, [selectedDate, stateOfAPIcall]);
 
   useEffect(() => {
@@ -52,39 +49,33 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
     const totalcalories = caloriesArray.reduce((accumulator, currentValue) => {
       return accumulator + Number(currentValue?.total_calories);
     }, 0);
-    setTotalcalories(totalcalories);
-    const totalConsumedcalories = caloriesArray.reduce(
-      (accumulator, currentValue) => {
-        return accumulator + Number(currentValue?.consumed_calories);
-      },
-      0,
-    );
-    setTotalConsumedcalories(totalConsumedcalories);
+    setTotalcalories(totalcalories)
+    const totalConsumedcalories = caloriesArray.reduce((accumulator, currentValue) => {
+      return accumulator + Number(currentValue?.consumed_calories);
+    }, 0);
+    setTotalConsumedcalories(totalConsumedcalories)
+
   }, [caloriesArray]);
 
   useFocusEffect(
     React.useCallback(() => {
-      getData();
-      return () => setDiePlane([]);
-    }, []),
+      getData()
+      return () => setDiePlane([])
+    }, [])
   );
 
   const getData = async () => {
-    setLoader(true);
+    setDiePlane([])
+    setLoader(true)
     const date = moment(selectedDate).format('YYYY/MM/DD');
-    const diet = await Diet.getDietPlan(
-      { date: date },
-      {},
-      { token: userData?.token },
-    );
-    console.log('diet', diet);
+    const diet = await Diet.getDietPlan({ date: date }, {});
 
-    if (diet?.code === '1') {
-      setLoader(false);
+    if (diet) {
+      setLoader(false)
       setDiePlane(diet?.data[0]);
     } else {
+
       setDiePlane([]);
-      setLoader(false);
     }
   };
 
@@ -97,65 +88,39 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   };
 
   const handaleEdit = (data: any, mealName: string) => {
-    navigation.navigate('DietDetail', {
-      foodItem: data,
-      buttonText: 'Update',
-      healthCoachId: dietPlane?.health_coach_id,
-      mealName: mealName,
-    });
+    navigation.navigate('DietDetail', { foodItem: data, buttonText: 'Update', healthCoachId: dietPlane?.health_coach_id, mealName: mealName, patient_id: dietPlane?.patient_id })
   };
 
   const handaleDelete = (id: string) => {
-    setDeletpayload(id);
-    setModalVisible(!modalVisible);
+    setDeletpayload(id)
+    setModalVisible(!modalVisible)
   };
 
   const deleteFoodItem = async () => {
-    setStateOfAPIcall(true);
-    const deleteFoodItem = await Diet.deleteFoodItem(
-      {
-        patient_id: dietPlane?.patient_id,
-        health_coach_id: dietPlane?.health_coach_id,
-        diet_plan_food_item_id: deletpayload,
-      },
-      {},
-      { token: userData?.token },
-    );
-    getData();
-    if (deleteFoodItem?.code === '1') {
-      setStateOfAPIcall(false);
-      navigation.replace('DietScreen');
-      setTimeout(() => {
-        setModalVisible(false);
-      }, 1000);
+    setStateOfAPIcall(true)
+    const deleteFoodItem = await Diet.deleteFoodItem({ patient_id: dietPlane?.patient_id, health_coach_id: dietPlane?.health_coach_id, diet_plan_food_item_id: deletpayload, }, {});
+    getData()
+    if (deleteFoodItem?.data === true) {
+      setStateOfAPIcall(false)
+      navigation.replace('DietScreen')
+      setTimeout(() => { setModalVisible(false) }, 1000)
     }
-  };
+  }
   const handlePulsIconPress = async (optionId: string, mealName: string) => {
-    navigation.navigate('AddDiet', {
-      optionId: optionId,
-      healthCoachId: dietPlane?.health_coach_id,
-      mealName: mealName,
-    });
-  };
+    navigation.navigate('AddDiet', { optionId: optionId, healthCoachId: dietPlane?.health_coach_id, mealName: mealName, patient_id: dietPlane?.patient_id, });
+  }
 
   const handalecompletion = async (item: any) => {
-    const UpadteFoodItem = await Diet.updateFoodConsumption(
-      item,
-      {},
-      { token: userData?.token },
-    );
-    setDiePlane([]);
-    getData();
+    const UpadteFoodItem = await Diet.updateFoodConsumption(item, {});
+    getData()
     if (UpadteFoodItem?.code === '1') {
+
     }
-  };
+  }
 
   const handalTotalCalories = async (caloriesValue: any) => {
     setCaloriesArray(prevCalories => {
-      const indexToUpdate = prevCalories.findIndex(
-        item =>
-          item.diet_meal_type_rel_id === caloriesValue.diet_meal_type_rel_id,
-      );
+      const indexToUpdate = prevCalories.findIndex(item => item.diet_meal_type_rel_id === caloriesValue.diet_meal_type_rel_id);
       if (indexToUpdate !== -1) {
         const updatedCaloriesArray = [...prevCalories];
         updatedCaloriesArray[indexToUpdate] = caloriesValue;
@@ -165,6 +130,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
       }
     });
   };
+
   const handelOnpressOfprogressBar = () => {
     navigation.navigate('ProgressBarInsightsScreen', { calories: caloriesArray });
   };
@@ -175,22 +141,18 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
       style={[
         styles.mainContienr,
         {
-          paddingTop:
-            Platform.OS == 'android' ? insets.top + Matrics.vs(10) : 0,
+          paddingTop: Platform.OS == 'android' ? Matrics.vs(10) : 0,
         },
       ]}>
       <MyStatusbar backgroundColor={colors.lightGreyishBlue} />
       <DietHeader
         onPressBack={onPressBack}
         onPressOfNextAndPerviousDate={handleDate}
-        title="Diet"
+        title='Diet'
       />
       <View style={styles.belowContainer}>
         <TouchableOpacity onPress={handelOnpressOfprogressBar}>
-          <CalorieConsumer
-            totalConsumedcalories={totalConsumedcalorie}
-            totalcalories={totalcalorie}
-          />
+          <CalorieConsumer totalConsumedcalories={totalConsumedcalorie} totalcalories={totalcalorie} />
         </TouchableOpacity>
         {Object.keys(dietPlane).length > 0 ? (
           <DietTime
@@ -216,8 +178,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
         NegativeButtonsText="Cancel"
         positiveButtonText="Ok"
         onPressOK={deleteFoodItem}
-        onPressCancle={() => setModalVisible(!modalVisible)}
-      />
+        onPressCancle={() => setModalVisible(!modalVisible)} />
       <Loader visible={loader} />
     </SafeAreaView>
   );
@@ -227,30 +188,32 @@ const styles = StyleSheet.create({
   mainContienr: { flex: 1, backgroundColor: colors.lightGreyishBlue },
   belowContainer: {
     flex: 1,
-    paddingHorizontal: Matrics.s(15),
+    paddingHorizontal: 15,
     backgroundColor: colors.lightGreyishBlue,
   },
   messageContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: Matrics.vs(100),
+    marginTop: 100
   },
+
   button: {
-    borderRadius: Matrics.mvs(20),
-    padding: Matrics.mvs(10),
+    borderRadius: 20,
+    padding: 10,
     elevation: 2,
   },
   buttonClose: {
     backgroundColor: colors.darkGray,
-    height: Matrics.vs(18),
-    width: Matrics.s(18),
+    height: 18,
+    width: 18,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: Matrics.mvs(-7),
+    borderRadius: 8,
     position: 'absolute',
-    right: Matrics.s(-7),
-    top: Matrics.vs(-7),
+    right: -7,
+    top: -7,
   },
+
 });
 
 export default DietScreen;
