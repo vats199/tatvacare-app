@@ -1,15 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import {CompositeScreenProps, useFocusEffect} from '@react-navigation/native';
-import {
-  ActivityIndicator,
-  Modal,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
-
+import {useFocusEffect} from '@react-navigation/native';
+import {Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import CalorieConsumer from '../../components/molecules/CalorieConsumer';
 import DietHeader from '../../components/molecules/DietHeader';
 import DietTime from '../../components/organisms/DietTime';
@@ -19,11 +10,16 @@ import {StackScreenProps} from '@react-navigation/stack';
 import Diet from '../../api/diet';
 import {useApp} from '../../context/app.context';
 import moment from 'moment';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+import {Matrics} from '../../constants';
+import Loader from '../../components/atoms/Loader';
+import BasicModal from '../../components/atoms/BasicModal';
+import MyStatusbar from '../../components/atoms/MyStatusBar';
 
 type DietScreenProps = StackScreenProps<DietStackParamList, 'DietScreen'>;
 
 const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
+  const insets = useSafeAreaInsets();
   const title = route.params?.dietData;
   const [dietOption, setDietOption] = useState<boolean>(false);
   const [loader, setLoader] = useState<boolean>(false);
@@ -74,10 +70,8 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
   );
 
   const getData = async () => {
-    setDiePlane([]);
     setLoader(true);
     const date = moment(selectedDate).format('YYYY/MM/DD');
-
     const diet = await Diet.getDietPlan(
       {date: date},
       {},
@@ -89,6 +83,7 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
       setDiePlane(diet?.data[0]);
     } else {
       setDiePlane([]);
+      setLoader(false);
     }
   };
 
@@ -143,16 +138,14 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
   };
 
   const handalecompletion = async (item: any) => {
-    // setStateOfAPIcall(true)
     const UpadteFoodItem = await Diet.updateFoodConsumption(
       item,
       {},
       {token: userData?.token},
     );
+    setDiePlane([]);
     getData();
     if (UpadteFoodItem?.code === '1') {
-      // setStateOfAPIcall(false)
-      // navigation.replace('DietScreen')
     }
   };
 
@@ -171,18 +164,31 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
       }
     });
   };
+  const handelOnpressOfprogressBar = () => {
+    navigation.navigate('ProgressBarInsightsScreen', {calories: caloriesArray});
+  };
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView
+      edges={['top']}
+      style={[
+        styles.mainContienr,
+        {
+          paddingTop: Platform.OS == 'android' ? Matrics.vs(10) : 0,
+        },
+      ]}>
       <DietHeader
         onPressBack={onPressBack}
         onPressOfNextAndPerviousDate={handleDate}
+        title="Diet"
       />
       <View style={styles.belowContainer}>
-        <CalorieConsumer
-          totalConsumedcalories={totalConsumedcalorie}
-          totalcalories={totalcalorie}
-        />
+        <TouchableOpacity onPress={handelOnpressOfprogressBar}>
+          <CalorieConsumer
+            totalConsumedcalories={totalConsumedcalorie}
+            totalcalories={totalcalorie}
+          />
+        </TouchableOpacity>
         {Object.keys(dietPlane).length > 0 ? (
           <DietTime
             onPressPlus={handlePulsIconPress}
@@ -199,113 +205,48 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
           </View>
         )}
       </View>
-      <Modal
-        animationType="fade"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(!modalVisible);
-        }}>
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalTitle}>
-              Are you sure you want to delete this food item from your meal
-            </Text>
-            {loader ? (
-              <ActivityIndicator size={'large'} color={colors.themePurple} />
-            ) : (
-              <View style={{flexDirection: 'row'}}>
-                <TouchableOpacity
-                  style={styles.okButton}
-                  onPress={() => deleteFoodItem()}>
-                  <Text style={styles.textStyle}> OK </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.okButton}
-                  onPress={() => setModalVisible(!modalVisible)}>
-                  <Text style={styles.textStyle}>cancel</Text>
-                </TouchableOpacity>
-              </View>
-            )}
-          </View>
-        </View>
-      </Modal>
+      <BasicModal
+        modalVisible={modalVisible}
+        messgae={
+          'Are you sure you want to delete this food item from your meal'
+        }
+        NegativeButtonsText="Cancel"
+        positiveButtonText="Ok"
+        onPressOK={deleteFoodItem}
+        onPressCancle={() => setModalVisible(!modalVisible)}
+      />
+      <Loader visible={loader} />
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  mainContienr: {flex: 1, backgroundColor: colors.lightGreyishBlue},
   belowContainer: {
     flex: 1,
-    paddingHorizontal: 15,
-    backgroundColor: colors.veryLightGreyishBlue,
+    paddingHorizontal: Matrics.s(15),
+    backgroundColor: colors.lightGreyishBlue,
   },
   messageContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 100,
-  },
-  centeredView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,0.7)',
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: 'white',
-    borderRadius: 10,
-    padding: 35,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
+    marginTop: Matrics.vs(100),
   },
   button: {
-    borderRadius: 20,
-    padding: 10,
+    borderRadius: Matrics.mvs(20),
+    padding: Matrics.mvs(10),
     elevation: 2,
   },
   buttonClose: {
     backgroundColor: colors.darkGray,
-    height: 18,
-    width: 18,
+    height: Matrics.vs(18),
+    width: Matrics.s(18),
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 8,
+    borderRadius: Matrics.mvs(-7),
     position: 'absolute',
-    right: -7,
-    top: -7,
-  },
-  okButton: {
-    height: 30,
-    backgroundColor: colors.themePurple,
-    width: 80,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 5,
-    marginHorizontal: 10,
-  },
-  textStyle: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: 'left',
-  },
-  modalTitle: {
-    color: colors.darkBlue,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 15,
-    fontSize: 18,
+    right: Matrics.s(-7),
+    top: Matrics.vs(-7),
   },
 });
 

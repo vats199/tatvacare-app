@@ -1,19 +1,24 @@
-import { StyleSheet, View, TextInput } from 'react-native';
-import React, { useState } from 'react';
-import { Icons } from '../../constants/icons';
-
+import {StyleSheet, View, TextInput} from 'react-native';
+import React, {useState} from 'react';
+import {Icons} from '../../constants/icons';
+import {Matrics} from '../../constants';
 
 type DietSearchHeaderProps = {
   onPressBack: () => void;
   onSearch: (text: string) => void;
 };
 
-const DietSearchHeader: React.FC<DietSearchHeaderProps> = ({ onPressBack, onSearch }) => {
+const DietSearchHeader: React.FC<DietSearchHeaderProps> = ({
+  onPressBack,
+  onSearch,
+}) => {
   const [searchText, setSearchText] = useState<string>('');
 
   const handleSerache = (text: string) => {
-    onSearch(text)
-  }
+    const cleanedText = text.replace(/[^a-zA-Z\s]/g, '');
+    setSearchText(cleanedText);
+    onSearch(text);
+  };
   return (
     <View style={styles.container}>
       <Icons.backArrow height={22} width={22} onPress={onPressBack} />
@@ -23,9 +28,9 @@ const DietSearchHeader: React.FC<DietSearchHeaderProps> = ({ onPressBack, onSear
         placeholderTextColor="gray"
         value={searchText}
         onChangeText={text => {
-          setSearchText(text)
-             handleSerache(text)
-          }}
+          setSearchText(text);
+          handleSerache(text);
+        }}
       />
     </View>
   );
@@ -40,6 +45,7 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     marginTop: 20,
     alignItems: 'center',
+    marginTop: Matrics.vs(10),
   },
   input: {
     width: '90%',

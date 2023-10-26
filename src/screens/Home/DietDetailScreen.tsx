@@ -8,14 +8,16 @@ import AddDiet from '../../components/organisms/AddDiet';
 import {StackScreenProps} from '@react-navigation/stack';
 import Deit from '../../api/diet';
 import {useApp} from '../../context/app.context';
-import {Fonts} from '../../constants';
+import {Fonts, Matrics} from '../../constants';
+import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 
 type DietDetailProps = StackScreenProps<DietStackParamList, 'DietDetail'>;
 
 const DietDetailScreen: React.FC<DietDetailProps> = ({navigation, route}) => {
+  const insets = useSafeAreaInsets();
   const {foodItem, buttonText, healthCoachId, mealName} = route.params;
-
-  const [qty, setQty] = React.useState<string>();
+  let quantity = Math.round(Number(foodItem?.quantity)).toString();
+  const [qty, setQty] = React.useState<string>(quantity);
   const {userData} = useApp();
 
   const onPressBack = () => {
@@ -95,7 +97,9 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({navigation, route}) => {
     setQty(item);
   };
   return (
-    <View style={{flex: 1, backgroundColor: colors.lightGreyishBlue}}>
+    <SafeAreaView
+      edges={['top']}
+      style={{flex: 1, backgroundColor: colors.lightGreyishBlue}}>
       <View style={styles.header}>
         <Icons.backArrow onPress={onPressBack} height={23} width={23} />
         <Text style={styles.dietTitle}>{foodItem?.food_item_name}</Text>
@@ -110,7 +114,7 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({navigation, route}) => {
           mealName={mealName}
         />
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -120,20 +124,17 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 30,
-    marginBottom: 20,
-    marginLeft: 15,
+    marginBottom: Matrics.vs(20),
+    paddingHorizontal: Matrics.s(15),
   },
   dietTitle: {
     fontSize: 16,
-    fontWeight: '700',
     color: colors.labelDarkGray,
-    marginLeft: 10,
+    marginLeft: Matrics.s(10),
     fontFamily: Fonts.BOLD,
   },
   belowContainer: {
     flex: 1,
     justifyContent: 'space-between',
-    marginBottom: 10,
   },
 });
