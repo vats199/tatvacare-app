@@ -1,25 +1,10 @@
-import {FlatList, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {colors} from '../../constants/colors';
-import {Matrics} from '../../constants';
+import InsightsScreen, {
+  HealthInsightsListProps,
+} from '../../components/molecules/InsightsScreen';
+import {StyleSheet} from 'react-native';
 
-type MineralsProps = {
-  title: string;
-  percentage: string;
-  value: string;
-};
-
-type HealthInsightsListProps = {
-  id: number;
-  name: string;
-  date: string;
-  FVC: MineralsProps;
-  FEV1: MineralsProps;
-  Ratio: MineralsProps;
-  PEF: MineralsProps;
-};
-
-const HealthInsightsList: HealthInsightsListProps[] = [
+export const HealthInsightsList: HealthInsightsListProps[] = [
   {
     id: 1,
     name: 'Lung Health',
@@ -42,7 +27,7 @@ const HealthInsightsList: HealthInsightsListProps[] = [
     PEF: {
       percentage: '70.00',
       title: 'PEF',
-      value: '233L/M',
+      value: '233 L/M',
     },
   },
   {
@@ -67,7 +52,7 @@ const HealthInsightsList: HealthInsightsListProps[] = [
     PEF: {
       percentage: '70.00',
       title: 'PEF',
-      value: '233L/M',
+      value: '233 L/M',
     },
   },
   {
@@ -92,44 +77,13 @@ const HealthInsightsList: HealthInsightsListProps[] = [
     PEF: {
       percentage: '70.00',
       title: 'PEF',
-      value: '233L/M',
+      value: '233 L/M',
     },
   },
 ];
 
 const HealthInsightsScreen = () => {
-  const renderItem = ({
-    item,
-    index,
-  }: {
-    item: HealthInsightsListProps;
-    index: number;
-  }) => {
-    return (
-      <View
-        style={{
-          backgroundColor: colors.white,
-          paddingHorizontal: Matrics.mvs(15),
-          paddingVertical: Matrics.vs(15),
-          borderRadius: Matrics.mvs(10),
-          marginVertical: Matrics.vs(5),
-        }}>
-        <Text>{item.name}</Text>
-      </View>
-    );
-  };
-
-  return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: colors.lightPurple,
-        paddingTop: Matrics.vs(10),
-        paddingHorizontal: Matrics.s(20),
-      }}>
-      <FlatList data={HealthInsightsList} renderItem={renderItem} />
-    </View>
-  );
+  return <InsightsScreen data={HealthInsightsList} />;
 };
 
 export default HealthInsightsScreen;

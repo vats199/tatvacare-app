@@ -27,16 +27,10 @@ const AnalyserScreen: React.FC<AnalyserScreenProps> = ({navigation, route}) => {
   const onPressBackArrow = () => {
     navigation.goBack();
   };
-
-  //   const LungAnalyserTab = () => {
-  //     return (
-  //       <SafeAreaView
-  //         edges={['top']}
-  //         style={{flex: 1, backgroundColor: colors.lightPurple}}>
-
-  //       </SafeAreaView>
-  //     );
-  //   };
+  const header =
+    route?.params?.type == 'Lung Health'
+      ? 'Lung Function Analyser'
+      : 'Lung Exercise';
 
   return (
     <SafeAreaView
@@ -45,9 +39,13 @@ const AnalyserScreen: React.FC<AnalyserScreenProps> = ({navigation, route}) => {
         flex: 1,
         backgroundColor: colors.lightPurple,
       }}>
-      <CommonHeader title="Lung Function Analyser" onPress={onPressBackArrow} />
+      <CommonHeader title={header} onPress={onPressBackArrow} />
       <LungTab.Navigator
-        initialRouteName="HealthInsightsScreen"
+        initialRouteName={
+          route?.params?.type == 'Lung Health'
+            ? 'HealthInsightsScreen'
+            : 'ExerciseInsightsScreen'
+        }
         screenOptions={{
           tabBarActiveTintColor: colors.themePurple,
           tabBarInactiveTintColor: colors.tabTitleColor,

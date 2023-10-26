@@ -1,13 +1,14 @@
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import React, { useEffect, useState } from 'react';
-import { DietStackParamList } from '../../interface/Navigation.interface';
-import { StackScreenProps } from '@react-navigation/stack';
+import {View, Text, StyleSheet, ScrollView} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {DietStackParamList} from '../../interface/Navigation.interface';
+import {StackScreenProps} from '@react-navigation/stack';
 import DietHeader from '../../components/molecules/DietHeader';
-import { colors } from '../../constants/colors';
+import {colors} from '../../constants/colors';
 import fonts from '../../constants/fonts';
 import Matrics from '../../constants/Matrics';
 import CircularProgress from 'react-native-circular-progress-indicator';
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+import MyStatusbar from '../../components/atoms/MyStatusBar';
 
 type ProgressBarInsightsScreenProps = StackScreenProps<
   DietStackParamList,
@@ -20,7 +21,7 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
 }) => {
   const insets = useSafeAreaInsets();
   const [selectedDate, setSelectedDate] = React.useState(new Date());
-  const { calories } = route.params;
+  const {calories} = route.params;
   const [dailyCalories, setDailyCalories] = useState([]);
   const [macroNuitrientes, setMacroNuitrientes] = useState([]);
 
@@ -57,7 +58,7 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
         progressBarVale: Math.round(
           (Math.round(Number(item.consumed_calories)) /
             Math.round(Number(item.total_calories))) *
-          100,
+            100,
         ),
         progresBarColor: color,
       };
@@ -136,7 +137,7 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
 
     return (
       <View
-        style={[style.calorieMainContainer, { paddingVertical: Matrics.vs(5) }]}
+        style={[style.calorieMainContainer, {paddingVertical: Matrics.vs(5)}]}
         key={index?.toString()}>
         <CircularProgress
           value={isNaN(item?.progressBarVale) ? 0 : item?.progressBarVale}
@@ -157,9 +158,14 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
           <Text style={style.subtitle}>{item?.title}</Text>
           {item?.consumedClories === 0 && item?.totalCalories === 0 ? null : (
             <View style={style.caloriesContainer}>
-              <Text style={style.consumedCalries}>{isNaN(item?.consumedClories) ? 0 : item?.consumedClories}</Text>
-              <Text style={[style.consumedCalries, { fontWeight: '400' }]}> or </Text>
-              <Text style={[style.consumedCalries, { fontWeight: '400' }]}>
+              <Text style={style.consumedCalries}>
+                {isNaN(item?.consumedClories) ? 0 : item?.consumedClories}
+              </Text>
+              <Text style={[style.consumedCalries, {fontWeight: '400'}]}>
+                {' '}
+                or{' '}
+              </Text>
+              <Text style={[style.consumedCalries, {fontWeight: '400'}]}>
                 {item?.totalCalories}
               </Text>
             </View>
@@ -175,9 +181,9 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
       style={{
         flex: 1,
         backgroundColor: colors.lightGreyishBlue,
-        paddingTop: insets.top !== 0 ? insets.top : Matrics.vs(15),
         paddingBottom: insets.bottom !== 0 ? insets.bottom : Matrics.vs(15),
       }}>
+      <MyStatusbar backgroundColor={colors.lightGreyishBlue} />
       <DietHeader
         onPressBack={onPressBack}
         onPressOfNextAndPerviousDate={handleDate}
@@ -191,7 +197,7 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
           })}
         </View>
         {dailyCalories.length > 0 ? (
-          <View style={{ flex: 1 }}>
+          <View style={{flex: 1}}>
             <Text style={style.title}>Meal Energy Distribution</Text>
             <View style={style.boxContainer}>
               {dailyCalories?.map((item, index) => {
@@ -217,7 +223,7 @@ const style = StyleSheet.create({
     marginLeft: Matrics.s(10),
     fontFamily: fonts.BOLD,
     paddingVertical: Matrics.vs(15),
-    paddingHorizontal: Matrics.vs(5),
+    paddingHorizontal: Matrics.vs(10),
   },
   subtitle: {
     fontSize: Matrics.mvs(16),

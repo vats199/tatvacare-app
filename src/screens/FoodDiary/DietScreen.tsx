@@ -1,15 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { CompositeScreenProps, useFocusEffect } from '@react-navigation/native';
-import {
-  ActivityIndicator,
-  Modal,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
-
+import { useFocusEffect } from '@react-navigation/native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import CalorieConsumer from '../../components/molecules/CalorieConsumer';
 import DietHeader from '../../components/molecules/DietHeader';
 import DietTime from '../../components/organisms/DietTime';
@@ -23,7 +14,7 @@ import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Matrics } from '../../constants';
 import Loader from '../../components/atoms/Loader';
 import BasicModal from '../../components/atoms/BasicModal';
-
+import MyStatusbar from '../../components/atoms/MyStatusBar';
 
 type DietScreenProps = StackScreenProps<DietStackParamList, 'DietScreen'>;
 
@@ -86,14 +77,14 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
       {},
       { token: userData?.token },
     );
-    console.log("diet", diet);
+    console.log('diet', diet);
 
     if (diet?.code === '1') {
       setLoader(false);
       setDiePlane(diet?.data[0]);
     } else {
       setDiePlane([]);
-      setLoader(false)
+      setLoader(false);
     }
   };
 
@@ -156,7 +147,6 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
     setDiePlane([]);
     getData();
     if (UpadteFoodItem?.code === '1') {
-
     }
   };
 
@@ -180,11 +170,11 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   }
 
   return (
-    <SafeAreaView edges={['top']} style={[styles.mainContienr, { paddingTop: insets.top !== 0 ? 0 : Matrics.vs(15), paddingBottom: insets.bottom !== 0 ? Matrics.vs(30) : Matrics.vs(15), }]}>
+    <SafeAreaView edges={['top',]} style={[styles.mainContienr, { paddingTop: Matrics.vs(15) }]}>
       <DietHeader
         onPressBack={onPressBack}
         onPressOfNextAndPerviousDate={handleDate}
-        title='Diet'
+        title="Diet"
       />
       <View style={styles.belowContainer}>
         <TouchableOpacity onPress={handelOnpressOfprogressBar}>
@@ -209,48 +199,54 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
           </View>
         )}
       </View>
+      <View
+        style={{
+          backgroundColor: colors.veryLightGreyishBlue,
+          height: insets.bottom === 0 ? Matrics.vs(20) : insets.bottom,
+        }}></View>
       <BasicModal
         modalVisible={modalVisible}
-        messgae={'Are you sure you want to delete this food item from your meal'}
-        NegativeButtonsText='Cancle'
-        positiveButtonText='Ok'
+        messgae={
+          'Are you sure you want to delete this food item from your meal'
+        }
+        NegativeButtonsText="Cancle"
+        positiveButtonText="Ok"
         onPressOK={deleteFoodItem}
-        onPressCancle={() => setModalVisible(!modalVisible)} />
+        onPressCancle={() => setModalVisible(!modalVisible)}
+      />
       <Loader visible={loader} />
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  mainContienr: { flex: 1, backgroundColor: colors.lightGreyishBlue, },
+  mainContienr: { flex: 1, backgroundColor: colors.lightGreyishBlue },
   belowContainer: {
     flex: 1,
-    paddingHorizontal: 15,
-    backgroundColor: colors.veryLightGreyishBlue,
+    paddingHorizontal: Matrics.s(15),
+    backgroundColor: colors.lightGreyishBlue,
   },
   messageContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 100,
+    marginTop: Matrics.vs(100),
   },
-
   button: {
-    borderRadius: 20,
-    padding: 10,
+    borderRadius: Matrics.mvs(20),
+    padding: Matrics.mvs(10),
     elevation: 2,
   },
   buttonClose: {
     backgroundColor: colors.darkGray,
-    height: 18,
-    width: 18,
+    height: Matrics.vs(18),
+    width: Matrics.s(18),
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 8,
+    borderRadius: Matrics.mvs(-7),
     position: 'absolute',
-    right: -7,
-    top: -7,
+    right: Matrics.s(-7),
+    top: Matrics.vs(-7),
   },
-
 });
 
 export default DietScreen;

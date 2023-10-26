@@ -1,6 +1,6 @@
-import {StyleSheet} from 'react-native';
-import {Fonts, Matrics} from '../../constants';
-import {colors} from '../../constants/colors';
+import { StyleSheet } from 'react-native';
+import { Fonts, Matrics } from '../../constants';
+import { colors } from '../../constants/colors';
 import fonts from '../../constants/fonts';
 
 export const OnBoardStyle = StyleSheet.create({

@@ -1,12 +1,10 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import InsightsScreen from '../../components/molecules/InsightsScreen';
+import {HealthInsightsList} from './HealthInsightsScreen';
 
 const ExerciseInsights = () => {
-  return (
-    <View>
-      <Text>ExerciseInsights</Text>
-    </View>
-  );
+  return <InsightsScreen data={HealthInsightsList} />;
 };
 
 export default ExerciseInsights;

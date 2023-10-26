@@ -1,22 +1,22 @@
-import {View} from 'react-native';
+import { View } from 'react-native';
 import React from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {CommonActions, CompositeScreenProps} from '@react-navigation/native';
+import { CommonActions, CompositeScreenProps } from '@react-navigation/native';
 import {
   AppStackParamList,
   AuthStackParamList,
 } from '../../interface/Navigation.interface';
-import {StackScreenProps} from '@react-navigation/stack';
+import { StackScreenProps } from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
-import {useApp} from '../../context/app.context';
+import { useApp } from '../../context/app.context';
 import MyStatusbar from '../../components/atoms/MyStatusBar';
 type SplahScreenProps = CompositeScreenProps<
   StackScreenProps<AuthStackParamList, 'Splash'>,
   StackScreenProps<AppStackParamList, 'AuthStackScreen'>
 >;
 
-const Splash: React.FC<SplahScreenProps> = ({navigation}) => {
-  const {setUserData} = useApp();
+const Splash: React.FC<SplahScreenProps> = ({ navigation }) => {
+  const { setUserData } = useApp();
 
   React.useEffect(() => {
     checkAuthentication();
@@ -31,7 +31,7 @@ const Splash: React.FC<SplahScreenProps> = ({navigation}) => {
       navigation.dispatch(
         CommonActions.reset({
           index: 0,
-          routes: [{name: 'SetupProfileScreen'}],
+          routes: [{ name: 'DrawerScreen' }],
         }),
       );
     } else {
@@ -39,7 +39,7 @@ const Splash: React.FC<SplahScreenProps> = ({navigation}) => {
       navigation.dispatch(
         CommonActions.reset({
           index: 0,
-          routes: [{name: 'OnBoardingScreen'}],
+          routes: [{ name: 'OnBoardingScreen' }],
         }),
       );
     }

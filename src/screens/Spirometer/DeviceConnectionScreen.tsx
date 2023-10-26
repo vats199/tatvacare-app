@@ -312,6 +312,7 @@ const DeviceConnectionScreen: React.FC<DeviceConnectionScreenProps> = ({
   };
 
   const onPressLungAction = (param: any) => {
+    bottomSheetModalRef.current?.close();
     navigation.navigate('AnalyserScreen', {type: param});
   };
 

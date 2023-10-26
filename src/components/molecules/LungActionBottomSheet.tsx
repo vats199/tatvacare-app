@@ -23,7 +23,7 @@ const LungActionBottomSheet: React.FC<LungActionBottomSheetProps> = ({
         return (
           <>
             <TouchableOpacity
-              onPress={() => onPress('Lung funcation')}
+              onPress={() => onPress(item.param)}
               style={styles.lungItemContainer}>
               <Text style={styles.lungItemTxt}>{item.title}</Text>
               <Icons.RightArrow

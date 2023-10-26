@@ -1,14 +1,22 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import CalendarStrip from 'react-native-calendar-strip';
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
-import { colors } from '../../constants/colors';
-import { Icons } from '../../constants/icons';
-import { TouchableOpacity } from 'react-native';
-import { LocaleConfig, CalendarList } from 'react-native-calendars';
-import { Fonts, Matrics } from '../../constants';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  LayoutAnimation,
+  Animated,
+} from 'react-native';
+import {colors} from '../../constants/colors';
+import {Icons} from '../../constants/icons';
+import {TouchableOpacity} from 'react-native';
+import {LocaleConfig, CalendarList} from 'react-native-calendars';
+import {Fonts, Matrics} from '../../constants';
 import moment from 'moment';
+import {useIsFocused} from '@react-navigation/native';
 
-const { width } = Dimensions.get('window');
+const {width} = Dimensions.get('window');
 type DietHeaderProps = {
   onPressBack: () => void;
   onPressOfNextAndPerviousDate: (data: any) => void;
@@ -100,15 +108,15 @@ const DietHeader: React.FC<DietHeaderProps> = ({
     while (weekEndDate.getDay() !== 0) {
       weekEndDate.setDate(weekEndDate.getDate() + 1);
     }
-    const startMonth = weekStartDate.toLocaleString('default', { month: 'long' });
-    const endMonth = weekEndDate.toLocaleString('default', { month: 'long' });
+    const startMonth = weekStartDate.toLocaleString('default', {month: 'long'});
+    const endMonth = weekEndDate.toLocaleString('default', {month: 'long'});
 
     const year = weekStartDate.getFullYear();
 
     if (
       startMonth !== endMonth ||
       weekEndDate.getDate() >
-      new Date(year, weekStartDate.getMonth() + 1, 0).getDate()
+        new Date(year, weekStartDate.getMonth() + 1, 0).getDate()
     ) {
       return `${startMonth} - ${endMonth} ${year}`;
     } else {
@@ -123,14 +131,10 @@ const DietHeader: React.FC<DietHeaderProps> = ({
     onPressOfNextAndPerviousDate(nextMonth);
     setCalendarKey(calendarKey + 1);
   };
+  const focus = useIsFocused();
 
   return (
-    <View
-      style={{
-        backgroundColor: 'transparent',
-        paddingBottom: 10,
-        overflow: 'hidden',
-      }}>
+    <View style={styles.mainContainer}>
       <View style={styles.upperContainer}>
         <View style={styles.customHeader}>
           <TouchableOpacity onPress={onPressBack}>
@@ -157,18 +161,18 @@ const DietHeader: React.FC<DietHeaderProps> = ({
                 height={11}
                 width={11}
                 onPress={handlePreviousWeek}
-                style={{ marginRight: 20 }}
+                style={{marginRight: 20}}
               />
               <Icons.RightArrow
                 height={22}
                 width={22}
                 onPress={handleNextWeek}
-                style={{ marginRight: 20 }}
+                style={{marginRight: 20}}
               />
             </View>
           </View>
           {!showMore ? (
-            <View style={{ paddingHorizontal: 10 }}>
+            <Animated.View style={{paddingHorizontal: Matrics.s(10)}}>
               <CalendarStrip
                 selectedDate={selectedDate}
                 key={calendarKey}
@@ -177,34 +181,35 @@ const DietHeader: React.FC<DietHeaderProps> = ({
                   setSelectedDate(date);
                   onPressOfNextAndPerviousDate(date);
                 }}
-                weekendDateNameStyle={{ textTransform: 'capitalize' }}
+                weekendDateNameStyle={{textTransform: 'capitalize'}}
                 daySelectionAnimation={{
                   type: 'border',
                   duration: 200,
                   borderWidth: 1,
                   borderHighlightColor: 'white',
                 }}
-                style={{ height: Matrics.vs(70) }}
+                style={{height: Matrics.vs(70)}}
                 calendarColor={colors.lightGreyishBlue}
                 dateNumberStyle={styles.dateNumberStyle}
-                dateNameStyle={{ color: 'black' }}
+                dateNameStyle={{color: 'black'}}
                 highlightDateNumberStyle={[
                   styles.dateNumberStyle,
                   styles.highlighetdDateNumberStyle,
                 ]}
-                highlightDateNameStyle={{ color: 'black' }}
-                disabledDateNameStyle={{ color: 'grey' }}
-                disabledDateNumberStyle={{ color: 'grey' }}
-                iconLeftStyle={{ display: 'none' }}
-                iconRightStyle={{ display: 'none' }}
+                highlightDateNameStyle={{color: 'black'}}
+                disabledDateNameStyle={{color: 'grey'}}
+                disabledDateNumberStyle={{color: 'grey'}}
+                iconLeftStyle={{display: 'none'}}
+                iconRightStyle={{display: 'none'}}
               />
-            </View>
+            </Animated.View>
           ) : (
-            <View style={{ height: Matrics.vs(310) }}>
+            <Animated.View style={{height: Matrics.mvs(300)}}>
               <CalendarList
                 firstDay={1}
                 horizontal={true}
                 pagingEnabled={true}
+                initialDate={moment(selectedDate).format('YYYY-MM-DD')}
                 onDayPress={day => {
                   let date = new Date(day?.dateString);
                   onPressOfNextAndPerviousDate(date);
@@ -267,12 +272,19 @@ const DietHeader: React.FC<DietHeaderProps> = ({
                   },
                 }}
               />
-            </View>
+            </Animated.View>
           )}
         </View>
         <TouchableOpacity
           style={styles.dropDwonIcon}
-          onPress={() => setShowMore(!showMore)}>
+          onPress={() => {
+            focus
+              ? LayoutAnimation.configureNext(
+                  LayoutAnimation.Presets.easeInEaseOut,
+                )
+              : null;
+            setShowMore(!showMore);
+          }}>
           {showMore ? <Icons.ShowMore /> : <Icons.ShowLess />}
         </TouchableOpacity>
       </View>
@@ -281,6 +293,11 @@ const DietHeader: React.FC<DietHeaderProps> = ({
 };
 
 const styles = StyleSheet.create({
+  mainContainer: {
+    backgroundColor: 'transparent',
+    paddingBottom: 10,
+    overflow: 'hidden',
+  },
   upperContainer: {
     backgroundColor: colors.lightGreyishBlue,
     borderBottomWidth: 0.3,
@@ -289,10 +306,10 @@ const styles = StyleSheet.create({
     elevation: 0.2,
     borderBottomRightRadius: 15,
     borderBottomLeftRadius: 15,
-    // shadowOffset: { width: 1, height: 1 },
-    // shadowColor: '#171717',
-    // shadowOpacity: 0.1,
-    // shadowRadius: 3,
+    shadowOffset: {width: 0, height: 0},
+    shadowColor: '#171717',
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
   },
   customHeader: {
     flexDirection: 'row',
@@ -343,7 +360,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: 'bold',
     color: colors.black,
-    marginLeft: Matrics.s(12),
+    marginLeft: Matrics.s(14),
   },
   dropDwonIcon: {
     opacity: 1,
