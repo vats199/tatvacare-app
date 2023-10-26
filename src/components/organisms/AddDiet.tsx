@@ -69,7 +69,9 @@ const AddDiet: React.FC<AddDietProps> = ({
   return (
     <View style={styles.container}>
       <View style={styles.innerContainer}>
-        <Text style={styles.title}>{"Add " + Data?.food_item_name + " as " + mealName}</Text>
+        <Text style={styles.title}>
+          {'Add ' + Data?.food_item_name + ' as ' + mealName}
+        </Text>
         <View style={styles.borderline} />
         <View style={styles.belowBox}>
           <View style={styles.belowBoxContent}>
@@ -85,7 +87,9 @@ const AddDiet: React.FC<AddDietProps> = ({
                 containerStyle={styles.conatiner}
               />
               <View style={styles.measureContainer}>
-                <Text style={styles.dropdownTitleText}>{Data?.measure_name}</Text>
+                <Text style={styles.dropdownTitleText}>
+                  {Data?.measure_name}
+                </Text>
                 <Icons.DropdownIcon />
               </View>
             </View>
@@ -120,19 +124,17 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
-    backgroundColor: colors.white,
-    padding: 5,
-    elevation: 2,
-    shadowColor: '#000000',
-    shadowOffset: {
-      width: -1,
-      height: -1,
-    },
+    elevation: 3,
+    shadowColor: '#808080',
+    shadowRadius: 5,
     shadowOpacity: 1,
-    shadowRadius: 10,
+    shadowOffset: { height: 0, width: 0 },
+  },
+  innerContainer: {
+    backgroundColor: 'white',
+    paddingHorizontal: Matrics.s(15),
   },
   title: {
-    marginLeft: 14,
     marginVertical: 20,
     fontSize: Matrics.mvs(16),
     fontWeight: 'bold',
@@ -144,7 +146,6 @@ const styles = StyleSheet.create({
     opacity: 0.3,
   },
   belowBox: {
-    paddingHorizontal: 16,
     paddingBottom: 20,
   },
   belowBoxContent: {
@@ -173,7 +174,6 @@ const styles = StyleSheet.create({
   outlinedButton: {
     borderRadius: Matrics.mvs(16),
     width: '100%',
-    // height: Matrics.vs(40)
   },
   measureContainer: {
     borderRadius: 10,

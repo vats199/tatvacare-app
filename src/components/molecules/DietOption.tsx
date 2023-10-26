@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import { Icons } from '../../constants/icons';
 import { colors } from '../../constants/colors';
@@ -111,22 +111,29 @@ const DietOption: React.FC<DietOptionItem> = ({
       <View style={styles.OptionitemContainer} key={index}>
         <View style={styles.leftContainer}>
           {item?.is_consumed ? (
-            <TouchableOpacity onPress={() => handaleFoodConsumption(item)} style={{ height: 28, width: 28, }}>
+            <TouchableOpacity
+              onPress={() => handaleFoodConsumption(item)}
+              style={{height: 28, width: 28}}>
               <Icons.Success height={28} width={28} />
             </TouchableOpacity>
           ) : (
-            <TouchableOpacity onPress={() => handaleFoodConsumption(item)} style={{ height: 28, width: 28, }}>
+            <TouchableOpacity
+              onPress={() => handaleFoodConsumption(item)}
+              style={{height: 28, width: 28}}>
               <Icons.Ellipse height={28} width={28} />
             </TouchableOpacity>
           )}
           <View style={styles.titleDescription}>
             <Text style={styles.title}>{item.food_item_name}</Text>
             <Text style={styles.description}>
-              {Math.round(Number(item?.quantity)) + ' | ' + Math.round(Number(item.total_micronutrients)) + " g"}
+              {Math.round(Number(item?.quantity)) +
+                ' | ' +
+                Math.round(Number(item.total_micronutrients)) +
+                ' g'}
             </Text>
           </View>
         </View>
-        <View style={{ flexDirection: 'row' }}>
+        <View style={{flexDirection: 'row'}}>
           <Text style={styles.value}>
             {Math.round(Number(item.calories))}cal
           </Text>
@@ -148,7 +155,9 @@ const DietOption: React.FC<DietOptionItem> = ({
                   </MenuOption>
                   <View style={styles.line}></View>
                   <MenuOption
-                    onSelect={() => handaleDelete(item?.diet_plan_food_item_id)}>
+                    onSelect={() =>
+                      handaleDelete(item?.diet_plan_food_item_id)
+                    }>
                     <View style={styles.optionContainer}>
                       <Icons.Delete />
                       <Text style={styles.optionText}>Delete</Text>
@@ -184,7 +193,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginVertical: 10,
-    marginHorizontal: 5,
+    alignItems: 'center',
   },
   leftContainer: {
     flexDirection: 'row',
@@ -195,18 +204,17 @@ const styles = StyleSheet.create({
     width: '80%',
   },
   title: {
-    fontSize: 15,
+    fontSize: Matrics.mvs(14),
     color: colors.black,
     textTransform: 'capitalize',
   },
   description: {
-    fontSize: 14,
+    fontSize: Matrics.mvs(14),
     color: '#444444',
   },
   value: {
-    fontSize: 15,
+    fontSize: Matrics.mvs(14),
     color: colors.black,
-    marginTop: 4,
   },
   belowContainer: {
     borderWidth: 0.4,
@@ -224,12 +232,13 @@ const styles = StyleSheet.create({
     width: Matrics.s(80),
     marginTop: Matrics.vs(22),
   },
-  optionContainer: { flexDirection: 'row', paddingHorizontal: 5 },
+  optionContainer: {flexDirection: 'row', paddingHorizontal: 5},
   optionText: {
-    paddingHorizontal: 10,
+    paddingHorizontal: Matrics.s(10),
     lineHeight: 15,
-    fontSize: 12,
+    fontSize: Matrics.mvs(12),
     fontFamily: Fonts.REGULAR,
+    color: colors.subTitleLightGray,
   },
   line: {
     backgroundColor: colors.inputBoxLightBorder,

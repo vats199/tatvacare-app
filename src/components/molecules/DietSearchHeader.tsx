@@ -50,8 +50,8 @@ const styles = StyleSheet.create({
   },
   input: {
     width: '90%',
-    height: 45,
-    borderWidth: 0.2,
+    height: Matrics.vs(42),
+    borderWidth: StyleSheet.hairlineWidth,
     borderColor: 'black',
     backgroundColor: 'white',
     borderRadius: 6,

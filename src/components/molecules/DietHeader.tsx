@@ -199,75 +199,72 @@ const DietHeader: React.FC<DietHeaderProps> = ({
               />
             </View>
           ) : (
-            <View style={{ height: Matrics.vs(310) }}>
-              <CalendarList
-                firstDay={1}
-                horizontal={true}
-                pagingEnabled={true}
-                current={moment(selectedDate).format('YYYY-MM-DD')}
-                onDayPress={day => {
+            <CalendarList
+              firstDay={1}
+              horizontal={true}
+              pagingEnabled={true}
+              current={moment(selectedDate).format('YYYY-MM-DD')}
+              onDayPress={day => {
+                let date = new Date(day?.dateString);
+                onPressOfNextAndPerviousDate(date);
+                setSelectedDate(date);
+                setseletedDay(day?.dateString);
+              }}
+              onMonthChange={day => {
+                if (selectedDate) {
+                  setSelectedDate(selectedDate);
+                  setseletedDay(moment(selectedDate).format('YYYY-MM-DD'));
                   let date = new Date(day?.dateString);
-                  onPressOfNextAndPerviousDate(date);
                   setSelectedDate(date);
-                  setseletedDay(day?.dateString);
-                }}
-                onMonthChange={day => {
-                  if (selectedDate) {
-                    setSelectedDate(selectedDate);
-                    setseletedDay(moment(selectedDate).format('YYYY-MM-DD'))
-                    let date = new Date(day?.dateString);
-                    setSelectedDate(date);
-                  }
-                  else {
-                    let date = new Date(day?.dateString);
-                    setSelectedDate(date);
-                  }
-
-                }}
-                markingType='custom'
-                markedDates={{
-                  [seletedDay]: {
-                    customStyles: {
-                      container: {
-                        backgroundColor: colors.themePurple,
-                        borderRadius: Matrics.mvs(10),
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                      },
-                      text: {
-                        color: 'white',
-                        fontWeight: '700'
-                      }
-                    }
-                  },
-                }}
-                calendarWidth={width}
-                theme={{
-                  backgroundColor: colors.lightGreyishBlue,
-                  calendarBackground: colors.lightGreyishBlue,
-                  textSectionTitleColor: 'black',
-                  textSectionTitleDisabledColor: 'black',
-                  dayTextColor: 'black',
-                  textDisabledColor: '#d9e1e8',
-                  todayTextColor: 'black',
-                  disabledArrowColor: '#d9e1e8',
-                  textDayFontFamily: Fonts.MEDIUM,
-                  textMonthFontFamily: Fonts.MEDIUM,
-                  textDayFontWeight: '400',
-                  textDayHeaderFontWeight: '400',
-                  textDayFontSize: 13,
-                  textMonthFontSize: 13,
-                  textDayHeaderFontSize: 11,
-                  arrowColor: 'white',
-                  'stylesheet.calendar.header': {
-                    header: {
-                      height: 0,
-                      opacity: 0,
+                } else {
+                  let date = new Date(day?.dateString);
+                  setSelectedDate(date);
+                }
+              }}
+              markingType="custom"
+              markedDates={{
+                [seletedDay]: {
+                  customStyles: {
+                    container: {
+                      backgroundColor: colors.themePurple,
+                      borderRadius: Matrics.mvs(10),
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    },
+                    text: {
+                      color: 'white',
+                      fontWeight: '700',
                     },
                   },
-                }}
-              />
-            </View>
+                },
+              }}
+              calendarWidth={width}
+              calendarHeight={Matrics.vs(250)}
+              theme={{
+                backgroundColor: colors.lightGreyishBlue,
+                calendarBackground: colors.lightGreyishBlue,
+                textSectionTitleColor: 'black',
+                textSectionTitleDisabledColor: 'black',
+                dayTextColor: 'black',
+                textDisabledColor: '#d9e1e8',
+                todayTextColor: 'black',
+                disabledArrowColor: '#d9e1e8',
+                textDayFontFamily: Fonts.MEDIUM,
+                textMonthFontFamily: Fonts.MEDIUM,
+                textDayFontWeight: '400',
+                textDayHeaderFontWeight: '400',
+                textDayFontSize: 13,
+                textMonthFontSize: 13,
+                textDayHeaderFontSize: 11,
+                arrowColor: 'white',
+                'stylesheet.calendar.header': {
+                  header: {
+                    height: 0,
+                    opacity: 0,
+                  },
+                },
+              }}
+            />
           )}
         </View>
         <TouchableOpacity

@@ -1,14 +1,15 @@
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import React, { useEffect, useState } from 'react';
-import { DietStackParamList } from '../../interface/Navigation.interface';
-import { StackScreenProps } from '@react-navigation/stack';
+import {View, Text, StyleSheet, ScrollView, Platform} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {DietStackParamList} from '../../interface/Navigation.interface';
+import {StackScreenProps} from '@react-navigation/stack';
 import DietHeader from '../../components/molecules/DietHeader';
 import { colors } from '../../constants/colors';
 import fonts from '../../constants/fonts';
 import Matrics from '../../constants/Matrics';
 import CircularProgress from 'react-native-circular-progress-indicator';
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
-
+import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+import MyStatusbar from '../../components/atoms/MyStatusBar';
+ 
 type ProgressBarInsightsScreenProps = StackScreenProps<
   DietStackParamList,
   'ProgressBarInsightsScreen'
@@ -148,19 +149,24 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
           }
           inActiveStrokeWidth={3}
         />
-        <View style={style.textContainer}>
+        <View style={[style.textContainer]}>
           <Text style={style.subtitle}>{item?.title}</Text>
-          {item?.consumedClories === 0 && item?.totalCalories === 0 ? null : (
-            <View style={style.caloriesContainer}>
-              <Text style={style.consumedCalries}>
-                {isNaN(item?.consumedClories) ? 0 : item?.consumedClories}
-              </Text>
-              <Text style={[style.consumedCalries, { fontWeight: '400' }]}> or </Text>
-              <Text style={[style.consumedCalries, { fontWeight: '400' }]}>
-                {item?.totalCalories}
-              </Text>
-            </View>
-          )}
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
+            <Text style={style.consumedCalries}>
+              {isNaN(item?.consumedClories) ? 0 : item?.consumedClories}
+            </Text>
+            <Text style={[style.consumedCalries, {fontFamily: Fonts.REGULAR}]}>
+              {' '}
+              or{' '}
+            </Text>
+            <Text style={[style.consumedCalries, {fontFamily: Fonts.REGULAR}]}>
+              {item?.totalCalories}
+            </Text>
+          </View>
         </View>
       </View>
     );
@@ -172,7 +178,8 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
       style={{
         flex: 1,
         backgroundColor: colors.lightGreyishBlue,
-       paddingBottom: insets.bottom !== 0 ? insets.bottom : Matrics.vs(15),
+        paddingBottom: insets.bottom !== 0 ? insets.bottom : Matrics.vs(15),
+        paddingTop: Platform.OS == 'android' ? Matrics.vs(10) : 0,
       }}>
       <DietHeader
         onPressBack={onPressBack}
@@ -208,38 +215,35 @@ const style = StyleSheet.create({
   },
   title: {
     fontSize: Matrics.mvs(16),
-    fontWeight: '700',
     color: colors.labelDarkGray,
     marginLeft: Matrics.s(10),
     fontFamily: fonts.BOLD,
     paddingVertical: Matrics.vs(15),
-    paddingHorizontal: Matrics.vs(5),
+    paddingLeft: Matrics.s(5),
   },
   subtitle: {
     fontSize: Matrics.mvs(16),
-    fontWeight: '700',
     color: colors.labelDarkGray,
     fontFamily: fonts.BOLD,
+    lineHeight: Matrics.vs(15),
   },
   caloriesContainer: {
     flexDirection: 'row',
+    alignItems: 'center',
   },
   consumedCalries: {
     fontSize: Matrics.mvs(12),
-    fontWeight: '700',
     color: colors.labelDarkGray,
     fontFamily: fonts.BOLD,
   },
   calorieMainContainer: {
     flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
     paddingHorizontal: Matrics.s(15),
+    alignItems: 'center',
   },
   textContainer: {
     marginLeft: Matrics.s(10),
-    height: Matrics.vs(35),
-    justifyContent: 'center',
+    justifyContent: 'space-around',
   },
   boxContainer: {
     backgroundColor: colors.white,

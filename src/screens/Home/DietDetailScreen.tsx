@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { DietStackParamList } from '../../interface/Navigation.interface';
 import { Icons } from '../../constants/icons';
@@ -11,6 +11,7 @@ import { useApp } from '../../context/app.context';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import Matrics from '../../constants/Matrics';
 import fonts from '../../constants/fonts';
+import MyStatusbar from '../../components/atoms/MyStatusBar';
 
 type DietDetailProps = StackScreenProps<DietStackParamList, 'DietDetail'>;
 
@@ -90,7 +91,12 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
   return (
     <SafeAreaView
       edges={['top']}
-      style={{ flex: 1, backgroundColor: colors.lightGreyishBlue, paddingBottom:Matrics.vs(22) }}>
+      style={{
+        flex: 1,
+        backgroundColor: colors.lightGreyishBlue,
+        paddingTop: Platform.OS == 'android' ? insets.top + Matrics.vs(10) : 0,
+      }}>
+      <MyStatusbar backgroundColor={colors.lightGreyishBlue} />
       <View style={styles.header}>
         <Icons.backArrow onPress={onPressBack} height={23} width={23} />
         <Text style={styles.dietTitle}>{foodItem?.food_item_name}</Text>

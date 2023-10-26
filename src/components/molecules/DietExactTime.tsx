@@ -174,7 +174,7 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
 
           {cardData?.options?.length > 0 ? (
             <>
-              <View style={{ flexDirection: 'row' }}>
+              <View style={{flexDirection: 'row'}}>
                 {cardData?.options?.map((item: Options, index: number) => {
                   const isOptionSelected = foodItmeData?.diet_meal_options_id === item?.diet_meal_options_id
                   return (
@@ -210,7 +210,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   topRow: {
-    paddingHorizontal: 18,
+    paddingHorizontal: Matrics.s(15),
     paddingVertical: 8,
     flexDirection: 'row',
     alignItems: 'center',
@@ -245,6 +245,7 @@ const styles = StyleSheet.create({
   line: {
     borderBottomWidth: 0.3,
     borderColor: '#808080',
+    opacity: 0.5,
   },
   belowRow: {
     padding: 15,

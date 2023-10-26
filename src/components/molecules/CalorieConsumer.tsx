@@ -75,9 +75,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
   },
-  icon: {
-    marginRight: 10,
-  },
   textContainer: {
     flex: 1,
     marginLeft: 10,
