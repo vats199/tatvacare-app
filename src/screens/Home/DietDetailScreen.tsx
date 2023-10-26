@@ -78,11 +78,7 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
       }
     } else {
       const result = await Deit?.updateFoodItem(updatePayload, {})
-      console.log(
-        "result",result
-      );
-      
-      if (result?.data === true) {
+        if (result?.data === true) {
         navigation.popToTop()
       }
     }
@@ -107,6 +103,7 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
           onSeleteQty={handleSeletedQty}
           Data={foodItem}
           mealName={mealName}
+          isDisable={qty === "0" ? true : false}
         />
       </View>
     </SafeAreaView>

@@ -148,23 +148,25 @@ const DietHeader: React.FC<DietHeaderProps> = ({
                 onPress={handleNextMonth}
               />
             </View>
-            <View style={styles.leftRightContent}>
-              <Icons.backArrow
-                height={11}
-                width={11}
-                onPress={handlePreviousWeek}
-                style={{ marginRight: 20 }}
-              />
-              <Icons.RightArrow
-                height={22}
-                width={22}
-                onPress={handleNextWeek}
-                style={{ marginRight: 20 }}
-              />
+            <View style={[styles.leftRightContent, { width: Matrics.mvs(60) }]}>
+              <TouchableOpacity onPress={handlePreviousWeek} style={styles.arrowContainer}>
+                <Icons.backArrow
+                  height={11}
+                  width={11}
+                  style={{ marginRight: 20 }}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={handlePreviousWeek} style={styles.arrowContainer}>
+                <Icons.RightArrow
+                  height={22}
+                  width={22}
+                  style={{ marginRight: 20 }}
+                />
+              </TouchableOpacity>
             </View>
           </View>
           {!showMore ? (
-            <View style={{ paddingHorizontal: 10 }}>
+            <View style={{ paddingHorizontal: Matrics.s(10) }}>
               <CalendarStrip
                 selectedDate={selectedDate}
                 key={calendarKey}
@@ -284,8 +286,8 @@ const styles = StyleSheet.create({
     borderBottomColor: '#E5E5E5',
     paddingBottom: 5,
     elevation: 0.2,
-    borderBottomRightRadius: 20,
-    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 15,
+    borderBottomLeftRadius: 15,
     shadowOffset: { width: 0, height: 0 },
     shadowColor: '#171717',
     shadowOpacity: 0.1,
@@ -348,6 +350,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: Matrics.vs(5),
   },
+  arrowContainer: {
+    height: Matrics.mvs(20), width: Matrics.mvs(30), justifyContent: 'center', alignItems: "center",
+  }
 });
 
 export default DietHeader;

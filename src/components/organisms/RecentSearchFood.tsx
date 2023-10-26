@@ -9,7 +9,12 @@ type RecentSerachDietProps = {
   onPressPlus: (data: SearcheFood) => void;
   searchData: SearcheFood[];
   title: string;
+  message: string
 };
+// type data = {
+//   code: string,
+//   data: SearcheFood[];
+// }
 type SearcheFood = {
   FOOD_ID: number;
   ALIAS_NAME: string;
@@ -37,7 +42,7 @@ type SearcheFood = {
 const RecentSearchDiet: React.FC<RecentSerachDietProps> = ({
   onPressPlus,
   searchData,
-  title,
+  title, message
 }) => {
   const renderRecentSearchItem = (item: SearcheFood, index: number) => {
 
@@ -68,14 +73,11 @@ const RecentSearchDiet: React.FC<RecentSerachDietProps> = ({
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <Text style={styles.text}>{title}</Text>
-      {searchData?.length > 0 ? (
+      {searchData?.length ? (
         searchData?.map(renderRecentSearchItem)
       ) : (
         <View>
-          {/* <Text style={{textTransform: 'capitalize'}}>
-            sorry but no such food item found in our database please try with
-            some other keyword
-          </Text> */}
+          <Text style={{ textTransform: 'capitalize' }}>{message}</Text>
         </View>
       )}
     </ScrollView>
