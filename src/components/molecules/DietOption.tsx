@@ -74,6 +74,7 @@ type FoodItems = {
   consumed_calories: number;
   total_macronutrients: number;
   total_micronutrients: number;
+  is_food_item_added_by_patient: string;
 };
 
 type Consumption = {
@@ -127,7 +128,12 @@ const DietOption: React.FC<DietOptionItem> = ({
             </TouchableOpacity>
           )}
           <View style={styles.titleDescription}>
-            <Text style={styles.title}>{item.food_item_name}</Text>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <Text style={styles.title}>{item.food_item_name}</Text>
+              {item.is_food_item_added_by_patient == 'Y' ? (
+                <Text style={styles.manualBtnTxt}>Manual</Text>
+              ) : null}
+            </View>
             <Text style={styles.description}>
               {Math.round(Number(item?.quantity)) +
                 ' | ' +
@@ -205,7 +211,7 @@ const styles = StyleSheet.create({
   },
   titleDescription: {
     marginLeft: 10,
-    width: '80%',
+    flex: 1,
   },
   title: {
     fontSize: Matrics.mvs(14),
@@ -247,5 +253,15 @@ const styles = StyleSheet.create({
   line: {
     backgroundColor: colors.inputBoxLightBorder,
     height: 1,
+  },
+  manualBtnTxt: {
+    marginHorizontal: Matrics.s(8),
+    backgroundColor: '#E0E0E0',
+    paddingHorizontal: Matrics.s(8),
+    paddingVertical: Matrics.vs(2),
+    borderRadius: Matrics.mvs(10),
+    overflow: 'hidden',
+    color: '#616161',
+    alignSelf: 'flex-start',
   },
 });

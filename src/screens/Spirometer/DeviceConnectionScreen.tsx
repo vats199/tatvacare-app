@@ -138,10 +138,6 @@ const DeviceConnectionScreen: React.FC<DeviceConnectionScreenProps> = ({
       };
       hightArray.push(tenpObj);
     }
-    console.log(
-      '🚀 ~ file: DeviceConnectionScreen.tsx:69 ~ generateHeight ~ hightArray:',
-      hightArray,
-    );
     generateSubHeight();
     setHeightList(hightArray);
   };

@@ -2,15 +2,14 @@ import React, {useEffect} from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 import {Icons} from '../../constants/icons';
 import CircularProgress from 'react-native-circular-progress-indicator';
-import Matrics from '../../constants/Matrics';
 
 type CalorieConsumerProps = {
   totalConsumedcalories: number;
   totalcalories: number;
 };
 const CalorieConsumer: React.FC<CalorieConsumerProps> = ({
-  totalConsumedcalories,
-  totalcalories,
+  totalConsumedcalories = 0,
+  totalcalories = 0,
 }) => {
   const [values, setVAlues] = React.useState(0);
   useEffect(() => {
@@ -37,6 +36,7 @@ const CalorieConsumer: React.FC<CalorieConsumerProps> = ({
               radius={23}
               activeStrokeWidth={3}
               inActiveStrokeWidth={3}
+              duration={1000}
             />
             <View style={styles.textContainer}>
               <View style={{flexDirection: 'row', alignItems: 'center'}}>

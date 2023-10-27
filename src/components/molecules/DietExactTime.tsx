@@ -1,5 +1,5 @@
 import {DrawerItemList} from '@react-navigation/drawer';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -21,7 +21,7 @@ interface ExactTimeProps {
   cardData: MealsData;
   onpressOfEdit: (editeData: FoodItems, mealName: string) => void;
   onPressOfDelete: (deleteFoodItemId: string) => void;
-  onPressOfcomplete: (consumptionData: Consumption) => void;
+  onPressOfcomplete: (consumptionData: Consumption, optionId: string) => void;
   getCalories: (calories: Options) => void;
 }
 
@@ -118,12 +118,29 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
   const [foodItmeData, setFoodItemData] = React.useState<Options | null>(
     cardData?.options[0],
   );
+  const [selectedOptionId, setSelectedOptionId] = useState<string>(
+    cardData?.options[0].diet_meal_options_id,
+  );
 
-  useEffect(() => {
-    const data = foodItmeData;
+  const filterMealData = () => {
+    const itemFound = cardData?.options.filter(
+      item => item.diet_meal_options_id == selectedOptionId,
+    );
+    return itemFound.length !== 0 ? itemFound : cardData.options;
+  };
+
+  const countCalories = (itemFound: Options) => {
+    const data = itemFound;
     data.meal_name = cardData.meal_name;
     getCalories(data);
-  }, [foodItmeData]);
+  };
+
+  useEffect(() => {
+    const itemFound = filterMealData();
+    if (itemFound.length !== 0) {
+      countCalories(itemFound[0]);
+    }
+  }, [selectedOptionId]);
 
   const handaleEdit = (data: FoodItems) => {
     onpressOfEdit(data, cardData.meal_name);
@@ -132,10 +149,10 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
     onPressOfDelete(Id);
   };
   const handlePulsIconPress = () => {
-    onPressPlus(foodItmeData?.diet_meal_options_id, cardData.meal_name);
+    onPressPlus(selectedOptionId, cardData.meal_name);
   };
   const handalecompletion = (item: Consumption) => {
-    onPressOfcomplete(item);
+    onPressOfcomplete(item, selectedOptionId);
   };
 
   const mealMessage = (name: string) => {
@@ -204,8 +221,7 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
                 style={{flexDirection: 'row'}}>
                 {cardData?.options?.map((item: Options, index: number) => {
                   const isOptionSelected =
-                    foodItmeData?.diet_meal_options_id ===
-                    item?.diet_meal_options_id;
+                    selectedOptionId === item?.diet_meal_options_id;
                   return (
                     <TouchableOpacity
                       style={[
@@ -221,14 +237,22 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
                           marginRight: Matrics.s(13),
                         },
                       ]}
-                      onPress={() => setFoodItemData(item)}>
+                      onPress={() =>
+                        setSelectedOptionId(item.diet_meal_options_id)
+                      }>
                       <Text style={styles.optionText}>Option {index + 1}</Text>
                     </TouchableOpacity>
                   );
                 })}
               </ScrollView>
               <DietOption
-                foodItmeData={foodItmeData}
+                foodItmeData={
+                  selectedOptionId !== null
+                    ? cardData.options.filter(
+                        item => item.diet_meal_options_id == selectedOptionId,
+                      )[0]
+                    : cardData.options[0]
+                }
                 patient_permission={cardData.patient_permission}
                 onpressOfEdit={handaleEdit}
                 onPressOfDelete={handaleDelete}
