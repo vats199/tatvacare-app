@@ -14,7 +14,7 @@ export const GoalsScreen = StyleSheet.create({
     marginHorizontal: Matrics.s(12),
   },
   descText: {
-    fontSize: Matrics.mvs(14),
+    fontSize: Matrics.mvs(12),
     fontFamily: Fonts.REGULAR,
     color: colors.darkBlue,
   },
@@ -33,5 +33,10 @@ export const GoalsScreen = StyleSheet.create({
     fontSize: Matrics.mvs(8),
     fontFamily: Fonts.REGULAR,
     color: colors.themePurple,
+  },
+  sectionHeaderText: {
+    fontSize: Matrics.mvs(16),
+    fontFamily: Fonts.BOLD,
+    color: colors.darkBlue,
   },
 });

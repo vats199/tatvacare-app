@@ -10,8 +10,8 @@ import {
   requireNativeComponent,
   SafeAreaView,
 } from 'react-native';
-import React, { useEffect, useRef, useState } from 'react';
-import { CompositeScreenProps } from '@react-navigation/native';
+import React, {useEffect, useRef, useState} from 'react';
+import {CompositeScreenProps} from '@react-navigation/native';
 import {
   AppStackParamList,
   DrawerParamList,
@@ -19,9 +19,9 @@ import {
   HomeStackParamList,
   DietStackParamList,
 } from '../interface/Navigation.interface';
-import { Container, Screen } from '../components/styled/Views';
-import { Icons } from '../constants/icons';
-import { colors } from '../constants/colors';
+import {Container, Screen} from '../components/styled/Views';
+import {Icons} from '../constants/icons';
+import {colors} from '../constants/colors';
 import InputField, {
   AnimatedInputFieldRef,
 } from '../components/atoms/AnimatedInputField';
@@ -33,8 +33,8 @@ import HomeHeader from '../components/molecules/HomeHeader';
 import AdditionalCareServices from '../components/organisms/AdditionalCareServices';
 import Learn from '../components/organisms/Learn';
 import SearchModal from '../components/molecules/SearchModal';
-import { DrawerScreenProps } from '@react-navigation/drawer';
-import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import {DrawerScreenProps} from '@react-navigation/drawer';
+import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 // import {
 //   navigateTo,
 //   navigateToPlan,
@@ -48,20 +48,23 @@ import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 // } from '../routes/Router';
 import Home from '../api/home';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { StackScreenProps } from '@react-navigation/stack';
+import {StackScreenProps} from '@react-navigation/stack';
 import MyStatusbar from '../components/atoms/MyStatusBar';
-import { useApp } from '../context/app.context';
+import {useApp} from '../context/app.context';
 import Loader from '../components/atoms/Loader';
 
 type HomeScreenProps = CompositeScreenProps<
   StackScreenProps<DietStackParamList, 'HomeScreen'>,
   CompositeScreenProps<
     BottomTabScreenProps<BottomTabParamList, 'HomeScreen'>,
-    StackScreenProps<AppStackParamList, 'DrawerScreen'>
+    CompositeScreenProps<
+      DrawerScreenProps<DrawerParamList, 'Home'>,
+      StackScreenProps<AppStackParamList, 'DrawerScreen'>
+    >
   >
 >;
 
-const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
+const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   const [search, setSearch] = React.useState<string>('');
   const [location, setLocation] = React.useState<object>({});
   const [visible, setVisible] = React.useState<boolean>(false);
@@ -70,7 +73,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
   const [learnMoreData, setLearnMoreData] = React.useState<any>([]);
   const [healthInsights, setHealthInsights] = React.useState<any>({});
   const [healthDiaries, setHealthDiaries] = React.useState<any>([]);
-  const { userData } = useApp();
+  const {userData} = useApp();
 
   useEffect(() => {
     getCurrentLocation();
@@ -116,7 +119,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
   };
 
   const getPlans = async () => {
-    const allPlans = await Home.getHomePagePlans({}, { page: 0 });
+    const allPlans = await Home.getHomePagePlans({}, {page: 0});
     setAllPlans(allPlans?.data ?? []);
   };
 
@@ -140,12 +143,12 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
     setHealthDiaries(diaries?.data);
   };
 
-  const onPressLocation = () => { };
+  const onPressLocation = () => {};
   const onPressBell = () => {
     // navigateTo('NotificationVC');
   };
   const onPressProfile = () => {
-    // navigation.toggleDrawer();
+    navigation.toggleDrawer();
   };
   const onPressDevices = () => {
     navigation.navigate('SpirometerScreen');
@@ -154,7 +157,6 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
   const onPressDiet = () => {
     // navigateTo('FoodDiaryParentVC');
     navigation.navigate('DietStackScreen');
-
   };
   const onPressExercise = (filteredData: any) => {
     // navigateToMedicines('test');

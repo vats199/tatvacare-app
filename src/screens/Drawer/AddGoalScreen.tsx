@@ -29,7 +29,7 @@ type goalsList = {
   desc: string;
   icon: React.ReactNode;
 };
-const GoalsScreen: React.FC<GoalScreenProps> = ({navigation}) => {
+const AddGoalScreen: React.FC<GoalScreenProps> = ({navigation}) => {
   // const {setUserData} = useApp();
   const [arr, setArr] = React.useState<goalsList[]>([
     {
@@ -295,4 +295,4 @@ const GoalsScreen: React.FC<GoalScreenProps> = ({navigation}) => {
   );
 };
 
-export default GoalsScreen;
+export default AddGoalScreen;

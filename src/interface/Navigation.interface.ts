@@ -82,6 +82,7 @@ export type AppStackParamList = {
   DeviceConnectionScreen: undefined;
   SetupProfileScreen: SetupProfileStackParamList;
   DiagnosticStackScreen: DiagnosticStackParamList;
+  AddGoalScreen: undefined;
 };
 
 export type DrawerParamList = {
