@@ -144,7 +144,9 @@ const DietOption: React.FC<DietOptionItem> = ({
         </View>
         <View style={{flexDirection: 'row'}}>
           <Text style={styles.value}>
-            {Math.round(Number(item.calories))}cal
+            {Math.round(Number(item.calories)) *
+              Math.round(Number(item?.quantity))}
+            cal
           </Text>
           {patient_permission === 'W' ? (
             <View>
