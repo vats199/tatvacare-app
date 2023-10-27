@@ -4,7 +4,6 @@ import { Icons } from '../../constants/icons';
 import { colors } from '../../constants/colors';
 import Fonts from '../../constants/fonts';
 import Matrics from '../../constants/Matrics';
-import styled from 'styled-components/native';
 import {
   Menu,
   MenuOptions,
@@ -133,11 +132,11 @@ const DietOption: React.FC<DietOptionItem> = ({
             </Text>
           </View>
         </View>
-        <View style={{flexDirection: 'row'}}>
+        <View style={{flexDirection: 'row',justifyContent:'flex-end', alignItems:'flex-end'}}>
           <Text style={styles.value}>
             {Math.round(Number(item.calories))}cal
           </Text>
-          {patient_permission === 'W' ? (
+          {/* {patient_permission === 'W' ? ( */}
             <View>
               <Menu>
                 <MenuTrigger>
@@ -166,9 +165,9 @@ const DietOption: React.FC<DietOptionItem> = ({
                 </MenuOptions>
               </Menu>
             </View>
-          ) : (
+          {/* ) : (
             <View style={styles.threeDot}></View>
-          )}
+          )} */}
         </View>
       </View>
     );

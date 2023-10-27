@@ -112,8 +112,8 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
     setLoader(true)
     const UpadteFoodItem = await Diet.updateFoodConsumption(item, {});
     getData()
-    if (UpadteFoodItem?.code === '1') {
-      setLoader(false)
+    setLoader(false)
+     if (UpadteFoodItem?.code === '1') {
     }
   }
 

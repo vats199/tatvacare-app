@@ -163,11 +163,11 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
               </Text>
             </View>
           </View>
-          {cardData.patient_permission === "W" ?
+          {/* {cardData.patient_permission === "W" ? */}
             <TouchableOpacity onPress={handlePulsIconPress} style={styles.iconContainer}>
               <Icons.AddCircle height={25} width={25} />
             </TouchableOpacity>
-            : null}
+            {/* : null} */}
         </View>
         <View style={styles.line} />
         <View style={styles.belowRow}>

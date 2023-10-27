@@ -7,7 +7,6 @@ import MicronutrientsInformation from '../../components/organisms/Micronutrients
 import AddDiet from '../../components/organisms/AddDiet';
 import { StackScreenProps } from '@react-navigation/stack';
 import Deit from '../../api/diet';
-import { useApp } from '../../context/app.context';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import Matrics from '../../constants/Matrics';
 import fonts from '../../constants/fonts';
@@ -20,8 +19,7 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
   const { foodItem, buttonText, healthCoachId, mealName, patient_id } = route.params;
   let quantity = Math.round(Number(foodItem?.quantity)).toString()
   const [qty, setQty] = React.useState<string>(quantity)
-console.log("qty",typeof qty);
-
+ 
   const onPressBack = () => {
     navigation.goBack();
   };
@@ -97,7 +95,7 @@ console.log("qty",typeof qty);
         flex: 1,
         backgroundColor: colors.lightGreyishBlue,
         paddingTop: Platform.OS == 'android' ? insets.top + Matrics.vs(10) : 0,
-        paddingBottom:  Matrics.vs(16),
+        paddingBottom:  Matrics.vs(25),
       }}>
       <MyStatusbar backgroundColor={colors.lightGreyishBlue} />
       <View style={styles.header}>
