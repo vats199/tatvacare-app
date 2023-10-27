@@ -1,15 +1,15 @@
-import {View, Text, StyleSheet, ScrollView, Platform} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import {DietStackParamList} from '../../interface/Navigation.interface';
-import {StackScreenProps} from '@react-navigation/stack';
+import { View, Text, StyleSheet, ScrollView, Platform } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { DietStackParamList } from '../../interface/Navigation.interface';
+import { StackScreenProps } from '@react-navigation/stack';
 import DietHeader from '../../components/molecules/DietHeader';
 import { colors } from '../../constants/colors';
 import fonts from '../../constants/fonts';
 import Matrics from '../../constants/Matrics';
 import CircularProgress from 'react-native-circular-progress-indicator';
-import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import MyStatusbar from '../../components/atoms/MyStatusBar';
- 
+
 type ProgressBarInsightsScreenProps = StackScreenProps<
   DietStackParamList,
   'ProgressBarInsightsScreen'
@@ -124,7 +124,8 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
           (Number(sum.consumed_fat) / Number(sum.total_fats)) * 100,
         ),
         progresBarColor: '#FF3333',
-      },
+      }
+
     ];
     setMacroNuitrientes(arry);
   }, [calories]);
@@ -148,6 +149,7 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
             item.progresBarColor ? item.progresBarColor : '#2ecc71'
           }
           inActiveStrokeWidth={3}
+          duration={4000}
         />
         <View style={[style.textContainer]}>
           <Text style={style.subtitle}>{item?.title}</Text>
@@ -159,11 +161,11 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
             <Text style={style.consumedCalries}>
               {isNaN(item?.consumedClories) ? 0 : item?.consumedClories}
             </Text>
-            <Text style={[style.consumedCalries, {fontFamily: fonts.REGULAR}]}>
+            <Text style={[style.consumedCalries, { fontFamily: fonts.REGULAR }]}>
               {' '}
               or{' '}
             </Text>
-            <Text style={[style.consumedCalries, {fontFamily: fonts.REGULAR}]}>
+            <Text style={[style.consumedCalries, { fontFamily: fonts.REGULAR }]}>
               {item?.totalCalories}
             </Text>
           </View>
@@ -226,7 +228,7 @@ const style = StyleSheet.create({
     color: colors.labelDarkGray,
     fontFamily: fonts.BOLD,
     lineHeight: Matrics.vs(15),
-    textTransform:'capitalize'
+    textTransform: 'capitalize'
   },
   caloriesContainer: {
     flexDirection: 'row',

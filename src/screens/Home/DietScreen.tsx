@@ -66,15 +66,13 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
 
   const getData = async () => {
     setDiePlane([])
-    setLoader(true)
+    // setLoader(true)
     const date = moment(selectedDate).format('YYYY/MM/DD');
     const diet = await Diet.getDietPlan({ date: date }, {});
-
     if (diet) {
-      setLoader(false)
+      // setLoader(false)
       setDiePlane(diet?.data[0]);
     } else {
-
       setDiePlane([]);
     }
   };
@@ -111,10 +109,11 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   }
 
   const handalecompletion = async (item: any) => {
+    setLoader(true)
     const UpadteFoodItem = await Diet.updateFoodConsumption(item, {});
     getData()
     if (UpadteFoodItem?.code === '1') {
-      setModalVisible(false)
+      setLoader(false)
     }
   }
 
@@ -182,7 +181,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
         positiveButtonText="Ok"
         onPressOK={deleteFoodItem}
         onPressCancle={() => setModalVisible(!modalVisible)} />
-      <Loader visible={true} />
+      <Loader visible={loader} />
     </SafeAreaView>
   );
 };

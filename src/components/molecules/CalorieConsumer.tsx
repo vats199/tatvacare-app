@@ -35,6 +35,7 @@ const CalorieConsumer: React.FC<CalorieConsumerProps> = ({ totalConsumedcalories
               radius={23}
               activeStrokeWidth={3}
               inActiveStrokeWidth={3}
+              duration={4000}
             />
             <View style={styles.textContainer}>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
