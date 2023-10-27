@@ -48,6 +48,7 @@ type NutritionData = {
   name: string;
   value: string;
 };
+
 const AddDiet: React.FC<AddDietProps> = ({
   onPressAdd,
   buttonText,
@@ -97,7 +98,7 @@ const AddDiet: React.FC<AddDietProps> = ({
             <Button
               title={buttonText}
               titleStyle={styles.outlinedButtonText}
-              buttonStyle={styles.outlinedButton}
+              buttonStyle={[styles.outlinedButton, isDisable && { backgroundColor: '#808080' }]}
               onPress={onPressAdd}
               disabled={isDisable}
             />

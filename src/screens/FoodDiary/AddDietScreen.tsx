@@ -10,8 +10,8 @@ import { useApp } from '../../context/app.context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Matrics } from '../../constants';
-import { log } from 'console';
 import MyStatusbar from '../../components/atoms/MyStatusBar';
+import { useFocusEffect } from '@react-navigation/native';
 
 type AddDietScreenProps = StackScreenProps<DietStackParamList, 'AddDiet'>;
 type SearcheFood = {
@@ -39,7 +39,7 @@ type SearcheFood = {
 const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
   const insets = useSafeAreaInsets();
   const { userData } = useApp();
-  const { optionId, healthCoachId, mealName } = route.params;
+  const { optionId, healthCoachId, mealName, patient_id } = route.params;
   const [recentSerach, setRecentSerach] = React.useState([]);
   const [searchResult, setSearchResult] = React.useState([]);
   const [message, setMessage] = React.useState('');
@@ -51,24 +51,21 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
 
   useEffect(() => {
     const getRecentSerache = async () => {
-      const recentSearchResults = await AsyncStorage.getItem(
-        'recentSearchResults',
-      );
+      const recentSearchResults = await AsyncStorage.getItem('recentSearchResults');
       let results = recentSearchResults ? JSON.parse(recentSearchResults) : [];
 
+
       const unique = results.filter((obj: any, index: number) => {
-        return (
-          index === results.findIndex((o: any) => obj.food_name === o.food_name)
-        );
+        return index === results.findIndex((o: any) => obj.food_name === o.food_name);
       });
 
       if (unique.length > 3) {
-        const updatedResult = unique.slice(0, 4);
-        setRecentSerach(updatedResult);
-        setSearchResult(updatedResult);
+        const updatedResult = unique.slice(0, 4)
+        setRecentSerach(updatedResult)
+        setSearchResult(updatedResult)
       } else {
-        setRecentSerach(unique);
-        setSearchResult(unique);
+        setRecentSerach(unique)
+        setSearchResult(unique)
       }
     };
     getRecentSerache();
@@ -115,20 +112,13 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
       consumption: null,
       is_consumed: null,
       consumed_calories: null,
-      healthCoachId: healthCoachId,
-    };
-    navigation.navigate('DietDetail', {
-      foodItem: FoodItems,
-      buttonText: 'Add',
-      mealName: mealName,
-    });
-    const seletedItem = recentSerach;
+      healthCoachId: healthCoachId
+    }
+    navigation.navigate('DietDetail', { foodItem: FoodItems, buttonText: 'Add', mealName: mealName, patient_id: patient_id })
+    const seletedItem = recentSerach
     seletedItem.unshift(data);
-    setRecentSerach(seletedItem);
-    await AsyncStorage.setItem(
-      'recentSearchResults',
-      JSON.stringify(recentSerach),
-    );
+    setRecentSerach(seletedItem)
+    await AsyncStorage.setItem('recentSearchResults', JSON.stringify(recentSerach));
   };
 
   const handleSearch = (text: string) => {
@@ -187,6 +177,7 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
         searchData={searchResult}
         title={title}
         message={message}
+
       />
     </SafeAreaView>
   );

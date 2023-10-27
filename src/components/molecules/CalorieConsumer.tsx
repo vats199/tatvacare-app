@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
-import {Icons} from '../../constants/icons';
+import React, { useEffect } from 'react';
+import { StyleSheet, View, Text } from 'react-native';
+import { Icons } from '../../constants/icons';
 import CircularProgress from 'react-native-circular-progress-indicator';
 import Matrics from '../../constants/Matrics';
 
@@ -18,7 +18,6 @@ const CalorieConsumer: React.FC<CalorieConsumerProps> = ({
     if (isNaN(vale)) {
       setVAlues(0);
     } else {
-      console.log('vale is a number');
       setVAlues(vale);
     }
   }, [totalConsumedcalories, totalcalories]);
@@ -39,7 +38,7 @@ const CalorieConsumer: React.FC<CalorieConsumerProps> = ({
               inActiveStrokeWidth={3}
             />
             <View style={styles.textContainer}>
-              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <Text style={styles.boldTitle}>
                   {isNaN(totalConsumedcalories) ? 0 : totalConsumedcalories}
                 </Text>

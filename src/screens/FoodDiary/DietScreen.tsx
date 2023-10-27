@@ -97,12 +97,8 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   };
 
   const handaleEdit = (data: any, mealName: string) => {
-    navigation.navigate('DietDetail', {
-      foodItem: data,
-      buttonText: 'Update',
-      healthCoachId: dietPlane?.health_coach_id,
-      mealName: mealName,
-    });
+    navigation.navigate('DietDetail', { foodItem: data, buttonText: 'Update', healthCoachId: dietPlane?.health_coach_id, mealName: mealName, patient_id: dietPlane?.patient_id })
+
   };
 
   const handaleDelete = (id: string) => {
@@ -131,11 +127,8 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
     }
   };
   const handlePulsIconPress = async (optionId: string, mealName: string) => {
-    navigation.navigate('AddDiet', {
-      optionId: optionId,
-      healthCoachId: dietPlane?.health_coach_id,
-      mealName: mealName,
-    });
+    navigation.navigate('AddDiet', { optionId: optionId, healthCoachId: dietPlane?.health_coach_id, mealName: mealName, patient_id: dietPlane?.patient_id });
+
   };
 
   const handalecompletion = async (item: any) => {

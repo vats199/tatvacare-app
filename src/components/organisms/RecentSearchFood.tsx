@@ -38,6 +38,8 @@ type SearcheFood = {
   total_saturated_fatty_acids: string;
   total_monounsaturated_fatty_acids: string;
   total_polyunsaturated_fatty_acids: string;
+  total_macronutrients: number;
+  total_micronutrients: number;
 };
 const RecentSearchDiet: React.FC<RecentSerachDietProps> = ({
   onPressPlus,
@@ -53,17 +55,19 @@ const RecentSearchDiet: React.FC<RecentSerachDietProps> = ({
         onPress={() => onPressPlus(item)}>
         <View style={{ flex: 0.78 }}>
           <Text style={styles.titleText}>{item?.food_name}</Text>
-          <Text style={styles.messageText}>{' Quantity| Micronutrients'}</Text>
+          <Text style={styles.messageText}>
+            {'  ' +
+              (Math.round(Number(item.total_micronutrients))
+                ? Math.round(Number(item.total_micronutrients))
+                : 0) +
+              ' g'}
+          </Text>
         </View>
         <View style={styles.leftContainer}>
-          <View style={{ flex: 0.7 }}>
-            <Text style={styles.calorieText}>
-              {item?.CALORIES_CALCULATED_FOR}cal
-            </Text>
-          </View>
-          <View style={{ flex: 0.3, }}>
-            <Icons.AddCircle height={25} width={25} />
-          </View>
+          <Text style={styles.calorieText}>
+            {item?.CALORIES_CALCULATED_FOR}cal
+          </Text>
+          <Icons.AddCircle height={24} width={24} />
         </View>
       </TouchableOpacity>
     );

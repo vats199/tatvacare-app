@@ -1,7 +1,7 @@
 import React from 'react';
-import {StatusBar, StatusBarStyle} from 'react-native';
-import {useIsFocused} from '@react-navigation/native';
-import {colors} from '../../constants/colors';
+import { StatusBar, StatusBarStyle } from 'react-native';
+import { useIsFocused } from '@react-navigation/native';
+import { colors } from '../../constants/colors';
 
 // --------------- ASSETS ---------------
 

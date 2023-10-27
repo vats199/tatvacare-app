@@ -16,7 +16,7 @@ type DietDetailProps = StackScreenProps<DietStackParamList, 'DietDetail'>;
 
 const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
   const insets = useSafeAreaInsets();
-  const { foodItem, buttonText, healthCoachId, mealName } = route.params;
+  const { foodItem, buttonText, healthCoachId, mealName, patient_id } = route.params;
   let quantity = Math.round(Number(foodItem?.quantity)).toString();
   const [qty, setQty] = React.useState<string>(quantity);
   const { userData } = useApp();
@@ -27,7 +27,7 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
 
   const onPressAdd = async () => {
     const addPayload = {
-      patient_id: userData?.patient_id,
+      patient_id: patient_id,
       food_item_id: foodItem?.food_item_id,
       food_item_name: foodItem?.food_item_name,
       quantity: qty,
@@ -49,7 +49,7 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
       health_coach_id: foodItem?.healthCoachId,
     };
     const updatePayload = {
-      patient_id: userData?.patient_id,
+      patient_id: patient_id,
       food_item_id: foodItem?.food_item_id,
       food_item_name: foodItem?.food_item_name,
       quantity: qty,
@@ -104,6 +104,7 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
         flex: 1,
         backgroundColor: colors.lightGreyishBlue,
         paddingTop: Platform.OS == 'android' ? insets.top + Matrics.vs(10) : 0,
+        paddingBottom: Matrics.vs(16),
       }}>
       <MyStatusbar backgroundColor={colors.lightGreyishBlue} />
       <View style={styles.header}>

@@ -112,18 +112,18 @@ export type AppointmentStackParamList = {
 
 export type DiagnosticStackParamList = {
   AllLabTestScreen: undefined;
-  LabTestCart: {coupan: string };
+  LabTestCart: {coupan: string};
   ApplyCoupan: undefined;
   ConfirmLocation: undefined;
   SearchLabTest: undefined;
   AddPatientDetails: undefined;
   ViewAllTest: undefined;
   MyPerscription: {data: perscription[]};
-  TestDetail:undefined;
-  SelectTestSlot:undefined;
-  LabTestSummary:{time:any};
-  CongratulationScreen:undefined;
-  OrderDetails:undefined;
+  TestDetail: undefined;
+  SelectTestSlot: undefined;
+  LabTestSummary: {time: any};
+  CongratulationScreen: undefined;
+  OrderDetails: undefined;
 };
 
 export type BottomTabParamList = {
@@ -146,12 +146,18 @@ export type AuthStackParamList = {
 export type DietStackParamList = {
   HomeScreen: undefined;
   DietScreen: undefined;
-  AddDiet: {optionId: string; healthCoachId: string; mealName: string};
+  AddDiet: {
+    optionId: string;
+    healthCoachId: string;
+    mealName: string;
+    patient_id: string;
+  };
   DietDetail: {
     foodItem: FoodItems;
     buttonText: string;
     healthCoachId: string;
     mealName: string;
+    patient_id: string;
   };
   ProgressBarInsightsScreen: {calories: Options[]};
 };
