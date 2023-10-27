@@ -1,6 +1,12 @@
 import {DrawerItemList} from '@react-navigation/drawer';
 import React, {useEffect} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {colors} from '../../constants/colors';
 import {Icons} from '../../constants/icons';
 import DietOption from './DietOption';
@@ -191,7 +197,11 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
         <View style={styles.belowRow}>
           {cardData?.options?.length > 0 ? (
             <>
-              <View style={{flexDirection: 'row'}}>
+              <ScrollView
+                showsHorizontalScrollIndicator={false}
+                horizontal
+                bounces={false}
+                style={{flexDirection: 'row'}}>
                 {cardData?.options?.map((item: Options, index: number) => {
                   const isOptionSelected =
                     foodItmeData?.diet_meal_options_id ===
@@ -207,6 +217,8 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
                           borderColor: isOptionSelected
                             ? colors.themePurple
                             : colors.inputBoxLightBorder,
+                          marginLeft: index == 0 ? Matrics.s(16) : 0,
+                          marginRight: Matrics.s(13),
                         },
                       ]}
                       onPress={() => setFoodItemData(item)}>
@@ -214,7 +226,7 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
                     </TouchableOpacity>
                   );
                 })}
-              </View>
+              </ScrollView>
               <DietOption
                 foodItmeData={foodItmeData}
                 patient_permission={cardData.patient_permission}
@@ -278,7 +290,7 @@ const styles = StyleSheet.create({
     color: colors.labelDarkGray,
   },
   textBelowTitle: {
-    fontSize: 13,
+    fontSize: Matrics.mvs(13),
     color: '#444444',
   },
   line: {
@@ -287,14 +299,14 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   belowRow: {
-    padding: 15,
+    paddingVertical: Matrics.vs(15),
   },
   messageContainer: {
     alignItems: 'center',
     justifyContent: 'center',
   },
   message: {
-    fontSize: 12,
+    fontSize: Matrics.mvs(12),
     color: '#919191',
     fontWeight: '400',
     fontFamily: Fonts.REGULAR,
@@ -305,7 +317,6 @@ const styles = StyleSheet.create({
     borderRadius: Matrics.mvs(8),
     justifyContent: 'center',
     alignItems: 'center',
-    marginLeft: Matrics.s(10),
     borderWidth: 1,
   },
   optionText: {

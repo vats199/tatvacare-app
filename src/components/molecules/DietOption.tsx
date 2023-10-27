@@ -197,10 +197,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginVertical: 10,
     alignItems: 'center',
+    marginHorizontal: Matrics.s(15),
   },
   leftContainer: {
     flexDirection: 'row',
-    width: '70%',
+    flex: 1,
   },
   titleDescription: {
     marginLeft: 10,
