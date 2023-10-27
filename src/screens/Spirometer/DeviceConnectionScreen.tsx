@@ -386,7 +386,10 @@ const DeviceConnectionScreen: React.FC<DeviceConnectionScreenProps> = ({
           styles.bottomBtnContainerShadow,
           styles.bottonBtnContainer,
           {
-            paddingBottom: insets.bottom !== 0 ? insets.bottom : Matrics.vs(16),
+            paddingBottom:
+              insets.bottom !== 0
+                ? insets.bottom + Matrics.vs(10)
+                : Matrics.vs(16),
           },
         ]}>
         <Button

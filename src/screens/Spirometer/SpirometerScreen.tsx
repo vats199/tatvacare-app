@@ -24,8 +24,8 @@ import {
 } from '../../interface/Navigation.interface';
 import {StackScreenProps} from '@react-navigation/stack';
 import {CompositeScreenProps} from '@react-navigation/native';
-import {Screen} from '../../components/styled/Views';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+import MyStatusbar from '../../components/atoms/MyStatusBar';
 
 type SpirometerScreenProps = CompositeScreenProps<
   StackScreenProps<AppStackParamList>,
@@ -39,6 +39,7 @@ const SpirometerScreen: React.FC<SpirometerScreenProps> = ({
   const [selectedItem, setSelectedItem] = useState<string>('');
 
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const [sheetOpen, setSheetOpen] = useState<boolean>(false);
   const insets = useSafeAreaInsets();
   const onPressConnect = (title: string) => {
     setSelectedItem(title);
@@ -56,6 +57,11 @@ const SpirometerScreen: React.FC<SpirometerScreenProps> = ({
 
   return (
     <SafeAreaView edges={['top']} style={styles.container}>
+      <MyStatusbar
+        backgroundColor={
+          sheetOpen ? colors.OVERLAY_DARK_50 : colors.lightPurple
+        }
+      />
       <SpirometerHeader />
       <ScrollView>
         <View style={styles.dailySummaryContainer}>
@@ -69,7 +75,16 @@ const SpirometerScreen: React.FC<SpirometerScreenProps> = ({
         <MyCare />
         <MyDevices onPress={onPressConnect} />
       </ScrollView>
-      <CommonBottomSheetModal snapPoints={['48%']} ref={bottomSheetModalRef}>
+      <CommonBottomSheetModal
+        onChange={index => {
+          if (index == 0) {
+            setSheetOpen(true);
+          } else {
+            setSheetOpen(false);
+          }
+        }}
+        snapPoints={['48%']}
+        ref={bottomSheetModalRef}>
         <DeviceBottomSheet
           device={selectedItem}
           onPressAccept={onPressAccept}

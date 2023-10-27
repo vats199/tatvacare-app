@@ -47,7 +47,7 @@ export default CommonBottomSheetModal;
 
 const styles = StyleSheet.create({
   overlay: {
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    backgroundColor: colors.OVERLAY_DARK_50,
     ...StyleSheet.absoluteFillObject,
   },
   sheetBackGround: {
