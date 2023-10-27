@@ -128,18 +128,18 @@ const DietOption: React.FC<DietOptionItem> = ({
             </TouchableOpacity>
           )}
           <View style={styles.titleDescription}>
+            <Text style={styles.title}>{item.food_item_name}</Text>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Text style={styles.title}>{item.food_item_name}</Text>
+              <Text style={styles.description}>
+                {Math.round(Number(item?.quantity)) +
+                  ' | ' +
+                  Math.round(Number(item.total_micronutrients)) +
+                  ' g'}
+              </Text>
               {item.is_food_item_added_by_patient == 'Y' ? (
                 <Text style={styles.manualBtnTxt}>Manual</Text>
               ) : null}
             </View>
-            <Text style={styles.description}>
-              {Math.round(Number(item?.quantity)) +
-                ' | ' +
-                Math.round(Number(item.total_micronutrients)) +
-                ' g'}
-            </Text>
           </View>
         </View>
         <View style={{flexDirection: 'row'}}>
@@ -258,10 +258,11 @@ const styles = StyleSheet.create({
     marginHorizontal: Matrics.s(8),
     backgroundColor: '#E0E0E0',
     paddingHorizontal: Matrics.s(8),
-    paddingVertical: Matrics.vs(2),
+    paddingVertical: Matrics.vs(3),
     borderRadius: Matrics.mvs(10),
+    marginTop: Matrics.s(2),
     overflow: 'hidden',
     color: '#616161',
-    alignSelf: 'flex-start',
+    fontSize: Matrics.mvs(11),
   },
 });
