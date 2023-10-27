@@ -12,7 +12,7 @@ const CalorieConsumer: React.FC<CalorieConsumerProps> = ({ totalConsumedcalories
   const [values, setVAlues] = React.useState(0)
   useEffect(() => {
     let vale = Math.round((totalConsumedcalories / totalcalories) * 100)
-
+        
     if (isNaN(vale)) {
       setVAlues(0);
     } else {

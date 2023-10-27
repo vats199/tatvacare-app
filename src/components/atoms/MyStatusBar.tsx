@@ -1,10 +1,9 @@
 import React from 'react';
 import {StatusBar, StatusBarStyle} from 'react-native';
 import {useIsFocused} from '@react-navigation/native';
-import {colors} from '../../constants/colors';
-​
+import { colors } from '../../constants/colors'
+
 // --------------- ASSETS ---------------
-​
 // --------------- COMPONENT DECLARATION ---------------
 type MyStatusBarProps = {
   barStyle?: StatusBarStyle;
@@ -12,7 +11,7 @@ type MyStatusBarProps = {
   translucent?: boolean;
   hidden?: boolean;
 };
-​
+
 const MyStatusbar: React.FC<MyStatusBarProps> = ({
   barStyle = 'dark-content',
   backgroundColor = colors.white,
@@ -29,5 +28,5 @@ const MyStatusbar: React.FC<MyStatusBarProps> = ({
     />
   ) : null;
 };
-​
+
 export default MyStatusbar;

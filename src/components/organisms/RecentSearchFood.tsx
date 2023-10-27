@@ -10,6 +10,7 @@ type RecentSerachDietProps = {
   searchData: SearcheFood[];
   title: string;
   message: string
+  
 };
 // type data = {
 //   code: string,

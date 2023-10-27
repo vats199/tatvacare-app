@@ -182,7 +182,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
         positiveButtonText="Ok"
         onPressOK={deleteFoodItem}
         onPressCancle={() => setModalVisible(!modalVisible)} />
-      <Loader visible={loader} />
+      <Loader visible={true} />
     </SafeAreaView>
   );
 };

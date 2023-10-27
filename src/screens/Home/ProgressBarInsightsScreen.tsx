@@ -90,7 +90,7 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
 
     const arry = [
       {
-        title: 'protein',
+        title: 'Protein',
         totalCalories: Math.round(Number(sum.total_proteins)),
         consumedClories: Math.round(Number(sum.consumed_protine)),
         progressBarVale: Math.round(
@@ -159,11 +159,11 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
             <Text style={style.consumedCalries}>
               {isNaN(item?.consumedClories) ? 0 : item?.consumedClories}
             </Text>
-            <Text style={[style.consumedCalries, {fontFamily: Fonts.REGULAR}]}>
+            <Text style={[style.consumedCalries, {fontFamily: fonts.REGULAR}]}>
               {' '}
               or{' '}
             </Text>
-            <Text style={[style.consumedCalries, {fontFamily: Fonts.REGULAR}]}>
+            <Text style={[style.consumedCalries, {fontFamily: fonts.REGULAR}]}>
               {item?.totalCalories}
             </Text>
           </View>
@@ -226,6 +226,7 @@ const style = StyleSheet.create({
     color: colors.labelDarkGray,
     fontFamily: fonts.BOLD,
     lineHeight: Matrics.vs(15),
+    textTransform:'capitalize'
   },
   caloriesContainer: {
     flexDirection: 'row',

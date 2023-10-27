@@ -17,9 +17,10 @@ type DietDetailProps = StackScreenProps<DietStackParamList, 'DietDetail'>;
 
 const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
   const insets = useSafeAreaInsets();
-  const { foodItem, buttonText, healthCoachId, mealName ,patient_id} = route.params;
+  const { foodItem, buttonText, healthCoachId, mealName, patient_id } = route.params;
   let quantity = Math.round(Number(foodItem?.quantity)).toString()
   const [qty, setQty] = React.useState<string>(quantity)
+console.log("qty",typeof qty);
 
   const onPressBack = () => {
     navigation.goBack();
@@ -79,7 +80,7 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
       }
     } else {
       const result = await Deit?.updateFoodItem(updatePayload, {})
-        if (result?.data === true) {
+      if (result?.data === true) {
         navigation.popToTop()
       }
     }
@@ -88,6 +89,7 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
   const handleSeletedQty = (item: string) => {
     setQty(item);
   };
+  
   return (
     <SafeAreaView
       edges={['top']}
@@ -95,6 +97,7 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
         flex: 1,
         backgroundColor: colors.lightGreyishBlue,
         paddingTop: Platform.OS == 'android' ? insets.top + Matrics.vs(10) : 0,
+        paddingBottom:  Matrics.vs(16),
       }}>
       <MyStatusbar backgroundColor={colors.lightGreyishBlue} />
       <View style={styles.header}>

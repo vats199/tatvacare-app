@@ -96,21 +96,11 @@ const AddDiet: React.FC<AddDietProps> = ({
             <Button
               title={buttonText}
               titleStyle={styles.outlinedButtonText}
-              buttonStyle={styles.outlinedButton}
+              buttonStyle={[styles.outlinedButton, isDisable && { backgroundColor: '#808080' }]}
               onPress={onPressAdd}
               disabled={isDisable}
             />
-            <View style={styles.measureContainer}>
-              <Text style={styles.dropdownTitleText}>{Data?.measure_name}</Text>
-              <Icons.DropdownIcon />
-            </View>
           </View>
-          <Button
-            title={buttonText}
-            titleStyle={styles.outlinedButtonText}
-            buttonStyle={styles.outlinedButton}
-            onPress={onPressAdd}
-          />
         </View>
       </View>
     </View>

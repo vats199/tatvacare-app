@@ -40,7 +40,7 @@ type SearcheFood = {
 }
 const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
   const insets = useSafeAreaInsets();
-  const { optionId, healthCoachId, mealName } = route.params;
+  const { optionId, healthCoachId, mealName ,patient_id} = route.params;
   const [recentSerach, setRecentSerach] = React.useState([]);
   const [searchResult, setSearchResult] = React.useState([]);
   const [message, setMessage] = React.useState('');
@@ -177,6 +177,7 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
         searchData={searchResult}
         title={title}
         message={message}
+      
       />
     </SafeAreaView>
   );
