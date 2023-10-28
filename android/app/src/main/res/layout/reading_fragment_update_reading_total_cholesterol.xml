@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:background="@color/gray">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        tools:background="@color/gray">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewClose"
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_24"
+            android:layout_gravity="end"
+            android:background="@drawable/bg_circle_white"
+            android:backgroundTint="@color/gray"
+            android:elevation="@dimen/dp_4"
+            android:padding="@dimen/dp_6"
+            app:srcCompat="@drawable/ic_cross_small" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_7"
+            android:background="@drawable/bg_common_rounded_rect_10"
+            android:elevation="@dimen/dp_2">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/screen_space" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/screen_space" />
+
+            <include
+                android:id="@+id/layoutHeader"
+                layout="@layout/reading_common_layout_header" />
+
+            <View
+                android:id="@+id/viewLine1"
+                style="@style/viewLine"
+                android:layout_width="0dp"
+                android:layout_marginTop="0dp"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/layoutHeader" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelDate"
+                style="@style/TextView.Regular.sp_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_18"
+                android:layout_marginEnd="@dimen/dp_14"
+                android:text="Date"
+                android:textColor="@color/textDarkBlue"
+                app:layout_constraintEnd_toStartOf="@id/textViewLabelTime"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/viewLine1" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelTime"
+                style="@style/TextView.Regular.sp_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Time"
+                android:textColor="@color/textDarkBlue"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toEndOf="@id/textViewLabelDate"
+                app:layout_constraintTop_toTopOf="@id/textViewLabelDate" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/editTextDate"
+                style="@style/editTextStrokeSmall"
+                android:layout_width="0dp"
+                android:layout_marginTop="@dimen/dp_8"
+                android:cursorVisible="false"
+                android:drawableEnd="@drawable/ic_reading_date"
+                android:ellipsize="end"
+                android:focusable="false"
+                android:hint="Select"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:lines="1"
+                android:longClickable="false"
+                android:maxLines="1"
+                app:layout_constraintEnd_toEndOf="@id/textViewLabelDate"
+                app:layout_constraintStart_toStartOf="@id/textViewLabelDate"
+                app:layout_constraintTop_toBottomOf="@id/textViewLabelDate"
+                tools:text="09-Aug-2021" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/editTextTime"
+                style="@style/editTextStrokeSmall"
+                android:layout_width="0dp"
+                android:layout_marginTop="@dimen/dp_8"
+                android:cursorVisible="false"
+                android:drawableEnd="@drawable/ic_clock_time"
+                android:ellipsize="end"
+                android:focusable="false"
+                android:hint="Select"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:lines="1"
+                android:longClickable="false"
+                android:maxLines="1"
+                app:layout_constraintEnd_toEndOf="@id/textViewLabelTime"
+                app:layout_constraintStart_toStartOf="@id/textViewLabelTime"
+                app:layout_constraintTop_toBottomOf="@id/textViewLabelTime"
+                tools:text="05:00" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelLdl"
+                style="@style/TextView.Regular.sp_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_18"
+                android:layout_marginEnd="@dimen/dp_14"
+                android:text="LDL"
+                android:textColor="@color/textDarkBlue"
+                app:layout_constraintEnd_toStartOf="@id/textViewLabelHdl"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/editTextDate" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelHdl"
+                style="@style/TextView.Regular.sp_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="HDL"
+                android:textColor="@color/textDarkBlue"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toEndOf="@id/textViewLabelLdl"
+                app:layout_constraintTop_toTopOf="@id/textViewLabelLdl" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/editTextLdl"
+                style="@style/editTextStrokeSmall"
+                android:layout_width="0dp"
+                android:layout_marginTop="@dimen/dp_8"
+                android:hint="Enter"
+                android:imeOptions="actionNext"
+                android:nextFocusForward="@id/editTextHdl"
+                android:inputType="number"
+                android:lines="1"
+                android:maxLength="4"
+                android:maxLines="1"
+                app:layout_constraintEnd_toEndOf="@id/textViewLabelLdl"
+                app:layout_constraintStart_toStartOf="@id/textViewLabelLdl"
+                app:layout_constraintTop_toBottomOf="@id/textViewLabelLdl" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/editTextHdl"
+                style="@style/editTextStrokeSmall"
+                android:layout_width="0dp"
+                android:layout_marginTop="@dimen/dp_8"
+                android:hint="Enter"
+                android:imeOptions="actionNext"
+                android:nextFocusForward="@id/editTextTriglyceride"
+                android:inputType="number"
+                android:lines="1"
+                android:maxLength="4"
+                android:maxLines="1"
+                app:layout_constraintEnd_toEndOf="@id/textViewLabelHdl"
+                app:layout_constraintStart_toStartOf="@id/textViewLabelHdl"
+                app:layout_constraintTop_toBottomOf="@id/textViewLabelHdl" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelTriglyceride"
+                style="@style/TextView.Regular.sp_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_18"
+                android:layout_marginEnd="@dimen/dp_14"
+                android:text="Triglyceride"
+                android:textColor="@color/textDarkBlue"
+                app:layout_constraintEnd_toStartOf="@id/textViewLabelTotalCholesterol"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/editTextLdl" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelTotalCholesterol"
+                style="@style/TextView.Regular.sp_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Total Cholesterol"
+                android:textColor="@color/textDarkBlue"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toEndOf="@id/textViewLabelTriglyceride"
+                app:layout_constraintTop_toTopOf="@id/textViewLabelTriglyceride" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/editTextTriglyceride"
+                style="@style/editTextStrokeSmall"
+                android:layout_width="0dp"
+                android:layout_marginTop="@dimen/dp_8"
+                android:hint="Enter"
+                android:imeOptions="actionNext"
+                android:nextFocusForward="@id/editTextTotalCholesterol"
+                android:inputType="number"
+                android:lines="1"
+                android:maxLength="4"
+                android:maxLines="1"
+                app:layout_constraintEnd_toEndOf="@id/textViewLabelTriglyceride"
+                app:layout_constraintStart_toStartOf="@id/textViewLabelTriglyceride"
+                app:layout_constraintTop_toBottomOf="@id/textViewLabelTriglyceride" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/editTextTotalCholesterol"
+                style="@style/editTextStrokeSmall"
+                android:layout_width="0dp"
+                android:layout_marginTop="@dimen/dp_8"
+                android:hint="Enter"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:lines="1"
+                android:maxLength="4"
+                android:maxLines="1"
+                app:layout_constraintEnd_toEndOf="@id/textViewLabelTotalCholesterol"
+                app:layout_constraintStart_toStartOf="@id/textViewLabelTotalCholesterol"
+                app:layout_constraintTop_toBottomOf="@id/textViewLabelTotalCholesterol" />
+            
+
+            <!--<androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelLdl"
+                style="@style/TextView.Regular.sp_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_18"
+                android:layout_marginEnd="@dimen/dp_14"
+                android:text="LDL"
+                android:textColor="@color/textDarkBlue"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/editTextDate" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/editTextLdl"
+                style="@style/editTextStrokeSmall"
+                android:layout_width="0dp"
+                android:layout_marginTop="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_14"
+                android:ellipsize="end"
+                android:hint="Enter"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:maxLength="3"
+                android:maxLines="1"
+                app:layout_constraintEnd_toStartOf="@id/textViewUnitLdl"
+                app:layout_constraintStart_toStartOf="@id/textViewLabelDate"
+                app:layout_constraintTop_toBottomOf="@id/textViewLabelLdl"
+                tools:text="20" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/textViewUnitLdl"
+                style="@style/TextView.Medium.sp_14"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:background="@drawable/bg_textview_solid_lightgray_stroke_gray"
+                android:clickable="false"
+                android:ellipsize="end"
+                android:focusable="false"
+                android:gravity="center"
+                android:imeOptions="actionDone"
+                android:inputType="numberDecimal"
+                android:longClickable="false"
+                android:maxLines="1"
+                android:minWidth="@dimen/dp_80"
+                android:text="mg/dL"
+                android:textAlignment="gravity"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintBottom_toBottomOf="@id/editTextLdl"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toEndOf="@id/editTextLdl"
+                app:layout_constraintTop_toTopOf="@id/editTextLdl" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelHdl"
+                style="@style/TextView.Regular.sp_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_18"
+                android:layout_marginEnd="@dimen/dp_14"
+                android:text="HDL"
+                android:textColor="@color/textDarkBlue"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/editTextLdl" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/editTextHdl"
+                style="@style/editTextStrokeSmall"
+                android:layout_width="0dp"
+                android:layout_marginTop="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_14"
+                android:ellipsize="end"
+                android:hint="Enter"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:maxLength="3"
+                android:maxLines="1"
+                app:layout_constraintEnd_toStartOf="@id/textViewUnitHdl"
+                app:layout_constraintStart_toStartOf="@id/textViewLabelDate"
+                app:layout_constraintTop_toBottomOf="@id/textViewLabelHdl"
+                tools:text="20" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/textViewUnitHdl"
+                style="@style/TextView.Medium.sp_14"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:background="@drawable/bg_textview_solid_lightgray_stroke_gray"
+                android:clickable="false"
+                android:ellipsize="end"
+                android:focusable="false"
+                android:gravity="center"
+                android:imeOptions="actionDone"
+                android:inputType="numberDecimal"
+                android:longClickable="false"
+                android:maxLines="1"
+                android:minWidth="@dimen/dp_80"
+                android:text="mg/dL"
+                android:textAlignment="gravity"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintBottom_toBottomOf="@id/editTextHdl"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toEndOf="@id/editTextHdl"
+                app:layout_constraintTop_toTopOf="@id/editTextHdl" />-->
+
+           <!-- <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelTriglyceride"
+                style="@style/TextView.Regular.sp_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_18"
+                android:layout_marginEnd="@dimen/dp_14"
+                android:text="Triglyceride"
+                android:textColor="@color/textDarkBlue"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/editTextHdl" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/editTextTriglyceride"
+                style="@style/editTextStrokeSmall"
+                android:layout_width="0dp"
+                android:layout_marginTop="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_14"
+                android:ellipsize="end"
+                android:hint="Enter"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:maxLength="3"
+                android:maxLines="1"
+                app:layout_constraintEnd_toStartOf="@id/textViewUnitTriglyceride"
+                app:layout_constraintStart_toStartOf="@id/textViewLabelDate"
+                app:layout_constraintTop_toBottomOf="@id/textViewLabelTriglyceride"
+                tools:text="20" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/textViewUnitTriglyceride"
+                style="@style/TextView.Medium.sp_14"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:background="@drawable/bg_textview_solid_lightgray_stroke_gray"
+                android:clickable="false"
+                android:ellipsize="end"
+                android:focusable="false"
+                android:gravity="center"
+                android:imeOptions="actionDone"
+                android:inputType="numberDecimal"
+                android:longClickable="false"
+                android:maxLines="1"
+                android:minWidth="@dimen/dp_80"
+                android:text="mg/dL"
+                android:textAlignment="gravity"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintBottom_toBottomOf="@id/editTextTriglyceride"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toEndOf="@id/editTextTriglyceride"
+                app:layout_constraintTop_toTopOf="@id/editTextTriglyceride" />-->
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewStandardValue"
+                style="@style/textViewStandardValueLabel"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/editTextTriglyceride" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonCancel"
+                style="@style/buttonStrokeSmallRadius7"
+                android:layout_width="@dimen/dp_94"
+                android:layout_marginTop="@dimen/dp_24"
+                android:layout_marginEnd="@dimen/dp_20"
+                android:layout_marginBottom="@dimen/dp_24"
+                android:paddingStart="@dimen/dp_24"
+                android:paddingEnd="@dimen/dp_24"
+                android:text="Cancel"
+                app:layout_constraintBottom_toTopOf="@id/layoutSyncData"
+                app:layout_constraintEnd_toStartOf="@id/buttonUpdate"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/textViewStandardValue" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonUpdate"
+                style="@style/buttonSolidSmallRadius7"
+                android:layout_width="@dimen/dp_94"
+                android:layout_marginBottom="@dimen/dp_30"
+                android:paddingStart="@dimen/dp_24"
+                android:paddingEnd="@dimen/dp_24"
+                android:text="Update"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toEndOf="@id/buttonCancel"
+                app:layout_constraintTop_toTopOf="@id/buttonCancel" />
+
+            <include
+                android:id="@+id/layoutSyncData"
+                layout="@layout/reading_common_layout_sync_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_20"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/buttonCancel" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+
+</FrameLayout>

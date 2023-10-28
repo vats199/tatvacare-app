@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_marginTop="@dimen/dp_10"
+    android:layout_height="wrap_content"
+    android:elevation="@dimen/dp_2"
+    android:layout_marginBottom="@dimen/dp_5"
+    app:layout_constraintBottom_toBottomOf="parent"
+    android:layout_marginStart="@dimen/dp_4"
+    android:layout_marginEnd="@dimen/dp_4"
+    android:background="@drawable/bg_common_rounded_rect_12"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewAppointment"
+        android:layout_width="@dimen/dp_36"
+        android:layout_height="@dimen/dp_36"
+        android:layout_marginTop="@dimen/dp_14"
+        android:layout_marginBottom="@dimen/dp_12"
+        android:layout_marginStart="@dimen/dp_15"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_appointment_time"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewTitle"
+        style="@style/TextView.Bold.sp_15"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_4"
+        android:text="Morning"
+        android:layout_marginStart="@dimen/dp_10"
+        app:layout_constraintBottom_toBottomOf="@id/imageViewAppointment"
+        android:textColor="@color/textBlack9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imageViewAppointment"
+        app:layout_constraintTop_toTopOf="@id/imageViewAppointment"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewTimeSlots"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:nestedScrollingEnabled="false"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="@dimen/dp_6"
+        android:layout_marginBottom="@dimen/dp_12"
+        android:layout_marginEnd="@dimen/dp_40"
+        app:layout_constraintStart_toEndOf="@id/imageViewAppointment"
+        app:layout_constraintTop_toBottomOf="@id/textViewTitle"
+        app:spanCount="2"
+        tools:itemCount="4"
+        tools:listitem="@layout/appointment_row_select_time_slot_v1" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

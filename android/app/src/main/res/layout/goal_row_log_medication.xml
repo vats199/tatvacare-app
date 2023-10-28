@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_selector_medication_summary"
+    android:clipToPadding="false"
+    android:orientation="horizontal"
+    android:padding="@dimen/dp_8">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewMedicine"
+        android:layout_width="@dimen/dp_48"
+        android:layout_height="@dimen/dp_48"
+        app:layout_constraintEnd_toEndOf="@id/textViewMedicine"
+        app:layout_constraintStart_toStartOf="@id/textViewMedicine"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_dummy_medicine" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewMedicine"
+        style="@style/TextView.Bold.sp_12"
+        android:layout_width="@dimen/dp_80"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Formonide"
+        android:textAlignment="gravity"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageViewMedicine" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewMedicationIndicator"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_4"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/textViewMedicine"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/goal_row_log_medication_indicator" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

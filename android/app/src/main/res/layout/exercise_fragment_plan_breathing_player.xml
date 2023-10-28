@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/root"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/layoutHeader"
+        layout="@layout/layout_common_toolbar_with_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewBreathing"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_8"
+        android:layout_marginBottom="@dimen/dp_8"
+        android:adjustViewBounds="true"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintBottom_toTopOf="@id/layoutProgress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutHeader"
+        app:layout_constraintWidth_percent="0.5"
+        app:srcCompat="@drawable/ic_breathing_logo_image" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewBreathingAnimation"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/imageViewBreathing"
+        app:layout_constraintEnd_toEndOf="@id/imageViewBreathing"
+        app:layout_constraintStart_toStartOf="@id/imageViewBreathing"
+        app:layout_constraintTop_toTopOf="@id/imageViewBreathing"
+        app:srcCompat="@drawable/ic_breathing_logo_image" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutProgress"
+        android:layout_width="@dimen/dp_130"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/dp_40"
+        app:layout_constraintBottom_toTopOf="@id/imageViewPlayPause"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <com.github.guilhe.views.CircularProgressView
+            android:id="@+id/progressIndicator"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            app:duplicateFirstColorInArray="true"
+            app:max="60"
+            app:progress="0"
+            app:progressThumb="false"
+            app:progressBarColor="@android:color/holo_purple"
+            app:progressBarColorArray="@array/progressColors"
+            app:progressBarRounded="true"
+            app:progressBarThickness="@dimen/dp_10"
+            app:shadow="false" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewTime"
+            style="@style/TextView.Medium.sp_20"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="00:00"
+            android:textAlignment="gravity"
+            android:textColor="@color/textBlack1"
+            app:layout_constraintBottom_toTopOf="@id/textViewLabelMin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintWidth_percent="0.55" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewLabelMin"
+            style="@style/TextView.Regular.sp_11"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:alpha="0.8"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="@string/exercise_player_label_min"
+            android:textAlignment="gravity"
+            android:textColor="@color/textBlack1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/textViewTime"
+            app:layout_constraintStart_toStartOf="@id/textViewTime"
+            app:layout_constraintTop_toBottomOf="@id/textViewTime" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewPlayPause"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_50"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:adjustViewBounds="true"
+        app:layout_constraintBottom_toTopOf="@id/textViewPlayPause"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/selector_breathing_play_pause" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewPlayPause"
+        style="@style/TextView.Medium.sp_16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_40"
+        android:text="@string/exercise_player_label_play"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

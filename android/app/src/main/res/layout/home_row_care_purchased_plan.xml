@@ -1,0 +1,95 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layoutExploreCarePlans"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dp_4"
+    android:background="@drawable/bg_common_rounded_rect_12"
+    android:clickable="true"
+    android:focusable="true"
+    android:paddingHorizontal="@dimen/dp_12"
+    android:paddingVertical="@dimen/dp_10"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/clSearch">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewLabelCarePlanForYourNeeds"
+        style="@style/TextView.Bold.sp_15"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_15"
+        android:fontFamily="@font/sfpro_semibold"
+        android:text="@string/care_plan_for_your_need_label_care_plan"
+        android:textColor="@color/textBlack7"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toStartOf="@id/imageViewCarePlan"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewLabelExplorePlan"
+        style="@style/TextView.Regular.sp_12"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_2"
+        android:ellipsize="end"
+        android:fontFamily="@font/sfpro_regular"
+        android:maxLines="2"
+        android:text="@string/care_plan_for_your_need_label_explore_plan"
+        android:textColor="@color/background_dark_gray"
+        app:layout_constraintEnd_toEndOf="@id/textViewLabelCarePlanForYourNeeds"
+        app:layout_constraintStart_toStartOf="@id/textViewLabelCarePlanForYourNeeds"
+        app:layout_constraintTop_toBottomOf="@id/textViewLabelCarePlanForYourNeeds" />
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/pbPlan"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_12"
+        app:indicatorColor="@color/color_green_progress"
+        app:layout_constraintEnd_toEndOf="@id/textViewLabelCarePlanForYourNeeds"
+        app:layout_constraintStart_toStartOf="@id/textViewLabelCarePlanForYourNeeds"
+        app:layout_constraintTop_toBottomOf="@+id/textViewLabelExplorePlan"
+        app:trackColor="@color/bg_light_indicator"
+        app:trackCornerRadius="@dimen/dp_5" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvExpireTime"
+        style="@style/TextView.Regular.sp_12"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_4"
+        android:fontFamily="@font/sfpro_regular"
+        android:textColor="@color/background_dark_gray"
+        app:layout_constraintEnd_toStartOf="@+id/tvRenew"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pbPlan" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvRenew"
+        style="@style/TextView.SemiBold.sp_12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/home_label_renew_underline"
+        android:textColor="@color/colorPrimary"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/tvExpireTime"
+        app:layout_constraintEnd_toEndOf="@+id/textViewLabelCarePlanForYourNeeds"
+        app:layout_constraintStart_toEndOf="@+id/tvExpireTime"
+        app:layout_constraintTop_toTopOf="@+id/tvExpireTime" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewCarePlan"
+        android:layout_width="@dimen/dp_85"
+        android:layout_height="@dimen/dp_65"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_home_bcp_new"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

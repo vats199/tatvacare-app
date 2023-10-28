@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/viewPager"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/layoutHeader">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/screen_space"
+        android:paddingEnd="@dimen/screen_space">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="@dimen/dp_16"
+            android:background="?selectableItemBackgroundBorderless"
+            android:padding="@dimen/dp_4"
+            app:srcCompat="@drawable/ic_close_menu" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp_30"
+            app:srcCompat="@drawable/ic_log_goal_food_success_logo" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewSuccessMessage"
+            style="@style/TextView.Medium.sp_18"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_32"
+            android:gravity="center"
+            android:textAlignment="gravity"
+            android:textColor="@color/textBlack1"
+            tools:text="Well Done On Logging Your Lunch!" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/TextView.Medium.sp_18"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Perfect Meal"
+            android:textAlignment="gravity"
+            android:textColor="@color/textBlack1"
+            android:visibility="gone" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewCalorieConsumed"
+            style="@style/TextView.Regular.sp_14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_16"
+            android:alpha="0.8"
+            android:gravity="center"
+            android:textAlignment="gravity"
+            android:textColor="@color/textBlack1"
+            tools:text="332 Of 400 Calories Consumed" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_32"
+            android:layout_marginTop="@dimen/dp_30"
+            android:layout_marginEnd="@dimen/dp_32"
+            android:background="@drawable/bg_common_rounded_rect_10"
+            android:backgroundTint="@color/purpleTransparent06"
+            android:paddingStart="@dimen/dp_14"
+            android:paddingTop="@dimen/dp_6"
+            android:paddingEnd="@dimen/dp_14"
+            android:paddingBottom="@dimen/dp_6"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="3"
+            tools:listitem="@layout/goal_row_food_calorie_consumed" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonDone"
+            style="@style/buttonSolid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_4"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginEnd="@dimen/dp_4"
+            android:layout_marginBottom="@dimen/dp_20"
+            android:text="@string/log_food_success_button_done"
+            app:layout_constraintEnd_toEndOf="@id/textViewLabelLoginWith"
+            app:layout_constraintStart_toStartOf="@id/textViewLabelLoginWith"
+            app:layout_constraintTop_toBottomOf="@id/layoutMobileNumber" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.core.widget.NestedScrollView>

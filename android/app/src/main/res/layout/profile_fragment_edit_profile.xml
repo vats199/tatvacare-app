@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/layoutHeader"
+        layout="@layout/layout_common_toolbar_with_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutHeader"
+        app:srcCompat="@drawable/bg_rounded_top" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/recyclerViewGoals"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutHeader">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/screen_space" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/screen_space" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewProfile"
+                android:layout_width="@dimen/dp_82"
+                android:layout_height="@dimen/dp_82"
+                android:layout_marginTop="@dimen/dp_36"
+                android:transitionName="profileImage"
+                android:background="@drawable/bg_circle_white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:backgroundTint="@color/orange"
+                tools:srcCompat="@drawable/ic_dummy_profile_circle" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewEditPhoto"
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_20"
+                android:layout_marginEnd="@dimen/dp_4"
+                android:background="@drawable/bg_circle_white"
+                android:backgroundTint="@color/colorPrimary"
+                android:padding="@dimen/dp_5"
+                app:layout_constraintBottom_toBottomOf="@id/imageViewProfile"
+                app:layout_constraintEnd_toEndOf="@id/imageViewProfile"
+                app:srcCompat="@drawable/ic_edit_pencil"
+                app:tint="@color/white" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelName"
+                style="@style/TextView.Medium.sp_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_32"
+                android:text="@string/edit_profile_label_name"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/imageViewProfile" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/editTextName"
+                style="@style/editTextStroke"
+                android:layout_width="0dp"
+                android:layout_marginTop="@dimen/dp_10"
+                android:digits="@string/AZ_az_dot_single_coat"
+                android:hint="@string/edit_profile_hint_enter_name"
+                android:imeOptions="actionNext"
+                android:maxLength="50"
+                android:transitionName="userName"
+                android:maxLines="1"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/textViewLabelName"
+                tools:text="Rakesh Kapoor" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelEmail"
+                style="@style/TextView.Medium.sp_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:text="@string/edit_profile_label_email"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/editTextName" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/editTextEmail"
+                style="@style/editTextStroke"
+                android:layout_width="0dp"
+                android:layout_marginTop="@dimen/dp_10"
+                android:hint="@string/edit_profile_hint_enter_email"
+                android:imeOptions="actionDone"
+                android:transitionName="userEmail"
+                android:maxLines="1"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/textViewLabelEmail"
+                tools:text="rakesh.kapoor@gmail.com" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelDOC"
+                style="@style/TextView.Medium.sp_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:text="@string/edit_profile_label_date_of_birth"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/editTextEmail" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/editTextDOB"
+                style="@style/editTextStroke"
+                android:layout_width="0dp"
+                android:layout_marginTop="@dimen/dp_10"
+                android:cursorVisible="false"
+                android:drawableEnd="@drawable/ic_calendar_date"
+                android:enabled="false"
+                android:focusable="false"
+                android:longClickable="false"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/textViewLabelDOC"
+                tools:hint="DD/MM/YYYY"
+                tools:text="01/01/2021" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonUpdate"
+                style="@style/buttonSolid"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_40"
+                android:layout_marginBottom="@dimen/dp_24"
+                android:text="@string/edit_profile_button_update"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/editTextDOB"
+                app:layout_constraintVertical_bias="1" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

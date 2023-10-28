@@ -9,18 +9,20 @@ import {
   FlatList,
   TouchableHighlight,
   TouchableNativeFeedback,
+  Platform,
+  NativeModules,
 } from 'react-native';
 import React from 'react';
-import {colors} from '../../constants/colors';
-import {Icons} from '../../constants/icons';
+import { colors } from '../../constants/colors';
+import { Icons } from '../../constants/icons';
 import ProgressBar from '../atoms/ProgressBar';
 import moment from 'moment';
 import PlanItem from '../atoms/PlanItem';
-import {
-  navigateToChronicCareProgram,
-  onPressRenewPlan,
-  openPlanDetails,
-} from '../../routes/Router';
+// import {
+//   navigateToChronicCareProgram,
+//   onPressRenewPlan,
+//   openPlanDetails,
+// } from '../../routes/Router';
 
 type CarePlanViewProps = {
   data?: any;
@@ -33,6 +35,7 @@ const CarePlanView: React.FC<CarePlanViewProps> = ({
   onPressCarePlan,
   allPlans = [],
 }) => {
+  console.log("All PLanss==", allPlans)
   const isFreePlan: boolean =
     data?.patient_plans && data?.patient_plans[0]?.plan_type === 'Free';
 
@@ -54,15 +57,26 @@ const CarePlanView: React.FC<CarePlanViewProps> = ({
 
   const onPressKnowMore = (plan: any) => {
     // navigateToChronicCareProgram();
-    onPressRenewPlan([{planDetails: plan}]);
+    if (Platform.OS == 'ios') {
+      //onPressRenewPlan([{planDetails: plan}]);
+    } else {
+      console.log("Plan Press= ", plan)
+      NativeModules.AndroidBridge.openFreePlanDetailScreen(JSON.stringify(plan))
+    }
   };
 
   const onCarePlanNeedCotainer = () => {
-    navigateToChronicCareProgram();
+    if (Platform.OS == 'ios') {
+      //navigateToChronicCareProgram();
+    } else {
+      NativeModules.AndroidBridge.openCheckAllPlanScreen();
+    }
   };
 
-  const renderPlanItem = ({item, index}: {item: any; index: number}) => {
+  const renderPlanItem = ({ item, index }: { item: any; index: number }) => {
+    console.log("Plan Det==", item)
     return (
+
       <PlanItem plan={item} onPressKnowMore={() => onPressKnowMore(item)} />
     );
   };
@@ -146,7 +160,7 @@ const CarePlanView: React.FC<CarePlanViewProps> = ({
                 key={planIdx}
                 onPress={() => onPressCarePlan(plan)}
                 style={styles.container}>
-                <View style={{flex: 1}}>
+                <View style={{ flex: 1 }}>
                   <View style={styles.details}>
                     <Text style={styles.title}>{plan?.plan_name || '-'}</Text>
                     <Text style={styles.subTitle}>
@@ -158,7 +172,7 @@ const CarePlanView: React.FC<CarePlanViewProps> = ({
                       color={getColor(plan)}
                     />
                     <View style={styles.rowBetween}>
-                      <Text style={[styles.expiry, {color: getColor(plan)}]}>
+                      <Text style={[styles.expiry, { color: getColor(plan) }]}>
                         {getText(plan)}
                       </Text>
                       {/* {showRenewButton(plan) && (

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <com.mytatva.patient.utils.MonitoringEditText
+        android:id="@+id/editText1"
+        style="@style/editTextStroke"
+        android:layout_width="@dimen/dp_42"
+        android:cursorVisible="true"
+        android:gravity="center"
+        android:digits="@string/digit_0_to_9"
+        android:imeOptions="actionNext"
+        android:inputType="number|textNoSuggestions"
+        android:maxLength="1"
+        android:textAlignment="gravity" />
+
+    <com.mytatva.patient.utils.MonitoringEditText
+        android:id="@+id/editText2"
+        style="@style/editTextStroke"
+        android:layout_width="@dimen/dp_42"
+        android:layout_marginStart="@dimen/dp_10"
+        android:cursorVisible="true"
+        android:gravity="center"
+        android:imeOptions="actionNext"
+        android:digits="@string/digit_0_to_9"
+        android:inputType="number|textNoSuggestions"
+        android:maxLength="1"
+        android:textAlignment="gravity" />
+
+    <com.mytatva.patient.utils.MonitoringEditText
+        android:id="@+id/editText3"
+        style="@style/editTextStroke"
+        android:layout_width="@dimen/dp_42"
+        android:layout_marginStart="@dimen/dp_10"
+        android:digits="@string/digit_0_to_9"
+        android:cursorVisible="true"
+        android:gravity="center"
+        android:imeOptions="actionNext"
+        android:inputType="number|textNoSuggestions"
+        android:maxLength="1"
+        android:textAlignment="gravity" />
+
+    <com.mytatva.patient.utils.MonitoringEditText
+        android:id="@+id/editText4"
+        style="@style/editTextStroke"
+        android:layout_width="@dimen/dp_42"
+        android:layout_marginStart="@dimen/dp_10"
+        android:cursorVisible="true"
+        android:gravity="center"
+        android:digits="@string/digit_0_to_9"
+        android:imeOptions="actionDone"
+        android:inputType="number|textNoSuggestions"
+        android:maxLength="1"
+        android:textAlignment="gravity" />
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>

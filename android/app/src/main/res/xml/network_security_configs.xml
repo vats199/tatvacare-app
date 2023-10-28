@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <!--PROD ADMIN-->
+<!--        <domain includeSubdomains="true">admin.mytatva.in</domain>-->
+        <!--DEV ADMIN-->
+<!--        <domain includeSubdomains="true">admin.mytatvadev.in</domain>-->
+        <!--DEV API-->
+        <domain includeSubdomains="true">api.mytatvadev.in</domain>
+        <!--PROD API-->
+        <domain includeSubdomains="true">api.mytatva.in</domain>
+        <!--UAT API-->
+        <domain includeSubdomains="true">api-uat.mytatva.in</domain>
+    </domain-config>
+</network-security-config>

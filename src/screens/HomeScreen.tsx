@@ -7,16 +7,19 @@ import {
   NativeEventEmitter,
   LayoutRectangle,
   Animated,
+  Platform,
+  DeviceEventEmitter,
+  Alert
 } from 'react-native';
-import React, {useEffect} from 'react';
-import {CompositeScreenProps} from '@react-navigation/native';
+import React, { useEffect } from 'react';
+import { CompositeScreenProps } from '@react-navigation/native';
 import {
   AppStackParamList,
   DrawerParamList,
 } from '../interface/Navigation.interface';
-import {Container, Screen} from '../components/styled/Views';
-import {Icons} from '../constants/icons';
-import {colors} from '../constants/colors';
+import { Container, Screen } from '../components/styled/Views';
+import { Icons } from '../constants/icons';
+import { colors } from '../constants/colors';
 import CarePlanView from '../components/organisms/CarePlanView';
 import HealthTip from '../components/organisms/HealthTip';
 import MyHealthInsights from '../components/organisms/MyHealthInsights';
@@ -24,29 +27,30 @@ import MyHealthDiary from '../components/organisms/MyHealthDiary';
 import HomeHeader from '../components/molecules/HomeHeader';
 import AdditionalCareServices from '../components/organisms/AdditionalCareServices';
 import Learn from '../components/organisms/Learn';
-import {DrawerScreenProps} from '@react-navigation/drawer';
-import {
-  navigateTo,
-  navigateToEngagement,
-  navigateToIncident,
-  openUpdateReading,
-  openHealthKitSyncView,
-  openUpdateGoal,
-  navigateToExercise,
-  navigateToBookAppointment,
-  navigateToDiscover,
-  navigateToChronicCareProgram,
-  openPlanDetails,
-  openMedicineExerciseDiet,
-} from '../routes/Router';
+import { DrawerScreenProps } from '@react-navigation/drawer';
+// import {
+//   navigateTo,
+//   navigateToEngagement,
+//   navigateToIncident,
+//   openUpdateReading,
+//   openHealthKitSyncView,
+//   openUpdateGoal,
+//   navigateToExercise,
+//   navigateToBookAppointment,
+//   navigateToDiscover,
+//   navigateToChronicCareProgram,
+//   openPlanDetails,
+//   openMedicineExerciseDiet,
+// } from '../routes/Router';
 import Home from '../api/home';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {StackScreenProps} from '@react-navigation/stack';
-import {useApp} from '../context/app.context';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import { StackScreenProps } from '@react-navigation/stack';
+import { useApp } from '../context/app.context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import TatvaLoader from '../components/atoms/TatvaLoader';
 
-const {RNEventEmitter} = NativeModules;
+
+const { RNEventEmitter } = NativeModules;
 const eventEmitter = new NativeEventEmitter(RNEventEmitter);
 
 type HomeScreenProps = CompositeScreenProps<
@@ -54,8 +58,8 @@ type HomeScreenProps = CompositeScreenProps<
   StackScreenProps<AppStackParamList, 'DrawerScreen'>
 >;
 
-const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
-  const {setUserData, setUserLocation} = useApp();
+const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
+  const { setUserData, setUserLocation } = useApp();
 
   const [loading, setLoading] = React.useState<boolean>(true);
 
@@ -99,11 +103,36 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
     getMyHealthDiaries();
   }, []);
 
+
   // Health Insight Updates
+
+  useEffect(() => {
+    if (Platform.OS == "android") {
+      const subscribeToken = DeviceEventEmitter.addListener(
+        'UserToken',
+        (data: any) => {
+          AsyncStorage.setItem("accessToken", data)
+          getCurrentLocation();
+          getHomeCarePlan();
+          getLearnMoreData();
+          getPlans();
+          getMyHealthInsights();
+          getHCDevicePlans();
+          getMyHealthDiaries();
+        },
+      );
+
+      return () => {
+        subscribeToken.remove();
+      };
+    }
+  }, []);
+
   useEffect(() => {
     const subscribe = eventEmitter.addListener(
       'updatedGoalReadingSuccess',
       () => {
+        console.log("updatedGoalReadingSuccess====")
         refetchHealthInsights();
         refetchHealthDiary();
       },
@@ -122,6 +151,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
     );
 
     return () => {
+      console.log("bookmarkUpdated====")
       subscribe.remove();
     };
   }, []);
@@ -131,6 +161,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
     const subscribe = eventEmitter.addListener(
       'bottomTabNavigationInitiated',
       () => {
+        console.log("bottomTabNavigationInitiated====")
         navigation.closeDrawer();
       },
     );
@@ -145,8 +176,9 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
     const subscribe = eventEmitter.addListener(
       'locationUpdatedSuccessfully',
       (location: any) => {
-        const {city, state, country} = location;
-        setUserLocation({city, state, country});
+        console.log("locationUpdatedSuccessfully====")
+        const { city, state, country } = location;
+        setUserLocation({ city, state, country });
       },
     );
 
@@ -171,7 +203,11 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
     const currentLocation = await AsyncStorage.getItem('location');
     setLocation(currentLocation ? JSON.parse(currentLocation) : {});
     //call for health kit sync
-    await openHealthKitSyncView();
+    if (Platform.OS == 'ios') {
+      //await openHealthKitSyncView();
+    } else {
+
+    }
   };
 
   const getGreetings = () => {
@@ -189,9 +225,9 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   const getHomeCarePlan = async () => {
     setLoading(true);
     const homeCarePlan = await Home.getPatientCarePlan({});
-    const {city, state, country} = homeCarePlan?.data;
+    const { city, state, country } = homeCarePlan?.data;
     if (city && state && country) {
-      setUserLocation({city, state, country});
+      setUserLocation({ city, state, country });
     }
     setCarePlanData(homeCarePlan?.data);
     setUserData(homeCarePlan?.data);
@@ -205,7 +241,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
 
   const getPlans = async () => {
     setLoading(true);
-    const allPlans = await Home.getHomePagePlans({}, {page: 0});
+    const allPlans = await Home.getHomePagePlans({}, { page: 0 });
     setAllPlans(allPlans?.data ?? []);
     setLoading(false);
   };
@@ -235,76 +271,152 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   };
 
   const onPressLocation = () => {
-    navigateTo('SetLocationVC');
+    if (Platform.OS == 'ios') {
+      //navigateTo('SetLocationVC');
+    } else {
+      NativeModules.AndroidBridge.openLocationSelectionScreen();
+    }
   };
 
   const onPressBell = () => {
-    navigateTo('NotificationVC');
+    if (Platform.OS == 'ios') {
+      //navigateTo('NotificationVC');
+    } else {
+      NativeModules.AndroidBridge.openNotificationScreen();
+    }
   };
   const onPressProfile = () => {
     navigation.toggleDrawer();
   };
   const onPressDevices = () => {
-    navigateTo('MyDevices');
+    if (Platform.OS == 'ios') {
+      //navigateTo('MyDevices');
+    } else {
+      NativeModules.AndroidBridge.openDeviceScreen();
+    }
   };
   const onPressDiet = () => {
-    navigateTo('FoodDiaryParentVC');
+    if (Platform.OS == 'ios') {
+      //navigateTo('FoodDiaryParentVC');
+    } else {
+      NativeModules.AndroidBridge.openDietScreen();
+    }
   };
   const onPressExercise = (filteredData: any) => {
-    navigateToExercise([{filteredData: filteredData}, {firstRow: 'exercise'}]);
+    if (Platform.OS == 'ios') {
+      //navigateToExercise([{ filteredData: filteredData }, { firstRow: 'exercise' }]);
+    } else {
+      NativeModules.AndroidBridge.openExerciseDetailsScreen(JSON.stringify(filteredData));
+    }
   };
   const onPressMedicine = (filteredData: any) => {
-    openMedicineExerciseDiet([
-      {filteredData: filteredData},
-      {firstRow: 'medication'},
-    ]);
+    if (Platform.OS == 'ios') {
+      // openMedicineExerciseDiet([
+      //   { filteredData: filteredData },
+      //   { firstRow: 'medication' },
+      // ]);
+    } else {
+      NativeModules.AndroidBridge.openMedicationScreen(JSON.stringify(filteredData));
+    }
   };
   const onPressMyIncidents = () => {
-    navigateToIncident();
+    if (Platform.OS == 'ios') {
+      //navigateToIncident();
+    } else {
+      NativeModules.AndroidBridge.openIncidentScreen();
+    }
   };
 
   const onPressConsultNutritionist = () => {
     if (canBookHealthCoach) {
-      navigateToBookAppointment('HC');
+      if (Platform.OS == 'ios') {
+        //navigateToBookAppointment('HC');
+      } else {
+        NativeModules.AndroidBridge.openBookAppointmentScreen();
+      }
     } else {
-      navigateToChronicCareProgram();
+      if (Platform.OS == 'ios') {
+        //navigateToChronicCareProgram();
+      } else {
+        NativeModules.AndroidBridge.openAllPlanScreen();
+      }
     }
   };
   const onPressConsultPhysio = (type: 'HC' | 'D') => {
     if (canBookHealthCoach) {
-      navigateToBookAppointment(type);
+      if (Platform.OS == 'ios') {
+        //navigateToBookAppointment(type);
+      } else {
+        NativeModules.AndroidBridge.openBookAppointmentScreen();
+      }
     } else {
-      navigateToChronicCareProgram();
+      if (Platform.OS == 'ios') {
+        //navigateToChronicCareProgram();
+      } else {
+        NativeModules.AndroidBridge.openAllPlanScreen();
+      }
     }
   };
   const onPressBookDiagnostic = () => {
-    navigateTo('LabTestListVC');
+    if (Platform.OS == 'ios') {
+      //navigateTo('LabTestListVC');
+    } else {
+      NativeModules.AndroidBridge.openLabTestScreen();
+    }
   };
   const onPressBookDevices = () => {
     if (Object.values(hcDevicePlans.devices).length > 0) {
-      navigateTo('MyDevices');
+      if (Platform.OS == 'ios') {
+        //navigateTo('MyDevices');
+      } else {
+        NativeModules.AndroidBridge.openDeviceScreen();
+      }
     } else {
-      navigateToChronicCareProgram();
+      if (Platform.OS == 'ios') {
+        //navigateToChronicCareProgram();
+      } else {
+        NativeModules.AndroidBridge.openAllPlanScreen();
+      }
     }
   };
   const onPressCarePlan = (plan: any) => {
-    openPlanDetails([{planDetails: plan}]);
+    if (Platform.OS == 'ios') {
+      //openPlanDetails([{ planDetails: plan }]);
+    } else {
+      NativeModules.AndroidBridge.openPurchasedPlanDetailScreen(JSON.stringify(plan));
+    }
   };
 
-  const onPressReading = (filteredData: any, firstRow: any) => {
-    openUpdateReading([{filteredData: filteredData}, {firstRow: firstRow}]);
+  const onPressReading = (filteredData: any, firstRow: any, index: any) => {
+    if (Platform.OS == 'ios') {
+      //openUpdateReading([{ filteredData: filteredData }, { firstRow: firstRow }]);
+    } else {
+      NativeModules.AndroidBridge.openReadingsItemDetailScreen(JSON.stringify(filteredData), JSON.stringify(firstRow), index)
+    }
   };
 
-  const onPressGoal = (filteredData: any, firstRow: any) => {
-    openUpdateGoal([{filteredData: filteredData}, {firstRow: firstRow}]);
+  const onPressGoal = (filteredData: any, firstRow: any, index: any) => {
+    if (Platform.OS == 'ios') {
+      //openUpdateGoal([{ filteredData: filteredData }, { firstRow: firstRow }]);
+    } else {
+      NativeModules.AndroidBridge.openGoalItemDetailScreen(JSON.stringify(filteredData), JSON.stringify(firstRow), index)
+    }
   };
 
   const onPressViewAllLearn = () => {
-    navigateToDiscover();
+    if (Platform.OS == 'ios') {
+      //navigateToDiscover();
+    } else {
+      NativeModules.AndroidBridge.openLearnScreen();
+    }
   };
 
   const onPressLearnItem = (contentId: string, contentType: string) => {
-    navigateToEngagement(contentId.toString());
+    if (Platform.OS == 'ios') {
+      //navigateToEngagement(contentId.toString());
+    } else {
+      NativeModules.AndroidBridge.openLearnDetailsScreen(contentId, contentType);
+    }
   };
 
   const onPressBookmark = async (data: any) => {
@@ -331,8 +443,8 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
           <Animated.ScrollView
             showsVerticalScrollIndicator={false}
             onScroll={Animated.event(
-              [{nativeEvent: {contentOffset: {y: scrollY}}}],
-              {useNativeDriver: true},
+              [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+              { useNativeDriver: true },
             )}>
             <View
               style={styles.header}
@@ -347,7 +459,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
                 {getGreetings()} {carePlanData?.name}!
               </Text>
             </View>
-            <View style={[styles.searchBar, {backgroundColor: 'red'}]} />
+            <View style={[styles.searchBar, { backgroundColor: 'red' }]} />
             <CarePlanView
               data={carePlanData}
               onPressCarePlan={onPressCarePlan}
@@ -407,7 +519,11 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
                 style={styles.searchContainer}
                 activeOpacity={1}
                 onPress={() => {
-                  navigateTo('GlobalSearchParentVC');
+                  if (Platform.OS == 'ios') {
+                    //navigateTo('GlobalSearchParentVC');
+                  } else {
+                    NativeModules.AndroidBridge.openSearchScreen();
+                  }
                 }}>
                 <Icons.Search />
                 <Text style={styles.searchText}>

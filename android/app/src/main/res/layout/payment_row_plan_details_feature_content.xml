@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/dp_90"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:paddingHorizontal="@dimen/dp_2">
+
+    <!-- header text view for header item -->
+    <!--<androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewHeader"
+        style="@style/TextView.SemiBold.sp_12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableEnd="@drawable/ic_info_round"
+        android:drawablePadding="@dimen/dp_5"
+        android:gravity="center"
+        android:text="Features"
+        android:textColor="@color/gray2"
+        android:visibility="gone" />-->
+
+    <!-- content text view for content item -->
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewCount"
+        style="@style/TextView.SemiBold.sp_12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Features"
+        android:textColor="@color/gray2"
+        android:visibility="gone" />
+
+    <!-- content icon image view for feature on/off -->
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewCheck"
+        android:layout_width="@dimen/dp_14"
+        android:layout_height="@dimen/dp_14"
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/selector_status_check" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

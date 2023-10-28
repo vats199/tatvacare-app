@@ -1,22 +1,34 @@
-import {Linking, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import { Linking, NativeModules, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
-import {colors} from '../../constants/colors';
-import {Icons} from '../../constants/icons';
-import {navigateTo, navigateToShareKit} from '../../routes/Router';
+import { colors } from '../../constants/colors';
+import { Icons } from '../../constants/icons';
+//import { navigateTo, navigateToShareKit } from '../../routes/Router';
 
 type DrawerMoreProps = {
   onPressAboutUs: () => void;
 };
 
-const DrawerMore: React.FC<DrawerMoreProps> = ({onPressAboutUs = () => {}}) => {
+const DrawerMore: React.FC<DrawerMoreProps> = ({ onPressAboutUs = () => { } }) => {
   const onAccountSettingsPress = () => {
-    navigateTo('AccountSettingVC');
+    if (Platform.OS == 'ios') {
+      //navigateTo('AccountSettingVC');
+    } else {
+      NativeModules.AndroidBridge.openAccountSettingScreen();
+    }
   };
   const onHelpAndSupportPress = () => {
-    navigateTo('HelpAndSupportVC');
+    if (Platform.OS == 'ios') {
+      //navigateTo('HelpAndSupportVC');
+    } else {
+      NativeModules.AndroidBridge.openHelpSupportScreen();
+    }
   };
   const onShareAppPress = () => {
-    navigateToShareKit();
+    if (Platform.OS == 'ios') {
+      //navigateToShareKit();
+    } else {
+
+    }
   };
 
   const onPressRateApp = () => {

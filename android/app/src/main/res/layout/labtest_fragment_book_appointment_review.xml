@@ -1,0 +1,595 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/layoutHeader"
+        layout="@layout/layout_common_toolbar_with_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutHeader">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/screen_space" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/screen_space" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layoutContent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutBookingFor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imageViewIconBookingFor"
+                        android:layout_width="@dimen/dp_34"
+                        android:layout_height="@dimen/dp_34"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_booking_for" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewLabelBookingFor"
+                        style="@style/TextView.SemiBold.sp_16"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_18"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="@string/labtest_appointment_review_label_booking_for"
+                        android:textColor="@color/textBlack1"
+                        app:layout_constraintBottom_toBottomOf="@id/imageViewIconBookingFor"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/imageViewIconBookingFor"
+                        app:layout_constraintTop_toTopOf="@id/imageViewIconBookingFor" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewName"
+                        style="@style/TextView.Medium.sp_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_8"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="@color/textBlack1"
+                        app:layout_constraintEnd_toEndOf="@id/textViewLabelBookingFor"
+                        app:layout_constraintStart_toStartOf="@id/textViewLabelBookingFor"
+                        app:layout_constraintTop_toBottomOf="@id/imageViewIconBookingFor"
+                        tools:text="Rakesh Kapoor" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewEmail"
+                        style="@style/TextView.Regular.sp_13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_8"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="@color/textBlack1"
+                        app:layout_constraintEnd_toEndOf="@id/textViewLabelBookingFor"
+                        app:layout_constraintStart_toStartOf="@id/textViewLabelBookingFor"
+                        app:layout_constraintTop_toBottomOf="@id/textViewName"
+                        tools:text="test@gmail.com" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewAge"
+                        style="@style/TextView.Regular.sp_13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_8"
+                        android:alpha="0.8"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="@color/textBlack1"
+                        app:layout_constraintStart_toStartOf="@id/textViewName"
+                        app:layout_constraintTop_toBottomOf="@id/textViewEmail"
+                        tools:text="Age : 55" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewGender"
+                        style="@style/TextView.Regular.sp_13"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_8"
+                        android:alpha="0.8"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="@color/textBlack1"
+                        app:layout_constraintBaseline_toBaselineOf="@id/textViewAge"
+                        app:layout_constraintEnd_toEndOf="@id/textViewName"
+                        app:layout_constraintHorizontal_bias="0.25"
+                        app:layout_constraintStart_toEndOf="@id/textViewAge"
+                        tools:text="Gender : Male" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutAppointmentDateTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_20">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imageViewIconAppointmentDateTime"
+                        android:layout_width="@dimen/dp_34"
+                        android:layout_height="@dimen/dp_34"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_appointment_date_time" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewLabelAppointmentDateTime"
+                        style="@style/TextView.SemiBold.sp_16"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_18"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="@string/labtest_appointment_review_label_appointment_date_and_time"
+                        android:textColor="@color/textBlack1"
+                        app:layout_constraintBottom_toBottomOf="@id/imageViewIconAppointmentDateTime"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/imageViewIconAppointmentDateTime"
+                        app:layout_constraintTop_toTopOf="@id/imageViewIconAppointmentDateTime" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewAppointmentDate"
+                        style="@style/TextView.Regular.sp_13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_8"
+                        android:alpha="0.8"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="@color/textBlack1"
+                        app:layout_constraintEnd_toEndOf="@id/textViewLabelAppointmentDateTime"
+                        app:layout_constraintStart_toStartOf="@id/textViewLabelAppointmentDateTime"
+                        app:layout_constraintTop_toBottomOf="@id/imageViewIconAppointmentDateTime"
+                        tools:text="Fri, 25 Feb,2022" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewAppointmentTime"
+                        style="@style/TextView.Regular.sp_13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_8"
+                        android:alpha="0.8"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="@color/textBlack1"
+                        app:layout_constraintEnd_toEndOf="@id/textViewAppointmentDate"
+                        app:layout_constraintStart_toStartOf="@id/textViewAppointmentDate"
+                        app:layout_constraintTop_toBottomOf="@id/textViewAppointmentDate"
+                        tools:text="10:00 AM - 10:30 AM" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutLabDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_20">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imageViewIconLabDetails"
+                        android:layout_width="@dimen/dp_34"
+                        android:layout_height="@dimen/dp_34"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_lab_details" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewLabelLabDetails"
+                        style="@style/TextView.SemiBold.sp_16"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_18"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="@string/labtest_appointment_review_label_lab_details"
+                        android:textColor="@color/textBlack1"
+                        app:layout_constraintBottom_toBottomOf="@id/imageViewIconLabDetails"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/imageViewIconLabDetails"
+                        app:layout_constraintTop_toTopOf="@id/imageViewIconLabDetails" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewLabName"
+                        style="@style/TextView.Medium.sp_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_8"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="@color/textBlack1"
+                        app:layout_constraintEnd_toEndOf="@id/textViewLabelLabDetails"
+                        app:layout_constraintStart_toStartOf="@id/textViewLabelLabDetails"
+                        app:layout_constraintTop_toBottomOf="@id/imageViewIconLabDetails"
+                        tools:text="Mytatva Labs" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewLabLocation"
+                        style="@style/TextView.Regular.sp_13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:alpha="0.8"
+                        android:drawableStart="@drawable/ic_setting_location_gray"
+                        android:drawablePadding="@dimen/dp_8"
+                        android:drawableTint="@color/textBlack1Transparent"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:visibility="gone"
+                        android:textColor="@color/textBlack1"
+                        app:layout_constraintEnd_toEndOf="@id/textViewLabName"
+                        app:layout_constraintStart_toStartOf="@id/textViewLabName"
+                        app:layout_constraintTop_toBottomOf="@id/textViewLabName"
+                        tools:text="Saki Naka, Mumbai" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutSamplePickupFrom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_20">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imageViewIconSamplePickupFrom"
+                        android:layout_width="@dimen/dp_34"
+                        android:layout_height="@dimen/dp_34"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_sample_pickup_from" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewLabelSamplePickupFrom"
+                        style="@style/TextView.SemiBold.sp_16"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_18"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="@string/labtest_appointment_review_label_sample_pickup_from"
+                        android:textColor="@color/textBlack1"
+                        app:layout_constraintBottom_toBottomOf="@id/imageViewIconSamplePickupFrom"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/imageViewIconSamplePickupFrom"
+                        app:layout_constraintTop_toTopOf="@id/imageViewIconSamplePickupFrom" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewAddressType"
+                        style="@style/TextView.Medium.sp_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_8"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="@color/textBlack1"
+                        app:layout_constraintEnd_toEndOf="@id/textViewLabelSamplePickupFrom"
+                        app:layout_constraintStart_toStartOf="@id/textViewLabelSamplePickupFrom"
+                        app:layout_constraintTop_toBottomOf="@id/imageViewIconSamplePickupFrom"
+                        tools:text="Home" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewPickupFromAddress"
+                        style="@style/TextView.Regular.sp_13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:alpha="0.8"
+                        android:lineSpacingExtra="@dimen/dp_8"
+                        android:textColor="@color/textBlack1"
+                        app:layout_constraintEnd_toEndOf="@id/textViewAddressType"
+                        app:layout_constraintStart_toStartOf="@id/textViewAddressType"
+                        app:layout_constraintTop_toBottomOf="@id/textViewAddressType"
+                        tools:text="Rakesh Kapoor\nA-001, Madhuban\nMG Road\nMumbai 401305\n+91 9876543210" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutItems"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_20">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imageViewIconItems"
+                        android:layout_width="@dimen/dp_34"
+                        android:layout_height="@dimen/dp_34"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_labtest_heart" />
+                    <!--ic_lab_item-->
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewLabelItems"
+                        style="@style/TextView.SemiBold.sp_16"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_18"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="@color/textBlack1"
+                        app:layout_constraintBottom_toBottomOf="@id/imageViewIconItems"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/imageViewIconItems"
+                        app:layout_constraintTop_toTopOf="@id/imageViewIconItems"
+                        tools:text="2 items" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewTestCounts"
+                        style="@style/TextView.Medium.sp_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_8"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="1 test(s)"
+                        android:textColor="@color/textBlack1"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="@id/textViewLabelItems"
+                        app:layout_constraintStart_toStartOf="@id/textViewLabelItems"
+                        app:layout_constraintTop_toBottomOf="@id/imageViewIconItems" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerViewCartItems"
+                        style="@style/TextView.Medium.sp_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_8"
+                        android:orientation="vertical"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintEnd_toEndOf="@id/textViewLabelItems"
+                        app:layout_constraintStart_toStartOf="@id/textViewLabelItems"
+                        app:layout_constraintTop_toBottomOf="@id/textViewTestCounts"
+                        tools:itemCount="2"
+                        tools:listitem="@layout/labtest_row_appointment_review_cart_items" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View style="@style/viewLine" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/layoutItemPrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/TextView.Regular.sp_13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:alpha="0.8"
+                        android:text="@string/labtest_appointment_review_label_item_total"
+                        android:textColor="@color/textBlack1" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewItemTotalOld"
+                        style="@style/TextView.Regular.sp_11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:alpha="0.6"
+                        android:foreground="@drawable/line_strike_through"
+                        android:textColor="@color/textBlack1"
+                        tools:text="₹700" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewItemTotalNew"
+                        style="@style/TextView.Regular.sp_16"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_5"
+                        android:textColor="@color/textBlack1"
+                        tools:text="₹349.0" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/layoutHomeCollectionCharges"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/TextView.Regular.sp_13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:alpha="0.8"
+                        android:text="@string/labtest_appointment_review_label_home_collection_charges"
+                        android:textColor="@color/textBlack1" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewHomeCollectionChargeOld"
+                        style="@style/TextView.Regular.sp_11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:alpha="0.6"
+                        android:foreground="@drawable/line_strike_through"
+                        android:textColor="@color/textBlack1"
+                        tools:text="₹250.0" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewHomeCollectionChargeNew"
+                        style="@style/TextView.Regular.sp_16"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_5"
+                        android:textColor="@color/colorPrimary"
+                        tools:text="₹349.0" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewHomeCollectionChargeFree"
+                        style="@style/TextView.Medium.sp_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_5"
+                        android:textColor="@color/colorPrimary"
+                        android:visibility="gone"
+                        tools:text="FREE" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelFreeHomeSamplePickup"
+                    style="@style/TextView.Regular.sp_11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/labtest_appointment_review_label_free_home_sample_pickup"
+                    android:textColor="@color/colorPrimary" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/layoutServiceCharge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/TextView.Regular.sp_13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:alpha="0.8"
+                        android:text="@string/labtest_cart_label_service_charge"
+                        android:textColor="@color/textBlack1" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewServiceCharge"
+                        style="@style/TextView.Regular.sp_16"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_5"
+                        android:textColor="@color/textBlack1"
+                        tools:text="₹0" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <View style="@style/viewLine" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/layoutOrderTotal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewLabelOrderTotal"
+                        style="@style/TextView.Medium.sp_12"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/labtest_appointment_review_label_order_total"
+                        android:textColor="@color/textBlack1" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewOrderTotal"
+                        style="@style/TextView.Medium.sp_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/textBlack1"
+                        tools:text="₹349.0" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <View style="@style/viewLine" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/layoutAmountPayable"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewLabelAmountPayable"
+                        style="@style/TextView.Medium.sp_12"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/labtest_appointment_review_label_amount_payable"
+                        android:textColor="@color/textBlack1" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewAmountPayable"
+                        style="@style/TextView.Medium.sp_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/textBlack1"
+                        tools:text="₹349.0" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatCheckBox
+                    android:id="@+id/checkBoxAgreeTerms"
+                    style="@style/checkBox"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:text="@string/add_account_label_i_agree_to_the_terms_and_conditions_and_privacy_policy" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonSelectPaymentMethod"
+                style="@style/buttonSolid"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/screen_space"
+                android:layout_marginTop="@dimen/dp_32"
+                android:layout_marginEnd="@dimen/screen_space"
+                android:layout_marginBottom="@dimen/dp_24"
+                android:text="@string/labtest_appointment_review_button_select_payment_method"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutContent"
+                app:layout_constraintVertical_bias="1" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

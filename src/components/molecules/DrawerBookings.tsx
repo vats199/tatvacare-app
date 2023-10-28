@@ -1,17 +1,25 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import { NativeModules, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
-import {colors} from '../../constants/colors';
-import {Icons} from '../../constants/icons';
-import {navigateTo} from '../../routes/Router';
+import { colors } from '../../constants/colors';
+import { Icons } from '../../constants/icons';
+//import { navigateTo } from '../../routes/Router';
 
 type DrawerBookingsProps = {};
 
-const DrawerBookings: React.FC<DrawerBookingsProps> = ({}) => {
+const DrawerBookings: React.FC<DrawerBookingsProps> = ({ }) => {
   const onPressConsultations = () => {
-    navigateTo('AppointmentsHistoryVC');
+    if (Platform.OS == 'ios') {
+      //navigateTo('AppointmentsHistoryVC');
+    } else {
+      NativeModules.AndroidBridge.openAllAppointmentScreen();
+    }
   };
   const onPressLabTests = () => {
-    navigateTo('LabTestListVC');
+    if (Platform.OS == 'ios') {
+      //navigateTo('LabTestListVC');
+    } else {
+      NativeModules.AndroidBridge.openLabTestScreen();
+    }
   };
 
   return (

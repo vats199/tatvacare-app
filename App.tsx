@@ -6,28 +6,46 @@ import {
   AppState,
   AppStateStatus,
   Alert,
-  NativeModules,
+  NativeModules, DeviceEventEmitter
 } from 'react-native';
-import React from 'react';
-import Router, {openHealthKitSyncView} from './src/routes/Router';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import React, { useEffect } from 'react';
+import Router, { openHealthKitSyncView } from './src/routes/Router';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import LocationBottomSheet, {
   LocationBottomSheetRef,
 } from './src/components/molecules/LocationBottomSheet';
 import Geolocation from 'react-native-geolocation-service';
-import {request, check, PERMISSIONS, RESULTS} from 'react-native-permissions';
-import {Linking} from 'react-native';
+import { request, check, PERMISSIONS, RESULTS } from 'react-native-permissions';
+import { Linking } from 'react-native';
 import Home from './src/api/home';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {AppProvider} from './src/context/app.context';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {PaperProvider} from 'react-native-paper';
+import { AppProvider } from './src/context/app.context';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { PaperProvider } from 'react-native-paper';
 
 const App = () => {
-  const {height, width} = useWindowDimensions();
-  const Navigation = NativeModules.Navigation;
-  const showTabBarNative = Navigation.showTabbar;
-  const hideTabBarNative = Navigation.hideTabbar;
+
+  useEffect(() => {
+    if (Platform.OS == "android") {
+      const subscribe = DeviceEventEmitter.addListener(
+        'UserToken',
+        (data: any) => {
+          AsyncStorage.setItem("accessToken", data)
+          console.log("Device Token=== ", data);
+        },
+      );
+
+      return () => {
+        subscribe.remove();
+      };
+    }
+
+  }, []);
+
+  const { height, width } = useWindowDimensions();
+  //const Navigation = NativeModules.Navigation;
+  //const showTabBarNative = Navigation.showTabbar;
+  //const hideTabBarNative = Navigation.hideTabbar;
 
   const [location, setLocation] = React.useState<object>({});
   const appState = React.useRef<AppStateStatus>(AppState.currentState);
@@ -95,7 +113,7 @@ const App = () => {
         // Handle location error here
         requestLocationPermission(false);
       },
-      {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 },
     );
   };
 
@@ -142,7 +160,7 @@ const App = () => {
       await AsyncStorage.setItem('location', JSON.stringify(locationPayload));
       await Home.updatePatientLocation({}, locationPayload);
       BottomSheetRef.current?.hide();
-      showTabBarNative();
+      //showTabBarNative();
     }
   };
 
@@ -194,7 +212,7 @@ const App = () => {
   }, []);
 
   return (
-    <GestureHandlerRootView style={{height, width}}>
+    <GestureHandlerRootView style={{ height, width }}>
       <SafeAreaProvider>
         <PaperProvider>
           <AppProvider>

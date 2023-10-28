@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/layoutHeader"
+        layout="@layout/layout_common_toolbar_with_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutHeader">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/screen_space" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/screen_space" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layoutContent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelName"
+                    style="@style/TextView.Medium.sp_14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:text="@string/add_patient_label_name"
+                    android:textColor="@color/textBlack1" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/editTextName"
+                    style="@style/editTextStroke"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:hint="@string/add_patient_hint_enter_name"
+                    android:imeOptions="actionNext"
+                    android:digits="@string/AZ_az_dot_single_coat"
+                    android:maxLength="50"
+                    android:singleLine="true" />
+
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelEmail"
+                    style="@style/TextView.Medium.sp_14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:text="@string/add_patient_label_email"
+                    android:textColor="@color/textBlack1" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/editTextEmail"
+                    style="@style/editTextStroke"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:hint="@string/add_patient_hint_enter_email"
+                    android:imeOptions="actionNext"
+                    android:inputType="textEmailAddress" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelEmailDisclaimer"
+                    style="@style/TextView.Regular.sp_12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_6"
+                    android:text="@string/add_patient_label_email_disclaimer"
+                    android:textColor="@color/textBlack1" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelAge"
+                    style="@style/TextView.Medium.sp_14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:text="@string/add_patient_label_age"
+                    android:textColor="@color/textBlack1" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/editTextAge"
+                    style="@style/editTextStroke"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:hint="@string/add_patient_hint_enter_age"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:maxLength="3"
+                    android:maxLines="1" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelAddressType"
+                    style="@style/TextView.Medium.sp_14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:text="@string/add_patient_label_gender"
+                    android:textColor="@color/textBlack1" />
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:orientation="horizontal">
+
+                    <!--<androidx.appcompat.widget.AppCompatRadioButton
+                        android:id="@+id/radioMale"
+                        style="@style/radioButton"
+                        android:checked="true"
+                        android:paddingStart="@dimen/dp_24"
+                        android:paddingEnd="@dimen/dp_24"
+                        android:text="@string/add_patient_label_male" />
+
+                    <androidx.appcompat.widget.AppCompatRadioButton
+                        android:id="@+id/radioFemale"
+                        style="@style/radioButton"
+                        android:paddingStart="@dimen/dp_24"
+                        android:paddingEnd="@dimen/dp_24"
+                        android:text="@string/add_patient_label_female" />-->
+
+                    <androidx.appcompat.widget.AppCompatRadioButton
+                        android:id="@+id/radioMale"
+                        style="@style/radioAddressType"
+                        android:checked="true"
+                        android:text="@string/add_patient_label_male" />
+
+                    <androidx.appcompat.widget.AppCompatRadioButton
+                        android:id="@+id/radioFemale"
+                        style="@style/radioAddressType"
+                        android:layout_marginStart="@dimen/dp_24"
+                        android:text="@string/add_patient_label_female" />
+
+                    <androidx.appcompat.widget.AppCompatRadioButton
+                        android:id="@+id/radioOther"
+                        style="@style/radioAddressType"
+                        android:text="@string/add_patient_label_other"
+                        android:visibility="gone" />
+
+                </RadioGroup>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelRelation"
+                    style="@style/TextView.Medium.sp_14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:text="@string/add_patient_label_relation"
+                    android:textColor="@color/textBlack1" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/editTextRelation"
+                    style="@style/editTextStroke"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:cursorVisible="false"
+                    android:drawableEnd="@drawable/ic_dropdown_gray"
+                    android:focusable="false"
+                    android:hint="@string/add_patient_hint_select_relation"
+                    android:imeOptions="actionDone"
+                    android:longClickable="false" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelRelationDisclaimer"
+                    style="@style/TextView.Regular.sp_12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_6"
+                    android:text="@string/add_patient_label_relation_disclaimer"
+                    android:textColor="@color/textBlack1" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonSave"
+                style="@style/buttonSolid"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/screen_space"
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginEnd="@dimen/screen_space"
+                android:layout_marginBottom="@dimen/dp_24"
+                android:text="@string/add_patient_button_save"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutContent"
+                app:layout_constraintVertical_bias="1" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,8 +15,8 @@ import {getEncryptedText} from '../../api/base';
 
 type MyHealthInsightsProps = {
   data: any;
-  onPressReading: (filteredData: any, firstRow: any) => void;
-  onPressGoal: (filteredData: any, firstRow: any) => void;
+  onPressReading: (filteredData: any, firstRow: any, index : any) => void;
+  onPressGoal: (filteredData: any, firstRow: any, index : any) => void;
 };
 
 const MyHealthInsights: React.FC<MyHealthInsightsProps> = ({
@@ -99,7 +99,7 @@ const MyHealthInsights: React.FC<MyHealthInsightsProps> = ({
       <TouchableOpacity
         key={index.toString()}
         style={styles.hiItemContainerBottom}
-        onPress={() => onPressReading(data?.readings, item.keys)}>
+        onPress={() => onPressReading(data?.readings, item.keys, index)}>
         <View style={[styles.row, styles.flex]}>
           <Image
             resizeMode="contain"
@@ -126,7 +126,7 @@ const MyHealthInsights: React.FC<MyHealthInsightsProps> = ({
       <TouchableOpacity
         key={index.toString()}
         style={styles.hiItemContainerTop}
-        onPress={() => onPressGoal(data?.goals, item.keys)}>
+        onPress={() => onPressGoal(data?.goals, item.keys,index)}>
         <View style={[styles.row, styles.flex]}>
           <Image
             resizeMode="contain"

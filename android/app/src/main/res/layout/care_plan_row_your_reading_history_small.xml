@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rootSub"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/dp_4"
+        android:layout_marginTop="@dimen/dp_4"
+        android:layout_marginEnd="@dimen/dp_4"
+        android:layout_marginBottom="@dimen/dp_4"
+        android:background="@drawable/bg_common_rounded_rect_10"
+        android:elevation="@dimen/dp_2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_min="@dimen/dp_124"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewBg"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:alpha="0.1"
+            android:background="@drawable/bg_common_rounded_rect_10"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="0dp"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.35"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/imageViewIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                app:shapeAppearance="@style/TopRightCornerRounded"
+                tools:srcCompat="@drawable/ic_bg_oxy" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewUpdatedAt"
+            style="@style/TextView.Medium.sp_10"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_5"
+            android:alpha="0.5"
+            android:drawableEnd="@drawable/ic_next_arrow_gray"
+            android:drawablePadding="@dimen/dp_5"
+            android:ellipsize="end"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:freezesText="true"
+            android:gravity="center"
+            android:lines="2"
+            android:maxLines="2"
+            android:scrollHorizontally="true"
+            android:text="Updated today"
+            android:textColor="@color/textBlack1"
+            android:textSize="@dimen/dp_10"
+            android:visibility="invisible"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewAverageReadingSmall"
+            style="@style/TextView.Medium.sp_10"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_14"
+            android:layout_marginEnd="@dimen/dp_14"
+            android:layout_marginBottom="@dimen/dp_2"
+            android:alpha="0.5"
+            android:ellipsize="end"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:freezesText="true"
+            android:maxLines="2"
+            android:text="Average reading\nof others - x"
+            android:textColor="@color/textBlack1"
+            android:textSize="@dimen/dp_10"
+            android:visibility="gone"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toTopOf="@id/textViewUpdatedAt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/layoutValue"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginBottom="@dimen/dp_2"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@id/textViewAverageReadingSmall"
+            app:layout_constraintEnd_toEndOf="@id/textViewUpdatedAt"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="@id/textViewUpdatedAt">
+
+            <com.google.android.flexbox.FlexboxLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="visible"
+
+                app:flexDirection="row"
+                app:flexWrap="wrap">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewValue"
+                    style="@style/TextView.Medium.sp_16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:maxLines="1"
+                    android:text="120"
+                    android:textColor="@color/textBlack1"
+                    android:textSize="@dimen/dp_16" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewUnit"
+                    style="@style/TextView.Medium.sp_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:layout_marginStart="@dimen/dp_2"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:maxLines="1"
+                    android:text="L"
+                    android:textColor="@color/textBlack1"
+                    android:textSize="@dimen/dp_10"
+                    app:layout_alignSelf="baseline" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewValueSeparator"
+                    style="@style/TextView.Medium.sp_16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:maxLines="1"
+                    android:text="/"
+                    android:textColor="@color/textBlack1"
+                    android:textSize="@dimen/dp_16" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewValue2"
+                    style="@style/TextView.Medium.sp_16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:maxLines="1"
+                    android:text="80"
+                    android:textColor="@color/textBlack1"
+                    android:textSize="@dimen/dp_16" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewUnit2"
+                    style="@style/TextView.Medium.sp_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:maxLines="1"
+                    android:layout_marginStart="@dimen/dp_2"
+                    android:text="L"
+                    android:textColor="@color/textBlack1"
+                    android:textSize="@dimen/dp_10"
+                    app:layout_alignSelf="baseline" />
+
+            </com.google.android.flexbox.FlexboxLayout>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewReadingName"
+            style="@style/TextView.SemiBold.sp_13"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_2"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:breakStrategy="simple"
+            android:text="Heart rate"
+            android:textSize="@dimen/dp_13"
+            app:layout_constraintBottom_toTopOf="@id/layoutValue"
+            app:layout_constraintEnd_toStartOf="@id/cardViewIcon"
+            app:layout_constraintStart_toStartOf="@id/textViewUpdatedAt"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewDefaultMessage"
+            style="@style/TextView.Medium.sp_11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:alpha="0.5"
+            android:drawableEnd="@drawable/ic_next_arrow_gray"
+            android:drawablePadding="@dimen/dp_5"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="Tap to update"
+            android:textColor="@color/textBlack1"
+            android:textSize="@dimen/dp_11"
+            android:visibility="visible"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toBottomOf="@id/textViewUpdatedAt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textViewUpdatedAt" />
+
+        <!--<androidx.constraintlayout.widget.Group
+            android:id="@+id/groupReadingValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:constraint_referenced_ids="layoutValue,textViewUpdatedAt" />-->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

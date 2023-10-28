@@ -1,3 +1,1405 @@
-<resources>
-    <string name="app_name">TatvacareApp</string>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">MyTatva</string>
+
+    <!-- Azure Storage Credentials Old-->
+    <!--<string name="azure_account_name">developerstemp</string>
+    <string name="azure_access_key">yOLHVXsNedswUpeXDAEAsido9gzPuHVYAXm5Ss6sLeo2M7eOZPEXxd+jyBAU7K5AYhbSrK+MJ2JyLdu8ym9r9g==</string>-->
+    <!-- ========================= -->
+
+    <!-- Azure Storage Credentials Live-->
+    <!--<string name="azure_account_name_dev">mytatvahldevstorage</string>
+    <string name="azure_access_key_dev">uV5ueScj6CaWDTm6TOF8JBYf2SrqhqN8yXMfNveXLH998gcLIz5pUkZkkjktZSDELOrLUhnTxuW2cw4OhTFFfg==</string>-->
+    <!-- ========================= ========================= -->
+
+    <!-- Azure Storage Credentials Production-->
+    <!--<string name="azure_account_name">aztatvaprodstorage</string>
+    <string name="azure_access_key">o0L6kqnwjBW96Ttj75eHWfJAWABK/1cUuFD658PDvtVbOuxWufQpvprhe7lMHsEsd1nE8SX3tJ5m+xg6VDcJeQ==</string>-->
+    <!-- ========================= ========================= -->
+
+
+    <!-- RazorPay Client Account Test-->
+    <!--<string name="razorpay_key_id_test">rzp_test_1mVRchh6qQGlTr</string>
+    <string name="razorpay_secret_test">JY9F3QfF2cz0TsFJturVXaVd</string>-->
+    <!-- =================================================== -->
+    <!-- RazorPay Client Account Live-->
+    <!--<string name="razorpay_key_id_live">rzp_live_TXnspN3YXFlWPW</string>
+    <string name="razorpay_secret_live">HJVwj3x4iCyZaKSAXl1dBw4O</string>-->
+    <!-- =================================================== -->
+
+    <!-- RazorPay Test Account-->
+    <!--<string name="razorpay_key_id_test">rzp_test_OZVOeKGshVUGun</string>-->
+    <!-- =================================================== -->
+
+    <!-- Freshdesk SDK -->
+    <!-- Freshdesk for image attachment constant string -->
+    <string name="freshchat_file_provider_authority">com.mytatva.patient.provider</string>
+    <!--freshchatDisableFrame - The secret key to hide the branding of freshchat SDK, shared by support@freshdesk.com-->
+    <string name="freshchatDisableFrame">2f39cb5bcd0d3d7bff9743aca69fb4c4</string>
+    <!-- =================================================== -->
+
+    <!-- APXOR SDK STAGING/UAT-->
+    <string name="apxor_key_value">fe260ab5-f0db-4e21-8d36-f7d5ea698255</string>
+    <!-- APXOR SDK -->
+
+    <!-- APXOR SDK PRODUCTION-->
+    <!--<string name="apxor_key_value">37765d29-ed97-4ecd-aed4-06d231986ff6</string>-->
+    <!-- APXOR SDK -->
+
+    <string name="AZ_az">abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+    <string name="AZ_az_dot_single_coat">abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ.\'</string>
+    <string name="AZaz">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+    <string name="digit_0_to_9">0123456789</string>
+
+
+    <string name="connection_exception">No Internet connection. Please check your Internet connection and try again.</string>
+    <string name="socket_time_out_exception">Connection timeout</string>
+    <string name="other_exception">Something is wrong here</string>
+    <string name="label_select_image">Select Image</string>
+    <string name="label_select_video">Select Video</string>
+    <string name="label_g_camera">Camera</string>
+    <string name="label_gallery">Gallery</string>
+    <string name="label_upload_documents">Select Document</string>
+    <!--<string name="label_syncing">Syncing In Progress</string>-->
+    <string name="label_syncing">Syncing In Progress</string>
+    <string name="scan_permission_msg">Please allow permissions to use the scanner</string>
+    <string name="validation_invalid_qr_code" tools:ignore="ExtraTranslation">Invalid QR code</string>
+    <string name="symbol_rupee">₹</string>
+    <string name="alert_skip_coachmark">Please click on ☰ to go over the app tour whenever you’d like</string>
+    <string name="message_goal_info">Goals given on MyTatva are purely suggestive. Please consult your Doctor or Health Coach for personalised goals.</string>
+    <string name="label_edit">Edit</string>
+    <string name="label_delete">Delete</string>
+    <string name="alert_msg_delete">Are you sure you want to delete?</string>
+    <string name="alert_msg_add_appointment_to_calendar">Do you want to add this appointment to Calendar?</string>
+
+    <!--Relation - for add patient to book lab-test-->
+    <array name="relations">
+        <item name="self">Self</item>
+        <item name="spouse">Spouse</item>
+        <item name="parent">Parent</item>
+        <item name="sibling">Sibling</item>
+        <item name="child">Child</item>
+        <item name="other">Other</item>
+    </array>
+
+    <!--Material Calendar-->
+    <array name="appointmentFor">
+        <item name="doctor">Doctor</item>
+        <item name="health_coach">Health Coach</item>
+    </array>
+
+    <!--Material Calendar-->
+    <array name="weekDayTitle" tools:ignore="MissingDefaultResource">
+        <item name="S">Sun</item>
+        <item name="M">Mon</item>
+        <item name="T">Tue</item>
+        <item name="W">Wed</item>
+        <item name="T">Thu</item>
+        <item name="F">Fri</item>
+        <item name="S">Sat</item>
+    </array>
+
+    <string-array name="monthDayTitle" tools:ignore="ExtraTranslation">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
+    <!--End Material Calendar-->
+
+    <!--Ethnicity(RACE CODE) - for Spirometer-->
+    <array name="ethnicity">
+        <item name="caucasian">CAUCASIAN</item>
+        <item name="african_american">AFRICAN_AMERICAN</item>
+        <item name="north_east_asian">NORTH_EAST_ASIAN</item>
+        <item name="south_east_asian">SOUTH_EAST_ASIAN</item>
+        <item name="other_mixed">OTHER_MIXED</item>
+        <item name="north_indian">NORTH_INDIAN</item>
+        <item name="south_indian">SOUTH_INDIAN</item>
+        <item name="east_indian">EAST_INDIAN</item>
+    </array>
+    <!--End Ethnicity(RACE CODE) - for Spirometer-->
+
+    <!-- Twilio -->
+    <string name="permissions_needed">Camera and Microphone permissions needed. Please allow in App Settings for additional functionality.</string>
+    <string name="error_retrieving_access_token">Error retrieving token</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="settings">Settings</string>
+    <string name="codec_title">Set your preferred audio and video codec. Not all codecs are supported with Group rooms. The media server will fallback to OPUS or VP8 if a preferred codec is not supported.</string>
+    <string name="pref_title_audio_codec">Audio Codec</string>
+    <string name="pref_title_video_codec">Video Codec</string>
+    <string name="sender_bandwidth_constraints">Set sender bandwidth constraints. Zero represents the WebRTC default value which varies by codec.</string>
+    <string name="max_audio_bitrate">Max Audio Bitrate (bits per second)</string>
+    <string name="max_video_bitrate">Max Video Bitrate (bits per second)</string>
+    <string name="vp8_simulcast">VP8 Simulcast</string>
+    <string name="audio_device">Audio Device</string>
+    <string name="room_screen_select_device">Select Device</string>
+    <string name="alert_msg_cancel_appointment">Are you sure you want to cancel appointment?</string>
+    <string name="label_avg_reading_of_others_">Average reading of others -</string>
+    <string name="label_average_goal_adherence">Your average %1$s adherence in the past month is %2$s; average %3$s adherence of other patients is %4$s</string>
+    <!-- Twilio end -->
+
+    <!--common_validation start-->
+    <string name="common_validation_empty_access_code">Please enter access code</string>
+    <string name="common_validation_empty_name">Please enter name</string>
+    <string name="validation_valid_name">Please enter valid name</string>
+    <string name="common_validation_empty_first_name">Please enter first name</string>
+    <string name="validation_valid_first_name">Please enter valid first name</string>
+    <string name="common_validation_empty_last_name">Please enter last name</string>
+    <string name="validation_valid_last_name">Please enter valid last name</string>
+    <string name="common_validation_empty_email">Please enter email address</string>
+    <string name="common_validation_invalid_email">Looks like the email address is invalid. Please enter a valid email address.</string>
+    <string name="common_validation_empty_password">Please enter password</string>
+    <string name="common_validation_min_password">Please enter minimum of 8 characters for password</string>
+    <string name="common_validation_invalid_password_pattern">Please enter password with at least one uppercase letter, one lowercase letter, one number and one special character</string>
+    <string name="common_validation_empty_confirm_password">Please enter confirm password</string>
+    <string name="common_validation_password_mismatch">Password and confirm password do not match</string>
+    <string name="common_validation_empty_dob">Please enter DOB</string>
+    <string name="common_validation_agree_terms">Please agree to the terms and conditions</string>
+    <string name="common_validation_select_medical_condition">Please select condition</string>
+    <string name="common_validation_empty_mobile_number">Please enter mobile number</string>
+    <string name="common_validation_invalid_mobile_number">Invalid mobile number. Please don\'t add 0 or +91 before Phone number</string>
+    <string name="common_validation_empty_otp">Please enter OTP</string>
+    <string name="common_validation_invalid_otp">Please enter valid OTP</string>
+    <string name="common_validation_select_language">Please select language</string>
+    <string name="common_validation_select_state">Please select state</string>
+    <string name="common_validation_select_city">Please select city</string>
+    <string name="validation_empty_medicine_name">Please enter medicine name</string>
+    <string name="validation_select_dosage">Please select dosage</string>
+    <string name="validation_select_start_date">Please select start date</string>
+    <string name="validation_select_end_date">Please select end date</string>
+    <string name="validation_select_days">Please select days</string>
+    <string name="validation_add_medication">Please add medication</string>
+    <string name="validation_add_goal">Please add goal</string>
+    <string name="validation_add_reading">Please add reading</string>
+    <string name="validation_empty_height">Please enter height</string>
+    <string name="validation_empty_weight">Please enter weight</string>
+    <string name="validation_empty_target_weight">Please enter target weight</string>
+    <string name="validation_empty_target_duration">Please select target duration</string>
+    <string name="validation_empty_question">Please enter question</string>
+    <string name="validation_select_category">Please select category</string>
+    <string name="validation_empty_answer">Please enter answer</string>
+    <string name="validation_select_date">Please select date</string>
+    <string name="validation_select_time">Please select time</string>
+    <string name="validation_select_exercise">Please select exercise</string>
+    <string name="validation_select_food_type">Please select food type</string>
+    <string name="validation_add_food_dish">Please add food dish</string>
+    <string name="validation_valid_time">Please select valid time</string>
+    <string name="validation_select_start_date_time">Please select start date and time</string>
+    <string name="validation_select_end_date_time">Please select end date and time</string>
+    <string name="validation_valid_end_date_time">Please select valid end date and time</string>
+    <string name="validation_empty_pin_code">Please enter pincode</string>
+    <string name="validation_valid_pin_code">Please enter valid pincode</string>
+    <string name="validation_empty_query">Please enter query</string>
+    <string name="validation_empty_house_number_and_building">Please enter house number and building</string>
+    <string name="validation_valid_house_number_and_building">Please enter minimum of 25 characters for house number and building</string>
+    <string name="validation_empty_full_address">Please enter full address</string>
+    <string name="validation_empty_house_and_building">Please enter house number and building</string>
+    <string name="validation_valid_full_address">Please enter minimum of 25 characters for full address</string>
+    <string name="validation_valid_house_and_building">Please enter minimum of 25 characters for house number and building</string>
+    <string name="validation_empty_street_name">Please enter street name</string>
+    <string name="validation_empty_age">Please enter age</string>
+    <string name="validation_select_clinic">Please select clinic</string>
+    <string name="validation_select_doctor">Please select doctor</string>
+    <string name="validation_select_coach">Please select coach</string>
+    <string name="validation_select_appointment_type">Please select appointment type</string>
+    <string name="validation_select_time_slot">Please select time slot</string>
+    <string name="validation_select_patient">Please select patient</string>
+    <string name="validation_select_address">Please select address</string>
+    <string name="validation_select_what_is_this_about">Please select what this is about</string>
+    <string name="validation_enter_your_question">Please enter your question</string>
+    <string name="validation_enter_document_title">Please add a record.</string>
+    <string name="validation_select_record_type">Please select medical record type</string>
+    <string name="validation_upload_one_doc">Please upload at least one doc</string>
+    <string name="validation_enter_address">Please enter address</string>
+    <string name="validation_select_days_of_week">Please select days of the week</string>
+    <string name="validation_select_frequency">Please select frequency</string>
+    <string name="validation_select_time_of_the_day">Please select time of the day</string>
+    <string name="validation_select_from_time">Please select from time</string>
+    <string name="validation_select_to_time">Please select to time</string>
+    <string name="validation_select_remind_me_every">Please select remind me every</string>
+    <string name="validation_select_remind_me">Please select remind me</string>
+    <string name="validation_enter_fast_blood_glucose">Please enter fast blood glucose</string>
+    <string name="validation_enter_pp_blood_glucose">Please enter PP blood glucose</string>
+    <string name="validation_enter_diastolic">Please enter diastolic</string>
+    <string name="validation_enter_systolic">Please enter systolic</string>
+    <string name="validation_verify_access_code">Please verify access code first</string>
+    <string name="validation_invalid_file_size">Please use file size upto 6 mb</string>
+
+    <string name="validation_device_connection_required">Device connection required</string>
+    <string name="validation_add_height_to_connect_device">Enter your height</string>
+
+    <string name="validation_select_duration">Please select duration</string>
+    <string name="validation_select_ethnicity">Please select ethnicity</string>
+
+    <string name="common_validation_select_gender">Please select gender</string>
+
+    <string name="validation_select_height">Please select height</string>
+    <string name="validation_select_weight">Please select weight</string>
+
+    <!--common_validation end-->
+
+    <!--common_msg start-->
+    <string name="common_msg_location_data_not_found">Location data not found</string>
+    <!--common_msg end-->
+
+    <!--bottom_nav start-->
+    <string name="bottom_nav_label_home">Home</string>
+    <string name="bottom_nav_label_care_plan">Programs</string><!--Care Plan , Programs-->
+    <string name="bottom_nav_label_engage">Learn</string><!--Learn , Discover-->
+    <string name="bottom_nav_label_exercise">Exercise</string>
+    <!--bottom_nav end-->
+
+    <!--add_account start-->
+    <string name="add_account_label_add_account_details">Add Account Details</string>
+    <string name="add_account_label_link_your_doctor">Link Your Doctor</string>
+    <string name="add_account_label_access_code">Access code</string>
+    <string name="add_account_label_need_help">Need help ?</string>
+    <string name="add_account_hint_xxxxxx">XXXXXX</string>
+    <string name="add_account_button_verify">Verify</string>
+    <string name="add_account_label_or">or</string>
+    <string name="add_account_label_scan_qr_code">Scan QR Code</string>
+    <string name="add_account_label_verified_mobile_number">Verified Mobile Number</string>
+    <string name="add_account_hint_enter_your_full_name">Enter your full name</string>
+    <string name="add_account_hint_first_name">First Name</string>
+    <string name="add_account_hint_last_name">Last Name</string>
+    <string name="add_account_hint_enter_your_email_id">Enter your Email ID</string>
+    <string name="add_account_hint_set_your_password">Set your Password</string>
+    <!--<string name="add_account_label_password_note">Enter password with minimum of 8 characters and must contain at least one uppercase letter, one lowercase letter, one number and one special character</string>-->
+    <string name="add_account_label_password_note">Enter password with\n1. Minimum of 8 characters\n2. Must contain at least one uppercase letter\n3. One lowercase letter\n4. One number and\n5. One special character (i.e #@$!%*&amp;)</string>
+    <string name="add_account_hint_confirm_password">Confirm Password</string>
+    <string name="add_account_label_gender">Gender</string>
+    <string name="add_account_radio_male">Male</string>
+    <string name="add_account_radio_female">Female</string>
+    <string name="add_account_radio_prefer_not_to_say">Prefer not to say</string>
+    <string name="add_account_label_date_of_birth">Date of birth</string>
+    <string name="add_account_hint_dd_mm_yyyy">DD/MM/YYYY</string>
+    <string name="add_account_label_i_am_a">I am a</string>
+    <string name="add_account_radio_patient">Patient</string>
+    <string name="add_account_radio_caregiver">Caregiver</string>
+    <string name="add_account_label_i_agree_to_the_terms_and_conditions_and_privacy_policy">I agree to the Terms &amp; Conditions and Privacy Policy</string>
+    <string name="add_account_label_select_your_medical_condition">Select your medical condition</string>
+    <string name="add_account_button_next">Next</string>
+    <string name="add_account_hint_select_medical_condition">Select</string>
+    <!--add_account end-->
+
+    <!--create_password start-->
+    <string name="create_password_label_create_password">Create Password</string>
+    <string name="create_password_hint_password">Password</string>
+    <string name="create_password_hint_confirm_password">Confirm Password</string>
+    <string name="create_password_button_create">Create</string>
+    <!--create_password end-->
+
+    <!--forgot_password start-->
+    <string name="forgot_password_label_forgot_password">Forgot password</string>
+    <string name="forgot_password_label_verify_your_phone_number_via_otp_and_you_can_create_a_new_password">Verify your phone number via OTP and you can create a new password.</string>
+    <string name="forgot_password_label_mobile_number">Mobile Number</string>
+    <string name="forgot_password_hint_mobile_number">Mobile Number</string>
+    <string name="forgot_password_label_enter_otp">Enter OTP</string>
+    <string name="forgot_password_label_didn_t_receive_otp">Didn\'t receive OTP?</string>
+    <string name="forgot_password_label_resend_otp">Resend OTP</string>
+    <string name="forgot_password_label_resend_code">Resend Code</string>
+    <string name="forgot_password_button_verify">Verify</string>
+    <!--forgot_password end-->
+
+    <!--login_verification start-->
+    <string name="login_verification_label_login">Login</string>
+    <string name="login_verification_label_mobile_number">Mobile Number</string>
+    <string name="login_verification_hint_mobile_number">Mobile Number</string>
+    <string name="login_verification_label_enter_otp">Enter OTP</string>
+    <string name="login_verification_label_didn_t_receive_otp">Didn\'t receive OTP?</string>
+    <string name="login_verification_label_resend_otp">Resend OTP</string>
+    <string name="login_verification_button_login">Login</string>
+    <!--login_verification end-->
+
+    <!--login with number start-->
+    <string name="login_label_login_with_otp">Login with OTP</string>
+    <string name="login_hint_mobile_number">Mobile Number</string>
+    <string name="login_hint_enter_mobile_number">Enter Mobile Number</string>
+    <string name="login_button_next">Next</string>
+    <string name="login_label_or">OR</string>
+    <string name="login_button_login_with_password">Login With Password</string>
+    <string name="login_label_don_t_have_an_account">Don\'t have an account?</string>
+    <string name="login_label_sign_up">Sign Up</string>
+    <string name="login_button_continue">Continue</string>
+    <string name="login_label_country_code">+91</string>
+    <string name="login_label_login_title">Login or signup to your \naccount</string>
+    <string name="login_label_login_description">Enter your number to receive a One Time Password.</string>
+    <!--login with number end-->
+
+    <!--login_password start-->
+    <string name="login_password_label_login_with_password">Login with Password</string>
+    <string name="login_password_hint_mobile_number">Mobile Number</string>
+    <string name="login_password_hint_password">Password</string>
+    <string name="login_password_button_submit">Submit</string>
+    <string name="login_password_label_forgot_password">Forgot Password?</string>
+    <string name="login_password_label_don_t_have_an_account">Don\'t have an account?</string>
+    <string name="login_password_label_login_with_otp">Login with OTP</string>
+    <string name="login_password_label_sign_up">Sign Up</string>
+    <string name="login_password_label_don_t_have_password">Don\'t have password?</string>
+    <string name="profile_success_label_congratulations">Congratulations!</string>
+    <string name="profile_success_label_you_have_taken_first_step_on_your_road_to_well_being_your_profile_has_been_setup">You have taken first step on your road to well being. Your profile has been setup.</string>
+    <!--login_password end-->
+
+    <!--search_medicine start-->
+    <string name="search_medicine_hint_search_here">Search here...</string>
+    <string name="search_medicine_title">Search</string>
+    <!--search_medicine end-->
+
+    <!--search_medicine start-->
+    <string name="select_goal_reading_button_submit">Submit</string>
+    <string name="select_goal_reading_title_goal">Add Goals</string>
+    <string name="select_goal_reading_title_reading">Add Readings</string>
+    <!--search_medicine end-->
+
+    <!--set_language start-->
+    <string name="set_language_label_select_your_preferred_language">Select Your Preferred Language</string>
+    <string name="set_language_hint_language">Language</string>
+    <string name="set_language_button_submit">Submit</string>
+    <!--set_language end-->
+
+    <!--select_language start-->
+    <string name="select_language_button_submit">Submit</string>
+    <string name="select_language_title">Select Language</string>
+    <!--select_language end-->
+
+    <!--select_your_location start-->
+    <string name="select_your_location_title">Select your location</string>
+    <string name="select_your_location_label_select_state">Select State</string>
+    <string name="select_your_location_hint_select_state">Select</string>
+    <string name="select_your_location_label_select_city">Select City</string>
+    <string name="select_your_location_hint_select_city">Select</string>
+    <string name="select_your_location_label_or">or</string>
+    <string name="select_your_location_hint_get_my_device_location">Get my device location</string>
+    <string name="select_your_location_button_submit">Submit</string>
+    <!--select_your_location end-->
+
+    <!--setup_drugs start-->
+    <string name="setup_drugs_title">Add your prescription</string>
+    <string name="setup_drugs_label_medicine_name">Medicine Name</string>
+    <string name="setup_drugs_hint_medicine_name">Search</string>
+    <string name="setup_drugs_label_dosage_prescribed_by_your_dr">Dosage Prescribed By Your Dr.</string>
+    <string name="setup_drugs_hint_select_dosage">Select</string>
+    <string name="setup_drugs_label_start_date">Start date</string>
+    <string name="setup_drugs_label_end_date">End date</string>
+    <string name="setup_drugs_hint_dd_mm_yyyy">DD/MM/YYYY</string>
+    <string name="setup_drugs_label_days_selection">Days selection</string>
+    <string name="setup_drugs_hint_select_days">Select</string>
+    <string name="setup_drugs_label_add_medication">Add medication</string>
+    <string name="setup_drugs_label_your_prescription">Your Prescription</string>
+    <string name="setup_drugs_label_add">Add +</string>
+    <string name="setup_drugs_button_next">Next</string>
+    <string name="setup_drugs_label_skip_for_now">Skip for now</string>
+    <string name="setup_drugs_label_add_prescription">Add Prescription</string>
+    <string name="setup_drugs_label_upload_photo_of_prescription_here">Upload photo of prescription here</string>
+    <string name="setup_drugs_button_update">Update</string>
+    <!--setup_drugs end-->
+
+    <!--setup_goal_reading start-->
+    <string name="setup_goal_reading_label_set_your_goals">Define Your Goals</string>
+    <string name="setup_goal_reading_label_we_have_set_goals_for_you_you_can_customize_them_below">Define your Activity Goals that best suit your health.</string>
+    <string name="setup_goal_reading_label_add_more_goal">Add more</string>
+    <string name="setup_goal_reading_label_record_your_readings">Record Your Health Markers</string>
+    <string name="setup_goal_reading_label_let_us_track_these_important_vitals_for_your_condition_you_can_choose_more_vitals_to_track">Define the Health Markers for your condition. You can choose more markers to track</string>
+    <string name="setup_goal_reading_label_add_more_record">Add more</string>
+    <string name="setup_goal_reading_button_complete_setup">Complete setup</string>
+    <string name="setup_goal_reading_button_submit">Submit</string>
+    <!--setup_goal_reading end-->
+
+    <!--setup_height_weight start-->
+    <string name="setup_height_weight_label_add_your_height_and_weight">Update Height and Weight</string>
+    <string name="setup_height_weight_label_height_in_centimeter">Height</string>
+    <string name="setup_height_weight_hint_enter_height">Height</string>
+    <string name="setup_height_weight_hint_enter_feet">Feet</string>
+    <string name="setup_height_weight_hint_enter_inches">Inches</string>
+    <string name="setup_height_weight_label_weight_in_kg">Weight</string>
+    <string name="setup_height_weight_label_enter_weight">Weight</string>
+    <string name="setup_height_weight_label_set_your_weight_goal">Set your weight goal</string>
+    <string name="setup_height_weight_hint_enter_weight_goal">Weight</string>
+    <string name="setup_height_weight_label_in">in</string>
+    <string name="setup_height_weight_hint_select_goal_days">Select</string>
+    <string name="setup_height_weight_hint_select_duration">Duration</string>
+    <string name="setup_height_weight_label_choose_your_activity_level">Choose your activity level</string>
+    <string name="setup_height_weight_label_based_on_your_lifestyle_we_can_assess_your_daily_calorie_requirement">Based on your lifestyle, we can assess your daily calorie requirement.</string>
+    <string name="setup_height_weight_button_update">Update</string>
+    <string name="setup_height_weight_label_skip_for_now">Skip for now</string>
+    <!--setup_height_weight end-->
+
+    <!--sign_up_phone start-->
+    <string name="sign_up_phone_label_sign_up">Create Account/Login</string>
+    <string name="sign_up_phone_hint_verify_your_mobile_number">Enter Mobile Number</string>
+    <string name="sign_up_phone_button_next">Next</string>
+    <string name="sign_up_phone_label_already_have_an_account">Already have an account?</string>
+    <string name="sign_up_phone_label_sign_in">Sign In</string>
+    <!--sign_up_phone end-->
+
+    <!--sign_up_verify_otp start-->
+    <string name="sign_up_verify_otp_label_verify_mobile_no">Verify Mobile No</string>
+    <string name="sign_up_verify_otp_label_mobile_number">Mobile Number</string>
+    <string name="sign_up_verify_otp_hint_mobile_number">Mobile Number</string>
+    <string name="sign_up_verify_otp_label_enter_otp">Enter OTP</string>
+    <string name="sign_up_verify_otp_label_didn_t_receive_otp">Didn\'t receive OTP?</string>
+    <string name="sign_up_verify_otp_label_resend_otp">Resend OTP</string>
+    <string name="sign_up_verify_otp_button_next">Next</string>
+    <string name="sign_up_verify_otp_label_already_have_an_account">Already have an account?</string>
+    <string name="sign_up_verify_otp_label_sign_in">Sign In</string>
+    <!--sign_up_verify_otp end-->
+
+    <!--account_create start-->
+    <string name="account_create_label_success">Success!</string>
+    <string name="account_create_label_your_account_has_been_successfully_created">Your account has been successfully created!</string>
+    <string name="account_create_button_create_profile_now">Create Profile Now</string>
+    <string name="account_create_label_go_to_home_page">Go To Home Page</string>
+    <!--account_create end-->
+
+    <!--days_selection start-->
+    <string name="days_selection_label_days_selection">Days selection</string>
+    <string name="days_selection_label_cancel">Cancel</string>
+    <string name="days_selection_button_select">Select</string>
+    <!--days_selection end-->
+
+    <!--select_medical_condition start-->
+    <string name="select_medical_condition_label_medical_condition">Medical Condition</string>
+    <string name="select_medical_condition_label_cancel">Cancel</string>
+    <string name="select_medical_condition_button_submit">Submit</string>
+    <!--select_medical_condition end-->
+
+    <!--suggested_dosage start-->
+    <string name="suggested_dosage_label_suggested_dosage">Suggested dosage</string>
+    <string name="suggested_dosage_label_cancel">Cancel</string>
+    <string name="suggested_dosage_button_select">Select</string>
+    <!--suggested_dosage end-->
+
+    <!--use_biometric start-->
+    <string name="use_biometric_label_use_biometric">Use Biometric</string>
+    <string name="use_biometric_label_use_your_fingerprint_or_face_for_faster_easier_naccess_to_your_app">Use your fingerprint or face for faster, easier\naccess to your App.</string>
+    <string name="use_biometric_button_enable">Enable</string>
+    <string name="use_biometric_label_skip_for_now">Skip for now</string>
+    <!--use_biometric end-->
+
+    <!--add_incident start-->
+    <string name="add_incident_label_add_incident">Add Health Incident</string>
+    <string name="add_incident_label_would_you_like_to_log_an_incident_now">Would you like to log an incident now?</string>
+    <string name="add_incident_button_yes">Yes</string>
+    <!--add_incident end-->
+
+    <!--care_plan start-->
+    <string name="care_plan_label_incident_free">Incident Free</string>
+    <string name="care_plan_label_your_last_incident_recorded_on">Your last incident recorded on</string>
+    <string name="care_plan_button_add_new_incident">Add</string>
+    <string name="care_plan_label_your_reading_history">Health trends</string>
+    <string name="care_plan_label_view_more">View more</string>
+    <string name="care_plan_label_book_your_test">Book Your Test</string>
+    <string name="care_plan_label_view_more_test">View more</string>
+    <string name="care_plan_label_your_goals_summary">Your goals summary</string>
+    <string name="care_plan_label_upcoming_for_you">Your Appointments</string>
+    <string name="care_plan_label_view_all_appointments">View all</string>
+    <string name="care_plan_button_book">Book</string>
+    <string name="care_plan_label_prescriptions">Prescriptions</string>
+    <string name="care_plan_label_update_prescription">Update</string>
+    <string name="care_plan_label_book_a_diagnostic_test">Book a diagnostic test</string>
+    <string name="care_plan_button_order_test">Order Test</string>
+    <string name="care_plan_label_diet_plan_by_your_health_coach_">Diet Plan (%1$s) by your health coach</string>
+    <string name="care_plan_label_diet_plan_by">By</string>
+    <string name="care_plan_button_download">Download</string>
+    <string name="care_plan_label_records">Records</string>
+    <string name="care_plan_label_view_all_records">View All</string>
+    <string name="care_plan_button_add_record">Add Record +</string>
+    <string name="care_plan_label_days">Days</string>
+    <string name="care_plan_goal_summary_label_daily_goal">Daily Goal</string>
+    <string name="care_plan_goal_summary_button_update">Update</string>
+
+    <string name="care_plan_label_health_incidents">Health Incident(s)</string>
+    <!--care_plan end-->
+
+    <!--request_callback start-->
+    <string name="request_callback_label_this_feature_is_available_offline_on_your_location">This feature is available offline on your location</string>
+    <string name="request_callback_label_request_a_callback_from_our_team_to_get_your_order">Request a callback from our team, to get your order</string>
+    <string name="request_callback_label_for_ahmedabad_based_users_check_out_lab_at_zydus_hospital">For Ahmedabad based users, check out lab at Zydus Hospital</string>
+    <string name="request_callback_button_request_callback">Request Callback</string>
+    <string name="request_callback_label_change_address">Change address</string>
+    <string name="request_callback_button_list_of_tests_offered">List of tests offered</string>
+    <string name="request_callback_label_thank_you_for_requesting_a_callback_an_agent_will_call_you_on_your_registered_mobile_number_soon">Thank you for requesting a callback. An agent will call you on your registered mobile number soon.</string>
+    <string name="request_callback_button_back_to_care_plan">Back to Care Plan</string>
+    <!--request_callback end-->
+
+    <!--chat_list start-->
+    <string name="chat_list_label_chat">Chat</string>
+    <string name="chat_list_label_my_tatva_help">My Tatva Help</string>
+    <string name="chat_list_label_my_tatva_hc">My Tatva Health Coach</string>
+    <string name="chat_list_label_your_app_buddy">Your app buddy</string>
+    <string name="chat_list_label_hi_there_how_can_i_help_you">Hi there! How can I help you?</string>
+    <!--chat_list end-->
+
+    <!--halthcoach_profile start-->
+    <string name="halthcoach_profile_label_languages_spoken">Languages spoken</string>
+    <string name="halthcoach_profile_label_yrs_of_experience">yrs of experience</string>
+    <!--halthcoach_profile end-->
+
+    <!--engage_ask_expert_filter start-->
+    <string name="engage_ask_expert_filter_label_filters">Filters</string>
+    <string name="engage_ask_expert_filter_label_reset">Reset</string>
+    <string name="engage_ask_expert_filter_label_topics">Topics</string>
+    <string name="engage_ask_expert_filter_label_question_type">Question type</string>
+    <string name="engage_ask_expert_filter_button_apply">Apply</string>
+    <!--engage_ask_expert_filter end-->
+
+    <!--engage_discover_filter start-->
+    <string name="engage_discover_filter_label_filters">Filters</string>
+    <string name="engage_discover_filter_label_reset">Reset</string>
+    <string name="engage_discover_filter_label_only_show_content_from_your_doctor_health_coach">Only show content from your doctor/health coach</string>
+    <string name="engage_discover_filter_label_topics">Topics</string>
+    <string name="engage_discover_filter_label_content_types">Content Types</string>
+    <string name="engage_discover_filter_button_apply">Apply</string>
+    <!--engage_discover_filter end-->
+
+    <!--report_comment start-->
+    <string name="report_comment_label_report_comment">Report comment</string>
+    <string name="report_comment_button_submit">Submit</string>
+    <string name="report_comment_hint_type_here">Type here..</string>
+    <!--report_comment end-->
+
+    <!--connect smart scale start-->
+    <string name="connect_smart_scale_label_connect_device">Connect Smart Scale Device</string>
+    <string name="connect_smart_scale_label_lets_connect_smart_scale">Let’s Connect Your Smart Scale</string>
+    <string name="connect_smart_scale_label_how_to_connect">Learn how to connect</string>
+    <string name="connect_smart_scale_label_do_you_have_device">Do you already have a smart\nscale device?</string>
+    <string name="connect_label_do_you_have_spirometer_device">Do you already have a Spirometer device?</string>
+    <string name="connect_smart_scale_label_yes_have">Yes I do have one</string>
+    <string name="connect_smart_scale_label_want_to_purchase">No, I want to purchase one</string>
+    <string name="connect_smart_scale_label_bluetooth">Bluetooth</string>
+    <string name="connect_smart_scale_label_step_up">Step-up on Scale.\nPress ‘Search’ to discover it.</string>
+    <string name="connect_smart_scale_button_search">Search device</string>
+    <!--connect smart scale end-->
+
+    <!--vitals reading details start-->
+    <string name="vitals_reading_details_label_trend_monitor">Trend Monitor</string>
+    <string name="vitals_reading_details_label_muscle_mass_analysis">Muscle Mass Analysis</string>
+    <string name="vitals_reading_details_label_muscle_mass">What is muscle mass?</string>
+    <string name="vitals_reading_details_label_analysis">Analysis</string>
+    <string name="vitals_reading_details_label_analysis_definition">Muscle mass refers to the amount of soft muscle tissue in \nthe body. Other major components of the body include fat, \nbone, and water.</string>
+    <string name="vitals_reading_details_label_muscle_analysis_definition">Muscle mass refers to the amount of soft muscle tissue in \nthe body. Other major components of the body include fat, \nbone, and water. Muscles primarily help with movement, \nmaintaining posture, and supporting bodily functions. There \nare three main types of muscle: smooth muscle, which is in \nthe internal organs.</string>
+    <string name="vitals_reading_details_label_last_reading">Last Reading</string>
+    <string name="vitals_reading_details_label_avg_trend">Average Trend</string>
+    <!--vitals reading details end-->
+
+    <!--payment care plan listing start-->
+    <string name="payment_care_plan_listing_title">Chronic Care Programs</string>
+    <string name="payment_care_plan_listing_label_care_plan_for_you">Care plan for you</string>
+    <string name="payment_care_plan_listing_label_more_details">More Details</string>
+    <string name="payment_care_plan_listing_label_speciality_offers">Speciality/Offerings of the \ncare plan </string>
+    <string name="payment_care_plan_listing_label_whats_included">What’s included?</string>
+    <string name="payment_care_plan_listing_include_content">Care Plans for Lung and Liver \nCare Plans for Lung and Liver \nCare Plans for Lung and Liver</string>
+    <!--payment care plan listing end-->
+
+    <!--payment success start-->
+    <string name="payment_success_label_successful">Congratulations!!\nYour payment is successful, and your chronic care plan has been assigned to you</string>
+    <string name="payment_success_button_view_plan">Continue</string>
+    <!--payment success end-->
+
+    <!--payment order review start-->
+    <string name="payment_care_plan_order_review_title">Order Review</string>
+    <string name="payment_care_plan_order_review_label_plan_details">Plan details</string>
+    <string name="payment_care_plan_order_review_label_addreess">Address</string>
+    <string name="payment_care_plan_order_review_label_billing">Billing</string>
+    <string name="payment_care_plan_order_review_label_care_plan_name">Care Plan Name</string>
+    <string name="payment_care_plan_order_review_label_name">Name</string>
+    <string name="payment_care_plan_order_review_label_actual_price">Item Total</string>
+    <string name="payment_care_plan_order_review_label_discount_price">Discount on Item(s)</string>
+    <string name="payment_care_plan_order_review_label_purchase_price">Purchase Price</string>
+    <string name="payment_care_plan_order_review_label_GST">GST</string>
+    <string name="payment_care_plan_order_review_label_amount_paid">Amount to be Paid</string>
+    <string name="payment_care_plan_order_review_label_total_payable">Total Payable</string>
+    <string name="payment_care_plan_order_review_label_total_payable_price">₹ 1999 \nFor 3 months</string>
+    <string name="payment_care_plan_order_review_button_proceed_payment">Proceed to Payment</string>
+    <string name="payment_care_plan_order_review_care_plan_content">MyTatva now offers Care Plans for Lung and Liver Chronic conditions. \nGet personalized support and comprehensive care tailored to your \nneeds. Take charge of your health with MyTatva Care Plans.</string>
+    <!--payment order review end-->
+
+    <!--payment BCP my devices start-->
+    <string name="payment_bcp_my_device_title">Devices</string>
+    <string name="payment_bcp_my_device_label_summary">Summary</string>
+    <string name="payment_bcp_my_device_order_id">Order ID :</string>
+    <string name="payment_bcp_my_device_status">Status :</string>
+    <string name="payment_bcp_my_device_label_device_details">Device Details</string>
+    <string name="payment_bcp_my_device_label_what_next">What\'s Next?</string>
+    <string name="payment_bcp_my_device_button_continue">Continue</string>
+    <string name="payment_bcp_my_device_value_what_next">1. Once you receive the device(s), connect it with MyTatva.\n2. Use it regularly to measure your health.</string>
+    <!--payment BCP my devices end-->
+
+    <!--Labtest Order Review start-->
+    <string name="labtest_order_review_title">Lab Test Summary</string>
+    <string name="labtest_order_review_label_test_details">Test Details</string>
+    <string name="labtest_order_review_label_billing">Billing</string>
+    <string name="labtest_order_review_label_patient_name">Patient Name</string>
+    <string name="labtest_order_review_label_appointment">Appointment On :</string>
+    <string name="labtest_order_review_label_time">Time :</string>
+    <string name="labtest_order_review_button_book">Book</string>
+    <string name="labtest_order_review_label_i_agree_to_the_terms_and_conditions">I agree to the Terms &amp; Conditions</string>
+    <!--Labtest Order Review start-->
+
+    <!--Labtest Cart V1 start-->
+    <string name="labtest_cart_v1_title">Lab Test Cart</string>
+    <string name="labtest_cart_v1_label_bcp_test">BCP Test</string>
+    <string name="labtest_cart_v1_button_select_date_time">Select Date &amp; Time</string>
+    <!--Labtest Cart V1 start-->
+
+    <!--select smart scale start-->
+    <string name="select_smart_scale_label_searching">Searching device...</string>
+    <string name="select_smart_scale_label_scale_not_found">Scale Not Found - Try again !</string>
+    <string name="select_smart_scale_label_note">Note : Please stand on the device to Turn it \nON before you “Search Scale”.</string>
+    <string name="select_smart_scale_label_note_pairing">NOTE : Pairing with Phone’s Bluetooth is not required</string>
+    <string name="select_smart_scale_button_search_again">Search again</string>
+    <string name="select_smart_scale_button_measure">Measure</string>
+    <string name="select_smart_scale_label_devices">BCA Device 1</string>
+    <string name="select_smart_scale_list_title">Connect Smart Scale Device</string>
+    <string name="select_smart_scale_list_title_select">Select Smart Scale Device</string>
+    <string name="select_smart_scale_label_sync_data">Syncing Data... Do not step down!</string>\
+    <string name="select_smart_scale_label_last_synced">Last measured on 09 May 2023 , 03:58 PM</string>
+    <string name="select_smart_scale_label_my_health_markers">My Health Markers</string>
+    <!--select smart scale end-->
+
+    <!--post_question start-->
+    <string name="post_question_hint_enter">Enter</string>
+    <string name="post_question_label_uploaded_documents">Uploaded documents</string>
+    <string name="post_question_label_select_category">Select category</string>
+    <string name="post_question_button_post">Post</string>
+    <!--post_question end-->
+
+    <!--submit_answer start-->
+    <string name="submit_answer_hint_type_your_answer">Type your answer</string>
+    <string name="submit_answer_button_submit">Submit</string>
+    <!--submit_answer end-->
+
+    <!--answer_comments start-->
+    <string name="answer_comments_hint_add_a_comment">Add a comment...</string>
+    <string name="engage_comments_hint_type_comment_here">Type comment here..</string>
+    <string name="engage_comments_label_send">Send</string>
+    <!--answer_comments end-->
+
+    <!--engage start-->
+    <string name="engage_title_engage">Discover</string>
+    <string name="engage_ask_expert_label_post_your_question_here">Post your question here</string>
+    <string name="engage_ask_expert_label_ask_an_expert">Ask an expert</string>
+    <string name="engage_discover_label_select_your_language">Select your language</string>
+    <string name="engage_discover_label_discover">Explore</string>
+    <!--engage end-->
+
+    <!--engage_feed_details start-->
+    <string name="engage_feed_details_label_recommended_by_doctor">Recommended by Doctor</string>
+    <string name="engage_feed_details_label_recommended_by_health_coach">Recommended by Health coach</string>
+    <string name="engage_feed_details_button_book_your_seat">Book Your Seat</string>
+    <string name="engage_feed_details_hint_add_a_comment">Add a comment...</string>
+    <!--engage_feed_details end-->
+
+    <!--question_details start-->
+    <string name="question_details_label_answer_this">Answer This</string>
+    <string name="question_details_label_doctor">Doctor</string>
+    <string name="question_details_label_read_full_answer">Read full answer</string>
+    <!--question_details end-->
+
+    <!--exercise_filter start-->
+    <string name="exercise_filter_label_filters">Filters</string>
+    <string name="exercise_filter_label_reset">Reset</string>
+    <string name="exercise_filter_label_time">Time</string>
+    <string name="exercise_filter_label_exercise_tools">Exercise tools</string>
+    <string name="exercise_filter_label_level">Level</string>
+    <string name="exercise_filter_label_genres">Genres</string>
+    <string name="exercise_filter_button_apply">Apply</string>
+    <string name="exercise_my_routine_label_read_more">Read More</string>
+    <!--exercise_filter end-->
+
+    <!--exercise_done start-->
+    <string name="exercise_done_label_are_you_done">Are you done?</string>
+    <string name="exercise_done_label_your_breathing_time_will_be_added_to_your_daily_goal_count">Your breathing time will be added to your daily goal count</string>
+    <string name="exercise_done_button_done">Done</string>
+    <!--exercise_done end-->
+
+    <!--exercise_description_info start-->
+    <string name="exercise_description_info_button_okay">Okay</string>
+    <!--exercise_description_info end-->
+
+    <!--exercise_player start-->
+    <string name="exercise_player_label_min">min</string>
+    <string name="exercise_player_label_play">Play</string>
+    <string name="exercise_player_label_pause">Pause</string>
+    <!--exercise_player end-->
+
+    <!--plan_day_details start-->
+    <string name="plan_day_details_label_breathing">Breathing</string>
+    <string name="plan_day_details_label_exercise">Exercise</string>
+    <string name="plan_day_details_tab_breathing">Breathing</string>
+    <string name="plan_day_details_tab_exercises">Exercises</string>
+    <string name="plan_day_details_label_your_routine_for_today">Your Routine for today</string>
+    <string name="plan_day_details_button_mark_done">Mark done</string>
+    <string name="txt_medication">Medication</string>
+
+    <!--plan_day_details end-->
+
+    <!--food_day_insight start-->
+    <string name="food_day_insight_title_food_insights">Food Insights</string>
+    <string name="food_day_insight_label_daily_macronutrient_analysis">Daily Macronutrient Analysis</string>
+    <string name="food_day_insight_label_consumed_recommended">Consumed / Recommended</string>
+    <string name="food_day_insight_label_meal_energy_distribution">Meal Energy Distribution</string>
+    <!--food_day_insight end-->
+
+    <!--food_diary start-->
+    <string name="food_dairy_tab_day">Day</string>
+    <string name="food_dairy_tab_month">Month</string>
+    <string name="food_dairy_title_food_diary">Food Diary</string>
+    <string name="food_diary_button_view_insights">View insights</string>
+    <string name="food_diary_label_calories">Calories</string>
+    <string name="food_diary_label_total_intake">Total Intake</string>
+    <string name="food_diary_label_available">&#160;Available</string>
+    <string name="food_diary_label_completed">Completed</string>
+    <string name="food_diary_label_what_do_these_circles_mean">What do these circles mean?</string>
+    <!--food_diary end-->
+
+    <!--log_exercise start-->
+    <string name="log_exercise_hint_date">Date</string>
+    <string name="log_exercise_hint_time">Time</string>
+    <string name="log_exercise_label_select_exercise">Select Exercise</string>
+    <string name="log_exercise_hint_select">Select</string>
+    <string name="log_exercise_label_exercise_duration_min">Exercise duration ( min )</string>
+    <string name="log_exercise_button_add">Add</string>
+    <string name="log_exercise_button_add_log_next"><![CDATA[Add & log next]]></string>
+    <!--log_exercise end-->
+
+    <!--log_food start-->
+    <string name="log_food_hint_select_date">Select</string>
+    <string name="log_food_hint_select_food_type">Select</string>
+    <string name="log_food_label_quantity_help">Quantity Help</string>
+    <string name="log_food_label_add_your_meal">Add Your Meal</string>
+    <string name="log_food_hint_search_and_add_food">Search and add food</string>
+    <string name="log_food_button_add_new">Add new</string>
+    <string name="log_food_label_frequently_added_items">Frequently Added Items</string>
+    <string name="log_food_button_cancel">Cancel</string>
+    <string name="log_food_button_done">Done</string>
+    <string name="log_food_label_note">The food logging and calorie tracking feature is from a third party and should be used in consultation with your Doctor.</string>
+    <string name="log_food_success_button_done">Done</string>
+    <string name="log_food_success_label_well_done_on_logging_your">Well Done On Logging Your</string>
+    <!--log_food end-->
+
+    <!--log_medication start-->
+    <string name="log_medication_label_note_mark_completed_doses">Please mark the doses you have consumed</string>
+    <string name="log_medication_button_select_all">Select all</string>
+    <string name="log_medication_button_submit">Submit</string>
+    <!--log_medication end-->
+
+    <!--log_paranayam start-->
+    <string name="log_paranayam_label_breathing_duration_min">Breathing duration ( min )</string>
+    <string name="log_paranayam_label_watch_breathing_exercise_video">Watch breathing exercise video</string>
+    <string name="log_paranayam_button_add">Add</string>
+    <string name="log_paranayam_button_add_log_next"><![CDATA[Add & log next]]></string>
+    <!--log_paranayam end-->
+
+    <!--log_sleep start-->
+    <string name="log_sleep_label_start_date_time"><![CDATA[Start date & time]]></string>
+    <string name="log_sleep_hint_select">Select</string>
+    <string name="log_sleep_label_end_date_time"><![CDATA[End date & time]]></string>
+    <string name="log_sleep_button_add">Add</string>
+    <string name="log_sleep_button_add_log_next"><![CDATA[Add & log next]]></string>
+    <!--log_sleep end-->
+
+    <!--log_steps start-->
+    <string name="log_steps_label_no_of_steps">No of Steps</string>
+    <string name="log_steps_button_add">Add</string>
+    <string name="log_steps_button_add_log_next"><![CDATA[Add & log next]]></string>
+    <!--log_steps end-->
+
+    <!--log_water start-->
+    <string name="log_water_label_quantity">Quantity</string>
+    <string name="log_water_label_container">Container</string>
+    <string name="log_water_hint_select_container">Select</string>
+    <string name="log_water_button_add">Add</string>
+    <string name="log_water_button_add_log_next"><![CDATA[Add & log next]]></string>
+    <!--log_water end-->
+
+    <!--home_label start-->
+    <string name="home_label_your_daily_summary">Your Daily Summary</string>
+    <string name="home_label_view_more_daily_summary">View more</string>
+    <string name="home_label_view_less_daily_summary">View less</string>
+    <string name="home_label_recommended_for_you">Recommended For You</string>
+    <string name="home_label_my_devices">My Devices</string>
+    <string name="home_label_smart_analyser">Smart Analyser</string>
+    <string name="home_label_last_sync">Last synced on Date &amp; Time</string>
+    <string name="home_label_update_your_reading">Health monitoring</string>
+    <string name="home_label_book_your_test">Book Your Test</string>
+    <string name="home_label_view_more_test">View more</string>
+    <string name="home_label_stay_informed">Stay Informed</string>
+    <string name="home_label_verify_your_email">Verify your email</string>
+    <string name="home_label_connect">Connect</string>
+    <string name="home_label_my_health_insights">My Health Insights</string>
+    <string name="home_label_learn">Learn</string>
+    <string name="home_label_view_all_underline"><u>View All</u></string>
+    <string name="home_label_know_more_underline"><u>Know More</u></string>
+    <string name="home_label_additional_care_services">Additional Care Services</string>
+    <string name="home_label_my_health_diary">My Health Diary</string>
+    <string name="home_label_renew_underline"><u>Renew</u></string>
+
+    <string name="home_label_expiring_today">Expiring today</string>
+    <string name="home_label_expiring_tomorrow">Expiring tomorrow</string>
+    <string name="home_label_expiring_in_days">Expiring in %1$s days</string>
+    <string name="home_label_date_of_plan_expiry">Date of plan expiry %1$s</string>
+    <!--home_label end-->
+
+    <!--care plan for your need start-->
+    <string name="care_plan_for_your_need_label_care_plan">Care Plans for all your needs</string>
+    <string name="care_plan_for_your_need_label_explore_plan">Bundled with diagnostic tests and more.</string>
+    <!--care plan for your need end-->
+
+    <!--labtest_choose_location start-->
+    <string name="labtest_choose_location_label_choose_your_location">Choose your location</string>
+    <string name="labtest_choose_location_label_cancel">Cancel</string>
+    <string name="labtest_choose_location_hint_enter_pincode">Enter pincode</string>
+    <string name="labtest_choose_location_label_select_current_location">Select current location</string>
+    <string name="labtest_choose_location_button_apply">Apply</string>
+    <!--labtest_choose_location end-->
+
+    <!--labtest_contact_support start-->
+    <string name="labtest_contact_support_label_contact_support">Contact Support</string>
+    <string name="labtest_contact_support_label_cancel">Cancel</string>
+    <string name="labtest_contact_support_label_submit_your_query">Submit your query *</string>
+    <string name="labtest_contact_support_hint_enter_query">Enter</string>
+    <string name="labtest_contact_support_button_submit">Submit</string>
+    <!--labtest_contact_support end-->
+
+    <!--labtest_show_all start-->
+    <string name="labtest_show_all_label_cancel">Cancel</string>
+    <!--labtest_show_all end-->
+
+    <!--labtest_add_address start-->
+    <string name="labtest_add_address_title">Add pickup address</string>
+    <string name="labtest_add_address_label_name">Name *</string>
+    <string name="labtest_add_address_hint_enter_name">Enter</string>
+    <string name="labtest_add_address_label_mobile_number">Mobile Number *</string>
+    <string name="labtest_add_address_hint_enter_number">Enter</string>
+    <string name="labtest_add_address_label_pin_code">Pincode *</string>
+    <string name="labtest_add_address_hint_enter_pin_code">Enter</string>
+    <string name="labtest_add_address_label_house_number_and_building">House Number and Building *</string>
+    <string name="labtest_add_address_hint_enter_house_no">Enter</string>
+    <string name="labtest_add_address_label_street_name">Street Name *</string>
+    <string name="labtest_add_address_hint_enter_street_name">Enter</string>
+    <string name="labtest_add_address_label_address_type">Address Type *</string>
+    <string name="labtest_add_address_label_home">Home</string>
+    <string name="labtest_add_address_label_work">Work</string>
+    <string name="labtest_add_address_label_other">Other</string>
+    <string name="labtest_add_address_button_save">Save</string>
+    <!--labtest_add_address end-->
+
+    <!--add_patient start-->
+    <string name="add_patient_title">Add Patient Details</string>
+    <string name="add_patient_label_name">Name *</string>
+    <string name="add_patient_hint_enter_name">Enter name</string>
+    <string name="add_patient_label_email">Email *</string>
+    <string name="add_patient_hint_enter_email">Enter email</string>
+    <string name="add_patient_label_age">Age *</string>
+    <string name="add_patient_hint_enter_age">Enter age</string>
+    <string name="add_patient_label_gender">Gender *</string>
+    <string name="add_patient_label_male">Male</string>
+    <string name="add_patient_label_female">Female</string>
+    <string name="add_patient_label_other">Other</string>
+    <string name="add_patient_label_relation">Relation</string>
+    <string name="add_patient_hint_select_relation">Select</string>
+    <string name="add_patient_button_save">Save</string>
+    <string name="add_patient_label_email_disclaimer">User will receive updates of order status and soft copy of reports on this email address</string>
+    <string name="add_patient_label_relation_disclaimer">Select the relation of the new user with</string>
+    <!--add_patient end-->
+
+    <!--labtest_appointment_review start-->
+    <string name="labtest_appointment_review_title">Order Review</string>
+    <string name="labtest_appointment_review_label_booking_for">Booking for</string>
+    <string name="labtest_appointment_review_label_appointment_date_and_time">Appointment date and time</string>
+    <string name="labtest_appointment_review_label_lab_details">Lab details</string>
+    <string name="labtest_appointment_review_label_sample_pickup_from">Sample pickup from</string>
+    <string name="labtest_appointment_review_label_item_total">Item Total</string>
+    <string name="labtest_appointment_review_label_home_collection_charges">Home Collection Charges</string>
+    <string name="labtest_appointment_review_label_free_home_sample_pickup">FREE Home Sample Pickup</string>
+    <string name="labtest_appointment_review_label_order_total">Order Total</string>
+    <string name="labtest_appointment_review_label_amount_payable">Amount Payable</string>
+    <string name="labtest_appointment_review_button_select_payment_method">Select Payment Method</string>
+    <!--labtest_appointment_review end-->
+
+    <!--labtest_package_list start-->
+    <string name="labtest_package_list_title">Lab Tests</string>
+    <string name="labtest_package_list_hint_search_for_tests_health_packages">Search for Tests, Health Packages</string>
+    <!--labtest_package_list end-->
+
+    <!--labtest_booked_success start-->
+    <string name="labtest_booked_success_label_appointment_booked_successfully">Appointment Booked Successfully</string>
+    <string name="labtest_booked_success_label_order_placed">Order Placed</string>
+    <string name="labtest_booked_success_button_track_order">Track Order</string>
+    <string name="labtest_booked_success_button_go_to_home_page">Go to Home page</string>
+    <!--labtest_booked_success end-->
+
+    <!--labtest_cart start-->
+    <string name="labtest_cart_label_selected_lab">Selected Lab</string>
+    <string name="labtest_cart_label_add_more_tests">Add More Tests</string>
+    <string name="labtest_cart_label_item_total">Item Total</string>
+    <string name="labtest_cart_label_home_collection_charges">Home Collection Charges</string>
+    <string name="labtest_cart_label_free">Free</string>
+    <string name="labtest_cart_label_free_home_sample_pickup">FREE Home Sample Pickup</string>
+    <string name="labtest_cart_label_order_total">Order Total</string>
+    <string name="labtest_cart_label_amount_payable">Amount Payable</string>
+    <string name="labtest_cart_button_select_patient_details">Select Patient Details</string>
+    <string name="labtest_cart_title">Cart</string>
+    <!--labtest_cart end-->
+
+    <!--test_details start-->
+    <string name="test_details_label_remove">Remove</string>
+    <string name="test_details_button_add_to_cart">Add to cart</string>
+    <string name="test_details_label_unavailable_at_this_location">Unavailable at this location</string>
+    <string name="test_details_tab_decription">Description</string>
+    <string name="test_details_tab_test_requirements">Test Requirements</string>
+    <string name="test_details_label_sample_type">Sample type</string>
+    <string name="test_details_label_fasting_reqiured">Fasting Required</string>
+    <string name="test_details_button_view_cart">View Cart</string>
+    <string name="test_details_title">Details</string>
+    <!--test_details end-->
+
+    <!--all_appointment start-->
+    <string name="all_appointment_title">All Appointments</string>
+    <string name="all_appointment_label_select_type">Select Type</string>
+    <string name="all_appointment_hint_select_appointment_type">Select</string>
+    <string name="all_appointment_label_your_doctor">Your Doctor</string>
+    <string name="all_appointment_button_book_appointment">Book Appointment</string>
+    <!--all_appointment end-->
+
+    <!--book_appointment start-->
+    <string name="book_appointment_title">Book appointment</string>
+    <string name="book_appointment_label_booking_for">Booking For</string>
+    <string name="book_appointment_label_doctor">Doctor</string>
+    <string name="book_appointment_label_coach">Coach</string>
+    <string name="book_appointment_label_select_coach">Select Coach</string>
+    <string name="book_appointment_hint_select_coach">Select</string>
+    <string name="book_appointment_label_select_clinic">Select Clinic</string>
+    <string name="book_appointment_hint_select_clinic">Select</string>
+    <string name="book_appointment_label_select_doctor">Select Doctor</string>
+    <string name="book_appointment_hint_select_doctor">Select</string>
+    <string name="book_appointment_hint_add_note">Add note</string>
+    <string name="book_appointment_label_select_appointment_type">Select Appointment Type</string>
+    <string name="book_appointment_hint_select_appointment_type">Select</string>
+    <string name="book_appointment_button_confirm_amp_book"><![CDATA[Confirm & Book]]></string>
+    <!--book_appointment end-->
+
+    <!--appointment_confirmation start-->
+    <string name="appointment_confirmation_label_appointment_confirmed">Appointment Confirmed</string>
+    <string name="appointment_confirmation_label_request_cancellation">Request Cancellation</string>
+    <string name="appointment_confirmation_label_join_video_call">Join Call</string>
+    <string name="appointment_confirmation_label_in_clinic_appointment">In clinic appointment</string>
+    <string name="appointment_confirmation_button_done">Done</string>
+    <!--appointment_confirmation end-->
+
+    <!--labtest_list start-->
+    <string name="labtest_list_title">Lab Tests</string>
+    <string name="labtest_list_hint_search_for_tests_health_packages">Search for Tests, Health Packages</string>
+    <string name="labtest_list_label_popular_tests">Popular Tests</string>
+    <string name="labtest_list_label_view_all_test">View All</string>
+    <string name="labtest_list_label_easy_way_to_book_a_test">Easy Way to book a test</string>
+    <string name="labtest_list_label_call_us_to_book_a_test">Call us to book a test</string>
+    <string name="labtest_list_label_popular_health_packages">Popular Health Packages</string>
+    <string name="labtest_list_label_view_all_packages">View All</string>
+    <string name="labtest_list_normal_title">Lab Tests</string>
+    <string name="labtest_list_normal_hint_search_here">Search here</string>
+    <!--labtest_list end-->
+
+    <!--labtest_order_details start-->
+    <string name="labtest_order_details_title">Order Details</string>
+    <string name="labtest_order_details_tab_order_summary">Order Summary</string>
+    <string name="labtest_order_details_tab_tests">Tests</string>
+    <string name="labtest_order_details_label_patient">Patient</string>
+    <string name="labtest_order_details_label_order_no">Order No:</string>
+    <string name="labtest_order_details_label_appointment_on">Appointment on :</string>
+    <string name="labtest_order_details_label_time">Time :</string>
+    <string name="labtest_order_details_label_service_date_time">Service Date Time :</string>
+    <string name="labtest_order_details_label_status">Status :</string>
+    <string name="labtest_order_details_label_address_details">Address Details:</string>
+    <string name="labtest_order_details_label_lab_details">Lab details</string>
+    <string name="labtest_order_details_label_bill_details">Bill Details</string>
+    <string name="labtest_order_details_label_ordered_items">Ordered Items</string>
+    <string name="labtest_order_details_label_sub_total">Sub Total</string>
+    <string name="labtest_order_details_label_home_collection_charges">Home Collection Charges</string>
+    <string name="labtest_order_details_label_total_amount">Total Amount</string>
+    <string name="labtest_order_details_label_amount_to_be_paid">Amount to be paid</string>
+    <string name="labtest_order_details_button_contact_support">Contact Support</string>
+    <string name="labtest_order_details_label_lab_tests">Lab Tests</string>
+    <!--labtest_order_details end-->
+
+    <!--common layout labtest billing starts-->
+    <string name="labtest_billing_label_item_total">Item Total</string>
+    <string name="labtest_billing_label_home_collection_charges">Home Collection Charges</string>
+    <string name="labtest_billing_label_service_charge">Service Charge</string>
+    <string name="labtest_billing_label_discount_on_items">Discount on Item(s)</string>
+    <string name="labtest_billing_label_applied_coupon">Applied Coupon (%1$s)</string>
+    <!--common layout labtest billing starts end-->
+
+    <!--patient_details start-->
+    <string name="patient_details_title">Patient Details</string>
+    <string name="patient_details_label_booking_for">Booking For</string>
+    <string name="patient_details_button_add_new">Add New</string>
+    <string name="patient_details_button_confirm">Confirm</string>
+    <!--patient_details end-->
+
+    <!--select_address start-->
+    <string name="select_address_title">Select Address</string>
+    <string name="select_address_button_add_new">Add New</string>
+    <string name="select_address_label_sample_pickup_from">Sample Pickup From</string>
+    <string name="select_address_button_save">Save</string>
+    <!--select_address end-->
+
+    <!--labtest_select_date_time start-->
+    <string name="labtest_select_date_time_label_select_appointment_date">Select Appointment Date</string>
+    <string name="labtest_select_date_time_label_select_appointment_time">Select Appointment Time</string>
+    <string name="labtest_select_date_time_label_select_collection_time">Sample Collection Time</string>
+    <string name="labtest_select_date_time_button_review">Review</string>
+    <string name="labtest_select_date_time_title">Appointment Time</string>
+    <string name="labtest_select_date_time_title_v1">Select Test Slot</string>
+    <!--labtest_select_date_time end-->
+
+    <!--help start-->
+    <string name="help_label_let_us_know_how_we_can_help">Let us know how we can help</string>
+    <string name="help_hint_select_what_this_is_about">Select what this is about</string>
+    <string name="help_hint_type_your_question_in_124_characters">Type your question in 124 characters...</string>
+    <string name="help_hint_upload_attachment">Upload Attachment</string>
+    <string name="help_button_cancel">Cancel</string>
+    <string name="help_button_submit">Submit</string>
+    <!--help end-->
+
+    <!--bookmarks start-->
+    <string name="bookmarks_title">Bookmarks</string>
+    <!--bookmarks end-->
+
+    <!--help_support start-->
+    <string name="help_support_title"><![CDATA[Help & Support]]></string>
+    <string name="help_support_label_chat_with_us">Chat With Us</string>
+    <string name="help_support_label_leave_a_query">Leave A Query</string>
+    <string name="help_support_label_you_can_reach_us_at">Email At</string>
+    <string name="help_support_label_frequently_asked_questions">Frequently Asked Questions</string>
+    <!--help_support end-->
+
+    <!--history start-->
+    <string name="history_tab_payments">Payments</string>
+    <string name="history_tab_appointments">Appointments</string>
+    <string name="history_tab_incident">Incident</string>
+    <string name="history_tab_records">Records</string>
+    <string name="history_tab_tests">Tests</string>
+    <string name="history_label_upload_record">Upload record</string>
+    <!--history end-->
+
+    <!--upload_record start-->
+    <string name="upload_record_title">Upload record</string>
+    <string name="upload_record_label_add_document_title">Add document title</string>
+    <string name="upload_record_hint_enter_doc_title">Enter</string>
+    <string name="upload_record_label_medical_record_type">Medical record type</string>
+    <string name="upload_record_hint_select_record_type">Select</string>
+    <string name="upload_record_hint_type_description">Type description</string>
+    <string name="upload_record_label_file_should_be_pdf_png_jpeg">file should be pdf, png, jpeg.</string>
+    <string name="upload_record_label_take_picture_of_your_document">Take picture of your document</string>
+    <string name="upload_record_label_or">or</string>
+    <string name="upload_record_button_browse_files">Browse files</string>
+    <string name="upload_record_button_done">Done</string>
+    <!--upload_record end-->
+
+    <!--cancel_plan_alert start-->
+    <string name="cancel_plan_alert_label_are_you_sure_you_want_to_cancel_the_plan">Are you sure you want to cancel the plan?</string>
+    <string name="cancel_plan_alert_button_yes_cancel_it">Yes, cancel it</string>
+    <string name="cancel_plan_alert_label_no_continue_the_plan">No, continue the plan</string>
+    <!--cancel_plan_alert end-->
+
+    <!--payment_plan start-->
+    <string name="payment_plan_title">Plans</string>
+    <string name="payment_plan_tab_plans">Plans</string>
+    <string name="payment_plan_tab_individual_services">Individual Services</string>
+    <!--payment_plan end-->
+
+    <!--payment_plan_details start-->
+    <string name="payment_plan_details_title">Plans</string>
+    <string name="payment_plan_details_label_what_s_included">What\'s included?</string>
+    <string name="payment_plan_details_label_choose_duration">Choose Duration</string>
+    <string name="payment_plan_details_button_buy_now">Buy Now</string>
+    <string name="payment_plan_details_button_cancel">Cancel</string>
+    <string name="payment_plan_details_button_upgrade">Upgrade</string>
+    <string name="payment_plan_details_msg_can_not_cancel_plan_created_from_ios">You can\'t cancel this plan as it is created from iOS device</string>
+    <string name="payment_plan_details_alert_msg_existing_plan_cancel">Purchasing a new plan will cancel your existing subscription. Do you want to continue?</string>
+    <!--payment_plan_details end-->
+
+    <!--account_setting start-->
+    <string name="account_setting_title">Account settings</string>
+    <string name="account_setting_item_profile">Profile</string>
+    <string name="account_setting_item_goals_vitals">Goals and Health Trends</string>
+    <string name="account_setting_item_connected_devices">Connected devices</string>
+    <string name="account_setting_item_notification_settings">Notification settings</string>
+    <string name="account_setting_item_update_location">Update location</string>
+    <string name="account_setting_item_update_height_weight"><![CDATA[Update height & weight]]></string>
+    <string name="account_setting_item_delete_my_account">Delete Account</string>
+    <string name="account_setting_item_logout">Logout</string>
+    <!--account_setting end-->
+
+    <!--edit_profile start-->
+    <string name="edit_profile_title">Edit Profile</string>
+    <string name="edit_profile_label_name">Name</string>
+    <string name="edit_profile_hint_enter_name">Enter</string>
+    <string name="edit_profile_label_email">Email</string>
+    <string name="edit_profile_hint_enter_email">Enter</string>
+    <string name="edit_profile_label_date_of_birth">Date of birth</string>
+    <string name="edit_profile_button_update">Update</string>
+    <!--edit_profile end-->
+
+    <!--device_details start-->
+    <string name="device_details_button_connect_to_google_fit">Connect to Google Fit</string>
+    <string name="device_details_button_install_google_fit">Install Google Fit</string>
+    <string name="device_details_button_disconnect">Disconnect</string>
+    <string name="device_details_label_skip_for_now">Skip for Now</string>
+    <string name="device_details_label_automatically_sync_readings_with_google_fit">Automatically sync readings with Google Fit</string>
+    <string name="device_details_label_description_1">Empower your condition management journey by monitoring improvement in vitals and daily activities on a single platform. Connect MyTatva with Google Fit to automatically sync readings like steps, heart rate, exercises etc.</string>
+    <string name="device_details_label_google_fit_guideline_desc">\u2022 Google Fit is an open platform that lets you control your fitness data from multiple apps and devices.\n\u2022 Connecting to Google Fit allows you to see more fitness and health data like steps, heart rate etc.\n\u2022 By connecting MyTatva and Google Fit, you can easily integrate your fitness activity from various sources to help you better understand your progress.\n\u2022 You can disconnect from Google Fit at any time by going to Account settings.</string>
+    <!--device_details end-->
+
+    <!--my_devices start-->
+    <string name="my_devices_title">My Devices</string>
+    <string name="my_devices_label_google_fit">Google Fit</string>
+    <string name="my_devices_label_fitness">Fitness</string>
+    <!--my_devices end-->
+
+    <!--my_profile start-->
+    <string name="my_profile_title">My Profile</string>
+    <string name="my_profile_label_save">Save</string>
+    <string name="my_profile_label_edit">Edit</string>
+    <string name="my_profile_label_address">Address</string>
+    <string name="my_profile_label_indication">Indication</string>
+    <string name="my_profile_label_consulting_doctor">Consulting Doctor</string>
+    <string name="my_profile_label_add_new_doctor">Add New Doctor</string>
+    <!--my_profile end-->
+
+    <!--notification_setting start-->
+    <string name="notification_setting_title">Notification Settings</string>
+    <string name="notification_setting_label_exercise_reminder">Exercise Reminder</string>
+    <string name="notification_setting_label_exercise_title_1">Set up a personalized reminder for your exercise</string>
+    <string name="notification_setting_label_exercise_title_2">Allow us to motivate you to exercise as per your schedule preferences</string>
+    <string name="notification_setting_label_exercise">Exercise</string>
+    <string name="notification_setting_label_breathing_reminder">Breathing Reminder</string>
+    <string name="notification_setting_label_breathing_title_1">Set up a personalized reminder for your breathing exercise</string>
+    <string name="notification_setting_label_breathing_title_2">Allow us to motivate you to exercise as per your schedule preferences</string>
+    <string name="notification_setting_label_breathing_exercise">Breathing Exercise</string>
+    <string name="notification_setting_label_sleep_reminder">Sleep Reminder</string>
+    <string name="notification_setting_label_sleep_title_1">Set up a personalized reminder for logging your sleep</string>
+    <string name="notification_setting_label_sleep_title_2">Get your Sleep Cycle back on track with us.</string>
+    <string name="notification_setting_label_sleep">Sleep</string>
+    <string name="notification_setting_label_steps_title_1"><![CDATA[Get reminded to track your breathing &amp; physical exercises]]></string>
+    <string name="notification_setting_label_steps_title_2">Breathing and exercise reminders motivate you to exercise. Once you\'re done, they enable you to track your exercises</string>
+    <string name="notification_setting_label_steps">Steps</string>
+    <string name="notification_setting_label_food_reminder">Track Meal Reminder</string>
+    <string name="notification_setting_label_food_title_1">Set up a personalized reminder to track your meals</string>
+    <string name="notification_setting_label_food_title_2">Get into the habit of knowing your calorie consumption</string>
+    <string name="notification_setting_label_water_reminder">Drink Water Reminder</string>
+    <string name="notification_setting_label_water_title_1">Set up a personalized reminder to track your water intake</string>
+    <string name="notification_setting_label_water_title_2">These reminders will help you to meet your hydration goals for the day</string>
+    <string name="notification_setting_button_save">Save</string>
+    <string name="notification_setting_title_reading_reminder">Vitals Reminder</string>
+    <string name="notification_setting_reading_title_1">Set up a personalized reminder for logging your vitals</string>
+    <string name="notification_setting_reading_title_2">Keep your Doctor/Health Coaches informed about your well-being. Update your Health Markers!</string>
+    <!--notification_setting end-->
+
+    <!--notifications start-->
+    <string name="notifications_title">Notifications</string>
+    <!--notifications end-->
+
+    <!--update_blood_glucose start-->
+    <string name="update_blood_glucose_label_date">Date</string>
+    <string name="update_blood_glucose_label_time">Time</string>
+    <string name="update_blood_glucose_hint_select_date">Select</string>
+    <string name="update_blood_glucose_hint_select_time">Select</string>
+    <string name="update_blood_glucose_label_fast_blood_glucose">Fast Blood Glucose</string>
+    <string name="update_blood_glucose_hint_enter_fast_bg">Enter</string>
+    <string name="update_blood_glucose_label_mg_dl">mg/dL</string>
+    <string name="update_blood_glucose_label_pp_blood_glucose">PP Blood Glucose</string>
+    <string name="update_blood_glucose_hint_enter_pp_bg">Enter</string>
+    <string name="update_blood_glucose_button_cancel">Cancel</string>
+    <string name="update_blood_glucose_button_update">Update</string>
+    <!--update_blood_glucose end-->
+
+
+    <string name="update_bmi_label_date">Date</string>
+    <string name="update_bmi_label_time">Time</string>
+    <string name="update_bmi_hint_select_date">Select</string>
+    <string name="update_bmi_hint_select_time">Select</string>
+    <string name="update_bmi_label_height_cm">Height</string>
+    <string name="update_bmi_label_weight_kg">Weight</string>
+    <string name="update_bmi_hint_enter_height">Height</string>
+    <string name="update_bmi_label_enter_weight">Weight</string>
+    <string name="update_bmi_hint_enter_feet">Feet</string>
+    <string name="update_bmi_hint_enter_inches">Inches</string>
+    <string name="update_bmi_label_reading">Reading</string>
+    <string name="update_bmi_button_cancel">Cancel</string>
+    <string name="update_bmi_button_update">Update</string>
+
+    <string name="validation_empty_bmi">Please enter BMI</string>
+    <string name="validation_enter_reading">Please enter reading</string>
+    <string name="validation_enter_distance">Please enter distance</string>
+
+    <string name="labtest_cart_label_service_charge">Service Charge</string>
+    <string name="labtest_order_details_label_service_charge">Service Charge</string>
+
+    <string name="my_profile_label_health_coach">Health Coach</string>
+
+
+    <string name="delete_my_account_title">Delete Account</string>
+    <string name="delete_my_account_button_delete">Delete</string>
+    <string name="care_plan_label_incident_free_day_s">Incident Free Day(s)</string>
+    <string name="care_plan_label_last_incident_recorded">Last incident recorded</string>
+    <string name="common_label_ok">OK</string>
+    <string name="log_medication_button_add_prescription">Add Prescription</string>
+    <string name="test_details_button_view_more_test">View More Tests</string>
+    <string name="msg_your_cart_is_empty">Your cart is empty</string>
+    <string name="validation_add_medication_prescription">Please add your prescription and medications.</string>
+    <string name="my_profile_label_location">Location</string>
+    <string name="measure_bca_reading_default_state_message">Step up on scale and click on \'Measure\'</string>
+    <string name="common_msg_turn_on_bluetooth">Your device\'s bluetooth is off. Please turn it on to continue.</string>
+
+    <!--Device Order Details-->
+    <string name="labtest_device_order_label_plan_details">Plan details</string>
+    <string name="labtest_order_details_summary_order_id">Order ID:</string>
+    <string name="labtest_order_details_summary_appointment_on">Appointment On:</string>
+    <string name="labtest_order_details_summary_time">Time:</string>
+    <string name="labtest_order_details_label_tests_details">Tests Details</string>
+    <string name="labtest_order_details_summary_label_billing">Billing</string>
+    <string name="labtest_order_summary_button_cancel_test">Cancel Test</string>
+    <string name="labtest_list_button_view_all">View All</string>
+    <string name="labtest_test_details_button_add_to_cart">Add to Cart</string>
+    <!--Device Order Details-->
+
+    <!--Payment device details order summary new-->
+    <string name="payment_label_order_id">Order ID :</string>
+    <string name="payment_label_Purchased_on">Purchased On :</string>
+    <string name="payment_label_device_name">Device Name :</string>
+    <string name="payment_label_order_place_on">Ordered Placed On :</string>
+    <string name="payment_label_actual_price">Actual Price (MRP)</string>
+    <string name="payment_label_discount_price">Discount Price</string>
+    <string name="payment_label_purchase_price">Purchase Price</string>
+    <string name="payment_label_gst">GST%</string>
+    <string name="payment_label_amount_paid">Amount Paid</string>
+    <!--Payment device details order summary new-->
+
+
+    <!--Payment Add Address Fragment-->
+    <string name="payment_header_label_disclaimer">Disclaimer: We need this information to deliver your product &amp; for collecting test samples</string>
+    <string name="payment_header_label_pincode">Pincode *</string>
+    <string name="payment_header_label_add_address">Add Address</string>
+    <string name="payment_buttom_save_and_next">Save &amp; Next</string>
+    <string name="payment_label_no_data_messge">No address present.\nPlease add an address to continue.</string>
+    <string name="payment_label_add_new">Add New</string>
+    <string name="payment_bottomsheet_header">Select Address</string>
+    <!--Payment Add Address Fragment-->
+
+    <!--Payment Care Plans Details-->
+    <string name="payment_label_header_title">Care Plans Name</string>
+    <!--Payment Care Plans Details-->
+
+    <!--BCP Schedule Appointment-->
+    <string name="bcp_schedule_appointment_label_header_title">Book Appointment</string>
+    <!--BCP Schedule Appointment-->
+
+    <!--BCP Appointment Date and Time starts-->
+    <string name="bcp_appointment_date_time_label_with_nutritionist">With Nutritionist</string>
+    <string name="bcp_appointment_date_time_label_with_physiotherapist">With Physiotherapist</string>
+    <!--BCP Appointment Date and Time ends-->
+
+    <!--choose condition V2 start-->
+    <string name="choose_condition_label_diagnosed">Which chronic condition are you diagnosed with?</string>
+    <string name="choose_condition_label_provide_condition">Please provide condition</string>
+    <string name="choose_condition_label_optional">(Optional)</string>
+    <string name="choose_condition_hint_enter">Enter</string>
+    <string name="choose_condition_label_choose_condition">Choose the condition you need help with and get the support you deserve.</string>
+    <string name="choose_condition_button_finish">Finish</string>
+    <!--choose condition V2  end-->
+
+    <!--SetUp Profile V2 start-->
+    <string name="setup_profile_label_setup_profile">Setup your profile</string>
+    <string name="setup_profile_label_doctor_access_code">Doctor Code</string>
+    <string name="setup_profile_hint_your_name">Your Name</string>
+    <string name="setup_profile_hint_your_email">Your Email</string>
+    <string name="setup_profile_hint_dob">Date of Birth</string>
+    <string name="setup_profile_hint_enter_code">Enter Code</string>
+    <string name="setup_profile_button_next">Next</string>
+    <string name="choose_condition_label_terms_conditions">By signing up, you agree to our Terms &amp; Conditions and Privacy Policy</string>
+    <!--SetUp Profile V2  end-->
+
+ <!--Coupon Code List starts-->
+    <string name="coupon_code_list_label_setup_profile">Coupons For You</string>
+    <string name="coupon_code_list_label_hide_details">Hide Details</string>
+    <string name="coupon_code_list_label_view_details">View Details</string>
+    <string name="coupon_code_list_hint_enter_coupon_code">Enter Coupon Code</string>
+    <!--Coupon Code List ends-->
+
+    <!--Dialog Coupon Code starts-->
+    <string name="coupon_code_dialog_label_got_it_thanks">Got it, Thanks</string>
+    <!--Dialog Coupon Code ends-->
+
+    <!--Coupon Code List starts-->
+    <string name="coupon_code_list_label_apply_coupon">Apply Coupon</string>
+    <!--Coupon Code List ends-->
+
+    <!--Enter address BottomSheet start-->
+    <string name="enter_address_bottomsheet_hint_pincode">Pincode</string>
+    <string name="enter_address_bottomsheet_hint_house_number">House Number and Building *</string>
+    <string name="enter_address_bottomsheet_hint_street_number">Street Name *</string>
+    <string name="enter_address_bottomsheet_label_enter_address">Enter Address</string>
+    <string name="enter_address_bottomsheet_label_address_type">Address Type</string>
+    <string name="enter_address_bottomsheet_btn_save_address">Save Address</string>
+    <string name="enter_address_bottomsheet_label_disclaimer">Disclaimer: We need this information to deliver your product &amp; for collecting test samples</string>
+    <!--Enter address BottomSheet end-->
+
+    <!--Address BottomSheet enter location start-->
+    <string name="enter_location_bottomsheet_label_enter_location">Enter Location</string>
+    <string name="enter_location_bottomsheet_hint_enter_pincode">Enter Pincode</string>
+    <string name="enter_location_bottomsheet_label_use_current_location">Use Current Location</string>
+    <!--Address BottomSheet enter address  end-->
+    <string name="setup_profile_label_gender">Gender</string>
+    <string name="auth_fragment_btn_let_s_begin">Let’s Begin</string>
+    <string name="txt_health_records">Health Records</string>
+    <string name="txt_goals">Goals</string>
+    <string name="txt_health_trends">Health Trends</string>
+    <string name="txt_bookings">Bookings</string>
+    <string name="txt_consultations">Consultations</string>
+    <string name="txt_lab_tests">Lab Tests</string>
+    <string name="txt_more">More</string>
+    <string name="txt_about_us">About Us</string>
+    <string name="txt_rate_app">Rate App</string>
+    <string name="txt_t_and_c">T&amp;C\'s</string>
+    <string name="txt_privacy_policy">Privacy Policy</string>
+    <string name="txt_good_morning">Good Morning</string>
+    <string name="txt_good_afternoon">Good Afternoon</string>
+    <string name="txt_good_evening">Good Evening</string>
+    <string name="txt_program">Program</string>
+
+      <!-- Spirometer All Reading -->
+    <string name="spirometer_tab_label_health_insights">Health Insights</string>
+    <string name="spirometer_tab_label_exercise_insights">Exercise Insights</string>
+    <!-- Spirometer All Reading -->
+
+    <!-- BCP Purchase Details -->
+    <string name="bcp_purchase_details_title_care_plan_name">Care Plan Name</string>
+    <string name="bcp_purchase_details_title_your_services">Your Services</string>
+    <string name="bcp_purchase_details_title_book_lab_test">Book Lab Test</string>
+    <string name="bcp_purchase_details_title_book_appointment">Book Appointment</string>
+    <string name="bcp_purchase_details_title_devices">Devices</string>
+    <string name="bcp_purchase_details_title_what_expect">What to expect</string>
+    <string name="bcp_purchase_details_label_need_help">Need Help with something?</string>
+    <string name="bcp_purchase_details_label_contact_us">Contact Us</string>
+    <string name="bcp_purchase_details_message_select_date_time">Select Date &amp; Time For Sample Collection</string>
+    <string name="bcp_purchase_details_message_nutrition_physiotherapist">With Nutritionist &amp; Physiotherapist</string>
+    <string name="bcp_purchase_details_message_all_health_details">View All Health Details</string>
+    <string name="bcp_purchase_details_button_renew_now">Renew Now</string>
+    <string name="bcp_purchase_details_label_expire_date">Expire on %s</string>
+    <string name="bcp_purchase_details_label_remaining_days">%s days remaining</string>
+    <string name="bcp_purchase_details_label_plan_expire">Plan Expired</string>
+    <!-- BCP Purchase Details -->
+
+
 </resources>

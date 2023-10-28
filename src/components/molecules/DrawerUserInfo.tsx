@@ -1,25 +1,31 @@
 import {
   Alert,
   Image,
+  NativeModules,
+  Platform,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
 import React from 'react';
-import {colors} from '../../constants/colors';
+import { colors } from '../../constants/colors';
 import ImagePicker from 'react-native-image-crop-picker';
-import {Icons} from '../../constants/icons';
-import {navigateTo} from '../../routes/Router';
-import {useApp} from '../../context/app.context';
+import { Icons } from '../../constants/icons';
+//import { navigateTo } from '../../routes/Router';
+import { useApp } from '../../context/app.context';
 
 type DrawerUserInfoProps = {};
 
 const DrawerUserInfo: React.FC<DrawerUserInfoProps> = () => {
-  const {userData} = useApp();
+  const { userData } = useApp();
 
   const onPressProfile = () => {
-    navigateTo('ProfileVC');
+    if (Platform.OS == 'ios') {
+      //navigateTo('ProfileVC');
+    } else {
+      NativeModules.AndroidBridge.openMyProfileScreen();
+    }
   };
 
   return (
@@ -29,7 +35,7 @@ const DrawerUserInfo: React.FC<DrawerUserInfoProps> = () => {
       activeOpacity={0.8}>
       {userData?.profile_pic?.length > 0 ? (
         <Image
-          source={{uri: userData?.profile_pic}}
+          source={{ uri: userData?.profile_pic }}
           style={styles.image}
           resizeMode={'contain'}
         />

@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:background="@color/gray">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        tools:background="@color/gray">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewClose"
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_24"
+            android:layout_gravity="end"
+            android:background="@drawable/bg_circle_white"
+            android:backgroundTint="@color/gray"
+            android:elevation="@dimen/dp_4"
+            android:padding="@dimen/dp_6"
+            app:srcCompat="@drawable/ic_cross_small" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_7"
+            android:background="@drawable/bg_common_rounded_rect_10"
+            android:elevation="@dimen/dp_2">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/screen_space" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/screen_space" />
+
+            <include
+                android:id="@+id/layoutHeader"
+                layout="@layout/reading_common_layout_header" />
+
+            <View
+                android:id="@+id/viewLine1"
+                style="@style/viewLine"
+                android:layout_width="0dp"
+                android:layout_marginTop="0dp"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/layoutHeader" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelDate"
+                style="@style/TextView.Regular.sp_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_18"
+                android:layout_marginEnd="@dimen/dp_14"
+                android:text="@string/update_blood_glucose_label_date"
+                android:textColor="@color/textDarkBlue"
+                app:layout_constraintEnd_toStartOf="@id/textViewLabelTime"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/viewLine1" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelTime"
+                style="@style/TextView.Regular.sp_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/update_blood_glucose_label_time"
+                android:textColor="@color/textDarkBlue"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toEndOf="@id/textViewLabelDate"
+                app:layout_constraintTop_toTopOf="@id/textViewLabelDate" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/editTextDate"
+                style="@style/editTextStrokeSmall"
+                android:layout_width="0dp"
+                android:layout_marginTop="@dimen/dp_8"
+                android:cursorVisible="false"
+                android:drawableEnd="@drawable/ic_reading_date"
+                android:ellipsize="end"
+                android:focusable="false"
+                android:hint="@string/update_blood_glucose_hint_select_date"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:lines="1"
+                android:longClickable="false"
+                android:maxLines="1"
+                app:layout_constraintEnd_toEndOf="@id/textViewLabelDate"
+                app:layout_constraintStart_toStartOf="@id/textViewLabelDate"
+                app:layout_constraintTop_toBottomOf="@id/textViewLabelDate" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/editTextTime"
+                style="@style/editTextStrokeSmall"
+                android:layout_width="0dp"
+                android:layout_marginTop="@dimen/dp_8"
+                android:cursorVisible="false"
+                android:drawableEnd="@drawable/ic_clock_time"
+                android:ellipsize="end"
+                android:focusable="false"
+                android:hint="@string/update_blood_glucose_hint_select_time"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:lines="1"
+                android:longClickable="false"
+                android:maxLines="1"
+                app:layout_constraintEnd_toEndOf="@id/textViewLabelTime"
+                app:layout_constraintStart_toStartOf="@id/textViewLabelTime"
+                app:layout_constraintTop_toBottomOf="@id/textViewLabelTime" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelFastBloodGlucose"
+                style="@style/TextView.Regular.sp_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_18"
+                android:layout_marginEnd="@dimen/dp_14"
+                android:text="@string/update_blood_glucose_label_fast_blood_glucose"
+                android:textColor="@color/textDarkBlue"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/editTextDate" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/editTextFastBloodGlucose"
+                style="@style/editTextStrokeSmall"
+                android:layout_width="0dp"
+                android:layout_marginTop="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_14"
+                android:hint="@string/update_blood_glucose_hint_enter_fast_bg"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:maxLength="4"
+                android:maxLines="1"
+                app:layout_constraintEnd_toStartOf="@id/textViewUnit"
+                app:layout_constraintStart_toStartOf="@id/textViewLabelDate"
+                app:layout_constraintTop_toBottomOf="@id/textViewLabelFastBloodGlucose" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/textViewUnit"
+                style="@style/TextView.Medium.sp_14"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:background="@drawable/bg_textview_solid_lightgray_stroke_gray"
+                android:clickable="false"
+                android:ellipsize="end"
+                android:focusable="false"
+                android:gravity="center"
+                android:imeOptions="actionDone"
+                android:inputType="numberDecimal"
+                android:longClickable="false"
+                android:maxLines="1"
+                android:minWidth="@dimen/dp_80"
+                android:text="@string/update_blood_glucose_label_mg_dl"
+                android:textAlignment="gravity"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintBottom_toBottomOf="@id/editTextFastBloodGlucose"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toEndOf="@id/editTextFastBloodGlucose"
+                app:layout_constraintTop_toTopOf="@id/editTextFastBloodGlucose" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewPPBloodGlucose"
+                style="@style/TextView.Regular.sp_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_18"
+                android:layout_marginEnd="@dimen/dp_14"
+                android:text="@string/update_blood_glucose_label_pp_blood_glucose"
+                android:textColor="@color/textDarkBlue"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/editTextFastBloodGlucose" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/editTextPPBloodGlucose"
+                style="@style/editTextStrokeSmall"
+                android:layout_width="0dp"
+                android:layout_marginTop="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_14"
+                android:ellipsize="end"
+                android:hint="@string/update_blood_glucose_hint_enter_pp_bg"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:maxLength="4"
+                android:maxLines="1"
+                app:layout_constraintEnd_toStartOf="@id/textViewUnit2"
+                app:layout_constraintStart_toStartOf="@id/textViewLabelDate"
+                app:layout_constraintTop_toBottomOf="@id/textViewPPBloodGlucose" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/textViewUnit2"
+                style="@style/TextView.Medium.sp_14"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:background="@drawable/bg_textview_solid_lightgray_stroke_gray"
+                android:clickable="false"
+                android:ellipsize="end"
+                android:focusable="false"
+                android:gravity="center"
+                android:imeOptions="actionDone"
+                android:inputType="numberDecimal"
+                android:longClickable="false"
+                android:maxLines="1"
+                android:minWidth="@dimen/dp_80"
+                android:text="@string/update_blood_glucose_label_mg_dl"
+                android:textAlignment="gravity"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintBottom_toBottomOf="@id/editTextPPBloodGlucose"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toEndOf="@id/editTextPPBloodGlucose"
+                app:layout_constraintTop_toTopOf="@id/editTextPPBloodGlucose" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewStandardValue"
+                style="@style/textViewStandardValueLabel"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/editTextPPBloodGlucose" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonCancel"
+                style="@style/buttonStrokeSmallRadius7"
+                android:layout_width="@dimen/dp_94"
+                android:layout_marginTop="@dimen/dp_24"
+                android:layout_marginEnd="@dimen/dp_20"
+                android:layout_marginBottom="@dimen/dp_24"
+                android:paddingStart="@dimen/dp_24"
+                android:paddingEnd="@dimen/dp_24"
+                android:text="@string/update_blood_glucose_button_cancel"
+                app:layout_constraintBottom_toTopOf="@id/layoutSyncData"
+                app:layout_constraintEnd_toStartOf="@id/buttonUpdate"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/textViewStandardValue" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonUpdate"
+                style="@style/buttonSolidSmallRadius7"
+                android:layout_width="@dimen/dp_94"
+                android:layout_marginBottom="@dimen/dp_30"
+                android:paddingStart="@dimen/dp_24"
+                android:paddingEnd="@dimen/dp_24"
+                android:text="@string/update_blood_glucose_button_update"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toEndOf="@id/buttonCancel"
+                app:layout_constraintTop_toTopOf="@id/buttonCancel" />
+
+            <include
+                android:id="@+id/layoutSyncData"
+                layout="@layout/reading_common_layout_sync_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_20"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/buttonCancel" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+
+</FrameLayout>

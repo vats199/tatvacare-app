@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/dp_16"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/layoutHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackground"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewRoutine"
+            style="@style/TextView.SemiBold.sp_16"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Routine 1 for the day"
+            android:textColor="@color/textBlack1"
+            app:layout_constraintEnd_toStartOf="@id/imageViewSelectBreathing"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewUpDown"
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_24"
+            android:padding="@dimen/dp_6"
+            android:rotation="180"
+            app:srcCompat="@drawable/ic_dropdown_gray" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/layoutBreathingExercise"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_16">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewNameBreathing"
+                style="@style/TextView.SemiBold.sp_16"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Breathing"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintEnd_toStartOf="@id/imageViewSelectBreathing"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewSelectBreathing"
+                android:layout_width="@dimen/dp_16"
+                android:layout_height="@dimen/dp_16"
+                app:layout_constraintBottom_toBottomOf="@id/textViewNameBreathing"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/textViewNameBreathing"
+                app:srcCompat="@drawable/selector_plan_exercise_check" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewIconBreathing"
+                android:layout_width="@dimen/dp_30"
+                android:layout_height="@dimen/dp_30"
+                android:layout_marginTop="@dimen/dp_5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewNameBreathing"
+                app:srcCompat="@drawable/ic_breathing_icon" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewValueBreathing"
+                style="@style/TextView.Regular.sp_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_20"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="3 Exercises"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintBottom_toBottomOf="@id/imageViewIconBreathing"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/imageViewIconBreathing"
+                app:layout_constraintTop_toTopOf="@id/imageViewIconBreathing" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_16">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewNameExercise"
+                style="@style/TextView.SemiBold.sp_16"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Exercise"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintEnd_toStartOf="@id/imageViewSelectExercise"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewSelectExercise"
+                android:layout_width="@dimen/dp_16"
+                android:layout_height="@dimen/dp_16"
+                app:layout_constraintBottom_toBottomOf="@id/textViewNameExercise"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/textViewNameExercise"
+                app:srcCompat="@drawable/selector_plan_exercise_check" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewIconExercise"
+                android:layout_width="@dimen/dp_30"
+                android:layout_height="@dimen/dp_30"
+                android:layout_marginTop="@dimen/dp_5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewNameExercise"
+                app:srcCompat="@drawable/ic_exercise_icon" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewValueExercise"
+                style="@style/TextView.Regular.sp_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_20"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="3 Exercises"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintBottom_toBottomOf="@id/imageViewIconExercise"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/imageViewIconExercise"
+                app:layout_constraintTop_toTopOf="@id/imageViewIconExercise" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

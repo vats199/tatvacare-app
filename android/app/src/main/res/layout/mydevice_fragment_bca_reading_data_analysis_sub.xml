@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewOverAll"
+                style="@style/TextView.SemiBold.sp_18"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/vitals_reading_details_label_trend_monitor"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/textViewChartDuration"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_20"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewChartDuration"
+                style="@style/TextView.Medium.sp_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_chart_duration"
+                android:drawableEnd="@drawable/ic_dropdown_small"
+                android:drawablePadding="@dimen/dp_7"
+                android:alpha="0.8"
+                app:layout_constraintBaseline_toBaselineOf="@id/textViewOverAll"
+                android:paddingStart="@dimen/dp_12"
+                android:paddingEnd="@dimen/dp_12"
+                android:layout_marginEnd="@dimen/dp_16"
+                android:drawableTint="@color/gray2"
+                android:padding="@dimen/dp_8"
+                tools:text="7 Days"
+                android:textColor="@color/gray2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutReadingDetails"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_16"
+            android:paddingBottom="@dimen/dp_16"
+            android:elevation="@dimen/dp_3"
+            android:background="@drawable/bg_common_rounded_rect_10"
+            android:layout_marginHorizontal="@dimen/screen_space"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewOverAll">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLastReadingValue"
+                style="@style/TextView.SemiBold.sp_18"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_15"
+                tools:text="48.20"
+                android:maxLines="1"
+                android:ellipsize="end"
+                app:layout_constraintEnd_toStartOf="@id/textViewAverageTrendValue"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLastReadingData"
+                style="@style/TextView.Light.sp_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_3"
+                app:layout_constraintEnd_toStartOf="@id/textViewAverageTrend"
+                app:layout_constraintStart_toStartOf="@id/textViewLastReadingValue"
+                app:layout_constraintTop_toBottomOf="@id/textViewLastReadingValue"
+                android:text="@string/vitals_reading_details_label_last_reading"
+                android:alpha="0.8"
+                android:textColor="@color/textBlack1" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewReadingComparisionValue"
+                style="@style/TextView.SemiBold.sp_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_5"
+                app:layout_constraintEnd_toEndOf="@id/textViewAverageTrendValue"
+                app:layout_constraintStart_toStartOf="@id/textViewLastReadingData"
+                app:layout_constraintTop_toBottomOf="@id/textViewLastReadingData"
+                tools:text="↑ ↓ by 5"
+                android:textColor="@color/range_normal" />
+
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewAverageTrendValue"
+                style="@style/TextView.SemiBold.sp_18"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginEnd="@dimen/dp_16"
+                android:ellipsize="end"
+                android:maxLines="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/textViewLastReadingValue"
+                app:layout_constraintTop_toTopOf="@+id/textViewLastReadingValue"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewLastReadingValue"
+                tools:text="0.0"
+                android:textColor="@color/black" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewAverageTrend"
+                style="@style/TextView.Light.sp_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_3"
+                app:layout_constraintStart_toStartOf="@id/textViewAverageTrendValue"
+                app:layout_constraintTop_toBottomOf="@id/textViewAverageTrendValue"
+                android:text="@string/vitals_reading_details_label_avg_trend"
+                app:layout_constraintEnd_toEndOf="@id/textViewAverageTrendValue"
+                android:alpha="0.8"
+                android:textColor="@color/textBlack1" />
+
+            <com.mytatva.patient.utils.SegmentedProgressBar
+                android:id="@+id/segmentProgressBar"
+                android:layout_width="0dp"
+                android:visibility="invisible"
+                android:layout_height="@dimen/dp_32"
+                android:layout_marginHorizontal="@dimen/dp_8"
+                app:layout_constraintStart_toStartOf="parent"
+                android:clipToOutline="false"
+                android:layout_marginTop="@dimen/dp_15"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewReadingComparisionValue"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewNormalRange"
+                style="@style/TextView.Light.sp_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_15"
+                android:layout_marginStart="@dimen/dp_16"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0"
+                app:layout_constraintEnd_toEndOf="@id/textViewAverageTrendValue"
+                app:layout_constraintTop_toBottomOf="@+id/segmentProgressBar"
+                tools:text="Normal : 49.4 - 59.4 kgs"
+                android:alpha="0.8"
+                android:textColor="@color/textBlack1" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelAnalysis"
+                style="@style/TextView.SemiBold.sp_18"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                tools:text="@string/vitals_reading_details_label_muscle_mass_analysis"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintStart_toStartOf="@id/layoutReadingDetails"
+                app:layout_constraintTop_toBottomOf="@+id/layoutReadingDetails"
+                app:layout_constraintEnd_toEndOf="@id/layoutReadingDetails"
+                android:layout_marginTop="@dimen/dp_20"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutMuscleMassAnalysis"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_14"
+            android:padding="@dimen/dp_12"
+            android:elevation="@dimen/dp_3"
+            android:background="@drawable/bg_common_rounded_rect_10"
+            android:layout_marginHorizontal="@dimen/screen_space"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewLabelAnalysis">
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/lineChart"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:clipChildren="false"
+                app:layout_constraintDimensionRatio="1.5"
+                android:clipToPadding="false"
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewNoData"
+                style="@style/textViewNoData"
+                android:layout_width="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_height="0dp"
+                android:text="No chart data available"
+                android:visibility="gone" />
+
+            <View
+                android:id="@+id/viewLine"
+                style="@style/viewLine"
+                android:layout_width="0dp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/lineChart"
+                android:layout_marginTop="@dimen/dp_16"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewAnalysis"
+                style="@style/TextView.SemiBold.sp_16"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_16"
+                android:text="@string/vitals_reading_details_label_analysis"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/viewLine"
+                android:textColor="@color/black" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewAnalysisDefinition"
+                style="@style/TextView.Regular.sp_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_marginHorizontal="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_10"
+                android:text="@string/vitals_reading_details_label_analysis_definition"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:lineSpacingExtra="@dimen/dp_5"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="@dimen/dp_20"
+                app:layout_constraintTop_toBottomOf="@id/textViewAnalysis"
+                android:textColor="@color/gray2" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewWhatIs"
+                style="@style/TextView.SemiBold.sp_18"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                tools:text="@string/vitals_reading_details_label_muscle_mass"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintStart_toStartOf="@id/layoutReadingDetails"
+                app:layout_constraintTop_toBottomOf="@+id/layoutMuscleMassAnalysis"
+                app:layout_constraintEnd_toEndOf="@id/layoutReadingDetails"
+                android:layout_marginTop="@dimen/dp_20"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutMuscleMass"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_14"
+            android:elevation="@dimen/dp_3"
+            android:background="@drawable/bg_common_rounded_rect_10"
+            app:layout_constraintEnd_toEndOf="@id/layoutReadingDetails"
+            android:layout_marginBottom="@dimen/dp_20"
+            app:layout_constraintVertical_bias="0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/layoutReadingDetails"
+            app:layout_constraintTop_toBottomOf="@id/textViewWhatIs">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewMuscleAnalysisDefinition"
+                style="@style/TextView.Regular.sp_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_15"
+                tools:text="@string/vitals_reading_details_label_muscle_analysis_definition"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:lineSpacingExtra="@dimen/dp_5"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="@dimen/dp_20"
+                android:textColor="@color/gray2" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

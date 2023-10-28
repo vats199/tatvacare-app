@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardRoot"
+        android:layout_width="@dimen/dp_155"
+        android:layout_height="@dimen/dp_85"
+        android:layout_margin="@dimen/dp_4"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/dp_10"
+        app:cardElevation="@dimen/dp_1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/dp_10">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewIcon"
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_20"
+                android:background="@drawable/bg_reading_icons_transparent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewReading"
+                style="@style/TextView.Bold.sp_11"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_5"
+                android:text="SPO2"
+                android:textColor="@color/textBlack9"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageViewIcon"
+                app:layout_constraintTop_toTopOf="@+id/imageViewIcon" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layoutData"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imageViewIcon">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/layoutReadingValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.flexbox.FlexboxLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        app:flexDirection="row"
+                        app:flexWrap="wrap"
+                        app:justifyContent="center">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/textViewReadingValue"
+                            style="@style/TextView.Medium.sp_18"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="0"
+                            android:textAlignment="gravity"
+                            android:textColor="@color/textBlack8"
+                            android:textSize="@dimen/dp_18" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/textViewReadingUnit"
+                            style="@style/TextView.Medium.sp_10"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_2"
+                            android:ellipsize="end"
+                            android:gravity="center_vertical|bottom"
+                            android:maxLines="1"
+                            android:text="0"
+                            android:textAlignment="gravity"
+                            android:textColor="@color/gray8"
+                            android:textSize="@dimen/dp_10"
+                            android:visibility="visible"
+                            app:layout_alignSelf="baseline" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/textViewReadingValueSeparator"
+                            style="@style/TextView.Medium.sp_18"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="/"
+                            android:textAlignment="gravity"
+                            android:textColor="@color/textBlack1"
+                            android:textSize="@dimen/dp_18"
+                            android:visibility="visible" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/textViewReadingValue2"
+                            style="@style/TextView.Medium.sp_18"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="0"
+                            android:textAlignment="gravity"
+                            android:textColor="@color/textBlack8"
+                            android:textSize="@dimen/dp_18"
+                            android:visibility="visible" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/textViewReadingUnit2"
+                            style="@style/TextView.Medium.sp_10"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_2"
+                            android:ellipsize="end"
+                            android:gravity="center_vertical|bottom"
+                            android:maxLines="1"
+                            android:text="0"
+                            android:textAlignment="gravity"
+                            android:textColor="@color/gray8"
+                            android:textSize="@dimen/dp_10"
+                            android:visibility="visible"
+                            app:layout_alignSelf="baseline" />
+
+                    </com.google.android.flexbox.FlexboxLayout>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewAverageReading"
+                    style="@style/TextView.Medium.sp_9"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dp_8"
+                    android:autoSizeMaxTextSize="@dimen/sp_9"
+                    android:ellipsize="end"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:freezesText="true"
+                    android:gravity="center"
+                    android:lines="2"
+                    android:maxLines="2"
+                    android:paddingHorizontal="@dimen/dp_8"
+                    android:text="Average readings of others - x"
+                    android:textAlignment="gravity"
+                    android:textColor="@color/gray8"
+                    android:visibility="gone" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
