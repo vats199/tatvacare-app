@@ -80,6 +80,7 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
         {},
         { token: userData?.token },
       );
+      console.log(" added ", result);
 
       if (result?.code === '1') {
         navigation.popToTop();

@@ -15,7 +15,6 @@ type DietHeaderProps = {
   onPressOfNextAndPerviousDate: (data: any) => void;
   title: string;
 };
-
 const DietHeader: React.FC<DietHeaderProps> = ({
   onPressBack,
   onPressOfNextAndPerviousDate,

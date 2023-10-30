@@ -131,11 +131,6 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
   }, [calories]);
 
   const renderItem = (item: any, index: number) => {
-    console.log(
-      'item?.consumedClories === 0 && item?.totalCalories === 0 ',
-      item?.consumedClories === 0 && item?.totalCalories === 0,
-    );
-
     return (
       <View
         style={[style.calorieMainContainer, { paddingVertical: Matrics.vs(5) }]}
@@ -155,6 +150,7 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
           }
           inActiveStrokeWidth={3}
           duration={1000}
+          progressValueStyle={{ color: item.progresBarColor ? item.progresBarColor : '#2ecc71', fontSize: 12, }}
         />
         <View style={[style.textContainer]}>
           <Text style={style.subtitle}>{item?.title}</Text>

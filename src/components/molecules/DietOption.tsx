@@ -1,8 +1,8 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
-import {Icons} from '../../constants/icons';
-import {colors} from '../../constants/colors';
-import {Fonts, Matrics} from '../../constants';
+import { Icons } from '../../constants/icons';
+import { colors } from '../../constants/colors';
+import { Fonts, Matrics } from '../../constants';
 import styled from 'styled-components/native';
 import {
   Menu,
@@ -111,25 +111,26 @@ const DietOption: React.FC<DietOptionItem> = ({
       };
       onPressOfcomplete(cunsumpotion);
     };
+
     return (
       <View style={styles.OptionitemContainer} key={index}>
         <View style={styles.leftContainer}>
           {item?.is_consumed ? (
             <TouchableOpacity
               onPress={() => handaleFoodConsumption(item)}
-              style={{height: 28, width: 28}}>
+              style={{ height: 28, width: 28 }}>
               <Icons.Success height={28} width={28} />
             </TouchableOpacity>
           ) : (
             <TouchableOpacity
               onPress={() => handaleFoodConsumption(item)}
-              style={{height: 28, width: 28}}>
+              style={{ height: 28, width: 28 }}>
               <Icons.Ellipse height={28} width={28} />
             </TouchableOpacity>
           )}
           <View style={styles.titleDescription}>
             <Text style={styles.title}>{item.food_item_name}</Text>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Text style={styles.description}>
                 {Math.round(Number(item?.quantity)) +
                   ' | ' +
@@ -142,7 +143,7 @@ const DietOption: React.FC<DietOptionItem> = ({
             </View>
           </View>
         </View>
-        <View style={{flexDirection: 'row'}}>
+        <View style={{ flexDirection: 'row' }}>
           <Text style={styles.value}>
             {Math.round(Number(item.calories)) *
               Math.round(Number(item?.quantity))}
@@ -244,7 +245,7 @@ const styles = StyleSheet.create({
     width: Matrics.s(80),
     marginTop: Matrics.vs(22),
   },
-  optionContainer: {flexDirection: 'row', paddingHorizontal: 5},
+  optionContainer: { flexDirection: 'row', paddingHorizontal: 5 },
   optionText: {
     paddingHorizontal: Matrics.s(10),
     lineHeight: 15,
