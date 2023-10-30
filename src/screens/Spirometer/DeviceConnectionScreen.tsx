@@ -413,26 +413,25 @@ const DeviceConnectionScreen: React.FC<DeviceConnectionScreenProps> = ({
           onChange={index => {
             index == -1 && setMultiplePicker(false);
           }}>
-          {selectAction ? (
+          {/* {selectAction && (
             <LungActionBottomSheet
               data={LungFuncationAction}
               onPress={onPressLungAction}
             />
-          ) : (
-            <LungFuncationBottomSheet
-              selectedType={selectedType}
-              onPressTab={onPressTab}
-              setSelectedItem={setSelectedItem}
-              btnTitles={
-                selectedType?.type == 'Height' ? heightSubTypes : weightSubTypes
-              }
-              firstItemList={firstItemList}
-              multiplePicker={multiplePicker}
-              onSaveBtnPress={onSaveBtnPress}
-              secondItemList={secondItemList}
-              selectedItem={selectedItem}
-            />
-          )}
+          )} */}
+          <LungFuncationBottomSheet
+            selectedType={selectedType}
+            onPressTab={onPressTab}
+            setSelectedItem={setSelectedItem}
+            btnTitles={
+              selectedType?.type == 'Height' ? heightSubTypes : weightSubTypes
+            }
+            firstItemList={firstItemList}
+            multiplePicker={multiplePicker}
+            onSaveBtnPress={onSaveBtnPress}
+            secondItemList={secondItemList}
+            selectedItem={selectedItem}
+          />
         </CommonBottomSheetModal>
       </BottomSheetModalProvider>
     </SafeAreaView>

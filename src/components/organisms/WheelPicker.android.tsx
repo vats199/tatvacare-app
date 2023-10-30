@@ -40,7 +40,7 @@ export interface Props {
   onChangeValue: (value: onChangeTypeProps) => void;
 }
 
-const WheelPickerAndroid: React.FC<Props> = ({
+const WheelPicker: React.FC<Props> = ({
   selectedValue,
   containerStyle,
   textSize = Matrics.mvs(30),
@@ -123,7 +123,7 @@ const WheelPickerAndroid: React.FC<Props> = ({
   );
 };
 
-export default WheelPickerAndroid;
+export default WheelPicker;
 
 const styles = StyleSheet.create({
   container: {flex: 1, justifyContent: 'center'},

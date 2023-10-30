@@ -1,6 +1,6 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import {colors} from '../../constants/colors';
 import {CompositeScreenProps} from '@react-navigation/native';
 import {
@@ -13,7 +13,9 @@ import CommonHeader from '../../components/molecules/CommonHeader';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import HealthInsightsScreen from './HealthInsightsScreen';
 import ExerciseInsights from './ExerciseInsights';
-import {Matrics} from '../../constants';
+import {Fonts, Matrics} from '../../constants';
+import Button from '../../components/atoms/Button';
+import CommonBottomSheetModal from '../../components/molecules/CommonBottomSheetModal';
 
 type AnalyserScreenProps = CompositeScreenProps<
   StackScreenProps<AppStackParamList>,
@@ -22,7 +24,7 @@ type AnalyserScreenProps = CompositeScreenProps<
 const LungTab = createMaterialTopTabNavigator<LungTabParamList>();
 
 const AnalyserScreen: React.FC<AnalyserScreenProps> = ({navigation, route}) => {
-  console.log('🚀 ~ file: AnalyserScreen.tsx:18 ~ route:', route);
+  const insets = useSafeAreaInsets();
 
   const onPressBackArrow = () => {
     navigation.goBack();
@@ -51,9 +53,9 @@ const AnalyserScreen: React.FC<AnalyserScreenProps> = ({navigation, route}) => {
           tabBarInactiveTintColor: colors.tabTitleColor,
           tabBarLabelStyle: {
             textAlign: 'center',
-            fontSize: 18,
+            fontSize: Matrics.mvs(18),
+            fontFamily: Fonts.MEDIUM,
             textTransform: 'none',
-            fontWeight: '600',
           },
           tabBarIndicatorStyle: {
             borderBottomColor: colors.themePurple,
@@ -73,10 +75,49 @@ const AnalyserScreen: React.FC<AnalyserScreenProps> = ({navigation, route}) => {
           options={{tabBarLabel: 'Exercise Insights'}}
         />
       </LungTab.Navigator>
+      <CommonBottomSheetModal snapPoints={['50%']} index={0}>
+        <View style={{flex: 1, backgroundColor: 'red'}}>
+          <Text>dsdfsdfsdf</Text>
+        </View>
+      </CommonBottomSheetModal>
+      <View
+        style={[
+          styles.bottomBtnContainerShadow,
+          styles.bottonBtnContainer,
+          {
+            paddingBottom: insets.bottom !== 0 ? insets.bottom : Matrics.vs(16),
+          },
+        ]}>
+        <Button
+          title="Connect"
+          titleStyle={styles.saveBtnTxt}
+          buttonStyle={{
+            borderRadius: Matrics.s(19),
+          }}
+          onPress={() => {}}
+        />
+      </View>
     </SafeAreaView>
   );
 };
 
 export default AnalyserScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  bottomBtnContainerShadow: {
+    shadowColor: colors.black,
+    shadowOffset: {width: 0, height: 0},
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    elevation: 2,
+  },
+  bottonBtnContainer: {
+    backgroundColor: colors.white,
+    paddingVertical: Matrics.vs(8),
+  },
+  saveBtnTxt: {
+    fontFamily: Fonts.BOLD,
+    fontSize: Matrics.mvs(16),
+    fontWeight: '700',
+  },
+});

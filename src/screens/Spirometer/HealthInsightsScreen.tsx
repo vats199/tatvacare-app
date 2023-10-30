@@ -3,10 +3,6 @@ import InsightsScreen, {
   HealthInsightsListProps,
 } from '../../components/molecules/InsightsScreen';
 import {StyleSheet, View} from 'react-native';
-import Button from '../../components/atoms/Button';
-import {Fonts, Matrics} from '../../constants';
-import {colors} from '../../constants/colors';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 export const HealthInsightsList: HealthInsightsListProps[] = [
   {
@@ -87,48 +83,9 @@ export const HealthInsightsList: HealthInsightsListProps[] = [
 ];
 
 const HealthInsightsScreen = () => {
-  const insets = useSafeAreaInsets();
-  return (
-    <>
-      <InsightsScreen data={HealthInsightsList} />
-      <View
-        style={[
-          styles.bottomBtnContainerShadow,
-          styles.bottonBtnContainer,
-          {
-            paddingBottom: insets.bottom !== 0 ? insets.bottom : Matrics.vs(16),
-          },
-        ]}>
-        <Button
-          title="Connect"
-          titleStyle={styles.saveBtnTxt}
-          buttonStyle={{
-            borderRadius: Matrics.s(19),
-          }}
-          onPress={() => {}}
-        />
-      </View>
-    </>
-  );
+  return <InsightsScreen data={HealthInsightsList} />;
 };
 
 export default HealthInsightsScreen;
 
-const styles = StyleSheet.create({
-  bottomBtnContainerShadow: {
-    shadowColor: colors.black,
-    shadowOffset: {width: 0, height: 0},
-    shadowOpacity: 0.08,
-    shadowRadius: 8,
-    elevation: 2,
-  },
-  bottonBtnContainer: {
-    backgroundColor: colors.white,
-    paddingVertical: Matrics.vs(8),
-  },
-  saveBtnTxt: {
-    fontFamily: Fonts.BOLD,
-    fontSize: Matrics.mvs(16),
-    fontWeight: '700',
-  },
-});
+const styles = StyleSheet.create({});

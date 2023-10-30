@@ -40,7 +40,7 @@ export interface Props {
   onChangeValue: (value: onChangeTypeProps, type?: string) => void;
 }
 
-const WheelPickerIos: React.FC<Props> = ({
+const WheelPicker: React.FC<Props> = ({
   selectedValue,
   containerStyle,
   textSize = Matrics.mvs(30),
@@ -73,7 +73,6 @@ const WheelPickerIos: React.FC<Props> = ({
             pickerData={data}
             onValueChange={(value: number) => {
               onChangeValue({value: value, type: 'left'});
-              console.log(value, 'valueeeeeee');
             }}
           />
           <View style={[styles.leftArrow, leftArrowStyle]}></View>
@@ -123,7 +122,7 @@ const WheelPickerIos: React.FC<Props> = ({
   );
 };
 
-export default WheelPickerIos;
+export default WheelPicker;
 
 const styles = StyleSheet.create({
   container: {justifyContent: 'center'},

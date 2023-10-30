@@ -1,7 +1,6 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import TabButton from '../atoms/TabButton';
-import {WheelPicker} from '../organisms/WheelPicker';
 import Button from '../atoms/Button';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {colors} from '../../constants/colors';
