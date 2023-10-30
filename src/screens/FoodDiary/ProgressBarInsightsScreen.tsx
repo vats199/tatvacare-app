@@ -131,11 +131,6 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
   }, [calories]);
 
   const renderItem = (item: any, index: number) => {
-    console.log(
-      'item?.consumedClories === 0 && item?.totalCalories === 0 ',
-      item?.consumedClories === 0 && item?.totalCalories === 0,
-    );
-
     return (
       <View
         style={[style.calorieMainContainer, {paddingVertical: Matrics.vs(5)}]}

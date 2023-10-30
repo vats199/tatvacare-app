@@ -26,7 +26,6 @@ const Diet = {
     });
   },
   searchFoodItem: (payload: object, query: object, token: object) => {
- 
     const route = bindQueryParams(
       '/goal_readings/search_food_with_nutrition',
       query,
@@ -42,6 +41,8 @@ const Diet = {
     // console.log('add payload', payload);
 
     const route = bindQueryParams('/patient_hc/add_food_item_patient', query);
+    console.log('route', route);
+
     return Ajax.request(route, {
       method: Ajax.POST,
       priv: true,
@@ -50,7 +51,10 @@ const Diet = {
     });
   },
   updateFoodItem: (payload: object, query: object, token: object) => {
-    const route = bindQueryParams('/patient_hc/update_food_item_patient', query);
+    const route = bindQueryParams(
+      '/patient_hc/update_food_item_patient',
+      query,
+    );
     return Ajax.request(route, {
       method: Ajax.POST,
       priv: true,
@@ -59,7 +63,7 @@ const Diet = {
     });
   },
   updateFoodConsumption: (payload: object, query: object, token: object) => {
-        // console.log('add payload', payload);
+    // console.log('add payload', payload);
 
     const route = bindQueryParams('/patient_hc/update_food_consumption', query);
     return Ajax.request(route, {

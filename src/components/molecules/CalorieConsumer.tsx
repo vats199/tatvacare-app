@@ -46,6 +46,7 @@ const CalorieConsumer: React.FC<CalorieConsumerProps> = ({
                 fontFamily: Fonts.BOLD,
               }}
             />
+
             <View style={styles.textContainer}>
               <View style={{flexDirection: 'row', alignItems: 'center'}}>
                 <Text style={styles.boldTitle}>

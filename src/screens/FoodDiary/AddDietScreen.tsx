@@ -49,8 +49,6 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
   const [searchQuery, setSearchQuery] = React.useState('');
   const [timeoutId, setTimeoutId] = React.useState<number | undefined>(undefined);
   const debouncingDelay = 500;
-  console.log("optionFoodItems", optionFoodItems);
-
 
   useEffect(() => {
     const getRecentSerache = async () => {
@@ -92,7 +90,6 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
     const isFoodItemInList = optionFoodItems?.food_items.find(
       (item) => item.food_item_id === data?.food_item_id
     );
-    console.log("isFoodItemInList", isFoodItemInList);
 
     if (isFoodItemInList) {
       navigation.navigate('DietDetail', {
@@ -131,6 +128,7 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
         is_consumed: null,
         consumed_calories: null,
         healthCoachId: healthCoachId,
+        is_food_item_added_by_patient: 'Y',
       };
 
       navigation.navigate('DietDetail', {
