@@ -43,7 +43,7 @@ export interface Props {
 const WheelPicker: React.FC<Props> = ({
   selectedValue,
   containerStyle,
-  textSize = Matrics.mvs(30),
+  textSize = Matrics.mvs(25),
   selectTextColor = colors.labelDarkGray,
   textColor = colors.subTitleLightGray,
   isShowSelectBackground = false,
@@ -152,22 +152,27 @@ const styles = StyleSheet.create({
   rowContainer: {flex: 1, flexDirection: 'row', alignItems: 'center'},
   leftPickerCont: {
     width: Matrics.screenWidth / 2,
-    height: Matrics.vs(250),
+    // height: Matrics.vs(250),
+    flex: 1,
     alignItems: 'flex-end',
   },
   rightPickerCont: {
     width: Matrics.screenWidth / 2,
-    height: Matrics.vs(250),
+    // height: Matrics.vs(250),
+    flex: 1,
+
     alignItems: 'flex-start',
   },
   leftPicker: {
     backgroundColor: colors.white,
     width: Matrics.s(70),
-    height: Matrics.vs(250),
+    // height: Matrics.vs(250),
+    flex: 1,
   },
   rightPikcer: {
     backgroundColor: colors.white,
     width: Matrics.s(40),
-    height: Matrics.vs(250),
+    // height: Matrics.vs(250),
+    flex: 1,
   },
 });

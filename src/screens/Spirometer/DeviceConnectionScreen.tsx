@@ -1,4 +1,4 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import {colors} from '../../constants/colors';
 import CommonHeader from '../../components/molecules/CommonHeader';
@@ -13,7 +13,7 @@ import * as yup from 'yup';
 import CommonBottomSheetModal from '../../components/molecules/CommonBottomSheetModal';
 import {BottomSheetModal, BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
-import {PickerDataTypeProps} from '../../components/organisms/WheelPicker.Ios';
+import {PickerDataTypeProps} from '../../components/organisms/WheelPicker.ios';
 import DatePicker from 'react-native-date-picker';
 import DeviceConnectGenderButtons from '../../components/molecules/DeviceConnectGenderButtons';
 import LungFuncationBottomSheet from '../../components/molecules/LungFunctionBottomSheet';
@@ -406,32 +406,33 @@ const DeviceConnectionScreen: React.FC<DeviceConnectionScreenProps> = ({
           index={0}
           snapPoints={
             selectAction
-              ? ['25%']
+              ? [Platform.OS == 'ios' ? '25%' : '30%']
               : [selectedType?.type == 'EthniCity' ? '50%' : '55%']
           }
           ref={bottomSheetModalRef}
           onChange={index => {
             index == -1 && setMultiplePicker(false);
           }}>
-          {/* {selectAction && (
+          {selectAction ? (
             <LungActionBottomSheet
               data={LungFuncationAction}
               onPress={onPressLungAction}
             />
-          )} */}
-          <LungFuncationBottomSheet
-            selectedType={selectedType}
-            onPressTab={onPressTab}
-            setSelectedItem={setSelectedItem}
-            btnTitles={
-              selectedType?.type == 'Height' ? heightSubTypes : weightSubTypes
-            }
-            firstItemList={firstItemList}
-            multiplePicker={multiplePicker}
-            onSaveBtnPress={onSaveBtnPress}
-            secondItemList={secondItemList}
-            selectedItem={selectedItem}
-          />
+          ) : (
+            <LungFuncationBottomSheet
+              selectedType={selectedType}
+              onPressTab={onPressTab}
+              setSelectedItem={setSelectedItem}
+              btnTitles={
+                selectedType?.type == 'Height' ? heightSubTypes : weightSubTypes
+              }
+              firstItemList={firstItemList}
+              multiplePicker={multiplePicker}
+              onSaveBtnPress={onSaveBtnPress}
+              secondItemList={secondItemList}
+              selectedItem={selectedItem}
+            />
+          )}
         </CommonBottomSheetModal>
       </BottomSheetModalProvider>
     </SafeAreaView>

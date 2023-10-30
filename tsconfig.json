@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     "jsx": "react",
-    "paths": {
-      "*":["src/*","*.android.tsx","*.ios.tsx"]
-    }
+    // "paths": {
+    //   "*":["src/*","*.android.tsx","*.ios.tsx"]
+    // }
   },
   "extends": "@tsconfig/react-native/tsconfig.json"
 }

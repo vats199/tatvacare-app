@@ -5,7 +5,8 @@ import Button from '../atoms/Button';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {colors} from '../../constants/colors';
 import {Fonts, Matrics} from '../../constants';
-import {PickerDataTypeProps} from '../organisms/WheelPicker.Ios';
+import {PickerDataTypeProps} from '../organisms/WheelPicker.ios';
+import {WheelPicker} from '../organisms/WheepPicker';
 
 type LungFunctionBottomSheetProps = {
   selectedType: {
@@ -54,7 +55,7 @@ const LungFunctionBottomSheet: React.FC<LungFunctionBottomSheetProps> = ({
         {`Select ${selectedType?.type}`}
       </Text>
       <View style={styles.bottomSheetInnerContainer} />
-      {selectedType?.type !== 'EthniCity' ? (
+      {selectedType?.type != 'EthniCity' ? (
         <TabButton
           onPress={onPressTab}
           containerStyle={{

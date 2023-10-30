@@ -1,5 +1,12 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React from 'react';
+import {
+  Platform,
+  StyleSheet,
+  Switch,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import React, {useRef, useState} from 'react';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import {colors} from '../../constants/colors';
 import {CompositeScreenProps} from '@react-navigation/native';
@@ -16,6 +23,9 @@ import ExerciseInsights from './ExerciseInsights';
 import {Fonts, Matrics} from '../../constants';
 import Button from '../../components/atoms/Button';
 import CommonBottomSheetModal from '../../components/molecules/CommonBottomSheetModal';
+import MyStatusbar from '../../components/atoms/MyStatusBar';
+import {BottomSheetModal} from '@gorhom/bottom-sheet';
+import {Icons} from '../../constants/icons';
 
 type AnalyserScreenProps = CompositeScreenProps<
   StackScreenProps<AppStackParamList>,
@@ -25,6 +35,10 @@ const LungTab = createMaterialTopTabNavigator<LungTabParamList>();
 
 const AnalyserScreen: React.FC<AnalyserScreenProps> = ({navigation, route}) => {
   const insets = useSafeAreaInsets();
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
   const onPressBackArrow = () => {
     navigation.goBack();
@@ -41,6 +55,7 @@ const AnalyserScreen: React.FC<AnalyserScreenProps> = ({navigation, route}) => {
         flex: 1,
         backgroundColor: colors.lightPurple,
       }}>
+      <MyStatusbar backgroundColor={colors.lightGreyishBlue} />
       <CommonHeader title={header} onPress={onPressBackArrow} />
       <LungTab.Navigator
         initialRouteName={
@@ -75,9 +90,107 @@ const AnalyserScreen: React.FC<AnalyserScreenProps> = ({navigation, route}) => {
           options={{tabBarLabel: 'Exercise Insights'}}
         />
       </LungTab.Navigator>
-      <CommonBottomSheetModal snapPoints={['50%']} index={0}>
-        <View style={{flex: 1, backgroundColor: 'red'}}>
-          <Text>dsdfsdfsdf</Text>
+      <CommonBottomSheetModal
+        ref={bottomSheetModalRef}
+        snapPoints={['50%']}
+        index={0}>
+        <View style={{flex: 1, backgroundColor: colors.white}}>
+          <Text
+            style={{
+              marginHorizontal: Matrics.s(15),
+              fontFamily: Fonts.BOLD,
+              fontSize: Matrics.mvs(17),
+              color: colors.labelTitleDarkGray,
+            }}>
+            Connect Lung Function Analyser
+          </Text>
+          <View
+            style={{
+              height: Matrics.vs(1),
+              backgroundColor: '#E9E9E9',
+              marginVertical: Matrics.vs(10),
+            }}
+          />
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              marginHorizontal: Matrics.s(15),
+              alignItems: 'center',
+            }}>
+            <Text
+              style={{
+                fontFamily: Fonts.MEDIUM,
+                fontSize: Matrics.mvs(15),
+                color: colors.labelTitleDarkGray,
+              }}>
+              Bluetooth
+            </Text>
+            <Switch
+              trackColor={{
+                false: colors.switchBackgroundColor,
+                true: colors.switchBackgroundColor,
+              }}
+              thumbColor={colors.white}
+              ios_backgroundColor={colors.switchBackgroundColor}
+              onValueChange={toggleSwitch}
+              value={isEnabled}
+            />
+          </View>
+          <View
+            style={{
+              height: Matrics.vs(1),
+              backgroundColor: '#E9E9E9',
+              marginVertical: Matrics.vs(10),
+              marginHorizontal: Matrics.s(15),
+            }}
+          />
+          {/* <Icons.bl */}
+          <View
+            style={{
+              alignItems: 'center',
+              flex: 1,
+              justifyContent: 'center',
+            }}>
+            <Icons.Bluetooth
+              width={Matrics.mvs(45)}
+              height={Matrics.mvs(45)}
+              style={{
+                marginVertical: Matrics.vs(10),
+              }}
+            />
+            <Text
+              style={{
+                fontFamily: Fonts.MEDIUM,
+                fontSize: Matrics.mvs(16),
+                color: colors.dimGray,
+                textAlign: 'center',
+                width: '65%',
+              }}>
+              Turn on Bluetooth to connect your device
+            </Text>
+          </View>
+          <View
+            style={[
+              styles.bottomBtnContainerShadow,
+              styles.bottonBtnContainer,
+              {
+                paddingBottom:
+                  insets.bottom !== 0
+                    ? Platform.OS == 'android'
+                      ? insets.bottom + Matrics.vs(10)
+                      : insets.bottom
+                    : Matrics.vs(15),
+              },
+            ]}>
+            <Button
+              title="Connect"
+              titleStyle={styles.saveBtnTxt}
+              onPress={() => {
+                bottomSheetModalRef.current?.present();
+              }}
+            />
+          </View>
         </View>
       </CommonBottomSheetModal>
       <View
@@ -85,16 +198,20 @@ const AnalyserScreen: React.FC<AnalyserScreenProps> = ({navigation, route}) => {
           styles.bottomBtnContainerShadow,
           styles.bottonBtnContainer,
           {
-            paddingBottom: insets.bottom !== 0 ? insets.bottom : Matrics.vs(16),
+            paddingBottom:
+              insets.bottom !== 0
+                ? Platform.OS == 'android'
+                  ? insets.bottom + Matrics.vs(10)
+                  : insets.bottom
+                : Matrics.vs(15),
           },
         ]}>
         <Button
           title="Connect"
           titleStyle={styles.saveBtnTxt}
-          buttonStyle={{
-            borderRadius: Matrics.s(19),
+          onPress={() => {
+            bottomSheetModalRef.current?.present();
           }}
-          onPress={() => {}}
         />
       </View>
     </SafeAreaView>

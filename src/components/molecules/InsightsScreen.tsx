@@ -63,7 +63,11 @@ const InsightsScreen: React.FC<InsightsScreenProps> = ({data}) => {
 
   return (
     <View style={styles.container}>
-      <FlatList data={data} renderItem={renderItem} />
+      <FlatList
+        showsVerticalScrollIndicator={false}
+        data={data}
+        renderItem={renderItem}
+      />
     </View>
   );
 };

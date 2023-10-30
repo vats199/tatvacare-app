@@ -135,6 +135,8 @@ import Heart from '../assets/icons/heart.svg';
 import Schedule from '../assets/icons/schedule.svg';
 import Event from '../assets/icons/event.svg';
 import Download from '../assets/icons/download.svg';
+import Bluetooth from '../assets/icons/bluetooth.svg';
+
 
 
 export const Icons = {
@@ -267,5 +269,6 @@ export const Icons = {
   Heart,
   Schedule,
   Event,
-  Download
+  Download,
+  Bluetooth
 };
