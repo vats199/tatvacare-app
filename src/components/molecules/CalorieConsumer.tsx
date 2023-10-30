@@ -1,7 +1,9 @@
-import React, { useEffect } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
-import { Icons } from '../../constants/icons';
+import React, {useEffect} from 'react';
+import {StyleSheet, View, Text} from 'react-native';
+import {Icons} from '../../constants/icons';
 import CircularProgress from 'react-native-circular-progress-indicator';
+import {Fonts, Matrics} from '../../constants';
+import {colors} from '../../constants/colors';
 
 type CalorieConsumerProps = {
   totalConsumedcalories: number;
@@ -31,14 +33,21 @@ const CalorieConsumer: React.FC<CalorieConsumerProps> = ({
               inActiveStrokeColor={'#2ecc71'}
               inActiveStrokeOpacity={0.2}
               progressValueColor={'green'}
-              valueSuffix={'%'}
-              radius={23}
+              radius={Matrics.mvs(23)}
               activeStrokeWidth={3}
               inActiveStrokeWidth={3}
               duration={1000}
+              maxValue={100}
+              allowFontScaling={false}
+              showProgressValue={false}
+              title={`${values}%`}
+              titleStyle={{
+                fontSize: Matrics.mvs(11),
+                fontFamily: Fonts.BOLD,
+              }}
             />
             <View style={styles.textContainer}>
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
                 <Text style={styles.boldTitle}>
                   {isNaN(totalConsumedcalories) ? 0 : totalConsumedcalories}
                 </Text>

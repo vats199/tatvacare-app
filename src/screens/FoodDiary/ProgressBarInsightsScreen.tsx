@@ -1,15 +1,15 @@
-import { View, Text, StyleSheet, ScrollView, Platform } from 'react-native';
-import React, { useEffect, useState } from 'react';
-import { DietStackParamList } from '../../interface/Navigation.interface';
-import { StackScreenProps } from '@react-navigation/stack';
+import {View, Text, StyleSheet, ScrollView, Platform} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {DietStackParamList} from '../../interface/Navigation.interface';
+import {StackScreenProps} from '@react-navigation/stack';
 import DietHeader from '../../components/molecules/DietHeader';
-import { colors } from '../../constants/colors';
+import {colors} from '../../constants/colors';
 import fonts from '../../constants/fonts';
 import Matrics from '../../constants/Matrics';
 import CircularProgress from 'react-native-circular-progress-indicator';
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import MyStatusbar from '../../components/atoms/MyStatusBar';
-import { Fonts } from '../../constants';
+import {Fonts} from '../../constants';
 
 type ProgressBarInsightsScreenProps = StackScreenProps<
   DietStackParamList,
@@ -22,7 +22,7 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
 }) => {
   const insets = useSafeAreaInsets();
   const [selectedDate, setSelectedDate] = React.useState(new Date());
-  const { calories } = route.params;
+  const {calories} = route.params;
   const [dailyCalories, setDailyCalories] = useState([]);
   const [macroNuitrientes, setMacroNuitrientes] = useState([]);
 
@@ -59,7 +59,7 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
         progressBarVale: Math.round(
           (Math.round(Number(item.consumed_calories)) /
             Math.round(Number(item.total_calories))) *
-          100,
+            100,
         ),
         progresBarColor: color,
       };
@@ -138,7 +138,7 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
 
     return (
       <View
-        style={[style.calorieMainContainer, { paddingVertical: Matrics.vs(5) }]}
+        style={[style.calorieMainContainer, {paddingVertical: Matrics.vs(5)}]}
         key={index?.toString()}>
         <CircularProgress
           value={isNaN(item?.progressBarVale) ? 0 : item?.progressBarVale}
@@ -148,6 +148,7 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
           inActiveStrokeOpacity={0.2}
           progressValueColor={'green'}
           valueSuffix={'%'}
+          maxValue={100}
           radius={Matrics.mvs(22)}
           activeStrokeWidth={3}
           activeStrokeColor={
@@ -155,6 +156,13 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
           }
           inActiveStrokeWidth={3}
           duration={1000}
+          allowFontScaling={false}
+          showProgressValue={false}
+          title={`${isNaN(item?.progressBarVale) ? 0 : item?.progressBarVale}%`}
+          titleStyle={{
+            fontSize: Matrics.mvs(11),
+            fontFamily: Fonts.BOLD,
+          }}
         />
         <View style={[style.textContainer]}>
           <Text style={style.subtitle}>{item?.title}</Text>
@@ -166,11 +174,11 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
             <Text style={style.consumedCalries}>
               {isNaN(item?.consumedClories) ? 0 : item?.consumedClories}
             </Text>
-            <Text style={[style.consumedCalries, { fontFamily: Fonts.REGULAR }]}>
+            <Text style={[style.consumedCalries, {fontFamily: Fonts.REGULAR}]}>
               {' '}
               of{' '}
             </Text>
-            <Text style={[style.consumedCalries, { fontFamily: Fonts.REGULAR }]}>
+            <Text style={[style.consumedCalries, {fontFamily: Fonts.REGULAR}]}>
               {item?.totalCalories}
             </Text>
           </View>
@@ -202,7 +210,7 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
           })}
         </View>
         {dailyCalories.length > 0 ? (
-          <View style={{ flex: 1 }}>
+          <View style={{flex: 1}}>
             <Text style={style.title}>Meal Energy Distribution</Text>
             <View style={style.boxContainer}>
               {dailyCalories?.map((item, index) => {
@@ -234,7 +242,7 @@ const style = StyleSheet.create({
     color: colors.labelDarkGray,
     fontFamily: fonts.BOLD,
     lineHeight: Matrics.vs(15),
-    textTransform: 'capitalize'
+    textTransform: 'capitalize',
   },
   caloriesContainer: {
     flexDirection: 'row',

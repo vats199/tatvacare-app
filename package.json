@@ -9,7 +9,7 @@
     "start": "react-native start",
     "android:dev": "react-native run-android --variant=developmentdebug",
     "build:ios": "react-native bundle --entry-file='index.js' --bundle-output='./ios/main.jsbundle' --dev=false --platform='ios'",
-    "postinstall": "react-native setup-ios-permissions && npx pod-install",
+    "postinstall": "patch-package && react-native setup-ios-permissions && npx pod-install",
     "test": "jest"
   },
   "dependencies": {
@@ -30,6 +30,7 @@
     "formik": "^2.4.5",
     "lottie-react-native": "^6.3.1",
     "moment": "^2.29.4",
+    "patch-package": "^8.0.0",
     "react": "18.2.0",
     "react-native": "0.72.4",
     "react-native-barcode-mask": "^1.2.4",
