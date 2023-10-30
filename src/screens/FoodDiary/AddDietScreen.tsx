@@ -11,6 +11,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Matrics } from '../../constants';
 import MyStatusbar from '../../components/atoms/MyStatusBar';
+import { log } from 'console';
+import { useFocusEffect } from '@react-navigation/native';
 
 type AddDietScreenProps = StackScreenProps<DietStackParamList, 'AddDiet'>;
 type SearcheFood = {
@@ -38,11 +40,17 @@ type SearcheFood = {
 const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
   const insets = useSafeAreaInsets();
   const { userData } = useApp();
-  const { optionFoodItems, healthCoachId, mealName } = route.params;
+  const { optionFoodItems, healthCoachId, mealName, } = route.params;
   const [recentSerach, setRecentSerach] = React.useState([]);
   const [searchResult, setSearchResult] = React.useState([]);
+  const [message, setMessage] = React.useState('');
   const [result, setResult] = React.useState([]);
   const [title, setTitle] = React.useState<string>('');
+  const [searchQuery, setSearchQuery] = React.useState('');
+  const [timeoutId, setTimeoutId] = React.useState<number | undefined>(undefined);
+  const debouncingDelay = 500;
+  console.log("optionFoodItems", optionFoodItems);
+
 
   useEffect(() => {
     const getRecentSerache = async () => {
@@ -69,6 +77,14 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
     getRecentSerache();
   }, []);
 
+  useFocusEffect(
+    React.useCallback(() => {
+      if (recentSerach.length > 0) {
+        setTitle('Recent Search');
+      }
+    }, [recentSerach])
+  );
+
   const onPressBack = () => {
     navigation.goBack();
   };
@@ -76,6 +92,7 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
     const isFoodItemInList = optionFoodItems?.food_items.find(
       (item) => item.food_item_id === data?.food_item_id
     );
+    console.log("isFoodItemInList", isFoodItemInList);
 
     if (isFoodItemInList) {
       navigation.navigate('DietDetail', {
@@ -133,25 +150,63 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
     );
   };
 
-  const handleSerach = async (text: string) => {
-    const result = await Diet.searchFoodItem(
-      { food_name: text },
-      {},
-      { token: userData?.token },
-    );
-    setResult(result);
-    setSearchResult(result?.data);
-    if (result.code === '0' || text.length === 0) {
-      setSearchResult(recentSerach);
-      setTitle('Recent Search');
-    } else if (result.code === '2') {
-      setTitle('Search Result');
-      setSearchResult([]);
-    } else {
-      setSearchResult(result?.data);
-      setTitle('Search Result');
+  // const handleSerach = async (text: string) => {
+  //   const result = await Diet.searchFoodItem(
+  //     { food_name: text },
+  //     {},
+  //     { token: userData?.token },
+  //   );
+  //   setResult(result);
+  //   setSearchResult(result?.data);
+  //   if (result.code === '0' || text.length === 0) {
+  //     setSearchResult(recentSerach);
+  //     setTitle('Recent Search');
+  //   } else if (result.code === '2') {
+  //     setTitle('Search Result');
+  //     setSearchResult([]);
+  //   } else {
+  //     setSearchResult(result?.data);
+  //     setTitle('Search Result');
+  //   }
+  // };
+  const handleSearch = (text: string) => {
+    setSearchQuery(text);
+
+    if (timeoutId) {
+      clearTimeout(timeoutId);
     }
+
+    const newTimeoutId = setTimeout(() => {
+      const performSearch = async () => {
+        const result = await Diet.searchFoodItem(
+          { food_name: text },
+          {},
+          { token: userData?.token },
+        );
+        setResult(result);
+        setSearchResult(result?.data);
+
+        if (result.code === '0' || text.length === 0) {
+          setSearchResult(recentSerach);
+          setTitle(recentSerach.length > 0 ? 'Recent Search' : '');
+          setMessage('')
+        } else if (result.code === '2') {
+          setTitle('Search Result');
+          setSearchResult([]);
+          setMessage('Searched meal not found!')
+        } else {
+          setSearchResult(result?.data);
+          setTitle('Search Result');
+          setMessage('')
+        }
+      };
+
+      performSearch();
+    }, debouncingDelay);
+
+    setTimeoutId(newTimeoutId);
   };
+
 
   return (
     <SafeAreaView
@@ -165,11 +220,12 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
         },
       ]}>
       <MyStatusbar backgroundColor={colors.lightGreyishBlue} />
-      <DietSearchHeader onPressBack={onPressBack} onSearch={handleSerach} />
+      <DietSearchHeader onPressBack={onPressBack} onSearch={handleSearch} />
       <RecentSearchDiet
         onPressPlus={handlePressPlus}
-        searchData={result}
+        searchData={searchResult}
         title={title}
+        message={message}
       />
     </SafeAreaView>
   );

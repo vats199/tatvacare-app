@@ -118,7 +118,6 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
   const [foodItmeData, setFoodItemData] = React.useState<Options | null>(
     cardData?.options[0],
   );
-  console.log("foodItmeData", foodItmeData);
 
   const [selectedOptionId, setSelectedOptionId] = useState<string>(
     cardData?.options[0].diet_meal_options_id,
@@ -151,7 +150,13 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
     onPressOfDelete(Id);
   };
   const handlePulsIconPress = () => {
-    onPressPlus(foodItmeData, cardData.meal_name);
+    if (selectedOptionId !== null) {
+      let data = cardData.options.filter(item => item.diet_meal_options_id == selectedOptionId,)[0]
+      onPressPlus(data, cardData.meal_name);
+    } else {
+      let data = cardData.options[0]
+      onPressPlus(data, cardData.meal_name);
+    }
   };
   const handalecompletion = (item: Consumption) => {
     onPressOfcomplete(item, selectedOptionId);

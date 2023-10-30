@@ -89,7 +89,7 @@ const AddDiet: React.FC<AddDietProps> = ({
                 containerStyle={styles.conatiner}
               />
               <View style={styles.measureContainer}>
-                <Text style={styles.dropdownTitleText}>
+                <Text style={[styles.dropdownTitleText, { color: colors.disableButton }]}>
                   {Data?.measure_name}
                 </Text>
                 <Icons.DropdownIcon />
@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   measureContainer: {
-    borderRadius: 10,
+    borderRadius: 5,
     borderWidth: 0.4,
     width: '50%',
     height: '98%',
@@ -178,5 +178,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 8,
+    borderColor: colors.disableButton
   },
 });

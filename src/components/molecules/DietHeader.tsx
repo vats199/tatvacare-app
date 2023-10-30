@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import CalendarStrip from 'react-native-calendar-strip';
-import { StyleSheet, Text, View, Dimensions ,  LayoutAnimation,} from 'react-native';
+import { StyleSheet, Text, View, Dimensions, LayoutAnimation, } from 'react-native';
 import { colors } from '../../constants/colors';
 import { Icons } from '../../constants/icons';
 import { TouchableOpacity } from 'react-native';
 import { LocaleConfig, CalendarList } from 'react-native-calendars';
 import { Fonts, Matrics } from '../../constants';
 import moment from 'moment';
-import {useIsFocused} from '@react-navigation/native';
+import { useIsFocused } from '@react-navigation/native';
 
 const { width } = Dimensions.get('window');
 type DietHeaderProps = {
@@ -273,8 +273,8 @@ const DietHeader: React.FC<DietHeaderProps> = ({
             setShowMore(!showMore);
             focus
               ? LayoutAnimation.configureNext(
-                  LayoutAnimation.Presets.easeInEaseOut,
-                )
+                LayoutAnimation.Presets.easeInEaseOut,
+              )
               : null;
           }}>
           {showMore ? <Icons.ShowMore /> : <Icons.ShowLess />}
