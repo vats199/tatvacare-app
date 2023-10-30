@@ -11,6 +11,9 @@ import {
   View,
   SafeAreaView,
   useWindowDimensions,
+  TextInput,
+  TextInputProps,
+  TextProps,
 } from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import Router from './src/routes/Router';
@@ -27,6 +30,20 @@ import {AppProvider} from './src/context/app.context';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import SplashScreen from 'react-native-splash-screen';
 import {MenuProvider} from 'react-native-popup-menu';
+import {Provider} from 'react-redux';
+import {Persistor, Store} from './src/redux/Store';
+import {PersistGate} from 'redux-persist/integration/react';
+
+/**
+ * Font scalling configuration,
+ * By setting this configuration it will not allow app to use mobile default configuration for fonts and font size.
+ */
+if ((Text as any).defaultProps == null) (Text as any).defaultProps = {};
+(Text as any).defaultProps.allowFontScaling = false;
+
+if ((TextInput as any).defaultProps == null)
+  (TextInput as any).defaultProps = {};
+(TextInput as any).defaultProps.allowFontScaling = false;
 
 const App = () => {
   const {height, width} = useWindowDimensions();

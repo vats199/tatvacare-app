@@ -11,6 +11,7 @@ import {colors} from '../../constants/colors';
 import ImagePicker from 'react-native-image-crop-picker';
 import {Icons} from '../../constants/icons';
 import {navigateTo} from '../../routes/Router';
+import {Fonts, Matrics} from '../../constants';
 
 type DrawerUserInfoProps = {};
 
@@ -87,13 +88,14 @@ export default DrawerUserInfo;
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: 10,
-    marginBottom: 5,
-    padding: 10,
+    marginHorizontal: Matrics.s(12),
+    marginBottom: Matrics.vs(5),
+    paddingVertical: Matrics.vs(10),
+    paddingHorizontal: Matrics.s(12),
     backgroundColor: colors.white,
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 12,
+    borderRadius: Matrics.mvs(12),
   },
   image: {
     height: 48,
@@ -108,13 +110,13 @@ const styles = StyleSheet.create({
   },
   name: {
     color: colors.black,
-    marginBottom: 5,
-    fontSize: 16,
-    fontWeight: '600',
+    marginBottom: Matrics.vs(5),
+    fontSize: Matrics.mvs(16),
+    fontFamily: Fonts.MEDIUM,
   },
   number: {
     color: colors.lightGrey,
-    fontSize: 12,
-    fontWeight: '300',
+    fontSize: Matrics.mvs(12),
+    fontFamily: Fonts.REGULAR,
   },
 });

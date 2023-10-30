@@ -22,7 +22,7 @@ const CustomDrawer = (props: DrawerContentComponentProps) => {
         {...props}
         contentContainerStyle={styles.container}>
         <DrawerUserInfo />
-        <DrawerMyHealthDiary />
+        <DrawerMyHealthDiary {...props} />
         <DrawerBookings />
         <DrawerMore onPressAboutUs={onPressAboutUs} />
         <Text style={styles.version}>Version 1.0</Text>

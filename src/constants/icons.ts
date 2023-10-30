@@ -134,6 +134,8 @@ import Call from '../assets/icons/call.svg';
 import Heart from '../assets/icons/heart.svg';
 import Schedule from '../assets/icons/schedule.svg';
 import Event from '../assets/icons/event.svg';
+import DrawerRightIcon from '../assets/icons/drawerRightIcon.svg';
+import InfoPurple from '../assets/icons/infoPurple.svg';
 
 export const Icons = {
   HomeActive,
@@ -265,4 +267,6 @@ export const Icons = {
   Heart,
   Schedule,
   Event,
+  DrawerRightIcon,
+  InfoPurple,
 };
