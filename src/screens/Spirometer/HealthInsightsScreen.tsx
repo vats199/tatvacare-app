@@ -88,28 +88,7 @@ export const HealthInsightsList: HealthInsightsListProps[] = [
 
 const HealthInsightsScreen = () => {
   const insets = useSafeAreaInsets();
-  return (
-    <>
-      <InsightsScreen data={HealthInsightsList} />
-      <View
-        style={[
-          styles.bottomBtnContainerShadow,
-          styles.bottonBtnContainer,
-          {
-            paddingBottom: insets.bottom !== 0 ? insets.bottom : Matrics.vs(16),
-          },
-        ]}>
-        <Button
-          title="Connect"
-          titleStyle={styles.saveBtnTxt}
-          buttonStyle={{
-            borderRadius: Matrics.s(19),
-          }}
-          onPress={() => {}}
-        />
-      </View>
-    </>
-  );
+  return <InsightsScreen data={HealthInsightsList} />;
 };
 
 export default HealthInsightsScreen;
