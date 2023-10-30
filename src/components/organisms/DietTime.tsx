@@ -1,9 +1,9 @@
-import {StyleSheet, ScrollView, View, Text} from 'react-native';
-import React, {useEffect} from 'react';
+import { StyleSheet, ScrollView, View, Text } from 'react-native';
+import React, { useEffect } from 'react';
 import DietExactTime from '../molecules/DietExactTime';
 
 type DietTimeProps = {
-  onPressPlus: (optionId: string, mealName: string) => void;
+  onPressPlus: (optionFoodItems: Options, mealName: string) => void;
   dietOption: boolean;
   dietPlane: MealsData[];
   onpressOfEdit: (editeData: FoodItems, mealName: string) => void;
@@ -111,8 +111,8 @@ const DietTime: React.FC<DietTimeProps> = ({
   const handaleDelete = (Id: string) => {
     onPressOfDelete(Id);
   };
-  const handlePulsIconPress = (optionId: string, mealName: string) => {
-    onPressPlus(optionId, mealName);
+  const handlePulsIconPress = (optionFoodItems: Options, mealName: string) => {
+    onPressPlus(optionFoodItems, mealName);
   };
   const handalecompletion = (
     item: Consumption,

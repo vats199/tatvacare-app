@@ -1,5 +1,5 @@
-import {DrawerItemList} from '@react-navigation/drawer';
-import React, {useEffect, useState} from 'react';
+import { DrawerItemList } from '@react-navigation/drawer';
+import React, { useEffect, useState } from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -7,16 +7,16 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {colors} from '../../constants/colors';
-import {Icons} from '../../constants/icons';
+import { colors } from '../../constants/colors';
+import { Icons } from '../../constants/icons';
 import DietOption from './DietOption';
-import {Fonts, Matrics} from '../../constants';
+import { Fonts, Matrics } from '../../constants';
 import fonts from '../../constants/fonts';
 import moment from 'moment';
-import {useFocusEffect} from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 
 interface ExactTimeProps {
-  onPressPlus: (optionId: string, mealName: string) => void;
+  onPressPlus: (optionFoodItems: Options, mealName: string) => void;
   dietOption: boolean;
   cardData: MealsData;
   onpressOfEdit: (editeData: FoodItems, mealName: string) => void;
@@ -118,6 +118,8 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
   const [foodItmeData, setFoodItemData] = React.useState<Options | null>(
     cardData?.options[0],
   );
+  console.log("foodItmeData", foodItmeData);
+
   const [selectedOptionId, setSelectedOptionId] = useState<string>(
     cardData?.options[0].diet_meal_options_id,
   );
@@ -149,7 +151,7 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
     onPressOfDelete(Id);
   };
   const handlePulsIconPress = () => {
-    onPressPlus(selectedOptionId, cardData.meal_name);
+    onPressPlus(foodItmeData, cardData.meal_name);
   };
   const handalecompletion = (item: Consumption) => {
     onPressOfcomplete(item, selectedOptionId);
@@ -218,7 +220,7 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
                 showsHorizontalScrollIndicator={false}
                 horizontal
                 bounces={false}
-                style={{flexDirection: 'row'}}>
+                style={{ flexDirection: 'row' }}>
                 {cardData?.options?.map((item: Options, index: number) => {
                   const isOptionSelected =
                     selectedOptionId === item?.diet_meal_options_id;
@@ -249,8 +251,8 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
                 foodItmeData={
                   selectedOptionId !== null
                     ? cardData.options.filter(
-                        item => item.diet_meal_options_id == selectedOptionId,
-                      )[0]
+                      item => item.diet_meal_options_id == selectedOptionId,
+                    )[0]
                     : cardData.options[0]
                 }
                 patient_permission={cardData.patient_permission}

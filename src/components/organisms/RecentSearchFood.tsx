@@ -67,7 +67,6 @@ const RecentSearchDiet: React.FC<RecentSerachDietProps> = ({
       </TouchableOpacity>
     );
   };
-  console.log("searchData?.code === ", searchData?.code);
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
