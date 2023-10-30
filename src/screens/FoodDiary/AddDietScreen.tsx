@@ -150,25 +150,6 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
     );
   };
 
-  // const handleSerach = async (text: string) => {
-  //   const result = await Diet.searchFoodItem(
-  //     { food_name: text },
-  //     {},
-  //     { token: userData?.token },
-  //   );
-  //   setResult(result);
-  //   setSearchResult(result?.data);
-  //   if (result.code === '0' || text.length === 0) {
-  //     setSearchResult(recentSerach);
-  //     setTitle('Recent Search');
-  //   } else if (result.code === '2') {
-  //     setTitle('Search Result');
-  //     setSearchResult([]);
-  //   } else {
-  //     setSearchResult(result?.data);
-  //     setTitle('Search Result');
-  //   }
-  // };
   const handleSearch = (text: string) => {
     setSearchQuery(text);
 
@@ -215,7 +196,7 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
         styles.container,
         {
           paddingTop:
-            Platform.OS == 'android' ? insets.top + Matrics.vs(10) : 0,
+            Platform.OS == 'android' ? insets.top + Matrics.vs(20) : 0,
           paddingBottom: insets.bottom !== 0 ? insets.bottom : Matrics.vs(15),
         },
       ]}>

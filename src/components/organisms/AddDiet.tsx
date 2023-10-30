@@ -5,7 +5,6 @@ import DropdownComponent from '../atoms/Dropdown';
 import { colors } from '../../constants/colors';
 import { Icons } from '../../constants/icons';
 import { Matrics } from '../../constants';
-import { log } from 'console';
 
 type AddDietProps = {
   onPressAdd: () => void;
@@ -170,7 +169,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   measureContainer: {
-    borderRadius: 5,
+    borderRadius: Matrics.mvs(12),
     borderWidth: 0.4,
     width: '50%',
     height: '98%',

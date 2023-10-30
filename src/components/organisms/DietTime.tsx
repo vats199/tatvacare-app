@@ -1,6 +1,7 @@
 import { StyleSheet, ScrollView, View, Text } from 'react-native';
 import React, { useEffect } from 'react';
 import DietExactTime from '../molecules/DietExactTime';
+import { Matrics } from '../../constants';
 
 type DietTimeProps = {
   onPressPlus: (optionFoodItems: Options, mealName: string) => void;
@@ -154,6 +155,7 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 5,
     flex: 1,
+    marginBottom: Matrics.vs(30),
   },
   noDataFound: {
     fontSize: 20,

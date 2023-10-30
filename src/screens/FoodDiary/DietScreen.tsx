@@ -185,7 +185,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
         styles.mainContienr,
         {
           paddingTop:
-            Platform.OS == 'android' ? insets.top + Matrics.vs(10) : 0,
+            Platform.OS == 'android' ? insets.top + Matrics.vs(20) : 0,
         },
       ]}>
       <MyStatusbar backgroundColor={colors.lightGreyishBlue} />

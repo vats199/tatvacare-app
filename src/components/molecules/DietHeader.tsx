@@ -142,11 +142,11 @@ const DietHeader: React.FC<DietHeaderProps> = ({
                   {getMonthRangeText(selectedDate)}
                 </Text>
               </View>
-              <Icons.RightArrow
+              {/* <Icons.RightArrow
                 height={20}
                 width={20}
                 onPress={handleNextMonth}
-              />
+              /> */}
             </View>
             <View style={styles.leftRightContent}>
               <TouchableOpacity onPress={handlePreviousWeek} hitSlop={8}>
@@ -164,7 +164,7 @@ const DietHeader: React.FC<DietHeaderProps> = ({
             </View>
           </View>
           {!showMore ? (
-            <View style={{ paddingHorizontal: Matrics.s(7) }}>
+            <View style={{ paddingHorizontal: Matrics.s(5) }}>
               <CalendarStrip
                 selectedDate={selectedDate}
                 key={calendarKey}
@@ -321,6 +321,7 @@ const styles = StyleSheet.create({
     paddingVertical: Matrics.vs(8),
     paddingHorizontal: Matrics.s(10),
     marginTop: Matrics.vs(10),
+
   },
   highlighetdDateNumberStyle: {
     fontSize: Matrics.mvs(14),
@@ -328,6 +329,8 @@ const styles = StyleSheet.create({
     borderRadius: Matrics.mvs(8),
     color: 'white',
     overflow: 'hidden',
+    fontFamily: Fonts.REGULAR,
+    fontWeight: '400'
   },
   leftRightContent: {
     flexDirection: 'row',
@@ -339,7 +342,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 10,
-    paddingHorizontal: Matrics.s(15),
+    paddingHorizontal: Matrics.s(18),
   },
   row: {
     flexDirection: 'row',

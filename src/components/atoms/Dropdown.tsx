@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, StyleSheet, Text, ViewStyle, TextStyle } from 'react-native';
 import { Dropdown as ElementDropdown } from 'react-native-element-dropdown';
 import { Icons } from '../../constants/icons';
+import { Matrics } from '../../constants';
 
 interface DropdownProps {
   data: Array<{ label: string; value: string }>;
@@ -80,7 +81,7 @@ const styles = StyleSheet.create({
     height: 44,
     borderColor: '#E0E0E0',
     borderWidth: 1.3,
-    borderRadius: 14,
+    borderRadius: Matrics.mvs(12),
     paddingHorizontal: 8,
 
     // elevation: 0.2,
