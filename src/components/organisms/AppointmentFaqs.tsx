@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useRef, useState} from 'react';
+import React, {useState} from 'react';
 import {colors} from '../../constants/colors';
 import {Fonts, Matrics} from '../../constants';
 import {Icons} from '../../constants/icons';

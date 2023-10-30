@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import CalendarStrip from 'react-native-calendar-strip';
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Dimensions ,  LayoutAnimation,} from 'react-native';
 import { colors } from '../../constants/colors';
 import { Icons } from '../../constants/icons';
 import { TouchableOpacity } from 'react-native';
 import { LocaleConfig, CalendarList } from 'react-native-calendars';
 import { Fonts, Matrics } from '../../constants';
 import moment from 'moment';
+import {useIsFocused} from '@react-navigation/native';
 
 const { width } = Dimensions.get('window');
 type DietHeaderProps = {
@@ -21,7 +22,7 @@ const DietHeader: React.FC<DietHeaderProps> = ({
   title,
 }) => {
   //const calendarStripRef = useRef(null);
-
+  const focus = useIsFocused();
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [calendarKey, setCalendarKey] = useState(0);
   const [seletedDay, setseletedDay] = useState(
@@ -268,7 +269,14 @@ const DietHeader: React.FC<DietHeaderProps> = ({
         </View>
         <TouchableOpacity
           style={styles.dropDwonIcon}
-          onPress={() => setShowMore(!showMore)}>
+          onPress={() => {
+            setShowMore(!showMore);
+            focus
+              ? LayoutAnimation.configureNext(
+                  LayoutAnimation.Presets.easeInEaseOut,
+                )
+              : null;
+          }}>
           {showMore ? <Icons.ShowMore /> : <Icons.ShowLess />}
         </TouchableOpacity>
       </View>

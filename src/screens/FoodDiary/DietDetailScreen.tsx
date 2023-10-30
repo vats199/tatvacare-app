@@ -47,6 +47,7 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
       polyunsaturated_fatty_acids: foodItem?.polyunsaturated_fatty_acids,
       diet_meal_options_id: foodItem?.diet_meal_options_id,
       health_coach_id: foodItem?.healthCoachId,
+      is_food_item_added_by_patient: 'Y',
     };
     const updatePayload = {
       patient_id: patient_id,
@@ -70,6 +71,7 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
       diet_meal_options_id: foodItem?.diet_meal_options_id,
       health_coach_id: healthCoachId,
       diet_plan_food_item_id: foodItem?.diet_plan_food_item_id,
+      is_food_item_added_by_patient: 'Y',
     };
 
     if (buttonText === 'Add') {

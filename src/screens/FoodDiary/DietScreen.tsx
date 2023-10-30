@@ -49,13 +49,13 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   }, [title]);
 
   useEffect(() => {
-    const totalcalories = caloriesArray.reduce((accumulator, currentValue) => {
-      return accumulator + Number(currentValue?.total_calories);
+    const totalcalories = caloriesArray?.reduce((accumulator, currentValue) => {
+      return accumulator + Number(currentValue?.total_calories ?? 0);
     }, 0);
     setTotalcalories(totalcalories);
-    const totalConsumedcalories = caloriesArray.reduce(
+    const totalConsumedcalories = caloriesArray?.reduce(
       (accumulator, currentValue) => {
-        return accumulator + Number(currentValue?.consumed_calories);
+        return accumulator + Number(currentValue?.consumed_calories ?? 0);
       },
       0,
     );
@@ -69,7 +69,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
     }, []),
   );
 
-  const getData = async () => {
+  const getData = async (optionId?: string, dietPlanId?: string) => {
     setLoader(true);
     const date = moment(selectedDate).format('YYYY/MM/DD');
     const diet = await Diet.getDietPlan(
@@ -82,6 +82,8 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
     if (diet?.code === '1') {
       setLoader(false);
       setDiePlane(diet?.data[0]);
+      if (optionId && dietPlanId)
+        countCalories(optionId, dietPlanId, diet?.data[0]);
     } else {
       setDiePlane([]);
       setLoader(false);
@@ -120,7 +122,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
     getData();
     if (deleteFoodItem?.code === '1') {
       setStateOfAPIcall(false);
-      navigation.replace('DietScreen');
+      getData();
       setTimeout(() => {
         setModalVisible(false);
       }, 1000);
@@ -131,15 +133,27 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
 
   };
 
-  const handalecompletion = async (item: any) => {
+  const handalecompletion = async (
+    item: any,
+    optionId: string,
+    dietPlanId: string,
+  ) => {
     const UpadteFoodItem = await Diet.updateFoodConsumption(
       item,
       {},
       { token: userData?.token },
     );
-    setDiePlane([]);
-    getData();
+    getData(optionId, dietPlanId);
     if (UpadteFoodItem?.code === '1') {
+    }
+  };
+
+  const countCalories = (optionId: string, mealId: string, data: any) => {
+    const dietPlanFound = data.meals.filter(
+      item => item.meal_types_id == mealId,
+    );
+    if (dietPlanFound.length !== 0) {
+      handalTotalCalories(dietPlanFound[0].options[0]);
     }
   };
 
@@ -189,13 +203,13 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
           <DietTime
             onPressPlus={handlePulsIconPress}
             dietOption={dietOption}
-            dietPlane={dietPlane?.meals}
+            dietPlane={JSON.parse(JSON.stringify(dietPlane?.meals))}
             onpressOfEdit={handaleEdit}
             onPressOfDelete={handaleDelete}
             onPressOfcomplete={handalecompletion}
             getCalories={handalTotalCalories}
           />
-        ) : (
+        ) : loader ? null : (
           <View style={styles.messageContainer}>
             <Text style={{ fontSize: 15 }}>{'No diet plan available'}</Text>
           </View>

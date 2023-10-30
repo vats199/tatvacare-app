@@ -154,6 +154,7 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
             item.progresBarColor ? item.progresBarColor : '#2ecc71'
           }
           inActiveStrokeWidth={3}
+          duration={1000}
         />
         <View style={[style.textContainer]}>
           <Text style={style.subtitle}>{item?.title}</Text>
@@ -167,7 +168,7 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
             </Text>
             <Text style={[style.consumedCalries, { fontFamily: Fonts.REGULAR }]}>
               {' '}
-              or{' '}
+              of{' '}
             </Text>
             <Text style={[style.consumedCalries, { fontFamily: Fonts.REGULAR }]}>
               {item?.totalCalories}
