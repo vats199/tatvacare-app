@@ -9,6 +9,7 @@ import {
   NativeModules,
   requireNativeComponent,
   SafeAreaView,
+  Button,
 } from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import {CompositeScreenProps} from '@react-navigation/native';
@@ -51,7 +52,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {StackScreenProps} from '@react-navigation/stack';
 import MyStatusbar from '../components/atoms/MyStatusBar';
 import {useApp} from '../context/app.context';
+import {SheetManager} from 'react-native-actions-sheet';
 import Loader from '../components/atoms/Loader';
+import constants from '../constants/constants';
 
 type HomeScreenProps = CompositeScreenProps<
   StackScreenProps<DietStackParamList, 'HomeScreen'>,
@@ -91,7 +94,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
     await setLocation(currentLocation ? JSON.parse(currentLocation) : {});
 
     //call for health kit sync
-    await openHealthKitSyncView();
+    // await openHealthKitSyncView();
   };
 
   const getGreetings = () => {

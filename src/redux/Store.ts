@@ -14,7 +14,7 @@ const reducers = persistReducer(
   {
     key: 'root',
     storage: AsyncStorage,
-    // whitelist: ['Auth'],
+    whitelist: ['Auth', 'Location'],
   },
   appReducer,
 );

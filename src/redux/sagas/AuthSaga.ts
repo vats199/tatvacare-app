@@ -4,7 +4,6 @@ import {auth, common} from '../../types';
 import * as actions from '../slices';
 import api from '../../api';
 import constants from '../../constants/constants';
-// --------------- ASSETS ---------------
 
 const loginSendOTPSaga = function* loginSendOTPSaga({
   payload: {resolve, reject, payload},
