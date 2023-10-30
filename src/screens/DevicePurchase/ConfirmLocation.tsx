@@ -1,48 +1,40 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import React, { useRef, useCallback, useEffect, useState } from 'react';
-import MapView, { Marker } from 'react-native-maps';
-import {
-    DiagnosticStackParamList
-} from '../../interface/Navigation.interface';
+import { StyleSheet, Text, View, KeyboardAvoidingView, TouchableOpacity } from 'react-native'
+import { DevicePurchaseStackParamList } from '../../interface/Navigation.interface';
 import { StackScreenProps } from '@react-navigation/stack';
+import MapView, { Marker } from 'react-native-maps';
 import { colors } from '../../constants/colors';
 import { Fonts } from '../../constants';
 import { Icons } from '../../constants/icons';
-import { BottomSheetModal } from '@gorhom/bottom-sheet';
+import { Matrics } from '../../constants';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import CommonBottomSheetModal from '../../components/molecules/CommonBottomSheetModal';
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import BottomSheetLocation from '../../components/molecules/BottomSheetLocation';
 import EnterAddressBottomSheet from '../../components/organisms/EnterAddressBottomSheet';
-import BottomSheetSelectAddress from '../../components/molecules/BottomSheetSelectAddress';
-
-type ConfirmLocationScreenProps = StackScreenProps<
-    DiagnosticStackParamList,
-    'ConfirmLocation'
->;
-export type addressItem = {
-    id?: number;
-    title?: string;
-    description?: string;
-}
-export type location = {
-    lat?: any;
-    lng?: any;
-}
-export type address = {
-    streetName?: string;
-    cityName?: string;
-}
 
 
 const API_KEY = "AIzaSyD8zxk4kvKlAMGaOQrABy8xqdRKIWGBJlo";
 
+type ConfirmLocationScreenProps = StackScreenProps<
+    DevicePurchaseStackParamList,
+    'ConfirmLocationScreen'
+>;
 
-const ConfirmLocationScreen: React.FC<ConfirmLocationScreenProps> = ({ route, navigation }) => {
+type location = {
+    lat?: any;
+    lng?: any;
+}
+type address = {
+    streetName?: string;
+    cityName?: string;
+}
 
-    const bottomSheetModalRef = useRef<BottomSheetModal>(null);
-    const [selectedBottomsheet, setSelectedBottomsheet] = useState<string>("Location");
+const ConfirmLocation: React.FC<ConfirmLocationScreenProps> = ({ route, navigation }) => {
     const [selectedLocation, setSelectedLocation] = useState<location>({ lat: 37.78825, lng: -122.4324 });
     const [selectedAddress, setSelectedAddress] = useState<address>({});
+    const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+    const [selectedBottomsheet, setSelectedBottomsheet] = useState<string>("Location");
 
     useEffect(() => {
 
@@ -73,31 +65,6 @@ const ConfirmLocationScreen: React.FC<ConfirmLocationScreenProps> = ({ route, na
         setSelectedAddress({ streetName: street, cityName: city });
     }
 
-
-    const options: addressItem[] = [
-        {
-            id: 1,
-            title: 'Office',
-            description: 'Zydus cadila, Hari Om Nagar, Chandralok society, Ghodsar,Ahmdabad,Gujrat 380050'
-        },
-        {
-            id: 2,
-            title: 'Home',
-            description: 'Zydus cadila, Hari Om Nagar, Chandralok society, Ghodsar,Ahmdabad,Gujrat 380050'
-        },
-        {
-            id: 3,
-            title: 'Other',
-            description: 'Zydus cadila, Hari Om Nagar, Chandralok society, Ghodsar,Ahmdabad,Gujrat 380050'
-        }
-    ]
-
-
-    const snapPoints = (selectedBottomsheet === "Location") ? ["40%"] : ['80%'];
-
-
-
-
     const onPressBack = () => {
         navigation.goBack();
     }
@@ -107,6 +74,8 @@ const ConfirmLocationScreen: React.FC<ConfirmLocationScreenProps> = ({ route, na
         console.log(lat, lng);
         setSelectedLocation({ lat: lat, lng: lng })
     }
+    const snapPoints = (selectedBottomsheet === "Location") ? ["40%"] : ['80%'];
+
     return (
         <View style={{ flex: 1 }}>
             <View style={styles.headerContainer}>
@@ -126,9 +95,12 @@ const ConfirmLocationScreen: React.FC<ConfirmLocationScreenProps> = ({ route, na
                         latitudeDelta: 0.0922,
                         longitudeDelta: 0.0421,
                     }}
+
+
                     onPress={locationPicker}
                 >
                     {
+
                         selectedLocation && (
                             <Marker title="Picked Location" coordinate={{ latitude: selectedLocation.lat, longitude: selectedLocation.lng }} />
                         )
@@ -141,8 +113,10 @@ const ConfirmLocationScreen: React.FC<ConfirmLocationScreenProps> = ({ route, na
                     >
                         <Icons.Search />
                         <GooglePlacesAutocomplete
+                            //ref={ref}
                             placeholder='Search for area,stree name...'
                             onPress={(data, details = null) => {
+
                                 setSelectedLocation({ lat: details?.geometry?.location.lat, lng: details?.geometry?.location.lng })
                             }}
                             fetchDetails
@@ -160,37 +134,28 @@ const ConfirmLocationScreen: React.FC<ConfirmLocationScreenProps> = ({ route, na
                     </View>
                 </View>
             </View >
-            <CommonBottomSheetModal snapPoints={snapPoints} ref={bottomSheetModalRef} >
+            <CommonBottomSheetModal snapPoints={snapPoints} ref={bottomSheetModalRef}>
                 {
                     (selectedBottomsheet === 'Location') && (
                         <BottomSheetLocation
-                            onPressAddCompleteAddress={() => setSelectedBottomsheet('Select Address')}
+                            onPressAddCompleteAddress={() => setSelectedBottomsheet('Enter Address')}
                         />
                     )
                 }
                 {
                     (selectedBottomsheet === 'Enter Address') && (
                         <EnterAddressBottomSheet
-                            buttonTitle="Add Address"
+                            buttonTitle="Save & Proceed"
                             onPressSaveAddress={() => setSelectedBottomsheet('location')}
-                        />
-                    )
-                }
-                {
-                    (selectedBottomsheet === 'Select Address') && (
-                        <BottomSheetSelectAddress
-                            data={options}
-                            onPressAddNew={() => setSelectedBottomsheet('Enter Address')}
                         />
                     )
                 }
             </CommonBottomSheetModal>
         </View >
-
     )
 }
 
-export default ConfirmLocationScreen
+export default ConfirmLocation;
 
 const styles = StyleSheet.create({
     headerContainer: {
@@ -210,7 +175,12 @@ const styles = StyleSheet.create({
         color: colors.labelDarkGray,
         marginLeft: 20
     },
-
+    container: {
+        flex: 1,
+        padding: 24,
+        justifyContent: 'center',
+        backgroundColor: 'grey',
+    },
     searchContainer: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -239,6 +209,5 @@ const styles = StyleSheet.create({
         color: colors.themePurple,
         marginLeft: 8
     },
-
 
 })

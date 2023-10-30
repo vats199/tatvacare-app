@@ -4,15 +4,13 @@ import {
     View,
     TouchableOpacity,
     ScrollView,
-    Image
 } from 'react-native';
-import React, { useState, useRef, useCallback, useMemo, useEffect } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import DocumentPicker, {
     DirectoryPickerResponse,
     DocumentPickerResponse,
     isCancel,
     isInProgress,
-    types,
 } from 'react-native-document-picker'
 import {
     DiagnosticStackParamList,
@@ -27,8 +25,11 @@ import { useApp } from '../../context/app.context';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import UploadPrescription from '../../components/molecules/UploadPrescription';
 import FreeTest from '../../components/molecules/FreeTest';
-import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import ImagePicker from 'react-native-image-crop-picker';
+import PerscriptionBottomSheet from '../../components/organisms/PerscriptionBottomSheet';
+import CommonBottomSheetModal from '../../components/molecules/CommonBottomSheetModal';
+import FreeTestBottomSheet from '../../components/molecules/FreeTestBottomSheet';
 
 
 type AllLabTestProps = StackScreenProps<
@@ -45,13 +46,7 @@ type TestItem = {
     discount: number;
     isAdded: boolean;
 };
-// type prescription = {
-//     date?: any;
-//     items: {
-//         id:number;
-//         uri?: string;
-//     }[];
-// };
+
 type perscription = {
     id: number;
     uri?: string;
@@ -68,7 +63,6 @@ const AllLabTestScreen: React.FC<AllLabTestProps> = ({ route, navigation }) => {
     >();
     const [uploadedPerscription, setUploadedPerscription] = useState<perscription[]>([]);
 
-    console.log("item>>>", uploadedPerscription);
     useEffect(() => {
         console.log(JSON.stringify(result, null, 2))
     }, [result])
@@ -85,7 +79,7 @@ const AllLabTestScreen: React.FC<AllLabTestProps> = ({ route, navigation }) => {
 
     const { location } = useApp();
 
-    const snapPoints = (selectedBottomsheet === "FreeTest") ? ["20%", "30%"] : ["20%", '63%'];
+    const snapPoints = (selectedBottomsheet === "FreeTest") ? ["35%"] : ['63%'];
 
     const selectImageFromCamera = async () => {
         try {
@@ -96,6 +90,7 @@ const AllLabTestScreen: React.FC<AllLabTestProps> = ({ route, navigation }) => {
             });
             setNewPerscription(image.path);
             setSelectedImage(image.path);
+            bottomSheetModalRef.current?.close();
         } catch (error) {
             console.log('Error selecting image from camera:', error);
         }
@@ -128,6 +123,7 @@ const AllLabTestScreen: React.FC<AllLabTestProps> = ({ route, navigation }) => {
             });
             setNewPerscription(image.path);
             setSelectedImage(image.path);
+            bottomSheetModalRef.current?.close();
         } catch (error) {
             console.log('Error selecting image from gallery:', error);
         }
@@ -140,7 +136,8 @@ const AllLabTestScreen: React.FC<AllLabTestProps> = ({ route, navigation }) => {
                 copyTo: 'cachesDirectory',
             })
             console.log("hey", pickerResult.uri);
-            setResult([pickerResult])
+            setResult([pickerResult]);
+            bottomSheetModalRef.current?.close();
         } catch (e) {
             handleError(e)
         }
@@ -176,14 +173,13 @@ const AllLabTestScreen: React.FC<AllLabTestProps> = ({ route, navigation }) => {
     };
 
     const onPressTest = () => {
-        // console.log("pressed");
         navigation.navigate("TestDetail");
     }
 
 
     return (
         <SafeAreaView edges={['top']} style={styles.screen}>
-            <ScrollView>
+            <ScrollView showsVerticalScrollIndicator={false}>
                 <Header
                     title="All Lab test"
                     isIcon={true}
@@ -194,7 +190,7 @@ const AllLabTestScreen: React.FC<AllLabTestProps> = ({ route, navigation }) => {
                     onBackPress={onBackPress}
                 />
                 <View style={styles.location}>
-                    <Icons.Location />
+                    <Icons.Location height={16} width={16} />
                 </View>
 
                 <View style={{ flex: 1, paddingHorizontal: 15 }}>
@@ -205,7 +201,7 @@ const AllLabTestScreen: React.FC<AllLabTestProps> = ({ route, navigation }) => {
                             navigation.navigate('SearchLabTest');
                         }}>
                         <Icons.Search height={20} width={20} />
-                        {/* <TextInput placeholder='Search for Tests, Health Packages' /> */}
+
                         <Text style={styles.placeholderText}> Search for Tests, Health Packages</Text>
                     </TouchableOpacity>
 
@@ -243,72 +239,20 @@ const AllLabTestScreen: React.FC<AllLabTestProps> = ({ route, navigation }) => {
                     </TouchableOpacity>
                 </View>
             )}
-            <BottomSheetModalProvider>
-                <BottomSheetModal
-                    ref={bottomSheetModalRef}
-                    index={1}
-                    snapPoints={snapPoints}>
-                    <View style={styles.contentContainer}>
-                        {
-                            (selectedBottomsheet === "Perscription") && (
-                                <View style={{ padding: 15 }}>
-                                    <Text style={styles.bottomSheetTitle}>Upload Perscription</Text>
-                                    <View style={{ flexDirection: 'row', alignItems: "center", marginVertical: 5 }}>
-                                        <Icons.Camera />
-                                        <TouchableOpacity
-                                            onPress={selectImageFromCamera}>
-                                            <Text style={styles.subTitle}>Click a Photo</Text>
-                                        </TouchableOpacity>
-                                    </View>
-                                    <View style={{ flexDirection: 'row', alignItems: "center", marginVertical: 5 }}>
-                                        <Icons.Gallery />
-                                        <TouchableOpacity
-                                            onPress={selectImageFromGallery}>
-                                            <Text style={styles.subTitle}>Choose from Gallery</Text>
-                                        </TouchableOpacity>
-                                    </View>
-                                    <View style={{ flexDirection: 'row', alignItems: "center", marginVertical: 5 }}>
-                                        <Icons.File />
-                                        <TouchableOpacity onPress={onPressUploadFile}>
-                                            <Text style={styles.subTitle}>Upload File</Text>
-                                        </TouchableOpacity>
-                                    </View>
-                                    <View style={{ flexDirection: 'row', alignItems: "center", marginVertical: 5 }}>
-                                        <Icons.Article />
-                                        <TouchableOpacity onPress={() => navigation.navigate("MyPerscription", { data: uploadedPerscription })}>
-                                            <Text style={styles.subTitle}>My Prescriptions</Text>
-                                        </TouchableOpacity>
-                                    </View>
+            <CommonBottomSheetModal snapPoints={snapPoints} ref={bottomSheetModalRef}  >
+                {
+                    (selectedBottomsheet === 'Perscription') ? (
+                        <PerscriptionBottomSheet
+                            onPressChooseFromGallery={selectImageFromGallery}
+                            onPressClickAPhoto={selectImageFromCamera}
+                            onPressUploadaFile={onPressUploadFile}
+                        />
+                    ) : (
+                        <FreeTestBottomSheet />
 
-                                    <View>
-                                        <Text style={styles.guidePerscriptionTitle}>Guide for a valid prescription</Text>
-
-                                        <Text style={styles.guideSubtitle}>{'\u2022'}  Don't crop out any part of the image</Text>
-                                        <Text style={styles.guideSubtitle}>{'\u2022'}  Avoid blurred image</Text>
-                                        <Text style={styles.guideSubtitle}>{'\u2022'}  Include details of doctor and patient + clinic visit date</Text>
-                                        <Text style={styles.guideSubtitle}>{'\u2022'}  Medicines will be dispensed as per prescription</Text>
-                                        <Text style={styles.guideSubtitle}>{'\u2022'}  Supported files type: jpeg, jpg, png, pdf</Text>
-                                        <Text style={styles.guideSubtitle}>{'\u2022'}  Maximum allowed file size: 5MB</Text>
-                                    </View>
-                                </View>
-                            )
-                        }
-                        {
-                            (selectedBottomsheet === 'FreeTest') && (
-                                <View>
-                                    <Text style={[styles.bottomSheetTitle, { marginLeft: 20 }]}>Free Tests</Text>
-                                    <View style={styles.border} />
-                                    <View style={{ padding: 10 }}>
-                                        <Text style={[styles.subTitle, { marginVertical: 5 }]}>Test Name 1</Text>
-                                        <Text style={[styles.subTitle, { marginVertical: 5 }]}>Test Name 2</Text>
-                                        <Text style={[styles.subTitle, { marginVertical: 5 }]}>Test Name 3</Text>
-                                    </View>
-                                </View>
-                            )
-                        }
-                    </View>
-                </BottomSheetModal>
-            </BottomSheetModalProvider>
+                    )
+                }
+            </CommonBottomSheetModal>
         </SafeAreaView>
     );
 };
@@ -335,7 +279,7 @@ const styles = StyleSheet.create({
     },
     location: {
         backgroundColor: colors.white,
-        height: 32,
+        height: 36,
         marginBottom: 10,
         flexDirection: 'row',
         alignItems: 'center',
@@ -405,46 +349,4 @@ const styles = StyleSheet.create({
         fontFamily: Fonts.BOLD,
         color: colors.inactiveGray,
     },
-    contentContainer: {
-        flex: 1,
-        backgroundColor: colors.white,
-        // padding: 15,
-        elevation: 2
-    },
-    bottomSheetTitle: {
-        fontSize: 20,
-        fontWeight: '700',
-        fontFamily: Fonts.BOLD,
-        color: colors.inputValueDarkGray,
-        marginBottom: 10
-    },
-    subTitle: {
-        fontSize: 14,
-        fontWeight: '500',
-        fontFamily: Fonts.BOLD,
-        color: colors.inputValueDarkGray,
-        marginLeft: 10
-    },
-    guidePerscriptionTitle: {
-        fontSize: 15,
-        fontWeight: '600',
-        fontFamily: Fonts.BOLD,
-        color: colors.labelDarkGray,
-        marginTop: 25,
-        marginBottom: 5
-    },
-    guideSubtitle: {
-        fontSize: 12,
-        fontWeight: '400',
-        fontFamily: Fonts.BOLD,
-        color: colors.inactiveGray,
-        marginLeft: 4
-    },
-    border: {
-        borderBottomWidth: 2,
-        borderBottomColor: "#D7D7D7",
-    },
-    testText: {
-
-    }
 });

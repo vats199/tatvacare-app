@@ -1,6 +1,7 @@
 import {AppointmentDetailsScreenProps} from '../screens/Appointment/AppointmentDetailsScreen';
 import carePlanScreen from '../screens/CarePlan/CarePlanScreen';
 import Diet from '../api/diet';
+import { device } from '../screens/DevicePurchase/DeviceScreen';
 type Options = {
   diet_meal_options_id: string;
   diet_meal_type_rel_id: string;
@@ -82,6 +83,7 @@ export type AppStackParamList = {
   DeviceConnectionScreen: undefined;
   SetupProfileScreen: SetupProfileStackParamList;
   DiagnosticStackScreen: DiagnosticStackParamList;
+  DevicePurchaseStackScreen:DevicePurchaseStackParamList;
 };
 
 export type DrawerParamList = {
@@ -125,6 +127,13 @@ export type DiagnosticStackParamList = {
   CongratulationScreen:undefined;
   OrderDetails:undefined;
 };
+
+export type DevicePurchaseStackParamList={
+  DeviceScreen:undefined;
+  DeviceDetail:{item:device | undefined};
+  CartScreen:undefined;
+  ConfirmLocationScreen:undefined;
+}
 
 export type BottomTabParamList = {
   HomeScreen: HomeStackParamList;

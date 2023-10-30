@@ -135,6 +135,9 @@ import Heart from '../assets/icons/heart.svg';
 import Schedule from '../assets/icons/schedule.svg';
 import Event from '../assets/icons/event.svg';
 import dropArrow from '../assets/icons/dropArrow.svg';
+import Add from '../assets/icons/add.svg';
+import Minus from '../assets/icons/remove.svg';
+import NoAddress from '../assets/icons/noAdddress.svg';
 
 export const Icons = {
   HomeActive,
@@ -266,5 +269,8 @@ export const Icons = {
   Heart,
   Schedule,
   Event,
-  dropArrow
+  dropArrow,
+  Add,
+  Minus,
+  NoAddress
 };

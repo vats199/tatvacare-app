@@ -9,6 +9,7 @@ import Header from '../../components/atoms/Header';
 import { colors } from '../../constants/colors';
 import { Fonts } from '../../constants';
 import CoupansForYou from '../../components/organisms/CoupansForYou';
+import { Matrics } from '../../constants';
 
 type ApplyCoupanScreenProps = StackScreenProps<
     DiagnosticStackParamList,
@@ -63,17 +64,15 @@ export default ApplyCoupanScreen
 
 const styles = StyleSheet.create({
     upperHeader: {
-        marginHorizontal: 10,
-        // marginTop:20,
-        paddingVertical: 15,
-        // marginBottom:5
+        marginHorizontal: Matrics.s(10),
+        paddingVertical: Matrics.vs(15),
     },
     titleStyle: {
-        fontSize: 16,
+        fontSize: Matrics.mvs(16),
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray,
-        marginLeft: 20
+        marginLeft: Matrics.s(20)
     },
     inputContainer: {
         flexDirection: 'row',
@@ -82,12 +81,12 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: colors.inputBoxLightBorder,
         backgroundColor: colors.white,
-        borderRadius: 12,
-        paddingHorizontal: 10,
-        minHeight: 44
+        borderRadius: Matrics.s(12),
+        paddingHorizontal: Matrics.s(10),
+        minHeight: Matrics.vs(44)
     },
     applyText: {
-        fontSize: 14,
+        fontSize: Matrics.mvs(14),
         fontWeight: '600',
         fontFamily: Fonts.BOLD,
         color: colors.disableButton,

@@ -22,6 +22,7 @@ import {
   DietStackParamList,
   EngageStackParamList,
   DiagnosticStackParamList,
+  DevicePurchaseStackParamList
 } from '../interface/Navigation.interface';
 import { NavigationContainer } from '@react-navigation/native';
 import {
@@ -68,7 +69,10 @@ import LabTestSummary from '../screens/Diagnostic/LabTestSummaryScreen';
 import LabTestSummaryScreen from '../screens/Diagnostic/LabTestSummaryScreen';
 import CongratulationScreen from '../screens/Diagnostic/CongratulationScreen';
 import OrderDetailsScreen from '../screens/Diagnostic/OrderDetailsScreen';
-
+import DeviceScreen from '../screens/DevicePurchase/DeviceScreen';
+import DeviceDetailsScreen from '../screens/DevicePurchase/DeviceDetailsScreen';
+import CartScreen from '../screens/DevicePurchase/CartScreen';
+import ConfirmLocation from '../screens/DevicePurchase/ConfirmLocation';
 
 const Drawer = createDrawerNavigator<DrawerParamList>();
 const DrawerScreen = () => {
@@ -243,6 +247,33 @@ const AppointmentStackScreen = () => {
   );
 };
 
+const DevicePurchaseStack = createStackNavigator<DevicePurchaseStackParamList>();
+const DevicePurchaseStackScreen = () => {
+  return (
+    <DevicePurchaseStack.Navigator
+      initialRouteName="DeviceScreen"
+      screenOptions={{ headerShown: false }}>
+      <DevicePurchaseStack.Screen
+        name="DeviceScreen"
+        component={DeviceScreen}
+      />
+      <DevicePurchaseStack.Screen
+        name="DeviceDetail"
+        component={DeviceDetailsScreen}
+      />
+      <DevicePurchaseStack.Screen
+        name="CartScreen"
+        component={CartScreen}
+      />
+      <DevicePurchaseStack.Screen
+        name="ConfirmLocationScreen"
+        component={ConfirmLocation}
+      />
+
+    </DevicePurchaseStack.Navigator>
+  );
+};
+
 const DiagnosticStack = createStackNavigator<DiagnosticStackParamList>();
 const DiagnosticStackScreen = () => {
   return (
@@ -380,7 +411,10 @@ const DietStackScreen = () => {
       <DietStack.Screen name="DietScreen" component={DietScreen} />
       <DietStack.Screen name="AddDiet" component={AddDietScreen} />
       <DietStack.Screen name="DietDetail" component={DietDetailScreen} />
-      <DietStack.Screen name="ProgressBarInsightsScreen" component={ProgressBarInsightsScreen} />
+      <DietStack.Screen
+        name="ProgressBarInsightsScreen"
+        component={ProgressBarInsightsScreen}
+      />
     </DietStack.Navigator>
   );
 };
@@ -413,6 +447,10 @@ const Router = () => {
             component={DiagnosticStackScreen}
           />
           <AppStack.Screen
+            name={'DevicePurchaseStackScreen'}
+            component={DevicePurchaseStackScreen}
+          />
+          <AppStack.Screen
             name={'DeviceConnectionScreen'}
             component={DeviceConnectionScreen}
           />
@@ -424,10 +462,9 @@ const Router = () => {
             name={'SpirometerScreen'}
             component={SpirometerScreen}
           />
-
-        </AppStack.Navigator >
-      </BottomSheetModalProvider >
-    </NavigationContainer >
+        </AppStack.Navigator>
+      </BottomSheetModalProvider>
+    </NavigationContainer>
   );
 };
 

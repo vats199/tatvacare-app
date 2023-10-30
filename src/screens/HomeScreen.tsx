@@ -181,7 +181,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
     navigation.navigate('DiagnosticStackScreen');
   };
   const onPressBookDevices = () => {
-    // navigateTo('MyDevices');
+    navigation.navigate('DevicePurchaseStackScreen');
   };
   const onPressCarePlan = () => {
     // navigateToPlan('navigateToPlan');
