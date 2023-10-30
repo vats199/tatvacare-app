@@ -146,12 +146,18 @@ export type AuthStackParamList = {
 export type DietStackParamList = {
   HomeScreen: undefined;
   DietScreen: undefined;
-  AddDiet: {optionFoodItems: Options; healthCoachId: string; mealName: string};
+  AddDiet: {
+    optionFoodItems: Options;
+    healthCoachId: string;
+    mealName: string;
+    // patient_id: string;
+  };
   DietDetail: {
     foodItem: FoodItems;
     buttonText: string;
     healthCoachId: string;
     mealName: string;
+    // patient_id: string;
   };
   ProgressBarInsightsScreen: {calories: Options[]};
 };

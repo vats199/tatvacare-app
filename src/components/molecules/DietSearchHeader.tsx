@@ -1,7 +1,7 @@
-import {StyleSheet, View, TextInput} from 'react-native';
-import React, {useState} from 'react';
-import {Icons} from '../../constants/icons';
-import {Matrics} from '../../constants';
+import { StyleSheet, View, TextInput } from 'react-native';
+import React, { useState } from 'react';
+import { Icons } from '../../constants/icons';
+import { Matrics } from '../../constants';
 
 type DietSearchHeaderProps = {
   onPressBack: () => void;
@@ -15,7 +15,8 @@ const DietSearchHeader: React.FC<DietSearchHeaderProps> = ({
   const [searchText, setSearchText] = useState<string>('');
 
   const handleSerache = (text: string) => {
-    const cleanedText = text.replace(/[^a-zA-Z\s]/g, '');
+    const spaceFree = text.trimStart()
+    const cleanedText = spaceFree.replace(/[^a-zA-Z\s]/g, '');
     setSearchText(cleanedText);
     onSearch(text);
   };
@@ -28,9 +29,9 @@ const DietSearchHeader: React.FC<DietSearchHeaderProps> = ({
         placeholderTextColor="gray"
         value={searchText}
         onChangeText={text => {
-          setSearchText(text);
-          handleSerache(text);
+          handleSerache(text)
         }}
+        keyboardType='ascii-capable'
       />
     </View>
   );

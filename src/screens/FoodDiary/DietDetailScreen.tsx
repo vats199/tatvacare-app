@@ -1,25 +1,25 @@
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import {DietStackParamList} from '../../interface/Navigation.interface';
-import {Icons} from '../../constants/icons';
-import {colors} from '../../constants/colors';
+import { DietStackParamList } from '../../interface/Navigation.interface';
+import { Icons } from '../../constants/icons';
+import { colors } from '../../constants/colors';
 import MicronutrientsInformation from '../../components/organisms/MicronutrientsInformation';
 import AddDiet from '../../components/organisms/AddDiet';
-import {StackScreenProps} from '@react-navigation/stack';
+import { StackScreenProps } from '@react-navigation/stack';
 import Deit from '../../api/diet';
-import {useApp} from '../../context/app.context';
-import {Fonts, Matrics} from '../../constants';
-import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+import { useApp } from '../../context/app.context';
+import { Fonts, Matrics } from '../../constants';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import MyStatusbar from '../../components/atoms/MyStatusBar';
 
 type DietDetailProps = StackScreenProps<DietStackParamList, 'DietDetail'>;
 
-const DietDetailScreen: React.FC<DietDetailProps> = ({navigation, route}) => {
+const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
   const insets = useSafeAreaInsets();
-  const {foodItem, buttonText, healthCoachId, mealName} = route.params;
+  const { foodItem, buttonText, healthCoachId, mealName } = route.params;
   let quantity = Math.round(Number(foodItem?.quantity)).toString();
   const [qty, setQty] = React.useState<string>(quantity);
-  const {userData} = useApp();
+  const { userData } = useApp();
 
   const onPressBack = () => {
     navigation.goBack();
@@ -78,7 +78,7 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({navigation, route}) => {
       const result = await Deit?.addFoodItem(
         addPayload,
         {},
-        {token: userData?.token},
+        { token: userData?.token },
       );
 
       if (result?.code === '1') {
@@ -88,7 +88,7 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({navigation, route}) => {
       const result = await Deit?.updateFoodItem(
         updatePayload,
         {},
-        {token: userData?.token},
+        { token: userData?.token },
       );
       if (result?.code === '1') {
         navigation.popToTop();
@@ -106,6 +106,7 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({navigation, route}) => {
         flex: 1,
         backgroundColor: colors.lightGreyishBlue,
         paddingTop: Platform.OS == 'android' ? insets.top + Matrics.vs(10) : 0,
+        paddingBottom: Matrics.vs(16),
       }}>
       <MyStatusbar backgroundColor={colors.lightGreyishBlue} />
       <View style={styles.header}>
@@ -120,6 +121,7 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({navigation, route}) => {
           onSeleteQty={handleSeletedQty}
           Data={foodItem}
           mealName={mealName}
+          isDisable={qty === "0" ? true : false}
         />
       </View>
     </SafeAreaView>

@@ -1,21 +1,15 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import CalendarStrip from 'react-native-calendar-strip';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Dimensions,
-  LayoutAnimation,
-} from 'react-native';
-import {colors} from '../../constants/colors';
-import {Icons} from '../../constants/icons';
-import {TouchableOpacity} from 'react-native';
-import {LocaleConfig, CalendarList} from 'react-native-calendars';
-import {Fonts, Matrics} from '../../constants';
+import { StyleSheet, Text, View, Dimensions ,  LayoutAnimation,} from 'react-native';
+import { colors } from '../../constants/colors';
+import { Icons } from '../../constants/icons';
+import { TouchableOpacity } from 'react-native';
+import { LocaleConfig, CalendarList } from 'react-native-calendars';
+import { Fonts, Matrics } from '../../constants';
 import moment from 'moment';
 import {useIsFocused} from '@react-navigation/native';
 
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 type DietHeaderProps = {
   onPressBack: () => void;
   onPressOfNextAndPerviousDate: (data: any) => void;
@@ -107,15 +101,15 @@ const DietHeader: React.FC<DietHeaderProps> = ({
     while (weekEndDate.getDay() !== 0) {
       weekEndDate.setDate(weekEndDate.getDate() + 1);
     }
-    const startMonth = weekStartDate.toLocaleString('default', {month: 'long'});
-    const endMonth = weekEndDate.toLocaleString('default', {month: 'long'});
+    const startMonth = weekStartDate.toLocaleString('default', { month: 'long' });
+    const endMonth = weekEndDate.toLocaleString('default', { month: 'long' });
 
     const year = weekStartDate.getFullYear();
 
     if (
       startMonth !== endMonth ||
       weekEndDate.getDate() >
-        new Date(year, weekStartDate.getMonth() + 1, 0).getDate()
+      new Date(year, weekStartDate.getMonth() + 1, 0).getDate()
     ) {
       return `${startMonth} - ${endMonth} ${year}`;
     } else {
@@ -170,7 +164,7 @@ const DietHeader: React.FC<DietHeaderProps> = ({
             </View>
           </View>
           {!showMore ? (
-            <View style={{paddingHorizontal: Matrics.s(7)}}>
+            <View style={{ paddingHorizontal: Matrics.s(7) }}>
               <CalendarStrip
                 selectedDate={selectedDate}
                 key={calendarKey}
@@ -179,29 +173,29 @@ const DietHeader: React.FC<DietHeaderProps> = ({
                   setSelectedDate(date);
                   onPressOfNextAndPerviousDate(date);
                 }}
-                weekendDateNameStyle={{textTransform: 'capitalize'}}
+                weekendDateNameStyle={{ textTransform: 'capitalize' }}
                 daySelectionAnimation={{
                   type: 'border',
                   duration: 200,
                   borderWidth: 1,
                   borderHighlightColor: 'white',
                 }}
-                style={{height: Matrics.vs(70)}}
+                style={{ height: Matrics.vs(70) }}
                 dayContainerStyle={{
                   borderRadius: 0,
                 }}
                 calendarColor={colors.lightGreyishBlue}
                 dateNumberStyle={styles.dateNumberStyle}
-                dateNameStyle={{color: 'black'}}
+                dateNameStyle={{ color: 'black' }}
                 highlightDateNumberStyle={[
                   styles.dateNumberStyle,
                   styles.highlighetdDateNumberStyle,
                 ]}
-                highlightDateNameStyle={{color: 'black'}}
-                disabledDateNameStyle={{color: 'grey'}}
-                disabledDateNumberStyle={{color: 'grey'}}
-                iconLeftStyle={{display: 'none'}}
-                iconRightStyle={{display: 'none'}}
+                highlightDateNameStyle={{ color: 'black' }}
+                disabledDateNameStyle={{ color: 'grey' }}
+                disabledDateNumberStyle={{ color: 'grey' }}
+                iconLeftStyle={{ display: 'none' }}
+                iconRightStyle={{ display: 'none' }}
               />
             </View>
           ) : (
@@ -304,7 +298,7 @@ const styles = StyleSheet.create({
     elevation: 2,
     borderBottomRightRadius: 15,
     borderBottomLeftRadius: 15,
-    shadowOffset: {width: 0, height: 0},
+    shadowOffset: { width: 0, height: 0 },
     shadowColor: '#171717',
     shadowOpacity: 0.1,
     shadowRadius: 3,
@@ -362,6 +356,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: Matrics.vs(5),
   },
+  arrowContainer: {
+    height: Matrics.mvs(20), width: Matrics.mvs(30), justifyContent: 'center', alignItems: "center",
+  }
 });
 
 export default DietHeader;

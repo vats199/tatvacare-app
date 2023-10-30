@@ -1,10 +1,11 @@
-import {StyleSheet, Text, View} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import Button from '../atoms/Button';
 import DropdownComponent from '../atoms/Dropdown';
-import {colors} from '../../constants/colors';
-import {Icons} from '../../constants/icons';
-import {Matrics} from '../../constants';
+import { colors } from '../../constants/colors';
+import { Icons } from '../../constants/icons';
+import { Matrics } from '../../constants';
+import { log } from 'console';
 
 type AddDietProps = {
   onPressAdd: () => void;
@@ -12,6 +13,7 @@ type AddDietProps = {
   onSeleteQty: (qty: string) => void;
   Data: FoodItems;
   mealName: string;
+  isDisable: boolean
 };
 type FoodItems = {
   diet_plan_food_item_id: string;
@@ -46,24 +48,25 @@ type NutritionData = {
   name: string;
   value: string;
 };
+
 const AddDiet: React.FC<AddDietProps> = ({
   onPressAdd,
   buttonText,
-  onSeleteQty,
-  Data,
-  mealName,
+  onSeleteQty, Data, mealName, isDisable
 }) => {
+
   const data = [
-    {label: '1', value: '1'},
-    {label: '2', value: '2'},
-    {label: '3', value: '3'},
-    {label: '4', value: '4'},
-    {label: '5', value: '5'},
+    { label: '1', value: '1' },
+    { label: '2', value: '2' },
+    { label: '3', value: '3' },
+    { label: '4', value: '4' },
+    { label: '5', value: '5' },
   ];
   const handleSelectedQty = (ietm: string) => {
     onSeleteQty(ietm);
   };
-  const handleSelectedMeasures = (ietm: string) => {};
+  const handleSelectedMeasures = (ietm: string) => { };
+
 
   return (
     <View style={styles.container}>
@@ -78,7 +81,7 @@ const AddDiet: React.FC<AddDietProps> = ({
               <DropdownComponent
                 data={data}
                 defaultValues={Math.round(Number(Data?.quantity)).toString()}
-                dropdownStyle={{width: '48%'}}
+                dropdownStyle={{ width: '48%' }}
                 placeholder="Quantity"
                 placeholderStyle={styles.dropdownTitleText}
                 selectedItem={handleSelectedQty}
@@ -95,8 +98,9 @@ const AddDiet: React.FC<AddDietProps> = ({
             <Button
               title={buttonText}
               titleStyle={styles.outlinedButtonText}
-              buttonStyle={styles.outlinedButton}
+              buttonStyle={[styles.outlinedButton, isDisable && { backgroundColor: '#808080' }]}
               onPress={onPressAdd}
+              disabled={isDisable}
             />
           </View>
         </View>
@@ -118,7 +122,7 @@ const styles = StyleSheet.create({
     shadowColor: '#808080',
     shadowRadius: 5,
     shadowOpacity: 1,
-    shadowOffset: {height: 0, width: 0},
+    shadowOffset: { height: 0, width: 0 },
   },
   innerContainer: {
     backgroundColor: 'white',

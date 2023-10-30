@@ -73,9 +73,8 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
     navigation.goBack();
   };
   const handlePressPlus = async (data: SearcheFood) => {
-
     const isFoodItemInList = optionFoodItems?.food_items.find(
-      item => item.food_item_id === data?.food_item_id,
+      (item) => item.food_item_id === data?.food_item_id
     );
 
     if (isFoodItemInList) {
@@ -86,7 +85,6 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
         mealName: mealName,
       });
     } else {
-
       const FoodItems = {
         diet_plan_food_item_id: 'null',
         diet_meal_options_id: optionFoodItems?.diet_meal_options_id,
