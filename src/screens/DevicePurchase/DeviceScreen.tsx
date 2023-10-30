@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, View } from 'react-native'
+import { ScrollView, StyleSheet, View, Text } from 'react-native'
 import React, { useEffect, useState } from 'react';
 import { DevicePurchaseStackParamList } from '../../interface/Navigation.interface';
 import { StackScreenProps } from '@react-navigation/stack';
@@ -11,6 +11,8 @@ import DeviceItems from '../../components/organisms/DeviceItems';
 import MyStatusbar from '../../components/atoms/MyStatusBar';
 import BottomViewCart from '../../components/molecules/BottomViewCart';
 import { Matrics } from '../../constants';
+import { useApp } from '../../context/app.context';
+
 type DeviceScreenProps = StackScreenProps<
     DevicePurchaseStackParamList,
     'DeviceScreen'
@@ -36,14 +38,21 @@ const DeviceScreen: React.FC<DeviceScreenProps> = ({ route, navigation }) => {
     const [numberOfItems, setNumberOfItems] = useState<number>(0);
     const insets = useSafeAreaInsets();
 
+    const { location } = useApp();
+    let itemsNumber: number = 0;
+    console.log("addedCartItem>>>>", addedCartItem);
+
     useEffect(() => {
         options.map(item => {
             addedCartItem.map(cartItem => {
                 if (item.id === cartItem.id) {
                     const itemPriceWithoutCommas = item.newPrice?.replace(/,/g, '');
-                    let number = price + (Number(itemPriceWithoutCommas) * cartItem.quantity);
+                    console.log("item price without commas", itemPriceWithoutCommas);
+                    let number = (Number(itemPriceWithoutCommas) * cartItem.quantity);
                     setPrice(number);
-                    setNumberOfItems(numberOfItems + 1);
+                    console.log("total>>>", number);
+                    itemsNumber = itemsNumber + cartItem.quantity;
+                    setNumberOfItems(itemsNumber);
 
                 }
             })
@@ -71,7 +80,7 @@ const DeviceScreen: React.FC<DeviceScreenProps> = ({ route, navigation }) => {
         {
             id: 1,
             title: "Contec Digital Color Spirometer Pulmonary Function Lung Volume Devic...",
-            brand: 'brand',
+            brand: 'Brand',
             description: "SPIROMETER is a hand-held equipment for checking lung conditions.",
             newPrice: '1,078',
             oldPrice: '2,695',
@@ -80,7 +89,7 @@ const DeviceScreen: React.FC<DeviceScreenProps> = ({ route, navigation }) => {
         {
             id: 2,
             title: "Contec Digital Color Spirometer Pulmonary Function Lung Volume Devic...",
-            brand: 'brand',
+            brand: 'Brand',
             description: "SPIROMETER is a hand-held equipment for checking lung conditions.",
             newPrice: '1,078',
             oldPrice: '2,695',
@@ -89,7 +98,7 @@ const DeviceScreen: React.FC<DeviceScreenProps> = ({ route, navigation }) => {
         {
             id: 3,
             title: "Contec Digital Color Spirometer Pulmonary Function Lung Volume Devic...",
-            brand: 'brand',
+            brand: 'Brand',
             description: "SPIROMETER is a hand-held equipment for checking lung conditions.",
             newPrice: '1,078',
             oldPrice: '2,695',
@@ -101,7 +110,7 @@ const DeviceScreen: React.FC<DeviceScreenProps> = ({ route, navigation }) => {
         <>
             <MyStatusbar />
             <SafeAreaView edges={['top']} style={[styles.screen, { paddingBottom: insets.bottom == 0 ? Matrics.vs(46) : insets.bottom }]}  >
-                <ScrollView>
+                <ScrollView showsVerticalScrollIndicator={false}>
                     <Header
                         title="Device"
                         isIcon={true}
@@ -113,6 +122,8 @@ const DeviceScreen: React.FC<DeviceScreenProps> = ({ route, navigation }) => {
                     />
                     <View style={styles.location}>
                         <Icons.Location height={16} width={16} />
+                        <Text>{location.city}{location.pincode}</Text>
+                        <Icons.dropArrow height={16} width={16} />
                     </View>
                     <DeviceItems
                         onPressImage={onPressImage}
@@ -140,19 +151,19 @@ const styles = StyleSheet.create({
     screen: {
         flex: 1,
         backgroundColor: colors.lightGreyishBlue,
-
     },
     upperHeader: {
-        marginHorizontal: 20,
-        marginTop: 30,
-        marginBottom: 20
+        marginHorizontal: Matrics.s(20),
+        marginTop: Matrics.s(30),
+        marginBottom: Matrics.s(20)
     },
     titleStyle: {
         fontSize: Matrics.mvs(16),
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray,
-        marginLeft: 20,
+        lineHeight: Matrics.ms(20),
+        marginLeft: Matrics.s(20),
     },
     location: {
         backgroundColor: colors.white,

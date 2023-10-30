@@ -18,6 +18,7 @@ import BottomAdddressLocationButton from '../../components/molecules/BottomAdddr
 import CommonBottomSheetModal from '../../components/molecules/CommonBottomSheetModal';
 import SelectPatientBottomSheet from '../../components/organisms/SelectPatientBottomSheet';
 import CoupanModal from '../../components/molecules/CoupanModal';
+import { useApp } from '../../context/app.context';
 
 type LabTestCartScreenProps = StackScreenProps<
     DiagnosticStackParamList,
@@ -51,8 +52,8 @@ const LabTestCartScreen: React.FC<LabTestCartScreenProps> = ({ route, navigation
     const [isClicked, setIsClicked] = useState(false);
     const [cartItems, setCartItems] = useState<TestItem[]>([]);
 
-    const coupanTitle: string = route.params?.coupan;
-
+    // const coupanTitle: string = route.params?.coupan;
+    const { coupan } = useApp();
     const bottomSheetModalRef = useRef<BottomSheetModal>(null);
     const [selectedPatient, setSelectedPatient] = useState<string>();
     const [selecetedCoupan, setSelectedCoupan] = useState<string>();
@@ -76,11 +77,11 @@ const LabTestCartScreen: React.FC<LabTestCartScreenProps> = ({ route, navigation
     }, []);
 
     useEffect(() => {
-        if (coupanTitle?.length > 0) {
-            setSelectedCoupan(coupanTitle);
+        if (coupan?.length > 0) {
+            setSelectedCoupan(coupan);
             setIsClicked(true);
         }
-    }, [coupanTitle]);
+    }, [coupan]);
 
     const handlePresentModalPress = useCallback(() => {
         bottomSheetModalRef.current?.present();
@@ -190,8 +191,7 @@ const LabTestCartScreen: React.FC<LabTestCartScreenProps> = ({ route, navigation
                     <TestDetails data={cartItems} title='Test Details' />
                     <OfferAndPromotion
                         onPressApplyCoupan={onPressApplyCoupan}
-                        coupanTitle={coupanTitle}
-                        selectedCoupan={selecetedCoupan}
+                        coupanTitle={coupan}
                     />
                     <Billing data={billing} />
                 </Container>
@@ -203,15 +203,12 @@ const LabTestCartScreen: React.FC<LabTestCartScreenProps> = ({ route, navigation
                     buttonColor={backColor}
                 />
             </ScrollView>
-            <View>
-                <Modal transparent={true} animationType='slide' visible={isClicked} >
-                    <CoupanModal
-                        coupanTitle={selecetedCoupan}
-                        handleModal={handleModal}
-                    />
-                </Modal>
-            </View>
-
+            <Modal transparent={true} animationType='slide' visible={isClicked} >
+                <CoupanModal
+                    coupanTitle={selecetedCoupan}
+                    handleModal={handleModal}
+                />
+            </Modal>
             <CommonBottomSheetModal snapPoints={['70%']} ref={bottomSheetModalRef} >
                 <SelectPatientBottomSheet
                     data={PatientOptions}

@@ -35,6 +35,13 @@ type selectTime = {
     slot?: string;
     timeZone?: string
 };
+export type billingData = {
+    id?: number;
+    value?: {
+        name?: string;
+        price?: string;
+    }
+}
 
 
 const LabTestSummaryScreen: React.FC<LabTestSummaryScreenProps> = ({ route, navigation }) => {
@@ -52,12 +59,51 @@ const LabTestSummaryScreen: React.FC<LabTestSummaryScreenProps> = ({ route, navi
 
     const dateObj = new Date(time.date);
 
-    const dateOptions = {
+    const dateOptions: Intl.DateTimeFormatOptions = {
         weekday: 'long',
         day: 'numeric',
         month: 'short',
-        year: 'numeric'
+        year: 'numeric',
     };
+
+
+    const billingOptions: billingData[] = [
+        {
+            id: 1,
+            value: {
+                name: "Item total",
+                price: "200"
+            }
+        },
+        {
+            id: 2,
+            value: {
+                name: "Home Collection Charges",
+                price: "50"
+            }
+        },
+        {
+            id: 3,
+            value: {
+                name: "Service Charge",
+                price: "10"
+            }
+        },
+        {
+            id: 4,
+            value: {
+                name: "Discount on  Item(s)",
+                price: "25"
+            }
+        },
+        {
+            id: 5,
+            value: {
+                name: "Applied Coupan(FIRST25)",
+                price: "25"
+            }
+        },
+    ]
 
     const formattedDate = dateObj.toLocaleDateString(undefined, dateOptions);
 
@@ -94,7 +140,7 @@ const LabTestSummaryScreen: React.FC<LabTestSummaryScreenProps> = ({ route, navi
                 <SampleCollection slot={time.slot} timeZone={time.timeZone} dayAndDate={formattedDate} />
                 <TestDetails data={cartItems} title="Test" />
                 <View style={{ marginBottom: 50 }}>
-                    <Billing />
+                    <Billing data={billingOptions} />
                 </View>
             </ScrollView>
             <View style={styles.bottomContainer}>

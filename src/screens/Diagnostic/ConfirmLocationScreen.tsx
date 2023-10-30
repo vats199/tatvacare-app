@@ -95,9 +95,6 @@ const ConfirmLocationScreen: React.FC<ConfirmLocationScreenProps> = ({ route, na
 
     const snapPoints = (selectedBottomsheet === "Location") ? ["40%"] : ['80%'];
 
-
-
-
     const onPressBack = () => {
         navigation.goBack();
     }
@@ -172,7 +169,10 @@ const ConfirmLocationScreen: React.FC<ConfirmLocationScreenProps> = ({ route, na
                     (selectedBottomsheet === 'Enter Address') && (
                         <EnterAddressBottomSheet
                             buttonTitle="Add Address"
-                            onPressSaveAddress={() => setSelectedBottomsheet('location')}
+                            onPressSaveAddress={() => {
+                                bottomSheetModalRef.current?.close();
+                                navigation.goBack();
+                            }}
                         />
                     )
                 }
@@ -210,7 +210,6 @@ const styles = StyleSheet.create({
         color: colors.labelDarkGray,
         marginLeft: 20
     },
-
     searchContainer: {
         flexDirection: 'row',
         alignItems: 'center',

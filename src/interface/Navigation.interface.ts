@@ -114,7 +114,7 @@ export type AppointmentStackParamList = {
 
 export type DiagnosticStackParamList = {
   AllLabTestScreen: undefined;
-  LabTestCart: {coupan: string };
+  LabTestCart:undefined;
   ApplyCoupan: undefined;
   ConfirmLocation: undefined;
   SearchLabTest: undefined;
@@ -133,6 +133,10 @@ export type DevicePurchaseStackParamList={
   DeviceDetail:{item:device | undefined};
   CartScreen:undefined;
   ConfirmLocationScreen:undefined;
+  OrderSummary:undefined;
+  PaymentDone:undefined;
+  DevicesScreen:undefined;
+  ApplyCoupan:undefined;
 }
 
 export type BottomTabParamList = {

@@ -2,40 +2,38 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react';
 import { colors } from '../../constants/colors';
 import { Fonts } from '../../constants';
+import { billingData } from '../../screens/DevicePurchase/CartScreen';
+type BillingProps = {
+    data: billingData[]
+}
 
-const Billing: React.FC = () => {
+const Billing: React.FC<BillingProps> = ({ data }) => {
     const rupee = '\u20B9';
 
+    const renderBillingItems = (item: billingData, index: number) => {
+        const color = (item.value?.name === "Applied Coupan(FIRST25)") ? "green" : colors.subTitleLightGray;
+        console.log(color);
+        return (
+
+            <View style={styles.row}>
+                <Text style={styles.billingProperty}>{item.value?.name} </Text>
+                <Text style={[styles.billingProperty, { color: color }]}>{rupee} {item.value?.price}</Text>
+            </View>
+        );
+    }
     return (
         <View>
             <Text style={styles.heading}>Billing</Text>
             <View style={styles.billingContainer}>
-                <View style={styles.row}>
-                    <Text style={styles.billingProperty}> Item Total</Text>
-                    <Text style={styles.billingProperty}>{rupee} 2250</Text>
-                </View>
-                <View style={styles.row}>
-                    <Text style={styles.billingProperty}> Home Collection charge</Text>
-                    <Text style={styles.billingProperty}>{rupee} 50</Text>
-                </View>
-                <View style={styles.row}>
-                    <Text style={styles.billingProperty}> Service charge</Text>
-                    <Text style={styles.billingProperty}>{rupee} 10</Text>
-                </View>
-                <View style={styles.row}>
-                    <Text style={styles.billingProperty}> Discount of item(s)</Text>
-                    <Text style={styles.billingProperty}>{rupee} -25</Text>
-                </View>
-                <View style={styles.row}>
-                    <Text style={styles.billingProperty}> Applied Coupan(FIRST25) </Text>
-                    <Text style={[styles.billingProperty, { color: colors.green }]}>{rupee}-25</Text>
-                </View>
+                {data.map(renderBillingItems)}
                 <View style={styles.border} />
                 <View style={styles.row}>
                     <Text style={styles.totalAmount}> Amount to be Paid </Text>
                     <Text style={styles.totalAmount}>{rupee}210</Text>
                 </View>
             </View>
+
+
         </View>
     )
 }
@@ -82,5 +80,6 @@ const styles = StyleSheet.create({
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray,
-    }
+    },
+
 })

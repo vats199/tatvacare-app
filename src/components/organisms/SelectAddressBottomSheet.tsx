@@ -23,9 +23,11 @@ const SelectAddressBottomSheet: React.FC<SelectAddressBottomSheetProps> = ({
     const length: number = data.length;
     const [selectedAddress, setSelectedAddress] = useState<addressData>();
 
+    const color = selectedAddress ? colors.themePurple : colors.darkGray;
+
     const handleSelectedAddress = (item: addressData) => {
         if (item.id === selectedAddress?.id) {
-            setSelectedAddress({});
+            setSelectedAddress(undefined);
         } else {
             setSelectedAddress(item)
         }
@@ -109,7 +111,7 @@ const SelectAddressBottomSheet: React.FC<SelectAddressBottomSheetProps> = ({
                         <View style={styles.buttonContainer}>
                             <Button
                                 title='Proceed to Checkout'
-                                buttonStyle={{ marginHorizontal: 0 }}
+                                buttonStyle={{ marginHorizontal: 0, backgroundColor: color }}
                                 titleStyle={styles.buttonText}
                                 onPress={onPressProceedToCheckout}
                             />
@@ -117,9 +119,6 @@ const SelectAddressBottomSheet: React.FC<SelectAddressBottomSheetProps> = ({
                     </View>
                 )
             }
-
-
-
         </View>
     )
 }

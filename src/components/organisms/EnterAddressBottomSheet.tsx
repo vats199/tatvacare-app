@@ -15,20 +15,17 @@ type EnterAddressBottomSheetProps = {
 const EnterAddressBottomSheet: React.FC<EnterAddressBottomSheetProps> = ({ onPressSaveAddress, buttonTitle }) => {
 
     const [selectedAddressType, setSelectedAddressType] = useState<string | undefined>('');
-    const [enteredPincode, setEnteredPincode] = useState<string>();
     const [enteredStreetName, setEnteredStreetName] = useState<string>();
     const [enteredHouseName, setEnteredHouseName] = useState<string>();
 
-    const handleEnteredPincode = (item: string) => {
-        setEnteredPincode(item);
-    }
+
     const handleEnteredHouseName = (item: string) => {
         setEnteredHouseName(item);
     }
     const handleEnteredStreetName = (item: string) => {
         setEnteredStreetName(item);
     }
-    const color = (selectedAddressType && enteredPincode && enteredStreetName && enteredHouseName) ? colors.themePurple : colors.darkGray;
+    const color = (selectedAddressType && enteredStreetName && enteredHouseName) ? colors.themePurple : colors.darkGray;
 
     return (
         <View style={styles.contentContainer}>
@@ -40,18 +37,19 @@ const EnterAddressBottomSheet: React.FC<EnterAddressBottomSheetProps> = ({ onPre
                         collecting test samples</Text>
 
                 </View>
-                <View style={{ marginVertical: 5 }}>
-                    <AnimatedInputField
-                        placeholder='Enter Pincode'
-                        style={styles.inputStyle}
-                        textStyle={styles.placeholderText} placeholderTextColor={colors.inactiveGray} showAnimatedLabel={true}
-                    />
+                <View style={{ marginVertical: 10 }}>
+                    <View style={styles.pincodeStyle}>
+                        <Text style={styles.pincodeText}>Pincode</Text>
+                        <Text>308020</Text>
+                    </View>
                 </View>
                 <View style={{ marginVertical: 5 }}>
                     <AnimatedInputField
                         placeholder='House number and Building *'
                         style={styles.inputStyle}
-                        textStyle={styles.placeholderText} placeholderTextColor={colors.inactiveGray} showAnimatedLabel={true}
+                        textStyle={styles.placeholderText}
+                        placeholderTextColor={colors.inactiveGray}
+                        showAnimatedLabel={true}
                         onChangeText={handleEnteredHouseName}
                     />
                 </View>
@@ -59,8 +57,11 @@ const EnterAddressBottomSheet: React.FC<EnterAddressBottomSheetProps> = ({ onPre
                     <AnimatedInputField
                         placeholder='Street name *'
                         style={styles.inputStyle}
-                        textStyle={styles.placeholderText} placeholderTextColor={colors.inactiveGray} showAnimatedLabel={true}
+                        textStyle={styles.placeholderText}
+                        placeholderTextColor={colors.inactiveGray}
+                        showAnimatedLabel={true}
                         onChangeText={handleEnteredStreetName}
+
                     />
                 </View>
                 <View>
@@ -103,7 +104,7 @@ const EnterAddressBottomSheet: React.FC<EnterAddressBottomSheetProps> = ({ onPre
                     <Button
                         title={buttonTitle}
                         titleStyle={styles.outlinedButtonText}
-                        buttonStyle={[styles.saveAddressButton, { backgroundColor: color }]}
+                        buttonStyle={{ ...styles.saveAddressButton, backgroundColor: color }}
                         onPress={onPressSaveAddress}
                     />
                 </View>
@@ -167,11 +168,20 @@ const styles = StyleSheet.create({
         paddingHorizontal: Matrics.s(8)
 
     },
+    pincodeStyle: {
+        backgroundColor: "#9E9E9E",
+        height: Matrics.mvs(44),
+        borderColor: "#9E9E9E",
+        borderWidth: 1.3,
+        borderRadius: 14,
+        paddingHorizontal: Matrics.s(8)
+    },
     placeholderText: {
         fontSize: Matrics.mvs(14),
-        fontWeight: '400',
+        fontWeight: '600',
         fontFamily: Fonts.BOLD,
-        color: colors.inactiveGray,
+        color: colors.subTitleLightGray,
+        lineHeight: Matrics.s(18)
     },
     addessTypeText: {
         fontSize: Matrics.mvs(14),
@@ -180,6 +190,13 @@ const styles = StyleSheet.create({
         color: colors.labelDarkGray,
         marginVertical: Matrics.mvs(10)
     },
+    pincodeText: {
+        fontSize: Matrics.mvs(10),
+        fontWeight: '400',
+        fontFamily: Fonts.BOLD,
+        color: colors.subTitleLightGray,
+        lineHeight: Matrics.s(12)
+    }
 
 
 })

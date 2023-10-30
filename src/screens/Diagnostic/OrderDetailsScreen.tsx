@@ -28,6 +28,14 @@ type TestItem = {
     isAdded: boolean;
 };
 
+export type billingData = {
+    id?: number;
+    value?: {
+        name?: string;
+        price?: string;
+    }
+}
+
 
 const OrderDetailsScreen: React.FC<OrderDetailsScreenProps> = ({ route, navigation }) => {
 
@@ -54,7 +62,43 @@ const OrderDetailsScreen: React.FC<OrderDetailsScreenProps> = ({ route, navigati
         fetchData();
     }, []);
 
-
+    const billingOptions: billingData[] = [
+        {
+            id: 1,
+            value: {
+                name: "Item total",
+                price: "200"
+            }
+        },
+        {
+            id: 2,
+            value: {
+                name: "Home Collection Charges",
+                price: "50"
+            }
+        },
+        {
+            id: 3,
+            value: {
+                name: "Service Charge",
+                price: "10"
+            }
+        },
+        {
+            id: 4,
+            value: {
+                name: "Discount on  Item(s)",
+                price: "25"
+            }
+        },
+        {
+            id: 5,
+            value: {
+                name: "Applied Coupan(FIRST25)",
+                price: "25"
+            }
+        },
+    ]
     return (
         <SafeAreaView edges={['top']} style={styles.screen} >
             <ScrollView style={{ padding: 20 }}>
@@ -70,7 +114,7 @@ const OrderDetailsScreen: React.FC<OrderDetailsScreenProps> = ({ route, navigati
 
                 <TestDetails data={cartItems} title="Test" />
                 <View style={{ marginBottom: 50 }}>
-                    <Billing />
+                    <Billing data={billingOptions} />
                 </View>
             </ScrollView>
         </SafeAreaView>

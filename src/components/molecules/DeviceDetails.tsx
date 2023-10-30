@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react';
 import { colors } from '../../constants/colors';
 import { Fonts } from '../../constants';
-import { Icons } from '../../constants/icons';
+import { Matrics } from '../../constants';
 
 const DeviceDetails: React.FC = () => {
     return (
@@ -39,27 +39,27 @@ export default DeviceDetails
 
 const styles = StyleSheet.create({
     descriptionText: {
-        fontSize: 12,
+        fontSize: Matrics.mvs(12),
         fontWeight: '300',
         fontFamily: Fonts.BOLD,
         color: colors.subTitleLightGray,
         marginVertical: 2,
         marginLeft: 3,
-        lineHeight: 18
+        lineHeight: Matrics.s(18)
     },
     deviceDetailsText: {
-        fontSize: 16,
+        fontSize: Matrics.mvs(16),
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.dimGray,
-        marginVertical: 20
+        marginTop: Matrics.s(30)
     },
     subTitletext: {
-        fontSize: 14,
+        fontSize: Matrics.mvs(14),
         fontWeight: '400',
         fontFamily: Fonts.BOLD,
         color: colors.inputValueDarkGray,
-        marginTop: 20,
+        marginTop: Matrics.s(20),
         marginBottom: 10
     },
 })

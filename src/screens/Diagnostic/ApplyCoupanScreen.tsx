@@ -10,6 +10,8 @@ import { colors } from '../../constants/colors';
 import { Fonts } from '../../constants';
 import CoupansForYou from '../../components/organisms/CoupansForYou';
 import { Matrics } from '../../constants';
+import { useApp } from '../../context/app.context';
+
 
 type ApplyCoupanScreenProps = StackScreenProps<
     DiagnosticStackParamList,
@@ -19,22 +21,12 @@ type ApplyCoupanScreenProps = StackScreenProps<
 const ApplyCoupanScreen: React.FC<ApplyCoupanScreenProps> = ({ route, navigation }) => {
 
     const [isFocused, setIsFocused] = useState<boolean>(false);
-    const [selectedCoupan, setSelectedCoupan] = useState<string>('');
-
-    useEffect(() => {
-        if (selectedCoupan.length > 0) {
-            navigation.navigate("LabTestCart", { coupan: selectedCoupan });
-        }
-    }, [selectedCoupan]);
-
+    const { setCoupan } = useApp();
     const handleSelectedCoupan = (title: string) => {
-        setSelectedCoupan(title);
-
+        setCoupan(title);
+        navigation.goBack();
     }
-    console.log(selectedCoupan);
-    const onPressApply = () => {
-        navigation.navigate("LabTestCart", { coupan: selectedCoupan });
-    }
+    const onPressApply = () => { };
 
     return (
         <>

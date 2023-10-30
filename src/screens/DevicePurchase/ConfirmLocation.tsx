@@ -9,7 +9,7 @@ import { Icons } from '../../constants/icons';
 import { Matrics } from '../../constants';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import CommonBottomSheetModal from '../../components/molecules/CommonBottomSheetModal';
-import { BottomSheetModal } from '@gorhom/bottom-sheet';
+import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import BottomSheetLocation from '../../components/molecules/BottomSheetLocation';
 import EnterAddressBottomSheet from '../../components/organisms/EnterAddressBottomSheet';
 
@@ -134,23 +134,29 @@ const ConfirmLocation: React.FC<ConfirmLocationScreenProps> = ({ route, navigati
                     </View>
                 </View>
             </View >
-            <CommonBottomSheetModal snapPoints={snapPoints} ref={bottomSheetModalRef}>
-                {
-                    (selectedBottomsheet === 'Location') && (
-                        <BottomSheetLocation
-                            onPressAddCompleteAddress={() => setSelectedBottomsheet('Enter Address')}
-                        />
-                    )
-                }
-                {
-                    (selectedBottomsheet === 'Enter Address') && (
-                        <EnterAddressBottomSheet
-                            buttonTitle="Save & Proceed"
-                            onPressSaveAddress={() => setSelectedBottomsheet('location')}
-                        />
-                    )
-                }
-            </CommonBottomSheetModal>
+            <BottomSheetModalProvider>
+                <CommonBottomSheetModal snapPoints={snapPoints} ref={bottomSheetModalRef}>
+                    {
+                        (selectedBottomsheet === 'Location') && (
+                            <BottomSheetLocation
+                                onPressAddCompleteAddress={() => setSelectedBottomsheet('Enter Address')}
+                            />
+                        )
+                    }
+                    {
+                        (selectedBottomsheet === 'Enter Address') && (
+                            <EnterAddressBottomSheet
+                                buttonTitle="Save & Proceed"
+                                onPressSaveAddress={() => {
+                                    bottomSheetModalRef.current?.close();
+                                    navigation.navigate("OrderSummary")
+                                }
+                                }
+                            />
+                        )
+                    }
+                </CommonBottomSheetModal>
+            </BottomSheetModalProvider>
         </View >
     )
 }
@@ -169,7 +175,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     titleStyle: {
-        fontSize: 16,
+        fontSize: Matrics.mvs(16),
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray,

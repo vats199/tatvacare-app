@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import {
     DiagnosticStackParamList
 } from '../../interface/Navigation.interface';
-import { Container, Screen } from '../../components/styled/Views';
 import { StackScreenProps } from '@react-navigation/stack';
 import { colors } from '../../constants/colors';
 import { Fonts } from '../../constants';
@@ -11,7 +10,8 @@ import { Icons } from '../../constants/icons';
 import AnimatedInputField from '../../components/atoms/AnimatedInputField';
 import DropdownComponent from '../../components/atoms/Dropdown';
 import Button from '../../components/atoms/Button';
-import DropdownField from '../../components/atoms/DropdownField';
+import { Matrics } from '../../constants';
+
 
 type AddPatientDetailsScreenProps = StackScreenProps<
     DiagnosticStackParamList,
@@ -65,7 +65,7 @@ const AddPatientDetailsScreen: React.FC<AddPatientDetailsScreenProps> = ({ route
         navigation.goBack();
     }
     const onPressSave = () => {
-        navigation.navigate("LabTestCart", {});
+        navigation.navigate("LabTestCart");
     }
     return (
         <ScrollView style={{ flex: 1, backgroundColor: '#F9F9FF', padding: 15 }}>
@@ -132,7 +132,7 @@ const AddPatientDetailsScreen: React.FC<AddPatientDetailsScreenProps> = ({ route
                 <Button
                     title="Save"
                     titleStyle={styles.outlinedButtonText}
-                    buttonStyle={[styles.outlinedButton, { backgroundColor: color }]}
+                    buttonStyle={{ ...styles.outlinedButton, backgroundColor: color }}
                     onPress={onPressSave}
                 />
             </View>

@@ -5,8 +5,15 @@ import { Fonts } from '../../constants';
 import { Icons } from '../../constants/icons';
 import { device } from '../../screens/DevicePurchase/DeviceScreen';
 
-const CartItems: React.FC = () => {
+type CartItemsProps = {
+    showAddMinus: boolean;
+}
+
+const CartItems: React.FC<CartItemsProps> = ({ showAddMinus }) => {
     const rupee = '\u20B9';
+
+    const widthRight = showAddMinus ? "45%" : '70%';
+    const widthLeft = "25%";
     const options: device[] = [
         {
             id: 1,
@@ -23,11 +30,11 @@ const CartItems: React.FC = () => {
     const renderCartItem = (item: device, index: number) => {
         return (
             <View key={index} style={styles.itemContainer} >
-                <View style={{ width: '25%' }}>
+                <View style={{ width: widthLeft }}>
                     <View style={styles.box} />
                 </View>
-                <View style={{ width: '45%', marginHorizontal: 7 }}>
-                    <Text numberOfLines={3} style={styles.title} >{item.title} </Text>
+                <View style={{ width: widthRight, marginHorizontal: 7 }}>
+                    <Text numberOfLines={2} style={styles.title} >{item.title} </Text>
                     <Text style={styles.brandText}>{item.brand} </Text>
                     <View style={styles.priceRow}>
                         <Text style={styles.price}>{rupee}{item.newPrice}</Text>
@@ -35,13 +42,17 @@ const CartItems: React.FC = () => {
 
                     </View>
                 </View>
-                <View style={{ width: '30%' }}>
-                    <View style={styles.addMinusButton}>
-                        <Icons.Minus height={16} width={16} />
-                        <Text>1</Text>
-                        <Icons.Add height={16} width={16} />
-                    </View>
-                </View>
+                {
+                    showAddMinus && (
+                        <View style={{ width: '30%' }}>
+                            <View style={styles.addMinusButton}>
+                                <Icons.Minus height={16} width={16} />
+                                <Text>1</Text>
+                                <Icons.Add height={16} width={16} />
+                            </View>
+                        </View>
+                    )
+                }
             </View>
         );
     }
@@ -76,8 +87,8 @@ const styles = StyleSheet.create({
         lineHeight: 16
     },
     box: {
-        minWidth: 40,
-        minHeight: 58,
+        minWidth: 30,
+        minHeight: 68,
         backgroundColor: colors.white,
         borderWidth: 1,
         borderColor: "#E0E0E0",

@@ -68,7 +68,7 @@ const CarouselShow = () => {
                     height={200}
                     autoPlay={false}
                     data={data}
-                    scrollAnimationDuration={1000}
+                    scrollAnimationDuration={500}
                     onSnapToItem={(index) => setActiveIndex(index)}
                     renderItem={({ index }) => (
                         <View style={styles.container}>
@@ -95,7 +95,7 @@ export default CarouselShow;
 const styles = StyleSheet.create({
     container: {
         backgroundColor: 'white',
-        borderRadius: 8,
+        // borderRadius: 8,
         width: "100%",
         height: "100%",
         paddingBottom: 40,

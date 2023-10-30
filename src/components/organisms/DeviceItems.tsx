@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { colors } from '../../constants/colors';
 import { Fonts } from '../../constants';
 import { Icons } from '../../constants/icons';
 import Button from '../atoms/Button';
 import { device } from '../../screens/DevicePurchase/DeviceScreen';
+import { Matrics } from '../../constants';
 
 type cartItem = {
     id: number;
@@ -19,12 +20,12 @@ type DeviceItemsProps = {
 
 const DeviceItems: React.FC<DeviceItemsProps> = ({ onPressImage, data, onAdded }) => {
     const [selectedId, setSelectedId] = useState<cartItem[]>([]);
-    console.log(selectedId);
+
     const rupee = '\u20B9';
 
     const imagePressHandler = (id: number) => {
         if (id) {
-            onPressImage(id);
+            onPressImage?.(id);
         }
     };
 
@@ -66,7 +67,7 @@ const DeviceItems: React.FC<DeviceItemsProps> = ({ onPressImage, data, onAdded }
                     <TouchableOpacity style={styles.box} onPress={() => imagePressHandler(item.id)}>
                     </TouchableOpacity>
                 </View>
-                <View style={{ width: '60%', marginLeft: 10 }}>
+                <View style={{ width: '65%', marginLeft: 10 }}>
                     <Text style={styles.titleText} numberOfLines={3}>
                         {item.title}
                     </Text>
@@ -89,7 +90,7 @@ const DeviceItems: React.FC<DeviceItemsProps> = ({ onPressImage, data, onAdded }
                                             addedCartHandler(item.id, updatedAbc);
                                         }}
                                     />
-                                    <Text>{abc}</Text>
+                                    <Text style={styles.selectedItemstext}>{abc}</Text>
                                     <Icons.Add height={16} width={16}
                                         onPress={() => {
                                             const updatedAbc = abc + 1;
@@ -100,7 +101,7 @@ const DeviceItems: React.FC<DeviceItemsProps> = ({ onPressImage, data, onAdded }
                                 </View>
                             ) : (
                                 <Button
-                                    title="Add To Cart1"
+                                    title="Add To Cart"
                                     buttonStyle={styles.buttonStyle}
                                     titleStyle={styles.buttonText}
                                     onPress={() => addedCartHandler(item.id, 1)}
@@ -126,7 +127,7 @@ const styles = StyleSheet.create({
     itemContainer: {
         width: '100%',
         flexDirection: 'row',
-        marginVertical: 14,
+        marginVertical: Matrics.vs(10),
         minHeight: 240,
         backgroundColor: 'white',
         borderRadius: 12,
@@ -136,8 +137,8 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 1 },
     },
     box: {
-        minWidth: 90,
-        minHeight: 108,
+        minWidth: Matrics.s(90),
+        minHeight: Matrics.vs(108),
         backgroundColor: colors.white,
         borderWidth: 1,
         borderColor: "#E0E0E0",
@@ -148,7 +149,7 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 1 },
     },
     titleText: {
-        fontSize: 14,
+        fontSize: Matrics.mvs(14),
         fontWeight: '600',
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray,
@@ -156,13 +157,13 @@ const styles = StyleSheet.create({
         lineHeight: 18,
     },
     brandText: {
-        fontSize: 12,
+        fontSize: Matrics.mvs(12),
         fontWeight: '300',
         fontFamily: Fonts.BOLD,
         color: colors.darkGray,
     },
     descriptionText: {
-        fontSize: 12,
+        fontSize: Matrics.mvs(12),
         fontWeight: '300',
         fontFamily: Fonts.BOLD,
         color: colors.subTitleLightGray,
@@ -175,7 +176,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
     price: {
-        fontSize: 16,
+        fontSize: Matrics.mvs(16),
         fontWeight: "700",
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray,
@@ -183,13 +184,13 @@ const styles = StyleSheet.create({
         marginRight: 10,
     },
     oldPrice: {
-        fontSize: 12,
+        fontSize: Matrics.mvs(12),
         fontWeight: "400",
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray,
     },
     discount: {
-        fontSize: 14,
+        fontSize: Matrics.mvs(14),
         fontWeight: "700",
         fontFamily: Fonts.BOLD,
         color: colors.green,
@@ -227,6 +228,13 @@ const styles = StyleSheet.create({
         borderColor: colors.themePurple,
         padding: 5,
         borderRadius: 12,
-
-    }
+    },
+    selectedItemstext: {
+        fontSize: Matrics.mvs(14),
+        fontWeight: "700",
+        fontFamily: Fonts.BOLD,
+        color: colors.themePurple,
+        lineHeight: 18,
+        textAlign: "center"
+    },
 });

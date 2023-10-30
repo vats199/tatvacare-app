@@ -3,14 +3,14 @@ import React from 'react';
 import { colors } from '../../constants/colors';
 import { Fonts } from '../../constants';
 import { Icons } from '../../constants/icons';
+import { Matrics } from '../../constants';
 
 type OfferAndPromotionProps = {
     coupanTitle?: string;
-    selectedCoupan?: string;
     onPressApplyCoupan?: () => void;
 }
 
-const OfferAndPromotion: React.FC<OfferAndPromotionProps> = ({ coupanTitle, selectedCoupan, onPressApplyCoupan }) => {
+const OfferAndPromotion: React.FC<OfferAndPromotionProps> = ({ coupanTitle, onPressApplyCoupan }) => {
     return (
         <View >
             <Text style={styles.heading}>Offer & Promotions</Text>
@@ -29,7 +29,7 @@ const OfferAndPromotion: React.FC<OfferAndPromotionProps> = ({ coupanTitle, sele
                     }
                     {
                         (coupanTitle) ? (
-                            <Text style={styles.applyCoupanText}>{selectedCoupan}  Applied</Text>
+                            <Text style={styles.applyCoupanText}>{coupanTitle} Applied</Text>
                         ) : (<Text style={styles.applyCoupanText}> Apply Coupan</Text>)
                     }
                 </View>
@@ -45,11 +45,11 @@ export default OfferAndPromotion;
 
 const styles = StyleSheet.create({
     heading: {
-        fontSize: 16,
+        fontSize: Matrics.mvs(16),
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray,
-        marginTop: 10,
+        marginTop: Matrics.s(20),
         marginBottom: 5
     },
     offerContainer: {
@@ -67,10 +67,10 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 1 },
     },
     applyCoupanText: {
-        fontSize: 14,
+        fontSize: Matrics.mvs(14),
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray,
-        marginLeft: 10
+        marginLeft: Matrics.s(10)
     },
 })

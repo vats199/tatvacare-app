@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React, { useRef } from 'react';
+import { StyleSheet, Text, View, Modal } from 'react-native'
+import React, { useRef, useState, useEffect } from 'react';
 import { DevicePurchaseStackParamList } from '../../interface/Navigation.interface';
 import { StackScreenProps } from '@react-navigation/stack';
 import Header from '../../components/atoms/Header';
@@ -13,9 +13,11 @@ import Billing from '../../components/organisms/Billing';
 import BottomAdddressLocationButton from '../../components/molecules/BottomAdddressLocationButton';
 import MyStatusbar from '../../components/atoms/MyStatusBar';
 import { Matrics } from '../../constants';
-import { BottomSheetModal } from '@gorhom/bottom-sheet';
+import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import CommonBottomSheetModal from '../../components/molecules/CommonBottomSheetModal';
 import SelectAddressBottomSheet from '../../components/organisms/SelectAddressBottomSheet';
+import { useApp } from '../../context/app.context';
+import CoupanModal from '../../components/molecules/CoupanModal';
 
 type CartScreenProps = StackScreenProps<
     DevicePurchaseStackParamList,
@@ -37,7 +39,17 @@ export type addressData = {
 const CartScreen: React.FC<CartScreenProps> = ({ route, navigation }) => {
 
     const insets = useSafeAreaInsets();
+    const { coupan } = useApp();
+    const [isClicked, setIsClicked] = useState(false);
+    const [selecetedCoupan, setSelectedCoupan] = useState<string>();
     const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+
+    useEffect(() => {
+        if (coupan?.length > 0) {
+            setSelectedCoupan(coupan);
+            setIsClicked(true);
+        }
+    }, [coupan]);
     const onPressBack = () => {
         navigation.goBack();
     }
@@ -45,15 +57,18 @@ const CartScreen: React.FC<CartScreenProps> = ({ route, navigation }) => {
         bottomSheetModalRef.current?.present();
     }
     const onPressAddAddress = () => {
-        // bottomSheetModalRef.current?.close();
-        console.log("happeniong");
+        bottomSheetModalRef.current?.forceClose();
         navigation.navigate("ConfirmLocationScreen");
     }
     const onPressProceedToCheckout = () => {
-
+        bottomSheetModalRef.current?.forceClose();
+        navigation.navigate("OrderSummary");
     }
     const onPressApplyCoupan = () => {
-        // navigation.navigate("ApplyCoupan");
+        navigation.navigate("ApplyCoupan");
+    }
+    const handleModal = () => {
+        setIsClicked(!isClicked);
     }
 
     const billingOptions: billingData[] = [
@@ -104,22 +119,14 @@ const CartScreen: React.FC<CartScreenProps> = ({ route, navigation }) => {
             address: "Zydus cadila, Hari Om Nagar, Chandralok Society, Ghodasar, Ahmedabad, Gujarat 380050"
         }
     ]
-    const snapPoints = (addressOptions.length > 0) ? ['48%'] : ['40%']
+    const snapPoints = (addressOptions.length > 0) ? ['68%'] : ['50%']
+    console.log(selecetedCoupan);
 
     return (
         <>
             <MyStatusbar />
             <SafeAreaView edges={['top']} style={[styles.screen, { paddingBottom: insets.bottom == 0 ? Matrics.vs(20) : insets.bottom }]}>
-                <View style={{
-                    paddingVertical: 5,
-                    borderBottomWidth: 0.1,
-                    borderBottomColor: '#ccc',
-                    shadowColor: colors.black,
-                    shadowOffset: { width: 0, height: 3 },
-                    shadowOpacity: 0.08,
-                    shadowRadius: 8,
-                    elevation: 0.5,
-                }}>
+                <View style={styles.headerContainer}>
                     <Header
                         title='Cart'
                         containerStyle={styles.upperHeader}
@@ -127,10 +134,13 @@ const CartScreen: React.FC<CartScreenProps> = ({ route, navigation }) => {
                         onBackPress={onPressBack}
                     />
                 </View>
-                <ScrollView >
+                <ScrollView showsVerticalScrollIndicator={false} >
                     <View style={{ paddingHorizontal: 12 }}>
-                        <CartItems />
-                        <OfferAndPromotion />
+                        <CartItems showAddMinus={true} />
+                        <OfferAndPromotion
+                            coupanTitle={selecetedCoupan}
+                            onPressApplyCoupan={onPressApplyCoupan}
+                        />
                         <Billing data={billingOptions} />
                     </View>
                     <BottomAdddressLocationButton
@@ -141,13 +151,23 @@ const CartScreen: React.FC<CartScreenProps> = ({ route, navigation }) => {
                         onPressButtonTitle={onPressProceedToCheckout}
                     />
                 </ScrollView>
-                <CommonBottomSheetModal snapPoints={snapPoints} ref={bottomSheetModalRef} >
-                    <SelectAddressBottomSheet
-                        data={addressOptions}
-                        onPressAddAddress={onPressAddAddress}
-                        onPressAddNew={onPressAddAddress}
+
+                <Modal transparent={true} animationType='slide' visible={isClicked} >
+                    <CoupanModal
+                        coupanTitle={selecetedCoupan}
+                        handleModal={handleModal}
                     />
-                </CommonBottomSheetModal>
+                </Modal>
+                <BottomSheetModalProvider>
+                    <CommonBottomSheetModal snapPoints={snapPoints} ref={bottomSheetModalRef} >
+                        <SelectAddressBottomSheet
+                            data={addressOptions}
+                            onPressAddAddress={onPressAddAddress}
+                            onPressAddNew={onPressAddAddress}
+                            onPressProceedToCheckout={onPressProceedToCheckout}
+                        />
+                    </CommonBottomSheetModal>
+                </BottomSheetModalProvider>
             </SafeAreaView>
         </>
     )
@@ -160,6 +180,16 @@ const styles = StyleSheet.create({
     screen: {
         flex: 1,
         backgroundColor: colors.lightGreyishBlue,
+    },
+    headerContainer: {
+        paddingVertical: 5,
+        borderBottomWidth: 0.1,
+        borderBottomColor: '#ccc',
+        shadowColor: colors.black,
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.08,
+        shadowRadius: 8,
+        elevation: 0.5,
     },
     upperHeader: {
         marginTop: Matrics.s(25),

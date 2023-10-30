@@ -59,9 +59,9 @@ const DeviceDetailsScreen: React.FC<DeviceDetailScreenProps> = ({ route, navigat
                 <Text style={styles.brandText}>{item?.brand}</Text>
                 <View style={styles.priceButtonRow}>
                     <View style={styles.priceRow}>
-                        <Text style={styles.price}>{rupee}{item.newPrice}</Text>
-                        <Text style={{ textDecorationLine: 'line-through' }}>{rupee}{item.oldPrice}</Text>
-                        <Text style={styles.discount}> {item.discount}% off</Text>
+                        <Text style={styles.price}>{rupee}{item?.newPrice}</Text>
+                        <Text style={{ textDecorationLine: 'line-through' }}>{rupee}{item?.oldPrice}</Text>
+                        <Text style={styles.discount}> {item?.discount}% off</Text>
                     </View>
                     <View>
                         {
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
         marginTop: 4
     },
     addMinusButton: {
-        minWidth: 87,
+        minWidth: 97,
         minHeight: 38,
         backgroundColor: colors.white,
         flexDirection: 'row',
@@ -173,6 +173,7 @@ const styles = StyleSheet.create({
         borderColor: colors.themePurple,
         padding: 5,
         borderRadius: 12,
+
     },
     selectedItemstext: {
         fontSize: Matrics.mvs(14),
@@ -191,6 +192,7 @@ const styles = StyleSheet.create({
         borderColor: colors.themePurple,
         borderWidth: 1,
         minHeight: 36,
+        minWidth: 97
     },
     buttonText: {
         fontSize: 12,

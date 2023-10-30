@@ -73,6 +73,9 @@ import DeviceScreen from '../screens/DevicePurchase/DeviceScreen';
 import DeviceDetailsScreen from '../screens/DevicePurchase/DeviceDetailsScreen';
 import CartScreen from '../screens/DevicePurchase/CartScreen';
 import ConfirmLocation from '../screens/DevicePurchase/ConfirmLocation';
+import OrderSummaryScreen from '../screens/DevicePurchase/OrderSummaryScreen';
+import PaymentDoneScreen from '../screens/DevicePurchase/PaymentDoneScreen';
+import DevicesScreen from '../screens/DevicePurchase/DevicesScreen';
 
 const Drawer = createDrawerNavigator<DrawerParamList>();
 const DrawerScreen = () => {
@@ -268,6 +271,22 @@ const DevicePurchaseStackScreen = () => {
       <DevicePurchaseStack.Screen
         name="ConfirmLocationScreen"
         component={ConfirmLocation}
+      />
+      <DevicePurchaseStack.Screen
+        name="OrderSummary"
+        component={OrderSummaryScreen}
+      />
+      <DevicePurchaseStack.Screen
+        name="PaymentDone"
+        component={PaymentDoneScreen}
+      />
+      <DevicePurchaseStack.Screen
+        name="DevicesScreen"
+        component={DevicesScreen}
+      />
+      <DevicePurchaseStack.Screen
+        name="ApplyCoupan"
+        component={ApplyCoupanScreen}
       />
 
     </DevicePurchaseStack.Navigator>
