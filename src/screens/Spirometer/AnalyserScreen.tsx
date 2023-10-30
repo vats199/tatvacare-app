@@ -15,6 +15,7 @@ import HealthInsightsScreen from './HealthInsightsScreen';
 import ExerciseInsights from './ExerciseInsights';
 import {Fonts, Matrics} from '../../constants';
 import Button from '../../components/atoms/Button';
+import CommonBottomSheetModal from '../../components/molecules/CommonBottomSheetModal';
 
 type AnalyserScreenProps = CompositeScreenProps<
   StackScreenProps<AppStackParamList>,
@@ -79,15 +80,15 @@ const AnalyserScreen: React.FC<AnalyserScreenProps> = ({navigation, route}) => {
           styles.bottomBtnContainerShadow,
           styles.bottonBtnContainer,
           {
-            paddingBottom: insets.bottom !== 0 ? insets.bottom : Matrics.vs(16),
+            paddingBottom:
+              insets.bottom !== 0
+                ? insets.bottom + Matrics.vs(5)
+                : Matrics.vs(16),
           },
         ]}>
         <Button
           title="Connect"
           titleStyle={styles.saveBtnTxt}
-          buttonStyle={{
-            borderRadius: Matrics.s(19),
-          }}
           onPress={() => {}}
         />
       </View>
@@ -107,7 +108,7 @@ const styles = StyleSheet.create({
   },
   bottonBtnContainer: {
     backgroundColor: colors.white,
-    paddingVertical: Matrics.vs(8),
+    paddingVertical: Matrics.vs(10),
   },
   saveBtnTxt: {
     fontFamily: Fonts.BOLD,

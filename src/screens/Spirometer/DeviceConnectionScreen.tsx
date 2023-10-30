@@ -388,16 +388,13 @@ const DeviceConnectionScreen: React.FC<DeviceConnectionScreenProps> = ({
           {
             paddingBottom:
               insets.bottom !== 0
-                ? insets.bottom + Matrics.vs(10)
+                ? insets.bottom + Matrics.vs(5)
                 : Matrics.vs(16),
           },
         ]}>
         <Button
           title="Save & Next"
           titleStyle={styles.saveBtnTxt}
-          buttonStyle={{
-            borderRadius: Matrics.s(19),
-          }}
           onPress={() => handleSubmit()}
         />
       </View>
