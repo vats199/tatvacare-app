@@ -3,6 +3,7 @@ import { View, StyleSheet, Text, ViewStyle, TextStyle } from 'react-native';
 import { Dropdown as ElementDropdown } from 'react-native-element-dropdown';
 import { Icons } from '../../constants/icons';
 import { Matrics } from '../../constants';
+import { colors } from '../../constants/colors';
 
 interface DropdownProps {
   data: Array<{ label: string; value: string }>;
@@ -54,6 +55,7 @@ const DropdownComponent: React.FC<DropdownProps> = ({
         maxHeight={300}
         labelField="label"
         valueField="value"
+        itemTextStyle={{ color: colors.black }}
         placeholder={!isFocus ? placeholder : 'select'}
         searchPlaceholder="Search..."
         value={value}
