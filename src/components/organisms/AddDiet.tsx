@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
   dropdownTitleText: {
     fontSize: 17,
     paddingLeft: 7,
-    color: colors.black,
+    color: colors.subTitleLightGray,
     textTransform: 'capitalize',
   },
   conatiner: {
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   measureContainer: {
-    borderRadius: Matrics.mvs(12),
+    borderRadius: Matrics.mvs(5),
     borderWidth: 0.4,
     width: '50%',
     height: '98%',

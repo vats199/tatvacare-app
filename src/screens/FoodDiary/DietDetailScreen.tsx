@@ -71,7 +71,7 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
       diet_meal_options_id: foodItem?.diet_meal_options_id,
       health_coach_id: healthCoachId,
       diet_plan_food_item_id: foodItem?.diet_plan_food_item_id,
-      is_food_item_added_by_patient: 'Y',
+      is_food_item_added_by_patient: foodItem?.is_food_item_added_by_patient,
     };
 
     if (buttonText === 'Add') {
