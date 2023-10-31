@@ -128,15 +128,16 @@ const DietHeader: React.FC<DietHeaderProps> = ({
   };
 
   const handleNextMonth = () => {
-    const nextMonth = new Date(selectedDate);
-    nextMonth.setMonth(nextMonth.getMonth() + 1);
+    const currentMonnth = new Date(selectedDate);
+    var nextMonth = moment(currentMonnth).add(1, 'months')
     setSelectedDate(nextMonth);
     onPressOfNextAndPerviousDate(nextMonth);
     setCalendarKey(calendarKey + 1);
   };
   const handlePreviousMonth = () => {
-    const previousMonth = new Date(selectedDate);
-    previousMonth.setMonth(previousMonth.getMonth() - 1);
+
+    const currentMonnth = new Date(selectedDate);
+    var previousMonth = moment(currentMonnth).subtract(1, 'months')
     setSelectedDate(previousMonth);
     onPressOfNextAndPerviousDate(previousMonth);
     setCalendarKey(calendarKey + 1);
