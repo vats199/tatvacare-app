@@ -1,5 +1,5 @@
-import { DrawerItemList } from '@react-navigation/drawer';
-import React, { useEffect, useState } from 'react';
+import {DrawerItemList} from '@react-navigation/drawer';
+import React, {useEffect, useState} from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -7,13 +7,13 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { colors } from '../../constants/colors';
-import { Icons } from '../../constants/icons';
+import {colors} from '../../constants/colors';
+import {Icons} from '../../constants/icons';
 import DietOption from './DietOption';
-import { Fonts, Matrics } from '../../constants';
+import {Fonts, Matrics} from '../../constants';
 import fonts from '../../constants/fonts';
 import moment from 'moment';
-import { useFocusEffect } from '@react-navigation/native';
+import {useFocusEffect} from '@react-navigation/native';
 
 interface ExactTimeProps {
   onPressPlus: (optionFoodItems: Options, mealName: string) => void;
@@ -140,8 +140,14 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
     const itemFound = filterMealData();
     if (itemFound.length !== 0) {
       countCalories(itemFound[0]);
+      setFoodItemData(itemFound[0]);
     }
   }, [selectedOptionId]);
+
+  useEffect(() => {
+    const itemFound = filterMealData();
+    setFoodItemData(itemFound[0]);
+  }, [cardData?.options[0]]);
 
   const handaleEdit = (data: FoodItems) => {
     onpressOfEdit(data, cardData.meal_name);
@@ -151,14 +157,18 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
   };
   const handlePulsIconPress = () => {
     if (selectedOptionId !== null) {
-      let data = cardData.options.filter(item => item.diet_meal_options_id == selectedOptionId,)[0]
+      let data = cardData.options.filter(
+        item => item.diet_meal_options_id == selectedOptionId,
+      )[0];
       onPressPlus(data, cardData.meal_name);
     } else {
-      let data = cardData.options[0]
+      let data = cardData.options[0];
       onPressPlus(data, cardData.meal_name);
     }
   };
   const handalecompletion = (item: Consumption) => {
+    console.log({item: item, selectedOptionId});
+
     onPressOfcomplete(item, selectedOptionId);
   };
 
@@ -202,10 +212,11 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
                   ' | ' +
                   (isNaN(Math.round(Number(foodItmeData?.consumed_calories)))
                     ? 0
-                    : Math.round(Number(foodItmeData?.consumed_calories))) +
+                    : Number(foodItmeData?.consumed_calories)
+                  ).toFixed(0) +
                   ' of ' +
-                  Math.round(Number(foodItmeData?.total_calories)) +
-                  'cal'}
+                  Number(foodItmeData?.total_calories).toFixed(0) +
+                  'cal'}{' '}
               </Text>
             </View>
           </View>
@@ -225,7 +236,7 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
                 showsHorizontalScrollIndicator={false}
                 horizontal
                 bounces={false}
-                style={{ flexDirection: 'row' }}>
+                style={{flexDirection: 'row'}}>
                 {cardData?.options?.map((item: Options, index: number) => {
                   const isOptionSelected =
                     selectedOptionId === item?.diet_meal_options_id;
@@ -256,8 +267,8 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
                 foodItmeData={
                   selectedOptionId !== null
                     ? cardData.options.filter(
-                      item => item.diet_meal_options_id == selectedOptionId,
-                    )[0]
+                        item => item.diet_meal_options_id == selectedOptionId,
+                      )[0]
                     : cardData.options[0]
                 }
                 patient_permission={cardData.patient_permission}
@@ -291,10 +302,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   topRow: {
-    paddingHorizontal: Matrics.s(15),
+    paddingHorizontal: Matrics.s(14),
     paddingVertical: 8,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
   leftContent: {
     flexDirection: 'row',

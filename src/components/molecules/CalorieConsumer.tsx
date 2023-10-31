@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     backgroundColor: 'white',
-    paddingHorizontal: 10,
+    paddingHorizontal: Matrics.s(5),
   },
   topRow: {
     padding: 10,

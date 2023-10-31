@@ -149,10 +149,10 @@ const DietHeader: React.FC<DietHeaderProps> = ({
                 </Text>
               </View>
               {/* <Icons.RightArrow
-                height={20}
-                width={20}
-                onPress={handleNextMonth}
-              /> */}
+                   height={20}
+                   width={20}
+                   onPress={handleNextMonth}
+                 /> */}
             </View>
             <View style={styles.leftRightContent}>
               <TouchableOpacity onPress={handlePreviousWeek} hitSlop={8}>
@@ -170,7 +170,7 @@ const DietHeader: React.FC<DietHeaderProps> = ({
             </View>
           </View>
           {!showMore ? (
-            <View style={{paddingHorizontal: Matrics.s(5)}}>
+            <View style={{paddingHorizontal: Matrics.s(10)}}>
               <CalendarStrip
                 selectedDate={selectedDate}
                 key={calendarKey}
@@ -244,17 +244,16 @@ const DietHeader: React.FC<DietHeaderProps> = ({
                       justifyContent: 'center',
                       alignItems: 'center',
                       height: Matrics.vs(25),
-                      width: Matrics.s(31),
+                      width: Matrics.s(35),
                     },
                     text: {
                       color: 'white',
-                      fontWeight: '700',
+                      fontWeight: '500',
                     },
                   },
                 },
               }}
-              calendarWidth={width}
-              calendarHeight={Matrics.vs(250)}
+              calendarHeight={Matrics.vs(100)}
               theme={{
                 backgroundColor: colors.lightGreyishBlue,
                 calendarBackground: colors.lightGreyishBlue,
@@ -265,13 +264,15 @@ const DietHeader: React.FC<DietHeaderProps> = ({
                 todayTextColor: 'black',
                 disabledArrowColor: '#d9e1e8',
                 textDayFontFamily: Fonts.MEDIUM,
-                textMonthFontFamily: Fonts.MEDIUM,
+                textMonthFontFamily: Fonts.BOLD,
                 textDayFontWeight: '400',
                 textDayHeaderFontWeight: '400',
                 textDayFontSize: Matrics.mvs(13),
-                textMonthFontSize: Matrics.mvs(13),
+                textMonthFontSize: Matrics.mvs(14),
                 textDayHeaderFontSize: Matrics.mvs(13),
+                monthTextColor: colors.black,
                 arrowColor: 'white',
+                textMonthFontWeight: '800',
                 'stylesheet.calendar.header': {
                   header: {
                     height: 0,
@@ -322,7 +323,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 20,
-    paddingHorizontal: Matrics.s(15),
+    paddingHorizontal: Matrics.s(18),
   },
   customHeaderText: {
     fontSize: 19,
@@ -334,7 +335,7 @@ const styles = StyleSheet.create({
     fontSize: Matrics.mvs(14),
     color: '#656566',
     height: Matrics.vs(26),
-    width: Matrics.s(31),
+    width: Matrics.s(35),
     alignItems: 'center',
     paddingVertical: Platform.OS == 'ios' ? Matrics.vs(5) : 0,
     marginTop: Matrics.vs(10),
