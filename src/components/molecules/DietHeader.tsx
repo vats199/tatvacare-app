@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import CalendarStrip from 'react-native-calendar-strip';
 import {
   StyleSheet,
@@ -7,16 +7,26 @@ import {
   Dimensions,
   LayoutAnimation,
   Platform,
+  DimensionValue,
 } from 'react-native';
-import {colors} from '../../constants/colors';
-import {Icons} from '../../constants/icons';
-import {TouchableOpacity} from 'react-native';
-import {LocaleConfig, CalendarList} from 'react-native-calendars';
-import {Fonts, Matrics} from '../../constants';
+import { colors } from '../../constants/colors';
+import { Icons } from '../../constants/icons';
+import { TouchableOpacity } from 'react-native';
+import {
+  LocaleConfig,
+  CalendarList,
+  CalendarProvider,
+  ExpandableCalendar,
+  TimelineList,
+  WeekCalendar,
+} from 'react-native-calendars';
+import { Fonts, Matrics } from '../../constants';
 import moment from 'moment';
-import {useIsFocused} from '@react-navigation/native';
+import { useIsFocused } from '@react-navigation/native';
+import { MarkedDates, Theme } from 'react-native-calendars/src/types';
+import { Positions } from 'react-native-calendars/src/expandableCalendar';
 
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 type DietHeaderProps = {
   onPressBack: () => void;
   onPressOfNextAndPerviousDate: (data: any) => void;
@@ -35,6 +45,7 @@ const DietHeader: React.FC<DietHeaderProps> = ({
     moment(selectedDate).format('YYYY-MM-DD'),
   );
   const [showMore, setShowMore] = useState<boolean>(false);
+  const calendarRef = useRef(null);
 
   const handleNextWeek = () => {
     const nextWeek = new Date(selectedDate);
@@ -101,26 +112,31 @@ const DietHeader: React.FC<DietHeaderProps> = ({
     const weekStartDate = new Date(date);
     const weekEndDate = new Date(weekStartDate);
 
+
     while (weekStartDate.getDay() !== 1) {
       weekStartDate.setDate(weekStartDate.getDate() - 1);
     }
     while (weekEndDate.getDay() !== 0) {
       weekEndDate.setDate(weekEndDate.getDate() + 1);
     }
-    const startMonth = weekStartDate.toLocaleString('default', {month: 'long'});
-    const endMonth = weekEndDate.toLocaleString('default', {month: 'long'});
+    const startMonth = weekStartDate.toLocaleString('default', { month: 'long' });
+    const endMonth = weekEndDate.toLocaleString('default', { month: 'long' });
 
     const year = weekStartDate.getFullYear();
 
     if (
       startMonth !== endMonth ||
       weekEndDate.getDate() >
-        new Date(year, weekStartDate.getMonth() + 1, 0).getDate()
+      new Date(year, weekStartDate.getMonth() + 1, 0).getDate()
     ) {
       return `${startMonth} - ${endMonth} ${year}`;
     } else {
       return `${startMonth} ${year}`;
     }
+  };
+
+  const getMonthText = (date: Date) => {
+    return moment(date).format('MMMM  YYYY');
   };
 
   const handleNextMonth = () => {
@@ -129,6 +145,60 @@ const DietHeader: React.FC<DietHeaderProps> = ({
     setSelectedDate(nextMonth);
     onPressOfNextAndPerviousDate(nextMonth);
     setCalendarKey(calendarKey + 1);
+  };
+  const handlePreviousMonth = () => {
+    const nextMonth = new Date(selectedDate);
+    nextMonth.setMonth(nextMonth.getMonth() - 1);
+    console.log('nextMonth', nextMonth);
+
+    setSelectedDate(nextMonth);
+    onPressOfNextAndPerviousDate(nextMonth);
+    setCalendarKey(calendarKey + 1);
+  };
+
+  const calendarHight: DimensionValue | undefined = useMemo(() => {
+    return showMore ? Matrics.vs(250) : Matrics.vs(65)
+  }, [showMore])
+
+  const markedDateStyle: MarkedDates | undefined = useMemo(() => {
+    return {
+      [seletedDay]: {
+        customStyles: {
+          container: {
+            backgroundColor: colors.themePurple,
+            borderRadius: Matrics.mvs(12),
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: Matrics.vs(25),
+            width: Matrics.s(35),
+          },
+          text: {
+            color: 'white',
+            fontWeight: '500',
+          },
+        },
+      },
+    };
+  }, [seletedDay]);
+
+  const themeStyle: Theme | undefined = {
+    backgroundColor: colors.lightGreyishBlue,
+    calendarBackground: colors.lightGreyishBlue,
+    textSectionTitleColor: 'black',
+    textSectionTitleDisabledColor: 'black',
+    dayTextColor: 'black',
+    textDisabledColor: '#d9e1e8',
+    todayTextColor: 'black',
+    disabledArrowColor: '#d9e1e8',
+    textDayFontFamily: Fonts.MEDIUM,
+    textMonthFontFamily: Fonts.BOLD,
+    textDayFontWeight: '400',
+    textDayHeaderFontWeight: '400',
+    textDayFontSize: Matrics.mvs(13),
+    textMonthFontSize: Matrics.mvs(14),
+    textDayHeaderFontSize: Matrics.mvs(13),
+    monthTextColor: colors.black,
+    arrowColor: 'white',
   };
 
   return (
@@ -145,17 +215,21 @@ const DietHeader: React.FC<DietHeaderProps> = ({
             <View style={styles.leftRightContent}>
               <View style={styles.row}>
                 <Text style={styles.monthYearStyle}>
-                  {getMonthRangeText(selectedDate)}
+                  {!showMore
+                    ? getMonthRangeText(selectedDate)
+                    : getMonthText(selectedDate)}
                 </Text>
               </View>
               {/* <Icons.RightArrow
-                height={20}
-                width={20}
-                onPress={handleNextMonth}
-              /> */}
+                   height={20}
+                   width={20}
+                   onPress={handleNextMonth}
+                 /> */}
             </View>
             <View style={styles.leftRightContent}>
-              <TouchableOpacity onPress={handlePreviousWeek} hitSlop={8}>
+              <TouchableOpacity
+                onPress={!showMore ? handlePreviousWeek : handlePreviousMonth}
+                hitSlop={8}>
                 <Icons.backArrow
                   height={11}
                   width={11}
@@ -164,12 +238,15 @@ const DietHeader: React.FC<DietHeaderProps> = ({
                   }}
                 />
               </TouchableOpacity>
-              <TouchableOpacity onPress={handleNextWeek} hitSlop={8}>
+              <TouchableOpacity
+                onPress={!showMore ? handleNextWeek : handleNextMonth}
+                hitSlop={8}>
                 <Icons.RightArrow height={22} width={22} />
               </TouchableOpacity>
             </View>
           </View>
-          {!showMore ? (
+
+          {/* {!showMore ? (
             <View style={{paddingHorizontal: Matrics.s(5)}}>
               <CalendarStrip
                 selectedDate={selectedDate}
@@ -244,17 +321,15 @@ const DietHeader: React.FC<DietHeaderProps> = ({
                       justifyContent: 'center',
                       alignItems: 'center',
                       height: Matrics.vs(25),
-                      width: Matrics.s(31),
+                      width: Matrics.s(35),
                     },
                     text: {
                       color: 'white',
-                      fontWeight: '700',
+                      fontWeight: '500',
                     },
                   },
                 },
               }}
-              calendarWidth={width}
-              calendarHeight={Matrics.vs(250)}
               theme={{
                 backgroundColor: colors.lightGreyishBlue,
                 calendarBackground: colors.lightGreyishBlue,
@@ -265,13 +340,15 @@ const DietHeader: React.FC<DietHeaderProps> = ({
                 todayTextColor: 'black',
                 disabledArrowColor: '#d9e1e8',
                 textDayFontFamily: Fonts.MEDIUM,
-                textMonthFontFamily: Fonts.MEDIUM,
+                textMonthFontFamily: Fonts.BOLD,
                 textDayFontWeight: '400',
                 textDayHeaderFontWeight: '400',
                 textDayFontSize: Matrics.mvs(13),
-                textMonthFontSize: Matrics.mvs(13),
+                textMonthFontSize: Matrics.mvs(14),
                 textDayHeaderFontSize: Matrics.mvs(13),
+                monthTextColor: colors.black,
                 arrowColor: 'white',
+                textMonthFontWeight: '800',
                 'stylesheet.calendar.header': {
                   header: {
                     height: 0,
@@ -280,7 +357,76 @@ const DietHeader: React.FC<DietHeaderProps> = ({
                 },
               }}
             />
-          )}
+          )} */}
+          <View style={{ height: calendarHight, width: width, overflow: 'hidden' }}>
+            <CalendarProvider
+              date={moment(selectedDate).format('YYYY-MM-DD')}
+              // onDateChanged={this.onDateChanged}
+              // onMonthChange={this.onMonthChange}
+              // onDayPress={day => {
+              //   let date = new Date(day?.dateString);
+              //   onPressOfNextAndPerviousDate(date);
+              //   setSelectedDate(date);
+              //   setseletedDay(day?.dateString);
+              // }}
+              onMonthChange={day => {
+                if (selectedDate) {
+                  setSelectedDate(selectedDate);
+                  setseletedDay(moment(selectedDate).format('YYYY-MM-DD'));
+                  let date = new Date(day?.dateString);
+                  setSelectedDate(date);
+                } else {
+                  let date = new Date(day?.dateString);
+                  setSelectedDate(date);
+                }
+              }}
+              disabledOpacity={0.6}>
+              {!showMore ?
+                <WeekCalendar
+                  firstDay={0}
+                  horizontal={true}
+                  pagingEnabled={true}
+                  markedDates={markedDateStyle}
+                  theme={{
+                    ...themeStyle, containerShadow: {
+                      paddingLeft: 0,
+                      paddingRight: 0,
+
+                    },
+                    weekCalendar: {
+                      paddingLeft: 0,
+                      paddingRight: 0,
+                    }
+                  }}
+                  style={{
+                    backgroundColor: "red",
+                    paddingLeft: 0,
+                    paddingRight: 0
+                  }}
+                />
+                :
+                <ExpandableCalendar
+                  ref={calendarRef}
+                  horizontal
+                  hideKnob
+                  initialPosition={ExpandableCalendar.positions.OPEN}
+                  pagingEnabled={true}
+                  calendarStyle={{
+                    paddingLeft: 0,
+                    paddingRight: 0,
+                  }}
+                  headerStyle={{
+                    paddingLeft: 0,
+                    paddingRight: 0,
+                  }}
+                  disablePan={true}
+                  collapsable={false}
+                  theme={themeStyle}
+                  markedDates={markedDateStyle}
+                />
+              }
+            </CalendarProvider>
+          </View>
         </View>
         <TouchableOpacity
           style={styles.dropDwonIcon}
@@ -288,14 +434,14 @@ const DietHeader: React.FC<DietHeaderProps> = ({
             setShowMore(!showMore);
             focus
               ? LayoutAnimation.configureNext(
-                  LayoutAnimation.Presets.easeInEaseOut,
-                )
+                LayoutAnimation.Presets.easeInEaseOut,
+              )
               : null;
           }}>
           {showMore ? <Icons.ShowMore /> : <Icons.ShowLess />}
         </TouchableOpacity>
-      </View>
-    </View>
+      </View >
+    </View >
   );
 };
 
@@ -313,7 +459,7 @@ const styles = StyleSheet.create({
     elevation: 2,
     borderBottomRightRadius: 15,
     borderBottomLeftRadius: 15,
-    shadowOffset: {width: 0, height: 0},
+    shadowOffset: { width: 0, height: 0 },
     shadowColor: '#171717',
     shadowOpacity: 0.1,
     shadowRadius: 3,
@@ -322,7 +468,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 20,
-    paddingHorizontal: Matrics.s(15),
+    paddingHorizontal: Matrics.s(18),
   },
   customHeaderText: {
     fontSize: 19,
@@ -334,7 +480,7 @@ const styles = StyleSheet.create({
     fontSize: Matrics.mvs(14),
     color: '#656566',
     height: Matrics.vs(26),
-    width: Matrics.s(31),
+    width: Matrics.s(35),
     alignItems: 'center',
     paddingVertical: Platform.OS == 'ios' ? Matrics.vs(5) : 0,
     marginTop: Matrics.vs(10),
@@ -358,7 +504,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 10,
-    paddingHorizontal: Matrics.s(18),
+    paddingHorizontal: Matrics.s(15),
   },
   row: {
     flexDirection: 'row',
@@ -373,7 +519,6 @@ const styles = StyleSheet.create({
     opacity: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingBottom: Matrics.vs(5),
   },
   arrowContainer: {
     height: Matrics.mvs(20),

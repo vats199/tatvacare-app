@@ -11,7 +11,7 @@ import { Fonts, Matrics } from '../../constants';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import SlotButton from '../../components/atoms/SlotButton';
 import Button from '../../components/atoms/Button';
-import DietHeader from '../../components/molecules/DietHeader';
+import DietHeader from '../../components/molecules/DietHeader.1';
 import Calender from '../../components/atoms/Calender';
 
 type SelectTestSlotScreenProps = StackScreenProps<

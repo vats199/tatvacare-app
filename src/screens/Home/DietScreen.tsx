@@ -1,16 +1,16 @@
-import React, {useState, useEffect} from 'react';
-import {useFocusEffect} from '@react-navigation/native';
-import {Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
+import { Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import CalorieConsumer from '../../components/molecules/CalorieConsumer';
-import DietHeader from '../../components/molecules/DietHeader';
+import DietHeader from '../../components/molecules/DietHeader.1';
 import DietTime from '../../components/organisms/DietTime';
-import {colors} from '../../constants/colors';
-import {DietStackParamList} from '../../interface/Navigation.interface';
-import {StackScreenProps} from '@react-navigation/stack';
+import { colors } from '../../constants/colors';
+import { DietStackParamList } from '../../interface/Navigation.interface';
+import { StackScreenProps } from '@react-navigation/stack';
 import Diet from '../../api/diet';
-import {useApp} from '../../context/app.context';
+import { useApp } from '../../context/app.context';
 import moment from 'moment';
-import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import Loader from '../../components/atoms/Loader';
 import Matrics from '../../constants/Matrics';
 import BasicModal from '../../components/atoms/BasicModal';
@@ -18,7 +18,7 @@ import MyStatusbar from '../../components/atoms/MyStatusBar';
 
 type DietScreenProps = StackScreenProps<DietStackParamList, 'DietScreen'>;
 
-const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
+const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   const title = route.params?.dietData;
   const [dietOption, setDietOption] = useState<boolean>(false);
   const [loader, setLoader] = useState<boolean>(false);
@@ -72,7 +72,7 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
     setDiePlane([]);
     setLoader(true);
     const date = moment(selectedDate).format('YYYY/MM/DD');
-    const diet = await Diet.getDietPlan({date: date}, {});
+    const diet = await Diet.getDietPlan({ date: date }, {});
 
     if (diet) {
       setLoader(false);
@@ -158,7 +158,7 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
   };
 
   const handelOnpressOfprogressBar = () => {
-    navigation.navigate('ProgressBarInsightsScreen', {calories: caloriesArray});
+    navigation.navigate('ProgressBarInsightsScreen', { calories: caloriesArray });
   };
 
   return (
@@ -197,7 +197,7 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
           />
         ) : (
           <View style={styles.messageContainer}>
-            <Text style={{fontSize: 15}}>{'No diet plan available'}</Text>
+            <Text style={{ fontSize: 15 }}>{'No diet plan available'}</Text>
           </View>
         )}
       </View>
@@ -217,7 +217,7 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
 };
 
 const styles = StyleSheet.create({
-  mainContienr: {flex: 1, backgroundColor: colors.lightGreyishBlue},
+  mainContienr: { flex: 1, backgroundColor: colors.lightGreyishBlue },
   belowContainer: {
     flex: 1,
     paddingHorizontal: 15,
