@@ -20,11 +20,11 @@ import {
   TimelineList,
   WeekCalendar,
 } from 'react-native-calendars';
-import { Fonts, Matrics } from '../../constants';
 import moment from 'moment';
-import { useIsFocused } from '@react-navigation/native';
 import { MarkedDates, Theme } from 'react-native-calendars/src/types';
 import { Positions } from 'react-native-calendars/src/expandableCalendar';
+import { Fonts, Matrics } from '../../constants';
+import { useIsFocused } from '@react-navigation/native';
 
 const { width } = Dimensions.get('window');
 type DietHeaderProps = {
@@ -140,8 +140,8 @@ const DietHeader: React.FC<DietHeaderProps> = ({
   };
 
   const handleNextMonth = () => {
-    const nextMonth = new Date(selectedDate);
-    nextMonth.setMonth(nextMonth.getMonth() + 1);
+    const currentMonnth = new Date(selectedDate);
+    var nextMonth = moment(currentMonnth).add(1, 'months')
     setSelectedDate(nextMonth);
     onPressOfNextAndPerviousDate(nextMonth);
     setCalendarKey(calendarKey + 1);
@@ -262,13 +262,13 @@ const DietHeader: React.FC<DietHeaderProps> = ({
                   borderWidth: 1,
                   borderHighlightColor: 'white',
                 }}
-                style={{height: Matrics.vs(70)}}
+                style={{ height: Matrics.vs(70) }}
                 dayContainerStyle={{
                   borderRadius: 0,
                 }}
                 calendarColor={colors.lightGreyishBlue}
                 dateNumberStyle={styles.dateNumberStyle}
-                dateNameStyle={{color: 'black', fontSize: Matrics.mvs(12)}}
+                dateNameStyle={{ color: 'black', fontSize: Matrics.mvs(12) }}
                 highlightDateNumberStyle={[
                   styles.dateNumberStyle,
                   styles.highlighetdDateNumberStyle,
@@ -280,9 +280,9 @@ const DietHeader: React.FC<DietHeaderProps> = ({
                 disabledDateNameStyle={{
                   color: 'grey',
                 }}
-                disabledDateNumberStyle={{color: 'grey'}}
-                iconLeftStyle={{display: 'none'}}
-                iconRightStyle={{display: 'none'}}
+                disabledDateNumberStyle={{ color: 'grey' }}
+                iconLeftStyle={{ display: 'none' }}
+                iconRightStyle={{ display: 'none' }}
                 highlightDateContainerStyle={{
                   borderWidth: 0,
                 }}
@@ -330,6 +330,7 @@ const DietHeader: React.FC<DietHeaderProps> = ({
                   },
                 },
               }}
+              calendarHeight={Matrics.vs(100)}
               theme={{
                 backgroundColor: colors.lightGreyishBlue,
                 calendarBackground: colors.lightGreyishBlue,
@@ -427,7 +428,7 @@ const DietHeader: React.FC<DietHeaderProps> = ({
               }
             </CalendarProvider>
           </View>
-        </View>
+        </View >
         <TouchableOpacity
           style={styles.dropDwonIcon}
           onPress={() => {
