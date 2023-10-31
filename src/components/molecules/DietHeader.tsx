@@ -136,14 +136,14 @@ const DietHeader: React.FC<DietHeaderProps> = ({
     setCalendarKey(calendarKey + 1);
   };
   const handlePreviousMonth = () => {
-    const nextMonth = new Date(selectedDate);
-    nextMonth.setMonth(nextMonth.getMonth() - 1);
-    console.log("nextMonth", nextMonth);
-
-    setSelectedDate(nextMonth);
-    onPressOfNextAndPerviousDate(nextMonth);
+    const previousMonth = new Date(selectedDate);
+    previousMonth.setMonth(previousMonth.getMonth() - 1);
+    setSelectedDate(previousMonth);
+    onPressOfNextAndPerviousDate(previousMonth);
     setCalendarKey(calendarKey + 1);
   };
+
+
 
   return (
     <View style={styles.mainContainer}>
@@ -184,7 +184,7 @@ const DietHeader: React.FC<DietHeaderProps> = ({
             </View>
           </View>
           {!showMore ? (
-            <View style={{ paddingHorizontal: Matrics.s(10) }}>
+            <View style={{ paddingHorizontal: Matrics.s(5) }}>
               <CalendarStrip
                 selectedDate={selectedDate}
                 key={calendarKey}
