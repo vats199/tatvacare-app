@@ -8,7 +8,7 @@ type DietTimeProps = {
   dietOption: boolean;
   dietPlane: MealsData[];
   onpressOfEdit: (editeData: FoodItems, mealName: string) => void;
-  onPressOfDelete: (deleteFoodItemId: string) => void;
+  onPressOfDelete: (deleteFoodItemId: string, is_food_item_added_by_patient: string) => void;
   onPressOfcomplete: (
     consumptionData: Consumption,
     optionId: string,
@@ -109,8 +109,8 @@ const DietTime: React.FC<DietTimeProps> = ({
   const handaleEdit = (data: FoodItems, mealName: string) => {
     onpressOfEdit(data, mealName);
   };
-  const handaleDelete = (Id: string) => {
-    onPressOfDelete(Id);
+  const handaleDelete = (Id: string, is_food_item_added_by_patient: string) => {
+    onPressOfDelete(Id, is_food_item_added_by_patient);
   };
   const handlePulsIconPress = (optionFoodItems: Options, mealName: string) => {
     onPressPlus(optionFoodItems, mealName);

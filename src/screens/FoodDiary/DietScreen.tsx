@@ -15,11 +15,13 @@ import {Matrics} from '../../constants';
 import Loader from '../../components/atoms/Loader';
 import BasicModal from '../../components/atoms/BasicModal';
 import MyStatusbar from '../../components/atoms/MyStatusBar';
+import {useToast} from 'react-native-toast-notifications';
 
 type DietScreenProps = StackScreenProps<DietStackParamList, 'DietScreen'>;
 
 const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
   const insets = useSafeAreaInsets();
+  const toast = useToast();
   const title = route.params?.dietData;
   const [dietOption, setDietOption] = useState<boolean>(false);
   const [loader, setLoader] = useState<boolean>(false);
@@ -80,7 +82,9 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
     console.log('diet', diet);
 
     if (diet?.code === '1') {
-      setLoader(false);
+      setTimeout(() => {
+        setLoader(false);
+      }, 500);
       setDiePlane(diet?.data[0]);
       if (optionId && dietPlanId)
         countCalories(optionId, dietPlanId, diet?.data[0]);
@@ -107,13 +111,25 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
     });
   };
 
-  const handaleDelete = (id: string) => {
-    setDeletpayload(id);
-    setModalVisible(!modalVisible);
+  const handaleDelete = (id: string, is_food_item_added_by_patient: string) => {
+    if (is_food_item_added_by_patient === 'Y') {
+      setDeletpayload(id);
+      setModalVisible(!modalVisible);
+    } else {
+      toast.show(
+        'Unfortunately, you can not delete this food item since it was recommended by your nutritionist.',
+        {
+          type: 'normal',
+          placement: 'bottom',
+          duration: 2500,
+          animationType: 'slide-in',
+        },
+      );
+    }
   };
 
   const deleteFoodItem = async () => {
-    setModalVisible(!modalVisible);
+    setModalVisible(false);
     const deleteFoodItem = await Diet.deleteFoodItem(
       {
         patient_id: dietPlane?.patient_id,
@@ -123,12 +139,8 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
       {},
       {token: userData?.token},
     );
-    getData();
     if (deleteFoodItem?.code === '1') {
       getData();
-      setTimeout(() => {
-        setModalVisible(false);
-      }, 1000);
     }
   };
   const handlePulsIconPress = async (
