@@ -9,6 +9,7 @@ import Matrics from '../../constants/Matrics';
 import CircularProgress from 'react-native-circular-progress-indicator';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import MyStatusbar from '../../components/atoms/MyStatusBar';
+import { Fonts } from '../../constants';
 
 type ProgressBarInsightsScreenProps = StackScreenProps<
   DietStackParamList,
@@ -145,6 +146,7 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
           inActiveStrokeOpacity={0.2}
           progressValueColor={'green'}
           // valueSuffix={'%'}
+          maxValue={100}
           radius={Matrics.mvs(22)}
           activeStrokeWidth={3}
           activeStrokeColor={
@@ -171,11 +173,11 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
             <Text style={style.consumedCalries}>
               {isNaN(item?.consumedClories) ? 0 : item?.consumedClories}
             </Text>
-            <Text style={[style.consumedCalries, { fontFamily: fonts.REGULAR }]}>
+            <Text style={[style.consumedCalries, { fontFamily: Fonts.REGULAR }]}>
               {' '}
               of{' '}
             </Text>
-            <Text style={[style.consumedCalries, { fontFamily: fonts.REGULAR }]}>
+            <Text style={[style.consumedCalries, { fontFamily: Fonts.REGULAR }]}>
               {item?.totalCalories}
             </Text>
           </View>
@@ -191,7 +193,7 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
         flex: 1,
         backgroundColor: colors.lightGreyishBlue,
         paddingBottom: insets.bottom !== 0 ? insets.bottom : Matrics.vs(15),
-        paddingTop: Platform.OS == 'android' ? Matrics.vs(10) : 0,
+        paddingTop: Platform.OS == 'android' ? Matrics.vs(20) : 0,
       }}>
       <DietHeader
         onPressBack={onPressBack}
