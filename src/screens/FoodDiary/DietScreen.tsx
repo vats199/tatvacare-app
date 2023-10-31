@@ -8,9 +8,10 @@ import { colors } from '../../constants/colors';
 import { DietStackParamList } from '../../interface/Navigation.interface';
 import { StackScreenProps } from '@react-navigation/stack';
 import Diet from '../../api/diet';
+import { useApp } from '../../context/app.context';
 import moment from 'moment';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
-import Matrics from '../../constants/Matrics';
+import { Matrics } from '../../constants';
 import Loader from '../../components/atoms/Loader';
 import BasicModal from '../../components/atoms/BasicModal';
 import MyStatusbar from '../../components/atoms/MyStatusBar';
@@ -26,6 +27,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   const [loader, setLoader] = useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [dietPlane, setDiePlane] = useState<any>([]);
+  const { userData } = useApp();
   const [deletpayload, setDeletpayload] = useState<string | null>(null);
   const [modalVisible, setModalVisible] = React.useState<boolean>(false);
   const [stateOfAPIcall, setStateOfAPIcall] = React.useState<boolean>(false);
@@ -75,6 +77,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
     const diet = await Diet.getDietPlan(
       { date: date },
       {},
+      { token: userData?.token },
     );
 
 
@@ -133,6 +136,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
         diet_plan_food_item_id: deletpayload,
       },
       {},
+      { token: userData?.token },
     );
     getData();
 
@@ -164,6 +168,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
     const UpadteFoodItem = await Diet.updateFoodConsumption(
       item,
       {},
+      { token: userData?.token },
     );
     getData(optionId, dietPlanId);
     if (UpadteFoodItem?.code === '1') {
@@ -175,7 +180,10 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
       (item: any) => item.meal_types_id == mealId,
     );
     if (dietPlanFound.length !== 0) {
-      handalTotalCalories(dietPlanFound[0].options[0]);
+      const itemOptionFound = dietPlanFound[0]?.options?.filter(
+        q => q.diet_meal_options_id == optionId,
+      );
+      handalTotalCalories(itemOptionFound[0]);
     }
   };
 

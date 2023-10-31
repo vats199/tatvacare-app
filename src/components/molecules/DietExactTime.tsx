@@ -10,9 +10,10 @@ import {
 import { colors } from '../../constants/colors';
 import { Icons } from '../../constants/icons';
 import DietOption from './DietOption';
-import Matrics from '../../constants/Matrics';
-import Fonts from '../../constants/fonts';
+import { Fonts, Matrics } from '../../constants';
+import fonts from '../../constants/fonts';
 import moment from 'moment';
+import { useFocusEffect } from '@react-navigation/native';
 
 interface ExactTimeProps {
   onPressPlus: (optionFoodItems: Options, mealName: string) => void;
@@ -138,8 +139,14 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
     const itemFound = filterMealData();
     if (itemFound.length !== 0) {
       countCalories(itemFound[0]);
+      setFoodItemData(itemFound[0]);
     }
   }, [selectedOptionId]);
+
+  useEffect(() => {
+    const itemFound = filterMealData();
+    setFoodItemData(itemFound[0]);
+  }, [cardData?.options[0]]);
 
   const handaleEdit = (data: FoodItems) => {
     onpressOfEdit(data, cardData.meal_name);
@@ -149,14 +156,18 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
   };
   const handlePulsIconPress = () => {
     if (selectedOptionId !== null) {
-      let data = cardData.options.filter(item => item.diet_meal_options_id == selectedOptionId,)[0]
+      let data = cardData.options.filter(
+        item => item.diet_meal_options_id == selectedOptionId,
+      )[0];
       onPressPlus(data, cardData.meal_name);
     } else {
-      let data = cardData.options[0]
+      let data = cardData.options[0];
       onPressPlus(data, cardData.meal_name);
     }
   };
   const handalecompletion = (item: Consumption) => {
+    console.log({ item: item, selectedOptionId });
+
     onPressOfcomplete(item, selectedOptionId);
   };
 
@@ -200,10 +211,11 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
                   ' | ' +
                   (isNaN(Math.round(Number(foodItmeData?.consumed_calories)))
                     ? 0
-                    : Math.round(Number(foodItmeData?.consumed_calories))) +
+                    : Number(foodItmeData?.consumed_calories)
+                  ).toFixed(0) +
                   ' of ' +
-                  Math.round(Number(foodItmeData?.total_calories)) +
-                  'cal'}
+                  Number(foodItmeData?.total_calories).toFixed(0) +
+                  'cal'}{' '}
               </Text>
             </View>
           </View>
@@ -289,10 +301,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   topRow: {
-    paddingHorizontal: Matrics.s(15),
+    paddingHorizontal: Matrics.s(14),
     paddingVertical: 8,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
   leftContent: {
     flexDirection: 'row',
