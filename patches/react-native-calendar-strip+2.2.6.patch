@@ -1,0 +1,13 @@
+diff --git a/node_modules/react-native-calendar-strip/src/CalendarDay.js b/node_modules/react-native-calendar-strip/src/CalendarDay.js
+index 930b0fd..8d6fbf9 100644
+--- a/node_modules/react-native-calendar-strip/src/CalendarDay.js
++++ b/node_modules/react-native-calendar-strip/src/CalendarDay.js
+@@ -494,7 +494,7 @@ class CalendarDay extends Component {
+                 style={[{ fontSize: dateNameFontSize }, _dateNameStyle]}
+                 allowFontScaling={allowDayTextScaling}
+               >
+-                {upperCaseDays ? date.format("ddd").toUpperCase() : date.format("ddd")}
++                {upperCaseDays ? date.format("ddd") : date.format("ddd")}
+               </Text>
+             )}
+             {showDayNumber && (
