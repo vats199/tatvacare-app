@@ -15,7 +15,7 @@ type DietOptionItem = {
   foodItmeData: Options;
   patient_permission: string;
   onpressOfEdit: (editeData: FoodItems) => void;
-  onPressOfDelete: (deleteFoodItemId: string) => void;
+  onPressOfDelete: (deleteFoodItemId: string, is_food_item_added_by_patient: string) => void;
   onPressOfcomplete: (consumptionData: Consumption) => void;
 };
 
@@ -95,8 +95,8 @@ const DietOption: React.FC<DietOptionItem> = ({
     const handaleEdit = (data: FoodItems) => {
       onpressOfEdit(data);
     };
-    const handaleDelete = (Id: string) => {
-      onPressOfDelete(Id);
+    const handaleDelete = (Id: string, is_food_item_added_by_patient: string) => {
+      onPressOfDelete(Id, is_food_item_added_by_patient);
     };
     const handaleFoodConsumption = (item: FoodItems) => {
       const cunsumpotion = {
@@ -148,38 +148,41 @@ const DietOption: React.FC<DietOptionItem> = ({
               Math.round(Number(item?.quantity))}
             cal
           </Text>
-          {patient_permission === 'W' ? (
-            <View>
-              <Menu>
-                <MenuTrigger>
-                  <Icons.ThreeDot />
-                </MenuTrigger>
-                <MenuOptions
-                  customStyles={{
-                    optionsContainer: styles.menuOptionsContainer,
-                  }}>
-                  <MenuOption onSelect={() => handaleEdit(item)}>
-                    <View style={styles.optionContainer}>
-                      <Icons.Edit />
-                      <Text style={styles.optionText}>Edit</Text>
-                    </View>
-                  </MenuOption>
-                  <View style={styles.line}></View>
-                  <MenuOption
-                    onSelect={() =>
-                      handaleDelete(item?.diet_plan_food_item_id)
-                    }>
-                    <View style={styles.optionContainer}>
-                      <Icons.remove />
-                      <Text style={styles.optionText}>Delete</Text>
-                    </View>
-                  </MenuOption>
-                </MenuOptions>
-              </Menu>
-            </View>
-          ) : (
+          {/* {patient_permission === 'W' ? ( */}
+          <View>
+            <Menu>
+              <MenuTrigger>
+                <Icons.ThreeDot />
+              </MenuTrigger>
+              <MenuOptions
+                customStyles={{
+                  optionsContainer: styles.menuOptionsContainer,
+                }}>
+                <MenuOption onSelect={() => handaleEdit(item)}>
+                  <View style={styles.optionContainer}>
+                    <Icons.Edit />
+                    <Text style={styles.optionText}>Edit</Text>
+                  </View>
+                </MenuOption>
+                <View style={styles.line}></View>
+                <MenuOption
+                  onSelect={() => {
+                    console.log("++++++++++++++++++>",)
+
+                    handaleDelete(item?.diet_plan_food_item_id, item?.is_food_item_added_by_patient)
+                  }
+                  }>
+                  <View style={styles.optionContainer}>
+                    <Icons.remove />
+                    <Text style={styles.optionText}>Delete</Text>
+                  </View>
+                </MenuOption>
+              </MenuOptions>
+            </Menu>
+          </View>
+          {/* ) : (
             <View style={styles.threeDot}></View>
-          )}
+          )} */}
         </View>
       </View>
     );

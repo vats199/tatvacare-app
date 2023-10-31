@@ -12,8 +12,7 @@ import { colors } from '../../constants/colors';
 import { Icons } from '../../constants/icons';
 import { TouchableOpacity } from 'react-native';
 import { LocaleConfig, CalendarList } from 'react-native-calendars';
-import Matrics from '../../constants/Matrics';
-import Fonts from '../../constants/fonts';
+import { Fonts, Matrics } from '../../constants';
 import moment from 'moment';
 import { useIsFocused } from '@react-navigation/native';
 
@@ -125,9 +124,22 @@ const DietHeader: React.FC<DietHeaderProps> = ({
     }
   };
 
+  const getMonthText = (date: Date) => {
+    return moment(date).format("MMMM  YYYY")
+  }
+
   const handleNextMonth = () => {
     const nextMonth = new Date(selectedDate);
     nextMonth.setMonth(nextMonth.getMonth() + 1);
+    setSelectedDate(nextMonth);
+    onPressOfNextAndPerviousDate(nextMonth);
+    setCalendarKey(calendarKey + 1);
+  };
+  const handlePreviousMonth = () => {
+    const nextMonth = new Date(selectedDate);
+    nextMonth.setMonth(nextMonth.getMonth() - 1);
+    console.log("nextMonth", nextMonth);
+
     setSelectedDate(nextMonth);
     onPressOfNextAndPerviousDate(nextMonth);
     setCalendarKey(calendarKey + 1);
@@ -147,7 +159,7 @@ const DietHeader: React.FC<DietHeaderProps> = ({
             <View style={styles.leftRightContent}>
               <View style={styles.row}>
                 <Text style={styles.monthYearStyle}>
-                  {getMonthRangeText(selectedDate)}
+                  {!showMore ? getMonthRangeText(selectedDate) : getMonthText(selectedDate)}
                 </Text>
               </View>
               {/* <Icons.RightArrow
@@ -157,7 +169,7 @@ const DietHeader: React.FC<DietHeaderProps> = ({
               /> */}
             </View>
             <View style={styles.leftRightContent}>
-              <TouchableOpacity onPress={handlePreviousWeek} hitSlop={8}>
+              <TouchableOpacity onPress={!showMore ? handlePreviousWeek : handlePreviousMonth} hitSlop={8}>
                 <Icons.backArrow
                   height={11}
                   width={11}
@@ -166,7 +178,7 @@ const DietHeader: React.FC<DietHeaderProps> = ({
                   }}
                 />
               </TouchableOpacity>
-              <TouchableOpacity onPress={handleNextWeek} hitSlop={8}>
+              <TouchableOpacity onPress={!showMore ? handleNextWeek : handleNextMonth} hitSlop={8}>
                 <Icons.RightArrow height={22} width={22} />
               </TouchableOpacity>
             </View>

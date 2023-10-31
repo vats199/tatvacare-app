@@ -14,11 +14,13 @@ import Matrics from '../../constants/Matrics';
 import Loader from '../../components/atoms/Loader';
 import BasicModal from '../../components/atoms/BasicModal';
 import MyStatusbar from '../../components/atoms/MyStatusBar';
+import { useToast } from 'react-native-toast-notifications';
 
 type DietScreenProps = StackScreenProps<DietStackParamList, 'DietScreen'>;
 
 const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   const insets = useSafeAreaInsets();
+  const toast = useToast();
   const title = route.params?.dietData;
   const [dietOption, setDietOption] = useState<boolean>(false);
   const [loader, setLoader] = useState<boolean>(false);
@@ -105,13 +107,25 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
     });
   };
 
-  const handaleDelete = (id: string) => {
-    setDeletpayload(id);
-    setModalVisible(!modalVisible);
+  const handaleDelete = (id: string, is_food_item_added_by_patient: string) => {
+    if (is_food_item_added_by_patient === 'Y') {
+      setDeletpayload(id);
+      setModalVisible(!modalVisible);
+    } else {
+      toast.show(
+        'Unfortunately, you can not delete this food item since it was recommended by your nutritionist.',
+        {
+          type: 'normal',
+          placement: 'bottom',
+          duration: 2000,
+          animationType: 'slide-in',
+        },
+      );
+    }
   };
 
   const deleteFoodItem = async () => {
-    setStateOfAPIcall(true);
+    setModalVisible(!modalVisible);
     const deleteFoodItem = await Diet.deleteFoodItem(
       {
         patient_id: dietPlane?.patient_id,
@@ -121,6 +135,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
       {},
     );
     getData();
+
     if (deleteFoodItem?.code === '1') {
       setStateOfAPIcall(false);
       getData();
@@ -129,7 +144,10 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
       }, 1000);
     }
   };
-  const handlePulsIconPress = async (optionFoodItems: any, mealName: string) => {
+  const handlePulsIconPress = async (
+    optionFoodItems: any,
+    mealName: string,
+  ) => {
     navigation.navigate('AddDiet', {
       optionFoodItems: optionFoodItems,
       healthCoachId: dietPlane?.health_coach_id,

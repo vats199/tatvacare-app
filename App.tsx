@@ -8,8 +8,8 @@ import {
   Alert,
   NativeModules,
 } from 'react-native';
-import React from 'react';
-import Router, { openHealthKitSyncView } from './src/routes/Router';
+import React, { useEffect, useRef, useState } from 'react';
+import Router from './src/routes/Router';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import LocationBottomSheet, {
   LocationBottomSheetRef,
@@ -20,21 +20,15 @@ import { Linking } from 'react-native';
 import Home from './src/api/home';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AppProvider } from './src/context/app.context';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { PaperProvider } from 'react-native-paper';
 import { MenuProvider } from 'react-native-popup-menu';
+import { ToastProvider } from 'react-native-toast-notifications'
+import { colors } from './src/constants/colors';
 
 const App = () => {
   const { height, width } = useWindowDimensions();
-  const Navigation = NativeModules.Navigation;
-  const showTabBarNative = Navigation.showTabbar;
-  const hideTabBarNative = Navigation.hideTabbar;
-
-  const [location, setLocation] = React.useState<object>({});
-  const appState = React.useRef<AppStateStatus>(AppState.currentState);
-  const BottomSheetRef = React.useRef<LocationBottomSheetRef>(null);
-  const [locationPermission, setLocationPermission] =
-    React.useState<string>('');
+  const [location, setLocation] = useState<object>({});
+  const BottomSheetRef = useRef<LocationBottomSheetRef>(null);
+  const [locationPermission, setLocationPermission] = useState<string>('');
 
   const requestLocationPermission = async (goToSettings: boolean) => {
     const location = await AsyncStorage.getItem('location');
@@ -195,24 +189,24 @@ const App = () => {
   }, []);
 
   return (
-    <MenuProvider>
+    <ToastProvider textStyle={{ fontSize: 14, color: colors.white, fontWeight: '400' }}>
       <GestureHandlerRootView style={{ height, width }}>
-        <SafeAreaProvider>
-          <PaperProvider>
-            <AppProvider>
-              <Router />
-              <LocationBottomSheet
-                ref={BottomSheetRef}
-                setLocation={setLocation}
-                requestLocationPermission={requestLocationPermission}
-                setLocationPermission={setLocationPermission}
-                locationPermission={locationPermission}
-              />
-            </AppProvider>
-          </PaperProvider>
-        </SafeAreaProvider>
+        <MenuProvider>
+          <AppProvider>
+            {/* <SafeAreaView style={{flex:1}}> */}
+            <Router />
+            <LocationBottomSheet
+              ref={BottomSheetRef}
+              setLocation={setLocation}
+              requestLocationPermission={requestLocationPermission}
+              setLocationPermission={setLocationPermission}
+              locationPermission={locationPermission}
+            />
+            {/* </SafeAreaView> */}
+          </AppProvider>
+        </MenuProvider>
       </GestureHandlerRootView>
-    </MenuProvider>
+    </ToastProvider>
   );
 };
 

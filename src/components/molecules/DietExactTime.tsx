@@ -19,7 +19,7 @@ interface ExactTimeProps {
   dietOption: boolean;
   cardData: MealsData;
   onpressOfEdit: (editeData: FoodItems, mealName: string) => void;
-  onPressOfDelete: (deleteFoodItemId: string) => void;
+  onPressOfDelete: (deleteFoodItemId: string, is_food_item_added_by_patient: string) => void;
   onPressOfcomplete: (consumptionData: Consumption, optionId: string) => void;
   getCalories: (calories: Options) => void;
 }
@@ -144,8 +144,8 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
   const handaleEdit = (data: FoodItems) => {
     onpressOfEdit(data, cardData.meal_name);
   };
-  const handaleDelete = (Id: string) => {
-    onPressOfDelete(Id);
+  const handaleDelete = (Id: string, is_food_item_added_by_patient: string) => {
+    onPressOfDelete(Id, is_food_item_added_by_patient);
   };
   const handlePulsIconPress = () => {
     if (selectedOptionId !== null) {
