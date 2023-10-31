@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import CalendarStrip from 'react-native-calendar-strip';
 import {
   StyleSheet,
@@ -8,15 +8,15 @@ import {
   LayoutAnimation,
   Platform,
 } from 'react-native';
-import {colors} from '../../constants/colors';
-import {Icons} from '../../constants/icons';
-import {TouchableOpacity} from 'react-native';
-import {LocaleConfig, CalendarList} from 'react-native-calendars';
-import {Fonts, Matrics} from '../../constants';
+import { colors } from '../../constants/colors';
+import { Icons } from '../../constants/icons';
+import { TouchableOpacity } from 'react-native';
+import { LocaleConfig, CalendarList } from 'react-native-calendars';
+import { Fonts, Matrics } from '../../constants';
 import moment from 'moment';
-import {useIsFocused} from '@react-navigation/native';
+import { useIsFocused } from '@react-navigation/native';
 
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 type DietHeaderProps = {
   onPressBack: () => void;
   onPressOfNextAndPerviousDate: (data: any) => void;
@@ -107,15 +107,15 @@ const DietHeader: React.FC<DietHeaderProps> = ({
     while (weekEndDate.getDay() !== 0) {
       weekEndDate.setDate(weekEndDate.getDate() + 1);
     }
-    const startMonth = weekStartDate.toLocaleString('default', {month: 'long'});
-    const endMonth = weekEndDate.toLocaleString('default', {month: 'long'});
+    const startMonth = weekStartDate.toLocaleString('default', { month: 'long' });
+    const endMonth = weekEndDate.toLocaleString('default', { month: 'long' });
 
     const year = weekStartDate.getFullYear();
 
     if (
       startMonth !== endMonth ||
       weekEndDate.getDate() >
-        new Date(year, weekStartDate.getMonth() + 1, 0).getDate()
+      new Date(year, weekStartDate.getMonth() + 1, 0).getDate()
     ) {
       return `${startMonth} - ${endMonth} ${year}`;
     } else {
@@ -135,14 +135,14 @@ const DietHeader: React.FC<DietHeaderProps> = ({
     setCalendarKey(calendarKey + 1);
   };
   const handlePreviousMonth = () => {
-    const nextMonth = new Date(selectedDate);
-    nextMonth.setMonth(nextMonth.getMonth() - 1);
-    console.log('nextMonth', nextMonth);
-
-    setSelectedDate(nextMonth);
-    onPressOfNextAndPerviousDate(nextMonth);
+    const previousMonth = new Date(selectedDate);
+    previousMonth.setMonth(previousMonth.getMonth() - 1);
+    setSelectedDate(previousMonth);
+    onPressOfNextAndPerviousDate(previousMonth);
     setCalendarKey(calendarKey + 1);
   };
+
+
 
   return (
     <View style={styles.mainContainer}>
@@ -189,7 +189,7 @@ const DietHeader: React.FC<DietHeaderProps> = ({
             </View>
           </View>
           {!showMore ? (
-            <View style={{paddingHorizontal: Matrics.s(5)}}>
+            <View style={{ paddingHorizontal: Matrics.s(5) }}>
               <CalendarStrip
                 selectedDate={selectedDate}
                 key={calendarKey}
@@ -204,13 +204,13 @@ const DietHeader: React.FC<DietHeaderProps> = ({
                   borderWidth: 1,
                   borderHighlightColor: 'white',
                 }}
-                style={{height: Matrics.vs(70)}}
+                style={{ height: Matrics.vs(70) }}
                 dayContainerStyle={{
                   borderRadius: 0,
                 }}
                 calendarColor={colors.lightGreyishBlue}
                 dateNumberStyle={styles.dateNumberStyle}
-                dateNameStyle={{color: 'black', fontSize: Matrics.mvs(12)}}
+                dateNameStyle={{ color: 'black', fontSize: Matrics.mvs(12) }}
                 highlightDateNumberStyle={[
                   styles.dateNumberStyle,
                   styles.highlighetdDateNumberStyle,
@@ -222,9 +222,9 @@ const DietHeader: React.FC<DietHeaderProps> = ({
                 disabledDateNameStyle={{
                   color: 'grey',
                 }}
-                disabledDateNumberStyle={{color: 'grey'}}
-                iconLeftStyle={{display: 'none'}}
-                iconRightStyle={{display: 'none'}}
+                disabledDateNumberStyle={{ color: 'grey' }}
+                iconLeftStyle={{ display: 'none' }}
+                iconRightStyle={{ display: 'none' }}
                 highlightDateContainerStyle={{
                   borderWidth: 0,
                 }}
@@ -308,8 +308,8 @@ const DietHeader: React.FC<DietHeaderProps> = ({
             setShowMore(!showMore);
             focus
               ? LayoutAnimation.configureNext(
-                  LayoutAnimation.Presets.easeInEaseOut,
-                )
+                LayoutAnimation.Presets.easeInEaseOut,
+              )
               : null;
           }}>
           {showMore ? <Icons.ShowMore /> : <Icons.ShowLess />}
@@ -333,7 +333,7 @@ const styles = StyleSheet.create({
     elevation: 2,
     borderBottomRightRadius: 15,
     borderBottomLeftRadius: 15,
-    shadowOffset: {width: 0, height: 0},
+    shadowOffset: { width: 0, height: 0 },
     shadowColor: '#171717',
     shadowOpacity: 0.1,
     shadowRadius: 3,
