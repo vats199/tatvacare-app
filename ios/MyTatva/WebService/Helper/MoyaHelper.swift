@@ -42,7 +42,7 @@ enum APIEnvironment {
 /// NetworkManagerr
 struct NetworkManager  {
     let provider = MoyaProvider<ApiManager>(plugins: [NetworkLoggerPlugin()])
-    static let environment : APIEnvironment = .live
+    static let environment : APIEnvironment = .uat
 }
 
 /// Moya String Helper Extenstions

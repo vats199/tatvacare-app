@@ -658,9 +658,9 @@ PODS:
     - React-RCTText
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNScreens (3.27.0):
-    - RCT-Folly (= 2021.07.22.00)
+  - RNScreens (3.11.1):
     - React-Core
+    - React-RCTImage
   - RNSVG (13.14.0):
     - React-Core
   - SDWebImage (5.18.3):
@@ -1023,7 +1023,7 @@ SPEC CHECKSUMS:
   React-Core: 34da8c952844e21f5a69bf46438fb6bf063900d0
   React-CoreModules: 621243df8863055ff30f3bb2ff71573ffa7b16c8
   React-cxxreact: 4ad1cc861e32fb533dad6ff7a4ea25680fa1c994
-  React-debug: 1208677ba6af2ac69800743abca0ac30e3006e5e
+  React-debug: 0f51a62418fdbcee4492caf58b991745455d678b
   React-hermes: 37377d0a56aa0cf55c65248271866ce3268cde3f
   React-jsi: 6de8b0ccc6b765b58e4eee9ee38049dbeaf5c221
   React-jsiexecutor: c7f826e40fa9cab5d37cab6130b1af237332b594
@@ -1033,7 +1033,7 @@ SPEC CHECKSUMS:
   react-native-geolocation-service: 608e1da71a1ac31b4de64d9ef2815f697978c55b
   react-native-safe-area-context: 2cd91d532de12acdb0a9cbc8d43ac72a8e4c897c
   react-native-webview: 8fc09f66a1a5b16bbe37c3878fda27d5982bb776
-  React-NativeModulesApple: 673b7a91affde28090cf16055e08b7ec592a2e5f
+  React-NativeModulesApple: cf9e52700a8adc3a05d64a5668501615a10b8137
   React-perflogger: 496a1a3dc6737f964107cb3ddae7f9e265ddda58
   React-RCTActionSheet: 02904b932b50e680f4e26e7a686b33ebf7ef3c00
   React-RCTAnimation: e44fe5053708c5be762943087c78dc5a6a3c645c
@@ -1047,16 +1047,16 @@ SPEC CHECKSUMS:
   React-RCTVibration: 35eec7201c8ffdaccdd908a5ec874b7055f975f3
   React-rncore: 46133d523155fc84572338bd6a7c461c1d873efc
   React-runtimeexecutor: d465ba0c47ef3ed8281143f59605cacc2244d5c7
-  React-runtimescheduler: e772388a92b0f79cba4fd189f6772fec6d17d898
-  React-utils: 8a732f273cbdfbe29ef55fc02d77c2065a638157
-  ReactCommon: b4f4b994411502c62940692b7b0342c230964c9f
+  React-runtimescheduler: fcccb76fc99294b9035c22845a9fc013b4177896
+  React-utils: 8bdd7f23dbf2cf19d4a500922e0de65b30d7ee04
+  ReactCommon: 33a4917215c7ef24eb5460eeae611a6216274ccf
   RNCAsyncStorage: c913ede1fa163a71cea118ed4670bbaaa4b511bb
   RNDeviceInfo: bf8a32acbcb875f568217285d1793b0e8588c974
   RNGestureHandler: 6594263b1a123e43c23ff72c8d99080187e74bf9
   RNImageCropPicker: 521d8ef2dcf0549f141dbf82d086c75e3a9fbe65
   RNPermissions: c66924e67d8e0ce05aed8387d14d5ce948d35ebd
   RNReanimated: ab2e96c6d5591c3dfbb38a464f54c8d17fb34a87
-  RNScreens: 3e56c56bd35436215a56f48a753e30e8ce018a09
+  RNScreens: 4d83613b50b74ed277026375dc0810893b0c347f
   RNSVG: d00c8f91c3cbf6d476451313a18f04d220d4f396
   SDWebImage: 96e0c18ef14010b7485210e92fac888587ebb958
   Siren: c951ae243b57160629fb2e4d2f630cbfc5d5452b
@@ -1073,6 +1073,6 @@ SPEC CHECKSUMS:
   WebEngageBannerPush: 470a5caa6978a429ba60a47ca249a90d271a7b1c
   Yoga: 3efc43e0d48686ce2e8c60f99d4e6bd349aff981
 
-PODFILE CHECKSUM: 2b93147268736e66aefa28f92ee16e048565a2d7
+PODFILE CHECKSUM: 95986e7ff3ef5d50821c86d6ac607f910e598624
 
-COCOAPODS: 1.14.2
+COCOAPODS: 1.13.0

@@ -102,7 +102,7 @@ class Navigation: NSObject {
                     vc.completionHandler = { obj in
                       //to refresh data
                     }
-                    navigate(modelVC: vc)
+                    self.navigate(modelVC: vc)
                 }
             }
         }catch {
