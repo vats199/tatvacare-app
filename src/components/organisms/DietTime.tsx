@@ -1,13 +1,17 @@
-import { StyleSheet, ScrollView, View, Text } from 'react-native';
-import React, { useEffect } from 'react';
+import {StyleSheet, ScrollView, View, Text} from 'react-native';
+import React, {useEffect} from 'react';
 import DietExactTime from '../molecules/DietExactTime';
-
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {Matrics} from '../../constants';
 type DietTimeProps = {
   onPressPlus: (optionFoodItems: Options, mealName: string) => void;
   dietOption: boolean;
   dietPlane: MealsData[];
   onpressOfEdit: (editeData: FoodItems, mealName: string) => void;
-  onPressOfDelete: (deleteFoodItemId: string, is_food_item_added_by_patient: string) => void;
+  onPressOfDelete: (
+    deleteFoodItemId: string,
+    is_food_item_added_by_patient: string,
+  ) => void;
   onPressOfcomplete: (
     consumptionData: Consumption,
     optionId: string,
@@ -105,6 +109,7 @@ const DietTime: React.FC<DietTimeProps> = ({
   onPressOfcomplete,
   getCalories,
 }) => {
+  const insets = useSafeAreaInsets();
   const handaleEdit = (data: FoodItems, mealName: string) => {
     onpressOfEdit(data, mealName);
   };
@@ -142,7 +147,9 @@ const DietTime: React.FC<DietTimeProps> = ({
   };
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+    <ScrollView
+      style={[styles.container, {marginBottom: insets.bottom + Matrics.vs(12)}]}
+      showsVerticalScrollIndicator={false}>
       {dietPlane?.map(renderDietTimeItem)}
     </ScrollView>
   );

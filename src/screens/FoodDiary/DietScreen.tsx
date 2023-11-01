@@ -1,25 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import { useFocusEffect } from '@react-navigation/native';
-import { Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {useFocusEffect} from '@react-navigation/native';
+import {Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import CalorieConsumer from '../../components/molecules/CalorieConsumer';
 import DietHeader from '../../components/molecules/DietHeader';
 import DietTime from '../../components/organisms/DietTime';
-import { colors } from '../../constants/colors';
-import { DietStackParamList } from '../../interface/Navigation.interface';
-import { StackScreenProps } from '@react-navigation/stack';
+import {colors} from '../../constants/colors';
+import {DietStackParamList} from '../../interface/Navigation.interface';
+import {StackScreenProps} from '@react-navigation/stack';
 import Diet from '../../api/diet';
-import { useApp } from '../../context/app.context';
+import {useApp} from '../../context/app.context';
 import moment from 'moment';
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Matrics } from '../../constants';
+import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+import {Matrics} from '../../constants';
 import Loader from '../../components/atoms/Loader';
 import BasicModal from '../../components/atoms/BasicModal';
-import MyStatusbar from '../../components/atoms/MyStatusBar';
-import { useToast } from 'react-native-toast-notifications';
+// import MyStatusbar from '../../components/atoms/MyStatusBar';
+import {useToast} from 'react-native-toast-notifications';
+import CommonBottomSheetModal from '../../components/molecules/CommonBottomSheetModal';
+import AlertBottomSheet from '../../components/organisms/AlertBottomSheet';
+import {BottomSheetModal} from '@gorhom/bottom-sheet';
 
 type DietScreenProps = StackScreenProps<DietStackParamList, 'DietScreen'>;
 
-const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
+const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
+  const bottomSheetModalRef = React.useRef<BottomSheetModal>(null);
   const insets = useSafeAreaInsets();
   const toast = useToast();
   const title = route.params?.dietData;
@@ -27,7 +31,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   const [loader, setLoader] = useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [dietPlane, setDiePlane] = useState<any>([]);
-  const { userData } = useApp();
+  const {userData} = useApp();
   const [deletpayload, setDeletpayload] = useState<string | null>(null);
   const [modalVisible, setModalVisible] = React.useState<boolean>(false);
   const [stateOfAPIcall, setStateOfAPIcall] = React.useState<boolean>(false);
@@ -74,21 +78,20 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   const getData = async (optionId?: string, dietPlanId?: string) => {
     setLoader(true);
     const date = moment(selectedDate).format('YYYY/MM/DD');
-    const diet = await Diet.getDietPlan(
-      { date: date },
-      {},
-      { token: userData?.token },
-    );
-
+    const diet = await Diet.getDietPlan({date: date}, {});
 
     if (diet) {
-      setLoader(false);
+      setTimeout(() => {
+        setLoader(false);
+      }, 500);
       setDiePlane(diet?.data[0]);
       if (optionId && dietPlanId)
         countCalories(optionId, dietPlanId, diet?.data[0]);
     } else {
       setDiePlane([]);
       setLoader(false);
+      setTotalConsumedcalories(0);
+      setTotalcalories(0);
     }
   };
 
@@ -113,7 +116,8 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   const handaleDelete = (id: string, is_food_item_added_by_patient: string) => {
     if (is_food_item_added_by_patient === 'Y') {
       setDeletpayload(id);
-      setModalVisible(!modalVisible);
+      // setModalVisible(!modalVisible);
+      bottomSheetModalRef.current?.present();
     } else {
       toast.show(
         'Unfortunately, you can not delete this food item since it was recommended by your nutritionist.',
@@ -128,7 +132,8 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   };
 
   const deleteFoodItem = async () => {
-    setModalVisible(!modalVisible);
+    // setModalVisible(!modalVisible);
+    bottomSheetModalRef.current?.close();
     const deleteFoodItem = await Diet.deleteFoodItem(
       {
         patient_id: dietPlane?.patient_id,
@@ -136,7 +141,6 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
         diet_plan_food_item_id: deletpayload,
       },
       {},
-      { token: userData?.token },
     );
     getData();
 
@@ -144,7 +148,8 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
       setStateOfAPIcall(false);
       getData();
       setTimeout(() => {
-        setModalVisible(false);
+        bottomSheetModalRef.current?.close();
+        // setModalVisible(false);
       }, 1000);
     }
   };
@@ -165,11 +170,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
     optionId: string,
     dietPlanId: string,
   ) => {
-    const UpadteFoodItem = await Diet.updateFoodConsumption(
-      item,
-      {},
-      { token: userData?.token },
-    );
+    const UpadteFoodItem = await Diet.updateFoodConsumption(item, {});
     getData(optionId, dietPlanId);
     if (UpadteFoodItem?.code === '1') {
     }
@@ -181,8 +182,12 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
     );
     if (dietPlanFound.length !== 0) {
       const itemOptionFound = dietPlanFound[0]?.options?.filter(
-        q => q.diet_meal_options_id == optionId,
+        (q: any) => q.diet_meal_options_id == optionId,
       );
+      if (itemOptionFound.length > 0) {
+        const mealName = dietPlanFound[0].meal_name;
+        itemOptionFound[0].meal_name = mealName;
+      }
       handalTotalCalories(itemOptionFound[0]);
     }
   };
@@ -203,7 +208,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
     });
   };
   const handelOnpressOfprogressBar = () => {
-    navigation.navigate('ProgressBarInsightsScreen', { calories: caloriesArray });
+    navigation.navigate('ProgressBarInsightsScreen', {calories: caloriesArray});
   };
 
   return (
@@ -216,7 +221,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
             Platform.OS == 'android' ? insets.top + Matrics.vs(20) : 0,
         },
       ]}>
-      <MyStatusbar backgroundColor={colors.lightGreyishBlue} />
+      {/* <MyStatusbar backgroundColor={colors.lightGreyishBlue} /> */}
       <DietHeader
         onPressBack={onPressBack}
         onPressOfNextAndPerviousDate={handleDate}
@@ -241,11 +246,23 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
           />
         ) : loader ? null : (
           <View style={styles.messageContainer}>
-            <Text style={{ fontSize: 15 }}>{'No diet plan available'}</Text>
+            <Text style={{fontSize: 15}}>{'No diet plan available'}</Text>
           </View>
         )}
       </View>
-      <BasicModal
+      <CommonBottomSheetModal snapPoints={['35%']} ref={bottomSheetModalRef}>
+        <AlertBottomSheet
+          onPressAccept={deleteFoodItem}
+          onPressCancel={() => {
+            bottomSheetModalRef.current?.dismiss();
+          }}
+          insets={insets}
+          title={
+            'Are you sure you want to delete this food item from your meal?'
+          }
+        />
+      </CommonBottomSheetModal>
+      {/* <BasicModal
         modalVisible={modalVisible}
         messgae={
           'Are you sure you want to delete this food item from your meal'
@@ -254,14 +271,14 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
         positiveButtonText="Ok"
         onPressOK={deleteFoodItem}
         onPressCancle={() => setModalVisible(!modalVisible)}
-      />
+      /> */}
       <Loader visible={loader} />
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  mainContienr: { flex: 1, backgroundColor: colors.lightGreyishBlue },
+  mainContienr: {flex: 1, backgroundColor: colors.lightGreyishBlue},
   belowContainer: {
     flex: 1,
     paddingHorizontal: Matrics.s(15),

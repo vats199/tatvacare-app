@@ -838,7 +838,7 @@
 		BFDB903CF33A2B179655C699 /* BcaVitalsDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ADEFD0910C6B315614B875 /* BcaVitalsDetailsViewModel.swift */; };
 		C2D52F38E624A2E28825356E /* BCAAddAddressVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFDED6C635C9CBCE4693024 /* BCAAddAddressVC.swift */; };
 		C395B083F922D681FB27DBAE /* BcaListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F819BAA65E886BD76DA13854 /* BcaListCell.swift */; };
-		CF6AD84D2AF13CA0007C844A /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = CF6AD84C2AF13CA0007C844A /* main.jsbundle */; };
+		CFACBDCD2AF2170100909CB2 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = CFACBDCC2AF2170100909CB2 /* main.jsbundle */; };
 		CFE64BB12AF13A4B0016CB94 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFE64BB02AF13A4B0016CB94 /* Images.xcassets */; };
 		D2078DA72A24BD08000E3291 /* BCASelectAddressListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2078DA52A24BD08000E3291 /* BCASelectAddressListVC.swift */; };
 		D24561742A275BD9004FEF0D /* BCAOrderDetails + TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24561732A275BD9004FEF0D /* BCAOrderDetails + TableViewCell.swift */; };
@@ -1811,7 +1811,7 @@
 		BDC02DF0FBC43D6C933CAE4A /* Pods-MyTatvaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyTatvaTests.debug.xcconfig"; path = "Target Support Files/Pods-MyTatvaTests/Pods-MyTatvaTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C8812ED21F4E5B3EE77B1ABF /* Pods_MyTatvaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyTatvaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF2F1970E270DDCE225DC47F /* Pods_MyTatvaNotificationService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyTatvaNotificationService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CF6AD84C2AF13CA0007C844A /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
+		CFACBDCC2AF2170100909CB2 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		CFE64BB02AF13A4B0016CB94 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		D2078DA52A24BD08000E3291 /* BCASelectAddressListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCASelectAddressListVC.swift; sourceTree = "<group>"; };
 		D24561732A275BD9004FEF0D /* BCAOrderDetails + TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BCAOrderDetails + TableViewCell.swift"; sourceTree = "<group>"; };
@@ -5979,7 +5979,7 @@
 		91A1754026789CC500297B66 = {
 			isa = PBXGroup;
 			children = (
-				CF6AD84C2AF13CA0007C844A /* main.jsbundle */,
+				CFACBDCC2AF2170100909CB2 /* main.jsbundle */,
 				91A1754B26789CC500297B66 /* MyTatva */,
 				6169A390272BE1D70081C3B7 /* MyTatvaNotificationService */,
 				618AFEF6272C0884003C244C /* NotificationViewController */,
@@ -6623,7 +6623,7 @@
 				618606F827070AD300C38236 /* GoalSummaryChartCell.xib in Resources */,
 				61738D4F2768D7F500B58953 /* CustomThemeFileOld.plist in Resources */,
 				61849ADE26CBC25A00C3DD61 /* soda_loader.json in Resources */,
-				CF6AD84D2AF13CA0007C844A /* main.jsbundle in Resources */,
+				CFACBDCD2AF2170100909CB2 /* main.jsbundle in Resources */,
 				4097D64D2A2E050500D5574B /* Gilroy-SemiBold.ttf in Resources */,
 				8F8545C92ADE4C1F0019128D /* EvilIcons.ttf in Resources */,
 				61AD9C8A2799709200F86EBC /* GaneshToPaldi.gpx in Resources */,

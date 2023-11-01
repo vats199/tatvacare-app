@@ -1,6 +1,6 @@
-import { StyleSheet, View, TextInput } from 'react-native';
-import React, { useEffect, useState } from 'react';
-import { Icons } from '../../constants/icons';
+import {StyleSheet, View, TextInput, TouchableOpacity} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Icons} from '../../constants/icons';
 import Matrics from '../../constants/Matrics';
 
 type DietSearchHeaderProps = {
@@ -14,25 +14,26 @@ const DietSearchHeader: React.FC<DietSearchHeaderProps> = ({
 }) => {
   const [searchText, setSearchText] = useState<string>('');
 
-
   const handleSerache = (text: string) => {
-    const spaceFree = text.trimStart()
+    const spaceFree = text.trimStart();
     const cleanedText = spaceFree.replace(/[^a-zA-Z\s]/g, '');
     setSearchText(cleanedText);
     onSearch(text);
   };
   return (
     <View style={styles.container}>
-      <Icons.backArrow height={22} width={22} onPress={onPressBack} />
+      <TouchableOpacity activeOpacity={0.7} hitSlop={15} onPress={onPressBack}>
+        <Icons.backArrow height={22} width={22} />
+      </TouchableOpacity>
       <TextInput
         style={styles.input}
         placeholder="Search foods"
         placeholderTextColor="gray"
         value={searchText}
         onChangeText={text => {
-          handleSerache(text)
+          handleSerache(text);
         }}
-        keyboardType='ascii-capable'
+        keyboardType="ascii-capable"
       />
     </View>
   );

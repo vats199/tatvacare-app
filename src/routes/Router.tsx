@@ -3,20 +3,21 @@ import AboutUsScreen from '../screens/AboutUsScreen';
 import {
   AppStackParamList,
   DrawerParamList,
-  DietStackParamList
+  DietStackParamList,
 } from '../interface/Navigation.interface';
-import { NavigationContainer } from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
 import {
   DrawerContentComponentProps,
   createDrawerNavigator,
 } from '@react-navigation/drawer';
 import CustomDrawer from '../components/organisms/CustomDrawer';
-import { NativeModules } from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack';
+import {NativeModules} from 'react-native';
+import {createStackNavigator} from '@react-navigation/stack';
 import DietScreen from '../screens/FoodDiary/DietScreen';
 import AddDietScreen from '../screens/FoodDiary/AddDietScreen';
 import DietDetailScreen from '../screens/FoodDiary/DietDetailScreen';
 import ProgressBarInsightsScreen from '../screens/FoodDiary/ProgressBarInsightsScreen';
+import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 
 const Navigation = NativeModules.Navigation;
 export const navigateTo = Navigation.navigateTo;
@@ -63,12 +64,17 @@ const DrawerScreen = () => {
 const DietStack = createStackNavigator<DietStackParamList>();
 const DietStackScreen = () => {
   return (
-    <DietStack.Navigator screenOptions={{ headerShown: false, }} initialRouteName="DietScreen" >
+    <DietStack.Navigator
+      screenOptions={{headerShown: false}}
+      initialRouteName="DietScreen">
       <DietStack.Screen name="HomeScreen" component={HomeScreen} />
       <DietStack.Screen name="DietScreen" component={DietScreen} />
       <DietStack.Screen name="AddDiet" component={AddDietScreen} />
       <DietStack.Screen name="DietDetail" component={DietDetailScreen} />
-      <DietStack.Screen name="ProgressBarInsightsScreen" component={ProgressBarInsightsScreen} />
+      <DietStack.Screen
+        name="ProgressBarInsightsScreen"
+        component={ProgressBarInsightsScreen}
+      />
     </DietStack.Navigator>
   );
 };
@@ -77,13 +83,18 @@ const AppStack = createStackNavigator<AppStackParamList>();
 const Router = () => {
   return (
     <NavigationContainer>
-      <AppStack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}>
-        <AppStack.Screen name={'DrawerScreen'} component={DrawerScreen} />
-        <AppStack.Screen name={'DietStackScreen'} component={DietStackScreen} />
-      </AppStack.Navigator>
+      <BottomSheetModalProvider>
+        <AppStack.Navigator
+          screenOptions={{
+            headerShown: false,
+          }}>
+          <AppStack.Screen name={'DrawerScreen'} component={DrawerScreen} />
+          <AppStack.Screen
+            name={'DietStackScreen'}
+            component={DietStackScreen}
+          />
+        </AppStack.Navigator>
+      </BottomSheetModalProvider>
     </NavigationContainer>
   );
 };

@@ -1,22 +1,24 @@
-import { Platform, StyleSheet, Text, View } from 'react-native';
+import {Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
-import { DietStackParamList } from '../../interface/Navigation.interface';
-import { Icons } from '../../constants/icons';
-import { colors } from '../../constants/colors';
+import {DietStackParamList} from '../../interface/Navigation.interface';
+import {Icons} from '../../constants/icons';
+import {colors} from '../../constants/colors';
 import MicronutrientsInformation from '../../components/organisms/MicronutrientsInformation';
 import AddDiet from '../../components/organisms/AddDiet';
-import { StackScreenProps } from '@react-navigation/stack';
+import {StackScreenProps} from '@react-navigation/stack';
 import Deit from '../../api/diet';
-import { useApp } from '../../context/app.context';
+import {useApp} from '../../context/app.context';
 import Matrics from '../../constants/Matrics';
-import Fonts from '../../constants/fonts'; import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
-import MyStatusbar from '../../components/atoms/MyStatusBar';
+import Fonts from '../../constants/fonts';
+import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+// import MyStatusbar from '../../components/atoms/MyStatusBar';
 
 type DietDetailProps = StackScreenProps<DietStackParamList, 'DietDetail'>;
 
-const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
+const DietDetailScreen: React.FC<DietDetailProps> = ({navigation, route}) => {
   const insets = useSafeAreaInsets();
-  const { foodItem, buttonText, healthCoachId, mealName, patient_id } = route.params;
+  const {foodItem, buttonText, healthCoachId, mealName, patient_id} =
+    route.params;
   let quantity = Math.round(Number(foodItem?.quantity)).toString();
   const [qty, setQty] = React.useState<string>(quantity);
 
@@ -74,21 +76,15 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
     };
 
     if (buttonText === 'Add') {
-      const result = await Deit?.addFoodItem(
-        addPayload,
-        {},
-      );
+      const result = await Deit?.addFoodItem(addPayload, {});
 
       navigation.popToTop();
       // if (result?.code === '1') {
       // }
     } else {
-      const result = await Deit?.updateFoodItem(
-        updatePayload,
-        {},);
+      const result = await Deit?.updateFoodItem(updatePayload, {});
       // if (result?.code === '1') {
       navigation.popToTop();
-
     }
   };
 
@@ -103,9 +99,17 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
         backgroundColor: colors.lightGreyishBlue,
         paddingTop: Platform.OS == 'android' ? insets.top + Matrics.vs(10) : 0,
       }}>
-      <MyStatusbar backgroundColor={colors.lightGreyishBlue} />
+      {/* <MyStatusbar backgroundColor={colors.lightGreyishBlue} /> */}
       <View style={styles.header}>
+        <TouchableOpacity
+          activeOpacity={0.7}
+          hitSlop={15}
+          onPress={onPressBack}>
+          <Icons.backArrow height={22} width={22} />
+        </TouchableOpacity>
+        {/* <TouchableOpacity>
         <Icons.backArrow onPress={onPressBack} height={23} width={23} />
+        </TouchableOpacity> */}
         <Text style={styles.dietTitle}>{foodItem?.food_item_name}</Text>
       </View>
       <View style={styles.belowContainer}>
@@ -116,7 +120,7 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
           onSeleteQty={handleSeletedQty}
           Data={foodItem}
           mealName={mealName}
-          isDisable={qty === "0" ? true : false}
+          isDisable={qty === '0' ? true : false}
         />
       </View>
     </SafeAreaView>
