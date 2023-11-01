@@ -13,7 +13,7 @@ import moment from 'moment';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Matrics} from '../../constants';
 import Loader from '../../components/atoms/Loader';
-import BasicModal from '../../components/atoms/BasicModal';
+// import BasicModal from '../../components/atoms/BasicModal';
 // import MyStatusbar from '../../components/atoms/MyStatusBar';
 import {useToast} from 'react-native-toast-notifications';
 import CommonBottomSheetModal from '../../components/molecules/CommonBottomSheetModal';
@@ -23,7 +23,6 @@ import {BottomSheetModal} from '@gorhom/bottom-sheet';
 type DietScreenProps = StackScreenProps<DietStackParamList, 'DietScreen'>;
 
 const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
-  const bottomSheetModalRef = React.useRef<BottomSheetModal>(null);
   const insets = useSafeAreaInsets();
   const toast = useToast();
   const title = route.params?.dietData;

@@ -84,7 +84,7 @@ const AddDiet: React.FC<AddDietProps> = ({
                 {
                   paddingBottom:
                     insets.bottom !== 0 && Platform.OS == 'android'
-                      ? Matrics.vs(15)
+                      ? Matrics.vs(10)
                       : 0,
                 },
               ]}>
