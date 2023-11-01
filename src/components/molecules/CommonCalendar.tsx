@@ -1,4 +1,4 @@
-import { Dimensions, LayoutAnimation, Platform, StyleSheet, Text, TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native'
+import { Animated, Dimensions, LayoutAnimation, Platform, StyleSheet, Text, TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native'
 import React, { memo, useMemo, useState } from 'react'
 import { CalendarProvider, DateData, ExpandableCalendar, ExpandableCalendarProps, LocaleConfig, WeekCalendar, WeekCalendarProps } from 'react-native-calendars';
 import moment from 'moment';
@@ -226,28 +226,31 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
                 </View>
             </View>
             <View
-                style={[styles.calendarContainer, { height: showMore ? Matrics.vs(250) : Matrics.vs(65), }, calendarContainerStyle]}>
+                style={[styles.calendarContainer, { height: showMore ? Matrics.vs(Platform.OS == 'android' ? 275 : 250) : Matrics.vs(70), }, calendarContainerStyle]}>
                 <CalendarProvider
                     date={moment(selectedDate).format('YYYY-MM-DD')}
                     disabledOpacity={0.6}
                 >
                     {!showMore ? (
-                        <WeekCalendar
-                            firstDay={0}
-                            current={moment(selectedDate).format('YYYY-MM-DD')}
-                            onDayPress={onDayPress}
-                            markingType="custom"
-                            markedDates={markedDateStyle}
-                            hideDayNames={false}
-                            theme={{
-                                ...themeStyle,
-                                selectedDayBackgroundColor: undefined,
-                                selectedDayTextColor: colors.black,
-                                textDisabledColor: colors.black,
-                            }}
-                            style={[styles.removePaddingHorizontal, { marginTop: Matrics.vs(10) }]}
-                            {...weekCalendarProps}
-                        />
+                        <Animated.View style={{ overflow: 'hidden' }}>
+                            <WeekCalendar
+                                firstDay={0}
+                                current={moment(selectedDate).format('YYYY-MM-DD')}
+                                onDayPress={onDayPress}
+                                markingType="custom"
+                                markedDates={markedDateStyle}
+                                hideDayNames={false}
+                                allowShadow={false}
+                                theme={{
+                                    ...themeStyle,
+                                    selectedDayBackgroundColor: undefined,
+                                    selectedDayTextColor: colors.black,
+                                    textDisabledColor: colors.black,
+                                }}
+                                style={[styles.removePaddingHorizontal, { marginTop: Matrics.vs(10) }]}
+                                {...weekCalendarProps}
+                            />
+                        </Animated.View>
                     ) : (
                         <ExpandableCalendar
                             horizontal
@@ -256,7 +259,6 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
                             current={moment(selectedDate).format('YYYY-MM-DD')}
                             onDayPress={onDayPress}
                             disableAllTouchEventsForDisabledDays={true}
-                            calendarHeight={Matrics.vs(300)}
                             hideExtraDays={true}
                             onMonthChange={onChangeMonth}
                             markingType="custom"
@@ -265,6 +267,7 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
                             headerStyle={styles.removePaddingHorizontal}
                             disablePan={true}
                             collapsable={false}
+                            allowShadow={false}
                             theme={{
                                 ...themeStyle,
                                 selectedDayBackgroundColor: undefined,
@@ -278,6 +281,8 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
                                     }
                                 }
                             }}
+                            hideArrows
+                            renderHeader={() => null}
                             markedDates={markedDateStyle}
                             {...expandableCalendarProps}
                         />
