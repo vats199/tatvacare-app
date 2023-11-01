@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import React, {useCallback, useMemo, useRef, useState} from 'react';
 import CalendarStrip from 'react-native-calendar-strip';
 import {
   StyleSheet,
@@ -9,9 +9,9 @@ import {
   Platform,
   DimensionValue,
 } from 'react-native';
-import { colors } from '../../constants/colors';
-import { Icons } from '../../constants/icons';
-import { TouchableOpacity } from 'react-native';
+import {colors} from '../../constants/colors';
+import {Icons} from '../../constants/icons';
+import {TouchableOpacity} from 'react-native';
 import {
   LocaleConfig,
   CalendarList,
@@ -21,12 +21,12 @@ import {
   WeekCalendar,
 } from 'react-native-calendars';
 import moment from 'moment';
-import { MarkedDates, Theme } from 'react-native-calendars/src/types';
-import { Positions } from 'react-native-calendars/src/expandableCalendar';
-import { Fonts, Matrics } from '../../constants';
-import { useIsFocused } from '@react-navigation/native';
+import {MarkedDates, Theme} from 'react-native-calendars/src/types';
+import {Positions} from 'react-native-calendars/src/expandableCalendar';
+import {Fonts, Matrics} from '../../constants';
+import {useIsFocused} from '@react-navigation/native';
 
-const { width } = Dimensions.get('window');
+const {width} = Dimensions.get('window');
 type DietHeaderProps = {
   onPressBack: () => void;
   onPressOfNextAndPerviousDate: (data: any) => void;
@@ -112,22 +112,21 @@ const DietHeader: React.FC<DietHeaderProps> = ({
     const weekStartDate = new Date(date);
     const weekEndDate = new Date(weekStartDate);
 
-
     while (weekStartDate.getDay() !== 1) {
       weekStartDate.setDate(weekStartDate.getDate() - 1);
     }
     while (weekEndDate.getDay() !== 0) {
       weekEndDate.setDate(weekEndDate.getDate() + 1);
     }
-    const startMonth = weekStartDate.toLocaleString('default', { month: 'long' });
-    const endMonth = weekEndDate.toLocaleString('default', { month: 'long' });
+    const startMonth = weekStartDate.toLocaleString('default', {month: 'long'});
+    const endMonth = weekEndDate.toLocaleString('default', {month: 'long'});
 
     const year = weekStartDate.getFullYear();
 
     if (
       startMonth !== endMonth ||
       weekEndDate.getDate() >
-      new Date(year, weekStartDate.getMonth() + 1, 0).getDate()
+        new Date(year, weekStartDate.getMonth() + 1, 0).getDate()
     ) {
       return `${startMonth} - ${endMonth} ${year}`;
     } else {
@@ -141,24 +140,22 @@ const DietHeader: React.FC<DietHeaderProps> = ({
 
   const handleNextMonth = () => {
     const currentMonnth = new Date(selectedDate);
-    var nextMonth = moment(currentMonnth).add(1, 'months')
+    var nextMonth = moment(currentMonnth).add(1, 'months');
     setSelectedDate(nextMonth);
     onPressOfNextAndPerviousDate(nextMonth);
     setCalendarKey(calendarKey + 1);
   };
   const handlePreviousMonth = () => {
-    const nextMonth = new Date(selectedDate);
-    nextMonth.setMonth(nextMonth.getMonth() - 1);
-    console.log('nextMonth', nextMonth);
-
-    setSelectedDate(nextMonth);
-    onPressOfNextAndPerviousDate(nextMonth);
+    const currentMonnth = new Date(selectedDate);
+    var previousMonth = moment(currentMonnth).subtract(1, 'months');
+    setSelectedDate(previousMonth);
+    onPressOfNextAndPerviousDate(previousMonth);
     setCalendarKey(calendarKey + 1);
   };
 
   const calendarHight: DimensionValue | undefined = useMemo(() => {
-    return showMore ? Matrics.vs(250) : Matrics.vs(65)
-  }, [showMore])
+    return showMore ? Matrics.vs(250) : Matrics.vs(65);
+  }, [showMore]);
 
   const markedDateStyle: MarkedDates | undefined = useMemo(() => {
     return {
@@ -246,7 +243,7 @@ const DietHeader: React.FC<DietHeaderProps> = ({
             </View>
           </View>
 
-          {/* {!showMore ? (
+          {!showMore ? (
             <View style={{paddingHorizontal: Matrics.s(5)}}>
               <CalendarStrip
                 selectedDate={selectedDate}
@@ -262,13 +259,13 @@ const DietHeader: React.FC<DietHeaderProps> = ({
                   borderWidth: 1,
                   borderHighlightColor: 'white',
                 }}
-                style={{ height: Matrics.vs(70) }}
+                style={{height: Matrics.vs(70)}}
                 dayContainerStyle={{
                   borderRadius: 0,
                 }}
                 calendarColor={colors.lightGreyishBlue}
                 dateNumberStyle={styles.dateNumberStyle}
-                dateNameStyle={{ color: 'black', fontSize: Matrics.mvs(12) }}
+                dateNameStyle={{color: 'black', fontSize: Matrics.mvs(12)}}
                 highlightDateNumberStyle={[
                   styles.dateNumberStyle,
                   styles.highlighetdDateNumberStyle,
@@ -280,9 +277,9 @@ const DietHeader: React.FC<DietHeaderProps> = ({
                 disabledDateNameStyle={{
                   color: 'grey',
                 }}
-                disabledDateNumberStyle={{ color: 'grey' }}
-                iconLeftStyle={{ display: 'none' }}
-                iconRightStyle={{ display: 'none' }}
+                disabledDateNumberStyle={{color: 'grey'}}
+                iconLeftStyle={{display: 'none'}}
+                iconRightStyle={{display: 'none'}}
                 highlightDateContainerStyle={{
                   borderWidth: 0,
                 }}
@@ -358,91 +355,22 @@ const DietHeader: React.FC<DietHeaderProps> = ({
                 },
               }}
             />
-          )} */}
-          <View style={{ height: calendarHight, width: width, overflow: 'hidden' }}>
-            <CalendarProvider
-              date={moment(selectedDate).format('YYYY-MM-DD')}
-              // onDateChanged={this.onDateChanged}
-              // onMonthChange={this.onMonthChange}
-              // onDayPress={day => {
-              //   let date = new Date(day?.dateString);
-              //   onPressOfNextAndPerviousDate(date);
-              //   setSelectedDate(date);
-              //   setseletedDay(day?.dateString);
-              // }}
-              onMonthChange={day => {
-                if (selectedDate) {
-                  setSelectedDate(selectedDate);
-                  setseletedDay(moment(selectedDate).format('YYYY-MM-DD'));
-                  let date = new Date(day?.dateString);
-                  setSelectedDate(date);
-                } else {
-                  let date = new Date(day?.dateString);
-                  setSelectedDate(date);
-                }
-              }}
-              disabledOpacity={0.6}>
-              {!showMore ?
-                <WeekCalendar
-                  firstDay={0}
-                  horizontal={true}
-                  pagingEnabled={true}
-                  markedDates={markedDateStyle}
-                  theme={{
-                    ...themeStyle, containerShadow: {
-                      paddingLeft: 0,
-                      paddingRight: 0,
-
-                    },
-                    weekCalendar: {
-                      paddingLeft: 0,
-                      paddingRight: 0,
-                    }
-                  }}
-                  style={{
-                    backgroundColor: "red",
-                    paddingLeft: 0,
-                    paddingRight: 0
-                  }}
-                />
-                :
-                <ExpandableCalendar
-                  ref={calendarRef}
-                  horizontal
-                  hideKnob
-                  initialPosition={ExpandableCalendar.positions.OPEN}
-                  pagingEnabled={true}
-                  calendarStyle={{
-                    paddingLeft: 0,
-                    paddingRight: 0,
-                  }}
-                  headerStyle={{
-                    paddingLeft: 0,
-                    paddingRight: 0,
-                  }}
-                  disablePan={true}
-                  collapsable={false}
-                  theme={themeStyle}
-                  markedDates={markedDateStyle}
-                />
-              }
-            </CalendarProvider>
-          </View>
-        </View >
+          )}
+        </View>
         <TouchableOpacity
           style={styles.dropDwonIcon}
           onPress={() => {
             setShowMore(!showMore);
             focus
               ? LayoutAnimation.configureNext(
-                LayoutAnimation.Presets.easeInEaseOut,
-              )
+                  LayoutAnimation.Presets.easeInEaseOut,
+                )
               : null;
           }}>
           {showMore ? <Icons.ShowMore /> : <Icons.ShowLess />}
         </TouchableOpacity>
-      </View >
-    </View >
+      </View>
+    </View>
   );
 };
 
@@ -460,7 +388,7 @@ const styles = StyleSheet.create({
     elevation: 2,
     borderBottomRightRadius: 15,
     borderBottomLeftRadius: 15,
-    shadowOffset: { width: 0, height: 0 },
+    shadowOffset: {width: 0, height: 0},
     shadowColor: '#171717',
     shadowOpacity: 0.1,
     shadowRadius: 3,
