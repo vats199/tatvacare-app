@@ -75,7 +75,9 @@ import Snacks from '../assets/icons/snacks.svg';
 import ShowLess from '../assets/icons/showLessArrow.svg';
 import ShowMore from '../assets/icons/showMoreArrow.svg';
 import remove from '../assets/icons/deletIcon.svg';
-
+import ChatBotIcon from '../assets/icons/chatbotIcon.svg';
+import SendActive from '../assets/icons/sendActive.svg';
+import SendInactive from '../assets/icons/sendInactive.svg';
 
 export const Icons = {
   HomeActive,
@@ -154,6 +156,8 @@ export const Icons = {
   Lunch,
   Dinner,
   Snacks,
-  remove
-
+  remove,
+  ChatBotIcon,
+  SendActive,
+  SendInactive,
 };

@@ -74,6 +74,7 @@ export type AppStackParamList = {
   // BottomTabs: undefined;
   DrawerScreen: DrawerParamList;
   DietStackScreen: DietStackParamList;
+  ChatScreen: undefined;
 };
 
 export type DrawerParamList = {
@@ -89,7 +90,6 @@ export type DietStackParamList = {
     healthCoachId: string;
     mealName: string;
     patient_id: string;
-
   };
   DietDetail: {
     foodItem: FoodItems;
@@ -98,7 +98,7 @@ export type DietStackParamList = {
     mealName: string;
     patient_id: string;
   };
-  ProgressBarInsightsScreen: { calories: Options[] };
+  ProgressBarInsightsScreen: {calories: Options[]};
 };
 
 export type BottomTabParamList = {

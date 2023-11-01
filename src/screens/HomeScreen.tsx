@@ -106,6 +106,17 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
     getMyHealthDiaries();
   }, []);
 
+  // Chat screen navigation
+  useEffect(() => {
+    const subscribe = eventEmitter.addListener('chatScreenOpened', () => {
+      navigation.navigate('ChatScreen');
+    });
+
+    return () => {
+      subscribe.remove();
+    };
+  }, []);
+
   // Health Insight Updates
   useEffect(() => {
     const subscribe = eventEmitter.addListener(

@@ -3,26 +3,28 @@ import AboutUsScreen from '../screens/AboutUsScreen';
 import {
   AppStackParamList,
   DrawerParamList,
-  DietStackParamList
+  DietStackParamList,
 } from '../interface/Navigation.interface';
-import { NavigationContainer } from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
 import {
   DrawerContentComponentProps,
   createDrawerNavigator,
 } from '@react-navigation/drawer';
 import CustomDrawer from '../components/organisms/CustomDrawer';
-import { NativeModules } from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack';
+import {NativeModules} from 'react-native';
+import {createStackNavigator} from '@react-navigation/stack';
 import DietScreen from '../screens/FoodDiary/DietScreen';
 import AddDietScreen from '../screens/FoodDiary/AddDietScreen';
 import DietDetailScreen from '../screens/FoodDiary/DietDetailScreen';
 import ProgressBarInsightsScreen from '../screens/FoodDiary/ProgressBarInsightsScreen';
+import ChatScreen from '../screens/ChatScreen';
 
 const Navigation = NativeModules.Navigation;
 export const navigateTo = Navigation.navigateTo;
 export const navigateToHistory = Navigation.navigateToHistory;
 export const navigateToBookmark = Navigation.navigateToBookmark;
 export const navigateToPlan = Navigation.navigateToPlan;
+export const goBackFromChat = Navigation.goBackFromChat;
 export const navigateToEngagement = Navigation.navigateToEngagement;
 export const navigateToMedicines = Navigation.navigateToMedicines;
 export const navigateToIncident = Navigation.navigateToIncident;
@@ -63,12 +65,17 @@ const DrawerScreen = () => {
 const DietStack = createStackNavigator<DietStackParamList>();
 const DietStackScreen = () => {
   return (
-    <DietStack.Navigator screenOptions={{ headerShown: false, }} initialRouteName="DietScreen" >
+    <DietStack.Navigator
+      screenOptions={{headerShown: false}}
+      initialRouteName="DietScreen">
       <DietStack.Screen name="HomeScreen" component={HomeScreen} />
       <DietStack.Screen name="DietScreen" component={DietScreen} />
       <DietStack.Screen name="AddDiet" component={AddDietScreen} />
       <DietStack.Screen name="DietDetail" component={DietDetailScreen} />
-      <DietStack.Screen name="ProgressBarInsightsScreen" component={ProgressBarInsightsScreen} />
+      <DietStack.Screen
+        name="ProgressBarInsightsScreen"
+        component={ProgressBarInsightsScreen}
+      />
     </DietStack.Navigator>
   );
 };
@@ -83,6 +90,7 @@ const Router = () => {
         }}>
         <AppStack.Screen name={'DrawerScreen'} component={DrawerScreen} />
         <AppStack.Screen name={'DietStackScreen'} component={DietStackScreen} />
+        <AppStack.Screen name={'ChatScreen'} component={ChatScreen} />
       </AppStack.Navigator>
     </NavigationContainer>
   );

@@ -30,6 +30,16 @@ class Navigation: NSObject {
     }
     
     @objc
+    func goBackFromChat() -> Void{
+        DispatchQueue.main.async {
+            if let tabbar = UIApplication.topViewController()?.parent as? TabbarVC {
+                tabbar.tabBar.isHidden = false
+                tabbar.selectedIndex = tabbar.prevTabBarIndex
+            }
+        }
+    }
+    
+    @objc
     func navigateToHistory(_ selectedType: NSString) -> Void {
         let historyModelVC = HistoryParentVC.instantiate(fromAppStoryboard: .setting)
         historyModelVC.selectedType = HistoryType(rawValue: selectedType as String)
@@ -510,6 +520,6 @@ open class RNEventEmitter: RCTEventEmitter {
   }
 
   open override func supportedEvents() -> [String] {
-    ["updatedGoalReadingSuccess","bookmarkUpdated","bottomTabNavigationInitiated","profileUpdatedSuccess","locationUpdatedSuccessfully"]
+    ["updatedGoalReadingSuccess","bookmarkUpdated","bottomTabNavigationInitiated","profileUpdatedSuccess","locationUpdatedSuccessfully","chatScreenOpened"]
   }
 }
