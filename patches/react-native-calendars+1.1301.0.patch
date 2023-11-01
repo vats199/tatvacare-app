@@ -1,5 +1,17 @@
+diff --git a/node_modules/react-native-calendars/src/calendar/header/index.d.ts b/node_modules/react-native-calendars/src/calendar/header/index.d.ts
+index eae4b05..0e37b52 100644
+--- a/node_modules/react-native-calendars/src/calendar/header/index.d.ts
++++ b/node_modules/react-native-calendars/src/calendar/header/index.d.ts
+@@ -28,7 +28,6 @@ export interface CalendarHeaderProps {
+     /** Left & Right arrows. Additional distance outside of the buttons in which a press is detected, default: 20 */
+     arrowsHitSlop?: Insets | number;
+     /** Disable left arrow */
+-    disableArrowLeft?: boolean;
+     /** Disable right arrow */
+     disableArrowRight?: boolean;
+     /** Apply custom disable color to selected day names indexes */
 diff --git a/node_modules/react-native-calendars/src/expandableCalendar/WeekCalendar/new.js b/node_modules/react-native-calendars/src/expandableCalendar/WeekCalendar/new.js
-index b7e3a65..9b135c7 100644
+index b7e3a65..5f67f44 100644
 --- a/node_modules/react-native-calendars/src/expandableCalendar/WeekCalendar/new.js
 +++ b/node_modules/react-native-calendars/src/expandableCalendar/WeekCalendar/new.js
 @@ -11,6 +11,7 @@ import { extractCalendarProps } from '../../componentUpdater';
@@ -20,7 +32,7 @@ index b7e3a65..9b135c7 100644
      return (<View testID={testID} style={[allowShadow && style.current.containerShadow, !hideDayNames && style.current.containerWrapper]}>
 -      {!hideDayNames && (<View style={[style.current.week, style.current.weekCalendar]}>
 -          <WeekDaysNames firstDay={firstDay} style={style.current.dayHeader}/>
-+        {!hideDayNames && (<View style={[style.current.week, style.current.weekCalendar, { paddingLeft: 0, paddingRight: 0, marginTop: Matrics.vs(7.5), marginBottom: Matrics.vs(1), paddingBottom: 0 }]}>
++        {!hideDayNames && (<View style={[style.current.week, style.current.weekCalendar, { paddingLeft: 0, paddingRight: 0, marginTop: Matrics.vs(10), marginBottom: Matrics.vs(1), paddingBottom: 0 }]}>
 +            <WeekDaysNames firstDay={firstDay} style={style.current.dayHeader} />
          </View>)}
 -      <View>
