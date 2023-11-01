@@ -247,8 +247,8 @@ const DietHeader: React.FC<DietHeaderProps> = ({
             </View>
           </View>
 
-          {/* {!showMore ? (
-            <View style={{paddingHorizontal: Matrics.s(5)}}>
+          {!showMore ? (
+            <View style={{ paddingHorizontal: Matrics.s(5) }}>
               <CalendarStrip
                 selectedDate={selectedDate}
                 key={calendarKey}
@@ -358,76 +358,8 @@ const DietHeader: React.FC<DietHeaderProps> = ({
                 },
               }}
             />
-          )} */}
-          <View style={{ height: calendarHight, width: width, overflow: 'hidden' }}>
-            <CalendarProvider
-              date={moment(selectedDate).format('YYYY-MM-DD')}
-              // onDateChanged={this.onDateChanged}
-              // onMonthChange={this.onMonthChange}
-              // onDayPress={day => {
-              //   let date = new Date(day?.dateString);
-              //   onPressOfNextAndPerviousDate(date);
-              //   setSelectedDate(date);
-              //   setseletedDay(day?.dateString);
-              // }}
-              onMonthChange={day => {
-                if (selectedDate) {
-                  setSelectedDate(selectedDate);
-                  setseletedDay(moment(selectedDate).format('YYYY-MM-DD'));
-                  let date = new Date(day?.dateString);
-                  setSelectedDate(date);
-                } else {
-                  let date = new Date(day?.dateString);
-                  setSelectedDate(date);
-                }
-              }}
-              disabledOpacity={0.6}>
-              {!showMore ?
-                <WeekCalendar
-                  firstDay={0}
-                  horizontal={true}
-                  pagingEnabled={true}
-                  markedDates={markedDateStyle}
-                  theme={{
-                    ...themeStyle, containerShadow: {
-                      paddingLeft: 0,
-                      paddingRight: 0,
+          )}
 
-                    },
-                    weekCalendar: {
-                      paddingLeft: 0,
-                      paddingRight: 0,
-                    }
-                  }}
-                  style={{
-                    backgroundColor: "red",
-                    paddingLeft: 0,
-                    paddingRight: 0
-                  }}
-                />
-                :
-                <ExpandableCalendar
-                  ref={calendarRef}
-                  horizontal
-                  hideKnob
-                  initialPosition={ExpandableCalendar.positions.OPEN}
-                  pagingEnabled={true}
-                  calendarStyle={{
-                    paddingLeft: 0,
-                    paddingRight: 0,
-                  }}
-                  headerStyle={{
-                    paddingLeft: 0,
-                    paddingRight: 0,
-                  }}
-                  disablePan={true}
-                  collapsable={false}
-                  theme={themeStyle}
-                  markedDates={markedDateStyle}
-                />
-              }
-            </CalendarProvider>
-          </View>
         </View>
         <TouchableOpacity
           style={styles.dropDwonIcon}
