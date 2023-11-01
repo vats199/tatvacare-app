@@ -1,10 +1,11 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import Button from '../atoms/Button';
 import DropdownComponent from '../atoms/Dropdown';
 import { colors } from '../../constants/colors';
 import { Icons } from '../../constants/icons';
 import { Matrics } from '../../constants';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type AddDietProps = {
   onPressAdd: () => void;
@@ -53,6 +54,7 @@ const AddDiet: React.FC<AddDietProps> = ({
   buttonText,
   onSeleteQty, Data, mealName, isDisable
 }) => {
+  const insets = useSafeAreaInsets();
 
   const data = [
     { label: '1', value: '1' },
@@ -76,7 +78,7 @@ const AddDiet: React.FC<AddDietProps> = ({
         <View style={styles.borderline} />
         <View style={styles.belowBox}>
           <View style={styles.belowBoxContent}>
-            <View style={styles.dropdownContainer}>
+            <View style={[styles.dropdownContainer, { paddingBottom: insets.bottom !== 0 && Platform.OS == 'android' ? Matrics.vs(10) : 0, }]}>
               <DropdownComponent
                 data={data}
                 defaultValues={Math.round(Number(Data?.quantity)).toString()}

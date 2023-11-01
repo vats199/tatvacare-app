@@ -107,7 +107,7 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
         flex: 1,
         backgroundColor: colors.lightGreyishBlue,
         paddingTop: Platform.OS == 'android' ? insets.top + Matrics.vs(20) : 0,
-        paddingBottom: Matrics.vs(16),
+        paddingBottom: insets.bottom !== 0 && Platform.OS == 'android' ? insets.bottom : 0,
       }}>
       <MyStatusbar backgroundColor={colors.lightGreyishBlue} />
       <View style={styles.header}>
