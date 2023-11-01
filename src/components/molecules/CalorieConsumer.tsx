@@ -1,13 +1,13 @@
-import React, {useEffect} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
-import {Icons} from '../../constants/icons';
+import React, { useEffect } from 'react';
+import { StyleSheet, View, Text } from 'react-native';
+import { Icons } from '../../constants/icons';
 import CircularProgress from 'react-native-circular-progress-indicator';
-import {Fonts, Matrics} from '../../constants';
-import {colors} from '../../constants/colors';
+import { Fonts, Matrics } from '../../constants';
+import { colors } from '../../constants/colors';
 
 type CalorieConsumerProps = {
-  totalConsumedcalories: number;
-  totalcalories: number;
+  totalConsumedcalories: any;
+  totalcalories: any;
 };
 const CalorieConsumer: React.FC<CalorieConsumerProps> = ({
   totalConsumedcalories = 0,
@@ -48,7 +48,7 @@ const CalorieConsumer: React.FC<CalorieConsumerProps> = ({
             />
 
             <View style={styles.textContainer}>
-              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <Text style={styles.boldTitle}>
                   {isNaN(totalConsumedcalories) ? 0 : totalConsumedcalories}
                 </Text>
@@ -71,11 +71,16 @@ const CalorieConsumer: React.FC<CalorieConsumerProps> = ({
 const styles = StyleSheet.create({
   container: {
     borderWidth: 0.1,
-    borderColor: '#808080',
+    // borderColor: '#808080',
     borderRadius: 12,
     marginTop: 20,
     marginBottom: 5,
     overflow: 'hidden',
+    shadowOffset: { width: 0, height: 0 },
+    shadowColor: '#171717',
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 2,
   },
   innerContainer: {
     backgroundColor: 'white',

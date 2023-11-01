@@ -1,5 +1,5 @@
-import {DrawerItemList} from '@react-navigation/drawer';
-import React, {useEffect, useState} from 'react';
+import { DrawerItemList } from '@react-navigation/drawer';
+import React, { useEffect, useState } from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -7,13 +7,13 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {colors} from '../../constants/colors';
-import {Icons} from '../../constants/icons';
+import { colors } from '../../constants/colors';
+import { Icons } from '../../constants/icons';
 import DietOption from './DietOption';
-import {Fonts, Matrics} from '../../constants';
+import { Fonts, Matrics } from '../../constants';
 import fonts from '../../constants/fonts';
 import moment from 'moment';
-import {useFocusEffect} from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 
 interface ExactTimeProps {
   onPressPlus: (optionFoodItems: Options, mealName: string) => void;
@@ -167,7 +167,7 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
     }
   };
   const handalecompletion = (item: Consumption) => {
-    console.log({item: item, selectedOptionId});
+    console.log({ item: item, selectedOptionId });
 
     onPressOfcomplete(item, selectedOptionId);
   };
@@ -236,7 +236,7 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
                 showsHorizontalScrollIndicator={false}
                 horizontal
                 bounces={false}
-                style={{flexDirection: 'row'}}>
+                style={{ flexDirection: 'row' }}>
                 {cardData?.options?.map((item: Options, index: number) => {
                   const isOptionSelected =
                     selectedOptionId === item?.diet_meal_options_id;
@@ -267,8 +267,8 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
                 foodItmeData={
                   selectedOptionId !== null
                     ? cardData.options.filter(
-                        item => item.diet_meal_options_id == selectedOptionId,
-                      )[0]
+                      item => item.diet_meal_options_id == selectedOptionId,
+                    )[0]
                     : cardData.options[0]
                 }
                 patient_permission={cardData.patient_permission}
@@ -297,6 +297,11 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     marginVertical: 8,
     overflow: 'hidden',
+    // shadowOffset: { width: 0, height: 0 },
+    // shadowColor: '#171717',
+    // shadowOpacity: 0.1,
+    // shadowRadius: 3,
+    // elevation: 2,
   },
   innerContainer: {
     backgroundColor: 'white',
