@@ -45,7 +45,6 @@ const DietHeader: React.FC<DietHeaderProps> = ({
     moment(selectedDate).format('YYYY-MM-DD'),
   );
   const [showMore, setShowMore] = useState<boolean>(false);
-  const calendarRef = useRef(null);
 
   const handleNextWeek = () => {
     const nextWeek = new Date(selectedDate);
@@ -243,7 +242,7 @@ const DietHeader: React.FC<DietHeaderProps> = ({
             </View>
           </View>
 
-          {!showMore ? (
+          {/* {!showMore ? (
             <View style={{paddingHorizontal: Matrics.s(5)}}>
               <CalendarStrip
                 selectedDate={selectedDate}
@@ -259,13 +258,13 @@ const DietHeader: React.FC<DietHeaderProps> = ({
                   borderWidth: 1,
                   borderHighlightColor: 'white',
                 }}
-                style={{height: Matrics.vs(70)}}
+                style={{ height: Matrics.vs(70) }}
                 dayContainerStyle={{
                   borderRadius: 0,
                 }}
                 calendarColor={colors.lightGreyishBlue}
                 dateNumberStyle={styles.dateNumberStyle}
-                dateNameStyle={{color: 'black', fontSize: Matrics.mvs(12)}}
+                dateNameStyle={{ color: 'black', fontSize: Matrics.mvs(12) }}
                 highlightDateNumberStyle={[
                   styles.dateNumberStyle,
                   styles.highlighetdDateNumberStyle,
@@ -277,9 +276,9 @@ const DietHeader: React.FC<DietHeaderProps> = ({
                 disabledDateNameStyle={{
                   color: 'grey',
                 }}
-                disabledDateNumberStyle={{color: 'grey'}}
-                iconLeftStyle={{display: 'none'}}
-                iconRightStyle={{display: 'none'}}
+                disabledDateNumberStyle={{ color: 'grey' }}
+                iconLeftStyle={{ display: 'none' }}
+                iconRightStyle={{ display: 'none' }}
                 highlightDateContainerStyle={{
                   borderWidth: 0,
                 }}
@@ -355,7 +354,156 @@ const DietHeader: React.FC<DietHeaderProps> = ({
                 },
               }}
             />
-          )}
+          )} */}
+          <View
+            style={{height: calendarHight, width: width, overflow: 'hidden'}}>
+            <CalendarProvider
+              date={moment(selectedDate).format('YYYY-MM-DD')}
+              disabledOpacity={0.6}>
+              {!showMore ? (
+                <WeekCalendar
+                  firstDay={0}
+                  horizontal={true}
+                  pagingEnabled={true}
+                  current={moment(selectedDate).format('YYYY-MM-DD')}
+                  onDayPress={day => {
+                    console.log('🚀 ~ file: DietHeader.tsx:370 ~ day:', day);
+                    let date = new Date(day?.dateString);
+                    onPressOfNextAndPerviousDate(date);
+                    setSelectedDate(date);
+                    setseletedDay(day?.dateString);
+                  }}
+                  onMonthChange={day => {
+                    console.log('🚀 ~ file: DietHeader.tsx:376 ~ day:', day);
+                    if (selectedDate) {
+                      setSelectedDate(selectedDate);
+                      setseletedDay(moment(selectedDate).format('YYYY-MM-DD'));
+                      let date = new Date(day?.dateString);
+                      setSelectedDate(date);
+                    } else {
+                      let date = new Date(day?.dateString);
+                      setSelectedDate(date);
+                    }
+                  }}
+                  markingType="custom"
+                  markedDates={markedDateStyle}
+                  // theme={{
+                  //   backgroundColor: colors.lightGreyishBlue,
+                  //   calendarBackground: colors.lightGreyishBlue,
+                  //   textSectionTitleColor: 'black',
+                  //   textSectionTitleDisabledColor: 'black',
+                  //   dayTextColor: 'black',
+                  //   textDisabledColor: '#d9e1e8',
+                  //   todayTextColor: 'black',
+                  //   disabledArrowColor: '#d9e1e8',
+                  //   textDayFontFamily: Fonts.MEDIUM,
+                  //   textMonthFontFamily: Fonts.BOLD,
+                  //   textDayFontWeight: '400',
+                  //   textDayHeaderFontWeight: '400',
+                  //   textDayFontSize: Matrics.mvs(13),
+                  //   textMonthFontSize: Matrics.mvs(14),
+                  //   textDayHeaderFontSize: Matrics.mvs(13),
+                  //   monthTextColor: colors.black,
+                  //   arrowColor: 'white',
+                  //   // ...themeStyle,
+                  //   // contentStyle: {
+                  //   //   paddingLeft: 0,
+                  //   //   paddingRight: 0,
+                  //   // },
+                  //   // weekContainer:{
+
+                  //   // }
+                  //   // containerShadow: {
+                  //   //   paddingLeft: 0,
+                  //   //   paddingRight: 0,
+                  //   // },
+                  //   // weekCalendar: {
+                  //   //   paddingLeft: 0,
+                  //   //   paddingRight: 0,
+                  //   // },
+                  // }}
+                  hideDayNames={false}
+                  theme={{
+                    ...themeStyle,
+                    selectedDayBackgroundColor: undefined,
+                    selectedDayTextColor: colors.black,
+                    textDisabledColor: colors.black,
+                  }}
+                  style={{
+                    paddingLeft: 0,
+                    paddingRight: 0,
+                  }}
+                  // headerStyle={{
+                  //   paddingLeft: 0,
+                  //   paddingRight: 0,
+                  // }}
+                  // calendarStyle={{
+                  //   paddingLeft: 0,
+                  //   paddingRight: 0,
+                  // }}
+                  // contentContainerStyle={{
+                  //   paddingLeft: 0,
+                  //   paddingRight: 0,
+                  // }}
+                  // columnWrapperStyle={{
+                  //   paddingLeft: 0,
+                  //   paddingRight: 0,
+                  // }}
+                />
+              ) : (
+                <ExpandableCalendar
+                  horizontal
+                  hideKnob
+                  initialPosition={ExpandableCalendar.positions.OPEN}
+                  current={moment(selectedDate).format('YYYY-MM-DD')}
+                  onDayPress={day => {
+                    console.log('🚀 ~ file: DietHeader.tsx:460 ~ day:', day);
+                    let date = new Date(day?.dateString);
+                    onPressOfNextAndPerviousDate(date);
+                    setSelectedDate(date);
+                    setseletedDay(day?.dateString);
+                  }}
+                  onMonthChange={day => {
+                    console.log('🚀 ~ file: DietHeader.tsx:466 ~ day:', day);
+                    if (selectedDate) {
+                      setSelectedDate(selectedDate);
+                      setseletedDay(moment(selectedDate).format('YYYY-MM-DD'));
+                      let date = new Date(day?.dateString);
+                      setSelectedDate(date);
+                    } else {
+                      let date = new Date(day?.dateString);
+                      setSelectedDate(date);
+                    }
+                  }}
+                  markingType="custom"
+                  pagingEnabled={true}
+                  calendarStyle={{
+                    paddingLeft: 0,
+                    paddingRight: 0,
+                  }}
+                  headerStyle={{
+                    paddingLeft: 0,
+                    paddingRight: 0,
+                  }}
+                  disablePan={true}
+                  collapsable={false}
+                  theme={{
+                    ...themeStyle,
+                    selectedDayBackgroundColor: undefined,
+                    selectedDayTextColor: colors.black,
+                    textDisabledColor: colors.black,
+                    'stylesheet.calendar.header': {
+                      header: {
+                        height: 0,
+                        opacity: 0,
+                      },
+                    },
+                  }}
+                  markedDates={markedDateStyle}
+                />
+              )}
+            </CalendarProvider>
+          </View>
         </View>
         <TouchableOpacity
           style={styles.dropDwonIcon}
