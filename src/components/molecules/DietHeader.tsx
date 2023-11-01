@@ -22,9 +22,9 @@ import {
 } from 'react-native-calendars';
 import {Fonts, Matrics} from '../../constants';
 import moment from 'moment';
-import {useIsFocused} from '@react-navigation/native';
 import {MarkedDates, Theme} from 'react-native-calendars/src/types';
 import {Positions} from 'react-native-calendars/src/expandableCalendar';
+import {useIsFocused} from '@react-navigation/native';
 
 const {width} = Dimensions.get('window');
 type DietHeaderProps = {
@@ -147,12 +147,10 @@ const DietHeader: React.FC<DietHeaderProps> = ({
     setCalendarKey(calendarKey + 1);
   };
   const handlePreviousMonth = () => {
-    const nextMonth = new Date(selectedDate);
-    nextMonth.setMonth(nextMonth.getMonth() - 1);
-    console.log('nextMonth', nextMonth);
-
-    setSelectedDate(nextMonth);
-    onPressOfNextAndPerviousDate(nextMonth);
+    const currentMonnth = new Date(selectedDate);
+    var previousMonth = moment(currentMonnth).subtract(1, 'months');
+    setSelectedDate(previousMonth);
+    onPressOfNextAndPerviousDate(previousMonth);
     setCalendarKey(calendarKey + 1);
   };
 
