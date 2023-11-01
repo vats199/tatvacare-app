@@ -87,6 +87,11 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
       setDiePlane(diet?.data[0]);
       if (optionId && dietPlanId)
         countCalories(optionId, dietPlanId, diet?.data[0]);
+    } else if (diet?.code === '2') {
+      setDiePlane([]);
+      setLoader(false);
+      setTotalConsumedcalories(0);
+      setTotalcalories(0);
     } else {
       setDiePlane([]);
       setLoader(false);
@@ -184,8 +189,9 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
       const itemOptionFound = dietPlanFound[0]?.options?.filter(
         (q: any) => q.diet_meal_options_id == optionId,
       );
+
       if (itemOptionFound.length > 0) {
-        const mealName = dietPlanFound[0].meal_name;
+        const mealName = dietPlanFound?.[0]?.meal_name;
         itemOptionFound[0].meal_name = mealName;
       }
       handalTotalCalories(itemOptionFound[0]);
@@ -207,6 +213,7 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
       }
     });
   };
+
   const handelOnpressOfprogressBar = () => {
     navigation.navigate('ProgressBarInsightsScreen', {calories: caloriesArray});
   };

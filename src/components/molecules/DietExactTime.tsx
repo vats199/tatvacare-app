@@ -296,6 +296,11 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     marginVertical: 8,
     overflow: 'hidden',
+    // shadowOffset: { width: 0, height: 0 },
+    // shadowColor: '#171717',
+    // shadowOpacity: 0.1,
+    // shadowRadius: 3,
+    // elevation: 2,
   },
   innerContainer: {
     backgroundColor: 'white',

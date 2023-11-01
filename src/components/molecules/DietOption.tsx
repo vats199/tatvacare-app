@@ -167,8 +167,6 @@ const DietOption: React.FC<DietOptionItem> = ({
                 <View style={styles.line}></View>
                 <MenuOption
                   onSelect={() => {
-                    console.log("++++++++++++++++++>",)
-
                     handaleDelete(item?.diet_plan_food_item_id, item?.is_food_item_added_by_patient)
                   }
                   }>

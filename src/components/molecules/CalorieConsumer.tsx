@@ -1,28 +1,29 @@
-import React, { useEffect } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
-import { Icons } from '../../constants/icons';
+import React, {useEffect} from 'react';
+import {StyleSheet, View, Text} from 'react-native';
+import {Icons} from '../../constants/icons';
 import CircularProgress from 'react-native-circular-progress-indicator';
-import Matrics from '../../constants/Matrics';
-import fonts from '../../constants/fonts';
+import {Fonts, Matrics} from '../../constants';
+import {colors} from '../../constants/colors';
 
 type CalorieConsumerProps = {
-  totalConsumedcalories: number,
-  totalcalories: number
-}
-const CalorieConsumer: React.FC<CalorieConsumerProps> = ({ totalConsumedcalories = 0,
-  totalcalories = 0, }) => {
-  const [values, setVAlues] = React.useState(0)
+  totalConsumedcalories: any;
+  totalcalories: any;
+};
+const CalorieConsumer: React.FC<CalorieConsumerProps> = ({
+  totalConsumedcalories = 0,
+  totalcalories = 0,
+}) => {
+  const [values, setVAlues] = React.useState(0);
   useEffect(() => {
-    let vale = Math.round((totalConsumedcalories / totalcalories) * 100)
+    let vale = Math.round((totalConsumedcalories / totalcalories) * 100);
 
     if (isNaN(vale)) {
       setVAlues(0);
     } else {
-      console.log("vale is a number");
+      console.log('vale is a number');
       setVAlues(vale);
     }
-
-  }, [totalConsumedcalories, totalcalories])
+  }, [totalConsumedcalories, totalcalories]);
   return (
     <View style={styles.container}>
       <View style={styles.innerContainer}>
@@ -43,15 +44,21 @@ const CalorieConsumer: React.FC<CalorieConsumerProps> = ({ totalConsumedcalories
               title={`${values}%`}
               titleStyle={{
                 fontSize: Matrics.mvs(11),
-                fontFamily: fonts.BOLD,
+                fontFamily: Fonts.BOLD,
               }}
             />
             <View style={styles.textContainer}>
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={styles.boldTitle}>{isNaN(totalConsumedcalories) ? 0 : totalConsumedcalories}</Text>
-                <Text style={styles.regularTitle}>{" of " + totalcalories}</Text>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <Text style={styles.boldTitle}>
+                  {isNaN(totalConsumedcalories) ? 0 : totalConsumedcalories}
+                </Text>
+                <Text style={styles.regularTitle}>
+                  {' of ' + totalcalories}
+                </Text>
               </View>
-              <Text style={styles.textBelowTitle}>Calories consumed today!</Text>
+              <Text style={styles.textBelowTitle}>
+                Calories consumed today!
+              </Text>
             </View>
           </View>
           <Icons.Vector />
@@ -64,11 +71,16 @@ const CalorieConsumer: React.FC<CalorieConsumerProps> = ({ totalConsumedcalories
 const styles = StyleSheet.create({
   container: {
     borderWidth: 0.1,
-    borderColor: '#808080',
+    // borderColor: '#808080',
     borderRadius: 12,
     marginTop: 20,
     marginBottom: 5,
     overflow: 'hidden',
+    shadowOffset: {width: 0, height: 0},
+    shadowColor: '#171717',
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 2,
   },
   innerContainer: {
     backgroundColor: 'white',
@@ -78,7 +90,6 @@ const styles = StyleSheet.create({
     padding: 10,
     flexDirection: 'row',
     alignItems: 'center',
-
   },
   leftContent: {
     flexDirection: 'row',
