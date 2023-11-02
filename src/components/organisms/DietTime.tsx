@@ -143,26 +143,23 @@ const DietTime: React.FC<DietTimeProps> = ({
   };
 
   return (
-    <View style={styles.container}>
-      <ScrollView style={styles.innercontainer} showsVerticalScrollIndicator={false}>
-        <View style={{ paddingBottom: Matrics.vs(25) }}>
-          {dietPlane?.map(renderDietTimeItem)}
-        </View>
-      </ScrollView>
-    </View>
+    <ScrollView style={styles.innercontainer} showsVerticalScrollIndicator={false}>
+      <View style={{
+        paddingBottom: Matrics.vs(25)
+      }}>
+        {dietPlane?.map(renderDietTimeItem)}
+      </View>
+    </ScrollView>
   );
 };
 
 export default DietTime;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-
   innercontainer: {
-    marginTop: Matrics.vs(5),
     flex: 1,
+    paddingHorizontal: Matrics.s(15),
+    marginTop: Matrics.vs(5),
   },
   noDataFound: {
     fontSize: 20,

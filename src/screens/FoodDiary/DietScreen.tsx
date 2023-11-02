@@ -16,6 +16,7 @@ import Loader from '../../components/atoms/Loader';
 import BasicModal from '../../components/atoms/BasicModal';
 import MyStatusbar from '../../components/atoms/MyStatusBar';
 import { useToast } from 'react-native-toast-notifications';
+import { globalStyles } from '../../constants/globalStyles';
 
 type DietScreenProps = StackScreenProps<DietStackParamList, 'DietScreen'>;
 
@@ -228,7 +229,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
         title="Diet"
       />
       <View style={styles.belowContainer}>
-        <TouchableOpacity onPress={handelOnpressOfprogressBar}>
+        <TouchableOpacity activeOpacity={0.5} style={[styles.caloriesContainer, globalStyles.shadowContainer]} onPress={handelOnpressOfprogressBar}>
           <CalorieConsumer
             totalConsumedcalories={totalConsumedcalorie}
             totalcalories={totalcalorie}
@@ -269,9 +270,7 @@ const styles = StyleSheet.create({
   mainContienr: { flex: 1, backgroundColor: colors.lightGreyishBlue },
   belowContainer: {
     flex: 1,
-    paddingHorizontal: Matrics.s(15),
     backgroundColor: colors.lightGreyishBlue,
-
   },
   messageContainer: {
     alignItems: 'center',
@@ -294,6 +293,12 @@ const styles = StyleSheet.create({
     right: Matrics.s(-7),
     top: Matrics.vs(-7),
   },
+  caloriesContainer: {
+    borderRadius: Matrics.mvs(12),
+    marginTop: Matrics.vs(5),
+    marginBottom: Matrics.vs(5),
+    marginHorizontal: Matrics.s(15),
+  }
 });
 
 export default DietScreen;

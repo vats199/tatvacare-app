@@ -94,12 +94,14 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
                         borderRadius: Matrics.mvs(11),
                         justifyContent: 'center',
                         alignItems: 'center',
-                        height: Matrics.vs(25),
+                        height: Matrics.vs(26),
                         width: Matrics.s(35),
                     },
                     text: {
                         color: 'white',
-                        fontWeight: '500',
+                        fontFamily: Fonts.REGULAR,
+                        fontSize: Matrics.mvs(13),
+                        lineHeight: 18,
                     },
                 },
             },
@@ -113,14 +115,13 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
         textSectionTitleDisabledColor: colors.black,
         dayTextColor: colors.subTitleLightGray,
         textDisabledColor: '#d9e1e8',
-        todayTextColor: '#d9e1e8',
+        todayTextColor: colors.themePurple,
         disabledArrowColor: '#d9e1e8',
-        textDayFontFamily: Fonts.BOLD,
         textMonthFontFamily: Fonts.BOLD,
         textDayFontWeight: '400',
         textDayHeaderFontWeight: '400',
-        textDayFontSize: Matrics.mvs(14),
-        textMonthFontSize: Matrics.mvs(14),
+        textDayFontSize: Matrics.mvs(13),
+        textMonthFontSize: Matrics.mvs(13),
         textDayHeaderFontSize: Matrics.mvs(12),
         monthTextColor: colors.black,
     };
@@ -238,7 +239,6 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
                                 onDayPress={onDayPress}
                                 markingType="custom"
                                 markedDates={markedDateStyle}
-                                hideDayNames={false}
                                 allowShadow={false}
                                 theme={{
                                     ...themeStyle,
@@ -257,17 +257,39 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
                             firstDay={1}
                             initialPosition={ExpandableCalendar.positions.OPEN}
                             current={moment(selectedDate).format('YYYY-MM-DD')}
-                            onDayPress={onDayPress}
                             disableAllTouchEventsForDisabledDays={true}
-                            hideExtraDays={true}
+                            hideExtraDays={false}
                             onMonthChange={onChangeMonth}
                             markingType="custom"
                             pagingEnabled={true}
-                            calendarStyle={styles.removePaddingHorizontal}
-                            headerStyle={styles.removePaddingHorizontal}
+                            calendarStyle={{
+                                paddingLeft: Matrics.s(4),
+                                paddingRight: Matrics.s(4)
+                            }}
+                            headerStyle={{
+                                paddingLeft: Matrics.s(4),
+                                paddingRight: Matrics.s(4)
+                            }}
                             disablePan={true}
                             collapsable={false}
                             allowShadow={false}
+                            dayComponent={(date) => {
+                                if (date.state == 'disabled')
+                                    return null
+                                return (
+                                    <TouchableOpacity onPress={() => onDayPress(date.date)} style={{
+                                        backgroundColor: date.state == 'selected' ? colors.themePurple : colors.transparent, height: Matrics.vs(26),
+                                        width: Matrics.s(35), borderRadius: Matrics.s(10), alignItems: "center", justifyContent: "center"
+                                    }}>
+                                        <Text style={{
+                                            fontFamily: Fonts.REGULAR,
+                                            fontSize: Matrics.mvs(13),
+                                            lineHeight: 18,
+                                            color: date.state == 'selected' ? colors.white : colors.subTitleLightGray
+                                        }}>{date.date?.day}</Text>
+                                    </TouchableOpacity>
+                                )
+                            }}
                             theme={{
                                 ...themeStyle,
                                 selectedDayBackgroundColor: undefined,

@@ -13,6 +13,7 @@ import { TouchableOpacity } from 'react-native';
 import { Fonts, Matrics } from '../../constants';
 import { useIsFocused } from '@react-navigation/native';
 import CommonCalendar from './CommonCalendar';
+import { globalStyles } from '../../constants/globalStyles';
 
 type DietHeaderProps = {
   onPressBack: () => void;
@@ -33,10 +34,10 @@ const DietHeader: React.FC<DietHeaderProps> = ({
 
   return (
     <View style={styles.mainContainer}>
-      <View style={styles.upperContainer}>
+      <View style={[styles.upperContainer, globalStyles.shadowContainer]}>
         <View style={styles.customHeader}>
           <TouchableOpacity hitSlop={8} onPress={onPressBack}>
-            <Icons.backArrow />
+            <Icons.backArrow height={20} width={20} />
           </TouchableOpacity>
           <Text style={styles.customHeaderText}> {title}</Text>
         </View>
@@ -54,32 +55,27 @@ const styles = StyleSheet.create({
   mainContainer: {
     backgroundColor: colors.lightGreyishBlue,
     overflow: 'hidden',
-    paddingBottom: Matrics.vs(2),
+    paddingBottom: Matrics.vs(10),
   },
   upperContainer: {
     backgroundColor: colors.lightGreyishBlue,
     borderBottomWidth: 0.3,
     borderBottomColor: '#E5E5E5',
     paddingBottom: 5,
-    elevation: 2,
     borderBottomRightRadius: 15,
     borderBottomLeftRadius: 15,
-    shadowOffset: { width: 0, height: 0 },
-    shadowColor: '#171717',
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
   },
   customHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 20,
-    paddingHorizontal: Matrics.s(18),
+    paddingHorizontal: Matrics.s(12),
   },
   customHeaderText: {
-    fontSize: 19,
-    fontWeight: 'bold',
-    color: colors.black,
-    marginLeft: 6,
+    fontSize: Matrics.mvs(16),
+    color: colors.labelDarkGray,
+    fontFamily: Fonts.BOLD,
+    marginLeft: Matrics.s(14),
   },
   dateNumberStyle: {
     fontSize: Matrics.mvs(14),
