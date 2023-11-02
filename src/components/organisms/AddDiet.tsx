@@ -54,6 +54,7 @@ const AddDiet: React.FC<AddDietProps> = ({
   buttonText,
   onSeleteQty, Data, mealName, isDisable
 }) => {
+  const insets = useSafeAreaInsets();
 
   const data = [
     { label: '1', value: '1' },
@@ -66,7 +67,6 @@ const AddDiet: React.FC<AddDietProps> = ({
     onSeleteQty(ietm);
   };
   const handleSelectedMeasures = (ietm: string) => { };
-  const insets = useSafeAreaInsets();
 
   return (
     <View style={styles.container}>
@@ -77,7 +77,8 @@ const AddDiet: React.FC<AddDietProps> = ({
         <View style={styles.borderline} />
         <View style={styles.belowBox}>
           <View style={styles.belowBoxContent}>
-            <View style={[styles.dropdownContainer, { paddingBottom: insets.bottom !== 0 && Platform.OS == 'android' ? Matrics.vs(15) : 0, }]}>
+            {/* add bottom to upper view */}
+            <View style={[styles.dropdownContainer, { paddingBottom: insets.bottom !== 0 && Platform.OS == 'android' ? Matrics.vs(10) : 0, }]}>
               <DropdownComponent
                 data={data}
                 defaultValues={Math.round(Number(Data?.quantity)).toString()}

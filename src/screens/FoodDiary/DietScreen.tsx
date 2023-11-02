@@ -97,6 +97,8 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
     else {
       setDiePlane([]);
       setLoader(false);
+      setTotalConsumedcalories(0)
+      setTotalcalories(0)
     }
   };
 
