@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, ScrollView, Platform } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { DietStackParamList } from '../../interface/Navigation.interface';
 import { StackScreenProps } from '@react-navigation/stack';
-import DietHeader from '../../components/molecules/DietHeader.1';
+import DietHeader from '../../components/molecules/DietHeader';
 import { colors } from '../../constants/colors';
 import fonts from '../../constants/fonts';
 import Matrics from '../../constants/Matrics';
