@@ -10,8 +10,8 @@ import {
   ViewStyle,
 } from 'react-native';
 import React from 'react';
-import {Fonts, Matrics} from '../../constants';
-import {colors} from '../../constants/colors';
+import { Fonts, Matrics } from '../../constants';
+import { colors } from '../../constants/colors';
 
 type DropdownFieldProps = {
   value: string;
@@ -51,8 +51,8 @@ const DropdownField: React.FC<DropdownFieldProps> = ({
             borderColor: haveError
               ? 'red'
               : haveValue
-              ? colors.disableButton
-              : colors.inputBoxLightBorder,
+                ? colors.disableButton
+                : colors.inputBoxLightBorder,
           },
           containerStyle,
         ]}>
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
   },
   containerShadow: {
     shadowColor: colors.black,
-    shadowOffset: {width: 0, height: 0},
+    shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.05,
     shadowRadius: 3,
     elevation: 2,

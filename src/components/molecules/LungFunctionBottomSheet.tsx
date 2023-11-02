@@ -1,12 +1,12 @@
-import {StyleSheet, Text, View} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import TabButton from '../atoms/TabButton';
 import Button from '../atoms/Button';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {colors} from '../../constants/colors';
-import {Fonts, Matrics} from '../../constants';
-import {PickerDataTypeProps} from '../organisms/WheelPicker.ios';
-import {WheelPicker} from '../organisms/WheepPicker';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { colors } from '../../constants/colors';
+import { Fonts, Matrics } from '../../constants';
+import { PickerDataTypeProps } from '../organisms/WheelPicker.ios';
+import { WheelPicker } from '../organisms/WheelPicker';
 
 type LungFunctionBottomSheetProps = {
   selectedType: {
@@ -18,18 +18,18 @@ type LungFunctionBottomSheetProps = {
     React.SetStateAction<
       | string
       | {
-          left: string;
-          right: string;
-        }
+        left: string;
+        right: string;
+      }
     >
   >;
   onSaveBtnPress: () => void;
   selectedItem:
-    | string
-    | {
-        left: string;
-        right: string;
-      };
+  | string
+  | {
+    left: string;
+    right: string;
+  };
   btnTitles: string[];
   multiplePicker: boolean;
   firstItemList: PickerDataTypeProps[] | undefined;
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
   },
   bottomBtnContainerShadow: {
     shadowColor: colors.black,
-    shadowOffset: {width: 0, height: 0},
+    shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.08,
     shadowRadius: 8,
     elevation: 2,
