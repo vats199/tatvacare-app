@@ -1,6 +1,7 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {Icons} from '../../constants/icons';
+import LottieView from 'lottie-react-native';
 
 type ChatbotMessageLoaderProps = {
   loading: boolean;
@@ -12,11 +13,12 @@ const ChatbotMessageLoader: React.FC<ChatbotMessageLoaderProps> = ({
   return (
     <View style={styles.container}>
       <Icons.ChatBotIcon />
-      <View style={styles.row}>
-        <View style={styles.greyDot} />
-        <View style={styles.greyDot} />
-        <View style={styles.greyDot} />
-      </View>
+      <LottieView
+        autoPlay
+        loop
+        style={{height: 50, width: 50}}
+        source={require('../../assets/images/response_loading.json')}
+      />
     </View>
   );
 };
@@ -27,6 +29,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignSelf: 'flex-start',
+    alignItems: 'center',
     gap: 8,
     marginBottom: 8,
   },

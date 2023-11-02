@@ -12,7 +12,10 @@ const ChatScreenHeader: React.FC<ChatScreenHeaderProps> = ({
 }) => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity activeOpacity={0.6} onPress={onPressBack}>
+      <TouchableOpacity
+        style={{padding: 5}}
+        activeOpacity={0.6}
+        onPress={onPressBack}>
         <Icons.BackIcon />
       </TouchableOpacity>
       <Text style={styles.header}>Ask About Health</Text>
@@ -26,7 +29,8 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 16,
+    paddingVertical: 14,
+    paddingHorizontal: 20,
   },
   header: {
     color: colors.labelDarkGray,

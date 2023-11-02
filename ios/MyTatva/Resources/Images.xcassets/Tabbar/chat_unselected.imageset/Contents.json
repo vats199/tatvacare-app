@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "forum.png",
+      "filename" : "MicrosoftTeams-image (7) 1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "forum@2x.png",
+      "filename" : "MicrosoftTeams-image (7) 2.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "forum@3x.png",
+      "filename" : "MicrosoftTeams-image (7).png",
       "idiom" : "universal",
       "scale" : "3x"
     }

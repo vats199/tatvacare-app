@@ -87,6 +87,7 @@ const Router = () => {
       <AppStack.Navigator
         screenOptions={{
           headerShown: false,
+          gestureEnabled: false,
         }}>
         <AppStack.Screen name={'DrawerScreen'} component={DrawerScreen} />
         <AppStack.Screen name={'DietStackScreen'} component={DietStackScreen} />

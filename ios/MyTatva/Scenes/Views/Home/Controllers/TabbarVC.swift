@@ -349,8 +349,22 @@ extension TabbarVC: TransitionableTab {
         if self.isFromRN {
             RNEventEmitter.emitter.sendEvent(withName: "bottomTabNavigationInitiated", body: [:])
             if(tabBarController.selectedIndex == 4){
+                IQKeyboardManager.shared.enable = false
+                IQKeyboardManager.shared.enableAutoToolbar = false
+                var params: [String: Any] = [:]
+                params[AnalyticsParameters.module.rawValue] = "Chatbot"
+                FIRAnalytics.FIRLogEvent(eventName: .USER_TAPS_ON_BOTTOM_NAV,
+                                         screen: .Home,
+                                         parameter: params)
                 tabBar.isHidden = true
                 RNEventEmitter.emitter.sendEvent(withName: "chatScreenOpened", body: [:])
+            }
+            if(tabBarController.selectedIndex == 1){
+                var params: [String: Any] = [:]
+                params[AnalyticsParameters.module.rawValue] = "Home"
+                FIRAnalytics.FIRLogEvent(eventName: .USER_TAPS_ON_BOTTOM_NAV,
+                                         screen: .Home,
+                                         parameter: params)
             }
         }
         

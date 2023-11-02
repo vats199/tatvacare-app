@@ -25,7 +25,8 @@ const styles = StyleSheet.create({
   },
   msgContainer: {
     width: '80%',
-    padding: 16,
+    paddingHorizontal: 16,
+    paddingVertical: 10,
     backgroundColor: colors.themePurple,
     borderBottomLeftRadius: 24,
     borderTopRightRadius: 24,

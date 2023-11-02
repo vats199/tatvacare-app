@@ -22,13 +22,14 @@ export default ChatbotMessage;
 
 const styles = StyleSheet.create({
   container: {
+    width: '100%',
     flexDirection: 'row',
     alignSelf: 'flex-start',
     gap: 8,
     marginBottom: 8,
   },
   msgContainer: {
-    width: '75%',
+    flex: 1,
     padding: 16,
     backgroundColor: colors.white,
     borderBottomLeftRadius: 24,
@@ -37,7 +38,7 @@ const styles = StyleSheet.create({
   },
   message: {
     color: colors.labelDarkGray,
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: '400',
   },
 });

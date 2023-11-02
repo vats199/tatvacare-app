@@ -18,7 +18,9 @@ export default ChatDisclaimer;
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
+    paddingHorizontal: 16,
+    paddingTop: 12,
+    paddingBottom: 8,
     backgroundColor: colors.white,
   },
   text: {

@@ -31,7 +31,14 @@ class Navigation: NSObject {
     
     @objc
     func goBackFromChat() -> Void{
+        IQKeyboardManager.shared.enable = true
+        IQKeyboardManager.shared.enableAutoToolbar = true
         DispatchQueue.main.async {
+            var params: [String: Any] = [:]
+            params[AnalyticsParameters.module.rawValue] = "chatbot screen"
+            FIRAnalytics.FIRLogEvent(eventName: .BACK_BUTTON_CLICK,
+                                     screen: .Home,
+                                     parameter: params)
             if let tabbar = UIApplication.topViewController()?.parent as? TabbarVC {
                 tabbar.tabBar.isHidden = false
                 tabbar.selectedIndex = tabbar.prevTabBarIndex
