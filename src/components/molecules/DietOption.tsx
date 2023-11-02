@@ -131,16 +131,19 @@ const DietOption: React.FC<DietOptionItem> = ({
           <View style={styles.titleDescription}>
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: "center" }}>
               <Text style={styles.title}>{item.food_item_name}</Text>
-              <Text style={styles.manualBtnTxt}>Manual</Text>
+              {item.is_food_item_added_by_patient == 'Y' ? <Text style={styles.manualBtnTxt}>Manual</Text> : null}
             </View>
-            <Text style={styles.description}>
-              {Math.round(Number(item?.quantity)) +
-                ' | ' +
-                Math.round(Number(item.total_micronutrients)) +
-                ' g'}
-            </Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Text style={[styles.description, { textTransform: 'capitalize' }]}>
+                {Math.round(Number(item?.quantity)) + " " + item?.measure_name + '  | '}
+              </Text>
+              <Text style={[styles.description, { textTransform: 'lowercase' }]}>
+                {Math.round(Number(item.total_micronutrients)) +
+                  ' g'}
+              </Text>
+            </View>
           </View>
-        </View>
+        </View >
         <View style={{ flexDirection: 'row', alignItems: "center" }}>
           <Text style={styles.value}>
             {Math.round(Number(item.calories)) *
@@ -181,7 +184,7 @@ const DietOption: React.FC<DietOptionItem> = ({
             <View style={styles.threeDot}></View>
           )} */}
         </View>
-      </View>
+      </View >
     );
   };
 

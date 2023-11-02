@@ -1,8 +1,8 @@
-import {StyleSheet, Text, View} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import {Icons} from '../../constants/icons';
-import {colors} from '../../constants/colors';
-import {Fonts} from '../../constants';
+import { Icons } from '../../constants/icons';
+import { colors } from '../../constants/colors';
+import { Fonts } from '../../constants';
 import Matrics from '../../constants/Matrics';
 
 type MicronutrientsInformationProps = {
@@ -77,7 +77,7 @@ const MicronutrientsInformation: React.FC<MicronutrientsInformationProps> = ({
           <Text style={styles.name}>{item.name}</Text>
         </View>
         <Text style={styles.value}>
-          {item.value.replace('g', '').replace('m', '')}
+          {item.value.replace('g', '').replace('m', '') + " g"}
         </Text>
       </View>
     );

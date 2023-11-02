@@ -115,7 +115,7 @@ const request: any = async (
       body: getEncryptedText(payload),
     };
   }
-  console.log('init', init);
+  // console.log('init', init);
 
   // if (formData) {
   //   init = {

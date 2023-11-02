@@ -33,25 +33,20 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
     setSelectedDate(date);
   };
 
+  const colorsOfprogressBar = (values: number) => {
+    if (values === 0) {
+      return colors.inactiveGray;
+    } else if (values > 0 && values < 25) {
+      return colors.progressBarRed;
+    } else if (values >= 25 && values < 75) {
+      return colors.progressBarYellow;
+    } else {
+      return colors.progressBarGreen;
+    }
+  }
+
   useEffect(() => {
     const data = calories.map((item: any) => {
-      let color = colors.progressBarGreen;
-
-      switch (item?.meal_name) {
-        case 'Breakfast':
-          color = colors.progressBarGreen;
-          break;
-        case 'Dinner':
-          color = colors.progressBarRed;
-          break;
-        case 'Snacks':
-          color = colors.progressBarYellow;
-          break;
-        default:
-          color = colors.progressBarGreen;
-          break;
-      }
-
       return {
         title: item?.meal_name,
         totalCalories: Math.round(Number(item.total_calories)),
@@ -59,12 +54,13 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
         progressBarVale: Math.round(
           (Math.round(Number(item.consumed_calories)) /
             Math.round(Number(item.total_calories))) *
-          100,
+          100
         ),
-        progresBarColor: color,
+        progresBarColor: colorsOfprogressBar((Math.round(Number(item.consumed_calories)) / Math.round(Number(item.total_calories))) * 100),
       };
     });
     setDailyCalories(data);
+
     const sum = calories.reduce(
       (accumulator, currentItem) => {
         accumulator.consumed_protine += currentItem.consumed_protein;
@@ -97,7 +93,7 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
         progressBarVale: Math.round(
           (Number(sum.consumed_protine) / Number(sum.total_proteins)) * 100,
         ),
-        progresBarColor: '#2ecc71',
+        progresBarColor: colorsOfprogressBar((Number(sum.consumed_protine) / Number(sum.total_proteins)) * 100),
       },
       {
         title: 'Carbs',
@@ -106,16 +102,16 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
         progressBarVale: Math.round(
           (Number(sum.consumed_carbs) / Number(sum.total_carbs)) * 100,
         ),
-        progresBarColor: '#2ecc71',
+        progresBarColor: colorsOfprogressBar((Number(sum.consumed_carbs) / Number(sum.total_carbs)) * 100),
       },
       {
         title: 'Fiber',
         totalCalories: Math.round(Number(sum.total_fibers)),
         consumedClories: Math.round(Number(sum.consumed_fiber)),
         progressBarVale: Math.round(
-          (Number(sum.consumed_fiber) / Number(sum.total_fibers)) * 100,
+          (Number(sum.consumed_fiber) / Number(sum.total_fibers)) * 100
         ),
-        progresBarColor: '#FAB000',
+        progresBarColor: colorsOfprogressBar((Number(sum.consumed_fiber) / Number(sum.total_fibers)) * 100),
       },
       {
         title: 'Fats',
@@ -124,7 +120,7 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
         progressBarVale: Math.round(
           (Number(sum.consumed_fat) / Number(sum.total_fats)) * 100,
         ),
-        progresBarColor: '#FF3333',
+        progresBarColor: colorsOfprogressBar((Number(sum.consumed_fat) / Number(sum.total_fats)) * 100),
       },
     ];
     setMacroNuitrientes(arry);

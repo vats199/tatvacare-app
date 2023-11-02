@@ -23,16 +23,29 @@ const CalorieConsumer: React.FC<CalorieConsumerProps> = ({
     }
   }, [totalConsumedcalories, totalcalories]);
 
+  const colorsOfprogressBar = (values: number) => {
+    if (values === 0) {
+      return colors.inactiveGray;
+    } else if (values > 0 && values < 25) {
+      return colors.progressBarRed;
+    } else if (values >= 25 && values < 75) {
+      return colors.progressBarYellow;
+    } else {
+      return colors.progressBarGreen;
+    }
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.topRow}>
         <View style={styles.leftContent}>
           <CircularProgress
             value={values}
-            inActiveStrokeColor={'#2ecc71'}
+            inActiveStrokeColor={colorsOfprogressBar(values)}
+            activeStrokeColor={colorsOfprogressBar(values)}
             inActiveStrokeOpacity={0.2}
             progressValueColor={'green'}
-            radius={Matrics.mvs(22)}
+            radius={Matrics.mvs(23)}
             activeStrokeWidth={3}
             inActiveStrokeWidth={3}
             duration={1000}
@@ -45,7 +58,6 @@ const CalorieConsumer: React.FC<CalorieConsumerProps> = ({
               fontFamily: Fonts.BOLD,
             }}
           />
-
           <View style={styles.textContainer}>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Text style={styles.boldTitle}>

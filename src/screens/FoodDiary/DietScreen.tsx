@@ -80,7 +80,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
       {},
       { token: userData?.token },
     );
-    console.log('diet', diet);
+    // console.log('diet', diet);
 
     if (diet?.code === '1') {
       setTimeout(() => {
