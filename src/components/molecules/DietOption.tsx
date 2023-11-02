@@ -129,17 +129,22 @@ const DietOption: React.FC<DietOptionItem> = ({
             </TouchableOpacity>
           )}
           <View style={styles.titleDescription}>
-            <Text style={styles.title}>{item.food_item_name}</Text>
+            <View  >
+              <Text style={styles.title}>
+                {item.food_item_name}
+                {item.is_food_item_added_by_patient == 'Y' ? (
+                  <View style={styles.manualContainer}>
+
+                    <Text style={styles.manualBtnTxt}>Manual</Text>
+                  </View>
+                ) : null}
+              </Text>
+            </View>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Text style={styles.description}>
-                {Math.round(Number(item?.quantity)) +
-                  ' | ' +
-                  Math.round(Number(item.total_micronutrients)) +
-                  ' g'}
+                {Math.round(Number(item?.quantity)) + " " + item?.measure_name + '  | '}
               </Text>
-              {item.is_food_item_added_by_patient == 'Y' ? (
-                <Text style={styles.manualBtnTxt}>Manual</Text>
-              ) : null}
+              <Text style={[styles.description, { textTransform: 'lowercase' }]}> {Math.round(Number(item.total_micronutrients)) + ' g'}</Text>
             </View>
           </View>
         </View>
@@ -221,10 +226,12 @@ const styles = StyleSheet.create({
     fontSize: Matrics.mvs(14),
     color: colors.black,
     textTransform: 'capitalize',
+
   },
   description: {
-    fontSize: Matrics.mvs(14),
+    fontSize: Matrics.mvs(12),
     color: '#444444',
+    textTransform: 'capitalize',
   },
   value: {
     fontSize: Matrics.mvs(14),
@@ -262,11 +269,12 @@ const styles = StyleSheet.create({
     marginHorizontal: Matrics.s(8),
     backgroundColor: '#E0E0E0',
     paddingHorizontal: Matrics.s(8),
-    paddingVertical: Matrics.vs(3),
-    borderRadius: Matrics.mvs(10),
-    marginTop: Matrics.s(2),
+    paddingVertical: Matrics.mvs(2),
+    borderRadius: Matrics.mvs(8),
     overflow: 'hidden',
     color: '#616161',
-    fontSize: Matrics.mvs(11),
+    fontSize: Matrics.mvs(10),
   },
+  manualContainer: { justifyContent: 'flex-end', height: Matrics.mvs(20) }
+
 });
