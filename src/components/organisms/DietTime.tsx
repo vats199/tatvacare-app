@@ -148,7 +148,7 @@ const DietTime: React.FC<DietTimeProps> = ({
 
   return (
     <ScrollView
-      style={[styles.container, {marginBottom: insets.bottom + Matrics.vs(12)}]}
+      style={[styles.container, {marginBottom: insets.bottom}]}
       showsVerticalScrollIndicator={false}>
       {dietPlane?.map(renderDietTimeItem)}
     </ScrollView>
