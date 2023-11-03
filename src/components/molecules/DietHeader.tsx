@@ -74,8 +74,8 @@ const styles = StyleSheet.create({
   customHeaderText: {
     fontSize: Matrics.mvs(16),
     color: colors.labelDarkGray,
-    fontFamily: Fonts.BOLD,
-    marginLeft: Matrics.s(14),
+    fontFamily: Fonts.MEDIUM,
+    marginLeft: Matrics.s(10),
   },
   dateNumberStyle: {
     fontSize: Matrics.mvs(14),

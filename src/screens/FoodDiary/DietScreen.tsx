@@ -132,6 +132,9 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
           placement: 'bottom',
           duration: 2500,
           animationType: 'slide-in',
+          style: {
+            borderRadius: Matrics.mvs(12)
+          }
         },
       );
     }

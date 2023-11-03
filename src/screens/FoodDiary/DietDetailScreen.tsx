@@ -1,4 +1,4 @@
-import { Platform, StyleSheet, Text, View } from 'react-native';
+import { Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import { DietStackParamList } from '../../interface/Navigation.interface';
 import { Icons } from '../../constants/icons';
@@ -111,7 +111,9 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
       }}>
       <MyStatusbar backgroundColor={colors.lightGreyishBlue} />
       <View style={styles.header}>
-        <Icons.backArrow onPress={onPressBack} height={23} width={23} />
+        <TouchableOpacity hitSlop={8} onPress={onPressBack}>
+          <Icons.backArrow height={20} width={20} />
+        </TouchableOpacity>
         <Text style={styles.dietTitle}>{foodItem?.food_item_name}</Text>
       </View>
       <View style={styles.belowContainer}>
@@ -135,16 +137,14 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-
     marginBottom: Matrics.vs(20),
     marginLeft: 15,
   },
   dietTitle: {
-    fontSize: 16,
-    fontWeight: '700',
+    fontSize: Matrics.mvs(16),
     color: colors.labelDarkGray,
-    marginLeft: 10,
-    fontFamily: Fonts.BOLD,
+    fontFamily: Fonts.MEDIUM,
+    marginLeft: Matrics.s(12),
   },
   belowContainer: {
     flex: 1,

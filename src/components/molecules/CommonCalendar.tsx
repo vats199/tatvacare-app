@@ -352,7 +352,7 @@ const styles = StyleSheet.create({
     },
     monthYearStyle: {
         fontSize: Matrics.mvs(14),
-        fontFamily: Fonts.REGULAR,
+        fontFamily: Fonts.MEDIUM,
         color: colors.labelDarkGray,
         lineHeight: Matrics.vs(18)
     },
@@ -360,6 +360,7 @@ const styles = StyleSheet.create({
         opacity: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        marginBottom: Matrics.vs(4)
     },
     arrowContainer: {
         height: Matrics.mvs(20),

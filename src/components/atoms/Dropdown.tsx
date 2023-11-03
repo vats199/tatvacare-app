@@ -40,45 +40,39 @@ const DropdownComponent: React.FC<DropdownProps> = ({
     selectedItem(item);
   };
   return (
-    <View style={[styles.container, dropdownStyle]}>
-      <ElementDropdown
-        style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
-        placeholderStyle={[styles.placeholderStyle, placeholderStyle]}
-        selectedTextStyle={[styles.selectedTextStyle, selectedTextStyle]}
-        inputSearchStyle={[styles.inputSearchStyle, inputSearchStyle]}
-        iconStyle={[styles.iconStyle]}
-        iconColor="black"
-        data={data}
-        // search
-        containerStyle={containerStyle}
-        dropdownPosition={'top'}
-        maxHeight={300}
-        labelField="label"
-        valueField="value"
-        itemTextStyle={{ color: colors.subTitleLightGray }}
-        placeholder={!isFocus ? placeholder : 'select'}
-        searchPlaceholder="Search..."
-        value={value}
-        disable={isDisable}
-        onFocus={() => setIsFocus(true)}
-        onBlur={() => setIsFocus(false)}
-        onChange={item => {
-          handeSelectItem(item.value);
-          setValue(item.value);
-          setIsFocus(false);
-        }}
-      />
-    </View>
+    <ElementDropdown
+      style={[styles.dropdown, isFocus && { borderColor: 'blue' }, dropdownStyle]}
+      placeholderStyle={[styles.placeholderStyle, placeholderStyle]}
+      selectedTextStyle={[styles.selectedTextStyle, selectedTextStyle]}
+      inputSearchStyle={[styles.inputSearchStyle, inputSearchStyle]}
+      iconStyle={[styles.iconStyle]}
+      iconColor="black"
+      data={data}
+      // search
+      containerStyle={containerStyle}
+      dropdownPosition={'top'}
+      maxHeight={300}
+      labelField="label"
+      valueField="value"
+      itemTextStyle={{ color: colors.subTitleLightGray }}
+      placeholder={!isFocus ? placeholder : 'select'}
+      searchPlaceholder="Search..."
+      value={value}
+      disable={isDisable}
+      onFocus={() => setIsFocus(true)}
+      onBlur={() => setIsFocus(false)}
+      onChange={item => {
+        handeSelectItem(item.value);
+        setValue(item.value);
+        setIsFocus(false);
+      }}
+    />
   );
 };
 
 export default DropdownComponent;
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: 'white',
-    marginRight: 10,
-  },
   dropdown: {
     height: 44,
     borderColor: '#E0E0E0',

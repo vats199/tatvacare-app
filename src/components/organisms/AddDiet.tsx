@@ -4,8 +4,9 @@ import Button from '../atoms/Button';
 import DropdownComponent from '../atoms/Dropdown';
 import { colors } from '../../constants/colors';
 import { Icons } from '../../constants/icons';
-import { Matrics } from '../../constants';
+import { Fonts, Matrics } from '../../constants';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { globalStyles } from '../../constants/globalStyles';
 
 type AddDietProps = {
   onPressAdd: () => void;
@@ -69,41 +70,45 @@ const AddDiet: React.FC<AddDietProps> = ({
   const handleSelectedMeasures = (ietm: string) => { };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.innerContainer}>
-        <Text style={styles.title}>
-          {'Add ' + Data?.food_item_name + ' as ' + mealName}
-        </Text>
-        <View style={styles.borderline} />
-        <View style={styles.belowBox}>
-          <View style={styles.belowBoxContent}>
-            {/* add bottom to upper view */}
-            <View style={[styles.dropdownContainer, { paddingBottom: insets.bottom !== 0 && Platform.OS == 'android' ? Matrics.vs(10) : 0, }]}>
-              <DropdownComponent
-                data={data}
-                defaultValues={Math.round(Number(Data?.quantity)).toString()}
-                dropdownStyle={{ width: '48%' }}
-                placeholder="Quantity"
-                placeholderStyle={styles.dropdownTitleText}
-                selectedItem={handleSelectedQty}
-                isDisable={false}
-                containerStyle={styles.conatiner}
-              />
-              <View style={styles.measureContainer}>
-                <Text style={[styles.dropdownTitleText, { color: colors.disableButton }]}>
-                  {Data?.measure_name}
-                </Text>
-                <Icons.DropdownIcon />
-              </View>
-            </View>
-            <Button
-              title={buttonText}
-              titleStyle={styles.outlinedButtonText}
-              buttonStyle={[styles.outlinedButton, isDisable && { backgroundColor: '#808080' }]}
-              onPress={onPressAdd}
-              disabled={isDisable}
+    <View style={[styles.container, globalStyles.shadowContainer]}>
+      <Text numberOfLines={2} style={styles.title}>
+        {'Add ' + Data?.food_item_name + ' as ' + mealName}
+      </Text>
+      <View style={styles.borderline} />
+      <View style={styles.belowBox}>
+        <View style={styles.belowBoxContent}>
+          {/* add bottom to upper view */}
+          <View style={[styles.dropdownContainer, { paddingBottom: insets.bottom !== 0 && Platform.OS == 'android' ? Matrics.vs(10) : 0, }]}>
+            <DropdownComponent
+              data={data}
+              defaultValues={Math.round(Number(Data?.quantity)).toString()}
+              dropdownStyle={{ width: '48%', ...globalStyles.shadowContainer, borderRadius: Matrics.s(12), shadowOpacity: 0.09, marginRight: Matrics.s(10), height: Matrics.vs(44) }}
+              placeholder="Quantity"
+              placeholderStyle={styles.dropdownTitleText}
+              selectedItem={handleSelectedQty}
+              isDisable={false}
+              containerStyle={styles.conatiner}
+              selectedTextStyle={{
+                marginLeft: Matrics.s(5),
+                fontFamily: Fonts.REGULAR,
+                fontSize: Matrics.mvs(13),
+                color: colors.subTitleLightGray
+              }}
             />
+            <View style={[globalStyles.shadowContainer, styles.measureContainer,]}>
+              <Text style={[styles.dropdownTitleText, { color: colors.disableButton }]}>
+                {Data?.measure_name}
+              </Text>
+              <Icons.DropdownIcon />
+            </View>
           </View>
+          <Button
+            title={buttonText}
+            titleStyle={styles.outlinedButtonText}
+            buttonStyle={[styles.outlinedButton, isDisable && { backgroundColor: '#808080' }]}
+            onPress={onPressAdd}
+            disabled={isDisable}
+          />
         </View>
       </View>
     </View>
@@ -114,34 +119,30 @@ export default AddDiet;
 
 const styles = StyleSheet.create({
   container: {
-    borderWidth: 0.1,
-    borderColor: '#808080',
-    overflow: 'hidden',
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
     elevation: 3,
-    shadowColor: '#808080',
+    shadowColor: colors.shadow,
     shadowRadius: 5,
     shadowOpacity: 1,
     shadowOffset: { height: 0, width: 0 },
-  },
-  innerContainer: {
     backgroundColor: 'white',
-    paddingHorizontal: Matrics.s(15),
   },
   title: {
-    marginVertical: 20,
+    marginVertical: Matrics.vs(13),
     fontSize: Matrics.mvs(16),
-    fontWeight: 'bold',
+    fontFamily: Fonts.BOLD,
     color: colors.black,
+    paddingHorizontal: Matrics.s(15),
+    lineHeight: 26
   },
   borderline: {
-    borderBottomWidth: Matrics.mvs(0.5),
-    borederColor: colors.inputBoxLightBorder,
-    opacity: 0.3,
+    height: Matrics.mvs(1),
+    backgroundColor: colors.seprator,
   },
   belowBox: {
     paddingBottom: 20,
+    paddingHorizontal: Matrics.s(15)
   },
   belowBoxContent: {
     width: '100%',
@@ -164,21 +165,26 @@ const styles = StyleSheet.create({
   },
   outlinedButtonText: {
     fontSize: Matrics.mvs(16),
-    fontWeight: 'bold',
+    fontFamily: Fonts.BOLD,
+    color: colors.white,
+    lineHeight: 20
   },
   outlinedButton: {
-    borderRadius: Matrics.mvs(16),
     width: '100%',
+    height: Matrics.vs(40)
   },
   measureContainer: {
-    borderRadius: Matrics.mvs(5),
+    borderRadius: Matrics.mvs(12),
+    paddingVertical: Matrics.vs(12),
     borderWidth: 0.4,
     width: '50%',
-    height: '98%',
+    height: Matrics.vs(44),
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 8,
-    borderColor: colors.disableButton
+    borderColor: colors.disableButton,
+    backgroundColor: colors.white,
+    shadowOpacity: 0.09,
   },
 });

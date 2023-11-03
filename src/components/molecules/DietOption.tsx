@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
   OptionitemContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginVertical: 10,
+    marginVertical: Matrics.vs(8),
     alignItems: 'center',
     marginHorizontal: Matrics.s(15),
   },
@@ -253,13 +253,19 @@ const styles = StyleSheet.create({
     width: Matrics.s(20),
   },
   menuOptionsContainer: {
-    borderRadius: 10,
-    width: Matrics.s(80),
-    marginTop: Matrics.vs(22),
+    borderRadius: Matrics.mvs(12),
+    width: Matrics.s(75),
+    marginTop: Matrics.vs(20),
+    paddingVertical: Matrics.mvs(2)
   },
-  optionContainer: { flexDirection: 'row', paddingHorizontal: 5 },
+  optionContainer: {
+    flexDirection: 'row',
+    paddingHorizontal: Matrics.s(5),
+    paddingVertical: Matrics.vs(2),
+    alignItems: 'center'
+  },
   optionText: {
-    paddingHorizontal: Matrics.s(10),
+    paddingHorizontal: Matrics.s(6),
     lineHeight: 15,
     fontSize: Matrics.mvs(12),
     fontFamily: Fonts.REGULAR,
@@ -267,7 +273,7 @@ const styles = StyleSheet.create({
   },
   line: {
     backgroundColor: colors.inputBoxLightBorder,
-    height: 1,
+    height: Matrics.vs(1),
   },
   manualBtnTxt: {
     backgroundColor: '#E0E0E0',

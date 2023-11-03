@@ -10,6 +10,7 @@ import CircularProgress from 'react-native-circular-progress-indicator';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import MyStatusbar from '../../components/atoms/MyStatusBar';
 import { Fonts } from '../../constants';
+import { globalStyles } from '../../constants/globalStyles';
 
 type ProgressBarInsightsScreenProps = StackScreenProps<
   DietStackParamList,
@@ -126,7 +127,7 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
     setMacroNuitrientes(arry);
   }, [calories]);
 
-  const renderItem = (item: any, index: number) => {
+  const renderItem = (item: any, index: number, type: string) => {
 
     return (
       <View
@@ -156,7 +157,9 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
             fontFamily: Fonts.BOLD,
           }}
         />
-        <View style={[style.textContainer]}>
+        <View style={[style.textContainer, {
+          justifyContent: 'space-between',
+        }]}>
           <Text style={style.subtitle}>{item?.title}</Text>
           <View
             style={{
@@ -170,8 +173,8 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
               {' '}
               of{' '}
             </Text>
-            <Text style={[style.consumedCalries, { fontFamily: Fonts.REGULAR }]}>
-              {item?.totalCalories}
+            <Text style={[style.consumedCalries, { fontFamily: Fonts.REGULAR, color: colors.subTitleLightGray }]}>
+              {item?.totalCalories}{type}
             </Text>
           </View>
         </View>
@@ -196,17 +199,19 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
       />
       <ScrollView>
         <Text style={style.title}>Daily Macronutrients Analysis</Text>
-        <View style={style.boxContainer}>
+        <View style={[globalStyles.shadowContainer, style.boxContainer, {
+          marginBottom: Matrics.vs(10)
+        }]}>
           {macroNuitrientes?.map((item, index) => {
-            return renderItem(item, index);
+            return renderItem(item, index, "g");
           })}
         </View>
         {dailyCalories.length > 0 ? (
           <View style={{ flex: 1 }}>
             <Text style={style.title}>Meal Energy Distribution</Text>
-            <View style={style.boxContainer}>
+            <View style={[globalStyles.shadowContainer, style.boxContainer,]}>
               {dailyCalories?.map((item, index) => {
-                return renderItem(item, index);
+                return renderItem(item, index, 'cal');
               })}
             </View>
           </View>
@@ -222,18 +227,20 @@ const style = StyleSheet.create({
     backgroundColor: '#F9F9FF',
   },
   title: {
-    fontSize: Matrics.mvs(16),
+    fontSize: Matrics.mvs(15),
     color: colors.labelDarkGray,
     marginLeft: Matrics.s(10),
     fontFamily: fonts.BOLD,
-    paddingVertical: Matrics.vs(15),
+    paddingTop: Matrics.vs(5),
+    paddingBottom: Matrics.vs(10),
     paddingLeft: Matrics.s(5),
+    lineHeight: 20
   },
   subtitle: {
-    fontSize: Matrics.mvs(16),
+    fontSize: Matrics.mvs(15),
     color: colors.labelDarkGray,
     fontFamily: fonts.BOLD,
-    lineHeight: Matrics.vs(15),
+    lineHeight: 22,
     textTransform: 'capitalize',
   },
   caloriesContainer: {
@@ -244,6 +251,7 @@ const style = StyleSheet.create({
     fontSize: Matrics.mvs(12),
     color: colors.labelDarkGray,
     fontFamily: fonts.BOLD,
+    lineHeight: 20
   },
   calorieMainContainer: {
     flexDirection: 'row',
@@ -259,5 +267,7 @@ const style = StyleSheet.create({
     marginHorizontal: Matrics.s(15),
     paddingVertical: Matrics.vs(5),
     borderRadius: Matrics.mvs(12),
+    shadowRadius: 8,
+    shadowOpacity: 0.15
   },
 });

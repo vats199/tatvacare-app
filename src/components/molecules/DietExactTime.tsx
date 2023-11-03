@@ -255,7 +255,7 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
                           ? colors.labelDarkGray
                           : colors.inputBoxLightBorder,
                         marginLeft: index == 0 ? Matrics.s(16) : 0,
-                        marginRight: Matrics.s(10),
+                        marginRight: Matrics.s(8),
                       },
                     ]}
                     onPress={() =>
@@ -341,13 +341,11 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.REGULAR,
     color: colors.subTitleLightGray,
     lineHeight: 16
-
   },
   line: {
-    borderBottomWidth: Matrics.mvs(1),
-    borderColor: colors.seprator,
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: colors.seprator,
     marginTop: Matrics.vs(11),
-    lineHeight: 16
   },
   belowRow: {
     paddingVertical: Matrics.vs(15),
@@ -368,12 +366,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
-    shadowOffset: { width: 0, height: 0 },
-    shadowColor: colors.shadow,
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
-    elevation: 8,
-    marginVertical: Matrics.vs(5),
+    marginVertical: Matrics.vs(10),
     marginTop: Matrics.vs(15)
   },
   optionText: {
@@ -389,8 +382,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   caloriesTxt: {
-    fontSize: Matrics.mvs(12),
-    fontFamily: Fonts.MEDIUM,
+    fontSize: Matrics.mvs(11),
+    fontFamily: Fonts.REGULAR,
     color: colors.labelDarkGray,
   }
 });
