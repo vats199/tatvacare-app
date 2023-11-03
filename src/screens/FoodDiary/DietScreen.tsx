@@ -39,8 +39,8 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
   const [totalConsumedcalorie, setTotalConsumedcalories] = useState<
     number | null
   >(null);
-
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+
   useEffect(() => {
     getData();
     return () => setDiePlane([]);
@@ -80,7 +80,7 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
     const date = moment(selectedDate).format('YYYY/MM/DD');
     const diet = await Diet.getDietPlan({date: date}, {});
     // console.log('diet', diet);
-    // console.log(diet?.code, 'dietdiet');
+
     if (diet) {
       setTimeout(() => {
         setLoader(false);
@@ -127,13 +127,16 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
           placement: 'bottom',
           duration: 2500,
           animationType: 'slide-in',
+          style: {
+            borderRadius: Matrics.mvs(12),
+          },
         },
       );
     }
   };
 
   const deleteFoodItem = async () => {
-    // setModalVisible(!modalVisible);
+    // setModalVisible(false);
     bottomSheetModalRef.current?.close();
     const deleteFoodItem = await Diet.deleteFoodItem(
       {
@@ -143,8 +146,6 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
       },
       {},
     );
-    getData();
-
     if (deleteFoodItem) {
       setStateOfAPIcall(false);
       getData();

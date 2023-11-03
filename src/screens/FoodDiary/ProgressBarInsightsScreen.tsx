@@ -1,15 +1,16 @@
-import { View, Text, StyleSheet, ScrollView, Platform } from 'react-native';
-import React, { useEffect, useState } from 'react';
-import { DietStackParamList } from '../../interface/Navigation.interface';
-import { StackScreenProps } from '@react-navigation/stack';
+import {View, Text, StyleSheet, ScrollView, Platform} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {DietStackParamList} from '../../interface/Navigation.interface';
+import {StackScreenProps} from '@react-navigation/stack';
 import DietHeader from '../../components/molecules/DietHeader';
-import { colors } from '../../constants/colors';
+import {colors} from '../../constants/colors';
 import fonts from '../../constants/fonts';
 import Matrics from '../../constants/Matrics';
 import CircularProgress from 'react-native-circular-progress-indicator';
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 // import MyStatusbar from '../../components/atoms/MyStatusBar';
-import { Fonts } from '../../constants';
+import {Fonts} from '../../constants';
+import {globalStyles} from '../../constants/globalStyles';
 
 type ProgressBarInsightsScreenProps = StackScreenProps<
   DietStackParamList,
@@ -22,7 +23,7 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
 }) => {
   const insets = useSafeAreaInsets();
   const [selectedDate, setSelectedDate] = React.useState(new Date());
-  const { calories } = route.params;
+  const {calories} = route.params;
   const [dailyCalories, setDailyCalories] = useState([]);
   const [macroNuitrientes, setMacroNuitrientes] = useState([]);
 
@@ -43,7 +44,7 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
     } else {
       return colors.progressBarGreen;
     }
-  }
+  };
 
   useEffect(() => {
     const data = calories.map((item: any) => {
@@ -54,9 +55,13 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
         progressBarVale: Math.round(
           (Math.round(Number(item.consumed_calories)) /
             Math.round(Number(item.total_calories))) *
-          100
+            100,
         ),
-        progresBarColor: colorsOfprogressBar((Math.round(Number(item.consumed_calories)) / Math.round(Number(item.total_calories))) * 100),
+        progresBarColor: colorsOfprogressBar(
+          (Math.round(Number(item.consumed_calories)) /
+            Math.round(Number(item.total_calories))) *
+            100,
+        ),
       };
     });
     setDailyCalories(data);
@@ -93,7 +98,9 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
         progressBarVale: Math.round(
           (Number(sum.consumed_protine) / Number(sum.total_proteins)) * 100,
         ),
-        progresBarColor: colorsOfprogressBar((Number(sum.consumed_protine) / Number(sum.total_proteins)) * 100),
+        progresBarColor: colorsOfprogressBar(
+          (Number(sum.consumed_protine) / Number(sum.total_proteins)) * 100,
+        ),
       },
       {
         title: 'Carbs',
@@ -102,16 +109,20 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
         progressBarVale: Math.round(
           (Number(sum.consumed_carbs) / Number(sum.total_carbs)) * 100,
         ),
-        progresBarColor: colorsOfprogressBar((Number(sum.consumed_carbs) / Number(sum.total_carbs)) * 100),
+        progresBarColor: colorsOfprogressBar(
+          (Number(sum.consumed_carbs) / Number(sum.total_carbs)) * 100,
+        ),
       },
       {
         title: 'Fiber',
         totalCalories: Math.round(Number(sum.total_fibers)),
         consumedClories: Math.round(Number(sum.consumed_fiber)),
         progressBarVale: Math.round(
-          (Number(sum.consumed_fiber) / Number(sum.total_fibers)) * 100
+          (Number(sum.consumed_fiber) / Number(sum.total_fibers)) * 100,
         ),
-        progresBarColor: colorsOfprogressBar((Number(sum.consumed_fiber) / Number(sum.total_fibers)) * 100),
+        progresBarColor: colorsOfprogressBar(
+          (Number(sum.consumed_fiber) / Number(sum.total_fibers)) * 100,
+        ),
       },
       {
         title: 'Fats',
@@ -120,17 +131,18 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
         progressBarVale: Math.round(
           (Number(sum.consumed_fat) / Number(sum.total_fats)) * 100,
         ),
-        progresBarColor: colorsOfprogressBar((Number(sum.consumed_fat) / Number(sum.total_fats)) * 100),
+        progresBarColor: colorsOfprogressBar(
+          (Number(sum.consumed_fat) / Number(sum.total_fats)) * 100,
+        ),
       },
     ];
     setMacroNuitrientes(arry);
   }, [calories]);
 
-  const renderItem = (item: any, index: number) => {
-
+  const renderItem = (item: any, index: number, type: string) => {
     return (
       <View
-        style={[style.calorieMainContainer, { paddingVertical: Matrics.vs(5) }]}
+        style={[style.calorieMainContainer, {paddingVertical: Matrics.vs(5)}]}
         key={index?.toString()}>
         <CircularProgress
           value={isNaN(item?.progressBarVale) ? 0 : item?.progressBarVale}
@@ -156,7 +168,13 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
             fontFamily: Fonts.BOLD,
           }}
         />
-        <View style={[style.textContainer]}>
+        <View
+          style={[
+            style.textContainer,
+            {
+              justifyContent: 'space-between',
+            },
+          ]}>
           <Text style={style.subtitle}>{item?.title}</Text>
           <View
             style={{
@@ -166,12 +184,17 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
             <Text style={style.consumedCalries}>
               {isNaN(item?.consumedClories) ? 0 : item?.consumedClories}
             </Text>
-            <Text style={[style.consumedCalries, { fontFamily: Fonts.REGULAR }]}>
+            <Text style={[style.consumedCalries, {fontFamily: Fonts.REGULAR}]}>
               {' '}
               of{' '}
             </Text>
-            <Text style={[style.consumedCalries, { fontFamily: Fonts.REGULAR }]}>
+            <Text
+              style={[
+                style.consumedCalries,
+                {fontFamily: Fonts.REGULAR, color: colors.subTitleLightGray},
+              ]}>
               {item?.totalCalories}
+              {type}
             </Text>
           </View>
         </View>
@@ -196,17 +219,24 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
       />
       <ScrollView>
         <Text style={style.title}>Daily Macronutrients Analysis</Text>
-        <View style={style.boxContainer}>
+        <View
+          style={[
+            globalStyles.shadowContainer,
+            style.boxContainer,
+            {
+              marginBottom: Matrics.vs(10),
+            },
+          ]}>
           {macroNuitrientes?.map((item, index) => {
-            return renderItem(item, index);
+            return renderItem(item, index, 'g');
           })}
         </View>
         {dailyCalories.length > 0 ? (
-          <View style={{ flex: 1 }}>
+          <View style={{flex: 1}}>
             <Text style={style.title}>Meal Energy Distribution</Text>
-            <View style={style.boxContainer}>
+            <View style={[globalStyles.shadowContainer, style.boxContainer]}>
               {dailyCalories?.map((item, index) => {
-                return renderItem(item, index);
+                return renderItem(item, index, 'cal');
               })}
             </View>
           </View>
@@ -222,18 +252,20 @@ const style = StyleSheet.create({
     backgroundColor: '#F9F9FF',
   },
   title: {
-    fontSize: Matrics.mvs(16),
+    fontSize: Matrics.mvs(15),
     color: colors.labelDarkGray,
     marginLeft: Matrics.s(10),
     fontFamily: fonts.BOLD,
-    paddingVertical: Matrics.vs(15),
+    paddingTop: Matrics.vs(5),
+    paddingBottom: Matrics.vs(10),
     paddingLeft: Matrics.s(5),
+    lineHeight: 20,
   },
   subtitle: {
-    fontSize: Matrics.mvs(16),
+    fontSize: Matrics.mvs(15),
     color: colors.labelDarkGray,
     fontFamily: fonts.BOLD,
-    lineHeight: Matrics.vs(15),
+    lineHeight: 22,
     textTransform: 'capitalize',
   },
   caloriesContainer: {
@@ -244,6 +276,7 @@ const style = StyleSheet.create({
     fontSize: Matrics.mvs(12),
     color: colors.labelDarkGray,
     fontFamily: fonts.BOLD,
+    lineHeight: 20,
   },
   calorieMainContainer: {
     flexDirection: 'row',
@@ -259,5 +292,7 @@ const style = StyleSheet.create({
     marginHorizontal: Matrics.s(15),
     paddingVertical: Matrics.vs(5),
     borderRadius: Matrics.mvs(12),
+    shadowRadius: 8,
+    shadowOpacity: 0.15,
   },
 });

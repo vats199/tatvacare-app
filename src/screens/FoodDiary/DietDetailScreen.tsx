@@ -8,8 +8,7 @@ import AddDiet from '../../components/organisms/AddDiet';
 import {StackScreenProps} from '@react-navigation/stack';
 import Deit from '../../api/diet';
 import {useApp} from '../../context/app.context';
-import Matrics from '../../constants/Matrics';
-import Fonts from '../../constants/fonts';
+import {Fonts, Matrics} from '../../constants';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 // import MyStatusbar from '../../components/atoms/MyStatusBar';
 
@@ -17,10 +16,10 @@ type DietDetailProps = StackScreenProps<DietStackParamList, 'DietDetail'>;
 
 const DietDetailScreen: React.FC<DietDetailProps> = ({navigation, route}) => {
   const insets = useSafeAreaInsets();
-  const {foodItem, buttonText, healthCoachId, mealName, patient_id} =
-    route.params;
+  const {foodItem, buttonText, healthCoachId, mealName} = route.params;
   let quantity = Math.round(Number(foodItem?.quantity)).toString();
   const [qty, setQty] = React.useState<string>(quantity);
+  const {userData} = useApp();
 
   const onPressBack = () => {
     navigation.goBack();
@@ -28,7 +27,7 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({navigation, route}) => {
 
   const onPressAdd = async () => {
     const addPayload = {
-      patient_id: patient_id,
+      patient_id: userData?.patient_id,
       food_item_id: foodItem?.food_item_id,
       food_item_name: foodItem?.food_item_name,
       quantity: qty,
@@ -51,7 +50,7 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({navigation, route}) => {
       is_food_item_added_by_patient: 'Y',
     };
     const updatePayload = {
-      patient_id: patient_id,
+      patient_id: userData?.patient_id,
       food_item_id: foodItem?.food_item_id,
       food_item_name: foodItem?.food_item_name,
       quantity: qty,
@@ -76,15 +75,25 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({navigation, route}) => {
     };
 
     if (buttonText === 'Add') {
-      const result = await Deit?.addFoodItem(addPayload, {});
+      const result = await Deit?.addFoodItem(
+        addPayload,
+        {},
+        {token: userData?.token},
+      );
+      console.log(' added ', result);
 
-      navigation.popToTop();
-      // if (result?.code === '1') {
-      // }
+      if (result?.code === '1') {
+        navigation.popToTop();
+      }
     } else {
-      const result = await Deit?.updateFoodItem(updatePayload, {});
-      // if (result?.code === '1') {
-      navigation.popToTop();
+      const result = await Deit?.updateFoodItem(
+        updatePayload,
+        {},
+        {token: userData?.token},
+      );
+      if (result?.code === '1') {
+        navigation.popToTop();
+      }
     }
   };
 
@@ -103,15 +112,9 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({navigation, route}) => {
       }}>
       {/* <MyStatusbar backgroundColor={colors.lightGreyishBlue} /> */}
       <View style={styles.header}>
-        <TouchableOpacity
-          activeOpacity={0.7}
-          hitSlop={15}
-          onPress={onPressBack}>
-          <Icons.backArrow height={22} width={22} />
+        <TouchableOpacity hitSlop={8} onPress={onPressBack}>
+          <Icons.backArrow height={20} width={20} />
         </TouchableOpacity>
-        {/* <TouchableOpacity>
-        <Icons.backArrow onPress={onPressBack} height={23} width={23} />
-        </TouchableOpacity> */}
         <Text style={styles.dietTitle}>{foodItem?.food_item_name}</Text>
       </View>
       <View style={styles.belowContainer}>
@@ -135,16 +138,14 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-
     marginBottom: Matrics.vs(20),
     marginLeft: 15,
   },
   dietTitle: {
-    fontSize: 16,
-    fontWeight: '700',
+    fontSize: Matrics.mvs(16),
     color: colors.labelDarkGray,
-    marginLeft: 10,
-    fontFamily: Fonts.BOLD,
+    fontFamily: Fonts.MEDIUM,
+    marginLeft: Matrics.s(12),
   },
   belowContainer: {
     flex: 1,

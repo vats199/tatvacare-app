@@ -15,9 +15,10 @@ interface DropdownProps {
   inputSearchStyle?: TextStyle;
   placeholder?: string;
   selectedItem: (data: string) => void;
-  isDisable: boolean;
-  containerStyle: TextStyle;
-  defaultValues: string
+  isDisable?: boolean;
+  containerStyle?: TextStyle;
+  defaultValues?: string
+
 }
 
 const DropdownComponent: React.FC<DropdownProps> = ({
@@ -29,61 +30,54 @@ const DropdownComponent: React.FC<DropdownProps> = ({
   iconStyle,
   inputSearchStyle,
   placeholder,
-  selectedItem, isDisable, containerStyle, defaultValues
-
+  selectedItem,
+  isDisable,
+  containerStyle, defaultValues
 }) => {
-  const [value, setValue] = useState<string | null>(defaultValues);
+  const [value, setValue] = useState<string | null>(defaultValues || null);
   const [isFocus, setIsFocus] = useState(false);
   const handeSelectItem = (item: string) => {
-    selectedItem(item)
-  }
-
-
+    selectedItem(item);
+  };
   return (
-    <View style={[styles.container, dropdownStyle]}>
-      <ElementDropdown
-        style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
-        placeholderStyle={[styles.placeholderStyle, placeholderStyle]}
-        selectedTextStyle={[styles.selectedTextStyle, selectedTextStyle]}
-        inputSearchStyle={[styles.inputSearchStyle, inputSearchStyle]}
-        iconStyle={[styles.iconStyle]}
-        iconColor="black"
-        data={data}
-        // search
-        containerStyle={containerStyle}
-        dropdownPosition={'top'}
-        maxHeight={300}
-        labelField="label"
-        valueField="value"
-        itemTextStyle={{ color: colors.subTitleLightGray }}
-        placeholder={!isFocus ? placeholder : 'select'}
-        searchPlaceholder="Search..."
-        value={value}
-        disable={isDisable}
-        onFocus={() => setIsFocus(true)}
-        onBlur={() => setIsFocus(false)}
-        onChange={item => {
-          handeSelectItem(item.value)
-          setValue(item.value);
-          setIsFocus(false);
-        }}
-      />
-    </View>
+    <ElementDropdown
+      style={[styles.dropdown, isFocus && { borderColor: 'blue' }, dropdownStyle]}
+      placeholderStyle={[styles.placeholderStyle, placeholderStyle]}
+      selectedTextStyle={[styles.selectedTextStyle, selectedTextStyle]}
+      inputSearchStyle={[styles.inputSearchStyle, inputSearchStyle]}
+      iconStyle={[styles.iconStyle]}
+      iconColor="black"
+      data={data}
+      // search
+      containerStyle={containerStyle}
+      dropdownPosition={'top'}
+      maxHeight={300}
+      labelField="label"
+      valueField="value"
+      itemTextStyle={{ color: colors.subTitleLightGray }}
+      placeholder={!isFocus ? placeholder : 'select'}
+      searchPlaceholder="Search..."
+      value={value}
+      disable={isDisable}
+      onFocus={() => setIsFocus(true)}
+      onBlur={() => setIsFocus(false)}
+      onChange={item => {
+        handeSelectItem(item.value);
+        setValue(item.value);
+        setIsFocus(false);
+      }}
+    />
   );
 };
 
 export default DropdownComponent;
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: 'white',
-    marginRight: 10,
-  },
   dropdown: {
-    height: 50,
+    height: 44,
     borderColor: '#E0E0E0',
     borderWidth: 1.3,
-    borderRadius: 14,
+    borderRadius: Matrics.mvs(12),
     paddingHorizontal: 8,
 
     // elevation: 0.2,

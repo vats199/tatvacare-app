@@ -1,16 +1,17 @@
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import {colors} from '../../constants/colors';
-import {Icons} from '../../constants/icons';
-import {TouchableOpacity} from 'react-native';
-import Matrics from '../../constants/Matrics';
+import { colors } from '../../constants/colors';
+import RecentDietItem from '../molecules/RecentFoodItem';
+import { Icons } from '../../constants/icons';
+import { TouchableOpacity } from 'react-native';
+import { Fonts, Matrics } from '../../constants';
+import { log } from 'console';
 
 type RecentSerachDietProps = {
   onPressPlus: (data: SearcheFood) => void;
   searchData: SearcheFood[];
   title: string;
   message: string
-  
 };
 // type data = {
 //   code: string,
@@ -46,20 +47,32 @@ const RecentSearchDiet: React.FC<RecentSerachDietProps> = ({
   title, message
 }) => {
   const renderRecentSearchItem = (item: SearcheFood, index: number) => {
+    console.log("🚀 ~ file: RecentSearchFood.tsx:50 ~ renderRecentSearchItem ~ item:", item)
 
     return (
       <TouchableOpacity
         style={styles.container}
         onPress={() => onPressPlus(item)}>
-        <View style={{flex: 0.78}}>
+        <View style={{
+          flex: 1,
+        }}>
           <Text style={styles.titleText}>{item?.food_name}</Text>
-          <Text style={styles.messageText}>
+          {/* <Text style={styles.messageText}>
             {'  ' +
               (Math.round(Number(item.total_micronutrients))
                 ? Math.round(Number(item.total_micronutrients))
                 : 0) +
               ' g'}
-          </Text>
+          </Text> */}
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Text style={[styles.messageText, { textTransform: 'capitalize' }]}>
+              {"1" + " " + item.unit_name + '  | '}
+            </Text>
+            <Text style={[styles.messageText, { textTransform: 'lowercase' }]}>
+              {Math.round(Number(item.total_micronutrients)) +
+                ' g'}
+            </Text>
+          </View>
         </View>
         <View style={styles.leftContainer}>
           <Text style={styles.calorieText}>
@@ -90,35 +103,39 @@ export default RecentSearchDiet;
 const styles = StyleSheet.create({
   text: {
     fontSize: Matrics.mvs(14),
-    fontWeight: 'bold',
-    color: colors.black,
+    color: colors.labelDarkGray,
+    fontFamily: Fonts.BOLD,
     marginBottom: 5,
+    marginHorizontal: Matrics.s(5)
   },
   container: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginVertical: 6,
-    marginHorizontal: 2
+    marginVertical: Matrics.vs(5),
+    marginHorizontal: Matrics.s(5),
   },
   titleText: {
-    fontSize: Matrics.mvs(14),
-    // fontWeight: 'bold',
+    fontSize: Matrics.mvs(13),
     color: colors.labelDarkGray,
-    padding: 5,
+    paddingVertical: Matrics.vs(5),
     textTransform: 'capitalize',
+    fontFamily: Fonts.REGULAR
   },
   messageText: {
-    fontSize: Matrics.mvs(13),
+    fontSize: Matrics.mvs(12),
+    color: colors.subTitleLightGray,
+    fontFamily: Fonts.REGULAR
   },
   calorieText: {
     fontSize: Matrics.mvs(14),
-    color: colors.labelDarkGray,
-    marginRight: 10,
+    color: colors.subTitleLightGray,
+    marginRight: Matrics.s(10),
+    fontFamily: Fonts.REGULAR,
   },
   leftContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    flex: 0.22,
+    alignItems: 'center',
   },
 });
