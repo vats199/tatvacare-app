@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dp_8"
+    android:background="@drawable/bg_common_rounded_rect_5"
+    android:elevation="@dimen/dp_3"
+    android:padding="@dimen/dp_8">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewIconGoal"
+        android:layout_width="@dimen/dp_54"
+        android:layout_height="@dimen/dp_54"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_pranayam" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewUpdateGoal"
+        style="@style/TextView.Medium.sp_11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_5"
+        android:text="Edit goal >"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="@id/textViewGoal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/textViewGoal" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewGoal"
+        style="@style/TextView.Bold.sp_16"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_16"
+        android:layout_marginEnd="@dimen/dp_5"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="Pranayam"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintBottom_toTopOf="@id/textViewGoalTime"
+        app:layout_constraintEnd_toStartOf="@id/textViewUpdateGoal"
+        app:layout_constraintStart_toEndOf="@id/imageViewIconGoal"
+        app:layout_constraintTop_toTopOf="@id/imageViewIconGoal" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewGoalTime"
+        style="@style/TextView.Medium.sp_12"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="20 minutes per day"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintBottom_toBottomOf="@id/imageViewIconGoal"
+        app:layout_constraintEnd_toEndOf="@id/textViewGoal"
+        app:layout_constraintStart_toStartOf="@id/textViewGoal"
+        app:layout_constraintTop_toBottomOf="@id/textViewGoal" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/layoutUpdate"
+        style="@style/TextView.Medium.sp_12"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/imageViewIconGoal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/textViewGoal"
+        app:layout_constraintTop_toBottomOf="@id/textViewGoal">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            style="@style/editTextStrokeExtraSmall"
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:imeOptions="actionDone"
+            android:id="@+id/editTextGoalValue"
+            android:inputType="number"
+            android:maxLength="6"
+            android:hint="Enter"
+            android:textAlignment="gravity" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewUpdateGoalTime"
+            style="@style/TextView.Medium.sp_12"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_5"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="minutes per day"
+            android:textColor="@color/textBlack1"
+            app:layout_constraintBottom_toBottomOf="@id/imageViewIconGoal"
+            app:layout_constraintEnd_toEndOf="@id/textViewGoal"
+            app:layout_constraintStart_toStartOf="@id/textViewGoal"
+            app:layout_constraintTop_toBottomOf="@id/textViewGoal" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewUpdateGoalValue"
+            style="@style/TextView.Medium.sp_11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_5"
+            android:text="Update"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@id/textViewGoal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textViewGoal" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

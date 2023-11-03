@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewSrNo"
+        android:layout_width="@dimen/dp_25"
+        style="@style/TextView.Bold.sp_13"
+        android:layout_height="@dimen/dp_25"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/bg_how_to_connect_smart_scale"
+        android:textColor="@color/colorPrimary"
+        android:text="1"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:layout_marginStart="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_20"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewSteps"
+        style="@style/TextView.Regular.sp_16"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_11"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Insert the batteries into your weighing scale"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@id/textViewSrNo"
+        app:layout_constraintTop_toTopOf="@id/textViewSrNo"
+        app:layout_constraintBottom_toBottomOf="@id/textViewSrNo"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

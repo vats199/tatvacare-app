@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include
+            android:id="@+id/layoutHeader"
+            layout="@layout/auth_common_header"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewLabelUseBiometric"
+            style="@style/TextView.Bold.sp_20"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/screen_space"
+            android:layout_marginTop="@dimen/dp_30"
+            android:layout_marginEnd="@dimen/screen_space"
+            android:gravity="center"
+            android:text="@string/use_biometric_label_use_biometric"
+            android:textAlignment="gravity"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutHeader" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewDescription"
+            style="@style/TextView.Regular.sp_14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_16"
+            android:gravity="center"
+            android:text="@string/use_biometric_label_use_your_fingerprint_or_face_for_faster_easier_naccess_to_your_app"
+            android:textAlignment="gravity"
+            android:textColor="@color/textBlack1"
+            app:layout_constraintEnd_toEndOf="@id/textViewLabelUseBiometric"
+            app:layout_constraintStart_toStartOf="@id/textViewLabelUseBiometric"
+            app:layout_constraintTop_toBottomOf="@id/textViewLabelUseBiometric" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewIcon"
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="@dimen/dp_100"
+            android:layout_marginTop="@dimen/dp_46"
+            app:layout_constraintEnd_toEndOf="@id/textViewLabelUseBiometric"
+            app:layout_constraintStart_toStartOf="@id/textViewLabelUseBiometric"
+            app:layout_constraintTop_toBottomOf="@id/textViewDescription"
+            app:srcCompat="@drawable/ic_biometric" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonEnable"
+            style="@style/buttonSolid"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_40"
+            android:layout_marginBottom="@dimen/dp_40"
+            android:text="@string/use_biometric_button_enable"
+            app:layout_constraintBaseline_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/textViewLabelUseBiometric"
+            app:layout_constraintStart_toStartOf="@id/textViewLabelUseBiometric"
+            app:layout_constraintTop_toBottomOf="@id/imageViewIcon" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewSkipForNow"
+            style="@style/TextView.Medium.sp_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_30"
+            android:layout_marginBottom="@dimen/dp_30"
+            android:background="?selectableItemBackground"
+            android:gravity="center"
+            android:padding="@dimen/dp_4"
+            android:text="@string/use_biometric_label_skip_for_now"
+            android:textAlignment="gravity"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/textViewLabelUseBiometric"
+            app:layout_constraintStart_toStartOf="@id/textViewLabelUseBiometric"
+            app:layout_constraintTop_toBottomOf="@id/buttonEnable" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

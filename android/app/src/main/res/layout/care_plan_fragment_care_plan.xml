@@ -1,0 +1,1001 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/layoutHeader"
+        layout="@layout/layout_common_toolbar_with_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutHeader"
+        app:srcCompat="@drawable/bg_rounded_top" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutHeader">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/dp_40">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/screen_space" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/screen_space" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewBgReadingHistoryLarge"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:backgroundTint="@color/gray5"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/bg_rounded_top" />
+
+            <!-- <androidx.appcompat.widget.AppCompatImageView
+                 android:id="@+id/imageViewBgReadingHistorySmall"
+                 android:layout_width="0dp"
+                 android:layout_height="0dp"
+                 android:alpha="0.5"
+                 android:background="@color/gray5"
+                 app:layout_constraintBottom_toBottomOf="@id/textViewReadingHistoryMoreLess"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintTop_toTopOf="@id/recyclerViewReadingHistorySmall" />-->
+
+            <!--incident views old-->
+            <!--<androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutIncident"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:background="@drawable/bg_care_plan_incident_layout"
+                android:padding="@dimen/dp_14"
+                android:visibility="gone"
+                tools:visibility="visible"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/layoutIncidentDuration"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dp_12"
+                    android:background="@drawable/bg_common_rounded_rect_10"
+                    android:gravity="center|bottom"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/dp_6"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toStartOf="@id/viewLine1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:visibility="visible">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewDays"
+                        style="@style/TextView.Bold.sp_22"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:text="@string/care_plan_label_days"
+                        android:textColor="@color/colorPrimary" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/TextView.SemiBold.sp_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_4"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="@string/care_plan_label_incident_free"
+                        android:textColor="@color/textBlack1" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelIncidentRecorded"
+                    style="@style/TextView.Regular.sp_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:alpha="0.9"
+                    android:gravity="center"
+                    android:text="@string/care_plan_label_your_last_incident_recorded_on"
+                    android:textAlignment="center"
+                    android:textColor="@color/textBlack1"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@id/layoutIncidentDuration"
+                    app:layout_constraintStart_toStartOf="@id/layoutIncidentDuration"
+                    app:layout_constraintTop_toBottomOf="@id/layoutIncidentDuration"
+                    tools:visibility="visible" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewIncidentRecordedDate"
+                    style="@style/TextView.SemiBold.sp_16"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:layout_marginEnd="@dimen/dp_12"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:textColor="@color/textBlack1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/viewLine1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textViewLabelIncidentRecorded"
+                    tools:text="16 Feb 2021" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/viewLine1"
+                    android:layout_width="@dimen/dp_1"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="@dimen/dp_12"
+                    android:alpha="0.4"
+                    android:background="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/buttonAddIncident"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/buttonAddIncident"
+                    style="@style/buttonSolidSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_30"
+                    android:paddingStart="@dimen/dp_6"
+                    android:paddingEnd="@dimen/dp_6"
+                    android:text="@string/care_plan_button_add_new_incident"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+            <!--incident views new 06-02-2023-->
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layoutIncident"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:background="@drawable/bg_common_rounded_rect_5"
+                android:elevation="@dimen/dp_3"
+                android:orientation="vertical"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="@dimen/dp_12"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="@dimen/dp_28"
+                        android:layout_height="@dimen/dp_28"
+                        android:padding="@dimen/dp_1"
+                        android:scaleType="fitCenter"
+                        app:srcCompat="@drawable/ic_incident_new" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/TextView.SemiBold.sp_20"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_20"
+                        android:layout_marginEnd="@dimen/dp_4"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="@string/care_plan_label_health_incidents"
+                        android:textColor="@color/textBlack1" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/buttonAddIncident"
+                        style="@style/buttonSolidSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp_30"
+                        android:paddingStart="@dimen/dp_12"
+                        android:paddingEnd="@dimen/dp_12"
+                        android:text="@string/care_plan_button_add_new_incident" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelDidYouFaceIncident"
+                    style="@style/TextView.SemiBold.sp_14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dp_12"
+                    android:layout_marginVertical="@dimen/dp_16"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/textBlack1"
+                    android:visibility="gone"
+                    tools:text="Did you have any health incident recently?" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutIncidentDuration"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/dp_12"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideLineIncidentCenter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.55" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewLabelIncidentFreeDays"
+                        style="@style/TextView.Medium.sp_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:alpha="0.6"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="@string/care_plan_label_incident_free_day_s"
+                        android:textColor="@color/textBlack1"
+                        app:layout_constraintEnd_toEndOf="@id/guideLineIncidentCenter"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewIncidentFreeDays"
+                        style="@style/TextView.Medium.sp_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="@color/textBlack1"
+                        app:layout_constraintBaseline_toBaselineOf="@id/textViewLabelIncidentFreeDays"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/guideLineIncidentCenter"
+                        tools:text="3" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/viewLine"
+                        style="@style/viewLine"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/dp_1"
+                        android:layout_marginTop="@dimen/dp_10"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textViewLabelIncidentFreeDays" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewLabelLastIncidentRecorded"
+                        style="@style/TextView.Medium.sp_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:alpha="0.6"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="@string/care_plan_label_last_incident_recorded"
+                        android:textColor="@color/textBlack1"
+                        app:layout_constraintEnd_toEndOf="@id/guideLineIncidentCenter"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/viewLine" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewLastIncidentRecordedDate"
+                        style="@style/TextView.Medium.sp_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="@color/textBlack1"
+                        app:layout_constraintBaseline_toBaselineOf="@id/textViewLabelLastIncidentRecorded"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/guideLineIncidentCenter"
+                        tools:text="12 Apr 2022" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/buttonViewAllIncident"
+                        style="@style/buttonStrokeSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp_24"
+                        android:layout_marginTop="@dimen/dp_16"
+                        android:layout_marginBottom="@dimen/dp_12"
+                        android:paddingStart="@dimen/dp_8"
+                        android:paddingEnd="@dimen/dp_8"
+                        android:text="@string/care_plan_label_view_all_appointments"
+                        android:textSize="@dimen/sp_10"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textViewLabelLastIncidentRecorded" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <!--appointment views-->
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layoutAppointment"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginBottom="@dimen/dp_40"
+                android:background="@drawable/bg_common_rounded_rect_5"
+                android:elevation="@dimen/dp_3"
+                android:orientation="vertical"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/layoutIncident"
+                app:layout_constraintVertical_bias="0">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="@dimen/dp_12">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imageViewAppointment"
+                        android:layout_width="@dimen/dp_28"
+                        android:layout_height="@dimen/dp_28"
+                        app:srcCompat="@drawable/ic_date_calendar" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/TextView.SemiBold.sp_20"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_20"
+                        android:layout_marginEnd="@dimen/dp_4"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="@string/care_plan_label_upcoming_for_you"
+                        android:textColor="@color/textBlack1" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/buttonBookAppointment"
+                        style="@style/buttonSolidSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp_30"
+                        android:paddingStart="@dimen/dp_12"
+                        android:paddingEnd="@dimen/dp_12"
+                        android:text="@string/care_plan_button_book" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imageViewDropDown"
+                        android:layout_width="@dimen/dp_24"
+                        android:layout_height="@dimen/dp_24"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:padding="@dimen/dp_4"
+                        android:rotation="180"
+                        android:visibility="gone"
+                        app:srcCompat="@drawable/ic_dropdown" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                <!---->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewAppointment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dp_12"
+                    android:nestedScrollingEnabled="false"
+                    android:visibility="visible"
+                    tools:itemCount="0"
+                    tools:listitem="@layout/care_plan_row_appointment" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/buttonViewAllAppointment"
+                    style="@style/buttonStrokeSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_24"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:layout_marginBottom="@dimen/dp_12"
+                    android:paddingStart="@dimen/dp_8"
+                    android:paddingEnd="@dimen/dp_8"
+                    android:text="@string/care_plan_label_view_all_appointments"
+                    android:textSize="@dimen/sp_10" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <!--diet plan views-->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/layoutDietPlan"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginBottom="@dimen/dp_40"
+                android:elevation="@dimen/dp_3"
+                android:visibility="gone"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/dp_5"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/layoutAppointment"
+                app:layout_constraintVertical_bias="0"
+                tools:visibility="visible">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="@dimen/dp_12">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/imageViewDietPlan"
+                            android:layout_width="@dimen/dp_28"
+                            android:layout_height="@dimen/dp_28"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/ic_careplan_diet_plan" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/textViewLabelDietPlan"
+                            style="@style/TextView.SemiBold.sp_20"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_20"
+                            android:layout_marginEnd="@dimen/dp_4"
+                            android:layout_weight="1"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="Diet Plan"
+                            android:textColor="@color/textBlack1"
+                            app:layout_constraintBottom_toBottomOf="@id/imageViewDietPlan"
+                            app:layout_constraintEnd_toStartOf="@id/imageViewDropDownDietPlan"
+                            app:layout_constraintStart_toEndOf="@id/imageViewDietPlan"
+                            app:layout_constraintTop_toTopOf="@id/imageViewDietPlan" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/imageViewDropDownDietPlan"
+                            android:layout_width="@dimen/dp_24"
+                            android:layout_height="@dimen/dp_24"
+                            android:layout_marginStart="@dimen/dp_8"
+                            android:padding="@dimen/dp_4"
+                            android:rotation="180"
+                            app:layout_constraintBottom_toBottomOf="@id/imageViewDietPlan"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/imageViewDietPlan"
+                            app:srcCompat="@drawable/ic_dropdown" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/textViewLabelDietPlanBy"
+                            style="@style/TextView.Medium.sp_12"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_7"
+                            android:layout_weight="1"
+                            android:alpha="0.6"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:textColor="@color/textBlack1"
+                            app:layout_constraintEnd_toEndOf="@id/textViewLabelDietPlan"
+                            app:layout_constraintStart_toStartOf="@id/textViewLabelDietPlan"
+                            app:layout_constraintTop_toBottomOf="@id/textViewLabelDietPlan"
+                            tools:text="By Vrushali Athavale" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <!---->
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/layoutDietPlanData"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingBottom="@dimen/dp_10">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerViewDietPlan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:nestedScrollingEnabled="false"
+                            android:overScrollMode="never"
+                            android:visibility="visible"
+                            tools:itemCount="2"
+                            tools:listitem="@layout/care_plan_row_diet_plan" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/textViewNoDietPlan"
+                            style="@style/textViewNoData"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clipChildren="false"
+                            android:clipToPadding="false"
+                            android:padding="@dimen/dp_24"
+                            android:visibility="gone"
+                            tools:text="There is no diet plan assigned" />
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/buttonViewAllDietPlan"
+                            style="@style/buttonStrokeSmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/dp_24"
+                            android:layout_marginTop="@dimen/dp_12"
+                            android:layout_marginStart="@dimen/dp_12"
+                            android:layout_marginBottom="@dimen/dp_12"
+                            android:paddingStart="@dimen/dp_8"
+                            android:paddingEnd="@dimen/dp_8"
+                            android:visibility="gone"
+                            android:text="@string/care_plan_label_view_all_appointments"
+                            android:textSize="@dimen/sp_10" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <include
+                    android:id="@+id/layoutDietLocked"
+                    layout="@layout/common_layout_feature_locked"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <!-- Old Single Diet Plan UI - Removed -->
+                <!--<androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="@dimen/dp_12">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewLabelDietPlan"
+                        style="@style/TextView.SemiBold.sp_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/textBlack1"
+                        app:layout_constraintEnd_toStartOf="@id/buttonDownload"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="@string/care_plan_label_diet_plan_by_your_health_coach_" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/buttonDownload"
+                        style="@style/buttonStrokeSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp_24"
+                        android:layout_marginTop="@dimen/dp_2"
+                        android:layout_marginEnd="@dimen/dp_2"
+                        android:layout_marginBottom="@dimen/dp_2"
+                        android:drawableEnd="@drawable/ic_download"
+                        android:drawablePadding="@dimen/dp_8"
+                        android:paddingStart="@dimen/dp_8"
+                        android:paddingEnd="@dimen/dp_8"
+                        android:text="@string/care_plan_button_download"
+                        android:textSize="@dimen/sp_10"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+            </androidx.cardview.widget.CardView>
+
+            <!--goals views-->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelYourGoalSummary"
+                style="@style/TextView.SemiBold.sp_20"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:text="@string/care_plan_label_your_goals_summary"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintEnd_toStartOf="@id/textViewSummaryDuration"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/layoutDietPlan" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewSummaryDuration"
+                style="@style/TextView.Medium.sp_11"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:drawableEnd="@drawable/ic_dropdown_small"
+                android:drawablePadding="@dimen/dp_5"
+                android:drawableTint="@color/colorPrimary"
+                android:gravity="center"
+                android:text="7 Days"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="@id/textViewLabelYourGoalSummary"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintTop_toTopOf="@id/textViewLabelYourGoalSummary" />
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewPagerGoalSummary"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/dp_16"
+                app:layout_constraintDimensionRatio="1.3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewLabelYourGoalSummary" />
+
+            <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+                android:id="@+id/dotsIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_6"
+                android:layout_marginBottom="@dimen/dp_32"
+                app:dotsColor="@color/purpleLight1"
+                app:dotsCornerRadius="@dimen/dp_3"
+                app:dotsSize="@dimen/dp_6"
+                app:dotsSpacing="@dimen/dp_2"
+                app:dotsWidthFactor="2.5"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/viewPagerGoalSummary"
+                app:progressMode="false"
+                app:selectedDotColor="@color/colorPrimary" />
+
+            <!--readings views-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutReadings"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/dotsIndicator">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelYourReadingHistory"
+                    style="@style/TextView.SemiBold.sp_20"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/screen_space"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/screen_space"
+                    android:text="@string/care_plan_label_your_reading_history"
+                    android:textColor="@color/textBlack1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageViewBgReadingHistorySmall"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:alpha="0.5"
+                    android:background="@color/gray5"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/recyclerViewReadingHistorySmall" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewReadingHistoryLarge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:overScrollMode="never"
+                    android:paddingStart="@dimen/dp_12"
+                    android:paddingEnd="@dimen/dp_12"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textViewLabelYourReadingHistory"
+                    app:spanCount="2"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/care_plan_row_your_reading_history_large" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewReadingHistorySmall"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:overScrollMode="never"
+                    android:paddingStart="@dimen/dp_12"
+                    android:paddingTop="@dimen/dp_10"
+                    android:paddingEnd="@dimen/dp_12"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/recyclerViewReadingHistoryLarge"
+                    app:spanCount="3"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/care_plan_row_your_reading_history_small" />
+
+                <androidx.appcompat.widget.AppCompatCheckedTextView
+                    android:id="@+id/textViewReadingHistoryMoreLess"
+                    style="@style/TextView.Medium.sp_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/screen_space"
+                    android:drawableEnd="@drawable/selector_up_down_arrow"
+                    android:drawablePadding="@dimen/dp_4"
+                    android:paddingTop="@dimen/dp_4"
+                    android:paddingBottom="@dimen/dp_4"
+                    android:text="@string/care_plan_label_view_more"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/recyclerViewReadingHistorySmall" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!--book labtest views-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutBookYourTest"
+                style="@style/TextView.SemiBold.sp_18"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutReadings">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelBookYourTest"
+                    style="@style/TextView.SemiBold.sp_18"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/screen_space"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:layout_marginEnd="@dimen/screen_space"
+                    android:text="@string/care_plan_label_book_your_test"
+                    android:textColor="@color/textBlack1"
+                    app:layout_constraintEnd_toStartOf="@id/textViewViewMoreTest"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewViewMoreTest"
+                    style="@style/TextView.SemiBold.sp_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/screen_space"
+                    android:layout_marginEnd="@dimen/screen_space"
+                    android:text="@string/care_plan_label_view_more_test"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintBottom_toBottomOf="@id/textViewLabelBookYourTest"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/textViewLabelBookYourTest" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewBookTest"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/dp_12"
+                    android:paddingEnd="@dimen/dp_12"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textViewLabelBookYourTest"
+                    tools:itemCount="4"
+                    tools:listitem="@layout/home_row_book_test" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!--prescription views-->
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layoutPrescriptions"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginBottom="@dimen/dp_40"
+                android:background="@drawable/bg_common_rounded_rect_5"
+                android:elevation="@dimen/dp_3"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/layoutBookYourTest"
+                app:layout_constraintVertical_bias="0">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="@dimen/dp_12">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imageViewPrescription"
+                        android:layout_width="@dimen/dp_28"
+                        android:layout_height="@dimen/dp_28"
+                        app:srcCompat="@drawable/ic_care_plan_prescription" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/TextView.SemiBold.sp_20"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_20"
+                        android:layout_weight="1"
+                        android:text="@string/care_plan_label_prescriptions"
+                        android:textColor="@color/textBlack1" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/buttonUpdate"
+                        style="@style/buttonStrokeSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp_24"
+                        android:paddingStart="@dimen/dp_8"
+                        android:paddingEnd="@dimen/dp_8"
+                        android:text="@string/care_plan_label_update_prescription"
+                        android:textSize="@dimen/sp_10" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewPrescriptionMedication"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/care_plan_row_prescription_medication" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutOrderTest"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imageViewMedicine"
+                        android:layout_width="@dimen/dp_52"
+                        android:layout_height="@dimen/dp_52"
+                        android:layout_margin="@dimen/dp_10"
+                        android:scaleType="centerInside"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_order_test" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewMedicine"
+                        style="@style/TextView.SemiBold.sp_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_12"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="@string/care_plan_label_book_a_diagnostic_test"
+                        android:textColor="@color/textBlack1"
+                        app:layout_constraintBottom_toBottomOf="@id/imageViewMedicine"
+                        app:layout_constraintEnd_toStartOf="@id/buttonOrderTest"
+                        app:layout_constraintStart_toEndOf="@id/imageViewMedicine"
+                        app:layout_constraintTop_toTopOf="@id/imageViewMedicine" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/buttonOrderTest"
+                        style="@style/buttonStrokeSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp_24"
+                        android:layout_marginEnd="@dimen/dp_10"
+                        android:paddingStart="@dimen/dp_8"
+                        android:paddingEnd="@dimen/dp_8"
+                        android:text="@string/care_plan_button_order_test"
+                        android:textSize="@dimen/sp_10"
+                        app:layout_constraintBottom_toBottomOf="@id/imageViewMedicine"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/imageViewMedicine" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <!--records views-->
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layoutRecords"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginBottom="@dimen/dp_40"
+                android:background="@drawable/bg_common_rounded_rect_5"
+                android:elevation="@dimen/dp_3"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/layoutPrescriptions"
+                app:layout_constraintVertical_bias="0">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="@dimen/dp_12">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imageViewRecords"
+                        android:layout_width="@dimen/dp_28"
+                        android:layout_height="@dimen/dp_28"
+                        app:srcCompat="@drawable/ic_care_plan_records" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/TextView.SemiBold.sp_20"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_20"
+                        android:layout_weight="1"
+                        android:text="@string/care_plan_label_records"
+                        android:textColor="@color/textBlack1" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/buttonViewAllRecord"
+                        style="@style/buttonStrokeSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp_24"
+                        android:paddingStart="@dimen/dp_8"
+                        android:paddingEnd="@dimen/dp_8"
+                        android:text="@string/care_plan_label_view_all_records"
+                        android:textSize="@dimen/sp_10" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/layoutRecordsData"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerViewRecords"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clipChildren="false"
+                        android:clipToPadding="false"
+                        android:orientation="horizontal"
+                        android:paddingStart="@dimen/dp_10"
+                        android:paddingEnd="@dimen/dp_10"
+                        app:layoutManager="LinearLayoutManager"
+                        tools:itemCount="2"
+                        tools:listitem="@layout/care_plan_row_records" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/buttonViewAddRecord"
+                        style="@style/buttonStrokeSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp_24"
+                        android:layout_margin="@dimen/dp_16"
+                        android:paddingStart="@dimen/dp_8"
+                        android:paddingEnd="@dimen/dp_8"
+                        android:text="@string/care_plan_button_add_record"
+                        android:textSize="@dimen/sp_10" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

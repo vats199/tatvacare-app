@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_16"
+        android:background="@drawable/bg_common_rounded_rect_10"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="@dimen/dp_20">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewLabelSuccess"
+            style="@style/TextView.SemiBold.sp_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:gravity="center"
+            android:text="@string/help_label_let_us_know_how_we_can_help"
+            android:textAlignment="center"
+            android:textColor="@color/textBlack1" />
+
+        <View
+            android:id="@+id/viewLine1"
+            style="@style/viewLine"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginBottom="0dp" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/editTextAbout"
+            style="@style/editTextStrokeSmall"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/dp_20"
+            android:cursorVisible="false"
+            android:drawableEnd="@drawable/ic_dropdown_small"
+            android:focusable="false"
+            android:hint="@string/help_hint_select_what_this_is_about"
+            android:longClickable="false"
+            app:layout_constraintEnd_toStartOf="@id/textViewUnit"
+            app:layout_constraintStart_toStartOf="@id/textViewLabelDate"
+            app:layout_constraintTop_toBottomOf="@id/textViewLabelReading" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/editTextQuestion"
+            style="@style/editTextStrokeSmall"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/dp_20"
+            android:hint="@string/help_hint_type_your_question_in_124_characters"
+            android:lines="3"
+            android:maxLength="124"
+            android:maxLines="3"
+            app:layout_constraintEnd_toStartOf="@id/textViewUnit"
+            app:layout_constraintStart_toStartOf="@id/textViewLabelDate"
+            app:layout_constraintTop_toBottomOf="@id/textViewLabelReading" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_20">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/editTextUploadAttachment"
+                style="@style/editTextStrokeSmall"
+                android:layout_width="match_parent"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:hint="@string/help_hint_upload_attachment"
+                android:longClickable="false"
+                app:layout_constraintEnd_toStartOf="@id/textViewUnit"
+                app:layout_constraintStart_toStartOf="@id/textViewLabelDate"
+                app:layout_constraintTop_toBottomOf="@id/textViewLabelReading" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/dp_30"
+                android:layout_height="@dimen/dp_30"
+                android:layout_gravity="center|end"
+                android:layout_marginEnd="@dimen/dp_8"
+                app:srcCompat="@drawable/ic_help_attachment" />
+
+        </FrameLayout>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_24"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonCancel"
+                style="@style/buttonStrokeSmall"
+                android:layout_width="@dimen/dp_110"
+                android:layout_margin="@dimen/dp_4"
+                android:background="@android:color/transparent"
+                android:text="@string/help_button_cancel" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonSubmit"
+                style="@style/buttonSolidSmall"
+                android:layout_width="@dimen/dp_110"
+                android:layout_margin="@dimen/dp_4"
+                android:text="@string/help_button_submit" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_margin="@dimen/dp_10"
+        app:srcCompat="@drawable/ic_circle_cross" />
+</FrameLayout>

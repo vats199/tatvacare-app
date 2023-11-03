@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/bg_screen_color"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/layoutHeader"
+        layout="@layout/layout_common_toolbar_with_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutHeader">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bg_screen_color">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/screen_space" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/screen_space" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutExploreCarePlans"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                android:background="@drawable/bg_common_rounded_rect_12"
+                android:clickable="true"
+                android:focusable="true"
+                android:elevation="@dimen/dp_2"
+                android:paddingHorizontal="@dimen/dp_12"
+                android:paddingVertical="@dimen/dp_8"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelCarePlanName"
+                    style="@style/TextView.Bold.sp_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    tools:text="@string/bcp_purchase_details_title_care_plan_name"
+                    android:textColor="@color/textBlack9"
+                    app:layout_constrainedWidth="true"
+                    app:layout_constraintEnd_toStartOf="@id/imageViewCarePlan"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelCarePlanDescription"
+                    style="@style/TextView.Regular.sp_10"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_3"
+                    android:text="Bundled with diagnostic tests and monitoring devices."
+                    android:textColor="@color/background_dark_gray"
+                    app:layout_constraintEnd_toEndOf="@id/textViewLabelCarePlanName"
+                    app:layout_constraintStart_toStartOf="@id/textViewLabelCarePlanName"
+                    app:layout_constraintTop_toBottomOf="@id/textViewLabelCarePlanName" />
+
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/progressIndicator"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:indeterminate="false"
+                    android:max="100"
+                    tools:progress="30"
+                    app:indicatorColor="@color/darkGreen1"
+                    app:layout_constraintEnd_toEndOf="@id/textViewLabelCarePlanName"
+                    app:layout_constraintStart_toStartOf="@id/textViewLabelCarePlanName"
+                    app:layout_constraintTop_toBottomOf="@id/textViewLabelCarePlanDescription"
+                    app:trackColor="@color/grayTransparent"
+                    app:trackCornerRadius="@dimen/dp_40"
+                    app:trackThickness="@dimen/dp_4"
+                    android:layout_marginTop="@dimen/dp_12"
+                    />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageViewCarePlan"
+                    android:layout_width="@dimen/dp_80"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_home_bcp_new"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelExpireDate"
+                    style="@style/TextView.Regular.sp_12"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_4"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="Expire on July 30th 2023"
+                    android:textColor="@color/background_dark_gray"
+                    app:layout_constraintEnd_toEndOf="@id/textViewLabelCarePlanName"
+                    app:layout_constraintStart_toStartOf="@id/textViewLabelCarePlanName"
+                    app:layout_constraintTop_toBottomOf="@id/progressIndicator" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/buttonRenewNow"
+                    style="@style/buttonSolidWithCorner16Bold"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bcp_purchase_details_button_renew_now"
+                    android:visibility="gone"
+                    android:layout_marginTop="@dimen/dp_16"
+                    app:layout_constraintTop_toBottomOf="@id/textViewLabelExpireDate"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelYourService"
+                style="@style/TextView.Bold.sp_18"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_24"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/bcp_purchase_details_title_your_services"
+                android:textColor="@color/textBlack9"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/layoutExploreCarePlans" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutLabTest"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                android:background="@drawable/bg_common_rounded_rect_12"
+                android:paddingHorizontal="@dimen/screen_space"
+                android:paddingVertical="@dimen/dp_12"
+                android:visibility="gone"
+                android:elevation="@dimen/dp_2"
+                tools:visibility="visible"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/textViewLabelYourService">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageViewIcon"
+                    android:layout_width="@dimen/dp_36"
+                    android:layout_height="@dimen/dp_36"
+                    android:layout_marginVertical="@dimen/dp_5"
+                    app:srcCompat="@drawable/ic_bcp_service_labtest"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintVertical_bias="0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/dp_12"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/imageViewArrowIcon"
+                    app:layout_constraintStart_toEndOf="@id/imageViewIcon"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewTitle"
+                        style="@style/TextView.Bold.sp_14"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/bcp_purchase_details_title_book_lab_test"
+                        android:textColor="@color/textBlack9" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewCount"
+                        style="@style/TextView.Regular.sp_12"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_2"
+                        tools:text="1/3 Left"
+                        android:visibility="gone"
+                        android:textColor="@color/darkGreen1" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewDescription"
+                        style="@style/TextView.Light.sp_12"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_4"
+                        android:text="@string/bcp_purchase_details_message_select_date_time"
+                        android:textColor="@color/textGray6" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageViewArrowIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dp_10"
+                    android:visibility="gone"
+                    android:src="@drawable/ic_arrow_next_apply_coupon"
+                    android:tint="@color/gray2"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutAppointmentSlot"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:elevation="@dimen/dp_2"
+                android:layout_marginTop="@dimen/dp_16"
+                android:background="@drawable/bg_common_rounded_rect_12"
+                android:paddingHorizontal="@dimen/screen_space"
+                android:paddingVertical="@dimen/dp_12"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/layoutLabTest">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageViewSlotIcon"
+                    android:layout_width="@dimen/dp_36"
+                    android:layout_height="@dimen/dp_36"
+                    app:srcCompat="@drawable/ic_bcp_service_appointment"
+                    android:layout_marginVertical="@dimen/dp_5"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintVertical_bias="0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/imageViewSlotArrowIcon"
+                    app:layout_constraintStart_toEndOf="@id/imageViewSlotIcon"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewSlotTitle"
+                        style="@style/TextView.Bold.sp_14"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/bcp_purchase_details_title_book_appointment"
+                        android:textColor="@color/textBlack9" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewSlotCount"
+                        style="@style/TextView.Regular.sp_12"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_2"
+                        tools:text="0/3 Left"
+                        android:visibility="gone"
+                        android:textColor="@color/redError" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewSlotDescription"
+                        style="@style/TextView.Light.sp_12"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_4"
+                        android:text="@string/bcp_purchase_details_message_nutrition_physiotherapist"
+                        android:textColor="@color/textGray6" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageViewSlotArrowIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dp_10"
+                    android:visibility="gone"
+                    android:src="@drawable/ic_arrow_next_apply_coupon"
+                    android:tint="@color/gray2"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutMyDevice"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                android:elevation="@dimen/dp_2"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:background="@drawable/bg_common_rounded_rect_12"
+                android:paddingHorizontal="@dimen/screen_space"
+                android:paddingVertical="@dimen/dp_12"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/layoutAppointmentSlot">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageViewMyDeviceIcon"
+                    android:layout_width="@dimen/dp_36"
+                    android:layout_height="@dimen/dp_36"
+                    android:layout_marginVertical="@dimen/dp_5"
+                    app:srcCompat="@drawable/ic_bcp_service_devices"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/dp_12"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/imageViewMyDeviceArrowIcon"
+                    app:layout_constraintStart_toEndOf="@id/imageViewMyDeviceIcon"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewMyDeviceTitle"
+                        style="@style/TextView.Bold.sp_14"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/bcp_purchase_details_title_devices"
+                        android:textColor="@color/textBlack9" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewMyDeviceDescription"
+                        style="@style/TextView.Light.sp_12"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_4"
+                        android:text="@string/bcp_purchase_details_message_all_health_details"
+                        android:textColor="@color/textGray6" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageViewMyDeviceArrowIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dp_10"
+                    android:src="@drawable/ic_arrow_next_apply_coupon"
+                    android:visibility="gone"
+                    android:tint="@color/gray2"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="@dimen/dp_16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutMyDevice"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="@color/white"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelExpect"
+                style="@style/TextView.Bold.sp_18"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_32"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/textBlack9"
+                android:text="@string/bcp_purchase_details_title_what_expect"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/layoutMyDevice" />
+
+            <WebView
+                android:id="@+id/webView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/dp_16"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/textViewLabelExpect"
+                tools:ignore="WebViewLayout" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layoutContactUs"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/dp_16"
+                android:background="@drawable/bg_common_rounded_rect_12"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/dp_16"
+                android:elevation="@dimen/dp_2"
+                android:weightSum="1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/webView"
+                app:layout_constraintVertical_bias="0">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelNeedHelpSomething"
+                    style="@style/TextView.Regular.sp_12"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/bcp_purchase_details_label_need_help"
+                    android:textColor="@color/textBlack7" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewContact"
+                    style="@style/TextView.Bold.sp_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bcp_purchase_details_label_contact_us"
+                    android:textColor="@color/colorPrimary" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

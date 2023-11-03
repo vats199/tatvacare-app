@@ -9,10 +9,12 @@ import {
   FlatList,
   TouchableHighlight,
   TouchableNativeFeedback,
+  Platform,
+  NativeModules,
 } from 'react-native';
 import React from 'react';
-import {colors} from '../../constants/colors';
-import {Icons} from '../../constants/icons';
+import { colors } from '../../constants/colors';
+import { Icons } from '../../constants/icons';
 import ProgressBar from '../atoms/ProgressBar';
 import moment from 'moment';
 import PlanItem from '../atoms/PlanItem';
@@ -54,15 +56,26 @@ const CarePlanView: React.FC<CarePlanViewProps> = ({
 
   const onPressKnowMore = (plan: any) => {
     // navigateToChronicCareProgram();
-    onPressRenewPlan([{planDetails: plan}]);
+    if (Platform.OS == 'ios') {
+      //onPressRenewPlan([{planDetails: plan}]);
+    } else {
+      console.log("Plan Press= ", plan)
+      NativeModules.AndroidBridge.openFreePlanDetailScreen(JSON.stringify(plan))
+    }
   };
 
   const onCarePlanNeedCotainer = () => {
-    navigateToChronicCareProgram();
+    if (Platform.OS == 'ios') {
+      //navigateToChronicCareProgram();
+    } else {
+      NativeModules.AndroidBridge.openCheckAllPlanScreen();
+    }
   };
 
-  const renderPlanItem = ({item, index}: {item: any; index: number}) => {
+  const renderPlanItem = ({ item, index }: { item: any; index: number }) => {
+    console.log("Plan Det==", item)
     return (
+
       <PlanItem plan={item} onPressKnowMore={() => onPressKnowMore(item)} />
     );
   };
@@ -96,16 +109,6 @@ const CarePlanView: React.FC<CarePlanViewProps> = ({
       return colors.red;
     }
   };
-
-  // const showRenewButton = (plan: any): boolean => {
-  //   const planDuration = moment(plan?.expiry_date).diff(new Date(), 'day') + 1;
-
-  //   if (planDuration > 14) {
-  //     return false;
-  //   } else {
-  //     return true;
-  //   }
-  // };
 
   return (
     <>
@@ -146,7 +149,7 @@ const CarePlanView: React.FC<CarePlanViewProps> = ({
                 key={planIdx}
                 onPress={() => onPressCarePlan(plan)}
                 style={styles.container}>
-                <View style={{flex: 1}}>
+                <View style={{ flex: 1 }}>
                   <View style={styles.details}>
                     <Text style={styles.title}>{plan?.plan_name || '-'}</Text>
                     <Text style={styles.subTitle}>
@@ -158,11 +161,11 @@ const CarePlanView: React.FC<CarePlanViewProps> = ({
                       color={getColor(plan)}
                     />
                     <View style={styles.rowBetween}>
-                      <Text style={[styles.expiry, {color: getColor(plan)}]}>
+                      <Text style={[styles.expiry, { color: getColor(plan) }]}>
                         {getText(plan)}
                       </Text>
                       {/* {showRenewButton(plan) && (
-                        <TouchableOpacity onPress={() => onPressRenew(plan)}>
+                        <TouchableOpacity onPress={() => { }}>
                           <Text style={styles.renew}>Renew</Text>
                         </TouchableOpacity>
                       )} */}
@@ -207,7 +210,7 @@ const styles = StyleSheet.create({
   },
   renew: {
     fontSize: 12,
-    fontWeight: '400',
+    fontFamily: 'SFProDisplay-Semibold',
     color: colors.themePurple,
     textDecorationLine: 'underline',
     textDecorationColor: colors.themePurple,
@@ -239,7 +242,7 @@ const styles = StyleSheet.create({
   },
   cp: {
     color: colors.labelDarkGray,
-    fontWeight: '600',
+    fontFamily: 'SFProDisplay-Bold',
     fontSize: 14,
     marginBottom: 5,
   },
@@ -250,17 +253,17 @@ const styles = StyleSheet.create({
   },
   title: {
     color: colors.labelDarkGray,
-    fontWeight: '700',
+    fontFamily: 'SFProDisplay-Bold',
     fontSize: 14,
   },
   subTitle: {
     color: colors.subTitleLightGray,
-    fontWeight: '400',
+    fontFamily: 'SFProDisplay-Semibold',
     fontSize: 10,
   },
   expiry: {
     fontSize: 12,
-    fontWeight: '400',
+    fontFamily: 'SFProDisplay-Semibold',
   },
   image: {
     width: 80,

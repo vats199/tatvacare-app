@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_checked="true">
+        <layer-list>
+            <item android:start="@dimen/dp_4" android:end="@dimen/dp_4">
+                <shape android:shape="rectangle">
+                    <corners android:radius="@dimen/dp_16"/>
+                    <solid android:color="@color/colorPrimary"/>
+                </shape>
+            </item>
+        </layer-list>
+        <!--<shape
+            android:innerRadius="0dp"
+            android:innerRadiusRatio="700"
+            android:shape="ring"
+            android:thickness="@dimen/dp_16"
+            android:useLevel="false">
+            <solid android:color="@color/colorPrimary" />
+        </shape>-->
+    </item>
+
+    <item android:state_pressed="true">
+        <!--<shape
+            android:innerRadius="0dp"
+            android:innerRadiusRatio="700"
+            android:shape="ring"
+            android:thickness="@dimen/dp_16"
+            android:useLevel="false">
+            <solid android:color="@color/colorPrimary" />
+        </shape>-->
+        <!--<shape android:shape="rectangle">
+            <corners android:radius="@dimen/dp_16"/>
+            <solid android:color="@color/colorPrimary"/>
+        </shape>-->
+        <layer-list>
+            <item android:start="@dimen/dp_4" android:end="@dimen/dp_4">
+                <shape android:shape="rectangle">
+                    <corners android:radius="@dimen/dp_16"/>
+                    <solid android:color="@color/colorPrimary"/>
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+
+    <item android:drawable="@android:color/transparent">
+        <!--<shape android:innerRadius="0dp" android:innerRadiusRatio="700" android:shape="ring" android:thickness="@dimen/dp_17" android:useLevel="false">
+            <stroke android:width="@dimen/dp_1" android:color="@color/green" />
+        </shape>-->
+    </item>
+
+</selector>

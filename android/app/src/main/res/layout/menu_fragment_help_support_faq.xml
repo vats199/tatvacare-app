@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/layoutHeader"
+        layout="@layout/layout_common_toolbar_with_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutHeader">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:paddingBottom="@dimen/dp_20">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/screen_space" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/screen_space" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewBg"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/bg_rounded_top" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonChatWithUs"
+                style="@style/buttonStrokeSmallRadius7"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginEnd="@dimen/dp_20"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/help_support_label_chat_with_us"
+                app:layout_constraintEnd_toStartOf="@id/buttonLeaveQuery"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/recyclerViewFAQ"
+                app:layout_goneMarginEnd="0dp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonLeaveQuery"
+                style="@style/buttonStrokeSmallRadius7"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/help_support_label_leave_a_query"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toEndOf="@id/buttonChatWithUs"
+                app:layout_constraintTop_toBottomOf="@id/recyclerViewFAQ" />
+
+
+            <!--<androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layoutChatWithUs"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginEnd="@dimen/dp_20"
+                android:background="@drawable/bg_common_rounded_rect_5"
+                android:backgroundTint="@color/skyBlue"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/dp_8"
+                android:paddingTop="@dimen/dp_8"
+                android:paddingEnd="@dimen/dp_8"
+                android:paddingBottom="@dimen/dp_8"
+                app:layout_constraintEnd_toStartOf="@id/layoutLeaveQuery"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/recyclerViewFAQ">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_36"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/ic_help_chat_with_us" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewChatWithUs"
+                    style="@style/TextView.Medium.sp_16"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="@string/help_support_label_chat_with_us"
+                    android:textAlignment="gravity"
+                    android:textColor="@color/white" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layoutLeaveQuery"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_common_rounded_rect_5"
+                android:backgroundTint="@color/pink"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/dp_8"
+                android:paddingTop="@dimen/dp_8"
+                android:paddingEnd="@dimen/dp_8"
+                android:paddingBottom="@dimen/dp_8"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toEndOf="@id/layoutChatWithUs"
+                app:layout_constraintTop_toTopOf="@id/layoutChatWithUs">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_36"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/ic_help_leave_query" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLeaveQuery"
+                    style="@style/TextView.Medium.sp_16"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="@string/help_support_label_leave_a_query"
+                    android:textAlignment="gravity"
+                    android:textColor="@color/white" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>-->
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrierOptions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="buttonChatWithUs,buttonLeaveQuery" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelReachUs"
+                style="@style/TextView.Medium.sp_18"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_24"
+                android:text="@string/help_support_label_you_can_reach_us_at"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/barrierOptions" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutContact"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginBottom="@dimen/dp_20"
+                android:background="@drawable/bg_common_rounded_rect_10"
+                android:elevation="@dimen/dp_3"
+                android:padding="@dimen/dp_16"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/textViewLabelReachUs"
+                app:layout_constraintVertical_bias="0">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageViewEmail"
+                    android:layout_width="@dimen/dp_32"
+                    android:layout_height="@dimen/dp_32"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_help_email" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageViewContact"
+                    android:layout_width="@dimen/dp_32"
+                    android:layout_height="@dimen/dp_32"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/imageViewEmail"
+                    app:srcCompat="@drawable/ic_help_contact" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewEmail"
+                    style="@style/TextView.Medium.sp_14"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="helpdesk@mytatva.in"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintBottom_toBottomOf="@id/imageViewEmail"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/imageViewEmail"
+                    app:layout_constraintTop_toTopOf="@id/imageViewEmail" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewContact"
+                    style="@style/TextView.Medium.sp_14"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="1800-2345-6777"
+                    android:textColor="@color/colorPrimary"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@id/imageViewContact"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/textViewEmail"
+                    app:layout_constraintTop_toTopOf="@id/imageViewContact" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/groupEmailAt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:constraint_referenced_ids="textViewLabelReachUs,layoutContact" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelFAQ"
+                style="@style/TextView.Medium.sp_18"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_24"
+                android:text="@string/help_support_label_frequently_asked_questions"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewFAQ"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:nestedScrollingEnabled="false"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewLabelFAQ"
+                tools:itemCount="2"
+                tools:listitem="@layout/menu_row_faq" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideLineStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/screen_space" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideLineEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/screen_space" />
+
+        <include
+            android:id="@+id/layoutHeader"
+            layout="@layout/layout_common_header_app_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+            app:layout_constraintStart_toStartOf="@id/guideLineStart"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/dp_8"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutHeader"
+            app:srcCompat="@drawable/bg_rounded_top" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/screen_space"
+            android:background="?selectableItemBackgroundBorderless"
+            android:padding="@dimen/dp_4"
+            app:layout_constraintBottom_toBottomOf="@id/textViewLabelSelectYourLocation"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textViewLabelSelectYourLocation"
+            app:srcCompat="@drawable/ic_back"
+            app:tint="@color/textBlack1" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewLabelSelectYourLocation"
+            style="@style/TextView.Bold.sp_18"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_30"
+            android:text="@string/select_your_location_title"
+            android:textColor="@color/textBlack1"
+            app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+            app:layout_constraintStart_toEndOf="@id/imageViewBack"
+            app:layout_constraintTop_toBottomOf="@id/layoutHeader" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewLabelSelectState"
+            style="@style/TextView.Medium.sp_14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_20"
+            android:text="@string/select_your_location_label_select_state"
+            android:textColor="@color/textBlack1"
+            app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+            app:layout_constraintStart_toStartOf="@id/guideLineStart"
+            app:layout_constraintTop_toBottomOf="@id/textViewLabelSelectYourLocation" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/editTextSelectState"
+            style="@style/editTextStroke"
+            android:layout_width="0dp"
+            android:layout_marginTop="@dimen/dp_12"
+            android:cursorVisible="false"
+            android:drawableEnd="@drawable/ic_dropdown_gray"
+            android:focusable="false"
+            android:hint="@string/select_your_location_hint_select_state"
+            android:imeOptions="actionNext"
+            android:longClickable="false"
+            app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+            app:layout_constraintStart_toStartOf="@id/guideLineStart"
+            app:layout_constraintTop_toBottomOf="@id/textViewLabelSelectState" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewLabelSelectCity"
+            style="@style/TextView.Medium.sp_14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_20"
+            android:text="@string/select_your_location_label_select_city"
+            android:textColor="@color/textBlack1"
+            app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+            app:layout_constraintStart_toStartOf="@id/guideLineStart"
+            app:layout_constraintTop_toBottomOf="@id/editTextSelectState" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/editTextSelectCity"
+            style="@style/editTextStroke"
+            android:layout_width="0dp"
+            android:layout_marginTop="@dimen/dp_12"
+            android:cursorVisible="false"
+            android:drawableEnd="@drawable/ic_dropdown_gray"
+            android:focusable="false"
+            android:hint="@string/select_your_location_hint_select_city"
+            android:longClickable="false"
+            app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+            app:layout_constraintStart_toStartOf="@id/guideLineStart"
+            app:layout_constraintTop_toBottomOf="@id/textViewLabelSelectCity" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewLabelOr"
+            style="@style/TextView.Medium.sp_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_20"
+            android:text="@string/select_your_location_label_or"
+            android:textColor="@color/textBlack1"
+            app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+            app:layout_constraintStart_toStartOf="@id/guideLineStart"
+            app:layout_constraintTop_toBottomOf="@id/editTextSelectCity" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/editTextDeviceLocation"
+            style="@style/editTextStroke"
+            android:layout_width="0dp"
+            android:layout_marginTop="@dimen/dp_20"
+            android:cursorVisible="false"
+            android:drawableEnd="@drawable/ic_current_location"
+            android:focusable="false"
+            android:hint="@string/select_your_location_hint_get_my_device_location"
+            android:longClickable="false"
+            app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+            app:layout_constraintStart_toStartOf="@id/guideLineStart"
+            app:layout_constraintTop_toBottomOf="@id/textViewLabelOr" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonSubmit"
+            style="@style/buttonSolid"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_40"
+            android:layout_marginBottom="@dimen/dp_24"
+            android:text="@string/select_your_location_button_submit"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+            app:layout_constraintStart_toStartOf="@id/guideLineStart"
+            app:layout_constraintTop_toBottomOf="@id/editTextDeviceLocation"
+            app:layout_constraintVertical_bias="1" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

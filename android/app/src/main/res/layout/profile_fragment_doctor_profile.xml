@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/layoutHeader"
+        layout="@layout/layout_common_toolbar_with_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/recyclerViewGoals"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutHeader">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/dp_20"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewExperience"
+                app:srcCompat="@drawable/bg_rounded_top" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/screen_space" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/screen_space" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewProfile"
+                android:layout_width="@dimen/dp_96"
+                android:layout_height="@dimen/dp_96"
+                app:srcCompat="@drawable/ic_dummy_profile_circle"
+                android:layout_marginTop="@dimen/dp_4"
+                android:background="@drawable/bg_circle_white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:backgroundTint="@color/orange" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewName"
+                style="@style/TextView.SemiBold.sp_16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8"
+                android:text="Dr. Sameer Sharma"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/imageViewProfile" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewDegree"
+                style="@style/TextView.Regular.sp_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8"
+                android:text="Pulmonologist | MBBS"
+                android:textColor="@color/textBlack1Transparent"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/textViewName" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewExperience"
+                style="@style/TextView.Regular.sp_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8"
+                android:text="5 Yrs Exp."
+                android:textColor="@color/textBlack1Transparent"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/textViewDegree" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layoutDoctorInfo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_40"
+                android:background="@drawable/bg_common_rounded_rect_10"
+                android:elevation="@dimen/dp_3"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/dp_20"
+                android:paddingTop="@dimen/dp_16"
+                android:paddingEnd="@dimen/dp_20"
+                android:paddingBottom="@dimen/dp_16"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/textViewExperience">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelMobileNumber"
+                    style="@style/TextView.SemiBold.sp_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mobile Number"
+                    android:textColor="@color/textBlack1" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewMobileNumber"
+                    style="@style/TextView.Regular.sp_12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:text="+91 94956 65656"
+                    android:textColor="@color/textBlack1Transparent" />
+
+                <View style="@style/viewLine" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelLanguagesSpoken"
+                    style="@style/TextView.SemiBold.sp_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Languages Spoken"
+                    android:textColor="@color/textBlack1" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLanguagesSpoken"
+                    style="@style/TextView.Regular.sp_12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:text="English, Hindi, Gujarati, Urdu, Punjabi"
+                    android:textColor="@color/textBlack1Transparent" />
+
+                <View style="@style/viewLine" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelHospitalAddress"
+                    style="@style/TextView.SemiBold.sp_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hospital &amp; Address"
+                    android:textColor="@color/textBlack1" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelHospitalName"
+                    style="@style/TextView.SemiBold.sp_14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_14"
+                    android:text="ABC Care &amp; Health"
+                    android:textColor="@color/colorPrimary" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewHospitalAddress"
+                    style="@style/TextView.Regular.sp_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:text="B-607 Fairdeal House, Swastik Char Rasta, Navrangpura Apt, Ahmedabad, Gujarat, 399802"
+                    android:textColor="@color/textBlack1Transparent" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonBookAppointment"
+                style="@style/buttonSolid"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_40"
+                android:layout_marginBottom="@dimen/dp_24"
+                android:text="Book Appointment"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/layoutDoctorInfo"
+                app:layout_constraintVertical_bias="1" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

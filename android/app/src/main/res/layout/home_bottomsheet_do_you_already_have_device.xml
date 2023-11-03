@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:background="@drawable/bg_rounded_top_bottomsheet">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewDoYouHaveDevice"
+        style="@style/TextView.SemiBold.sp_18"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/screen_space"
+        android:layout_marginTop="@dimen/dp_24"
+        android:gravity="center"
+        android:text="@string/connect_smart_scale_label_do_you_have_device"
+        android:textAlignment="center"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewYes"
+        style="@style/TextView.Regular.sp_16"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/screen_space"
+        android:layout_marginTop="@dimen/dp_20"
+        android:gravity="center"
+        android:background="?selectableItemBackground"
+        android:paddingHorizontal="@dimen/dp_16"
+        android:paddingVertical="@dimen/dp_16"
+        android:text="@string/connect_smart_scale_label_yes_have"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewDoYouHaveDevice" />
+
+    <View
+        android:id="@+id/viewLine"
+        style="@style/viewLine"
+        android:layout_width="0dp"
+        android:layout_marginHorizontal="@dimen/screen_space"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewYes" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewNoWantToPurchase"
+        style="@style/TextView.Regular.sp_16"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/screen_space"
+        android:layout_marginBottom="@dimen/dp_20"
+        android:gravity="center"
+        android:paddingHorizontal="@dimen/dp_16"
+        android:paddingVertical="@dimen/dp_16"
+        android:background="?selectableItemBackground"
+        android:text="@string/connect_smart_scale_label_want_to_purchase"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewLine" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

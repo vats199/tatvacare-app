@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Basic theme colors -->
+    <color name="colorPrimary">#760FB2</color>
+    <color name="colorPrimaryDark">#760FB2</color>
+    <color name="colorAccent">#760FB2</color>
+
+    <!-- Other colors -->
+    <color name="purpleTransparent">#75760FB2</color>
+    <color name="purpleTransparent25">#40760FB2</color>
+    <color name="purpleTransparent20">#20760FB2</color>
+    <color name="purpleLight">#7B3AA1</color>
+    <color name="purpleLight1">#C57FFA</color>
+    <color name="textBlack1">#1B053C</color>
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
+
+</resources>

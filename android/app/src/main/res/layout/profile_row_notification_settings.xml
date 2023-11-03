@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?selectableItemBackground"
+    android:paddingStart="@dimen/dp_20"
+    android:paddingEnd="@dimen/dp_20">
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/checkBoxOnOff"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:button="@drawable/selector_switch"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintBottom_toBottomOf="@id/textViewItem"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/textViewItem" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewItem"
+        style="@style/TextView.Medium.sp_14"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_18"
+        android:paddingTop="@dimen/dp_18"
+        android:paddingBottom="@dimen/dp_18"
+        android:text="Reminder to exercise and yoga"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/checkBoxOnOff"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/viewLine1"
+        style="@style/viewLine"
+        android:layout_width="0dp"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="@dimen/dp_6"
+    android:layout_marginHorizontal="@dimen/dp_8"
+    android:layout_marginBottom="@dimen/dp_6"
+    android:elevation="@dimen/dp_2"
+    android:background="@drawable/bg_common_rounded_rect_10"
+    android:paddingBottom="@dimen/dp_12">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewBCA"
+        android:layout_width="@dimen/dp_30"
+        android:layout_height="@dimen/dp_30"
+        android:layout_marginTop="@dimen/dp_15"
+        android:layout_marginStart="@dimen/dp_20"
+        android:layout_marginBottom="@dimen/dp_4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_home_smart_scale" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewDevices"
+        style="@style/TextView.Regular.sp_16"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_11"
+        android:text="@string/select_smart_scale_label_devices"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintStart_toEndOf="@id/imageViewBCA"
+        app:layout_constraintTop_toTopOf="@id/imageViewBCA"
+        app:layout_constraintBottom_toBottomOf="@id/imageViewBCA" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

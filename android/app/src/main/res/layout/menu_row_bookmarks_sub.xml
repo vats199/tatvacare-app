@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        app:cardCornerRadius="@dimen/dp_5"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewBookmark"
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="@dimen/dp_50"
+            android:visibility="visible"
+            android:adjustViewBounds="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@drawable/ic_dummy_engage_feed" />
+
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewTitle"
+        style="@style/TextView.Medium.sp_14"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_14"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="Establishing Good Sleep Hygiene"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintEnd_toStartOf="@id/imageViewNext"
+        app:layout_constraintStart_toEndOf="@id/cardImageView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewDate"
+        style="@style/TextView.Medium.sp_13"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_8"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="5 Oct, 2021"
+        android:textColor="@color/gray8"
+        app:layout_constraintEnd_toEndOf="@id/textViewTitle"
+        app:layout_constraintStart_toStartOf="@id/textViewTitle"
+        app:layout_constraintTop_toBottomOf="@id/textViewTitle" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_next_arrow_gray" />
+
+    <View
+        android:id="@+id/viewLine1"
+        style="@style/viewLine"
+        android:layout_width="0dp"
+        android:layout_marginTop="@dimen/dp_14"
+        android:alpha="0.5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewDate" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

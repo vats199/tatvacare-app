@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewTaskName"
+        style="@style/TextView.SemiBold.sp_16"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/screen_space"
+        android:layout_marginTop="@dimen/dp_18"
+        android:layout_marginEnd="@dimen/dp_4"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="Lungs"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintEnd_toStartOf="@id/layoutDone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/layoutDone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_16"
+        android:background="@drawable/bg_common_rounded_rect_6_stroke_bgwhite"
+        android:gravity="center"
+        android:paddingHorizontal="@dimen/dp_8"
+        android:paddingVertical="@dimen/dp_5"
+        app:layout_constraintBottom_toBottomOf="@id/textViewTaskName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/textViewTaskName">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewStatus"
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_20"
+            app:srcCompat="@drawable/selector_status_check" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewStatus"
+            style="@style/TextView.Medium.sp_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_6"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Done"
+            android:textColor="@color/textBlack3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/screen_space"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginEnd="@dimen/screen_space"
+        android:layout_marginBottom="@dimen/dp_8"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/dp_10"
+        app:cardElevation="@dimen/dp_3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewTaskName">
+
+        <!--Layout common normal feed-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutCommonNormalFeed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <!--Image layout-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutImage"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="3.05"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageViewFeed"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@color/lightGray"
+                    app:layout_constraintDimensionRatio="3.05"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageViewPlay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="@id/imageViewFeed"
+                    app:layout_constraintEnd_toEndOf="@id/imageViewFeed"
+                    app:layout_constraintStart_toStartOf="@id/imageViewFeed"
+                    app:layout_constraintTop_toTopOf="@id/imageViewFeed"
+                    app:srcCompat="@drawable/ic_play_video" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!--Status Display-->
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layoutDifficulty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_12"
+                android:layout_marginEnd="@dimen/dp_12"
+                android:background="@drawable/bg_common_rounded_rect_5"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/dp_8"
+                android:paddingVertical="@dimen/dp_5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageViewDifficulty"
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="@dimen/dp_20"
+                    app:srcCompat="@drawable/selector_status_check" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewDifficulty"
+                    style="@style/TextView.Medium.sp_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_6"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="Done"
+                    android:textColor="@color/textBlack3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <!--Layout Exercise Details-->
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layoutExerciseDetails"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_6"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutImage">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_8">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewExerciseType1"
+                        style="@style/TextView.Medium.sp_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="Exercise Type :"
+                        android:textColor="@color/textBlack1Transparent50"
+                        app:layout_constraintEnd_toStartOf="@id/textViewExerciseType"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewExerciseType"
+                        style="@style/TextView.Medium.sp_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:layout_marginStart="@dimen/dp_3"
+                        android:text="Exercise"
+                        android:textColor="@color/textBlack1"
+                        app:layout_constraintStart_toEndOf="@id/textViewExerciseType1"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewReps1"
+                        style="@style/TextView.Medium.sp_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="Reps :"
+                        android:textColor="@color/textBlack1Transparent50"
+                        app:layout_constraintEnd_toStartOf="@id/textViewReps"
+                        app:layout_constraintStart_toEndOf="@id/textViewExerciseType"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewReps"
+                        style="@style/TextView.Medium.sp_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="99"
+                        android:layout_marginStart="@dimen/dp_3"
+                        android:textColor="@color/textBlack1"
+                        app:layout_constraintStart_toEndOf="@id/textViewReps1"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewSets1"
+                        style="@style/TextView.Medium.sp_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="Sets :"
+                        android:textColor="@color/textBlack1Transparent50"
+                        app:layout_constraintEnd_toStartOf="@id/textViewSets"
+                        app:layout_constraintStart_toEndOf="@id/textViewReps"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewSets"
+                        style="@style/TextView.Medium.sp_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:layout_marginStart="@dimen/dp_3"
+                        android:text="99"
+                        android:textColor="@color/textBlack1"
+                        app:layout_constraintStart_toEndOf="@id/textViewSets1"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_8">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewLabelRestPostSet"
+                        style="@style/TextView.Medium.sp_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintWidth_default="wrap"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        app:layout_constrainedWidth="true"
+                        app:layout_constraintHorizontal_weight="1"
+                        android:text="Rest Post Sets :"
+                        android:textColor="@color/textBlack1Transparent50"
+                        app:layout_constraintEnd_toStartOf="@id/textViewRestPostSet"
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewRestPostSet"
+                        style="@style/TextView.Medium.sp_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_3"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="3 mins"
+                        android:textColor="@color/textBlack1"
+                        app:layout_constraintEnd_toStartOf="@id/textViewLabelRestPostExercise"
+                        app:layout_constraintStart_toEndOf="@id/textViewLabelRestPostSet"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewLabelRestPostExercise"
+                        style="@style/TextView.Medium.sp_14"
+                        android:layout_width="0dp"
+                        app:layout_constraintWidth_default="wrap"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        app:layout_constrainedWidth="true"
+                        app:layout_constraintHorizontal_weight="1"
+                        android:text="Rest Post Exercise :"
+                        android:textColor="@color/textBlack1Transparent50"
+                        app:layout_constraintEnd_toStartOf="@id/textViewRestPostExercise"
+                        app:layout_constraintStart_toEndOf="@id/textViewRestPostSet"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewRestPostExercise"
+                        style="@style/TextView.Medium.sp_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_3"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="10 mins"
+                        android:textColor="@color/textBlack1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintStart_toEndOf="@id/textViewLabelRestPostExercise"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <View
+                android:id="@+id/viewLine"
+                style="@style/viewLine"
+                android:layout_width="0dp"
+                android:layout_marginTop="@dimen/dp_8"
+                app:layout_constraintEnd_toEndOf="@id/layoutExerciseDetails"
+                app:layout_constraintStart_toStartOf="@id/layoutExerciseDetails"
+                app:layout_constraintTop_toBottomOf="@id/layoutExerciseDetails" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewDescription"
+                style="@style/TextView.Medium.sp_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="Venenatis id eget tincidunt enim adipiscing amet sollicitudin feugiat. Eros pharetra phasellus urna vitae..."
+                android:textColor="@color/textBlack1Transparent50"
+                app:layout_constraintEnd_toEndOf="@id/layoutExerciseDetails"
+                app:layout_constraintStart_toStartOf="@id/layoutExerciseDetails"
+                app:layout_constraintTop_toBottomOf="@id/viewLine" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewReadMore"
+                style="@style/TextView.SemiBold.sp_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_4"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:paddingVertical="@dimen/dp_2"
+                android:text="@string/exercise_my_routine_label_read_more"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintStart_toStartOf="@id/layoutExerciseDetails"
+                app:layout_constraintTop_toBottomOf="@id/textViewDescription" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

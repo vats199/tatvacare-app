@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:background="@drawable/bg_rounded_top_bottomsheet">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewTitle"
+        style="@style/TextView.SemiBold.sp_22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_36"
+        android:text="@string/exercise_filter_label_filters"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewReset"
+        style="@style/TextView.Medium.sp_18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_16"
+        android:text="@string/exercise_filter_label_reset"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="@id/textViewTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/textViewTitle" />
+
+    <View
+        android:id="@+id/viewLine1"
+        style="@style/viewLine"
+        android:layout_width="0dp"
+        app:layout_constraintEnd_toEndOf="@id/textViewReset"
+        app:layout_constraintStart_toStartOf="@id/textViewTitle"
+        app:layout_constraintTop_toBottomOf="@id/textViewTitle" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_16"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintBottom_toTopOf="@id/buttonApply"
+        app:layout_constraintEnd_toEndOf="@id/viewLine1"
+        app:layout_constraintStart_toStartOf="@id/viewLine1"
+        app:layout_constraintTop_toBottomOf="@id/viewLine1">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelTime"
+                style="@style/TextView.Medium.sp_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/exercise_filter_label_time"
+                android:textColor="@color/textBlack1" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8"
+                tools:itemCount="2"
+                tools:listitem="@layout/exercise_row_filter_item_common" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelExerciseTools"
+                style="@style/TextView.Medium.sp_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                android:text="@string/exercise_filter_label_exercise_tools"
+                android:textColor="@color/textBlack1" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewExerciseTools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8"
+                tools:itemCount="2"
+                tools:listitem="@layout/exercise_row_filter_item_common" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelLevel"
+                style="@style/TextView.Medium.sp_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                android:text="@string/exercise_filter_label_level"
+                android:textColor="@color/textBlack1" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewLevel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8"
+                tools:itemCount="2"
+                tools:listitem="@layout/exercise_row_filter_item_common" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelTopics"
+                style="@style/TextView.Medium.sp_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                android:text="@string/exercise_filter_label_genres"
+                android:textColor="@color/textBlack1" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewGenres"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8"
+                tools:itemCount="2"
+                tools:listitem="@layout/exercise_row_filter_item_common" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonApply"
+        style="@style/buttonSolid"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_16"
+        android:text="@string/exercise_filter_button_apply"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nestedScrollView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

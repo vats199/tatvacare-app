@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_16"
+        android:background="@drawable/bg_common_rounded_rect_10"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="@dimen/dp_20">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_20"
+                    app:srcCompat="@drawable/ic_hospital" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewHospitalName"
+                    style="@style/TextView.SemiBold.sp_20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_30"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:layout_marginEnd="@dimen/dp_30"
+                    android:gravity="center"
+                    android:textAlignment="gravity"
+                    android:textColor="@color/textBlack1"
+                    tools:text="Zydus Hospital" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_20"
+                    android:layout_marginTop="@dimen/dp_24"
+                    android:layout_marginEnd="@dimen/dp_20"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="@dimen/dp_16"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/ic_hc_contact" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewContact"
+                        style="@style/TextView.Medium.sp_13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/dp_16"
+                        android:layout_weight="1"
+                        android:textColor="@color/textBlack1"
+                        tools:text="9999999999" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_20"
+                    android:layout_marginTop="@dimen/dp_24"
+                    android:layout_marginEnd="@dimen/dp_20"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="@dimen/dp_16"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top"
+                        app:srcCompat="@drawable/ic_location" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewAddress"
+                        style="@style/TextView.Medium.sp_13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_16"
+                        android:layout_weight="1"
+                        android:textColor="@color/textBlack1"
+                        tools:text="Zydus Hospitals Road, Nr. Sola Bridge, S.G. Highway, Ahmedabad - 380054, Gujarat, India" />
+
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/buttonListOfTest"
+                    style="@style/buttonSolidSmallRadius7"
+                    android:layout_width="match_parent"
+                    android:layout_marginStart="@dimen/dp_32"
+                    android:layout_marginTop="@dimen/dp_28"
+                    android:layout_marginEnd="@dimen/dp_32"
+                    android:text="@string/request_callback_button_list_of_tests_offered"
+                    app:layout_constraintEnd_toEndOf="@id/textViewLabelLoginWith"
+                    app:layout_constraintStart_toStartOf="@id/textViewLabelLoginWith"
+                    app:layout_constraintTop_toBottomOf="@id/checkBoxAgreeTerms" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_margin="@dimen/dp_10"
+        app:srcCompat="@drawable/ic_circle_cross" />
+</FrameLayout>

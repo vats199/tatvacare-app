@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_16"
+        android:background="@drawable/bg_common_rounded_rect_10"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="@dimen/dp_20">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewLabelSuccess"
+            style="@style/TextView.SemiBold.sp_16"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Enter Target Volume(ml)*"
+            android:textAlignment="center"
+            android:textColor="@color/textBlack1" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/editTextVolume"
+            style="@style/editTextStrokeSmall"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/dp_14"
+            android:layout_marginHorizontal="@dimen/dp_4"
+            android:hint="Enter"
+            android:text="1000"
+            android:maxLines="1"
+            android:inputType="number"
+            android:maxLength="4"
+            app:layout_constraintEnd_toStartOf="@id/textViewUnit"
+            app:layout_constraintStart_toStartOf="@id/textViewLabelDate"
+            app:layout_constraintTop_toBottomOf="@id/textViewLabelReading" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_24"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonCancel"
+                style="@style/buttonStrokeSmall"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_margin="@dimen/dp_4"
+                android:text="Cancel" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonSet"
+                style="@style/buttonSolidSmall"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_margin="@dimen/dp_4"
+                android:text="Set" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_margin="@dimen/dp_10"
+        app:srcCompat="@drawable/ic_circle_cross" />
+</FrameLayout>

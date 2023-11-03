@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/screen_space"
+    android:layout_marginTop="@dimen/dp_8"
+    android:layout_marginEnd="@dimen/screen_space"
+    android:layout_marginBottom="@dimen/dp_8"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="@dimen/dp_10"
+    app:cardElevation="@dimen/dp_3">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/TextView.SemiBold.sp_14"
+            android:layout_width="match_parent"
+            android:id="@+id/textViewPlanName"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_gradient_plan_header"
+            android:paddingStart="@dimen/dp_20"
+            android:paddingTop="@dimen/dp_14"
+            android:paddingEnd="@dimen/dp_20"
+            android:paddingBottom="@dimen/dp_14"
+            android:text="Plan 1"
+            android:textColor="@color/white" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_16"
+            android:nestedScrollingEnabled="false"
+            android:paddingStart="@dimen/dp_20"
+            android:paddingEnd="@dimen/dp_20"
+            tools:itemCount="2"
+            tools:listitem="@layout/exercise_row_my_plans_sub" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.cardview.widget.CardView>

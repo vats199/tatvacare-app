@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:background="@color/gray">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@color/gray">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/dp_5"
+            android:background="@drawable/bg_common_rounded_rect_10"
+            android:elevation="@dimen/dp_2">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/dp_8" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/dp_8" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewIcon"
+                android:layout_width="@dimen/dp_24"
+                android:layout_height="@dimen/dp_24"
+                android:layout_marginTop="@dimen/dp_16"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_care_plan_medication" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewTitle"
+                style="@style/TextView.SemiBold.sp_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_6"
+                android:text="Medication"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintBottom_toBottomOf="@id/imageViewIcon"
+                app:layout_constraintStart_toEndOf="@id/imageViewIcon"
+                app:layout_constraintTop_toTopOf="@id/imageViewIcon" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonUpdate"
+                style="@style/buttonStrokeSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:paddingStart="@dimen/dp_14"
+                android:paddingEnd="@dimen/dp_14"
+                android:text="@string/care_plan_goal_summary_button_update"
+                android:textSize="@dimen/sp_10"
+                app:layout_constraintBottom_toBottomOf="@id/imageViewIcon"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintTop_toTopOf="@id/imageViewIcon" />
+
+            <View
+                android:id="@+id/viewLine1"
+                style="@style/viewLine"
+                android:layout_width="0dp"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/textViewTitle" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="@style/progressBarSmall"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@id/textViewAverageGoal"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/viewLine1" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewMedication"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:clipToPadding="false"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/dp_8"
+                android:paddingBottom="@dimen/dp_8"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toTopOf="@id/textViewAverageGoal"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/viewLine1"
+                tools:listitem="@layout/care_plan_row_goal_summary_medication" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewNoData"
+                style="@style/textViewNoData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:visibility="gone"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintBottom_toTopOf="@id/textViewAverageGoal"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/viewLine1"
+                tools:text="No data found" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewAverageGoal"
+                style="@style/TextView.Medium.sp_9"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_16"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textColor="@color/gray8"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

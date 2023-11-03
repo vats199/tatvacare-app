@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.AppCompatTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/TextView.Medium.sp_11"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/dp_8"
+    android:background="@drawable/bg_rounded_rect_dosage_time"
+    android:drawableEnd="@drawable/ic_edit_pencil"
+    android:drawablePadding="@dimen/dp_8"
+    android:drawableTint="@color/white"
+    android:id="@+id/textViewTime"
+    android:padding="@dimen/dp_8"
+    android:text="10:00 AM"
+    android:textColor="@color/white" />

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewLabelSelectClinic"
+        style="@style/TextView.SemiBold.sp_14"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/screen_space"
+        android:layout_marginTop="@dimen/dp_16"
+        android:layout_marginEnd="@dimen/screen_space"
+        android:text="Select Clinic"
+        android:textColor="@color/textBlack1"
+        android:visibility="gone" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editTextClinic"
+        style="@style/editTextStroke"
+        android:layout_width="match_parent"
+        android:layout_marginStart="@dimen/screen_space"
+        android:layout_marginTop="@dimen/dp_8"
+        android:layout_marginEnd="@dimen/screen_space"
+        android:cursorVisible="false"
+        android:drawableEnd="@drawable/ic_dropdown"
+        android:focusable="false"
+        android:hint="Select"
+        android:inputType="textPersonName"
+        android:longClickable="false"
+        android:visibility="gone" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewLabelSelectAppointmentType"
+        style="@style/TextView.SemiBold.sp_14"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/screen_space"
+        android:layout_marginTop="@dimen/dp_16"
+        android:layout_marginEnd="@dimen/screen_space"
+        android:text="@string/all_appointment_label_select_type"
+        android:textColor="@color/textBlack1" />
+
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editTextAppointmentType"
+        style="@style/editTextStroke"
+        android:layout_width="match_parent"
+        android:layout_marginStart="@dimen/screen_space"
+        android:layout_marginTop="@dimen/dp_8"
+        android:layout_marginEnd="@dimen/screen_space"
+        android:cursorVisible="false"
+        android:drawableEnd="@drawable/ic_dropdown"
+        android:focusable="false"
+        android:hint="@string/all_appointment_hint_select_appointment_type"
+        android:inputType="textPersonName"
+        android:longClickable="false" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewNoData"
+                style="@style/textViewNoData"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:paddingTop="@dimen/dp_16"
+                android:paddingBottom="@dimen/dp_16" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewAppointment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:paddingTop="@dimen/dp_8"
+                android:paddingBottom="@dimen/dp_8"
+                tools:listitem="@layout/menu_row_history_appointment" />
+
+        </FrameLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>

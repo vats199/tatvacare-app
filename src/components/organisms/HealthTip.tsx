@@ -1,13 +1,13 @@
-import {StyleSheet, Text, View} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import {colors} from '../../constants/colors';
-import {Icons} from '../../constants/icons';
+import { colors } from '../../constants/colors';
+import { Icons } from '../../constants/icons';
 
 type HealthTipProps = {
   tip: any;
 };
 
-const HealthTip: React.FC<HealthTipProps> = ({tip}) => {
+const HealthTip: React.FC<HealthTipProps> = ({ tip }) => {
   return (
     <View style={styles.container}>
       <Icons.LightBulb />
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     color: colors.white,
     flex: 1,
     fontSize: 12,
-    fontWeight: '400',
+    fontFamily: 'SFProDisplay-Semibold',
     marginLeft: 10,
   },
 });

@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/screen_space"
+    android:layout_marginVertical="@dimen/dp_6"
+    android:background="@drawable/bg_common_rounded_rect_10"
+    android:backgroundTint="@color/white"
+    android:elevation="@dimen/dp_3"
+    android:paddingBottom="@dimen/dp_12">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewStatus"
+        style="@style/TextView.Medium.sp_11"
+        android:layout_width="@dimen/dp_90"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_common_rounded_rect_5"
+        android:backgroundTint="@color/yellow1"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:paddingVertical="@dimen/dp_3"
+        android:text="Upcoming"
+        android:textAlignment="gravity"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewIcon"
+        android:layout_width="@dimen/dp_34"
+        android:layout_height="@dimen/dp_34"
+        android:layout_marginStart="@dimen/dp_12"
+        android:layout_marginTop="@dimen/dp_12"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewStatus"
+        app:srcCompat="@drawable/ic_labtest_heart" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewTitle"
+        style="@style/TextView.SemiBold.sp_16"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_18"
+        android:layout_marginEnd="@dimen/dp_12"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:text="Complete Blood Count (CBC)"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imageViewIcon"
+        app:layout_constraintTop_toTopOf="@id/imageViewIcon" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewOldPrice"
+        style="@style/TextView.Regular.sp_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0.6"
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/dp_10"
+        android:foreground="@drawable/line_strike_through"
+        android:text="700"
+        app:layout_constraintStart_toStartOf="@id/textViewTitle"
+        app:layout_constraintTop_toBottomOf="@id/textViewTitle" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewPriceNew"
+        style="@style/TextView.Regular.sp_18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="349.0"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintStart_toStartOf="@id/textViewTitle"
+        app:layout_constraintTop_toTopOf="@id/layoutDateTime" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutDateTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/textViewTitle"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/dp_10"
+        app:layout_constraintTop_toBottomOf="@id/textViewTitle"
+        app:layout_constraintWidth_percent="0.55">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/viewLine1"
+            android:layout_width="@dimen/dp_1"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@color/grayDivider"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewDate"
+            style="@style/TextView.Regular.sp_12"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_20"
+            android:alpha="0.8"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Fri, 25 Feb,2022"
+            android:textColor="@color/textBlack1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewTime"
+            style="@style/TextView.Regular.sp_12"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_20"
+            android:alpha="0.8"
+            android:ellipsize="end"
+            android:layout_marginTop="@dimen/dp_12"
+            app:layout_constraintTop_toBottomOf="@id/textViewDate"
+            android:maxLines="1"
+            android:text="10:00 AM - 10:30 AM"
+            android:textColor="@color/textBlack1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/viewLine"
+        style="@style/viewLine"
+        android:layout_width="0dp"
+        android:layout_marginEnd="@dimen/dp_12"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/imageViewIcon"
+        app:layout_constraintTop_toBottomOf="@id/layoutDateTime" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/layoutOrderInfo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@id/viewLine"
+        app:layout_constraintStart_toStartOf="@id/viewLine"
+        app:layout_constraintTop_toBottomOf="@id/viewLine">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewOrderNo"
+            style="@style/TextView.Medium.sp_14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:alpha="0.8"
+            android:text="Order No : 123"
+            android:textColor="@color/textBlack1" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewItemCount"
+            style="@style/TextView.Medium.sp_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0.8"
+            android:text="Items : 2"
+            android:textColor="@color/textBlack1" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewUpcomingMsg"
+        style="@style/TextView.Regular.sp_10"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_14"
+        android:alpha="0.8"
+        android:drawableStart="@drawable/ic_timer_small"
+        android:drawablePadding="@dimen/dp_24"
+        android:text="Reports in 18 hrs after sample collection"
+        android:textColor="@color/textBlack1"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@id/textViewCancelOrder"
+        app:layout_constraintStart_toStartOf="@id/imageViewIcon"
+        app:layout_constraintTop_toBottomOf="@id/layoutOrderInfo" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewCancelOrder"
+        style="@style/TextView.Medium.sp_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_12"
+        android:background="@drawable/bg_button_theme_stroke_small"
+        android:paddingHorizontal="@dimen/dp_8"
+        android:paddingVertical="@dimen/dp_5"
+        android:text="Cancel Order"
+        android:textColor="@color/colorPrimary"
+        android:visibility="gone"
+        app:layout_constraintBaseline_toBaselineOf="@id/textViewUpcomingMsg"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewOtherInfoMsg"
+        style="@style/TextView.Regular.sp_10"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_14"
+        android:alpha="0.8"
+        android:drawableStart="@drawable/ic_info_round"
+        android:drawablePadding="@dimen/dp_24"
+        android:text="Order Cancelled"
+        android:textColor="@color/colorPrimary"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@id/textViewDownloadReports"
+        app:layout_constraintStart_toStartOf="@id/imageViewIcon"
+        app:layout_constraintTop_toBottomOf="@id/textViewUpcomingMsg" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewDownloadReports"
+        style="@style/TextView.Medium.sp_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_12"
+        android:background="@drawable/bg_button_theme_stroke_small"
+        android:paddingHorizontal="@dimen/dp_8"
+        android:paddingVertical="@dimen/dp_5"
+        android:layout_marginTop="@dimen/dp_5"
+        android:text="Download Reports"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintTop_toBottomOf="@id/layoutOrderInfo"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

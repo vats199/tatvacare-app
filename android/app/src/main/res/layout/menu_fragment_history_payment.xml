@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:id="@+id/swipeRefreshLayout"
+    android:orientation="vertical">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:fillViewport="true"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewNoData"
+                style="@style/textViewNoData"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                tools:text="no data found"
+                android:paddingTop="@dimen/dp_16"
+                android:paddingBottom="@dimen/dp_16"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelMyTatvaPlans"
+                style="@style/TextView.SemiBold.sp_18"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/screen_space"
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginEnd="@dimen/dp_5"
+                android:text="MyTatva Plans"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintEnd_toStartOf="@id/textViewViewAllMyTatvaPlans"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/TextView.Medium.sp_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?selectableItemBackground"
+                android:padding="@dimen/dp_2"
+                android:text="View All"
+                android:id="@+id/textViewViewAllMyTatvaPlans"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginEnd="@dimen/screen_space"
+                app:layout_constraintBaseline_toBaselineOf="@id/textViewLabelMyTatvaPlans"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewPaymentHistoryPlans"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:nestedScrollingEnabled="false"
+                android:paddingTop="@dimen/dp_8"
+                android:paddingBottom="@dimen/dp_8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewLabelMyTatvaPlans"
+                tools:itemCount="1"
+                tools:listitem="@layout/menu_row_history_payment" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelDiagnosticTest"
+                style="@style/TextView.SemiBold.sp_18"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/screen_space"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_5"
+                android:text="Diagnostic Test"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintEnd_toStartOf="@id/textViewViewAllDiagnosticTest"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recyclerViewPaymentHistoryPlans" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/TextView.Medium.sp_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?selectableItemBackground"
+                android:padding="@dimen/dp_2"
+                android:text="View All"
+                android:id="@+id/textViewViewAllDiagnosticTest"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginEnd="@dimen/screen_space"
+                app:layout_constraintBaseline_toBaselineOf="@id/textViewLabelDiagnosticTest"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewPaymentHistoryTest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:nestedScrollingEnabled="false"
+                android:paddingTop="@dimen/dp_8"
+                android:paddingBottom="@dimen/dp_8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewLabelDiagnosticTest"
+                tools:itemCount="1"
+                tools:listitem="@layout/menu_row_history_payment" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/groupPlan"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="textViewLabelMyTatvaPlans,textViewViewAllMyTatvaPlans,recyclerViewPaymentHistoryPlans"/>
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/groupTest"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="textViewLabelDiagnosticTest,textViewViewAllDiagnosticTest,recyclerViewPaymentHistoryTest"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

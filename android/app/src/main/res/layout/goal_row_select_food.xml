@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_selector_added_food_item"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="@dimen/dp_8">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewItem"
+        style="@style/TextView.SemiBold.sp_16"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:paddingTop="@dimen/dp_3"
+        android:paddingBottom="@dimen/dp_3"
+        android:text="Chapati"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintEnd_toStartOf="@id/imageViewAdd"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewAdd"
+        android:layout_width="@dimen/dp_24"
+        android:layout_height="@dimen/dp_24"
+        android:layout_marginStart="@dimen/dp_8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_add_food_item" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewCalorie"
+        style="@style/TextView.SemiBold.sp_14"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:alpha="0.8"
+        android:paddingTop="@dimen/dp_3"
+        android:paddingBottom="@dimen/dp_3"
+        android:text="90 Cal"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintEnd_toEndOf="@id/textViewItem"
+        app:layout_constraintStart_toStartOf="@id/textViewItem"
+        app:layout_constraintTop_toBottomOf="@id/textViewItem" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

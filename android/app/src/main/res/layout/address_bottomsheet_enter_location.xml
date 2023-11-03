@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:background="@drawable/bg_rounded_top_bottomsheet">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/viewBottomSheetHandle"
+        style="@style/bottomSheetHandleView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewLabelEnterLocation"
+        style="@style/TextView.Bold.sp_18"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/screen_space"
+        android:layout_marginTop="@dimen/dp_20"
+        android:text="@string/enter_location_bottomsheet_label_enter_location"
+        android:textColor="@color/textBlack10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewBottomSheetHandle" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputLayoutEnterPinCode"
+        style="@style/TextInputLayoutAuth"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewLabelEnterLocation">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextPinCode"
+            style="@style/TextInputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
+            android:inputType="number"
+            android:hint="@string/enter_location_bottomsheet_hint_enter_pincode"
+            android:maxLength="6"
+            android:paddingEnd="@dimen/dp_80"
+            android:singleLine="true" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewUseCurrentLocation"
+        style="@style/TextView.Medium.sp_14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/screen_space"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginBottom="@dimen/dp_17"
+        android:background="?selectableItemBackground"
+        android:drawableStart="@drawable/ic_current_location_black"
+        android:drawablePadding="@dimen/dp_10"
+        android:gravity="center_vertical"
+        android:paddingVertical="@dimen/dp_2"
+        android:text="@string/enter_location_bottomsheet_label_use_current_location"
+        android:textColor="@color/textBlack7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/inputLayoutEnterPinCode" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewApply"
+        style="@style/TextView.SemiBold.sp_12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_27"
+        android:layout_marginEnd="@dimen/dp_25"
+        android:elevation="@dimen/dp_10"
+        android:enabled="false"
+        android:padding="@dimen/dp_10"
+        android:text="Apply"
+        android:textColor="@color/clr_selector_gray_purple_enter_location"
+        android:translationZ="@dimen/dp_10"
+        app:layout_constraintEnd_toEndOf="@id/inputLayoutEnterPinCode"
+        app:layout_constraintTop_toBottomOf="@id/textViewLabelEnterLocation" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

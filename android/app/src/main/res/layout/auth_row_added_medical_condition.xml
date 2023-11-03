@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/dp_4"
+    android:layout_marginEnd="@dimen/dp_4"
+    android:background="@drawable/bg_rounded_rect_gray_stroke_10"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:padding="@dimen/dp_8">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewMedicalCondition"
+        style="@style/TextView.Regular.sp_12"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_5"
+        android:maxLines="1"
+        android:textColor="@color/textBlack1"
+        tools:text="3 times a day" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewRemove"
+        android:layout_width="@dimen/dp_12"
+        android:layout_height="@dimen/dp_12"
+        android:padding="@dimen/dp_2"
+        app:srcCompat="@drawable/ic_cross_small" />
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>

@@ -8,8 +8,8 @@ import {
 } from 'react-native';
 import React from 'react';
 import moment from 'moment';
-import {Icons} from '../../constants/icons';
-import {colors} from '../../constants/colors';
+import { Icons } from '../../constants/icons';
+import { colors } from '../../constants/colors';
 
 type LearnItemProps = {
   learnItem: any;
@@ -39,7 +39,7 @@ const LearnItem: React.FC<LearnItemProps> = ({
         style={styles.imageStyle}
         source={
           learnItem.media[0].home_thumbnail_url
-            ? {uri: learnItem.media[0].home_thumbnail_url}
+            ? { uri: learnItem.media[0].home_thumbnail_url }
             : require('../../assets/images/learnImage.jpg')
         }
         resizeMode={'cover'}
@@ -109,14 +109,14 @@ const styles = StyleSheet.create({
   itemTitle: {
     flex: 1,
     color: colors.black,
-    fontWeight: '600',
+    fontFamily: 'SFProDisplay-Bold',
     fontSize: 14,
     lineHeight: 18,
   },
   itemDescription: {
     flex: 1,
     color: colors.darkGray,
-    fontWeight: '300',
+    fontFamily: 'SFProDisplay-Semibold',
     fontSize: 10,
     lineHeight: 12,
   },

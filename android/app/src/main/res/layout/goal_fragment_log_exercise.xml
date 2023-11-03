@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/rootLogExercise"
+    tools:background="@color/gray">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginVertical="@dimen/dp_50"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@color/gray">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewClose"
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_24"
+            android:layout_gravity="end"
+            android:background="@drawable/bg_circle_white"
+            android:backgroundTint="@color/gray"
+            android:elevation="@dimen/dp_4"
+            android:padding="@dimen/dp_6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_cross_small" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/rootExercise"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/dp_7"
+            android:background="@drawable/bg_common_rounded_rect_10"
+            android:elevation="@dimen/dp_2"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/screen_space" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/screen_space" />
+
+            <include
+                android:id="@+id/layoutHeader"
+                layout="@layout/goal_common_layout_header"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_30"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/viewLine1"
+                style="@style/viewLine"
+                android:layout_width="0dp"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/layoutHeader" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewDate"
+                style="@style/TextView.Medium.sp_11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                android:drawableStart="@drawable/ic_date_calendar"
+                android:drawablePadding="@dimen/dp_8"
+                android:drawableTint="@color/gray6"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:hint="@string/log_exercise_hint_date"
+                android:maxLines="1"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/viewLine1" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/viewLine2"
+                android:layout_width="@dimen/dp_1"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/dp_16"
+                android:background="@color/gray6"
+                app:layout_constraintBottom_toBottomOf="@id/textViewDate"
+                app:layout_constraintStart_toEndOf="@id/textViewDate"
+                app:layout_constraintTop_toTopOf="@id/textViewDate" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewTime"
+                style="@style/TextView.Medium.sp_11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_16"
+                android:drawableStart="@drawable/ic_clock_time"
+                android:drawablePadding="@dimen/dp_8"
+                android:drawableTint="@color/gray6"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:hint="@string/log_exercise_hint_time"
+                android:maxLines="1"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintBottom_toBottomOf="@id/textViewDate"
+                app:layout_constraintStart_toEndOf="@id/viewLine2"
+                app:layout_constraintTop_toTopOf="@id/textViewDate" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewEdit"
+                style="@style/TextView.Medium.sp_11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_2"
+                android:text="Edit"
+                android:textColor="@color/colorPrimary"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintTop_toTopOf="@id/textViewDate" />
+
+            <!-- layoutNormalExercise - normal log exercise layout -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutNormalExercise"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                tools:visibility="visible"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/textViewDate">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelSelectExercise"
+                    style="@style/TextView.Regular.sp_12"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:text="@string/log_exercise_label_select_exercise"
+                    android:textColor="@color/textBlack1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/editTextExercise"
+                    style="@style/editTextStrokeSmall"
+                    android:layout_width="0dp"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:cursorVisible="false"
+                    android:drawableEnd="@drawable/ic_dropdown_gray"
+                    android:drawablePadding="@dimen/dp_2"
+                    android:ellipsize="end"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:hint="@string/log_exercise_hint_select"
+                    android:lines="1"
+                    android:longClickable="false"
+                    android:maxLines="1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textViewLabelSelectExercise" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelDuration"
+                    style="@style/TextView.Regular.sp_12"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:text="@string/log_exercise_label_exercise_duration_min"
+                    android:textColor="@color/textBlack1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/editTextExercise" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/editTextDuration"
+                    style="@style/editTextStrokeSmall"
+                    android:layout_width="0dp"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:gravity="center"
+                    android:longClickable="false"
+                    android:text="5"
+                    android:textAlignment="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textViewLabelDuration" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageViewMinus"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="@dimen/dp_6"
+                    app:layout_constraintBottom_toBottomOf="@id/editTextDuration"
+                    app:layout_constraintDimensionRatio="1"
+                    app:layout_constraintStart_toStartOf="@id/editTextDuration"
+                    app:layout_constraintTop_toTopOf="@id/editTextDuration"
+                    app:srcCompat="@drawable/ic_minus" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageViewPlus"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="@dimen/dp_6"
+                    app:layout_constraintBottom_toBottomOf="@id/editTextDuration"
+                    app:layout_constraintDimensionRatio="1"
+                    app:layout_constraintEnd_toEndOf="@id/editTextDuration"
+                    app:layout_constraintTop_toTopOf="@id/editTextDuration"
+                    app:srcCompat="@drawable/ic_plus" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- layoutRoutines - log routines exercises -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutRoutines"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:visibility="gone"
+                tools:visibility="visible"
+                app:layout_constrainedHeight="true"
+                app:layout_constraintBottom_toTopOf="@id/buttonAdd"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/layoutNormalExercise">
+
+                <androidx.core.widget.NestedScrollView
+                    android:id="@+id/nestedScrollView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constrainedHeight="true"
+                    app:layout_constraintBottom_toTopOf="@id/textViewLogNormalExercise"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerViewRoutines"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false"
+                        tools:itemCount="2"
+                        tools:listitem="@layout/goal_row_log_exercise_routines" />
+
+                </androidx.core.widget.NestedScrollView>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLogNormalExercise"
+                    style="@style/TextView.Medium.sp_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:paddingVertical="@dimen/dp_4"
+                    android:text="Performed a different exercise ? Log here"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/nestedScrollView" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonAdd"
+                style="@style/buttonStrokeSmallRadius7"
+                android:layout_width="0dp"
+                android:layout_marginStart="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginEnd="@dimen/dp_20"
+                android:layout_marginBottom="@dimen/dp_24"
+                android:paddingStart="@dimen/dp_24"
+                android:paddingEnd="@dimen/dp_24"
+                android:text="@string/log_exercise_button_add"
+                app:layout_constraintEnd_toStartOf="@id/buttonAddNext"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/layoutRoutines" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonAddNext"
+                style="@style/buttonSolidSmallRadius7"
+                android:layout_width="0dp"
+                android:layout_marginEnd="@dimen/dp_20"
+                android:layout_marginBottom="@dimen/dp_30"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:paddingStart="@dimen/dp_10"
+                android:paddingEnd="@dimen/dp_10"
+                android:text="@string/log_exercise_button_add_log_next"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toEndOf="@id/buttonAdd"
+                app:layout_constraintTop_toTopOf="@id/buttonAdd" />
+
+            <include
+                android:id="@+id/layoutSyncData"
+                layout="@layout/reading_common_layout_sync_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginBottom="@dimen/dp_20"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/buttonAdd" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
