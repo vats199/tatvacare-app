@@ -75,23 +75,14 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({navigation, route}) => {
     };
 
     if (buttonText === 'Add') {
-      const result = await Deit?.addFoodItem(
-        addPayload,
-        {},
-        {token: userData?.token},
-      );
+      const result = await Deit?.addFoodItem(addPayload, {});
       console.log(' added ', result);
-
-      if (result?.code === '1') {
+      if (result?.data) {
         navigation.popToTop();
       }
     } else {
-      const result = await Deit?.updateFoodItem(
-        updatePayload,
-        {},
-        {token: userData?.token},
-      );
-      if (result?.code === '1') {
+      const result = await Deit?.updateFoodItem(updatePayload, {});
+      if (result?.data) {
         navigation.popToTop();
       }
     }

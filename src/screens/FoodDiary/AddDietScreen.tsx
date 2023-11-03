@@ -162,18 +162,20 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({navigation, route}) => {
         const result = await Diet.searchFoodItem({food_name: text}, {});
         setResult(result);
         setSearchResult(result?.data);
-        if (result.code === '0' || text.length === 0) {
-          setSearchResult(recentSerach);
-          setTitle(recentSerach.length > 0 ? 'Recent Search' : '');
-          setMessage('');
-        } else if (result.code === '2') {
-          setTitle('Search Result');
-          setSearchResult([]);
-          setMessage('Searched meal not found!');
-        } else {
+        if (result?.data?.length > 0) {
           setSearchResult(result?.data);
           setTitle('Search Result');
           setMessage('');
+        } else {
+          if (text.length === 0) {
+            setSearchResult(recentSerach);
+            setTitle(recentSerach.length > 0 ? 'Recent Search' : '');
+            setMessage('');
+          } else {
+            setTitle('Search Result');
+            setSearchResult([]);
+            setMessage('Searched meal not found!');
+          }
         }
       };
 

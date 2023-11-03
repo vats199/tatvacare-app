@@ -10,7 +10,7 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import React, {memo, useCallback, useEffect, useMemo, useState} from 'react';
+import React, {memo, useMemo, useState} from 'react';
 import {
   CalendarProvider,
   DateData,
@@ -135,7 +135,7 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
     textSectionTitleDisabledColor: colors.black,
     dayTextColor: colors.subTitleLightGray,
     textDisabledColor: '#d9e1e8',
-    todayTextColor: colors.themePurple,
+    todayTextColor: colors.subTitleLightGray,
     disabledArrowColor: '#d9e1e8',
     textMonthFontFamily: Fonts.BOLD,
     textDayFontWeight: '400',
@@ -311,8 +311,8 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
                   styles.removePaddingHorizontal,
                   {
                     marginTop: Matrics.vs(8),
-                    paddingLeft: Matrics.s(5),
-                    paddingRight: Matrics.s(5),
+                    paddingLeft: Matrics.s(3),
+                    paddingRight: Matrics.s(3),
                   },
                 ]}
                 {...weekCalendarProps}
@@ -415,6 +415,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: Matrics.vs(4),
+    alignSelf: 'center',
+    paddingHorizontal: Matrics.s(10),
   },
   arrowContainer: {
     height: Matrics.mvs(20),
