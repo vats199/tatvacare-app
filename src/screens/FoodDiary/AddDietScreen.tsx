@@ -162,7 +162,6 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({navigation, route}) => {
         const result = await Diet.searchFoodItem({food_name: text}, {});
         setResult(result);
         setSearchResult(result?.data);
-
         if (result.code === '0' || text.length === 0) {
           setSearchResult(recentSerach);
           setTitle(recentSerach.length > 0 ? 'Recent Search' : '');

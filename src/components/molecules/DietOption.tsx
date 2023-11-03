@@ -1,8 +1,8 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
-import { Icons } from '../../constants/icons';
-import { colors } from '../../constants/colors';
-import { Fonts, Matrics } from '../../constants';
+import {Icons} from '../../constants/icons';
+import {colors} from '../../constants/colors';
+import {Fonts, Matrics} from '../../constants';
 import styled from 'styled-components/native';
 import {
   Menu,
@@ -10,12 +10,16 @@ import {
   MenuOption,
   MenuTrigger,
 } from 'react-native-popup-menu';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 type DietOptionItem = {
   foodItmeData: Options;
   patient_permission: string;
   onpressOfEdit: (editeData: FoodItems) => void;
-  onPressOfDelete: (deleteFoodItemId: string, is_food_item_added_by_patient: string) => void;
+  onPressOfDelete: (
+    deleteFoodItemId: string,
+    is_food_item_added_by_patient: string,
+  ) => void;
   onPressOfcomplete: (consumptionData: Consumption) => void;
 };
 
@@ -91,11 +95,16 @@ const DietOption: React.FC<DietOptionItem> = ({
   onPressOfDelete,
   onPressOfcomplete,
 }) => {
+  const insets = useSafeAreaInsets();
+
   const renderDietOptionItem = (item: FoodItems, index: number) => {
     const handaleEdit = (data: FoodItems) => {
       onpressOfEdit(data);
     };
-    const handaleDelete = (Id: string, is_food_item_added_by_patient: string) => {
+    const handaleDelete = (
+      Id: string,
+      is_food_item_added_by_patient: string,
+    ) => {
       onPressOfDelete(Id, is_food_item_added_by_patient);
     };
     const handaleFoodConsumption = (item: FoodItems) => {
@@ -118,33 +127,42 @@ const DietOption: React.FC<DietOptionItem> = ({
           {item?.is_consumed ? (
             <TouchableOpacity
               onPress={() => handaleFoodConsumption(item)}
-              style={[styles.shadowContainer, { height: 28, width: 28 }]}>
+              style={[styles.shadowContainer, {height: 28, width: 28}]}>
               <Icons.Success height={28} width={28} />
             </TouchableOpacity>
           ) : (
             <TouchableOpacity
               onPress={() => handaleFoodConsumption(item)}
-              style={[styles.shadowContainer, { height: 28, width: 28 }]}>
+              style={[styles.shadowContainer, {height: 28, width: 28}]}>
               <Icons.Ellipse height={28} width={28} />
             </TouchableOpacity>
           )}
           <View style={styles.titleDescription}>
-            <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: "center" }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                alignItems: 'center',
+              }}>
               <Text style={styles.title}>{item.food_item_name}</Text>
-              {item.is_food_item_added_by_patient == 'Y' ? <Text style={styles.manualBtnTxt}>Manual</Text> : null}
+              {item.is_food_item_added_by_patient == 'Y' ? (
+                <Text style={styles.manualBtnTxt}>Manual</Text>
+              ) : null}
             </View>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Text style={[styles.description, { textTransform: 'capitalize' }]}>
-                {Math.round(Number(item?.quantity)) + " " + item?.measure_name + '  | '}
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <Text style={[styles.description, {textTransform: 'capitalize'}]}>
+                {Math.round(Number(item?.quantity)) +
+                  ' ' +
+                  item?.measure_name +
+                  '  | '}
               </Text>
-              <Text style={[styles.description, { textTransform: 'lowercase' }]}>
-                {Math.round(Number(item.total_micronutrients)) +
-                  ' g'}
+              <Text style={[styles.description, {textTransform: 'lowercase'}]}>
+                {Math.round(Number(item.total_micronutrients)) + ' g'}
               </Text>
             </View>
           </View>
-        </View >
-        <View style={{ flexDirection: 'row', alignItems: "center" }}>
+        </View>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <Text style={styles.value}>
             {Math.round(Number(item.calories)) *
               Math.round(Number(item?.quantity))}
@@ -154,11 +172,24 @@ const DietOption: React.FC<DietOptionItem> = ({
           <View>
             <Menu>
               <MenuTrigger>
-                <Icons.ThreeDot height={Matrics.mvs(16)} width={Matrics.mvs(16)} />
+                <Icons.ThreeDot
+                  height={Matrics.mvs(16)}
+                  width={Matrics.mvs(16)}
+                />
               </MenuTrigger>
               <MenuOptions
                 customStyles={{
-                  optionsContainer: styles.menuOptionsContainer,
+                  optionsContainer: {
+                    ...styles.menuOptionsContainer,
+                    marginBottom:
+                      index == foodItmeData?.food_items.length - 1
+                        ? insets.bottom
+                        : 0,
+                    marginTop:
+                      index !== foodItmeData?.food_items.length - 1
+                        ? Matrics.vs(22)
+                        : 0,
+                  },
                 }}>
                 <MenuOption onSelect={() => handaleEdit(item)}>
                   <View style={styles.optionContainer}>
@@ -169,9 +200,11 @@ const DietOption: React.FC<DietOptionItem> = ({
                 <View style={styles.line}></View>
                 <MenuOption
                   onSelect={() => {
-                    handaleDelete(item?.diet_plan_food_item_id, item?.is_food_item_added_by_patient)
-                  }
-                  }>
+                    handaleDelete(
+                      item?.diet_plan_food_item_id,
+                      item?.is_food_item_added_by_patient,
+                    );
+                  }}>
                   <View style={styles.optionContainer}>
                     <Icons.remove />
                     <Text style={styles.optionText}>Delete</Text>
@@ -184,7 +217,7 @@ const DietOption: React.FC<DietOptionItem> = ({
             <View style={styles.threeDot}></View>
           )} */}
         </View>
-      </View >
+      </View>
     );
   };
 
@@ -193,7 +226,9 @@ const DietOption: React.FC<DietOptionItem> = ({
       {foodItmeData?.food_items?.map(renderDietOptionItem)}
       {foodItmeData?.tips ? (
         <View style={styles.belowContainer}>
-          <Text style={styles.foodItemTipTxt}>{'1. ' + foodItmeData?.tips}</Text>
+          <Text style={styles.foodItemTipTxt}>
+            {'1. ' + foodItmeData?.tips}
+          </Text>
         </View>
       ) : null}
     </View>
@@ -224,20 +259,20 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.REGULAR,
     textTransform: 'capitalize',
     lineHeight: 18,
-    marginRight: Matrics.s(4)
+    marginRight: Matrics.s(4),
   },
   description: {
     fontSize: Matrics.mvs(11),
     color: colors.subTitleLightGray,
     fontFamily: Fonts.REGULAR,
-    lineHeight: 16
+    lineHeight: 16,
   },
   value: {
     fontSize: Matrics.mvs(13),
     color: colors.subTitleLightGray,
     fontFamily: Fonts.REGULAR,
     lineHeight: 16,
-    marginHorizontal: Matrics.s(3)
+    marginHorizontal: Matrics.s(3),
   },
   belowContainer: {
     borderWidth: Matrics.s(0.5),
@@ -247,7 +282,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Matrics.s(15),
     marginVertical: Matrics.vs(6),
     marginHorizontal: Matrics.s(16),
-    backgroundColor: colors.white
+    backgroundColor: colors.white,
   },
   threeDot: {
     width: Matrics.s(20),
@@ -255,14 +290,14 @@ const styles = StyleSheet.create({
   menuOptionsContainer: {
     borderRadius: Matrics.mvs(12),
     width: Matrics.s(75),
-    marginTop: Matrics.vs(20),
-    paddingVertical: Matrics.mvs(2)
+    // marginTop: Matrics.vs(20),
+    paddingVertical: Matrics.mvs(2),
   },
   optionContainer: {
     flexDirection: 'row',
     paddingHorizontal: Matrics.s(5),
     paddingVertical: Matrics.vs(2),
-    alignItems: 'center'
+    alignItems: 'center',
   },
   optionText: {
     paddingHorizontal: Matrics.s(6),
@@ -284,10 +319,10 @@ const styles = StyleSheet.create({
     color: '#616161',
     fontSize: Matrics.mvs(11),
     fontFamily: Fonts.REGULAR,
-    lineHeight: 16
+    lineHeight: 16,
   },
   shadowContainer: {
-    shadowOffset: { width: 0, height: 0 },
+    shadowOffset: {width: 0, height: 0},
     shadowColor: colors.shadow,
     shadowOpacity: 0.1,
     shadowRadius: 3,
@@ -297,6 +332,6 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.REGULAR,
     fontSize: Matrics.mvs(12),
     lineHeight: 20,
-    color: colors.subTitleLightGray
-  }
+    color: colors.subTitleLightGray,
+  },
 });

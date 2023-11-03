@@ -256,7 +256,7 @@ const style = StyleSheet.create({
     color: colors.labelDarkGray,
     marginLeft: Matrics.s(10),
     fontFamily: fonts.BOLD,
-    paddingTop: Matrics.vs(5),
+    paddingTop: Matrics.vs(7),
     paddingBottom: Matrics.vs(10),
     paddingLeft: Matrics.s(5),
     lineHeight: 20,

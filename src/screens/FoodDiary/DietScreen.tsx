@@ -11,7 +11,7 @@ import Diet from '../../api/diet';
 import { useApp } from '../../context/app.context';
 import moment from 'moment';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Constants, Matrics } from '../../constants';
+import { Constants, Matrics, Fonts } from '../../constants';
 import Loader from '../../components/atoms/Loader';
 import BasicModal from '../../components/atoms/BasicModal';
 // import MyStatusbar from '../../components/atoms/MyStatusBar';
@@ -130,6 +130,12 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
           animationType: 'slide-in',
           style: {
             borderRadius: Matrics.mvs(12),
+          },
+          textStyle: {
+            fontSize: Matrics.mvs(13),
+            fontFamily: Fonts.REGULAR,
+            color: colors.white,
+            lineHeight: 18,
           },
         },
       );
