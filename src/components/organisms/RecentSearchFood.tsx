@@ -47,7 +47,6 @@ const RecentSearchDiet: React.FC<RecentSerachDietProps> = ({
   title,
   message,
 }) => {
-  console.log('🚀 ~ file: RecentSearchFood.tsx:50 ~ message:', message);
   const renderRecentSearchItem = (item: SearcheFood, index: number) => {
     return (
       <TouchableOpacity
@@ -97,7 +96,7 @@ const RecentSearchDiet: React.FC<RecentSerachDietProps> = ({
               color: colors.subTitleLightGray,
               marginHorizontal: Matrics.s(5),
             }}>
-            Search meal not found!
+            {message}
           </Text>
         </View>
       )}

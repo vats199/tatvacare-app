@@ -234,10 +234,19 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
         {dailyCalories.length > 0 ? (
           <View style={{ flex: 1 }}>
             <Text style={style.title}>Meal Energy Distribution</Text>
-            <View style={[globalStyles.shadowContainer, style.boxContainer]}>
-              {dailyCalories?.map((item, index) => {
-                return renderItem(item, index, 'cal');
-              })}
+            <View
+              style={[
+                globalStyles.shadowContainer,
+                style.boxContainer,
+                {
+                  marginBottom: Matrics.vs(20),
+                },
+              ]}>
+              {[...dailyCalories, ...dailyCalories, ...dailyCalories]?.map(
+                (item, index) => {
+                  return renderItem(item, index, 'cal');
+                },
+              )}
             </View>
           </View>
         ) : null}

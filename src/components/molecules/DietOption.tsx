@@ -182,7 +182,12 @@ const DietOption: React.FC<DietOptionItem> = ({
           {/* {patient_permission === 'W' ? ( */}
           <View>
             <Menu>
-              <MenuTrigger>
+              <MenuTrigger
+                customStyles={{
+                  triggerTouchable: {
+                    underlayColor: colors.transparent,
+                  },
+                }}>
                 <Icons.ThreeDot
                   height={Matrics.mvs(16)}
                   width={Matrics.mvs(16)}

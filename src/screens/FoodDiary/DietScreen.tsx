@@ -57,6 +57,10 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   }, [title]);
 
   useEffect(() => {
+    return () => setDiePlane([]);
+  }, []);
+
+  useEffect(() => {
     const totalcalories = caloriesArray?.reduce((accumulator, currentValue) => {
       return accumulator + Number(currentValue?.total_calories ?? 0);
     }, 0);
@@ -73,7 +77,8 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   useFocusEffect(
     React.useCallback(() => {
       getData();
-      return () => setDiePlane([]);
+      // empty list while leave screen
+      // return () => setDiePlane([]);
     }, []),
   );
 
@@ -130,6 +135,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
           animationType: 'slide-in',
           style: {
             borderRadius: Matrics.mvs(12),
+            width: Matrics.screenWidth - 20,
           },
           textStyle: {
             fontSize: Matrics.mvs(13),
