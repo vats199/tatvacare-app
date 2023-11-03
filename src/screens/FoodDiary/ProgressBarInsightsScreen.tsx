@@ -1,16 +1,16 @@
-import {View, Text, StyleSheet, ScrollView, Platform} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import {DietStackParamList} from '../../interface/Navigation.interface';
-import {StackScreenProps} from '@react-navigation/stack';
+import { View, Text, StyleSheet, ScrollView, Platform } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { DietStackParamList } from '../../interface/Navigation.interface';
+import { StackScreenProps } from '@react-navigation/stack';
 import DietHeader from '../../components/molecules/DietHeader';
-import {colors} from '../../constants/colors';
+import { colors } from '../../constants/colors';
 import fonts from '../../constants/fonts';
 import Matrics from '../../constants/Matrics';
 import CircularProgress from 'react-native-circular-progress-indicator';
-import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 // import MyStatusbar from '../../components/atoms/MyStatusBar';
-import {Fonts} from '../../constants';
-import {globalStyles} from '../../constants/globalStyles';
+import { Fonts } from '../../constants';
+import { globalStyles } from '../../constants/globalStyles';
 
 type ProgressBarInsightsScreenProps = StackScreenProps<
   DietStackParamList,
@@ -23,7 +23,7 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
 }) => {
   const insets = useSafeAreaInsets();
   const [selectedDate, setSelectedDate] = React.useState(new Date());
-  const {calories} = route.params;
+  const { calories } = route.params;
   const [dailyCalories, setDailyCalories] = useState([]);
   const [macroNuitrientes, setMacroNuitrientes] = useState([]);
 
@@ -55,12 +55,12 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
         progressBarVale: Math.round(
           (Math.round(Number(item.consumed_calories)) /
             Math.round(Number(item.total_calories))) *
-            100,
+          100,
         ),
         progresBarColor: colorsOfprogressBar(
           (Math.round(Number(item.consumed_calories)) /
             Math.round(Number(item.total_calories))) *
-            100,
+          100,
         ),
       };
     });
@@ -142,7 +142,7 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
   const renderItem = (item: any, index: number, type: string) => {
     return (
       <View
-        style={[style.calorieMainContainer, {paddingVertical: Matrics.vs(5)}]}
+        style={[style.calorieMainContainer, { paddingVertical: Matrics.vs(5) }]}
         key={index?.toString()}>
         <CircularProgress
           value={isNaN(item?.progressBarVale) ? 0 : item?.progressBarVale}
@@ -184,14 +184,14 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
             <Text style={style.consumedCalries}>
               {isNaN(item?.consumedClories) ? 0 : item?.consumedClories}
             </Text>
-            <Text style={[style.consumedCalries, {fontFamily: Fonts.REGULAR}]}>
+            <Text style={[style.consumedCalries, { fontFamily: Fonts.REGULAR }]}>
               {' '}
               of{' '}
             </Text>
             <Text
               style={[
                 style.consumedCalries,
-                {fontFamily: Fonts.REGULAR, color: colors.subTitleLightGray},
+                { fontFamily: Fonts.REGULAR, color: colors.subTitleLightGray },
               ]}>
               {item?.totalCalories}
               {type}
@@ -217,7 +217,7 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
         onPressOfNextAndPerviousDate={handleDate}
         title={'Insights'}
       />
-      <ScrollView>
+      <ScrollView style={{ paddingBottom: 14 }}>
         <Text style={style.title}>Daily Macronutrients Analysis</Text>
         <View
           style={[
@@ -232,7 +232,7 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
           })}
         </View>
         {dailyCalories.length > 0 ? (
-          <View style={{flex: 1}}>
+          <View style={{ flex: 1 }}>
             <Text style={style.title}>Meal Energy Distribution</Text>
             <View style={[globalStyles.shadowContainer, style.boxContainer]}>
               {dailyCalories?.map((item, index) => {

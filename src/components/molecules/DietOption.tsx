@@ -1,8 +1,8 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
-import {Icons} from '../../constants/icons';
-import {colors} from '../../constants/colors';
-import {Fonts, Matrics} from '../../constants';
+import { Icons } from '../../constants/icons';
+import { colors } from '../../constants/colors';
+import { Constants, Fonts, Matrics } from '../../constants';
 import styled from 'styled-components/native';
 import {
   Menu,
@@ -10,7 +10,9 @@ import {
   MenuOption,
   MenuTrigger,
 } from 'react-native-popup-menu';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { trackEvent } from '../../helpers/TrackEvent';
+import moment = require('moment');
 
 type DietOptionItem = {
   foodItmeData: Options;
@@ -94,6 +96,7 @@ const DietOption: React.FC<DietOptionItem> = ({
   onpressOfEdit,
   onPressOfDelete,
   onPressOfcomplete,
+  mealName
 }) => {
   const insets = useSafeAreaInsets();
 
@@ -108,6 +111,14 @@ const DietOption: React.FC<DietOptionItem> = ({
       onPressOfDelete(Id, is_food_item_added_by_patient);
     };
     const handaleFoodConsumption = (item: FoodItems) => {
+      trackEvent(Constants.EVENT_NAME.FOOD_DIARY.USER_LOGGED_MEAL, {
+        meal_types: mealName,
+        date: moment().format(Constants.DATE_FORMAT),
+        food_item_name: item?.food_item_name,
+        quantity: Number(item?.quantity),
+        measure: item?.measure_name,
+        flag: item?.is_consumed ? "off" : "on"
+      })
       const cunsumpotion = {
         consumed_qty: item?.is_consumed
           ? 0
@@ -127,13 +138,13 @@ const DietOption: React.FC<DietOptionItem> = ({
           {item?.is_consumed ? (
             <TouchableOpacity
               onPress={() => handaleFoodConsumption(item)}
-              style={[styles.shadowContainer, {height: 28, width: 28}]}>
+              style={[styles.shadowContainer, { height: 28, width: 28 }]}>
               <Icons.Success height={28} width={28} />
             </TouchableOpacity>
           ) : (
             <TouchableOpacity
               onPress={() => handaleFoodConsumption(item)}
-              style={[styles.shadowContainer, {height: 28, width: 28}]}>
+              style={[styles.shadowContainer, { height: 28, width: 28 }]}>
               <Icons.Ellipse height={28} width={28} />
             </TouchableOpacity>
           )}
@@ -149,20 +160,20 @@ const DietOption: React.FC<DietOptionItem> = ({
                 <Text style={styles.manualBtnTxt}>Manual</Text>
               ) : null}
             </View>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Text style={[styles.description, {textTransform: 'capitalize'}]}>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Text style={[styles.description, { textTransform: 'capitalize' }]}>
                 {Math.round(Number(item?.quantity)) +
                   ' ' +
                   item?.measure_name +
                   '  | '}
               </Text>
-              <Text style={[styles.description, {textTransform: 'lowercase'}]}>
+              <Text style={[styles.description, { textTransform: 'lowercase' }]}>
                 {Math.round(Number(item.total_micronutrients)) + ' g'}
               </Text>
             </View>
           </View>
         </View>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <Text style={styles.value}>
             {Math.round(Number(item.calories)) *
               Math.round(Number(item?.quantity))}
@@ -322,7 +333,7 @@ const styles = StyleSheet.create({
     lineHeight: 16,
   },
   shadowContainer: {
-    shadowOffset: {width: 0, height: 0},
+    shadowOffset: { width: 0, height: 0 },
     shadowColor: colors.shadow,
     shadowOpacity: 0.1,
     shadowRadius: 3,

@@ -1,31 +1,39 @@
-import {Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import { Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
-import {DietStackParamList} from '../../interface/Navigation.interface';
-import {Icons} from '../../constants/icons';
-import {colors} from '../../constants/colors';
+import { DietStackParamList } from '../../interface/Navigation.interface';
+import { Icons } from '../../constants/icons';
+import { colors } from '../../constants/colors';
 import MicronutrientsInformation from '../../components/organisms/MicronutrientsInformation';
 import AddDiet from '../../components/organisms/AddDiet';
-import {StackScreenProps} from '@react-navigation/stack';
+import { StackScreenProps } from '@react-navigation/stack';
 import Deit from '../../api/diet';
-import {useApp} from '../../context/app.context';
-import {Fonts, Matrics} from '../../constants';
-import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+import { useApp } from '../../context/app.context';
+import { Constants, Fonts, Matrics } from '../../constants';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { trackEvent } from '../../helpers/TrackEvent';
+import moment = require('moment');
 // import MyStatusbar from '../../components/atoms/MyStatusBar';
 
 type DietDetailProps = StackScreenProps<DietStackParamList, 'DietDetail'>;
 
-const DietDetailScreen: React.FC<DietDetailProps> = ({navigation, route}) => {
+const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
   const insets = useSafeAreaInsets();
-  const {foodItem, buttonText, healthCoachId, mealName} = route.params;
+  const { foodItem, buttonText, healthCoachId, mealName } = route.params;
   let quantity = Math.round(Number(foodItem?.quantity)).toString();
   const [qty, setQty] = React.useState<string>(quantity);
-  const {userData} = useApp();
+  const { userData } = useApp();
 
   const onPressBack = () => {
     navigation.goBack();
   };
 
   const onPressAdd = async () => {
+    trackEvent(Constants.EVENT_NAME.FOOD_DIARY.USER_ADDED_QUANTITY, {
+      meal_types: route?.params?.mealName,
+      date: moment().format(Constants.DATE_FORMAT),
+      food_item_name: foodItem?.food_item_name ?? ""
+    })
+
     const addPayload = {
       patient_id: userData?.patient_id,
       food_item_id: foodItem?.food_item_id,
@@ -78,20 +86,18 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({navigation, route}) => {
       const result = await Deit?.addFoodItem(
         addPayload,
         {},
-        {token: userData?.token},
       );
       console.log(' added ', result);
 
-      if (result?.code === '1') {
+      if (result) {
         navigation.popToTop();
       }
     } else {
       const result = await Deit?.updateFoodItem(
         updatePayload,
-        {},
-        {token: userData?.token},
+        {}
       );
-      if (result?.code === '1') {
+      if (result) {
         navigation.popToTop();
       }
     }

@@ -152,22 +152,31 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
   }, [cardData?.options[0]]);
 
   const handaleEdit = (data: FoodItems) => {
-    // cardData?.options?.findIndex(a => a.op)
-    // // selectedOptionId
-    // trackEvent(Constants.EVENT_NAME.FOOD_DIARY.USER_CLICKED_ON_EDIT_MEAL, {
-    //   //       meal_types(breakfast, lunch, snack, dinner)
 
-    //   // option_number(option1, option2, option3)
-
-    //   food_item_name: data?.food_item_name ?? ''
-    // })
-    // // USER_CLICKED_ON_EDIT_MEAL
+    const index = cardData?.options?.findIndex((item: Options, index: number) => data.diet_meal_options_id == item?.diet_meal_options_id)
+    trackEvent(Constants.EVENT_NAME.FOOD_DIARY.USER_CLICKED_ON_EDIT_MEAL, {
+      meal_types: cardData?.meal_name ?? "",
+      option_number: `Option ${index + 1}`,
+      food_item_name: data?.food_item_name ?? ''
+    })
     onpressOfEdit(data, cardData.meal_name);
   };
   const handaleDelete = (Id: string, is_food_item_added_by_patient: string) => {
+
+    const index = cardData?.options?.findIndex((item: Options, index: number) => selectedOptionId == item?.diet_meal_options_id)
+    trackEvent(Constants.EVENT_NAME.FOOD_DIARY.USER_CLICKED_ON_EDIT_MEAL, {
+      meal_types: cardData?.meal_name ?? "",
+      option_number: `Option ${index + 1}`,
+      manual_tag: is_food_item_added_by_patient == "N" ? "no" : "yes"
+    })
     onPressOfDelete(Id, is_food_item_added_by_patient);
   };
   const handlePulsIconPress = () => {
+    trackEvent(Constants.EVENT_NAME.FOOD_DIARY.USER_CLICKED_ADD_FOOD_DISH, {
+      meal_types: cardData?.meal_name,
+      date: moment().format(Constants.DATE_FORMAT)
+    })
+
     if (selectedOptionId !== null) {
       let data = cardData.options.filter(
         item => item.diet_meal_options_id == selectedOptionId,
@@ -177,6 +186,7 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
       let data = cardData.options[0];
       onPressPlus(data, cardData.meal_name);
     }
+
   };
   const handalecompletion = (item: Consumption) => {
     console.log({ item: item, selectedOptionId });
@@ -303,6 +313,7 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
               onpressOfEdit={handaleEdit}
               onPressOfDelete={handaleDelete}
               onPressOfcomplete={handalecompletion}
+              mealName={cardData.meal_name}
             />
           </>
         ) : (
