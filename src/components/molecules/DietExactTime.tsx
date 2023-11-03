@@ -10,11 +10,12 @@ import {
 import { colors } from '../../constants/colors';
 import { Icons } from '../../constants/icons';
 import DietOption from './DietOption';
-import { Fonts, Matrics } from '../../constants';
+import { Constants, Fonts, Matrics } from '../../constants';
 import fonts from '../../constants/fonts';
 import moment from 'moment';
 import { useFocusEffect } from '@react-navigation/native';
 import { globalStyles } from '../../constants/globalStyles';
+import { trackEvent } from '../../helpers/TrackEvent';
 
 interface ExactTimeProps {
   onPressPlus: (optionFoodItems: Options, mealName: string) => void;
@@ -151,6 +152,16 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
   }, [cardData?.options[0]]);
 
   const handaleEdit = (data: FoodItems) => {
+    // cardData?.options?.findIndex(a => a.op)
+    // // selectedOptionId
+    // trackEvent(Constants.EVENT_NAME.FOOD_DIARY.USER_CLICKED_ON_EDIT_MEAL, {
+    //   //       meal_types(breakfast, lunch, snack, dinner)
+
+    //   // option_number(option1, option2, option3)
+
+    //   food_item_name: data?.food_item_name ?? ''
+    // })
+    // // USER_CLICKED_ON_EDIT_MEAL
     onpressOfEdit(data, cardData.meal_name);
   };
   const handaleDelete = (Id: string, is_food_item_added_by_patient: string) => {
@@ -197,6 +208,14 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
         return <Icons.Snacks />;
     }
   };
+
+  const onPressOption = (item: Options, index: number) => {
+    trackEvent(Constants.EVENT_NAME.FOOD_DIARY.USER_CLICKS_ON_OPTION, {
+      meal_types: cardData?.meal_name ?? "",
+      option_number: index + 1
+    })
+    setSelectedOptionId(item.diet_meal_options_id)
+  }
 
   return (
     <View style={[styles.container, globalStyles.shadowContainer]}>
@@ -258,8 +277,10 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
                         marginRight: Matrics.s(8),
                       },
                     ]}
-                    onPress={() =>
-                      setSelectedOptionId(item.diet_meal_options_id)
+                    onPress={() => {
+                      onPressOption(item, index)
+                    }
+
                     }>
                     <Text style={[styles.optionText, {
                       color: isOptionSelected

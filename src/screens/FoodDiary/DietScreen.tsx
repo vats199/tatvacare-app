@@ -1,36 +1,38 @@
-import React, {useState, useEffect, useRef} from 'react';
-import {useFocusEffect} from '@react-navigation/native';
-import {Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
+import { Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import CalorieConsumer from '../../components/molecules/CalorieConsumer';
 import DietHeader from '../../components/molecules/DietHeader';
 import DietTime from '../../components/organisms/DietTime';
-import {colors} from '../../constants/colors';
-import {DietStackParamList} from '../../interface/Navigation.interface';
-import {StackScreenProps} from '@react-navigation/stack';
+import { colors } from '../../constants/colors';
+import { DietStackParamList } from '../../interface/Navigation.interface';
+import { StackScreenProps } from '@react-navigation/stack';
 import Diet from '../../api/diet';
-import {useApp} from '../../context/app.context';
+import { useApp } from '../../context/app.context';
 import moment from 'moment';
-import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
-import {Matrics} from '../../constants';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Constants, Matrics } from '../../constants';
 import Loader from '../../components/atoms/Loader';
 import BasicModal from '../../components/atoms/BasicModal';
 // import MyStatusbar from '../../components/atoms/MyStatusBar';
-import {useToast} from 'react-native-toast-notifications';
-import {globalStyles} from '../../constants/globalStyles';
+import { useToast } from 'react-native-toast-notifications';
+import { globalStyles } from '../../constants/globalStyles';
 import CommonBottomSheetModal from '../../components/molecules/CommonBottomSheetModal';
 import AlertBottomSheet from '../../components/organisms/AlertBottomSheet';
-import {BottomSheetModal} from '@gorhom/bottom-sheet';
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
+import { trackEvent } from '../../helpers/TrackEvent'
 type DietScreenProps = StackScreenProps<DietStackParamList, 'DietScreen'>;
 
-const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
+const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   const insets = useSafeAreaInsets();
+
   const toast = useToast();
   const title = route.params?.dietData;
   const [dietOption, setDietOption] = useState<boolean>(false);
   const [loader, setLoader] = useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [dietPlane, setDiePlane] = useState<any>([]);
-  const {userData} = useApp();
+  const { userData } = useApp();
   const [deletpayload, setDeletpayload] = useState<string | null>(null);
   const [modalVisible, setModalVisible] = React.useState<boolean>(false);
   const [stateOfAPIcall, setStateOfAPIcall] = React.useState<boolean>(false);
@@ -78,7 +80,7 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
   const getData = async (optionId?: string, dietPlanId?: string) => {
     setLoader(true);
     const date = moment(selectedDate).format('YYYY/MM/DD');
-    const diet = await Diet.getDietPlan({date: date}, {});
+    const diet = await Diet.getDietPlan({ date: date }, {});
     // console.log('diet', diet);
 
     if (diet) {
@@ -213,7 +215,19 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
   };
 
   const handelOnpressOfprogressBar = () => {
-    navigation.navigate('ProgressBarInsightsScreen', {calories: caloriesArray});
+    let vale = Math.round((totalConsumedcalorie / totalcalorie) * 100);
+    if (isNaN(vale)) {
+      vale = 0
+    }
+    console.log(caloriesArray, "caloriesArraycaloriesArray", JSON.stringify(userData))
+    trackEvent(Constants.EVENT_NAME.FOOD_DIARY.USER_CLICKS_ON_INSIGHT, {
+      "date_of_insight": moment(selectedDate).format(Constants.DATE_FORMAT),
+      "goal_value": totalcalorie,
+      "actual_value": totalConsumedcalorie,
+      "percentage_completion": vale,
+      "goal_unit": "cal",
+    })
+    navigation.navigate('ProgressBarInsightsScreen', { calories: caloriesArray });
   };
 
   return (
@@ -242,7 +256,7 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
             totalcalories={totalcalorie}
           />
         </TouchableOpacity>
-        {Object.keys(dietPlane).length > 0 ? (
+        {Object.keys(dietPlane ?? {}).length > 0 ? (
           <DietTime
             onPressPlus={handlePulsIconPress}
             dietOption={dietOption}
@@ -254,7 +268,7 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
           />
         ) : loader ? null : (
           <View style={styles.messageContainer}>
-            <Text style={{fontSize: 15}}>{'No diet plan available'}</Text>
+            <Text style={{ fontSize: 15 }}>{'No diet plan available'}</Text>
           </View>
         )}
       </View>
@@ -276,7 +290,7 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
 };
 
 const styles = StyleSheet.create({
-  mainContienr: {flex: 1, backgroundColor: colors.lightGreyishBlue},
+  mainContienr: { flex: 1, backgroundColor: colors.lightGreyishBlue },
   belowContainer: {
     flex: 1,
     backgroundColor: colors.lightGreyishBlue,
