@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginVertical="@dimen/dp_4"
+    android:background="@drawable/bg_common_rounded_rect_10"
+    android:backgroundTint="@color/white"
+    android:padding="@dimen/dp_12">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewIcon"
+        android:layout_width="@dimen/dp_34"
+        android:layout_height="@dimen/dp_34"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_booking_for" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewTitle"
+        style="@style/TextView.SemiBold.sp_16"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_18"
+        android:ellipsize="end"
+        android:maxLines="1"
+        tools:text="Rakesh Kapoor"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintEnd_toStartOf="@id/radioSelect"
+        app:layout_constraintStart_toEndOf="@id/imageViewIcon"
+        app:layout_constraintTop_toTopOf="@id/imageViewIcon" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewEmail"
+        style="@style/TextView.Medium.sp_14"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:layout_marginTop="@dimen/dp_4"
+        android:alpha="0.8"
+        tools:text="test@gmail.com"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintStart_toStartOf="@id/textViewTitle"
+        app:layout_constraintEnd_toEndOf="@id/textViewTitle"
+        app:layout_constraintTop_toBottomOf="@id/textViewTitle" />
+
+    <androidx.appcompat.widget.AppCompatRadioButton
+        android:id="@+id/radioSelect"
+        android:layout_width="@dimen/dp_16"
+        android:layout_height="@dimen/dp_16"
+        android:background="@drawable/selector_ic_radio"
+        android:button="@null"
+        android:clickable="false"
+        android:checked="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="@id/imageViewIcon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/imageViewIcon" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewAge"
+        style="@style/TextView.Regular.sp_13"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_5"
+        android:alpha="0.8"
+        android:ellipsize="end"
+        android:maxLines="1"
+        tools:text="Age : 55"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintStart_toStartOf="@id/textViewTitle"
+        app:layout_constraintTop_toBottomOf="@id/textViewEmail" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewGender"
+        style="@style/TextView.Regular.sp_13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_8"
+        android:alpha="0.8"
+        android:ellipsize="end"
+        android:maxLines="1"
+        tools:text="Gender : Male"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintBaseline_toBaselineOf="@id/textViewAge"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toEndOf="@id/textViewAge" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

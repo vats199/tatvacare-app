@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rootLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/checkBoxItem"
+            style="@style/TextView.Medium.sp_16"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:button="@drawable/selector_ic_checkbox"
+            android:checked="true"
+            android:clickable="false"
+            android:ellipsize="end"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:paddingStart="@dimen/dp_16"
+            android:paddingTop="@dimen/dp_14"
+            android:paddingEnd="@dimen/dp_16"
+            android:paddingBottom="@dimen/dp_14"
+            android:text="SPO2"
+            android:textColor="@color/clr_selector_black_gray"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintEnd_toStartOf="@id/imageViewUpDown"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_setting_profile" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewUpDown"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="0dp"
+            android:padding="@dimen/dp_8"
+            android:visibility="gone"
+            android:scaleType="centerInside"
+            app:layout_constraintBottom_toBottomOf="@id/checkBoxItem"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/checkBoxItem"
+            app:srcCompat="@drawable/ic_dropdown_gray" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/layoutSub"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_38"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/dp_10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rootLayout">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelDays"
+                style="@style/TextView.Regular.sp_13"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_weight="1"
+                android:alpha="0.8"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:paddingTop="@dimen/dp_10"
+                android:paddingBottom="@dimen/dp_10"
+                android:text="Select days of the week"
+                android:textColor="@color/textBlack1" />
+
+            <androidx.appcompat.widget.AppCompatCheckedTextView
+                android:id="@+id/textViewValueDays"
+                style="@style/TextView.Medium.sp_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp_14"
+                android:checked="true"
+                android:textColor="@color/clr_selector_purple_gray"
+                tools:text="All" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewEditDays"
+                android:layout_width="@dimen/dp_24"
+                android:layout_height="@dimen/dp_24"
+                android:background="?selectableItemBackgroundBorderless"
+                android:padding="@dimen/dp_7"
+                app:srcCompat="@drawable/ic_edit_pencil" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelFrequency"
+                style="@style/TextView.Regular.sp_13"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_weight="1"
+                android:alpha="0.8"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:paddingTop="@dimen/dp_10"
+                android:paddingBottom="@dimen/dp_10"
+                android:text="Select frequency"
+                android:textColor="@color/textBlack1" />
+
+            <androidx.appcompat.widget.AppCompatCheckedTextView
+                android:id="@+id/textViewValueFrequency"
+                style="@style/TextView.Medium.sp_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp_14"
+                android:checked="true"
+                android:textColor="@color/clr_selector_purple_gray"
+                tools:text="Weekly" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewEditFrequency"
+                android:layout_width="@dimen/dp_24"
+                android:layout_height="@dimen/dp_24"
+                android:background="?selectableItemBackgroundBorderless"
+                android:padding="@dimen/dp_7"
+                app:srcCompat="@drawable/ic_edit_pencil" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelTime"
+                style="@style/TextView.Regular.sp_13"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_weight="1"
+                android:alpha="0.8"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:paddingTop="@dimen/dp_10"
+                android:paddingBottom="@dimen/dp_10"
+                android:text="Select time"
+                android:textColor="@color/textBlack1" />
+
+            <androidx.appcompat.widget.AppCompatCheckedTextView
+                android:id="@+id/textViewValueTime"
+                style="@style/TextView.Medium.sp_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp_14"
+                android:checked="true"
+                android:textColor="@color/clr_selector_purple_gray"
+                tools:text="12:00 am" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewEditTime"
+                android:layout_width="@dimen/dp_24"
+                android:layout_height="@dimen/dp_24"
+                android:background="?selectableItemBackgroundBorderless"
+                android:padding="@dimen/dp_7"
+                app:srcCompat="@drawable/ic_edit_pencil" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <!--<androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/layoutSub"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_38"
+        android:nestedScrollingEnabled="false"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/dp_10"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/checkBoxItem"
+        tools:itemCount="2"
+        tools:listitem="@layout/profile_row_notification_setting_readings_reminder_sub" />-->
+
+    <View
+        android:id="@+id/viewLine1"
+        style="@style/viewLine"
+        android:layout_width="0dp"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

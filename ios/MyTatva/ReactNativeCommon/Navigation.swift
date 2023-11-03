@@ -69,7 +69,7 @@ class Navigation: NSObject {
     func openPlanDetails(_ planDetails :NSArray) -> Void {
         let planData = planDetails.firstObject as? NSDictionary
         let planDetails = planData?["planDetails"] as? NSDictionary
-        do {
+        do {    
             let jsonData = try JSONSerialization.data(withJSONObject: planDetails!, options: [])
             let vc = PurchsedCarePlanVC.instantiate(fromAppStoryboard: .BCP_temp)
             vc.viewModel.planDetails = PlanDetail(fromJson: try JSON.init(data: jsonData))
@@ -168,6 +168,7 @@ class Navigation: NSObject {
             }
         })
     }
+    
     @objc
     func navigateToExercise(_ selectedType: NSArray) -> Void {
         PlanManager.shared.isAllowedByPlan(type: .exercise_my_routine_exercise,

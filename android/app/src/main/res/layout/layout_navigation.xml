@@ -1,0 +1,597 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_screen_color"
+    android:fillViewport="true"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/layoutContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_40"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/dp_12"
+        android:paddingEnd="@dimen/dp_12">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cvHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="@dimen/dp_10"
+            app:cardElevation="0dp"
+            app:cardUseCompatPadding="true">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:clipToPadding="false"
+                android:padding="@dimen/dp_12">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/imageViewProfile"
+                    android:layout_width="@dimen/dp_50"
+                    android:layout_height="@dimen/dp_50"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+                    tools:srcCompat="@drawable/place_holder" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageViewEditProfile"
+                    android:layout_width="@dimen/dp_15"
+                    android:layout_height="@dimen/dp_15"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@id/imageViewProfile"
+                    app:layout_constraintEnd_toEndOf="@id/imageViewProfile"
+                    app:srcCompat="@drawable/ic_add_food_item_small" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewPatientName"
+                    style="@style/TextView.SemiBold.sp_18"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/sfpro_semibold"
+                    android:textColor="@color/textBlack9"
+                    app:layout_constraintBottom_toTopOf="@+id/tvContactNo"
+                    app:layout_constraintEnd_toStartOf="@+id/ivNext"
+                    app:layout_constraintStart_toEndOf="@id/imageViewProfile"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Rakesh Kapoor" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvContactNo"
+                    style="@style/TextView.Regular.sp_12"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/textGray6"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/ivNext"
+                    app:layout_constraintStart_toEndOf="@id/imageViewProfile"
+                    app:layout_constraintTop_toBottomOf="@id/textViewPatientName"
+                    tools:text="+91-9999999999" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivNext"
+                    android:layout_width="@dimen/dp_16"
+                    android:layout_height="@dimen/dp_16"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_next_arrow_gray" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="@dimen/dp_10"
+            app:cardElevation="0dp"
+            app:cardUseCompatPadding="true">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingVertical="@dimen/dp_12">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvMyHealthDiary"
+                    style="@style/TextView.Bold.sp_16"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dp_12"
+                    android:fontFamily="@font/sf_bold"
+                    android:text="@string/home_label_my_health_diary"
+                    android:textColor="@color/textBlack9"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivHealth"
+                    android:layout_width="@dimen/dp_28"
+                    android:layout_height="@dimen/dp_28"
+                    android:layout_marginHorizontal="@dimen/dp_12"
+                    android:layout_marginTop="@dimen/dp_14"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvMyHealthDiary"
+                    app:srcCompat="@drawable/ic_healthrecords" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvHealth"
+                    style="@style/TextView.Regular.sp_14"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/sfpro_medium"
+                    android:text="@string/txt_health_records"
+                    android:textColor="@color/textBlack9"
+                    app:layout_constraintBottom_toBottomOf="@+id/ivHealth"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/ivHealth"
+                    app:layout_constraintTop_toTopOf="@id/ivHealth" />
+
+                <View
+                    android:id="@+id/line1"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:background="@color/divider"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/tvHealth"
+                    app:layout_constraintTop_toBottomOf="@+id/ivHealth" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivBookmark"
+                    android:layout_width="@dimen/dp_28"
+                    android:layout_height="@dimen/dp_28"
+                    android:layout_marginHorizontal="@dimen/dp_12"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/line1"
+                    app:srcCompat="@drawable/ic_bookmark_menu" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvBookmark"
+                    style="@style/TextView.Regular.sp_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:fontFamily="@font/sfpro_medium"
+                    android:text="@string/bookmarks_title"
+                    android:textColor="@color/textBlack9"
+                    app:layout_constraintBottom_toBottomOf="@+id/ivBookmark"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/ivBookmark"
+                    app:layout_constraintTop_toTopOf="@id/ivBookmark" />
+
+                <View
+                    android:id="@+id/line2"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:background="@color/divider"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/tvBookmark"
+                    app:layout_constraintTop_toBottomOf="@+id/ivBookmark" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivGoals"
+                    android:layout_width="@dimen/dp_28"
+                    android:layout_height="@dimen/dp_28"
+                    android:layout_marginHorizontal="@dimen/dp_12"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/line2"
+                    app:srcCompat="@drawable/ic_goals" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvGoals"
+                    style="@style/TextView.Regular.sp_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:fontFamily="@font/sfpro_medium"
+                    android:text="@string/txt_goals"
+                    android:textColor="@color/textBlack9"
+                    app:layout_constraintBottom_toBottomOf="@+id/ivGoals"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/ivGoals"
+                    app:layout_constraintTop_toTopOf="@id/ivGoals" />
+
+                <View
+                    android:id="@+id/line3"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:background="@color/divider"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/tvGoals"
+                    app:layout_constraintTop_toBottomOf="@+id/ivGoals" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivHealthTrends"
+                    android:layout_width="@dimen/dp_28"
+                    android:layout_height="@dimen/dp_28"
+                    android:layout_marginHorizontal="@dimen/dp_12"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:visibility="gone"
+                    app:layout_constraintTop_toBottomOf="@+id/line3"
+                    app:srcCompat="@drawable/icon_health_trends" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvHealthTrends"
+                    style="@style/TextView.Regular.sp_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:fontFamily="@font/sfpro_medium"
+                    android:visibility="gone"
+                    android:text="@string/txt_health_trends"
+                    android:textColor="@color/textBlack9"
+                    app:layout_constraintBottom_toBottomOf="@+id/ivHealthTrends"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/ivHealthTrends"
+                    app:layout_constraintTop_toTopOf="@id/ivHealthTrends" />
+
+                <View
+                    android:id="@+id/line9"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:background="@color/divider"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/tvHealthTrends"
+                    app:layout_constraintTop_toBottomOf="@+id/tvHealthTrends" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivBmi"
+                    android:layout_width="@dimen/dp_28"
+                    android:layout_height="@dimen/dp_28"
+                    android:layout_marginHorizontal="@dimen/dp_12"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/line9"
+                    app:srcCompat="@drawable/ic_bmi" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvBmi"
+                    style="@style/TextView.Regular.sp_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:fontFamily="@font/sfpro_medium"
+                    android:text="@string/txt_bmi"
+                    android:textColor="@color/textBlack9"
+                    app:layout_constraintBottom_toBottomOf="@+id/ivBmi"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/ivBmi"
+                    app:layout_constraintTop_toTopOf="@id/ivBmi" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="@dimen/dp_10"
+            app:cardElevation="0dp"
+            app:cardUseCompatPadding="true">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingVertical="@dimen/dp_12">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvBookings"
+                    style="@style/TextView.Bold.sp_16"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dp_12"
+                    android:fontFamily="@font/sf_bold"
+                    android:text="@string/txt_bookings"
+                    android:textColor="@color/textBlack9"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivConsult"
+                    android:layout_width="@dimen/dp_28"
+                    android:layout_height="@dimen/dp_28"
+                    android:layout_marginHorizontal="@dimen/dp_12"
+                    android:layout_marginTop="@dimen/dp_14"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvBookings"
+                    app:srcCompat="@drawable/ic_consultations" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvConsult"
+                    style="@style/TextView.Regular.sp_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:fontFamily="@font/sfpro_medium"
+                    android:text="@string/txt_consultations"
+                    android:textColor="@color/textBlack9"
+                    app:layout_constraintBottom_toBottomOf="@+id/ivConsult"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/ivConsult"
+                    app:layout_constraintTop_toTopOf="@id/ivConsult" />
+
+                <View
+                    android:id="@+id/line4"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:background="@color/divider"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/tvConsult"
+                    app:layout_constraintTop_toBottomOf="@+id/ivConsult" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivLabTest"
+                    android:layout_width="@dimen/dp_28"
+                    android:layout_height="@dimen/dp_28"
+                    android:layout_marginHorizontal="@dimen/dp_12"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/line4"
+                    app:srcCompat="@drawable/ic_labtests" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvLabTest"
+                    style="@style/TextView.Regular.sp_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:fontFamily="@font/sfpro_medium"
+                    android:text="@string/txt_lab_tests"
+                    android:textColor="@color/textBlack9"
+                    app:layout_constraintBottom_toBottomOf="@+id/ivLabTest"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/ivLabTest"
+                    app:layout_constraintTop_toTopOf="@id/ivLabTest" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="@dimen/dp_10"
+            app:cardElevation="0dp"
+            app:cardUseCompatPadding="true">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingVertical="@dimen/dp_12">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvMore"
+                    style="@style/TextView.Bold.sp_16"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dp_12"
+                    android:fontFamily="@font/sf_bold"
+                    android:text="@string/txt_more"
+                    android:textColor="@color/textBlack9"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivAccount"
+                    android:layout_width="@dimen/dp_28"
+                    android:layout_height="@dimen/dp_28"
+                    android:layout_marginHorizontal="@dimen/dp_12"
+                    android:layout_marginTop="@dimen/dp_14"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvMore"
+                    app:srcCompat="@drawable/icon_accountsettings" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvAccount"
+                    style="@style/TextView.Regular.sp_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:fontFamily="@font/sfpro_medium"
+                    android:text="@string/account_setting_title"
+                    android:textColor="@color/textBlack9"
+                    app:layout_constraintBottom_toBottomOf="@+id/ivAccount"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/ivAccount"
+                    app:layout_constraintTop_toTopOf="@id/ivAccount" />
+
+                <View
+                    android:id="@+id/line5"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:background="@color/divider"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/tvAccount"
+                    app:layout_constraintTop_toBottomOf="@+id/ivAccount" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivHelp"
+                    android:layout_width="@dimen/dp_28"
+                    android:layout_height="@dimen/dp_28"
+                    android:layout_marginHorizontal="@dimen/dp_12"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/line5"
+                    app:srcCompat="@drawable/ic_help_support" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvHelp"
+                    style="@style/TextView.Regular.sp_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:fontFamily="@font/sfpro_medium"
+                    android:text="@string/help_support_title"
+                    android:textColor="@color/textBlack9"
+                    app:layout_constraintBottom_toBottomOf="@+id/ivHelp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/ivHelp"
+                    app:layout_constraintTop_toTopOf="@id/ivHelp" />
+
+                <View
+                    android:id="@+id/line6"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:background="@color/divider"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/tvHelp"
+                    app:layout_constraintTop_toBottomOf="@+id/ivHelp" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivAbout"
+                    android:layout_width="@dimen/dp_28"
+                    android:layout_height="@dimen/dp_28"
+                    android:layout_marginHorizontal="@dimen/dp_12"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/line6"
+                    app:srcCompat="@drawable/ic_aboutus" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvAbout"
+                    style="@style/TextView.Regular.sp_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:fontFamily="@font/sfpro_medium"
+                    android:text="@string/txt_about_us"
+                    android:textColor="@color/textBlack9"
+                    app:layout_constraintBottom_toBottomOf="@+id/ivAbout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/ivAbout"
+                    app:layout_constraintTop_toTopOf="@id/ivAbout" />
+
+                <View
+                    android:id="@+id/line7"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:background="@color/divider"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/tvAbout"
+                    app:layout_constraintTop_toBottomOf="@+id/ivAbout" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivShare"
+                    android:layout_width="@dimen/dp_28"
+                    android:layout_height="@dimen/dp_28"
+                    android:layout_marginHorizontal="@dimen/dp_12"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/line7"
+                    app:srcCompat="@drawable/ic_shareapp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvShare"
+                    style="@style/TextView.Regular.sp_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:fontFamily="@font/sfpro_medium"
+                    android:text="@string/share_app"
+                    android:textColor="@color/textBlack9"
+                    app:layout_constraintBottom_toBottomOf="@+id/ivShare"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/ivShare"
+                    app:layout_constraintTop_toTopOf="@id/ivShare" />
+
+                <View
+                    android:id="@+id/line8"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:background="@color/divider"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/tvShare"
+                    app:layout_constraintTop_toBottomOf="@+id/ivShare" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivRate"
+                    android:layout_width="@dimen/dp_28"
+                    android:layout_height="@dimen/dp_28"
+                    android:layout_marginHorizontal="@dimen/dp_12"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/line8"
+                    app:srcCompat="@drawable/ic_rate" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvRate"
+                    style="@style/TextView.Regular.sp_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:fontFamily="@font/sfpro_medium"
+                    android:text="@string/txt_rate_app"
+                    android:textColor="@color/textBlack9"
+                    app:layout_constraintBottom_toBottomOf="@+id/ivRate"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/ivRate"
+                    app:layout_constraintTop_toTopOf="@id/ivRate" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewAppVersion"
+            style="@style/TextView.Regular.sp_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/dp_16"
+            android:textColor="@color/gray8"
+            tools:text="Version 1.4" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.core.widget.NestedScrollView>
+

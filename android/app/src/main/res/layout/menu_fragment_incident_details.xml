@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/layoutHeader"
+        layout="@layout/layout_common_toolbar_with_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLineStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/screen_space" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLineEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/screen_space" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutIncidentInfo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/screen_space"
+        android:paddingEnd="@dimen/screen_space"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutHeader">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/layoutDuration"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewDuration"
+                android:layout_marginTop="@dimen/dp_4"
+                android:layout_width="@dimen/dp_16"
+                android:layout_height="@dimen/dp_16"
+                app:srcCompat="@drawable/ic_duration" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelDuration"
+                style="@style/TextView.Regular.sp_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:includeFontPadding="true"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_weight="0.35"
+                android:alpha="0.7"
+                tools:text="Duration"
+                android:textColor="@color/textBlack1" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewDuration"
+                style="@style/TextView.Medium.sp_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.55"
+                android:includeFontPadding="true"
+                android:ellipsize="end"
+                android:maxLines="1"
+                tools:text="30 mins"
+                android:textColor="@color/textBlack1" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/layoutImprove"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/dp_16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutDuration">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewImprove"
+                android:layout_width="@dimen/dp_16"
+                android:layout_height="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imageViewDuration"
+                app:srcCompat="@drawable/ic_how_improve" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelHowDidItImprove"
+                style="@style/TextView.Regular.sp_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_weight="0.35"
+                android:includeFontPadding="true"
+                android:alpha="0.7"
+                tools:text="How did it improve"
+                android:textColor="@color/textBlack1" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewHowDidItImprove"
+                style="@style/TextView.Medium.sp_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="true"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_weight="0.55"
+                tools:text="Improve on taking rest Improve on taking rest Improve on taking rest"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/textViewLabelHowDidItImprove"
+                app:layout_constraintTop_toTopOf="@id/textViewLabelHowDidItImprove" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/viewLine1"
+        style="@style/viewLine"
+        android:layout_width="0dp"
+        app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+        app:layout_constraintStart_toStartOf="@id/guideLineStart"
+        app:layout_constraintTop_toBottomOf="@id/layoutIncidentInfo" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewIncidentDetails"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:paddingTop="@dimen/dp_16"
+        android:paddingBottom="@dimen/dp_16"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+        app:layout_constraintStart_toStartOf="@id/guideLineStart"
+        app:layout_constraintTop_toBottomOf="@id/viewLine1"
+        tools:listitem="@layout/menu_row_incident_details" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

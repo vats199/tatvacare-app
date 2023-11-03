@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_circle_white"
+        android:indeterminate="true"
+        android:padding="@dimen/dp_10"
+        android:theme="@style/dateTimePickerDialog"
+        android:visibility="gone" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="@dimen/dp_120"
+        android:layout_height="@dimen/dp_120"
+        app:lottie_autoPlay="true"
+        android:visibility="visible"
+        app:lottie_loop="true"
+        app:lottie_speed="1.5"
+        app:lottie_rawRes="@raw/mytatva_animate_loader" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewProgress"
+        android:layout_width="@dimen/dp_240"
+        android:layout_height="@dimen/dp_240"
+        android:visibility="gone"
+        android:scaleType="fitCenter"/>
+
+</LinearLayout>

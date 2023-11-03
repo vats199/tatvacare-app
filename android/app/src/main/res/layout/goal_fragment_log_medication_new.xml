@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_70"
+        android:elevation="@dimen/dp_4"
+        android:paddingStart="@dimen/dp_8"
+        android:paddingEnd="@dimen/dp_8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewToolbarBack"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/dp_8"
+            android:background="?selectableItemBackgroundBorderless"
+            android:paddingStart="@dimen/dp_8"
+            android:paddingEnd="@dimen/dp_8"
+            android:scaleType="centerInside"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_back"
+            app:tint="@color/textBlack1" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewToolbarTitle"
+            style="@style/TextView.SemiBold.sp_20"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_14"
+            android:layout_marginEnd="@dimen/dp_4"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/txt_medication"
+            android:textColor="@color/textBlack1"
+            app:layout_constraintBottom_toBottomOf="@id/imageViewToolbarBack"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imageViewToolbarBack"
+            app:layout_constraintTop_toTopOf="@id/imageViewToolbarBack" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rootMedication"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:elevation="@dimen/dp_2"
+        app:layout_constraintTop_toBottomOf="@+id/clToolbar">
+
+        <!--layoutPrescriptions - if prescription added this will be visible-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutPrescriptions"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/screen_space" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/screen_space" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewProgress"
+                style="@style/TextView.Medium.sp_11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="2 of 8 doses" />
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/progressIndicator"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_4"
+                android:indeterminate="false"
+                android:max="8"
+                android:progress="2"
+                app:indicatorColor="@color/yellow"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/textViewProgress"
+                app:layout_constraintWidth_percent="0.58"
+                app:trackColor="@color/grayTransparent"
+                app:trackCornerRadius="@dimen/dp_4"
+                app:trackThickness="@dimen/dp_4" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewDate"
+                style="@style/TextView.Medium.sp_11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                android:drawableStart="@drawable/ic_date_calendar"
+                android:drawablePadding="@dimen/dp_8"
+                android:drawableTint="@color/gray6"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/progressIndicator"
+                tools:text="10 Sept,2021" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonAddEditPrescription"
+                style="@style/buttonStrokeSmall"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_24"
+                android:layout_marginTop="@dimen/dp_24"
+                android:layout_marginBottom="@dimen/dp_24"
+                android:paddingStart="@dimen/dp_16"
+                android:paddingEnd="@dimen/dp_16"
+                android:text="@string/log_medication_button_add_prescription"
+                android:textSize="@dimen/dp_12"
+                app:layout_constraintBaseline_toBaselineOf="@id/textViewDate"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                tools:ignore="SpUsage" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewMessage"
+                style="@style/TextView.Medium.sp_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:text="@string/log_medication_label_note_mark_completed_doses"
+                android:textColor="@color/textBlack1Transparent"
+                app:layout_constraintEnd_toStartOf="@id/imageViewEdit"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/textViewDate" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewEdit"
+                android:layout_width="@dimen/dp_24"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:background="?selectableItemBackgroundBorderless"
+                android:padding="@dimen/dp_6"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintTop_toTopOf="@id/textViewMessage"
+                app:srcCompat="@drawable/ic_edit_pencil" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewLogMedication"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/dp_16"
+                android:orientation="vertical"
+                android:visibility="invisible"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toTopOf="@id/buttonMarkAllDone"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/textViewMessage"
+                tools:itemCount="3"
+                tools:listitem="@layout/goal_row_log_medication" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewNoData"
+                style="@style/textViewNoData"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/dp_16"
+                android:visibility="visible"
+                app:layout_constraintBottom_toTopOf="@id/buttonMarkAllDone"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/textViewMessage" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonMarkAllDone"
+                style="@style/buttonStrokeSmallRadius7"
+                android:layout_width="0dp"
+                android:layout_marginTop="@dimen/dp_24"
+                android:layout_marginEnd="@dimen/dp_20"
+                android:layout_marginBottom="@dimen/dp_24"
+                android:paddingStart="@dimen/dp_24"
+                android:paddingEnd="@dimen/dp_24"
+                android:text="@string/log_medication_button_select_all"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/buttonSubmit"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/recyclerViewLogMedication"
+                app:layout_constraintVertical_bias="1" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonSubmit"
+                style="@style/buttonSolidSmallRadius7"
+                android:layout_width="0dp"
+                android:layout_marginBottom="@dimen/dp_30"
+                android:paddingStart="@dimen/dp_24"
+                android:paddingEnd="@dimen/dp_24"
+                android:text="@string/log_medication_button_submit"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toEndOf="@id/buttonMarkAllDone"
+                app:layout_constraintTop_toTopOf="@id/buttonMarkAllDone" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--layoutAddPrescriptions - if prescription is not added this will be visible-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutAddPrescriptions"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textView"
+                style="@style/TextView.Medium.sp_16"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dp_50"
+                android:gravity="center"
+                android:text="Please add a prescription to start logging your medication"
+                android:textAlignment="gravity"
+                android:textColor="@color/colorPrimary"
+                android:visibility="visible"
+                app:layout_constraintBottom_toTopOf="@id/buttonAddPrescription"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonAddPrescription"
+                style="@style/buttonSolidSmallRadius7"
+                android:layout_width="0dp"
+                android:layout_marginTop="@dimen/dp_15"
+                android:layout_marginHorizontal="@dimen/dp_50"
+                android:paddingStart="@dimen/dp_24"
+                android:paddingEnd="@dimen/dp_24"
+                android:text="@string/log_medication_button_add_prescription"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

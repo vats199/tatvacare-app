@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_labtest_row_address"
+    android:orientation="vertical"
+    android:layout_marginVertical="@dimen/dp_4"
+    android:padding="@dimen/dp_16">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewTitle"
+        style="@style/TextView.SemiBold.sp_16"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Home"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintEnd_toStartOf="@id/checkboxAddress"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/checkboxAddress"
+        android:layout_width="@dimen/dp_16"
+        android:layout_height="@dimen/dp_16"
+        android:background="@drawable/selector_ic_radio"
+        android:button="@null"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        app:layout_constraintBottom_toBottomOf="@id/textViewTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/textViewTitle" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewProfileIcon"
+        android:layout_width="@dimen/dp_14"
+        android:layout_height="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_16"
+        android:scaleType="centerInside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewTitle"
+        app:srcCompat="@drawable/ic_contact_number"
+        app:tint="@color/colorPrimary" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewName"
+        style="@style/TextView.Regular.sp_13"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_24"
+        android:alpha="0.8"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="Rakesh Kapoor"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imageViewProfileIcon"
+        app:layout_constraintTop_toTopOf="@id/imageViewProfileIcon" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewAddressIcon"
+        android:layout_width="@dimen/dp_14"
+        android:layout_height="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_16"
+        android:scaleType="centerInside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewName"
+        app:srcCompat="@drawable/ic_location_small_pin"
+        app:tint="@color/colorPrimary" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewAddress"
+        style="@style/TextView.Regular.sp_13"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:alpha="0.8"
+        android:lineSpacingExtra="@dimen/dp_6"
+        android:text="A-001, Madhuban\nMG Road\nMumbai 401305"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintEnd_toEndOf="@id/textViewName"
+        app:layout_constraintStart_toStartOf="@id/textViewName"
+        app:layout_constraintTop_toTopOf="@id/imageViewAddressIcon" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewContactIcon"
+        android:layout_width="@dimen/dp_14"
+        android:layout_height="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_16"
+        android:scaleType="centerInside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewAddress"
+        app:srcCompat="@drawable/ic_contact_doctor"
+        app:tint="@color/colorPrimary" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewContact"
+        style="@style/TextView.Regular.sp_13"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:alpha="0.8"
+        android:ellipsize="end"
+        android:lineSpacingExtra="@dimen/dp_6"
+        android:maxLines="1"
+        android:text="+91 9876543210"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintEnd_toEndOf="@id/textViewName"
+        app:layout_constraintStart_toStartOf="@id/textViewName"
+        app:layout_constraintTop_toTopOf="@id/imageViewContactIcon" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewRemove"
+        style="@style/TextView.Medium.sp_13"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_18"
+        android:drawableStart="@drawable/ic_delete_address"
+        android:drawablePadding="@dimen/dp_16"
+        android:ellipsize="end"
+        android:lineSpacingExtra="@dimen/dp_6"
+        android:background="?selectableItemBackground"
+        android:maxLines="1"
+        android:text="Remove"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintStart_toStartOf="@id/textViewName"
+        app:layout_constraintTop_toBottomOf="@id/textViewContact" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewEdit"
+        style="@style/TextView.Medium.sp_10"
+        android:layout_width="@dimen/dp_60"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_button_theme_stroke_small"
+        android:gravity="center"
+        android:padding="@dimen/dp_4"
+        android:text="Edit"
+        android:textAlignment="gravity"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintBaseline_toBaselineOf="@id/textViewRemove"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
         padding: 0,
         flex: 1,
         color: colors.inputValueDarkGray,
-        fontWeight: '600',
+        fontFamily: 'SFProDisplay-Bold',
         fontSize: 16
     },
     cannotEdit: {

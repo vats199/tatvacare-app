@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="?selectableItemBackground"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewTitle"
+        style="@style/TextView.Regular.sp_15"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dp_14"
+        android:layout_marginTop="@dimen/dp_14"
+        android:text="Covid-19 RTPCR (Coronavirus SARS - CoV2)"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintEnd_toStartOf="@id/imageViewNext"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewNoOfTestsInclude"
+        style="@style/TextView.Regular.sp_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_5"
+        android:alpha="0.6"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="Includes 5 tests"
+        android:textColor="@color/textBlack1"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toStartOf="@+id/viewLineCenter"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@id/textViewTitle"
+        app:layout_constraintTop_toBottomOf="@id/textViewTitle" />
+
+    <View
+        android:id="@+id/viewLineCenter"
+        android:layout_width="@dimen/dp_1"
+        android:layout_height="@dimen/dp_12"
+        android:layout_marginStart="@dimen/dp_10"
+        android:background="@color/grayDivider"
+        app:layout_constraintBottom_toBottomOf="@id/textViewNoOfTestsInclude"
+        app:layout_constraintEnd_toStartOf="@+id/textViewNoOfAvailableAtLab"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textViewNoOfTestsInclude"
+        app:layout_constraintTop_toTopOf="@id/textViewNoOfTestsInclude" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewNoOfAvailableAtLab"
+        style="@style/TextView.Regular.sp_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_10"
+        android:alpha="0.6"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="Available at 2 certified lab"
+        android:textColor="@color/textBlack1"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintBaseline_toBaselineOf="@id/textViewNoOfTestsInclude"
+        app:layout_constraintEnd_toEndOf="@id/textViewTitle"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/viewLineCenter" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_14"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_next_arrow_gray" />
+
+    <View
+        style="@style/viewLine"
+        android:layout_marginHorizontal="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_14"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/viewLine1"
+        app:layout_constraintTop_toBottomOf="@id/textViewNoOfTestsInclude"
+        app:layout_goneMarginTop="@dimen/dp_14" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

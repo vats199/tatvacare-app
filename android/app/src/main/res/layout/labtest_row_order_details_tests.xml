@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="@dimen/dp_4"
+    android:background="@drawable/bg_common_rounded_rect_10"
+    android:backgroundTint="@color/white"
+    android:padding="@dimen/dp_12">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewIcon"
+        android:layout_width="@dimen/dp_34"
+        android:layout_height="@dimen/dp_34"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_labtest_heart" />
+    <!--ic_lab_item-->
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewTitle"
+        style="@style/TextView.SemiBold.sp_16"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_18"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="Complete Blood Count (CBC)"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintBottom_toBottomOf="@id/imageViewIcon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imageViewIcon"
+        app:layout_constraintTop_toTopOf="@id/imageViewIcon" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewOldPrice"
+        style="@style/TextView.Regular.sp_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_4"
+        android:alpha="0.6"
+        android:foreground="@drawable/line_strike_through"
+        android:text="700"
+        app:layout_constraintStart_toStartOf="@id/textViewTitle"
+        app:layout_constraintTop_toBottomOf="@id/imageViewIcon" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewDiscountPercentage"
+        style="@style/TextView.Medium.sp_8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_16"
+        android:background="@drawable/bg_common_rounded_rect_3"
+        android:backgroundTint="@color/colorPrimary"
+        android:paddingHorizontal="@dimen/dp_6"
+        android:paddingVertical="@dimen/dp_2"
+        android:text="50% OFF"
+        android:textColor="@color/white"
+        app:layout_constraintBaseline_toBaselineOf="@id/textViewOldPrice"
+        app:layout_constraintStart_toEndOf="@id/textViewOldPrice" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewPriceNew"
+        style="@style/TextView.Regular.sp_18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_8"
+        android:text="349.0"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintStart_toStartOf="@id/textViewTitle"
+        app:layout_constraintTop_toBottomOf="@id/textViewOldPrice" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonNoOfPatient"
+        style="@style/buttonStrokeSmall"
+        android:layout_width="wrap_content"
+        android:paddingHorizontal="@dimen/dp_8"
+        android:text="1 Patient"
+        app:layout_constraintTop_toBottomOf="@id/textViewTitle"
+        app:layout_constraintVertical_bias="1"
+        app:layout_constraintBottom_toBottomOf="@id/textViewPriceNew"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <View
+        android:id="@+id/viewLine1"
+        style="@style/viewLine"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewPriceNew" />
+
+    <!--<androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/layoutStatus"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_8"
+        android:background="?selectableItemBackground"
+        android:orientation="horizontal"
+        android:paddingVertical="@dimen/dp_8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewLine1">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewLabelStatus"
+            style="@style/TextView.Medium.sp_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status :"
+            android:textColor="@color/textBlack1" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewStatus"
+            style="@style/TextView.SemiBold.sp_14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_8"
+            android:layout_weight="1"
+            android:text="Order Placed"
+            android:textColor="@color/colorPrimary" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewDropDown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:rotation="180"
+            app:srcCompat="@drawable/ic_dropdown"
+            app:tint="@color/colorPrimary" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewTrackOrderStatus"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_4"
+        android:nestedScrollingEnabled="false"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutStatus"
+        tools:itemCount="5"
+        tools:listitem="@layout/labtest_row_track_order_status" />-->
+
+    <!--<androidx.appcompat.widget.AppCompatTextView
+        style="@style/TextView.Regular.sp_10"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_14"
+        android:alpha="0.8"
+        android:drawableStart="@drawable/ic_timer_small"
+        android:drawablePadding="@dimen/dp_24"
+        android:text="Reports in 18 hrs after sample collection"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewLine" />-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,634 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_screen_color"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/layoutHeader"
+        layout="@layout/layout_common_toolbar_with_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@+id/layoutProceedPayment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutHeader">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bg_screen_color"
+            android:paddingBottom="@dimen/dp_20">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/screen_space" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/screen_space" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewPlanDetails"
+                style="@style/TextView.Bold.sp_16"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:text="Summary"
+                android:textColor="@color/textBlack9"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutCarePlan"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_12"
+                android:background="@drawable/bg_common_rounded_rect_12"
+                android:elevation="@dimen/dp_2"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/textViewPlanDetails">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewCarePlanName"
+                    style="@style/TextView.SemiBold.sp_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:text="@string/payment_care_plan_order_review_label_care_plan_name"
+                    android:textColor="@color/textBlack9"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewContentCarePlan"
+                    style="@style/TextView.Regular.sp_12"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_6"
+                    android:layout_marginBottom="@dimen/dp_15"
+                    android:lineSpacingExtra="@dimen/sp_4"
+                    android:textColor="@color/gray9"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/textViewCarePlanName"
+                    app:layout_constraintStart_toStartOf="@+id/textViewCarePlanName"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewCarePlanName"
+                    tools:text="@string/payment_care_plan_order_review_care_plan_content" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewAddress"
+                style="@style/TextView.SemiBold.sp_18"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_22"
+                android:text="@string/payment_care_plan_order_review_label_addreess"
+                android:textColor="@color/textBlack7"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@+id/layoutCarePlan" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutAddressDetails"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_12"
+                android:background="@drawable/bg_common_rounded_rect_12"
+                android:elevation="@dimen/dp_2"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/textViewAddress">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewName"
+                    style="@style/TextView.Bold.sp_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:text="@string/payment_care_plan_order_review_label_name"
+                    android:textColor="@color/textBlack9"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageViewAddress"
+                    android:layout_width="@dimen/dp_16"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:adjustViewBounds="true"
+                    app:layout_constraintStart_toStartOf="@id/textViewName"
+                    app:layout_constraintTop_toBottomOf="@id/textViewName"
+                    app:srcCompat="@drawable/ic_address_new" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewPickupFromAddress"
+                    style="@style/TextView.Regular.sp_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:textColor="@color/gray9"
+                    app:layout_constraintEnd_toEndOf="@id/textViewName"
+                    app:layout_constraintStart_toEndOf="@id/imageViewAddress"
+                    app:layout_constraintTop_toTopOf="@id/imageViewAddress"
+                    tools:text="Aaaaa" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageViewEmail"
+                    android:layout_width="@dimen/dp_16"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:adjustViewBounds="true"
+                    app:layout_constraintStart_toStartOf="@id/textViewName"
+                    app:layout_constraintTop_toBottomOf="@id/textViewPickupFromAddress"
+                    app:srcCompat="@drawable/ic_email" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewEmail"
+                    style="@style/TextView.Regular.sp_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/gray9"
+                    app:layout_constraintBottom_toBottomOf="@id/imageViewEmail"
+                    app:layout_constraintEnd_toEndOf="@+id/textViewName"
+                    app:layout_constraintStart_toStartOf="@id/textViewPickupFromAddress"
+                    app:layout_constraintTop_toTopOf="@id/imageViewEmail"
+                    tools:text="abc@gmail.com" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageViewPhone"
+                    android:layout_width="@dimen/dp_16"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:layout_marginBottom="@dimen/dp_18"
+                    android:adjustViewBounds="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/textViewName"
+                    app:layout_constraintTop_toBottomOf="@id/textViewEmail"
+                    app:srcCompat="@drawable/ic_phone" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewContact"
+                    style="@style/TextView.Regular.sp_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/gray9"
+                    app:layout_constraintBottom_toBottomOf="@id/imageViewPhone"
+                    app:layout_constraintEnd_toEndOf="@+id/textViewName"
+                    app:layout_constraintStart_toStartOf="@id/textViewPickupFromAddress"
+                    app:layout_constraintTop_toTopOf="@id/imageViewPhone"
+                    tools:text="+91 1234567890" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/groupBcpDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="layoutAddressDetails" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelOfferPromotions"
+                style="@style/TextView.Bold.sp_16"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_22"
+                android:text="Offers &amp; Promotions"
+                android:textColor="@color/textBlack9"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/layoutAddressDetails" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/mainLayoutOfferPromotions"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_12"
+                android:background="@drawable/bg_coupon_code_gray_stroke_rect_12"
+                android:elevation="@dimen/dp_2"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/textViewLabelOfferPromotions">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutAppliedCouponCode"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imageViewCouponCodeApplied"
+                        android:layout_width="@dimen/dp_32"
+                        android:layout_height="@dimen/dp_32"
+                        android:layout_marginStart="@dimen/dp_16"
+                        android:layout_marginTop="@dimen/dp_14"
+                        android:layout_marginBottom="@dimen/dp_14"
+                        android:src="@drawable/ic_success_payment"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_chainStyle="packed" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewCouponCodeName"
+                        style="@style/TextView.SemiBold.sp_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_13"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="‘FIRSTORDER’ applied"
+                        android:textColor="@color/textBlack9"
+                        app:layout_constraintBottom_toBottomOf="@id/imageViewCouponCodeApplied"
+                        app:layout_constraintEnd_toStartOf="@id/textViewRemove"
+                        app:layout_constraintStart_toEndOf="@id/imageViewCouponCodeApplied"
+                        app:layout_constraintTop_toTopOf="@id/imageViewCouponCodeApplied" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewRemove"
+                        style="@style/TextView.SemiBold.sp_12"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/dp_16"
+                        android:background="?selectableItemBackground"
+                        android:paddingVertical="@dimen/dp_7"
+                        android:text="REMOVE"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorPrimary"
+                        app:layout_constraintBottom_toBottomOf="@id/imageViewCouponCodeApplied"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/imageViewCouponCodeApplied" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutApplyForCoupon"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imageViewCoupon"
+                        android:layout_width="@dimen/dp_32"
+                        android:layout_height="@dimen/dp_32"
+                        android:layout_marginStart="@dimen/dp_16"
+                        android:layout_marginTop="@dimen/dp_14"
+                        android:layout_marginBottom="@dimen/dp_14"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_coupon_apply" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewApplyCoupon"
+                        style="@style/TextView.SemiBold.sp_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_13"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="Apply Coupon"
+                        android:textColor="@color/textBlack9"
+                        app:layout_constraintBottom_toBottomOf="@id/imageViewCoupon"
+                        app:layout_constraintEnd_toStartOf="@id/imageViewNext"
+                        app:layout_constraintStart_toEndOf="@id/imageViewCoupon"
+                        app:layout_constraintTop_toTopOf="@id/imageViewCoupon" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imageViewNext"
+                        android:layout_width="@dimen/dp_30"
+                        android:layout_height="@dimen/dp_30"
+                        android:layout_marginEnd="@dimen/dp_16"
+                        android:paddingVertical="@dimen/dp_6"
+                        app:layout_constraintBottom_toBottomOf="@id/imageViewCoupon"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/imageViewCoupon"
+                        app:srcCompat="@drawable/ic_next_arrow_black" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/groupDiscountOffers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="textViewLabelOfferPromotions,mainLayoutOfferPromotions" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewBilling"
+                style="@style/TextView.Bold.sp_16"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_22"
+                android:text="@string/payment_care_plan_order_review_label_billing"
+                android:textColor="@color/textBlack9"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@+id/mainLayoutOfferPromotions" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutBilling"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_12"
+                android:layout_marginBottom="@dimen/dp_8"
+                android:background="@drawable/bg_common_rounded_rect_12"
+                android:elevation="@dimen/dp_2"
+                android:paddingHorizontal="@dimen/dp_14"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/textViewBilling"
+                app:layout_constraintVertical_bias="0">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/layoutActualPrice"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_14"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewLabelActualPrice"
+                        style="@style/TextView.Regular.sp_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/payment_care_plan_order_review_label_actual_price"
+                        android:textColor="@color/gray9" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewActualPriceTotal"
+                        style="@style/TextView.Medium.sp_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/gray9"
+                        tools:text="₹349.0" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/layoutDiscountPrice"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_8"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/layoutActualPrice">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewLabelDiscountPrice"
+                        style="@style/TextView.Regular.sp_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/payment_care_plan_order_review_label_discount_price"
+                        android:textColor="@color/gray9" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewDiscountTotal"
+                        style="@style/TextView.Medium.sp_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/gray9"
+                        tools:text="₹349.0" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/layoutPurchasePrice"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/layoutDiscountPrice">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewLabelPurchasePrice"
+                        style="@style/TextView.Regular.sp_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/payment_care_plan_order_review_label_purchase_price"
+                        android:textColor="@color/gray9" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewPurchasePriceTotal"
+                        style="@style/TextView.Medium.sp_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/gray9"
+                        tools:text="₹349.0" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/layoutGST"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/layoutPurchasePrice">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewLabelGST"
+                        style="@style/TextView.Regular.sp_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/payment_care_plan_order_review_label_GST"
+                        android:textColor="@color/gray9" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewGSTTotal"
+                        style="@style/TextView.Medium.sp_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/gray9"
+                        tools:text="₹349.0" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/layoutAppliedCouponPrice"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_8"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/layoutGST">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewLabelAppliedCoupon"
+                        style="@style/TextView.Regular.sp_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:alpha="0.8"
+                        android:text="@string/labtest_billing_label_applied_coupon"
+                        android:textColor="@color/gray2" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewAppliedCouponPrice"
+                        style="@style/TextView.Regular.sp_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/darkGreen1"
+                        tools:text="- ₹25" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <View
+                    android:id="@+id/viewLine"
+                    style="@style/viewLine"
+                    android:layout_width="0dp"
+                    android:layout_marginTop="@dimen/dp_15"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/layoutAppliedCouponPrice" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/layoutAmountToPaid"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_13"
+                    android:layout_marginBottom="@dimen/dp_14"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/viewLine">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewLabelAmountToPaid"
+                        style="@style/TextView.Bold.sp_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/payment_care_plan_order_review_label_amount_paid"
+                        android:textColor="@color/textBlack7" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewAmountPayable"
+                        style="@style/TextView.Bold.sp_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/textBlack7"
+                        tools:text="₹349.0" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutProceedPayment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:elevation="@dimen/dp_10"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewTotalPayable"
+            style="@style/TextView.Regular.sp_10"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/screen_space"
+            android:layout_marginTop="@dimen/dp_8"
+            android:text="@string/payment_care_plan_order_review_label_total_payable"
+            android:textColor="@color/background_dark_gray"
+            app:layout_constraintEnd_toEndOf="@id/textViewTotalPayPrice"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewTotalPayPrice"
+            style="@style/TextView.SemiBold.sp_16"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_3"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/textBlack7"
+            app:layout_constraintEnd_toStartOf="@id/buttonProceedPayment"
+            app:layout_constraintStart_toStartOf="@id/textViewTotalPayable"
+            app:layout_constraintTop_toBottomOf="@id/textViewTotalPayable"
+            tools:text="₹ 1,999" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewTotalPriceDuration"
+            style="@style/TextView.SemiBold.sp_10"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_3"
+            android:layout_marginBottom="@dimen/dp_8"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/textBlack7"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/textViewTotalPayPrice"
+            app:layout_constraintStart_toStartOf="@id/textViewTotalPayable"
+            app:layout_constraintTop_toBottomOf="@id/textViewTotalPayPrice"
+            tools:text="For 3 months" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonProceedPayment"
+            style="@style/buttonSolidWithCorner16"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/screen_space"
+            android:layout_marginEnd="@dimen/screen_space"
+            android:text="@string/payment_care_plan_order_review_button_proceed_payment"
+            android:textSize="@dimen/sp_14"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/textViewTotalPayPrice"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

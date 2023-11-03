@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_65">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/textViewToolbarTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_6"
+        android:adjustViewBounds="true"
+        app:layout_constraintBottom_toTopOf="@+id/tvLocation"
+        app:layout_constraintEnd_toStartOf="@id/imageViewNotification"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_app_text_logo_new" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvLocation"
+        style="@style/TextView.Regular.sp_12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_2"
+        android:layout_marginBottom="@dimen/dp_6"
+        android:text="Select Location"
+        android:textColor="@color/gray9"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintEnd_toStartOf="@+id/ivDown"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/textViewToolbarTitle"
+        app:layout_constraintTop_toBottomOf="@id/textViewToolbarTitle" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivDown"
+        android:layout_width="@dimen/dp_15"
+        android:layout_height="@dimen/dp_15"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        android:background="?selectableItemBackgroundBorderless"
+        app:layout_constraintBottom_toBottomOf="@+id/tvLocation"
+        app:layout_constraintStart_toEndOf="@+id/tvLocation"
+        app:layout_constraintTop_toTopOf="@+id/tvLocation"
+        app:srcCompat="@drawable/ic_drop_down" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewNotification"
+        android:layout_width="@dimen/dp_32"
+        android:layout_height="@dimen/dp_32"
+        android:layout_marginVertical="@dimen/dp_8"
+        android:layout_marginEnd="@dimen/dp_5"
+        android:background="?selectableItemBackgroundBorderless"
+        android:padding="@dimen/dp_4"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintEnd_toStartOf="@id/ivProfile"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_notification_bell" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/imageViewUnreadNotificationIndicator"
+        style="@style/TextView.Medium.sp_8"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_16"
+        android:layout_margin="@dimen/dp_12"
+        android:background="@drawable/bg_circle_notification_dot"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxWidth="@dimen/dp_24"
+        android:maxLines="1"
+        android:minWidth="@dimen/dp_16"
+        android:paddingStart="@dimen/dp_2"
+        android:paddingEnd="@dimen/dp_2"
+        android:textAlignment="gravity"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/imageViewNotification"
+        app:layout_constraintStart_toStartOf="@id/imageViewNotification"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="99" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivProfile"
+        android:layout_width="@dimen/dp_35"
+        android:layout_height="@dimen/dp_35"
+        app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+        android:layout_marginVertical="@dimen/dp_8"
+        android:layout_marginEnd="@dimen/dp_8"
+        android:padding="@dimen/dp_3"
+        android:scaleType="centerCrop"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/place_holder" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

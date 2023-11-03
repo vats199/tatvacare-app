@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewPlanType"
+        style="@style/TextView.SemiBold.sp_18"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/screen_space"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/screen_space"
+        android:text="Currently active plan"
+        android:textColor="@color/textBlack1" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/screen_space"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/screen_space"
+        android:layout_marginBottom="@dimen/dp_10"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/dp_6"
+        app:cardElevation="@dimen/dp_3">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.30" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewService"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:scaleType="centerCrop"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/guideline"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_dummy_medical_report" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewTitle"
+                style="@style/TextView.SemiBold.sp_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="Nutritionist Consult"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/guideline"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewDescription"
+                style="@style/TextView.Regular.sp_11"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8"
+                android:alpha="0.7"
+                android:ellipsize="end"
+                android:lineSpacingExtra="@dimen/dp_3"
+                android:lines="2"
+                android:maxLines="2"
+                android:text="A 30 minute consultation with a nutritionist to make you a diet, best suited for your needs!"
+                app:layout_constraintBottom_toTopOf="@id/layoutPriceOld"
+                app:layout_constraintEnd_toEndOf="@id/textViewTitle"
+                app:layout_constraintStart_toStartOf="@id/textViewTitle"
+                app:layout_constraintTop_toBottomOf="@id/textViewTitle" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layoutPriceOld"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@id/layoutPrice"
+                app:layout_constraintEnd_toEndOf="@id/textViewTitle"
+                app:layout_constraintStart_toStartOf="@id/textViewTitle"
+                app:layout_constraintTop_toBottomOf="@id/textViewDescription">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelStartAt"
+                    style="@style/TextView.Regular.sp_16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.6"
+                    android:text="Starts at"
+
+                    android:layout_marginEnd="@dimen/dp_4"
+                    android:textColor="@color/textBlack1"
+                    app:layout_constraintEnd_toEndOf="@id/imageViewPlanIcon"
+                    app:layout_constraintStart_toStartOf="@id/imageViewPlanIcon"
+                    app:layout_constraintTop_toBottomOf="@id/imageViewPlanIcon" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewPriceOld"
+                    style="@style/TextView.Regular.sp_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.6"
+                    android:ellipsize="end"
+                    android:foreground="@drawable/line_strike_through"
+                    android:maxLines="1"
+                    android:textColor="@color/textBlack1"
+                    app:layout_constraintEnd_toEndOf="@id/imageViewPlanIcon"
+                    app:layout_constraintStart_toStartOf="@id/imageViewPlanIcon"
+                    app:layout_constraintTop_toBottomOf="@id/textViewLabelStartAt"
+                    tools:text="3400" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layoutPrice"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@id/layoutBuy"
+                app:layout_constraintEnd_toEndOf="@id/textViewTitle"
+                app:layout_constraintStart_toStartOf="@id/textViewTitle"
+                app:layout_constraintTop_toBottomOf="@id/layoutPriceOld">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/TextView.SemiBold.sp_20"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/textViewPriceSymbol"
+                    android:layout_height="wrap_content"
+                    android:text="@string/symbol_rupee"
+                    android:textColor="@color/textBlack1" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/TextView.Light.sp_16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_3"
+                    android:foreground="@drawable/line_strike_through"
+                    android:text="300"
+                    android:textColor="@color/textBlack1"
+                    android:visibility="gone" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewPrice"
+                    style="@style/TextView.SemiBold.sp_20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="250"
+                    android:textColor="@color/textBlack1" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelPer"
+                    style="@style/TextView.SemiBold.sp_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="/month"
+                    android:textColor="@color/textBlack1" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layoutBuy"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_5"
+                android:layout_marginBottom="@dimen/dp_16"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/textViewTitle"
+                app:layout_constraintStart_toStartOf="@id/textViewTitle"
+                app:layout_constraintTop_toBottomOf="@id/layoutPrice">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/buttonBuyNow"
+                    style="@style/buttonSolidSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_26"
+                    android:layout_marginStart="@dimen/dp_2"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:layout_marginEnd="@dimen/dp_2"
+                    android:layout_marginBottom="@dimen/dp_2"
+                    android:paddingStart="@dimen/dp_20"
+                    android:paddingEnd="@dimen/dp_20"
+                    android:text="Buy Now"
+                    android:textSize="@dimen/sp_12"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+</androidx.appcompat.widget.LinearLayoutCompat>

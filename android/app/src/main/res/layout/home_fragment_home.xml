@@ -1,0 +1,665 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/layoutHeader"
+        layout="@layout/layout_common_toolbar_home" />
+
+    <!--<com.google.android.material.progressindicator.LinearProgressIndicator
+        style="@style/Theme.MaterialComponents.Light"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/lightGray"
+        android:indeterminate="false"
+        android:indeterminateOnly="false"
+        android:max="100"
+        android:progress="10"
+        android:progressTint="@color/colorPrimary"
+        app:indicatorColor="@color/colorPrimary"
+        app:indicatorDirectionLinear="startToEnd"
+        app:trackColor="@color/lightGray"
+        app:trackCornerRadius="@dimen/dp_10"
+        app:trackThickness="@dimen/dp_8" />-->
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutHeader">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutHomeTop"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewBgThemeColor"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/dp_8"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutHomeTop"
+                app:srcCompat="@drawable/bg_rounded_top" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewVerifyEmail"
+                style="@style/TextView.SemiBold.sp_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/screen_space"
+                android:layout_marginTop="@dimen/dp_24"
+                android:layout_marginEnd="@dimen/screen_space"
+                android:background="@drawable/bg_common_rounded_rect_8_transparent"
+                android:gravity="center"
+                android:padding="@dimen/dp_12"
+                android:text="@string/home_label_verify_your_email"
+                android:textAlignment="gravity"
+                android:textColor="@color/lightRed"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/imageViewBgThemeColor" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutDailySummary"
+                style="@style/TextView.Bold.sp_18"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewVerifyEmail">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelDailySummary"
+                    style="@style/TextView.SemiBold.sp_18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/screen_space"
+                    android:layout_marginTop="@dimen/dp_24"
+                    android:layout_marginEnd="@dimen/screen_space"
+                    android:text="@string/home_label_your_daily_summary"
+                    android:textColor="@color/textBlack1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageViewInfo"
+                    android:layout_width="@dimen/dp_18"
+                    android:layout_height="@dimen/dp_18"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:background="@drawable/bg_circle_white"
+                    android:elevation="@dimen/dp_2"
+                    app:layout_constraintBottom_toBottomOf="@id/textViewLabelDailySummary"
+                    app:layout_constraintStart_toEndOf="@id/textViewLabelDailySummary"
+                    app:layout_constraintTop_toTopOf="@id/textViewLabelDailySummary"
+                    app:srcCompat="@drawable/ic_reading_info"
+                    app:tint="@color/colorPrimary" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewDailySummary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/screen_space"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/screen_space"
+                    android:orientation="vertical"
+                    android:overScrollMode="never"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textViewLabelDailySummary"
+                    tools:itemCount="4"
+                    tools:listitem="@layout/home_row_daily_summary" />
+
+                <androidx.appcompat.widget.AppCompatCheckedTextView
+                    android:id="@+id/textViewDailySummaryMoreLess"
+                    style="@style/TextView.Medium.sp_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableEnd="@drawable/selector_up_down_arrow"
+                    android:drawablePadding="@dimen/dp_4"
+                    android:paddingTop="@dimen/dp_4"
+                    android:paddingBottom="@dimen/dp_4"
+                    android:text="@string/home_label_view_more_daily_summary"
+                    app:layout_constraintEnd_toEndOf="@id/recyclerViewDailySummary"
+                    app:layout_constraintTop_toBottomOf="@id/recyclerViewDailySummary" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutExploreCarePlans"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_23"
+                android:background="@drawable/bg_home_mytatva_plans"
+                android:clickable="true"
+                android:elevation="@dimen/dp_2"
+                android:focusable="true"
+                android:paddingHorizontal="@dimen/dp_12"
+                android:paddingVertical="@dimen/dp_8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutDailySummary">
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelCarePlanForYourNeeds"
+                    style="@style/TextView.Medium.sp_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="@string/care_plan_for_your_need_label_care_plan"
+                    android:textColor="@color/textBlack7"
+                    app:layout_constrainedWidth="true"
+                    app:layout_constraintBottom_toTopOf="@id/textViewLabelExplorePlan"
+                    app:layout_constraintEnd_toStartOf="@id/imageViewCarePlan"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelExplorePlan"
+                    style="@style/TextView.Regular.sp_12"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="@string/care_plan_for_your_need_label_explore_plan"
+                    android:textColor="@color/background_dark_gray"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/textViewLabelCarePlanForYourNeeds"
+                    app:layout_constraintStart_toStartOf="@id/textViewLabelCarePlanForYourNeeds"
+                    app:layout_constraintTop_toBottomOf="@id/textViewLabelCarePlanForYourNeeds" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageViewCarePlan"
+                    android:layout_width="@dimen/dp_60"
+                    android:layout_height="@dimen/dp_60"
+                    android:src="@drawable/ic_home_bcp_new"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!--Old BCP layout-->
+            <!--<androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/layoutExploreCarePlans"
+                android:focusable="true"
+                android:clickable="true"
+                android:elevation="@dimen/dp_1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="@dimen/dp_23"
+                android:layout_marginHorizontal="@dimen/dp_16"
+                app:layout_constraintTop_toBottomOf="@id/layoutDailySummary"
+                android:background="@drawable/bg_home_mytatva_plans">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageViewCarePlan"
+                    android:layout_width="@dimen/dp_36"
+                    android:layout_height="@dimen/dp_36"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_15"
+                    android:src="@drawable/ic_care_plans_for_need"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginBottom="@dimen/dp_15"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelCarePlanForYourNeeds"
+                    style="@style/TextView.Medium.sp_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constrainedWidth="true"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintEnd_toStartOf="@id/textViewTagActive"
+                    android:text="@string/care_plan_for_your_need_label_care_plan"
+                    android:textColor="@color/textBlack1"
+                    app:layout_constraintStart_toEndOf="@id/imageViewCarePlan"
+                    app:layout_constraintTop_toTopOf="@id/imageViewCarePlan" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewTagActive"
+                    style="@style/TextView.SemiBold.sp_6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_common_rounded_rect_7"
+                    android:backgroundTint="#C9F1C9"
+                    android:layout_marginStart="@dimen/dp_10"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintEnd_toStartOf="@id/imageViewNext"
+                    app:layout_constraintTop_toTopOf="@+id/textViewLabelCarePlanForYourNeeds"
+                    app:layout_constraintStart_toEndOf="@+id/textViewLabelCarePlanForYourNeeds"
+                    app:layout_constraintBottom_toBottomOf="@+id/textViewLabelCarePlanForYourNeeds"
+                    android:paddingHorizontal="@dimen/dp_8"
+                    android:paddingVertical="@dimen/dp_5"
+                    android:text="ACTIVE"
+                    tools:visibility="visible"
+                    android:visibility="gone"
+                    android:textColor="#10B010"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelExplorePlan"
+                    style="@style/TextView.Regular.sp_12"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:text="@string/care_plan_for_your_need_label_explore_plan"
+                    android:textColor="@color/gray2"
+                    android:layout_marginStart="@dimen/dp_10"
+                    app:layout_constraintEnd_toStartOf="@id/imageViewNext"
+                    app:layout_constraintStart_toEndOf="@id/imageViewCarePlan"
+                    app:layout_constraintBottom_toBottomOf="@id/imageViewCarePlan"
+                    app:layout_constraintTop_toBottomOf="@id/textViewLabelCarePlanForYourNeeds" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageViewNext"
+                    android:layout_width="@dimen/dp_26"
+                    android:layout_height="@dimen/dp_26"
+                    android:layout_marginEnd="@dimen/dp_14"
+                    android:elevation="@dimen/dp_2"
+                    android:padding="@dimen/dp_7"
+                    app:layout_constraintTop_toTopOf="@id/imageViewCarePlan"
+                    app:layout_constraintBottom_toBottomOf="@id/imageViewCarePlan"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:srcCompat="@drawable/ic_next_arrow_gray" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutHomeContent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                android:background="@drawable/bg_rounded_top"
+                android:backgroundTint="@color/white"
+                android:elevation="@dimen/dp_100"
+                android:translationZ="@dimen/dp_100"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutExploreCarePlans">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideLineStart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="@dimen/screen_space" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideLineEnd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_end="@dimen/screen_space" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutMyDevices"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewMyDevices"
+                        style="@style/TextView.SemiBold.sp_18"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/home_label_my_devices"
+                        android:layout_marginHorizontal="@dimen/screen_space"
+                        android:textColor="@color/textBlack1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerViewMyDevices"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_15"
+                        android:clipToPadding="false"
+                        android:elevation="@dimen/dp_2"
+                        android:layout_marginBottom="@dimen/dp_8"
+                        android:nestedScrollingEnabled="false"
+                        android:orientation="vertical"
+                        android:layout_marginHorizontal="@dimen/screen_space"
+                        android:padding="@dimen/dp_1"
+                        android:background="@drawable/bg_common_rounded_rect_10"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textViewMyDevices"
+                        tools:itemCount="3"
+                        tools:listitem="@layout/home_row_my_devices" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelRecommendedForYou"
+                    style="@style/TextView.SemiBold.sp_18"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:text="@string/home_label_recommended_for_you"
+                    android:textColor="@color/textBlack1"
+                    app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                    app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                    app:layout_constraintTop_toBottomOf="@id/layoutMyDevices" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewRecommended"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/dp_10"
+                    android:paddingEnd="@dimen/dp_10"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textViewLabelRecommendedForYou"
+                    tools:itemCount="4"
+                    tools:listitem="@layout/home_row_recommended_for_you" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutUpdateYourReading"
+                    style="@style/TextView.SemiBold.sp_18"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/recyclerViewRecommended">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewLabelUpdateYourReading"
+                        style="@style/TextView.SemiBold.sp_18"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/screen_space"
+                        android:layout_marginTop="@dimen/dp_16"
+                        android:layout_marginEnd="@dimen/screen_space"
+                        android:text="@string/home_label_update_your_reading"
+                        android:textColor="@color/textBlack1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerViewUpdateReadings"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_8"
+                        android:clipToPadding="false"
+                        android:orientation="horizontal"
+                        android:paddingStart="@dimen/dp_12"
+                        android:paddingEnd="@dimen/dp_12"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textViewLabelUpdateYourReading"
+                        tools:itemCount="4"
+                        tools:listitem="@layout/home_row_update_your_reading" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutBookYourTest"
+                    style="@style/TextView.SemiBold.sp_18"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/layoutUpdateYourReading"
+                    tools:visibility="visible">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewLabelBookYourTest"
+                        style="@style/TextView.SemiBold.sp_18"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/screen_space"
+                        android:layout_marginTop="@dimen/dp_16"
+                        android:layout_marginEnd="@dimen/screen_space"
+                        android:text="@string/home_label_book_your_test"
+                        android:textColor="@color/textBlack1"
+                        app:layout_constraintEnd_toStartOf="@id/textViewViewMoreTest"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewViewMoreTest"
+                        style="@style/TextView.SemiBold.sp_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/screen_space"
+                        android:layout_marginEnd="@dimen/screen_space"
+                        android:text="@string/home_label_view_more_test"
+                        android:textColor="@color/colorPrimary"
+                        app:layout_constraintBottom_toBottomOf="@id/textViewLabelBookYourTest"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/textViewLabelBookYourTest" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerViewBookTest"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_8"
+                        android:clipToPadding="false"
+                        android:orientation="horizontal"
+                        android:paddingStart="@dimen/dp_12"
+                        android:paddingEnd="@dimen/dp_12"
+                        android:transitionName="chatListBg"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textViewLabelBookYourTest"
+                        tools:itemCount="4"
+                        tools:listitem="@layout/home_row_book_test" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutDoctorSays"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/layoutBookYourTest">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imageViewBg"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="@dimen/screen_space"
+                        android:layout_marginTop="@dimen/dp_16"
+                        android:layout_marginEnd="@dimen/screen_space"
+                        android:layout_marginBottom="@dimen/dp_16"
+                        android:background="@drawable/bg_rounded_rect_doctor_says"
+                        android:elevation="@dimen/dp_4"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_dots_overlay_doctor_says" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imageViewDoctorIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:elevation="@dimen/dp_4"
+                        app:layout_constraintBottom_toBottomOf="@id/imageViewBg"
+                        app:layout_constraintEnd_toEndOf="@id/imageViewBg"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_doctor_character" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewLabelDoctorSays"
+                        style="@style/TextView.SemiBold.sp_18"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_20"
+                        android:layout_marginTop="@dimen/dp_16"
+                        android:layout_marginEnd="@dimen/dp_8"
+                        android:elevation="@dimen/dp_4"
+                        android:ellipsize="end"
+                        android:maxLines="8"
+                        android:textColor="@color/textBlack1"
+                        app:layout_constraintEnd_toStartOf="@id/imageViewDoctorIcon"
+                        app:layout_constraintStart_toStartOf="@id/imageViewBg"
+                        app:layout_constraintTop_toTopOf="@id/imageViewBg"
+                        app:layout_constraintVertical_bias="0"
+                        tools:text="The Doctor Says" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewDoctorQuote"
+                        style="@style/TextView.Regular.sp_12"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="@dimen/dp_14"
+                        android:layout_marginBottom="@dimen/dp_8"
+                        android:alpha="0.9"
+                        android:elevation="@dimen/dp_4"
+                        android:ellipsize="end"
+                        android:lineSpacingExtra="@dimen/dp_3"
+                        android:maxLines="6"
+                        android:textColor="@color/textBlack1"
+                        app:layout_constraintBottom_toBottomOf="@id/imageViewBg"
+                        app:layout_constraintEnd_toEndOf="@id/textViewLabelDoctorSays"
+                        app:layout_constraintStart_toStartOf="@id/textViewLabelDoctorSays"
+                        app:layout_constraintTop_toBottomOf="@id/textViewLabelDoctorSays"
+                        app:layout_constraintVertical_bias="0"
+                        tools:text="A castor oil pack can be made easily at home works wonderfully in drawing toxins out of the body. When placed on the chest, similar to a vapor rub, castor oil is thought to break up congestion and toxins.A castor oil pack can be made easily at home works wonderfully in drawing toxins out of the body. When placed on the chest, similar to a vapor rub, castor oil is thought to break up congestion and toxins." />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutQuizPoll"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_16"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/layoutDoctorSays">
+
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/viewPagerQuizPoll"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+                        android:id="@+id/dotsIndicator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_6"
+                        android:layout_marginBottom="@dimen/dp_6"
+                        app:dotsColor="@color/purpleLight1"
+                        app:dotsCornerRadius="@dimen/dp_3"
+                        app:dotsSize="@dimen/dp_6"
+                        app:dotsSpacing="@dimen/dp_2"
+                        app:dotsWidthFactor="2.5"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/viewPagerQuizPoll"
+                        app:progressMode="false"
+                        app:selectedDotColor="@color/colorPrimary" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelStayInformed"
+                    style="@style/TextView.SemiBold.sp_18"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:text="@string/home_label_stay_informed"
+                    android:textColor="@color/textBlack1"
+                    app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                    app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                    app:layout_constraintTop_toBottomOf="@id/layoutQuizPoll" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewStayInformed"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_marginBottom="@dimen/dp_40"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/dp_10"
+                    android:paddingEnd="@dimen/dp_90"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textViewLabelStayInformed"
+                    tools:itemCount="4"
+                    tools:listitem="@layout/home_row_stay_informed" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewChat"
+        android:layout_width="@dimen/dp_76"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:layout_marginBottom="@dimen/dp_20"
+        android:adjustViewBounds="true"
+        android:transitionName="chatListBg"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_chat_home" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

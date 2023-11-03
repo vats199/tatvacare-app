@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="1dp"
+    android:layout_marginBottom="1dp">
+   <!-- <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewCount"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:elevation="3dp"
+        android:text="20"
+        android:gravity="center"
+        android:textSize="10sp"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:backgroundTint="#FA5B6F"
+        android:background="@drawable/ic_circle_white_8dp"/>-->
+    <LinearLayout
+        android:id="@+id/hc_layoutContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_rectangle_corner_seven"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread_inside">
+
+
+
+        <TextView
+            android:id="@+id/hc_text_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:duplicateParentState="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:visibility="gone"
+            tools:text="Jan" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/hc_text_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/inter_medium"
+            android:paddingTop="6dp"
+            android:duplicateParentState="true"
+            android:paddingBottom="6dp"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="@color/color_selector_days"
+            android:textSize="11sp"
+            android:singleLine="true"
+            tools:text="Sun" />
+
+        <TextView
+            android:id="@+id/hc_text_middle"
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/inter_regular"
+            android:gravity="center"
+            android:duplicateParentState="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textColor="@color/color_selector_dates"
+            android:textSize="14sp"
+            tools:text="2" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/hc_events_recyclerView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="4dp"
+            android:visibility="gone"
+            android:gravity="center_horizontal" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/hc_selector"
+        android:layout_width="0dp"
+        android:layout_height="5dp"
+        android:layout_marginTop="5dp"
+        android:background="#f00f0f"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hc_layoutContent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

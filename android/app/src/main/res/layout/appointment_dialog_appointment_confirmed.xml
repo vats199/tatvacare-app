@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_16"
+        android:background="@drawable/bg_common_rounded_rect_10"
+        android:orientation="vertical">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/TextView.SemiBold.sp_18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp_30"
+                    android:text="@string/appointment_confirmation_label_appointment_confirmed"
+                    android:textColor="@color/textBlack1" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_14"
+                    android:layout_marginTop="@dimen/dp_24"
+                    android:layout_marginEnd="@dimen/dp_14"
+                    android:background="@drawable/bg_rounded_rect_gray_stroke_10"
+                    android:paddingBottom="@dimen/dp_10">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imageViewProfile"
+                        android:layout_width="@dimen/dp_36"
+                        android:layout_height="@dimen/dp_36"
+                        android:layout_marginStart="@dimen/dp_12"
+                        android:layout_marginTop="@dimen/dp_16"
+                        android:background="@drawable/bg_circle_white"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:backgroundTint="@color/grayDivider" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/viewLine1"
+                        android:layout_width="@dimen/dp_1"
+                        android:layout_height="0dp"
+                        android:background="@color/gray8"
+                        app:layout_constraintBottom_toBottomOf="@id/imageViewProfile"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/imageViewProfile"
+                        app:layout_constraintTop_toTopOf="@id/imageViewProfile" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewDoctorName"
+                        style="@style/TextView.SemiBold.sp_13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:layout_marginEnd="@dimen/dp_10"
+                        android:alpha="0.7"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        tools:text="Dr. Sameer Sharma"
+                        android:textColor="@color/textBlack1"
+                        app:layout_constraintEnd_toStartOf="@id/viewLine1"
+                        app:layout_constraintStart_toEndOf="@id/imageViewProfile"
+                        app:layout_constraintTop_toTopOf="@id/imageViewProfile" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewDegree"
+                        style="@style/TextView.Regular.sp_11"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_3"
+                        android:alpha="0.7"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        tools:text="MBBS"
+                        android:textColor="@color/textBlack1"
+                        app:layout_constraintBottom_toBottomOf="@id/imageViewProfile"
+                        app:layout_constraintEnd_toEndOf="@id/textViewDoctorName"
+                        app:layout_constraintStart_toStartOf="@id/textViewDoctorName"
+                        app:layout_constraintTop_toBottomOf="@id/textViewDoctorName" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imageViewDateIcon"
+                        android:layout_width="@dimen/dp_14"
+                        android:layout_height="@dimen/dp_14"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:scaleType="centerInside"
+                        app:layout_constraintStart_toEndOf="@id/viewLine1"
+                        app:layout_constraintTop_toTopOf="@id/viewLine1"
+                        app:srcCompat="@drawable/ic_date_calendar" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imageViewTimeIcon"
+                        android:layout_width="@dimen/dp_14"
+                        android:layout_height="@dimen/dp_14"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:scaleType="centerInside"
+                        app:layout_constraintBottom_toBottomOf="@id/viewLine1"
+                        app:layout_constraintStart_toEndOf="@id/viewLine1"
+                        app:srcCompat="@drawable/ic_clock_time" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewDate"
+                        style="@style/TextView.SemiBold.sp_12"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:layout_marginEnd="@dimen/dp_12"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        tools:text="12 Aug ,2021"
+                        android:textColor="@color/textBlack1"
+                        app:layout_constraintBottom_toBottomOf="@id/imageViewDateIcon"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/imageViewDateIcon"
+                        app:layout_constraintTop_toTopOf="@id/imageViewDateIcon" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewTime"
+                        style="@style/TextView.SemiBold.sp_12"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="2"
+                        tools:text="11:00 AM- 11:00 PM"
+                        android:textColor="@color/textBlack1"
+                        app:layout_constraintEnd_toEndOf="@id/textViewDate"
+                        app:layout_constraintStart_toStartOf="@id/textViewDate"
+                        app:layout_constraintTop_toTopOf="@id/imageViewTimeIcon" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imageViewAddressIcon"
+                        android:layout_width="@dimen/dp_14"
+                        android:layout_height="@dimen/dp_14"
+                        android:layout_marginTop="@dimen/dp_24"
+                        android:scaleType="centerInside"
+                        app:layout_constraintStart_toStartOf="@id/imageViewProfile"
+                        app:layout_constraintTop_toBottomOf="@id/imageViewProfile"
+                        app:srcCompat="@drawable/ic_location" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewAddress"
+                        style="@style/TextView.Regular.sp_11"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:alpha="0.9"
+                        tools:text="60 A, Bhulabhai Desai Marg, Breach Candy, Cumballa Hill, Mumbai"
+                        android:textColor="@color/textBlack1"
+                        app:layout_constraintEnd_toEndOf="@id/textViewDate"
+                        app:layout_constraintStart_toEndOf="@id/imageViewAddressIcon"
+                        app:layout_constraintTop_toTopOf="@id/imageViewAddressIcon" />
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/layoutOptions"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:layout_marginTop="@dimen/dp_14"
+                        android:layout_marginEnd="@dimen/dp_8"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textViewAddress">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/textViewRequestCancellation"
+                            style="@style/TextView.Medium.sp_11"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_margin="@dimen/dp_4"
+                            android:layout_weight="1"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:padding="@dimen/dp_2"
+                            android:text="@string/appointment_confirmation_label_request_cancellation"
+                            android:textAlignment="gravity"
+                            android:textColor="@color/colorPrimary" />
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:id="@+id/layoutJoinVideoCall"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/dp_4"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_button_theme_solid_small"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                style="@style/textViewJoinVideoCall"
+                                android:layout_width="wrap_content"
+                                android:clickable="false"
+                                android:drawableStart="@drawable/ic_video"
+                                android:drawablePadding="@dimen/dp_5"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="@string/appointment_confirmation_label_join_video_call"
+                                android:textSize="@dimen/sp_11" />
+
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:id="@+id/layoutInClinicAppointment"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/dp_4"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                style="@style/textViewJoinVideoCall"
+                                android:layout_width="wrap_content"
+                                android:clickable="false"
+                                android:drawableStart="@drawable/ic_in_clinic"
+                                android:drawablePadding="@dimen/dp_5"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="@string/appointment_confirmation_label_in_clinic_appointment"
+                                android:textColor="@color/textBlack1"
+                                android:textSize="@dimen/sp_11" />
+
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/buttonDone"
+                    style="@style/buttonStroke"
+                    android:layout_width="match_parent"
+                    android:layout_marginStart="@dimen/dp_32"
+                    android:layout_marginTop="@dimen/dp_24"
+                    android:layout_marginEnd="@dimen/dp_32"
+                    android:layout_marginBottom="@dimen/dp_24"
+                    android:text="@string/appointment_confirmation_button_done"
+                    app:layout_constraintEnd_toEndOf="@id/textViewLabelLoginWith"
+                    app:layout_constraintStart_toStartOf="@id/textViewLabelLoginWith"
+                    app:layout_constraintTop_toBottomOf="@id/checkBoxAgreeTerms" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.core.widget.NestedScrollView>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_margin="@dimen/dp_10"
+        app:srcCompat="@drawable/ic_circle_cross" />
+</FrameLayout>

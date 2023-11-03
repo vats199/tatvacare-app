@@ -1,0 +1,613 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_screen_color">
+
+    <include
+        android:id="@+id/layoutHeader"
+        layout="@layout/layout_common_toolbar_with_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@id/layoutButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutHeader">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bg_screen_color">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/screen_space" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/screen_space" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelDisclaimer"
+                style="@style/TextView.Regular.sp_12"
+                android:layout_width="0dp"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                android:visibility="gone"
+                android:paddingHorizontal="@dimen/dp_12"
+                android:paddingVertical="@dimen/dp_12"
+                android:background="@drawable/bg_disclaimer_rounded_rect_16"
+                android:text="Disclaimer: We will book your appointment on your preferred slot within next 24 working hours."
+                android:textColor="@color/textGray7" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layoutNutrition"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                android:background="@drawable/bg_common_rounded_rect_12"
+                android:elevation="@dimen/dp_2"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/dp_20"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/textViewLabelDisclaimer">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewNutrition"
+                    style="@style/TextView.Bold.sp_14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/screen_space"
+                    android:text="With Nutritionist"
+                    android:textColor="@color/textBlack7" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/editTextNutrition"
+                    style="@style/editTextStrokeV1Radius12WithShadow"
+                    android:layout_width="match_parent"
+                    android:layout_marginHorizontal="@dimen/screen_space"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:layout_marginBottom="@dimen/dp_20"
+                    android:cursorVisible="false"
+                    android:drawableEnd="@drawable/ic_next_arrow_gray"
+                    android:focusable="false"
+                    android:hint="Select Date &amp; Time"
+                    android:inputType="textPersonName"
+                    android:longClickable="false" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutBookedNutrition"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/screen_space"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_marginBottom="@dimen/dp_20"
+                    android:background="@drawable/bg_rounded_rect_gray_stroke_12"
+                    android:backgroundTint="@color/white"
+                    android:visibility="gone">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imageViewAppointment"
+                        android:layout_width="@dimen/dp_20"
+                        android:layout_height="@dimen/dp_20"
+                        android:layout_marginTop="@dimen/dp_8"
+                        app:layout_constraintDimensionRatio="1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_schedule_appointment" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewNutritionDate"
+                        style="@style/TextView.Regular.sp_12"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:textColor="@color/textBlack7"
+                        app:layout_constraintBottom_toBottomOf="@id/imageViewAppointment"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/imageViewAppointment"
+                        app:layout_constraintTop_toTopOf="@id/imageViewAppointment"
+                        tools:text="Thursday, 23 May, 2023" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imageViewScheduleTime"
+                        android:layout_width="@dimen/dp_20"
+                        android:layout_height="@dimen/dp_20"
+                        android:layout_marginTop="@dimen/dp_12"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1"
+                        app:layout_constraintStart_toStartOf="@id/imageViewAppointment"
+                        app:layout_constraintTop_toBottomOf="@id/imageViewAppointment"
+                        app:srcCompat="@drawable/ic_schedule_time" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewNutritionTime"
+                        style="@style/TextView.Regular.sp_12"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:textColor="@color/textBlack7"
+                        app:layout_constraintBottom_toBottomOf="@id/imageViewScheduleTime"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/imageViewScheduleTime"
+                        app:layout_constraintTop_toTopOf="@id/imageViewScheduleTime"
+                        tools:text="Morning, 06:30 - 08:30 AM" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!--Old UI layout-->
+                <!--textViewNutritionDay<androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutBookedNutrition"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:background="@drawable/bg_rounded_rect_gray_stroke_12"
+                    android:backgroundTint="@color/background_light_pink">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewNutritionDate"
+                        style="@style/TextView.Bold.sp_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_12"
+                        tools:text="23 May, 2023"
+                        android:textAlignment="center"
+                        android:textColor="@color/textBlack6"
+                        app:layout_constraintBottom_toTopOf="@id/textViewNutritionDay"
+                        app:layout_constraintEnd_toStartOf="@id/viewLineV1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_chainStyle="packed" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewNutritionDay"
+                        style="@style/TextView.Regular.sp_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp_12"
+                        tools:text="Thursday"
+                        android:textAlignment="center"
+                        android:textColor="@color/textBlack5"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/viewLineV1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textViewNutritionDate" />
+
+                    <View
+                        android:id="@+id/viewLineV1"
+                        android:layout_width="@dimen/sp_1"
+                        android:layout_height="0dp"
+                        android:layout_marginVertical="@dimen/dp_8"
+                        android:background="@color/purpleTransparent10"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewNutritionTime"
+                        style="@style/TextView.Bold.sp_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        tools:text="07:30 - 08:30 AM"
+                        android:textAlignment="center"
+                        android:textColor="@color/textBlack6"
+                        app:layout_constraintBottom_toTopOf="@id/textViewNutritionTimeType"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/viewLineV1"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_chainStyle="packed" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewNutritionTimeType"
+                        style="@style/TextView.Regular.sp_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        tools:text="Morning"
+                        android:textAlignment="center"
+                        android:textColor="@color/textBlack5"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/viewLineV1"
+                        app:layout_constraintTop_toBottomOf="@id/textViewNutritionTime" />
+                </androidx.constraintlayout.widget.ConstraintLayout>-->
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layoutPhysiotherapist"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                android:background="@drawable/bg_common_rounded_rect_12"
+                android:elevation="@dimen/dp_2"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/dp_20"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/layoutNutrition">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewPhysiotherapist"
+                    style="@style/TextView.Bold.sp_14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/screen_space"
+                    android:text="With Physiotherapist"
+                    android:textColor="@color/textBlack7" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/editTextPhysiotherapist"
+                    style="@style/editTextStrokeV1Radius12WithShadow"
+                    android:layout_width="match_parent"
+                    android:layout_marginHorizontal="@dimen/screen_space"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:layout_marginBottom="@dimen/dp_20"
+                    android:cursorVisible="false"
+                    android:drawableEnd="@drawable/ic_next_arrow_gray"
+                    android:focusable="false"
+                    android:hint="Select Date &amp; Time"
+                    android:inputType="textPersonName"
+                    android:longClickable="false" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutBookedPhysiotherapist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/screen_space"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_marginBottom="@dimen/dp_20"
+                    android:background="@drawable/bg_rounded_rect_gray_stroke_12"
+                    android:backgroundTint="@color/white"
+                    android:visibility="gone">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imageViewPhysiotherapistAppointment"
+                        android:layout_width="@dimen/dp_20"
+                        android:layout_height="@dimen/dp_20"
+                        android:layout_marginTop="@dimen/dp_8"
+                        app:layout_constraintDimensionRatio="1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_schedule_appointment" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewPhysiotherapistDate"
+                        style="@style/TextView.Regular.sp_12"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:textColor="@color/textBlack7"
+                        app:layout_constraintBottom_toBottomOf="@id/imageViewPhysiotherapistAppointment"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/imageViewPhysiotherapistAppointment"
+                        app:layout_constraintTop_toTopOf="@id/imageViewPhysiotherapistAppointment"
+                        tools:text="Thursday, 23 May, 2023" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imageViewPhysiotherapistScheduleTime"
+                        android:layout_width="@dimen/dp_20"
+                        android:layout_height="@dimen/dp_20"
+                        android:layout_marginTop="@dimen/dp_12"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1"
+                        app:layout_constraintStart_toStartOf="@id/imageViewPhysiotherapistAppointment"
+                        app:layout_constraintTop_toBottomOf="@id/imageViewPhysiotherapistAppointment"
+                        app:srcCompat="@drawable/ic_schedule_time" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewPhysiotherapistTime"
+                        style="@style/TextView.Regular.sp_12"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:textColor="@color/textBlack7"
+                        app:layout_constraintBottom_toBottomOf="@id/imageViewPhysiotherapistScheduleTime"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/imageViewPhysiotherapistScheduleTime"
+                        app:layout_constraintTop_toTopOf="@id/imageViewPhysiotherapistScheduleTime"
+                        tools:text="Morning, 06:30 - 08:30 AM" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!--Old UI layout-->
+                <!--<androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutBookedPhysiotherapist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:visibility="gone"
+                    android:background="@drawable/bg_rounded_rect_gray_stroke_12"
+                    android:backgroundTint="@color/background_light_pink">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewPhysiotherapistDate"
+                        style="@style/TextView.Bold.sp_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_12"
+                        tools:text="23 May, 2023"
+                        android:textAlignment="center"
+                        android:textColor="@color/textBlack6"
+                        app:layout_constraintBottom_toTopOf="@id/textViewPhysiotherapistDay"
+                        app:layout_constraintEnd_toStartOf="@id/viewLineV2"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_chainStyle="packed" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewPhysiotherapistDay"
+                        style="@style/TextView.Regular.sp_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp_12"
+                        tools:text="Thursday"
+                        android:textAlignment="center"
+                        android:textColor="@color/textBlack5"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/viewLineV2"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textViewPhysiotherapistDate" />
+
+                    <View
+                        android:id="@+id/viewLineV2"
+                        android:layout_width="@dimen/sp_1"
+                        android:layout_height="0dp"
+                        android:layout_marginVertical="@dimen/dp_8"
+                        android:background="@color/purpleTransparent10"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewPhysiotherapistTime"
+                        style="@style/TextView.Bold.sp_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        tools:text="07:30 - 08:30 AM"
+                        android:textAlignment="center"
+                        android:textColor="@color/textBlack6"
+                        app:layout_constraintBottom_toTopOf="@id/textViewPhysiotherapistTimeType"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/viewLineV2"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_chainStyle="packed" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewPhysiotherapistTimeType"
+                        style="@style/TextView.Regular.sp_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        tools:text="Morning"
+                        android:textAlignment="center"
+                        android:textColor="@color/textBlack5"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/viewLineV2"
+                        app:layout_constraintTop_toBottomOf="@id/textViewPhysiotherapistTime" />
+                </androidx.constraintlayout.widget.ConstraintLayout>-->
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layoutDoctor"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                android:background="@drawable/bg_common_rounded_rect_12"
+                android:elevation="@dimen/dp_2"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/dp_20"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/layoutPhysiotherapist"
+                tools:visibility="visible">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewDoctor"
+                    style="@style/TextView.Bold.sp_14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/screen_space"
+                    android:text="With Doctor"
+                    android:textColor="@color/textBlack7" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/editTextDoctor"
+                    style="@style/editTextStrokeV1Radius12WithShadow"
+                    android:layout_width="match_parent"
+                    android:layout_marginHorizontal="@dimen/screen_space"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:layout_marginBottom="@dimen/dp_20"
+                    android:cursorVisible="false"
+                    android:drawableEnd="@drawable/ic_next_arrow_gray"
+                    android:focusable="false"
+                    android:hint="Select Date &amp; Time"
+                    android:inputType="textPersonName"
+                    android:longClickable="false" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutBookedDoctor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/screen_space"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_marginBottom="@dimen/dp_20"
+                    android:background="@drawable/bg_rounded_rect_gray_stroke_12"
+                    android:backgroundTint="@color/white"
+                    android:visibility="gone">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imageViewDoctorAppointment"
+                        android:layout_width="@dimen/dp_20"
+                        android:layout_height="@dimen/dp_20"
+                        android:layout_marginTop="@dimen/dp_8"
+                        app:layout_constraintDimensionRatio="1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_schedule_appointment" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewDoctorDate"
+                        style="@style/TextView.Regular.sp_12"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:textColor="@color/textBlack7"
+                        app:layout_constraintBottom_toBottomOf="@id/imageViewDoctorAppointment"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/imageViewDoctorAppointment"
+                        app:layout_constraintTop_toTopOf="@id/imageViewDoctorAppointment"
+                        tools:text="Thursday, 23 May, 2023" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imageViewDoctorScheduleTime"
+                        android:layout_width="@dimen/dp_20"
+                        android:layout_height="@dimen/dp_20"
+                        android:layout_marginTop="@dimen/dp_12"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1"
+                        app:layout_constraintStart_toStartOf="@id/imageViewDoctorAppointment"
+                        app:layout_constraintTop_toBottomOf="@id/imageViewDoctorAppointment"
+                        app:srcCompat="@drawable/ic_schedule_time" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewDoctorTime"
+                        style="@style/TextView.Regular.sp_12"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:textColor="@color/textBlack7"
+                        app:layout_constraintBottom_toBottomOf="@id/imageViewDoctorScheduleTime"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/imageViewDoctorScheduleTime"
+                        app:layout_constraintTop_toTopOf="@id/imageViewDoctorScheduleTime"
+                        tools:text="Morning, 06:30 - 08:30 AM" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!--Old UI layout-->
+                <!--<androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutBookedDoctor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:background="@drawable/bg_rounded_rect_gray_stroke_12"
+                    android:backgroundTint="@color/background_light_pink"
+                    android:visibility="gone">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewDoctorDate"
+                        style="@style/TextView.Bold.sp_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_12"
+                        android:text="23 May, 2023"
+                        android:textAlignment="center"
+                        android:textColor="@color/textBlack6"
+                        app:layout_constraintBottom_toTopOf="@id/textViewDoctorDay"
+                        app:layout_constraintEnd_toStartOf="@id/viewLineV3"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_chainStyle="packed" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewDoctorDay"
+                        style="@style/TextView.Regular.sp_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp_12"
+                        android:text="Thursday"
+                        android:textAlignment="center"
+                        android:textColor="@color/textBlack5"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/viewLineV3"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textViewDoctorDate" />
+
+                    <View
+                        android:id="@+id/viewLineV3"
+                        android:layout_width="@dimen/sp_1"
+                        android:layout_height="0dp"
+                        android:layout_marginVertical="@dimen/dp_8"
+                        android:background="@color/purpleTransparent10"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewDoctorTime"
+                        style="@style/TextView.Bold.sp_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="07:30 - 08:30 AM"
+                        android:textAlignment="center"
+                        android:textColor="@color/textBlack6"
+                        app:layout_constraintBottom_toTopOf="@id/textViewDoctorTimeType"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/viewLineV3"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_chainStyle="packed" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewDoctorTimeType"
+                        style="@style/TextView.Regular.sp_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Morning"
+                        android:textAlignment="center"
+                        android:textColor="@color/textBlack5"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/viewLineV3"
+                        app:layout_constraintTop_toBottomOf="@id/textViewDoctorTime" />
+                </androidx.constraintlayout.widget.ConstraintLayout>-->
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/layoutButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonSchedule"
+            style="@style/buttonSolid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dp_15"
+            android:layout_marginVertical="@dimen/dp_10"
+            android:backgroundTint="@color/background_dark_gray"
+            android:enabled="false"
+            android:text="Schedule"
+            android:textSize="@dimen/sp_16"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+            app:layout_constraintStart_toStartOf="@id/guideLineStart" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.constraintlayout.widget.ConstraintLayout>

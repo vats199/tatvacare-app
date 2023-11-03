@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/screen_space"
+    android:layout_marginVertical="@dimen/dp_6"
+    android:background="@drawable/bg_common_rounded_rect_12"
+    android:paddingVertical="@dimen/dp_11">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewIconLocation"
+        android:layout_width="@dimen/dp_28"
+        android:layout_height="@dimen/dp_28"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_address_new" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewAddressType"
+        style="@style/TextView.Regular.sp_14"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_12"
+        android:lineSpacingExtra="@dimen/dp_3"
+        android:maxLines="1"
+        android:paddingVertical="@dimen/dp_3"
+        android:textColor="@color/textBlack9"
+        app:layout_constraintEnd_toStartOf="@id/imageViewMore"
+        app:layout_constraintStart_toEndOf="@id/imageViewIconLocation"
+        app:layout_constraintTop_toTopOf="@id/imageViewIconLocation"
+        app:layout_goneMarginBottom="@dimen/dp_10"
+        tools:text="Home" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewAddress"
+        style="@style/TextView.Regular.sp_12"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_12"
+        android:lineSpacingExtra="@dimen/dp_3"
+        android:paddingVertical="@dimen/dp_3"
+        android:textColor="@color/textGray7"
+        app:layout_constraintEnd_toStartOf="@id/imageViewMore"
+        app:layout_constraintStart_toEndOf="@id/imageViewIconLocation"
+        app:layout_constraintTop_toBottomOf="@id/textViewAddressType"
+        app:layout_goneMarginBottom="@dimen/dp_10"
+        tools:text="Zydus cadila, Hari Om Nagar, Chandralok Society, Ghodasar, Ahmedabad, Gujarat 380050" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewSelector"
+        android:layout_width="@dimen/dp_18"
+        android:layout_height="@dimen/dp_18"
+        android:src="@drawable/selector_ic_radio_black_pink"
+        android:tint="@color/clr_selector_light_gray_purpal"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/textViewAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/textViewAddress" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewMore"
+        android:layout_width="@dimen/dp_24"
+        android:layout_height="@dimen/dp_24"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="@dimen/dp_2"
+        android:src="@drawable/ic_more_three_dot"
+        android:tint="@color/clr_selector_light_gray_purpal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/textViewAddressType" />
+
+    <!--<View
+        android:id="@+id/viewLine1"
+        style="@style/viewLine"
+        android:layout_width="0dp"
+        android:layout_marginTop="@dimen/dp_16"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewAddress"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />-->
+
+</androidx.constraintlayout.widget.ConstraintLayout><!-- OLD Figma wise
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        >
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewIconLocation"
+            android:layout_width="@dimen/dp_28"
+            android:layout_height="@dimen/dp_28"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="@dimen/dp_16"
+            android:src="@drawable/ic_address_new"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewAddress"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            style="@style/TextView.Regular.sp_14"
+            android:textColor="@color/gray9"
+            android:lineSpacingExtra="@dimen/dp_3"
+            android:paddingVertical="@dimen/dp_3"
+            app:layout_constraintStart_toEndOf="@id/imageViewIconLocation"
+            app:layout_constraintEnd_toStartOf="@id/imageViewSelector"
+            app:layout_constraintTop_toTopOf="@id/imageViewIconLocation"
+            app:layout_constraintBottom_toTopOf="@id/viewLine1"
+            app:layout_goneMarginBottom="@dimen/dp_10"
+            android:layout_marginStart="@dimen/dp_12"
+            android:layout_marginEnd="@dimen/dp_12"
+            tools:text="Zydus cadila, Hari Om Nagar, Chandralok Society, Ghodasar, Ahmedabad, Gujarat 380050"
+            />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewSelector"
+            android:layout_width="@dimen/dp_18"
+            android:layout_height="@dimen/dp_18"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textViewAddress"
+            app:layout_constraintBottom_toBottomOf="@id/textViewAddress"
+            android:src="@drawable/selector_ic_radio_black_pink"
+            android:tint="@color/clr_selector_light_gray_purpal"
+            />
+
+        <View
+            android:id="@+id/viewLine1"
+            style="@style/viewLine"
+            android:layout_width="0dp"
+            android:layout_marginTop="@dimen/dp_16"
+            android:layout_marginBottom="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewAddress"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>-->

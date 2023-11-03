@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:background="@color/gray">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        tools:background="@color/gray">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewClose"
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_24"
+            android:layout_gravity="end"
+            android:background="@drawable/bg_circle_white"
+            android:backgroundTint="@color/gray"
+            android:elevation="@dimen/dp_4"
+            android:padding="@dimen/dp_6"
+            app:srcCompat="@drawable/ic_cross_small" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rootBg"
+        android:layout_margin="@dimen/dp_7"
+        android:background="@drawable/bg_common_rounded_rect_10"
+        android:elevation="@dimen/dp_2">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideLineStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/screen_space" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideLineEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/screen_space" />
+
+        <include
+            android:id="@+id/layoutHeader"
+            layout="@layout/goal_common_layout_header"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_30"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+            app:layout_constraintStart_toStartOf="@id/guideLineStart"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/viewLine1"
+            style="@style/viewLine"
+            android:layout_width="0dp"
+            app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+            app:layout_constraintStart_toStartOf="@id/guideLineStart"
+            app:layout_constraintTop_toBottomOf="@id/layoutHeader" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewDate"
+            style="@style/TextView.Medium.sp_11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_16"
+            android:drawableStart="@drawable/ic_date_calendar"
+            android:drawablePadding="@dimen/dp_8"
+            android:drawableTint="@color/gray6"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:gravity="center"
+            tools:text="10 Sept,2021"
+            android:textColor="@color/textBlack1"
+            app:layout_constraintStart_toStartOf="@id/guideLineStart"
+            app:layout_constraintTop_toBottomOf="@id/viewLine1" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/viewLine2"
+            android:layout_width="@dimen/dp_1"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/dp_16"
+            android:background="@color/gray6"
+            app:layout_constraintBottom_toBottomOf="@id/textViewDate"
+            app:layout_constraintStart_toEndOf="@id/textViewDate"
+            app:layout_constraintTop_toTopOf="@id/textViewDate" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewTime"
+            style="@style/TextView.Medium.sp_11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_16"
+            android:drawableStart="@drawable/ic_clock_time"
+            android:drawablePadding="@dimen/dp_8"
+            android:drawableTint="@color/gray6"
+            android:gravity="center"
+            tools:text="10:00 am"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="@color/textBlack1"
+            app:layout_constraintBottom_toBottomOf="@id/textViewDate"
+            app:layout_constraintStart_toEndOf="@id/viewLine2"
+            app:layout_constraintTop_toTopOf="@id/textViewDate" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewLabelNoOfSteps"
+            style="@style/TextView.Regular.sp_12"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_20"
+            android:text="@string/log_steps_label_no_of_steps"
+            android:textColor="@color/textBlack1"
+            app:layout_constraintStart_toStartOf="@id/guideLineStart"
+            app:layout_constraintTop_toBottomOf="@id/textViewDate" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/editTextSteps"
+            style="@style/editTextStrokeSmall"
+            android:layout_width="0dp"
+            android:layout_marginTop="@dimen/dp_10"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:gravity="center"
+            android:longClickable="false"
+            android:text="500"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+            app:layout_constraintStart_toStartOf="@id/guideLineStart"
+            app:layout_constraintTop_toBottomOf="@id/textViewLabelNoOfSteps" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewMinus"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/dp_6"
+            app:layout_constraintBottom_toBottomOf="@id/editTextSteps"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintStart_toStartOf="@id/editTextSteps"
+            app:layout_constraintTop_toTopOf="@id/editTextSteps"
+            app:srcCompat="@drawable/ic_minus" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewPlus"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/dp_6"
+            app:layout_constraintBottom_toBottomOf="@id/editTextSteps"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintEnd_toEndOf="@id/editTextSteps"
+            app:layout_constraintTop_toTopOf="@id/editTextSteps"
+            app:srcCompat="@drawable/ic_plus" />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonAdd"
+            style="@style/buttonStrokeSmallRadius7"
+            android:layout_width="0dp"
+            android:layout_marginStart="@dimen/dp_20"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_30"
+            android:layout_marginBottom="@dimen/dp_24"
+            android:paddingStart="@dimen/dp_24"
+            android:paddingEnd="@dimen/dp_24"
+            android:text="@string/log_steps_button_add"
+            app:layout_constraintEnd_toStartOf="@id/buttonAddNext"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="@id/guideLineStart"
+            app:layout_constraintTop_toBottomOf="@id/editTextSteps" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonAddNext"
+            style="@style/buttonSolidSmallRadius7"
+            android:layout_width="0dp"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:layout_marginBottom="@dimen/dp_30"
+            android:paddingStart="@dimen/dp_10"
+            android:paddingEnd="@dimen/dp_10"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="@string/log_steps_button_add_log_next"
+            app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+            app:layout_constraintStart_toEndOf="@id/buttonAdd"
+            app:layout_constraintTop_toTopOf="@id/buttonAdd" />
+
+        <include
+            android:id="@+id/layoutSyncData"
+            layout="@layout/reading_common_layout_sync_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginBottom="@dimen/dp_20"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+            app:layout_constraintStart_toStartOf="@id/guideLineStart"
+            app:layout_constraintTop_toBottomOf="@id/buttonAdd" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
+</FrameLayout>

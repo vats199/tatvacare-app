@@ -8,15 +8,15 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useEffect} from 'react';
-import {colors} from '../../constants/colors';
-import {Icons} from '../../constants/icons';
-import {getEncryptedText} from '../../api/base';
+import React, { useEffect } from 'react';
+import { colors } from '../../constants/colors';
+import { Icons } from '../../constants/icons';
+import { getEncryptedText } from '../../api/base';
 
 type MyHealthInsightsProps = {
   data: any;
-  onPressReading: (filteredData: any, firstRow: any) => void;
-  onPressGoal: (filteredData: any, firstRow: any) => void;
+  onPressReading: (filteredData: any, firstRow: any, index: any) => void;
+  onPressGoal: (filteredData: any, firstRow: any, index: any) => void;
 };
 
 const MyHealthInsights: React.FC<MyHealthInsightsProps> = ({
@@ -94,17 +94,17 @@ const MyHealthInsights: React.FC<MyHealthInsightsProps> = ({
     }
   };
 
-  const renderReadings = ({item, index}: {item: any; index: number}) => {
+  const renderReadings = ({ item, index }: { item: any; index: number }) => {
     return (
       <TouchableOpacity
         key={index.toString()}
         style={styles.hiItemContainerBottom}
-        onPress={() => onPressReading(data?.readings, item.keys)}>
+        onPress={() => onPressReading(data?.readings, item.keys, index)}>
         <View style={[styles.row, styles.flex]}>
           <Image
             resizeMode="contain"
             style={styles.imageStyle}
-            source={{uri: item?.image_url || ''}}
+            source={{ uri: item?.image_url || '' }}
             tintColor={item?.in_range?.icon_color}
           />
           <Text style={styles.hiItemTitle}>{item?.reading_name || '-'}</Text>
@@ -121,17 +121,17 @@ const MyHealthInsights: React.FC<MyHealthInsightsProps> = ({
     );
   };
 
-  const renderGoals = ({item, index}: {item: any; index: number}) => {
+  const renderGoals = ({ item, index }: { item: any; index: number }) => {
     return (
       <TouchableOpacity
         key={index.toString()}
         style={styles.hiItemContainerTop}
-        onPress={() => onPressGoal(data?.goals, item.keys)}>
+        onPress={() => onPressGoal(data?.goals, item.keys, index)}>
         <View style={[styles.row, styles.flex]}>
           <Image
             resizeMode="contain"
             style={styles.imageStyle}
-            source={{uri: item?.image_url || ''}}
+            source={{ uri: item?.image_url || '' }}
             tintColor={item?.icon_color}
           />
           <Text style={styles.hiItemTitle}>{item?.goal_name || '-'}</Text>
@@ -188,11 +188,14 @@ const styles = StyleSheet.create({
   },
   title: {
     color: colors.black,
-    fontWeight: '700',
+    fontFamily: 'SFProDisplay-Bold',
     fontSize: 16,
+    paddingTop: 7,
+    // borderWidth: 1
   },
   scrollContainer: {
     paddingVertical: 5,
+
   },
   hiItemContainerTop: {
     marginBottom: 5,
@@ -216,6 +219,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     borderRadius: 12,
     padding: 10,
+    paddingTop: 5,
     // minWidth: 150,
     width: Dimensions.get('screen').width * 0.39,
     marginRight: 10,
@@ -239,7 +243,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexShrink: 1,
     color: colors.black,
-    fontWeight: '700',
+    fontFamily: 'SFProDisplay-Bold',
     fontSize: 12,
     marginLeft: 5,
   },
@@ -252,12 +256,12 @@ const styles = StyleSheet.create({
   hiItemValue: {
     color: colors.black,
     flexShrink: 1,
-    fontWeight: '700',
+    fontFamily: 'SFProDisplay-Bold',
     fontSize: 18,
   },
   hiItemKey: {
     color: colors.secondaryLabel,
-    fontWeight: '400',
+    fontFamily: 'SFProDisplay-Semibold',
     fontSize: 12,
   },
   imageStyle: {

@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <include
+        android:id="@+id/layoutHeader"
+        layout="@layout/layout_common_toolbar_with_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/gray1"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutHeader">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/screen_space" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/screen_space" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutSyncData"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_15"
+                android:background="@drawable/bg_common_rounded_rect_10"
+                android:elevation="@dimen/dp_5"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/lotteeAnimationSyncData"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toTopOf="@id/textViewSyncingData"
+                    app:layout_constraintDimensionRatio="1.2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.6"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/weight_scale"
+                    app:lottie_speed="1.5" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewSyncingData"
+                    style="@style/TextView.Regular.sp_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_30"
+                    android:layout_marginBottom="@dimen/dp_19"
+                    android:gravity="center"
+                    android:paddingHorizontal="@dimen/dp_15"
+                    android:paddingVertical="@dimen/dp_8"
+                    android:text="@string/measure_bca_reading_default_state_message"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/lotteeAnimationSyncData"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <FrameLayout
+                android:id="@+id/layoutBgMeasureButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                android:background="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutSyncData">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/buttonMeasure"
+                    style="@style/buttonStroke"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_42"
+                    android:layout_marginHorizontal="@dimen/screen_space"
+                    android:layout_marginVertical="@dimen/dp_10"
+                    android:enabled="true"
+                    android:fontFamily="@font/sf_bold"
+                    android:text="@string/select_smart_scale_button_measure"
+                    android:textColor="@color/clr_selector_button_stroke_text"
+                    app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                    app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                    app:layout_constraintTop_toBottomOf="@id/layoutSyncData" />
+
+            </FrameLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewNote"
+                style="@style/TextView.Regular.sp_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                android:text="@string/select_smart_scale_label_note_pairing"
+                android:textColor="@color/darkRed"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/layoutBgMeasureButton"
+                tools:ignore="TextContrastCheck" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/groupMeasure"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:constraint_referenced_ids="layoutSyncData,layoutBgMeasureButton, textViewNote" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewLastSynced"
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_8"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/textViewNote"
+                app:srcCompat="@drawable/ic_last_sync" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLastSynced"
+                style="@style/TextView.Light.sp_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_12"
+                android:layout_marginTop="@dimen/dp_2"
+                android:text="@string/select_smart_scale_label_last_synced"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toEndOf="@id/imageViewLastSynced"
+                app:layout_constraintTop_toTopOf="@id/imageViewLastSynced" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/groupLastSyncDateMyVitals"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:constraint_referenced_ids="imageViewLastSynced,textViewLastSynced,textViewMyVitals,recyclerViewBcaVitals"
+                tools:visibility="visible" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewMyVitals"
+                style="@style/TextView.SemiBold.sp_18"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:text="@string/select_smart_scale_label_my_health_markers"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/imageViewLastSynced" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewBcaVitals"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8"
+                android:clipToPadding="false"
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="never"
+                android:paddingStart="@dimen/dp_12"
+                android:paddingEnd="@dimen/dp_12"
+                android:paddingBottom="@dimen/dp_10"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewMyVitals"
+                app:spanCount="2"
+                tools:itemCount="4"
+                tools:listitem="@layout/mydevice_row_my_vitals" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Basic theme colors -->
+    <color name="colorPrimary">#760FB2</color>
+    <color name="colorPrimaryDark">#760FB2</color>
+    <color name="colorAccent">#760FB2</color>
+
+    <color name="freshchat_notification_accent_color">@color/colorPrimary</color>
+
+    <!-- Other colors -->
+    <color name="blackTransparentRipple">#20000000</color>
+    <color name="purpleTransparent">#75760FB2</color>
+    <color name="purpleTransparent25">#40760FB2</color>
+    <color name="purpleTransparent20">#20760FB2</color>
+    <color name="purpleTransparent06">#06760FB2</color>
+    <color name="purpleTransparent08">#14760FB2</color>
+    <color name="purpleTransparent15">#15760FB2</color>
+    <color name="purpleTransparent10">#1A760FB2</color>
+    <color name="purpleLight">#7B3AA1</color>
+    <color name="purpleLight1">#C57FFA</color>
+    <color name="purpleLight2">#E4BFFF</color>
+    <color name="purpleLight3">#F8EEFF</color>
+    <color name="purpleLight4">#3B0859</color>
+    <color name="purpleLight5">#605AE0</color>
+    <color name="purple">#230435</color>
+    <color name="black">#000000</color>
+    <color name="blackTransparent">#80000000</color>
+    <color name="white">#ffffff</color>
+    <color name="whiteTransparent">#1Affffff</color>
+    <color name="gray">#D1D1D1</color>
+    <color name="gray1">#F1F1F1</color>
+    <color name="gray2">#666666</color>
+    <color name="gray3">#A39AB0</color>
+    <color name="gray4">#898E95</color>
+    <color name="gray7">#F3F3F3</color>
+    <color name="gray8">#999999</color>
+    <color name="lightGray1">#F0F0F0</color>
+    <color name="gray9">#616161</color>
+    <color name="lightGray">#D2D4D7</color>
+    <color name="lightGray_50">#80D2D4D7</color>
+    <color name="gray5">#E9E9E9</color>
+    <color name="gray5Transparent">#40E9E9E9</color>
+    <color name="gray6">#B9B5CF</color>
+    <color name="lightGrayTransparent">#80151522</color>
+    <color name="grayDivider">#52707070</color>
+    <color name="textBlack1">#1B053C</color>
+    <color name="textBlack2">#151522</color>
+    <color name="textBlack3">#9E99B1</color>
+    <color name="textBlack4">#888888</color>
+    <color name="textBlack5">#8A8A90</color>
+    <color name="textBlack9">#313131</color>
+    <color name="textBlack10">#41434C</color>
+    <color name="textGray6">#616161</color>
+    <color name="textGray7">#919191</color>
+    <color name="textBlack6">@color/black</color>
+    <color name="textBlack7">#212121</color>
+    <color name="textBlack8">#222222</color>
+    <color name="textGray1">#9E9E9E</color>
+    <color name="textBlack1Transparent">#CC1B053C</color>
+    <color name="textBlack1Transparent40">#401B053C</color>
+    <color name="textBlack1Transparent20">#201B053C</color>
+    <color name="textBlack1Transparent50">#801B053C</color>
+    <color name="textDarkBlue">#1F2738</color>
+    <color name="orange">#FD5725</color>
+    <color name="redLight">#F44C5C</color>
+    <color name="grayLight">#F8F8F8</color>
+    <!--<color name="redCartBadge">#F5837F</color>-->
+    <color name="overlayGradient1">#7A1C1C1C</color>
+    <color name="overlayGradient2">#000D0D0D</color>
+    <color name="grayTransparent">#268E8E8E</color>
+    <color name="pink1">#FF647C</color>
+    <color name="lightRedTransparent">#20F94E4E</color>
+    <color name="lightRed">#F94E4E</color>
+    <color name="darkRed">#EC1818</color>
+    <color name="red">#FF0000</color>
+    <color name="redError">#FF3333</color>
+    <color name="purpleWhitish">#9F8EAA</color>
+    <color name="chartPink">#F061DC</color>
+    <color name="bg_dark_button">#212121</color>
+    <color name="bg_light_indicator">#E0E0E0</color>
+    <color name="bg_lavender">#605AE0</color>
+    <color name="color_green_progress">#1BB333</color>
+    <color name="divider">#4D999999</color>
+
+    <color name="yellow">#FFC680</color>
+    <color name="pink">#FF808C</color>
+    <color name="skyBlue">#6AB6FF</color>
+    <color name="lightGreen">#77DD77</color><!--0F9A46-->
+    <color name="darkGreen">#12BA12</color>
+    <color name="darkGreen1">#1BB333</color>
+    <color name="yellow1">#FFBF00</color>
+    <color name="lightRed1">#FFDBDE</color>
+    <color name="lightGreen1">#EAFFE8</color>
+    <color name="lightGreen2">#219653</color>
+
+    <color name="lessCalorie">#FFBD6D</color>
+    <color name="limitCalorie">#77DD77</color>
+    <color name="excessCalorie">#FF6464</color>
+    <color name="bg_auth_whitish">#33E9E9E9</color>
+    <color name="colorDarkGreen">#34C759</color>
+    <color name="colorDarkGreen1">#1BBB33</color>
+    <color name="colorLightGreen">#9EDBA7</color>
+
+    <color name="range_low">#F48A26</color> <!--range_low : #F48A26-->
+    <color name="range_normal">#25DD25</color> <!--range_normal : #10B010-->
+    <color name="range_high">#F94E4E</color> <!--range_high : #F94E4E-->
+    <color name="range_toohigh">#FF0000</color> <!--range_toohigh : #FF0000-->
+    <color name="range_good">#0E8001</color> <!--range_good : #10B010-->
+    <color name="background_dark_gray">#919191</color> <!--range_good : #10B010-->
+    <color name="background_light_pink">#F9F1FF</color> <!--range_good : #10B010-->
+    <color name="background_default">#F6F6F6</color>
+    <color name="border_gray">#D7D7D7</color>
+    <color name="grayImagePlaceHolder">#D9D9D9</color>
+    <color name="bg_screen_color">#F9F9FF</color>
+    <color name="gray10">#9E9E9E</color>
+    <color name="gray10transparent10">#1A9E9E9E</color>
+
+    <array name="progressColors">
+        <item>#C57FFA</item>
+        <item>#760FB2</item>
+    </array>
+
+    <color name="gray10_8">#149E9E9E</color>
+    <color name="progress_orange">#FAB000</color>
+    <color name="progress_light_orange">#F0CE7C</color>
+    <color name="progress_red">#FF3333</color>
+    <color name="progress_green">#1BB333</color>
+
+
+    <color name="link_blue">#052EFF</color>
+</resources>

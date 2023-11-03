@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/layoutMyDevice"
+    android:focusable="true"
+    android:clickable="true"
+    android:background="@drawable/bg_common_rounded_rect_10_clickable">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewBCA"
+        android:layout_width="@dimen/dp_36"
+        android:layout_height="@dimen/dp_36"
+        android:layout_marginStart="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_15"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_bca_scale" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewDeviceName"
+        style="@style/TextView.Regular.sp_14"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_12"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="@string/home_label_smart_analyser"
+        android:textColor="@color/textBlack9"
+        app:layout_constraintEnd_toStartOf="@id/textViewConnect"
+        app:layout_constraintStart_toEndOf="@id/imageViewBCA"
+        app:layout_constraintTop_toTopOf="@id/imageViewBCA" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewLastSynced"
+        style="@style/TextView.Light.sp_12"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:layout_marginTop="@dimen/dp_2"
+        android:text="@string/home_label_last_sync"
+        android:textColor="@color/gray2"
+        app:layout_constraintEnd_toEndOf="@id/textViewDeviceName"
+        app:layout_constraintStart_toStartOf="@id/textViewDeviceName"
+        app:layout_constraintTop_toBottomOf="@id/textViewDeviceName" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewConnect"
+        style="@style/TextView.Bold.sp_12"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_16"
+        android:background="?selectableItemBackground"
+        android:paddingVertical="@dimen/dp_5"
+        android:text="@string/home_label_connect"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="@id/imageViewBCA"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/imageViewBCA" />
+
+    <View
+        android:id="@+id/viewLine"
+        style="@style/viewLine"
+        android:layout_width="0dp"
+        android:layout_marginHorizontal="@dimen/dp_13"
+        android:layout_marginTop="@dimen/dp_14"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageViewBCA" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

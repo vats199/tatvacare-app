@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?selectableItemBackground">
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/checkBoxItem"
+        style="@style/TextView.Medium.sp_16"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:button="@drawable/selector_ic_checkbox"
+        android:checked="false"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:paddingStart="@dimen/dp_16"
+        android:paddingTop="@dimen/dp_18"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:clickable="false"
+        android:paddingEnd="@dimen/dp_16"
+        android:paddingBottom="@dimen/dp_18"
+        android:text="Breakfast"
+        android:textColor="@color/clr_selector_black_gray"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintEnd_toStartOf="@id/textViewTime"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_setting_profile" />
+
+    <androidx.appcompat.widget.AppCompatCheckedTextView
+        android:id="@+id/textViewTime"
+        style="@style/TextView.Medium.sp_14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_14"
+        android:checked="true"
+        android:text="7:00 am"
+        android:textColor="@color/clr_selector_purple_gray"
+        app:layout_constraintBottom_toBottomOf="@id/checkBoxItem"
+        app:layout_constraintEnd_toStartOf="@id/imageViewEdit"
+        app:layout_constraintTop_toTopOf="@id/checkBoxItem" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewEdit"
+        android:layout_width="@dimen/dp_24"
+        android:layout_height="@dimen/dp_24"
+        android:background="?selectableItemBackgroundBorderless"
+        android:padding="@dimen/dp_7"
+        app:layout_constraintBottom_toBottomOf="@id/checkBoxItem"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/checkBoxItem"
+        app:srcCompat="@drawable/ic_edit_pencil" />
+
+    <View
+        android:id="@+id/viewLine1"
+        style="@style/viewLine"
+        android:layout_width="0dp"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

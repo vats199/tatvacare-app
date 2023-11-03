@@ -1,6 +1,6 @@
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
-import {colors} from '../../constants/colors';
+import { colors } from '../../constants/colors';
 
 type PlanItemProps = {
   plan: any;
@@ -9,7 +9,7 @@ type PlanItemProps = {
 
 const PlanItem: React.FC<PlanItemProps> = ({
   plan,
-  onPressKnowMore = () => {},
+  onPressKnowMore = () => { },
 }) => {
   return (
     <TouchableOpacity
@@ -17,7 +17,7 @@ const PlanItem: React.FC<PlanItemProps> = ({
       activeOpacity={0.6}
       style={styles.planItemContainer}>
       <Image
-        source={{uri: plan.image_url}}
+        source={{ uri: plan.image_url }}
         style={styles.image}
         resizeMode={'stretch'}
       />
@@ -34,10 +34,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.lightGrey,
     borderRadius: 12,
-    padding: 10,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    overflow: 'hidden'
   },
   image: {
     height: '100%',
@@ -52,18 +52,18 @@ const styles = StyleSheet.create({
   name: {
     color: colors.labelDarkGray,
     fontSize: 12,
-    fontWeight: '600',
+    fontFamily: 'SFProDisplay-Bold',
   },
   subtitle: {
     color: colors.labelDarkGray,
     fontSize: 8,
-    fontWeight: '300',
+    fontFamily: 'SFProDisplay-Semibold',
   },
   knowmore: {
     textDecorationLine: 'underline',
     textDecorationColor: colors.themePurple,
     color: colors.themePurple,
     fontSize: 10,
-    fontWeight: '700',
+    fontFamily: 'SFProDisplay-Bold',
   },
 });

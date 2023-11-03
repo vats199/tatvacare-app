@@ -20,14 +20,14 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {Icons} from '../../constants/icons';
+import { Icons } from '../../constants/icons';
 import Button from '../atoms/Button';
-import {colors} from '../../constants/colors';
+import { colors } from '../../constants/colors';
 import InputField from '../atoms/AnimatedInputField';
 import Home from '../../api/home';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useApp} from '../../context/app.context';
-import {TextInput} from 'react-native-paper';
+import { useApp } from '../../context/app.context';
+import { TextInput } from 'react-native-paper';
 
 type LocationBottomSheetProps = {
   requestLocationPermission?: (goToSettings: boolean) => void;
@@ -47,7 +47,7 @@ const LocationBottomSheet = forwardRef<
 >(
   (
     {
-      requestLocationPermission = () => {},
+      requestLocationPermission = () => { },
       locationPermission,
       setLocation,
       setLocationPermission,
@@ -56,7 +56,7 @@ const LocationBottomSheet = forwardRef<
   ) => {
     const bottomSheetModalRef = React.useRef<BottomSheetModal>(null);
 
-    const {setUserLocation} = useApp();
+    const { setUserLocation } = useApp();
 
     // Expose methods using useImperativeHandle
     useImperativeHandle(ref, () => ({
@@ -216,12 +216,12 @@ const LocationBottomSheet = forwardRef<
                     label={'Enter Pincode'}
                     onChangeText={onChangePin}
                     keyboardType={'decimal-pad'}
-                    underlineStyle={{width: 0}}
+                    underlineStyle={{ width: 0 }}
                     placeholderTextColor={colors.subTitleLightGray}
                     onBlur={() => bottomSheetModalRef.current?.snapToIndex(0)}
                     onFocus={() => bottomSheetModalRef.current?.expand()}
                     style={styles.pincodeInputStyle}
-                    theme={{colors: {primary: colors.subTitleLightGray}}}
+                    theme={{ colors: { primary: colors.subTitleLightGray } }}
                   />
                   {loading ? (
                     <ActivityIndicator
@@ -282,18 +282,18 @@ const LocationBottomSheet = forwardRef<
                     onPress={() => {
                       Platform.OS == 'android'
                         ? requestLocationPermission(
-                            ['blocked', 'never_ask_again'].includes(
-                              locationPermission || '',
-                            )
-                              ? true
-                              : false,
+                          ['blocked', 'never_ask_again'].includes(
+                            locationPermission || '',
                           )
+                            ? true
+                            : false,
+                        )
                         : requestLocationPermission(true);
                     }}
                     titleStyle={styles.filledButtonText}
                     buttonStyle={styles.filledButton}
                     activeOpacity={0.6}
-                    // disabled={locationPermission === 'never_ask_again' ? true : false}
+                  // disabled={locationPermission === 'never_ask_again' ? true : false}
                   />
                 </View>
               </>
@@ -340,13 +340,13 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontSize: 20,
-    fontWeight: '700',
+    fontFamily: 'SFProDisplay-Bold',
     color: colors.labelDarkGray,
     textAlign: 'center',
   },
   subText: {
     fontSize: 12,
-    fontWeight: '400',
+    fontFamily: 'SFProDisplay-Semibold',
     color: colors.subTitleLightGray,
     textAlign: 'center',
   },
@@ -363,7 +363,7 @@ const styles = StyleSheet.create({
   },
   outlinedButtonText: {
     fontSize: 16,
-    fontWeight: '700',
+    fontFamily: 'SFProDisplay-Bold',
     color: colors.themePurple,
   },
   filledButton: {
@@ -373,7 +373,7 @@ const styles = StyleSheet.create({
   },
   filledButtonText: {
     fontSize: 16,
-    fontWeight: '700',
+    fontFamily: 'SFProDisplay-Bold',
     color: colors.white,
   },
   pincodeInputContainer: {
@@ -391,7 +391,7 @@ const styles = StyleSheet.create({
   },
   locationTitleText: {
     fontSize: 18,
-    fontWeight: '700',
+    fontFamily: 'SFProDisplay-Bold',
     color: colors.labelTitleDarkGray,
     alignSelf: 'flex-start',
     marginBottom: 10,
@@ -400,22 +400,22 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.white,
     color: colors.black,
-    fontWeight: '600',
+    fontFamily: 'SFProDisplay-Bold',
     fontSize: 14,
   },
   activeApplyText: {
     fontSize: 12,
-    fontWeight: '600',
+    fontFamily: 'SFProDisplay-Bold',
     color: colors.themePurple,
   },
   inactiveApplyText: {
     fontSize: 12,
-    fontWeight: '600',
+    fontFamily: 'SFProDisplay-Bold',
     color: colors.inactiveGray,
   },
   inputBoxStyle: {
     color: colors.inputValueDarkGray,
-    fontWeight: '600',
+    fontFamily: 'SFProDisplay-Bold',
     fontSize: 16,
   },
   currentLocationContainer: {
@@ -426,6 +426,6 @@ const styles = StyleSheet.create({
   },
   currentLocationText: {
     color: colors.inputValueDarkGray,
-    fontWeight: '500',
+    fontFamily: 'SFProDisplay-Bold',
   },
 });

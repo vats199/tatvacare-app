@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLineStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/screen_space" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLineEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/screen_space" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewIcon"
+        android:layout_width="@dimen/dp_40"
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginTop="@dimen/dp_16"
+        app:layout_constraintStart_toStartOf="@id/guideLineStart"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_helath_package_icon" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewTitle"
+        style="@style/TextView.SemiBold.sp_16"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_16"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="Advanced Full Body Checkup"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintBottom_toBottomOf="@id/imageViewIcon"
+        app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+        app:layout_constraintStart_toEndOf="@id/imageViewIcon"
+        app:layout_constraintTop_toTopOf="@id/imageViewIcon" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewLabelAvailableAt"
+        style="@style/TextView.Regular.sp_13"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:visibility="gone"
+        android:alpha="0.8"
+        android:text="Available at 1 certified lab"
+        app:layout_constraintEnd_toEndOf="@id/textViewTitle"
+        app:layout_constraintStart_toStartOf="@id/textViewTitle"
+        app:layout_constraintTop_toBottomOf="@id/textViewTitle" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/layoutIncludeTests"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_14"
+        android:background="@drawable/bg_common_rounded_rect_5"
+        android:backgroundTint="@color/gray1"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/dp_14"
+        android:paddingVertical="@dimen/dp_6"
+        app:layout_constraintEnd_toEndOf="@id/textViewTitle"
+        app:layout_constraintStart_toStartOf="@id/textViewTitle"
+        app:layout_constraintTop_toBottomOf="@id/textViewLabelAvailableAt">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewNoOfTestsInclude"
+            style="@style/TextView.Medium.sp_11"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Includes 76 tests"
+            android:textColor="@color/colorPrimary" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewShowAll"
+            style="@style/TextView.Regular.sp_11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Show All"
+            android:textColor="@color/colorPrimary" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewPriceNew"
+        style="@style/TextView.Regular.sp_18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_8"
+        android:text="₹349.0"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintStart_toStartOf="@id/textViewTitle"
+        app:layout_constraintTop_toBottomOf="@id/layoutIncludeTests" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewPriceOld"
+        style="@style/TextView.Regular.sp_18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_8"
+        android:alpha="0.6"
+        android:foreground="@drawable/line_strike_through"
+        android:text="₹700"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintBottom_toBottomOf="@id/textViewPriceNew"
+        app:layout_constraintStart_toEndOf="@id/textViewPriceNew"
+        app:layout_constraintTop_toTopOf="@id/textViewPriceNew" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewDiscountPercentage"
+        style="@style/TextView.Medium.sp_11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_8"
+        android:text="50% OFF"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="@id/textViewPriceNew"
+        app:layout_constraintStart_toEndOf="@id/textViewPriceOld"
+        app:layout_constraintTop_toTopOf="@id/textViewPriceNew" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewRemove"
+        style="@style/TextView.Medium.sp_18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        android:drawableStart="@drawable/ic_remove"
+        android:drawablePadding="@dimen/dp_20"
+        android:text="Remove"
+        android:textColor="@color/textBlack1"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@id/textViewPriceNew"
+        app:layout_constraintTop_toBottomOf="@id/textViewPriceNew"
+        tools:visibility="visible" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonAddToCart"
+        style="@style/buttonSolid"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_16"
+        android:text="Add to cart"
+        app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+        app:layout_constraintStart_toStartOf="@id/guideLineStart"
+        app:layout_constraintTop_toBottomOf="@id/textViewRemove" />
+
+    <View
+        style="@style/viewLine"
+        android:layout_width="0dp"
+        app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+        app:layout_constraintStart_toStartOf="@id/guideLineStart"
+        app:layout_constraintTop_toBottomOf="@id/buttonAddToCart" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

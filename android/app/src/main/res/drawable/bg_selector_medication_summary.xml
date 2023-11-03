@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/bg_common_rounded_rect_5" android:state_selected="true" />
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="@dimen/dp_5" />
+            <solid android:color="@color/gray5Transparent" />
+        </shape>
+    </item>
+</selector>

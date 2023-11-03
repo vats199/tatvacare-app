@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>LSApplicationCategoryType</key>
-	<string></string>
+	<string/>
 	<key>CFBundleGetInfoString</key>
-	<string></string>
+	<string/>
 	<key>Apxor</key>
 	<dict>
 		<key>APXPushPlugin</key>
@@ -123,7 +123,7 @@
 		<key>Default</key>
 		<dict>
 			<key>Region</key>
-			<string>&quot;us-east-1&quot;</string>
+			<string>"us-east-1"</string>
 		</dict>
 	</dict>
 	<key>UIAppFonts</key>
@@ -165,6 +165,8 @@
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
 		<string>Fontisto.ttf</string>
+		<string>SFProDisplay-Regular.ttf</string>
+		<string>SFProDisplay-Semibold.ttf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
@@ -219,6 +221,6 @@
 	<key>WEGLicenseCode</key>
 	<string>311c4c4b</string>
 	<key>WEGLogLevel</key>
-	<string></string>
+	<string/>
 </dict>
 </plist>

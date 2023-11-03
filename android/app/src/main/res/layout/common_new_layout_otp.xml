@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <com.mytatva.patient.utils.MonitoringEditText
+        android:id="@+id/editText1"
+        style="@style/editTextOTP"
+        android:cursorVisible="true"
+        android:digits="@string/digit_0_to_9"
+        android:gravity="center"
+        android:imeOptions="actionNext"
+        android:inputType="number|textNoSuggestions"
+        android:maxLength="1"
+        android:textAlignment="gravity"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintEnd_toStartOf="@id/editText2"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_max="@dimen/dp_50"
+        tools:text="0" />
+
+    <com.mytatva.patient.utils.MonitoringEditText
+        android:id="@+id/editText2"
+        style="@style/editTextOTP"
+        android:layout_marginStart="@dimen/dp_10"
+        android:cursorVisible="true"
+        android:digits="@string/digit_0_to_9"
+        android:gravity="center"
+        android:imeOptions="actionNext"
+        android:inputType="number|textNoSuggestions"
+        android:maxLength="1"
+        android:textAlignment="gravity"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintEnd_toStartOf="@id/editText3"
+        app:layout_constraintStart_toEndOf="@id/editText1"
+        app:layout_constraintTop_toTopOf="@id/editText1"
+        app:layout_constraintWidth_max="@dimen/dp_50"
+        tools:text="0" />
+
+    <com.mytatva.patient.utils.MonitoringEditText
+        android:id="@+id/editText3"
+        style="@style/editTextOTP"
+        android:layout_marginStart="@dimen/dp_10"
+        android:cursorVisible="true"
+        android:digits="@string/digit_0_to_9"
+        android:gravity="center"
+        android:imeOptions="actionNext"
+        android:inputType="number|textNoSuggestions"
+        android:maxLength="1"
+        android:textAlignment="gravity"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintEnd_toStartOf="@id/editText4"
+        app:layout_constraintStart_toEndOf="@id/editText2"
+        app:layout_constraintTop_toTopOf="@id/editText1"
+        app:layout_constraintWidth_max="@dimen/dp_50"
+        tools:text="0" />
+
+    <com.mytatva.patient.utils.MonitoringEditText
+        android:id="@+id/editText4"
+        style="@style/editTextOTP"
+        android:layout_marginStart="@dimen/dp_10"
+        android:cursorVisible="true"
+        android:digits="@string/digit_0_to_9"
+        android:gravity="center"
+        android:imeOptions="actionDone"
+        android:inputType="number|textNoSuggestions"
+        android:maxLength="1"
+        android:textAlignment="gravity"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintEnd_toStartOf="@id/editText5"
+        app:layout_constraintStart_toEndOf="@id/editText3"
+        app:layout_constraintTop_toTopOf="@id/editText1"
+        app:layout_constraintWidth_max="@dimen/dp_50"
+        tools:text="0" />
+
+    <com.mytatva.patient.utils.MonitoringEditText
+        android:id="@+id/editText5"
+        style="@style/editTextOTP"
+        android:layout_marginStart="@dimen/dp_10"
+        android:cursorVisible="true"
+        android:digits="@string/digit_0_to_9"
+        android:gravity="center"
+        android:imeOptions="actionNext"
+        android:inputType="number|textNoSuggestions"
+        android:maxLength="1"
+        android:textAlignment="gravity"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintEnd_toStartOf="@id/editText6"
+        app:layout_constraintStart_toEndOf="@id/editText4"
+        app:layout_constraintTop_toTopOf="@id/editText1"
+        app:layout_constraintWidth_max="@dimen/dp_50"
+        tools:text="0" />
+
+    <com.mytatva.patient.utils.MonitoringEditText
+        android:id="@+id/editText6"
+        style="@style/editTextOTP"
+        android:layout_marginStart="@dimen/dp_10"
+        android:cursorVisible="true"
+        android:digits="@string/digit_0_to_9"
+        android:gravity="center"
+        android:imeOptions="actionDone"
+        android:inputType="number|textNoSuggestions"
+        android:maxLength="1"
+        android:textAlignment="gravity"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/editText5"
+        app:layout_constraintTop_toTopOf="@id/editText1"
+        app:layout_constraintWidth_max="@dimen/dp_50"
+        tools:text="0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

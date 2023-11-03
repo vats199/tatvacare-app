@@ -1,6 +1,6 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
-import {colors} from '../../constants/colors';
+import { colors } from '../../constants/colors';
 
 type AboutUsTabSwitcherProps = {
   activeTab: 'about' | 'terms' | 'policy';
@@ -67,11 +67,11 @@ const styles = StyleSheet.create({
   },
   tabText: {
     color: colors.subTitleLightGray,
-    fontWeight: '400',
+    fontFamily: 'SFProDisplay-Semibold',
     fontSize: 14,
   },
   activeText: {
-    fontWeight: 'bold',
+    fontFamily: 'SFProDisplay-Bold',
     color: colors.themePurple,
   },
 });

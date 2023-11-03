@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/dp_4"
+    android:layout_marginEnd="@dimen/dp_4"
+    android:elevation="@dimen/dp_3">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewStatus"
+        style="@style/TextView.Medium.sp_11"
+        android:layout_width="@dimen/dp_90"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_common_rounded_rect_5"
+        android:backgroundTint="@color/yellow1"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:layout_marginStart="@dimen/dp_10"
+        android:maxLines="1"
+        android:paddingVertical="@dimen/dp_3"
+        android:text="Upcoming"
+        android:textAlignment="gravity"
+        android:textColor="@color/white"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewProfile"
+        android:layout_width="@dimen/dp_40"
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_5"
+        android:background="@drawable/bg_circle_white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewStatus"
+        tools:backgroundTint="@color/grayDivider" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/viewLine1"
+        android:layout_width="@dimen/dp_1"
+        android:layout_height="0dp"
+        android:background="@color/gray8"
+        app:layout_constraintBottom_toBottomOf="@id/imageViewProfile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imageViewProfile"
+        app:layout_constraintTop_toTopOf="@id/imageViewProfile" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewDoctorName"
+        style="@style/TextView.SemiBold.sp_14"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:alpha="0.7"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="Dr. Sameer Sharma"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintEnd_toStartOf="@id/viewLine1"
+        app:layout_constraintStart_toEndOf="@id/imageViewProfile"
+        app:layout_constraintTop_toTopOf="@id/imageViewProfile" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewDegree"
+        style="@style/TextView.Regular.sp_13"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_3"
+        android:alpha="0.7"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="MBBS"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintBottom_toBottomOf="@id/imageViewProfile"
+        app:layout_constraintEnd_toEndOf="@id/textViewDoctorName"
+        app:layout_constraintStart_toStartOf="@id/textViewDoctorName"
+        app:layout_constraintTop_toBottomOf="@id/textViewDoctorName" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewDateIcon"
+        android:layout_width="@dimen/dp_16"
+        android:layout_height="@dimen/dp_16"
+        android:layout_marginStart="@dimen/dp_10"
+        android:scaleType="centerInside"
+        app:layout_constraintStart_toEndOf="@id/viewLine1"
+        app:layout_constraintTop_toTopOf="@id/viewLine1"
+        app:srcCompat="@drawable/ic_date_calendar" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewTimeIcon"
+        android:layout_width="@dimen/dp_16"
+        android:layout_height="@dimen/dp_16"
+        android:layout_marginStart="@dimen/dp_10"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="@id/viewLine1"
+        app:layout_constraintStart_toEndOf="@id/viewLine1"
+        app:srcCompat="@drawable/ic_clock_time" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewDate"
+        style="@style/TextView.SemiBold.sp_14"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_8"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="12 Aug ,2021"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintBottom_toBottomOf="@id/imageViewDateIcon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imageViewDateIcon"
+        app:layout_constraintTop_toTopOf="@id/imageViewDateIcon" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewTime"
+        style="@style/TextView.SemiBold.sp_14"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="11:00 AM - 11:00 PM"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintEnd_toEndOf="@id/textViewDate"
+        app:layout_constraintStart_toStartOf="@id/textViewDate"
+        app:layout_constraintTop_toTopOf="@id/imageViewTimeIcon" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewAddressIcon"
+        android:layout_width="@dimen/dp_16"
+        android:layout_height="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_24"
+        android:scaleType="centerInside"
+        app:layout_constraintStart_toStartOf="@id/imageViewProfile"
+        app:layout_constraintTop_toBottomOf="@id/imageViewProfile"
+        app:srcCompat="@drawable/ic_location" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewAddress"
+        style="@style/TextView.Regular.sp_13"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_10"
+        android:alpha="0.9"
+        android:text="60 A, Bhulabhai Desai Marg, Breach Candy, Cumballa Hill, Mumbai"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintEnd_toEndOf="@id/textViewDate"
+        app:layout_constraintStart_toEndOf="@id/imageViewAddressIcon"
+        app:layout_constraintTop_toTopOf="@id/imageViewAddressIcon" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/layoutOptions"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_8"
+        android:layout_marginTop="@dimen/dp_14"
+        android:layout_marginEnd="@dimen/dp_8"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewAddress">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewRequestCancellation"
+            style="@style/TextView.Medium.sp_12"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/dp_4"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:padding="@dimen/dp_2"
+            android:text="Request Cancellation"
+            android:textAlignment="gravity"
+            android:textColor="@color/colorPrimary" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/layoutJoinVideoCall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_4"
+            android:layout_weight="1"
+            android:background="@drawable/bg_button_theme_solid_small"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/textViewJoinVideoCall"
+                android:layout_width="wrap_content"
+                android:clickable="false"
+                android:drawableStart="@drawable/ic_video"
+                android:drawablePadding="@dimen/dp_5"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="Join Call" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/layoutInClinicAppointment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_4"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/textViewJoinVideoCall"
+                android:layout_width="wrap_content"
+                android:clickable="false"
+                android:drawableStart="@drawable/ic_in_clinic"
+                android:drawablePadding="@dimen/dp_5"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="In clinic appointment"
+                android:textColor="@color/textBlack1" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/layoutPrescriptions"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_8"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/dp_8"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutOptions">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="@dimen/dp_18"
+            android:layout_height="@dimen/dp_20"
+            android:layout_marginStart="@dimen/dp_4"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/ic_prescription_appointment" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewNoOfPrescription"
+            style="@style/TextView.SemiBold.sp_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_12"
+            android:text="2"
+            android:textColor="@color/colorPrimary"
+            android:visibility="gone" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/TextView.Regular.sp_14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_12"
+            android:layout_weight="1"
+            android:text="Prescriptions"
+            android:textColor="@color/textBlack1" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonViewPrescription"
+            style="@style/buttonStrokeSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_24"
+            android:layout_margin="@dimen/dp_4"
+            android:width="@dimen/dp_60"
+            android:paddingStart="@dimen/dp_8"
+            android:paddingEnd="@dimen/dp_8"
+            android:text="View"
+            android:textSize="@dimen/sp_10" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/layoutDischargeSummary"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_8"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/dp_8"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutPrescriptions">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="@dimen/dp_18"
+            android:layout_height="@dimen/dp_20"
+            android:layout_marginStart="@dimen/dp_4"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/ic_discharge_summary" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewNoOfDischargeSummary"
+            style="@style/TextView.SemiBold.sp_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_12"
+            android:text="2"
+            android:textColor="@color/colorPrimary" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/TextView.Regular.sp_14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_8"
+            android:layout_weight="1"
+            android:text="Discharge Summary"
+            android:textColor="@color/textBlack1" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonDischargeSummary"
+            style="@style/buttonStrokeSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_24"
+            android:layout_margin="@dimen/dp_4"
+            android:width="@dimen/dp_60"
+            android:paddingStart="@dimen/dp_8"
+            android:paddingEnd="@dimen/dp_8"
+            android:text="View"
+            android:textSize="@dimen/sp_10" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <View
+        android:id="@+id/viewLine2"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_1"
+        android:layout_marginTop="@dimen/dp_8"
+        android:alpha="0.5"
+        android:background="@color/gray8"
+        app:layout_constraintEnd_toEndOf="@id/textViewDate"
+        app:layout_constraintStart_toStartOf="@id/imageViewProfile"
+        app:layout_constraintTop_toBottomOf="@id/layoutDischargeSummary" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

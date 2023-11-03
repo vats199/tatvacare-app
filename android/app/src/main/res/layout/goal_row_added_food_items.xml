@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_selector_added_food_item"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="@dimen/dp_8">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewItem"
+        style="@style/textViewFoodLogSmall"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:text="Chapati" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewQty"
+        style="@style/textViewFoodLogSmall"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_8"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:layout_weight="1"
+        android:background="@drawable/bg_edittext_underline_food_log"
+        android:drawableEnd="@drawable/ic_down_arrow_small"
+        android:drawablePadding="@dimen/dp_4"
+        android:text="4 nos" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_8"
+        android:layout_weight="1.2"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/editTextCalorie"
+            style="@style/editTextFoodLogSmall"
+            android:imeOptions="actionDone"
+            android:inputType="number"
+            android:digits="@string/digit_0_to_9"
+            android:maxLength="4"
+            android:lines="1"
+            android:visibility="gone" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewCalorie"
+            style="@style/textViewFoodLogSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cal"
+            android:textColor="@color/textBlack1" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewRemove"
+        android:layout_width="@dimen/dp_20"
+        android:layout_height="@dimen/dp_20"
+        android:layout_marginStart="@dimen/dp_8"
+        app:srcCompat="@drawable/ic_remove_food_item" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

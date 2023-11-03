@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_16"
+        android:background="@drawable/bg_common_rounded_rect_10"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="@dimen/dp_20">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_40"
+            app:srcCompat="@drawable/ic_smiley" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewLabelSuccess"
+            style="@style/TextView.Medium.sp_18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_marginTop="@dimen/dp_30"
+            android:layout_marginEnd="@dimen/dp_30"
+            android:gravity="center"
+            android:text="@string/request_callback_label_thank_you_for_requesting_a_callback_an_agent_will_call_you_on_your_registered_mobile_number_soon"
+            android:textAlignment="gravity"
+            android:textColor="@color/textBlack1" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonBackToCarePlan"
+            style="@style/buttonSolidSmallRadius7"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="@dimen/dp_36"
+            android:layout_marginBottom="@dimen/dp_20"
+            android:paddingStart="@dimen/dp_36"
+            android:paddingEnd="@dimen/dp_36"
+            android:text="@string/request_callback_button_back_to_care_plan"
+            app:layout_constraintEnd_toEndOf="@id/textViewLabelLoginWith"
+            app:layout_constraintStart_toStartOf="@id/textViewLabelLoginWith"
+            app:layout_constraintTop_toBottomOf="@id/checkBoxAgreeTerms" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_margin="@dimen/dp_10"
+        app:srcCompat="@drawable/ic_circle_cross" />
+</FrameLayout>
