@@ -1,15 +1,15 @@
-import {View, Text, StyleSheet, ScrollView, Platform} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import {DietStackParamList} from '../../interface/Navigation.interface';
-import {StackScreenProps} from '@react-navigation/stack';
+import { View, Text, StyleSheet, ScrollView, Platform } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { DietStackParamList } from '../../interface/Navigation.interface';
+import { StackScreenProps } from '@react-navigation/stack';
 import DietHeader from '../../components/molecules/DietHeader';
-import {colors} from '../../constants/colors';
+import { colors } from '../../constants/colors';
 import fonts from '../../constants/fonts';
 import Matrics from '../../constants/Matrics';
 import CircularProgress from 'react-native-circular-progress-indicator';
-import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 // import MyStatusbar from '../../components/atoms/MyStatusBar';
-import {Fonts} from '../../constants';
+import { Fonts } from '../../constants';
 
 type ProgressBarInsightsScreenProps = StackScreenProps<
   DietStackParamList,
@@ -22,7 +22,7 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
 }) => {
   const insets = useSafeAreaInsets();
   const [selectedDate, setSelectedDate] = React.useState(new Date());
-  const {calories} = route.params;
+  const { calories } = route.params;
   const [dailyCalories, setDailyCalories] = useState([]);
   const [macroNuitrientes, setMacroNuitrientes] = useState([]);
 
@@ -33,25 +33,20 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
     setSelectedDate(date);
   };
 
+  const colorsOfprogressBar = (values: number) => {
+    if (values === 0) {
+      return colors.inactiveGray;
+    } else if (values > 0 && values < 25) {
+      return colors.progressBarRed;
+    } else if (values >= 25 && values < 75) {
+      return colors.progressBarYellow;
+    } else {
+      return colors.progressBarGreen;
+    }
+  }
+
   useEffect(() => {
     const data = calories.map((item: any) => {
-      let color = colors.progressBarGreen;
-
-      switch (item?.meal_name) {
-        case 'Breakfast':
-          color = colors.progressBarGreen;
-          break;
-        case 'Dinner':
-          color = colors.progressBarRed;
-          break;
-        case 'Snacks':
-          color = colors.progressBarYellow;
-          break;
-        default:
-          color = colors.progressBarGreen;
-          break;
-      }
-
       return {
         title: item?.meal_name,
         totalCalories: Math.round(Number(item.total_calories)),
@@ -59,12 +54,13 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
         progressBarVale: Math.round(
           (Math.round(Number(item.consumed_calories)) /
             Math.round(Number(item.total_calories))) *
-            100,
+          100
         ),
-        progresBarColor: color,
+        progresBarColor: colorsOfprogressBar((Math.round(Number(item.consumed_calories)) / Math.round(Number(item.total_calories))) * 100),
       };
     });
     setDailyCalories(data);
+
     const sum = calories.reduce(
       (accumulator, currentItem) => {
         accumulator.consumed_protine += currentItem.consumed_protein;
@@ -97,7 +93,7 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
         progressBarVale: Math.round(
           (Number(sum.consumed_protine) / Number(sum.total_proteins)) * 100,
         ),
-        progresBarColor: '#2ecc71',
+        progresBarColor: colorsOfprogressBar((Number(sum.consumed_protine) / Number(sum.total_proteins)) * 100),
       },
       {
         title: 'Carbs',
@@ -106,16 +102,16 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
         progressBarVale: Math.round(
           (Number(sum.consumed_carbs) / Number(sum.total_carbs)) * 100,
         ),
-        progresBarColor: '#2ecc71',
+        progresBarColor: colorsOfprogressBar((Number(sum.consumed_carbs) / Number(sum.total_carbs)) * 100),
       },
       {
         title: 'Fiber',
         totalCalories: Math.round(Number(sum.total_fibers)),
         consumedClories: Math.round(Number(sum.consumed_fiber)),
         progressBarVale: Math.round(
-          (Number(sum.consumed_fiber) / Number(sum.total_fibers)) * 100,
+          (Number(sum.consumed_fiber) / Number(sum.total_fibers)) * 100
         ),
-        progresBarColor: '#FAB000',
+        progresBarColor: colorsOfprogressBar((Number(sum.consumed_fiber) / Number(sum.total_fibers)) * 100),
       },
       {
         title: 'Fats',
@@ -124,23 +120,23 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
         progressBarVale: Math.round(
           (Number(sum.consumed_fat) / Number(sum.total_fats)) * 100,
         ),
-        progresBarColor: '#FF3333',
+        progresBarColor: colorsOfprogressBar((Number(sum.consumed_fat) / Number(sum.total_fats)) * 100),
       },
     ];
     setMacroNuitrientes(arry);
   }, [calories]);
 
   const renderItem = (item: any, index: number) => {
+
     return (
       <View
-        style={[style.calorieMainContainer, {paddingVertical: Matrics.vs(5)}]}
+        style={[style.calorieMainContainer, { paddingVertical: Matrics.vs(5) }]}
         key={index?.toString()}>
         <CircularProgress
           value={isNaN(item?.progressBarVale) ? 0 : item?.progressBarVale}
           inActiveStrokeColor={
             item.progresBarColor ? item.progresBarColor : '#2ecc71'
           }
-          maxValue={100}
           inActiveStrokeOpacity={0.2}
           progressValueColor={'green'}
           // valueSuffix={'%'}
@@ -152,16 +148,12 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
           }
           inActiveStrokeWidth={3}
           duration={1000}
-          progressValueStyle={{
-            color: item.progresBarColor ? item.progresBarColor : '#2ecc71',
-            fontSize: 12,
-          }}
           allowFontScaling={false}
           showProgressValue={false}
           title={`${isNaN(item?.progressBarVale) ? 0 : item?.progressBarVale}%`}
           titleStyle={{
             fontSize: Matrics.mvs(11),
-            fontFamily: fonts.BOLD,
+            fontFamily: Fonts.BOLD,
           }}
         />
         <View style={[style.textContainer]}>
@@ -174,11 +166,11 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
             <Text style={style.consumedCalries}>
               {isNaN(item?.consumedClories) ? 0 : item?.consumedClories}
             </Text>
-            <Text style={[style.consumedCalries, {fontFamily: Fonts.REGULAR}]}>
+            <Text style={[style.consumedCalries, { fontFamily: Fonts.REGULAR }]}>
               {' '}
               of{' '}
             </Text>
-            <Text style={[style.consumedCalries, {fontFamily: Fonts.REGULAR}]}>
+            <Text style={[style.consumedCalries, { fontFamily: Fonts.REGULAR }]}>
               {item?.totalCalories}
             </Text>
           </View>
@@ -196,6 +188,7 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
         paddingBottom: insets.bottom !== 0 ? insets.bottom : Matrics.vs(15),
         paddingTop: Platform.OS == 'android' ? Matrics.vs(20) : 0,
       }}>
+      {/* <MyStatusbar backgroundColor={colors.lightGreyishBlue} /> */}
       <DietHeader
         onPressBack={onPressBack}
         onPressOfNextAndPerviousDate={handleDate}
@@ -209,7 +202,7 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
           })}
         </View>
         {dailyCalories.length > 0 ? (
-          <View style={{flex: 1}}>
+          <View style={{ flex: 1 }}>
             <Text style={style.title}>Meal Energy Distribution</Text>
             <View style={style.boxContainer}>
               {dailyCalories?.map((item, index) => {

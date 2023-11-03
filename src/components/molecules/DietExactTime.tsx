@@ -14,6 +14,7 @@ import { Fonts, Matrics } from '../../constants';
 import fonts from '../../constants/fonts';
 import moment from 'moment';
 import { useFocusEffect } from '@react-navigation/native';
+import { globalStyles } from '../../constants/globalStyles';
 
 interface ExactTimeProps {
   onPressPlus: (optionFoodItems: Options, mealName: string) => void;
@@ -118,6 +119,7 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
   const [foodItmeData, setFoodItemData] = React.useState<Options | null>(
     cardData?.options[0],
   );
+
   const [selectedOptionId, setSelectedOptionId] = useState<string>(
     cardData?.options[0].diet_meal_options_id,
   );
@@ -197,18 +199,19 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.innerContainer}>
-        <View style={styles.topRow}>
-          <View style={styles.leftContent}>
-            <View style={styles.circle}>{mealIcons(cardData.meal_name)}</View>
-            <View style={styles.textContainer}>
-              <Text style={styles.title}>{cardData?.meal_name}</Text>
-              <Text style={styles.textBelowTitle}>
-                {moment(cardData?.start_time, 'HH:mm:ss').format('h:mm A') +
-                  ' - ' +
-                  moment(cardData?.end_time, 'HH:mm:ss').format('h:mm A') +
-                  ' | ' +
+    <View style={[styles.container, globalStyles.shadowContainer]}>
+      <View style={styles.topRow}>
+        <View style={styles.leftContent}>
+          <View style={styles.circle}>{mealIcons(cardData.meal_name)}</View>
+          <View style={styles.textContainer}>
+            <Text style={styles.title}>{cardData?.meal_name}</Text>
+            <Text style={styles.textBelowTitle}>
+              {cardData?.start_time && cardData?.end_time ? moment(cardData?.start_time, 'HH:mm:ss').format('h:mm A') +
+                ' - ' +
+                moment(cardData?.end_time, 'HH:mm:ss').format('h:mm A') + ' | '
+                : 'Ideal Time' + ' | '}
+              <Text style={styles.caloriesTxt}>
+                {
                   (isNaN(Math.round(Number(foodItmeData?.consumed_calories)))
                     ? 0
                     : Number(foodItmeData?.consumed_calories)
@@ -217,73 +220,77 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
                   Number(foodItmeData?.total_calories).toFixed(0) +
                   'cal'}{' '}
               </Text>
-            </View>
+            </Text>
           </View>
-          {/* {cardData.patient_permission === 'W' ? ( */}
-          <TouchableOpacity
-            onPress={handlePulsIconPress}
-            style={styles.iconContainer}>
-            <Icons.AddCircle height={25} width={25} />
-          </TouchableOpacity>
-          {/* // ) : null} */}
         </View>
-        <View style={styles.line} />
-        <View style={styles.belowRow}>
-          {cardData?.options?.length > 0 ? (
-            <>
-              <ScrollView
-                showsHorizontalScrollIndicator={false}
-                horizontal
-                bounces={false}
-                style={{ flexDirection: 'row' }}>
-                {cardData?.options?.map((item: Options, index: number) => {
-                  const isOptionSelected =
-                    selectedOptionId === item?.diet_meal_options_id;
-                  return (
-                    <TouchableOpacity
-                      style={[
-                        styles.optionContainer,
-                        {
-                          backgroundColor: isOptionSelected
-                            ? colors.optionbackground
-                            : colors.white,
-                          borderColor: isOptionSelected
-                            ? colors.themePurple
-                            : colors.inputBoxLightBorder,
-                          marginLeft: index == 0 ? Matrics.s(16) : 0,
-                          marginRight: Matrics.s(13),
-                        },
-                      ]}
-                      onPress={() =>
-                        setSelectedOptionId(item.diet_meal_options_id)
-                      }>
-                      <Text style={styles.optionText}>Option {index + 1}</Text>
-                    </TouchableOpacity>
-                  );
-                })}
-              </ScrollView>
-              <DietOption
-                foodItmeData={
-                  selectedOptionId !== null
-                    ? cardData.options.filter(
-                      item => item.diet_meal_options_id == selectedOptionId,
-                    )[0]
-                    : cardData.options[0]
-                }
-                patient_permission={cardData.patient_permission}
-                onpressOfEdit={handaleEdit}
-                onPressOfDelete={handaleDelete}
-                onPressOfcomplete={handalecompletion}
-              />
-            </>
-          ) : (
-            <View style={styles.messageContainer}>
-              <Text style={styles.message}>
-                {mealMessage(cardData.meal_name)}
-              </Text>
-            </View>
-          )}
-        </View>
+        {/* {cardData.patient_permission === 'W' ? ( */}
+        <TouchableOpacity
+          onPress={handlePulsIconPress}
+          style={styles.iconContainer}>
+          <Icons.AddCircle height={25} width={25} />
+        </TouchableOpacity>
+        {/* // ) : null} */}
+      </View>
+      <View style={styles.line} />
+      <View>
+        {cardData.options.length > 0 ? (
+          <>
+            <ScrollView
+              showsHorizontalScrollIndicator={false}
+              horizontal
+              bounces={false}
+              style={{ flexDirection: 'row' }}>
+              {cardData?.options?.map((item: Options, index: number) => {
+                const isOptionSelected =
+                  selectedOptionId === item?.diet_meal_options_id;
+                return (
+                  <TouchableOpacity
+                    style={[
+                      styles.optionContainer,
+                      {
+                        backgroundColor: isOptionSelected
+                          ? colors.optionbackground
+                          : colors.white,
+                        borderColor: isOptionSelected
+                          ? colors.labelDarkGray
+                          : colors.inputBoxLightBorder,
+                        marginLeft: index == 0 ? Matrics.s(16) : 0,
+                        marginRight: Matrics.s(10),
+                      },
+                    ]}
+                    onPress={() =>
+                      setSelectedOptionId(item.diet_meal_options_id)
+                    }>
+                    <Text style={[styles.optionText, {
+                      color: isOptionSelected
+                        ? colors.labelDarkGray
+                        : colors.subTitleLightGray,
+                    }]}>Option {index + 1}</Text>
+                  </TouchableOpacity>
+                );
+              })}
+            </ScrollView>
+            <DietOption
+              foodItmeData={
+                selectedOptionId !== null
+                  ? cardData.options.filter(
+                    item => item.diet_meal_options_id == selectedOptionId,
+                  )[0]
+                  : cardData.options[0]
+              }
+              patient_permission={cardData.patient_permission}
+              onpressOfEdit={handaleEdit}
+              onPressOfDelete={handaleDelete}
+              onPressOfcomplete={handalecompletion}
+            />
+          </>
+        ) : (
+          <View style={styles.messageContainer}>
+            <Text style={styles.message}>
+              {mealMessage(cardData.meal_name)}
+            </Text>
+          </View>
+        )}
       </View>
     </View>
   );
@@ -291,23 +298,16 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    borderWidth: 0.1,
-    borderColor: 'white',
-    borderRadius: 12,
-    marginVertical: 8,
-    overflow: 'hidden',
-    // shadowOffset: { width: 0, height: 0 },
-    // shadowColor: '#171717',
-    // shadowOpacity: 0.1,
-    // shadowRadius: 3,
-    // elevation: 2,
+    borderRadius: Matrics.mvs(12),
+    marginVertical: Matrics.vs(8),
+    backgroundColor: colors.white,
+    paddingVertical: Matrics.vs(12)
   },
   innerContainer: {
     backgroundColor: 'white',
   },
   topRow: {
-    paddingHorizontal: Matrics.s(14),
-    paddingVertical: 8,
+    paddingHorizontal: Matrics.s(15),
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -332,18 +332,22 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   title: {
-    fontSize: 16,
-    fontWeight: 'bold',
+    fontSize: Matrics.mvs(14),
+    fontFamily: Fonts.BOLD,
     color: colors.labelDarkGray,
   },
   textBelowTitle: {
-    fontSize: Matrics.mvs(13),
-    color: '#444444',
+    fontSize: Matrics.mvs(11),
+    fontFamily: Fonts.REGULAR,
+    color: colors.subTitleLightGray,
+    lineHeight: 16
+
   },
   line: {
-    borderBottomWidth: Matrics.mvs(0.5),
-    borderColor: '#808080',
-    opacity: 0.5,
+    borderBottomWidth: Matrics.mvs(1),
+    borderColor: colors.seprator,
+    marginTop: Matrics.vs(11),
+    lineHeight: 16
   },
   belowRow: {
     paddingVertical: Matrics.vs(15),
@@ -354,8 +358,7 @@ const styles = StyleSheet.create({
   },
   message: {
     fontSize: Matrics.mvs(12),
-    color: '#919191',
-    fontWeight: '400',
+    color: colors.darkGray,
     fontFamily: Fonts.REGULAR,
   },
   optionContainer: {
@@ -365,12 +368,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
+    shadowOffset: { width: 0, height: 0 },
+    shadowColor: colors.shadow,
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 8,
+    marginVertical: Matrics.vs(5),
+    marginTop: Matrics.vs(15)
   },
   optionText: {
     fontFamily: Fonts.REGULAR,
-    fontWeight: '500',
     color: colors.labelDarkGray,
     fontSize: Matrics.mvs(12),
+    lineHeight: 16
   },
   iconContainer: {
     height: 30,
@@ -378,6 +388,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  caloriesTxt: {
+    fontSize: Matrics.mvs(12),
+    fontFamily: Fonts.MEDIUM,
+    color: colors.labelDarkGray,
+  }
 });
 
 export default DietExactTime;

@@ -2,8 +2,8 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import { Icons } from '../../constants/icons';
 import { colors } from '../../constants/colors';
-import Matrics from '../../constants/Matrics';
-import Fonts from '../../constants/fonts';
+import { Fonts, Matrics } from '../../constants';
+import styled from 'styled-components/native';
 import {
   Menu,
   MenuOptions,
@@ -111,38 +111,40 @@ const DietOption: React.FC<DietOptionItem> = ({
       };
       onPressOfcomplete(cunsumpotion);
     };
+
     return (
       <View style={styles.OptionitemContainer} key={index}>
         <View style={styles.leftContainer}>
           {item?.is_consumed ? (
             <TouchableOpacity
               onPress={() => handaleFoodConsumption(item)}
-              style={{ height: 28, width: 28 }}>
+              style={[styles.shadowContainer, { height: 28, width: 28 }]}>
               <Icons.Success height={28} width={28} />
             </TouchableOpacity>
           ) : (
             <TouchableOpacity
               onPress={() => handaleFoodConsumption(item)}
-              style={{ height: 28, width: 28 }}>
+              style={[styles.shadowContainer, { height: 28, width: 28 }]}>
               <Icons.Ellipse height={28} width={28} />
             </TouchableOpacity>
           )}
           <View style={styles.titleDescription}>
-            <Text style={styles.title}>{item.food_item_name}</Text>
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: "center" }}>
+              <Text style={styles.title}>{item.food_item_name}</Text>
+              {item.is_food_item_added_by_patient == 'Y' ? <Text style={styles.manualBtnTxt}>Manual</Text> : null}
+            </View>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Text style={styles.description}>
-                {Math.round(Number(item?.quantity)) +
-                  ' | ' +
-                  Math.round(Number(item.total_micronutrients)) +
+              <Text style={[styles.description, { textTransform: 'capitalize' }]}>
+                {Math.round(Number(item?.quantity)) + " " + item?.measure_name + '  | '}
+              </Text>
+              <Text style={[styles.description, { textTransform: 'lowercase' }]}>
+                {Math.round(Number(item.total_micronutrients)) +
                   ' g'}
               </Text>
-              {item.is_food_item_added_by_patient == 'Y' ? (
-                <Text style={styles.manualBtnTxt}>Manual</Text>
-              ) : null}
             </View>
           </View>
-        </View>
-        <View style={{ flexDirection: 'row' }}>
+        </View >
+        <View style={{ flexDirection: 'row', alignItems: "center" }}>
           <Text style={styles.value}>
             {Math.round(Number(item.calories)) *
               Math.round(Number(item?.quantity))}
@@ -152,7 +154,7 @@ const DietOption: React.FC<DietOptionItem> = ({
           <View>
             <Menu>
               <MenuTrigger>
-                <Icons.ThreeDot />
+                <Icons.ThreeDot height={Matrics.mvs(16)} width={Matrics.mvs(16)} />
               </MenuTrigger>
               <MenuOptions
                 customStyles={{
@@ -182,7 +184,7 @@ const DietOption: React.FC<DietOptionItem> = ({
             <View style={styles.threeDot}></View>
           )} */}
         </View>
-      </View>
+      </View >
     );
   };
 
@@ -191,7 +193,7 @@ const DietOption: React.FC<DietOptionItem> = ({
       {foodItmeData?.food_items?.map(renderDietOptionItem)}
       {foodItmeData?.tips ? (
         <View style={styles.belowContainer}>
-          <Text>{'1.  ' + foodItmeData?.tips}</Text>
+          <Text style={styles.foodItemTipTxt}>{'1. ' + foodItmeData?.tips}</Text>
         </View>
       ) : null}
     </View>
@@ -217,25 +219,35 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   title: {
-    fontSize: Matrics.mvs(14),
-    color: colors.black,
+    fontSize: Matrics.mvs(13),
+    color: colors.labelDarkGray,
+    fontFamily: Fonts.REGULAR,
     textTransform: 'capitalize',
+    lineHeight: 18,
+    marginRight: Matrics.s(4)
   },
   description: {
-    fontSize: Matrics.mvs(14),
-    color: '#444444',
+    fontSize: Matrics.mvs(11),
+    color: colors.subTitleLightGray,
+    fontFamily: Fonts.REGULAR,
+    lineHeight: 16
   },
   value: {
-    fontSize: Matrics.mvs(14),
-    color: colors.black,
+    fontSize: Matrics.mvs(13),
+    color: colors.subTitleLightGray,
+    fontFamily: Fonts.REGULAR,
+    lineHeight: 16,
+    marginHorizontal: Matrics.s(3)
   },
   belowContainer: {
-    borderWidth: 0.4,
-    borderColor: colors.darkGray,
-    borderRadius: 15,
-    padding: 11,
-    marginVertical: 6,
-    marginHorizontal: 10,
+    borderWidth: Matrics.s(0.5),
+    borderColor: colors.lightGrey,
+    borderRadius: Matrics.s(16),
+    padding: Matrics.mvs(10),
+    paddingHorizontal: Matrics.s(15),
+    marginVertical: Matrics.vs(6),
+    marginHorizontal: Matrics.s(16),
+    backgroundColor: colors.white
   },
   threeDot: {
     width: Matrics.s(20),
@@ -258,14 +270,27 @@ const styles = StyleSheet.create({
     height: 1,
   },
   manualBtnTxt: {
-    marginHorizontal: Matrics.s(8),
     backgroundColor: '#E0E0E0',
-    paddingHorizontal: Matrics.s(8),
+    paddingHorizontal: Matrics.s(10),
     paddingVertical: Matrics.vs(3),
     borderRadius: Matrics.mvs(10),
-    marginTop: Matrics.s(2),
     overflow: 'hidden',
     color: '#616161',
     fontSize: Matrics.mvs(11),
+    fontFamily: Fonts.REGULAR,
+    lineHeight: 16
   },
+  shadowContainer: {
+    shadowOffset: { width: 0, height: 0 },
+    shadowColor: colors.shadow,
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 3,
+  },
+  foodItemTipTxt: {
+    fontFamily: Fonts.REGULAR,
+    fontSize: Matrics.mvs(12),
+    lineHeight: 20,
+    color: colors.subTitleLightGray
+  }
 });

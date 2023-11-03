@@ -2,71 +2,70 @@ import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { Icons } from '../../constants/icons';
 import { colors } from '../../constants/colors';
-import Fonts from '../../constants/fonts';
+import { Fonts } from '../../constants';
 import Matrics from '../../constants/Matrics';
 
 type MicronutrientsInformationProps = {
-  foodItemDetails: FoodItems
+  foodItemDetails: FoodItems;
 };
 
 type FoodItems = {
-  diet_plan_food_item_id: string,
-  diet_meal_options_id: string,
-  food_item_id: number,
-  food_item_name: string,
-  quantity: number,
-  measure_id: null,
-  measure_name: string,
-  protein: string,
-  carbs: string,
-  fats: string,
-  fibers: string,
-  calories: string,
-  sodium: string,
-  potassium: string,
-  sugar: string,
-  saturated_fatty_acids: null,
-  monounsaturated_fatty_acids: null,
-  polyunsaturated_fatty_acids: null,
-  fatty_acids: string,
-  is_active: string,
-  is_deleted: string,
-  updated_by: string,
-  created_at: string,
-  updated_at: string,
-  consumption: any,
-  is_consumed: boolean,
-  consumed_calories: number
-}
+  diet_plan_food_item_id: string;
+  diet_meal_options_id: string;
+  food_item_id: number;
+  food_item_name: string;
+  quantity: number;
+  measure_id: null;
+  measure_name: string;
+  protein: string;
+  carbs: string;
+  fats: string;
+  fibers: string;
+  calories: string;
+  sodium: string;
+  potassium: string;
+  sugar: string;
+  saturated_fatty_acids: null;
+  monounsaturated_fatty_acids: null;
+  polyunsaturated_fatty_acids: null;
+  fatty_acids: string;
+  is_active: string;
+  is_deleted: string;
+  updated_by: string;
+  created_at: string;
+  updated_at: string;
+  consumption: any;
+  is_consumed: boolean;
+  consumed_calories: number;
+};
 type NutritionData = {
   name: string;
   value: string;
   icon: any;
 };
-const MicronutrientsInformation: React.FC<MicronutrientsInformationProps> = ({ foodItemDetails }) => {
+const MicronutrientsInformation: React.FC<MicronutrientsInformationProps> = ({
+  foodItemDetails,
+}) => {
   const options: NutritionData[] = [
     {
       name: 'Protein',
       value: foodItemDetails?.protein,
-      icons: <Icons.Protein />
+      icons: <Icons.Protein />,
     },
     {
       name: 'Fats',
       value: foodItemDetails?.fats,
-      icons: <Icons.Fats />
-
+      icons: <Icons.Fats />,
     },
     {
       name: 'Carbs',
       value: foodItemDetails?.carbs,
-      icons: <Icons.Carbs />
-
+      icons: <Icons.Carbs />,
     },
     {
       name: 'Fibers',
       value: foodItemDetails?.fibers,
-      icons: <Icons.Fiber />
-
+      icons: <Icons.Fiber />,
     },
   ];
 
@@ -74,10 +73,12 @@ const MicronutrientsInformation: React.FC<MicronutrientsInformationProps> = ({ f
     return (
       <View style={styles.belowRow} key={index}>
         <View style={styles.topRow}>
-          <View style={styles.square} >{item.icons}</View>
+          <View style={styles.square}>{item.icons}</View>
           <Text style={styles.name}>{item.name}</Text>
         </View>
-        <Text style={styles.value}>{item.value.replace("g", "").replace("m", "")}</Text>
+        <Text style={styles.value}>
+          {item.value.replace('g', '').replace('m', '') + " g"}
+        </Text>
       </View>
     );
   };
@@ -89,10 +90,12 @@ const MicronutrientsInformation: React.FC<MicronutrientsInformationProps> = ({ f
         <View style={styles.innerContainer}>
           <View style={styles.topRow}>
             <View>
-              <Text style={styles.calorieValue}>{Math.round(Number(foodItemDetails?.calories))}</Text>
+              <Text style={styles.calorieValue}>
+                {Math.round(Number(foodItemDetails?.calories))}
+              </Text>
               <Text>Calories</Text>
             </View>
-            <View style={styles.circle} >
+            <View style={styles.circle}>
               <Icons.Flame />
             </View>
           </View>
@@ -111,7 +114,8 @@ const styles = StyleSheet.create({
     marginHorizontal: Matrics.s(15),
   },
   title: {
-    fontSize: Matrics.mvs(16),
+    fontSize: 16,
+    fontWeight: '700',
     color: colors.labelDarkGray,
     fontFamily: Fonts.BOLD,
     marginVertical: 8,
@@ -132,7 +136,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   calorieValue: {
-    fontSize: Matrics.mvs(20),
+    fontSize: 20,
     fontWeight: 'bold',
     color: colors.black,
   },
@@ -150,22 +154,26 @@ const styles = StyleSheet.create({
   square: {
     width: 25,
     height: 25,
-    // backgroundColor: '#F3F3F3',
-    marginRight: 10, justifyContent: "center", alignItems: "center"
-  },
-  circle: {
-    width: Matrics.mvs(36),
-    height: Matrics.mvs(36),
     backgroundColor: '#F3F3F3',
-    justifyContent: "center", alignItems: "center",
-    borderRadius: 18
+    marginRight: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   name: {
-    fontSize: Matrics.mvs(14),
+    fontSize: 14,
     color: colors.subTitleLightGray,
   },
   value: {
-    fontSize: Matrics.mvs(14),
+    fontSize: 14,
     color: colors.subTitleLightGray,
+  },
+  circle: {
+    width: Matrics.s(36),
+    height: Matrics.vs(36),
+    backgroundColor: '#F3F3F3',
+    marginRight: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 18,
   },
 });

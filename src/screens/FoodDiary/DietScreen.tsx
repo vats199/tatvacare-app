@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {useFocusEffect} from '@react-navigation/native';
 import {Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import CalorieConsumer from '../../components/molecules/CalorieConsumer';
@@ -13,13 +13,13 @@ import moment from 'moment';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Matrics} from '../../constants';
 import Loader from '../../components/atoms/Loader';
-// import BasicModal from '../../components/atoms/BasicModal';
+import BasicModal from '../../components/atoms/BasicModal';
 // import MyStatusbar from '../../components/atoms/MyStatusBar';
 import {useToast} from 'react-native-toast-notifications';
+import {globalStyles} from '../../constants/globalStyles';
 import CommonBottomSheetModal from '../../components/molecules/CommonBottomSheetModal';
 import AlertBottomSheet from '../../components/organisms/AlertBottomSheet';
 import {BottomSheetModal} from '@gorhom/bottom-sheet';
-
 type DietScreenProps = StackScreenProps<DietStackParamList, 'DietScreen'>;
 
 const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
@@ -40,6 +40,7 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
     number | null
   >(null);
 
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   useEffect(() => {
     getData();
     return () => setDiePlane([]);
@@ -78,19 +79,15 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
     setLoader(true);
     const date = moment(selectedDate).format('YYYY/MM/DD');
     const diet = await Diet.getDietPlan({date: date}, {});
-
+    // console.log('diet', diet);
+    // console.log(diet?.code, 'dietdiet');
     if (diet) {
       setTimeout(() => {
         setLoader(false);
       }, 500);
-      setDiePlane(diet?.data[0]);
+      setDiePlane(diet?.data?.[0]);
       if (optionId && dietPlanId)
-        countCalories(optionId, dietPlanId, diet?.data[0]);
-    } else if (diet?.code === '2') {
-      setDiePlane([]);
-      setLoader(false);
-      setTotalConsumedcalories(0);
-      setTotalcalories(0);
+        countCalories(optionId, dietPlanId, diet?.data?.[0]);
     } else {
       setDiePlane([]);
       setLoader(false);
@@ -128,7 +125,7 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
         {
           type: 'normal',
           placement: 'bottom',
-          duration: 2000,
+          duration: 2500,
           animationType: 'slide-in',
         },
       );
@@ -148,7 +145,7 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
     );
     getData();
 
-    if (deleteFoodItem?.code === '1') {
+    if (deleteFoodItem) {
       setStateOfAPIcall(false);
       getData();
       setTimeout(() => {
@@ -176,7 +173,7 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
   ) => {
     const UpadteFoodItem = await Diet.updateFoodConsumption(item, {});
     getData(optionId, dietPlanId);
-    if (UpadteFoodItem?.code === '1') {
+    if (UpadteFoodItem) {
     }
   };
 
@@ -190,9 +187,10 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
       );
 
       if (itemOptionFound.length > 0) {
-        const mealName = dietPlanFound?.[0]?.meal_name;
+        const mealName = dietPlanFound[0].meal_name;
         itemOptionFound[0].meal_name = mealName;
       }
+
       handalTotalCalories(itemOptionFound[0]);
     }
   };
@@ -234,7 +232,10 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
         title="Diet"
       />
       <View style={styles.belowContainer}>
-        <TouchableOpacity onPress={handelOnpressOfprogressBar}>
+        <TouchableOpacity
+          activeOpacity={0.5}
+          style={[styles.caloriesContainer, globalStyles.shadowContainer]}
+          onPress={handelOnpressOfprogressBar}>
           <CalorieConsumer
             totalConsumedcalories={totalConsumedcalorie}
             totalcalories={totalcalorie}
@@ -268,16 +269,6 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
           }
         />
       </CommonBottomSheetModal>
-      {/* <BasicModal
-        modalVisible={modalVisible}
-        messgae={
-          'Are you sure you want to delete this food item from your meal'
-        }
-        NegativeButtonsText="Cancle"
-        positiveButtonText="Ok"
-        onPressOK={deleteFoodItem}
-        onPressCancle={() => setModalVisible(!modalVisible)}
-      /> */}
       <Loader visible={loader} />
     </SafeAreaView>
   );
@@ -287,7 +278,6 @@ const styles = StyleSheet.create({
   mainContienr: {flex: 1, backgroundColor: colors.lightGreyishBlue},
   belowContainer: {
     flex: 1,
-    paddingHorizontal: Matrics.s(15),
     backgroundColor: colors.lightGreyishBlue,
   },
   messageContainer: {
@@ -310,6 +300,12 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: Matrics.s(-7),
     top: Matrics.vs(-7),
+  },
+  caloriesContainer: {
+    borderRadius: Matrics.mvs(12),
+    marginTop: Matrics.vs(5),
+    marginBottom: Matrics.vs(5),
+    marginHorizontal: Matrics.s(15),
   },
 });
 

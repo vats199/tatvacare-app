@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
 
   deviceDetailsContainer: {
     flex: 1,
-    paddingHorizontal: Matrics.s(15),
+    paddingHorizontal: Matrics.s(24),
     // paddingVertical: Matrics.s(15),
     justifyContent: 'center',
   },
@@ -71,11 +71,12 @@ const styles = StyleSheet.create({
     width: Matrics.s(80),
   },
   deviceTxt: {
-    fontFamily: Fonts.BOLD,
+    fontFamily: Fonts.MEDIUM,
     fontSize: Matrics.mvs(16),
-    fontWeight: '700',
+    // fontWeight: '700',
+    textAlign: 'center',
     color: colors.labelDarkGray,
-    marginTop: Matrics.vs(11),
+    // marginTop: Matrics.vs(11),
   },
   deviceDesTxt: {
     fontFamily: Fonts.MEDIUM,

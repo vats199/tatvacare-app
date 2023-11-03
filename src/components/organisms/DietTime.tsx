@@ -1,8 +1,9 @@
 import {StyleSheet, ScrollView, View, Text} from 'react-native';
 import React, {useEffect} from 'react';
 import DietExactTime from '../molecules/DietExactTime';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Matrics} from '../../constants';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+
 type DietTimeProps = {
   onPressPlus: (optionFoodItems: Options, mealName: string) => void;
   dietOption: boolean;
@@ -147,28 +148,26 @@ const DietTime: React.FC<DietTimeProps> = ({
   };
 
   return (
-    <View style={styles.container}>
-      <ScrollView
-        style={styles.innercontainer}
-        showsVerticalScrollIndicator={false}>
-        <View style={{paddingBottom: Matrics.vs(25)}}>
-          {dietPlane?.map(renderDietTimeItem)}
-        </View>
-      </ScrollView>
-    </View>
+    <ScrollView
+      style={styles.innercontainer}
+      showsVerticalScrollIndicator={false}>
+      <View
+        style={{
+          paddingBottom: insets.bottom,
+        }}>
+        {dietPlane?.map(renderDietTimeItem)}
+      </View>
+    </ScrollView>
   );
 };
 
 export default DietTime;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-
   innercontainer: {
-    marginTop: Matrics.vs(5),
     flex: 1,
+    paddingHorizontal: Matrics.s(15),
+    marginTop: Matrics.vs(5),
   },
   noDataFound: {
     fontSize: 20,
