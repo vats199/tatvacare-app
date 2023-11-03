@@ -31,7 +31,7 @@ enum APIEnvironment {
                     baseurl : "https://api-uat.mytatva.in/api/v7/")
         case .local:
             return (ip : "https://api.mytatvadev.in",
-                    baseurl : "https://api.mytatvadev.in/api/v6/")
+                    baseurl : "https://api.mytatvadev.in/api/v7/")
         case .localhost:
             return (ip : "http://3.7.8.99",
                     baseurl : "http://3.7.8.99:9011/api/v1/")

@@ -528,7 +528,7 @@ extension GFunction{
         }
     }
     
-    func updateCartCount(btn: UIButton,_ isBadges: Bool = true,vm: PurchsedCarePlanVM? = nil, isPlanExpired: Bool = false){
+    func updateCartCount(btn: UIButton,_ isBadges: Bool = true,vm: PurchsedCarePlanVM? = nil){
         GlobalAPI.shared.get_cart_infoAPI { isDone, count, isBCPFlag in
             
             if isBadges {
@@ -536,11 +536,6 @@ extension GFunction{
             }
             
             btn.addTapGestureRecognizer {
-                
-                guard !isPlanExpired else {
-                    return
-                }
-                
                 if count > 0 || isBCPFlag {
                     //                    let vc = LabTestCartVC.instantiate(fromAppStoryboard: .carePlan)
                     
@@ -829,7 +824,7 @@ extension GFunction{
                         completion: ((Bool) -> Void)?){
         
         let type = ReadingType.init(rawValue: obj.keys) ?? .BMI
-        let floorReadingValue: String = "\(floor(obj.readingValue ?? 0))"
+        let floorReadingValue: String = type == .sedentary_time ? "\(JSON(obj.readingValue as Any).intValue)" : "\(floor(obj.readingValue ?? 0))"
         var strDesc                 = floorReadingValue + " " +  obj.measurements
         var isReadingAvailable      = true
         
@@ -881,7 +876,7 @@ extension GFunction{
         ///------------------------------------------------------------------
         switch type {
             
-        case .SPO2:
+        case .SPO2,.calories_burned:
             commonReadingValue(strValue1: strValue1,
                                measurements: obj.measurements)
             break
@@ -1185,11 +1180,11 @@ extension GFunction{
             commonReadingValue(strValue1: strValue1,
                                measurements: obj.measurements)
             break
-        case .fev1_fvc_ratio,.fvc,.aqi,.humidity,.temperature:
+        case .fev1_fvc_ratio,.fvc,.aqi,.humidity,.temperature, .sedentary_time:
             break
         }
         
-        let time = GFunction.shared.convertDateFormate(dt: obj.readingDatetime,
+        let time = GFunction.shared.convertDateFormate(dt: obj.keys == ReadingType.calories_burned.rawValue || obj.keys == ReadingType.sedentary_time.rawValue ? obj.updatedAt : obj.readingDatetime,
                                                        inputFormat: DateTimeFormaterEnum.UTCFormat.rawValue,
                                                        outputFormat: DateTimeFormaterEnum.ddmm_yyyy.rawValue,
                                                        status: .NOCONVERSION)
@@ -1253,7 +1248,7 @@ extension GFunction{
         ///------------------------------------------------------------------
         switch type {
             
-        case .SPO2:
+        case .SPO2,.calories_burned:
             commonReadingValue(strValue1: strValue1,
                                measurements: obj.measurements)
             break
@@ -1478,7 +1473,7 @@ extension GFunction{
             commonReadingValue(strValue1: strValue1,
                                measurements: obj.measurements)
             break
-        case .fev1_fvc_ratio,.fvc,.aqi,.humidity,.temperature:
+        case .fev1_fvc_ratio,.fvc,.aqi,.humidity,.temperature,.calories_burned,.sedentary_time:
             break
         }
         
@@ -1548,7 +1543,7 @@ extension GFunction{
             break
         case .BodyFat,.Hydration,.MuscleMass,.Protein,.BoneMass,.VisceralFat,.BaselMetabolicRate,.MetabolicAge,.SubcutaneousFat,.SkeletalMuscle:
             break
-        case .fev1_fvc_ratio,.fvc,.aqi,.humidity,.temperature:
+        case .fev1_fvc_ratio,.fvc,.aqi,.humidity,.temperature,.calories_burned,.sedentary_time:
             break
         }
         switch chartScale {

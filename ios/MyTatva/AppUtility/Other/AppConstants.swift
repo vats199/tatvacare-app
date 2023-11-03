@@ -166,6 +166,10 @@ var kMaxPlatelet                            = 1000000///10,00,000
 var kMinSPO2                                = 0
 var kMaxSPO2                                = 100
 
+///Calories Burned
+var kMinCaloriesBurned                      = 0
+var kMaxCaloriesBurned                      = 15000
+
 ///PEF
 var kMinPEF                                 = 60
 var kMaxPEF                                 = 800

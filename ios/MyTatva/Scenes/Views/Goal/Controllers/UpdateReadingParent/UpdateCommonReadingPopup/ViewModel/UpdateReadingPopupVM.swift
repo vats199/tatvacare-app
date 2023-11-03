@@ -245,7 +245,12 @@ extension UpdateReadingPopupVM {
                 JSON(reading).intValue < kMinSkeletalMuscle {
                 return AppError.validation(type: .invalidSkelatalMuscle)
             }
-        case .fev1_fvc_ratio,.fvc,.aqi,.humidity,.temperature:
+        case .fev1_fvc_ratio,.fvc,.aqi,.humidity,.temperature,.sedentary_time:
+            break
+        case .calories_burned:
+            if JSON(reading).intValue < kMinCaloriesBurned || JSON(reading).intValue > kMaxCaloriesBurned {
+                return AppError.validation(type: .invalidCaloriesBurned)
+            }
             break
         }
         return nil

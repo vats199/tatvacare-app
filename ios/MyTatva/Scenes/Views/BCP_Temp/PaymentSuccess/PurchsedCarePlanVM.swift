@@ -32,7 +32,6 @@ class PurchsedCarePlanVM: NSObject {
     //MARK: Class Variables
     private var arrServiceData: [PurchsedCareModel] = []
     var planDetails: PlanDetail!
-    var durationDetails: DurationDetailModel!
     private(set) var isResult = Bindable<JSON>()
     
     //MARK: Init
@@ -93,8 +92,6 @@ extension PurchsedCarePlanVM {
                     }
                     
                     self.isResult.value = apiResponse.data
-                    
-                    self.durationDetails = DurationDetailModel(fromJson: apiResponse.data["duration_details"])
                     
                 default:
                     Alert.shared.showSnackBar(apiResponse.message, isError: true, isBCP: true)

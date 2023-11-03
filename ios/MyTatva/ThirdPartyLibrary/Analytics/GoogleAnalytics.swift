@@ -69,7 +69,6 @@ enum AnalyticsParameters: String {
     case plan_type
     case plan_expiry_date
     case plan_duration
-    case days_to_expire
     case plan_value
     case menu
     case cards
@@ -435,8 +434,6 @@ enum FIREventType {
     case TAP_COMPLETE_ADDRESS//When user clicks on 'Add Complete Address'
     case TAP_SAVE_ADDRESS//When user tap on "Save Address"
     case LOCATION_PERMISSION//When user giver permission on the defautl pop-up of the platform
-    case RENEW_PLAN //When user tap on "Renew" button in the Care Plan card from different pages
-    
     case USER_CLICK_DONT_HAVE_ACCESS_CODE// - when user click on don't have
     case USER_CLICK_HAVE_ACCESS_CODE //- when user click on have
     case USER_CLICK_CHECK_ACCESS_CODE// - - when user click check action
@@ -919,8 +916,6 @@ enum FIREventType {
             return "TAP_SAVE_ADDRESS"
         case .LOCATION_PERMISSION:
             return "LOCATION_PERMISSION"
-        case .RENEW_PLAN:
-            return "RENEW_PLAN"
         case .USER_CLICK_DONT_HAVE_ACCESS_CODE:
             return "USER_CLICK_DONT_HAVE_ACCESS_CODE"
         case .USER_CLICK_HAVE_ACCESS_CODE:

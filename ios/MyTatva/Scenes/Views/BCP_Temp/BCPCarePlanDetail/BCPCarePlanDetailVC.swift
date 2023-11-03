@@ -333,7 +333,6 @@ class BCPCarePlanDetailVC: LightPurpleNavigationBase {
     
     var plan_id                     = ""
     var completionHandler: ((_ obj : JSON?) -> Void)?
-    var isFromPurchasedPlan = false
     
     //------------------------------------------------------
     
@@ -360,12 +359,7 @@ class BCPCarePlanDetailVC: LightPurpleNavigationBase {
     }
     
     private func applyStyle() {
-        if self.isFromPurchasedPlan {
-            self.navigationController?.setNavigationBarHidden(false, animated: false)
-        }else {
-            self.navigationController?.isNavigationBarHidden = false
-        }
-        
+        self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.navigationBar.barStyle = .default
         self.tabBarController?.tabBar.isHidden = true
         
@@ -663,7 +657,6 @@ class BCPCarePlanDetailVC: LightPurpleNavigationBase {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.isNavigationBarHidden = false
         WebengageManager.shared.navigateScreenEvent(screen: .BcpDetails)
         if isShowAddressList {
             self.presentAddress()

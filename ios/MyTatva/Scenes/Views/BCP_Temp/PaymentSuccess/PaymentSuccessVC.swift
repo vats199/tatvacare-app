@@ -37,7 +37,6 @@ class PaymentSuccessVC: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
         self.navigationController?.clearNavigation()
-        isShowAddressList = false
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) { [weak self] in
             guard let self = self else { return }
             if !self.isPushed {
@@ -91,7 +90,6 @@ class PaymentSuccessVC: UIViewController {
         self.isPushed = true
         let vc = PurchsedCarePlanVC.instantiate(fromAppStoryboard: .BCP_temp)
         vc.viewModel.planDetails = self.planDetails
-        vc.isBack = false
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

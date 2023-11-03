@@ -274,7 +274,19 @@ class UpdateReadingParentVC: ClearNavigationFontBlackBaseVC {
             
             case .fev1_fvc_ratio,.fvc,.aqi,.humidity,.temperature:
                 break
+            case .calories_burned:
+                let vc = UpdateCommonReadingPopupVC.instantiate(fromAppStoryboard: .goal)
+                vc.readingType          = .calories_burned
+                vc.readingListModel     = item
+                self.pages.append(vc)
+                break
                 
+            case .sedentary_time:
+                let vc = UpdateSedentaryTimePopupVC.instantiate(fromAppStoryboard: .goal)
+                vc.readingType          = .sedentary_time
+                vc.readingListModel     = item
+                self.pages.append(vc)
+                break
             }
         }
         

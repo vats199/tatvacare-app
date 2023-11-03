@@ -48,29 +48,18 @@ class TabbarVC: BFPaperTabBarController {
     }
     
     fileprivate  func setTabbar(){
-        self.myTabbar.unselectedItemTintColor = .themeGray
         self.myTabbar.backgroundColor       = UIColor.clear
         self.myTabbar.backgroundImage       = UIImage()
         self.myTabbar.shadowImage           = UIImage()  // removes the border
         
-        if #available(iOS 13.0, *) {
-            let tabAppearance = self.tabBar.standardAppearance
-            
-            tabAppearance.stackedLayoutAppearance.normal.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.themeGray,NSAttributedString.Key.font : UIFont.customFont(ofType: .regular, withSize: 12) as Any]
-            
-            tabAppearance.stackedLayoutAppearance.selected.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.themePurple,NSAttributedString.Key.font : UIFont.customFont(ofType: .bold, withSize: 12) as Any]
-            
-            self.tabBar.standardAppearance = tabAppearance
-        }
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont.customFont(ofType: .medium, withSize: 12),
+                                                                  NSAttributedString.Key.foregroundColor: UIColor.themeGray],
+                                                                 for: .normal)
         
         
-        //        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont.customFont(ofType: .medium, withSize: 12),
-        //                                                          NSAttributedString.Key.foregroundColor: UIColor.themeGray],
-        //                                                         for: .normal)
-        //
-        //        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont.customFont(ofType: .medium, withSize: 12),
-        //                                                          NSAttributedString.Key.foregroundColor: UIColor.themePurple],
-        //                                                         for: .selected)
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont.customFont(ofType: .medium, withSize: 12),
+                                                                  NSAttributedString.Key.foregroundColor: UIColor.themePurple],
+                                                                 for: .selected)
         
         
         let vwBg                            = UIView(frame: CGRect(x: 0, y: 0, width: ScreenSize.width, height: self.tabBar.frame.height + 50))
@@ -97,7 +86,7 @@ class TabbarVC: BFPaperTabBarController {
         index += 1
         tab2.image          = UIImage(named: "care_unselected")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
         tab2.selectedImage  = UIImage(named: "care_selected")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
-        tab2.title          = "Programs" // "Care Plan"
+        tab2.title          = "Care Plan"
         tab2.imageInsets    = UIEdgeInsets(top: paddingTop, left: 0, bottom: paddingBottom, right: 0)
         
         if self.showEngageVC {
@@ -105,7 +94,7 @@ class TabbarVC: BFPaperTabBarController {
             index += 1
             tab3.image          = UIImage(named: "engage_unselected")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
             tab3.selectedImage  = UIImage(named: "engage_selected")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
-            tab3.title          = "Learn"
+            tab3.title          = "Discover"
             tab3.imageInsets    = UIEdgeInsets(top: paddingTop, left: 0, bottom: paddingBottom, right: 0)
         }
         

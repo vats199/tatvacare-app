@@ -83,6 +83,7 @@ extension AppError.Enums {
         case invalidPranayamaGoal
         case invalidExerciseGoal
         case invalidDietGoal
+        case invalidCaloriesBurned
         
         case selectStartDateTime
         case selectEndDateTime
@@ -192,7 +193,14 @@ extension AppError.Enums {
         case PleaseSelectTimeSlot
         case AddPrescription
         
-        
+        case selectSleepStartDateTime
+        case selectSleepStartDateTimeFirst
+        case selectSleepStartEndDateTimeFirst
+        case selectSleepEndDateTime
+        case selectActivityStartDateTime
+        case selectActivityStartDateTimeFirst
+        case selectActivityEndDateTime
+        case selectPhysicalActivity
         
         case custom(errorDescription: String?)
     }
@@ -357,7 +365,7 @@ extension AppError.Enums.ValidationError: LocalizedError {
             
         case .invalidSerumCreatinine:
             return "Please enter Serum Creatinine in the range of \(kMinSerumCreatinine) - \(kMaxSerumCreatinine)"
-
+            
         case .invalidWaistCircumference:
             return "Please enter Waist Circumference in the range of \(kMinWaistCircumference) - \(kMaxWaistCircumference)"
         case .invalidRandomBloodGlucose:
@@ -457,7 +465,7 @@ extension AppError.Enums.ValidationError: LocalizedError {
             return "Location data not found"
         case .invalidFileSize:
             return "Please use file size upto \(Validations.MaxCharacterLimit.imageKbSize.rawValue / 1000) mb"
-        
+            
         case .invalidStepsGoal:
             return "Please enter value less than \(kMaxStepsGoal)"
         case .invalidSleepGoal:
@@ -478,7 +486,7 @@ extension AppError.Enums.ValidationError: LocalizedError {
             return "Please add a record."
         case .selectTestType:
             return "Please select medical record type"
-//            return "Please select test type"
+            //            return "Please select test type"
         case .enterDescription:
             return "Please enter description"
         case .uploadDocument:
@@ -537,9 +545,28 @@ extension AppError.Enums.ValidationError: LocalizedError {
             return "Please enter Subcutaneous Fat in the range of \(kMinSubcutaneousFat) - \(kMaxSubcutaneousFat)"
         case .invalidSkelatalMuscle:
             return "Please enter Skeletal Muscle in the range of \(kMinSkeletalMuscle) - \(kMaxSkeletalMuscle)"
-        
+            
         case .enterHouseFullAddress:
             return "Please enter house number and building"
+        case .invalidCaloriesBurned:
+            return "Please enter Calories Burned in the range of \(kMinCaloriesBurned) - \(kMaxCaloriesBurned)"
+            
+        case .selectSleepStartDateTime:
+            return "Please select sleep start date & time"
+        case .selectSleepStartDateTimeFirst:
+            return "Please select sleep start date & time first"
+        case .selectSleepStartEndDateTimeFirst:
+            return "Please select sleep start & end time first"
+        case .selectSleepEndDateTime:
+            return "Please select sleep end date & time"
+        case .selectActivityStartDateTime:
+            return "Please select physical activity start date & time"
+        case .selectActivityStartDateTimeFirst:
+            return "Please select physical activity start date & time first"
+        case .selectActivityEndDateTime:
+            return "Please select physical activity start date & time"
+        case .selectPhysicalActivity:
+            return "Please select physical activity"
         }
     }
 }

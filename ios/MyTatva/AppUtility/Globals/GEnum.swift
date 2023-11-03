@@ -18,7 +18,7 @@ import UIKit
  4.Steps
  5.Water intake
  6.Sleep
-
+ 
  *******************************
  Readings
  *******************************
@@ -93,11 +93,13 @@ enum ReadingType: String {
     case aqi                    = "aqi"
     case humidity               = "humidity"
     case temperature            = "temperature"
+    case calories_burned        = "calories_burned"
+    case sedentary_time         = "sedentary_time"
     
     var image: UIImage {
         return set
     }
-
+    
     var isSprirometerVital: Bool {
         switch self {
         case .fev1_fvc_ratio,.fvc,.aqi,.humidity,.temperature: return true
@@ -181,6 +183,10 @@ enum ReadingType: String {
             return (UIImage(named: "reading_heart_rate")!)
         case .fev1_fvc_ratio,.fvc,.aqi,.humidity,.temperature:
             return (UIImage(named: "reading_heart_rate")!)
+        case .calories_burned:
+            return (UIImage(named: "reading_heart_rate")!)
+        case .sedentary_time:
+            return (UIImage(named: "reading_heart_rate")!)
         }
     }
 }
@@ -202,10 +208,10 @@ enum GoalType : String {
     var key: String {
         return set.key
     }
-
+    
     private var set: (image:UIImage, key: String) {
         switch self {
-      
+            
         case .Calories:
             return (UIImage(named: "goals_calories")!,
                     "calories")
@@ -244,10 +250,10 @@ enum FattyLiverGrade: Int, CaseIterable {
     var getTitle: String {
         return title
     }
-
+    
     private var title: (String) {
         switch self {
-
+            
         case .Grade0:
             return "Grade 0 - Normal"
         case .Grade1:
@@ -399,16 +405,16 @@ enum DateTimeFormaterEnum: String {
     case dd_mm_yyyy_HHmm            = "dd-MM-yyyy HH:mm"
     case dd_mm_yyyy_hhmma           = "dd-MM-yyyy hh:mm a"
     case bcaReport                  = "dd-mm-yyyy HH:mm"
-//    case MMM_d_Y  = "MMM d, yyyy"
+    //    case MMM_d_Y  = "MMM d, yyyy"
     case HHmmss                     = "HH:mm:ss"
-//    case hhmma    = "hh:mma"
+    //    case hhmma    = "hh:mma"
     case HHmm                       = "HH:mm"
     case hhmm                       = "hh:mm"
-//    case dmmyyyy  = "d/MM/yyyy"
-//    case hhmmA    = "hh:mm a"
+    //    case dmmyyyy  = "d/MM/yyyy"
+    //    case hhmmA    = "hh:mm a"
     case UTCFormat                  = "yyyy-MM-dd HH:mm:ss"
-//    case ddmm_yyyy = "dd MMM, yyyy"
-//    case WeekDayhhmma = "EEE,hh:mma"
+    //    case ddmm_yyyy = "dd MMM, yyyy"
+    //    case WeekDayhhmma = "EEE,hh:mma"
     
     case ddMMMyyyy                  = "dd MMM yyyy"
     case yyyyMMddTHHmmssZ           = "yyyy-MM-dd'T'HH:mm:ssZ"
@@ -432,7 +438,7 @@ enum Validations {
     
     enum RegexType : String {
         case AlpabetsAndSpace                       = "^[A-Za-z ]{0,700}$"//"[\\p{L} ]{0,350}$"////*
-//        case AlpabetsDotQuoteSpace                  = "^[A-Za-z0-9 \'.\\[\\\\\\]]*$"//"^.*[a-zA-Z0-9.' ]+.*$"
+        //        case AlpabetsDotQuoteSpace                  = "^[A-Za-z0-9 \'.\\[\\\\\\]]*$"//"^.*[a-zA-Z0-9.' ]+.*$"
         case AlphaNumeric                           = "^[A-Za-z0-9 ]*$"
         case OnlyNumber                             = "^[0-9]*$"
         case OnlyNonZeroNumber                      = "^[1-9][0-9]*$"
@@ -476,7 +482,7 @@ enum Validations {
         case imageKbSize                            = 6000
         case feet                                   = 1
     }
-   
+    
 }
 
 enum HeightUnit: String {
@@ -504,7 +510,7 @@ enum DriverStatus : String {
 }
 
 enum WeekDay : String {
-  
+    
     case Sunday         = "Sun"
     case Monday         = "Mon"
     case Tuesday        = "Tue"
@@ -536,5 +542,5 @@ extension Notification.Name {
     static let didResumeTest = Notification.Name(rawValue: "didResumeTest")
     static let locationUpdated = Notification.Name("locationUpdated")
     static let locationPermissionChanged = Notification.Name("locationPermissionChanged")
-
+    
 }

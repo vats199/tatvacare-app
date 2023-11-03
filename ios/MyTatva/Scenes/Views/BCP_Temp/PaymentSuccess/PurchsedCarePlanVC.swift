@@ -17,7 +17,6 @@ class ServicesCell: UITableViewCell {
     
     @IBOutlet weak var lblServiceName: UILabel!
     @IBOutlet weak var lblServiceDesc: UILabel!
-    @IBOutlet weak var lblTestCount: UILabel!
     @IBOutlet weak var btnAlign: UIButton!
     
     @IBOutlet weak var btnNext: UIButton!
@@ -30,7 +29,6 @@ class ServicesCell: UITableViewCell {
         
         self.lblServiceName.font(name: .bold, size: 14).textColor(color: .themeBlack2)
         self.lblServiceDesc.font(name: .light, size: 12).textColor(color: .ThemeGray61)
-        self.lblTestCount.font(name: .regular, size: 12).textColor(color: .themeGreenAlert)
         self.vwBG.cornerRadius(cornerRadius: 12).themeShadowBCP()
     }
 }
@@ -40,7 +38,6 @@ class PurchsedCarePlanVC: LightPurpleNavigationBase {
     //MARK: - Outlets -
     @IBOutlet weak var lblNavTitle: SemiBoldBlackTitle!
     
-    @IBOutlet weak var vwYourService: UIView!
     @IBOutlet weak var lblYourServvice: UILabel!
     @IBOutlet weak var lblContactUS: UILabel!
     @IBOutlet weak var lblHelp: UILabel!
@@ -75,14 +72,6 @@ class PurchsedCarePlanVC: LightPurpleNavigationBase {
     var viewModel = PurchsedCarePlanVM()
     var isBack = false
     var planName = ""
-    var planDetails: PlanDetail?
-    
-    var durationDetails : DurationDetailModel?
-    
-    var isDiagnosticTests = false
-    var isPlanExpired = false
-    var isPlanActive = false
-    var renewCompletion:((Bool) -> Void)?
     
     //------------------------------------------------------
     //MARK: - UIView Life Cycle Methods -
@@ -100,23 +89,18 @@ class PurchsedCarePlanVC: LightPurpleNavigationBase {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
-        //self.isBack = false
         WebengageManager.shared.navigateScreenEvent(screen: .BcpPurchasedDetails)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        //        if !self.isBack {
-        //            self.navigationController?.setNavigationBarHidden(true, animated: true)
-        //        }
-        
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
     @IBAction func onGoBack(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
-
+    
     
     //------------------------------------------------------
     //MARK: - Memory Management Method -
@@ -163,7 +147,6 @@ class PurchsedCarePlanVC: LightPurpleNavigationBase {
                                      parameter: params)
         }
         
-        self.vwBtnRenew.isHidden = true
         
     }
     
@@ -184,77 +167,22 @@ class PurchsedCarePlanVC: LightPurpleNavigationBase {
         self.btnRenew.setTitle("Renew Now", for: .normal)
         self.vwBtnRenew.isHidden = true
         
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.vwCarePlan.cornerRadius(cornerRadius: 12).themeShadowBCP()
-        }
         
-        self.lblCarePlanName.font(name: .bold, size: 14).textColor(color: .themeBlack).text = nil
-        self.lblCareDetails.font(name: .regular, size: 10).textColor(color: .themeGray4).text = "Bundled with diagnostic tests and monitoring devices."
-        self.lblDaysRemaining.font(name: .regular, size: 12).textColor(color: .themeGray4).text = nil
-        self.vwProgress.progress = 0
-        self.btnRenew.setTitle("Renew Now", for: .normal)
-        self.btnRenew.addAction(for: .touchUpInside) { [weak self] in
-            guard let self = self, let object = self.planDetails else { return }
-            
-            var params              = [String : Any]()
-            params[AnalyticsParameters.plan_id.rawValue]            = object.planMasterId
-            params[AnalyticsParameters.plan_type.rawValue]          = object.planType
-            params[AnalyticsParameters.plan_expiry_date.rawValue]   = object.expiryDate
-            params[AnalyticsParameters.days_to_expire.rawValue]     = object.remainingDays
-            FIRAnalytics.FIRLogEvent(eventName: .RENEW_PLAN,
-                                     screen: .BcpPurchasedDetails,
-                                     parameter: params)
-            guard self.isPlanActive else {
-                guard let arrVCs = self.navigationController?.viewControllers else { return }
-                if arrVCs.contains(where: {$0.isKind(of: BCPCarePlanVC.self)}) {
-                    arrVCs.forEach({
-                        if $0.isKind(of: BCPCarePlanVC.self) {
-                            self.renewCompletion?(true)
-                            self.navigationController?.popToViewController($0, animated: true)
-                        }
-                    })
-                }else {
-                    let vc = BCPCarePlanVC.instantiate(fromAppStoryboard: .BCP_temp)
-                    vc.hidesBottomBarWhenPushed = true
-                    vc.isMoveToOthers = true
-                    UIApplication.topViewController()?.navigationController?.pushViewController(vc, animated: true)
-                }
-                return
-            }
-            
-            GlobalAPI.shared.planDetailsAPI(plan_id: object.planMasterId,
-                                            durationType: object.enableRentBuy ? object.planType == kIndividual ? kRent : nil : nil,
-                                            /*patientPlanRelId: object.patientPlanRelId,*/
-                                            withLoader: true) { [weak self] isDone, object1, msg in
-                guard let self = self else {return}
-                if isDone {
-                    //  self.isBack = true
-                    let vc = BCPCarePlanDetailVC.instantiate(fromAppStoryboard: .BCP_temp)
-                    
-                    vc.isFromPurchasedPlan  = true
-                    vc.plan_id              = object.planMasterId
-                    vc.viewModel.cpDetail   = object1
-                    //                    vc.patientPlanRelId     = object.patientPlanRelId
-                    
-                    self.navigationController?.pushViewController(vc, animated: true)
-                }
-            }
-        }
+        //        self.vwHelp.applyViewShadow(shadowOffset: .zero, shadowColor: UIColor(red: 33/255, green: 33/255, blue: 33/255, alpha: 0.05), shadowOpacity: 1)
+        
+        //        DispatchQueue.main.async { [weak self] in
+        //            guard let self = self else { return }
+        //            self.vwHelp.borderColor(color: .ThemeBorder, borderWidth: 1).setRound()
+        
+        
+        //        }
     }
     
     private func setupViewModelObserver() {
         self.viewModel.isResult.bind { [weak self] data in
             guard let self = self,let data = data else { return }
             
-            self.isPlanActive = data["plan_active"].boolValue
-            
             self.lblNavTitle.text = data["plan_name"].stringValue
-            
-            let durationDetails = DurationDetailModel(fromJson: data["duration_details"])
-            self.durationDetails = durationDetails
-            
-            self.isDiagnosticTests = JSON(data["diagnostic_tests"] as Any).boolValue
             
             if let decription = data["what_to_expect"].string,!decription.isEmpty {
                 self.vwWebkit.loadHTMLString(decription.replacingOccurrences(of: """
@@ -265,55 +193,21 @@ class PurchsedCarePlanVC: LightPurpleNavigationBase {
                 self.svExpect.isHidden = false
                 
                 let planDetails = PlanDetail(fromJson: data["plan_details"])
-                self.planDetails = planDetails
-                
-                let totalPlans = JSON(planDetails.totalDays as Any).doubleValue
-                let remainingDays = JSON(planDetails.remainingDays as Any).doubleValue
-                let differenceDays = (totalPlans - remainingDays)
-                
-                self.isPlanExpired = false
+            
                 
                 self.lblCarePlanName.text = planDetails.planName
-                self.vwProgress.progress = remainingDays < 0 ? 1.0 : JSON(planDetails.totalDays as Any).doubleValue == 0.0 ? 0.0 : Float( differenceDays / (totalPlans+1))
-                
-                
-                let progressColor: UIColor = {
-                    self.vwBtnRenew.isHidden = remainingDays > 14
-                    self.lblDaysRemaining.text = "\(JSON(remainingDays as Any).intValue) days remaining"
-                    
-                    if !(remainingDays > 14) {
-                        self.vwBtnRenew.isHidden = !JSON(planDetails.isShowRenew as Any).boolValue
-                    }
-                    
-                    if remainingDays < 0 {
-                        self.isPlanExpired = true
-                        self.lblDaysRemaining.text = "Plan Expired"
-                        return .themeRedAlert
-                    } else if remainingDays == 0 || remainingDays == 1 {
-                        self.lblDaysRemaining.text = remainingDays == 1 ? "Expiring tomorrow".capitalized : "expiring Today".capitalized
-                        return .themeRedAlert
-                    }
-                    else if remainingDays <= 7 {
-                        return .themeRedAlert
-                    }else if remainingDays <= 14 {
-                        return .themeYellow
-                    }else if remainingDays > 14 {
-                        self.lblDaysRemaining.text = "Expire on \(GFunction.shared.convertDateFormat(dt: planDetails.expiryDate, inputFormat: DateTimeFormaterEnum.yyyymmdd.rawValue, outputFormat: DateTimeFormaterEnum.MMMMDDYYYY.rawValue, status: .NOCONVERSION).0)"
-                        return .themeGreenAlert
-                    }else {
-                        return .themeRedAlert
-                    }
-                }()
-                self.vwProgress.progressTintColor = progressColor
-                self.lblDaysRemaining.textColor(color: remainingDays > 14 ? .themeGray4 : progressColor)
+                self.vwProgress.progress = Float((JSON(planDetails.totalDays as Any).doubleValue - JSON(planDetails.remainingDays as Any).doubleValue) / JSON(planDetails.totalDays as Any).doubleValue)
+                self.vwProgress.progressTintColor = .themeGreenAlert
                 self.vwProgress.tintColor = .ThemeGrayE0
-                
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = DateTimeFormaterEnum.yyyymmdd.rawValue
+                dateFormatter.date(from: planDetails.expiryDate)
+                self.lblDaysRemaining.text = "Expire on \(GFunction.shared.convertDateFormat(dt: planDetails.expiryDate, inputFormat: DateTimeFormaterEnum.yyyymmdd.rawValue, outputFormat: DateTimeFormaterEnum.MMMMDDYYYY.rawValue, status: .NOCONVERSION).0)"
             }else {
                 self.webKitConstHeight.constant = 0
                 self.svExpect.isHidden = true
             }
             
-            self.vwYourService.isHidden = (self.viewModel.numberOfCount() == 0) ? true : false
             self.tblServices.reloadData()
             
         }
@@ -342,35 +236,15 @@ extension PurchsedCarePlanVC : UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withClass: ServicesCell.self)
         let obj = self.viewModel.listOfRows(indexPath.row)
         
-        cell.lblTestCount.isHidden = obj.type == .Time && (self.durationDetails?.diagnosticTestSessionCount != 0) ? false : true
-        
-        let usedCount = self.durationDetails?.diagnosticTestUsedCount ?? 0
-        let sessionCount = self.durationDetails?.diagnosticTestSessionCount ?? 0
-        
-        let finalCount = sessionCount - usedCount
-        
-        if self.isDiagnosticTests {
-            if self.lblDaysRemaining.text == "Plan Expired" {
-                cell.lblTestCount.text = "Plan Expired"
-                cell.lblTestCount.textColor(color: .themeRedAlert)
-            } else {
-                cell.lblTestCount.text = "\(finalCount)/\(sessionCount) Left"
-                if finalCount <= 0 {
-                    cell.lblTestCount.textColor(color: .themeRedAlert)
-                } else {
-                    cell.lblTestCount.textColor(color: .themeGreenAlert)
-                }
-            }
-        }
         
         cell.lblServiceName.text = obj.strServiceName
         cell.lblServiceDesc.text = obj.strServiceDesc
         kPateintPlanRefID = self.viewModel.planDetails.patientPlanRelId
         if obj.type == .Time {
-            GFunction.shared.updateCartCount(btn: cell.btnAlign,false,vm: self.viewModel, isPlanExpired: self.isPlanExpired)
+            GFunction.shared.updateCartCount(btn: cell.btnAlign,false,vm: self.viewModel)
         }else {
             cell.btnAlign.addAction(for: .touchUpInside) { [weak self] in
-                guard let self = self, !self.isPlanExpired else { return }
+                guard let self = self else { return }
                 if obj.type == .Slot {
                     
                     var params              = [String : Any]()
@@ -402,7 +276,6 @@ extension PurchsedCarePlanVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        return
         let type = self.viewModel.listOfRows(indexPath.row).type
         switch type {
         case .Time:

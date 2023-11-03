@@ -123,6 +123,24 @@ class HealthKitManager : NSObject {
                         returnValue = false
                         break
                     }
+                }else if object == HKObjectType.quantityType(forIdentifier: .appleExerciseTime) {
+                    
+                    if HKHealthStore.isHealthDataAvailable() {
+                        let typesToRead: Set<HKObjectType> = [
+                            HKObjectType.quantityType(forIdentifier: .appleExerciseTime)!
+                        ]
+                        
+                        self.healthStore.requestAuthorization(toShare: nil, read: typesToRead) { (success, error) in
+                            if success {
+                                // Permission granted
+                                returnValue = true
+                            } else {
+                                // Handle error
+                                returnValue = false
+                            }
+                        }
+                    }
+                    
                 }
             }
         }
@@ -192,13 +210,13 @@ class HealthKitManager : NSObject {
               
         guard let stepsType = HKQuantityType.quantityType(forIdentifier: .stepCount),
               
-               // let exerciseType = HKQuantityType.quantityType(forIdentifier: .appleExerciseTime),
+                let exerciseType = HKQuantityType.quantityType(forIdentifier: .appleExerciseTime),
               
                 let sleepType = HKObjectType.categoryType(forIdentifier: .sleepAnalysis),
               
                 let waterType = HKQuantityType.quantityType(forIdentifier: .dietaryWater),
               
-                //let caloriesType = HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned),
+                let caloriesType = HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned),
               
                 let oxygen = HKQuantityType.quantityType(forIdentifier: .oxygenSaturation),
               
@@ -228,8 +246,10 @@ class HealthKitManager : NSObject {
         }
         
         let read = Set(arrayLiteral: stepsType,
+                       exerciseType,
                        sleepType,
                        waterType,
+                       caloriesType,
                        oxygen,
                        pef,
                        fev1,
@@ -242,17 +262,18 @@ class HealthKitManager : NSObject {
         
         //Not allowed to write- exerciseType, medicationRecord
         let write = Set(arrayLiteral: stepsType,
-                   sleepType,
-                   waterType,
-                   oxygen,
-                   pef,
-                   fev1,
-                   bloodPressureDiastolic,
-                   bloodPressureSystolic,
-                   heartrate,
-                   bodyWeight,
-                   bmi,
-                   bloodGlucose) as Set<HKSampleType>
+                        sleepType,
+                        waterType,
+                        caloriesType,
+                        oxygen,
+                        pef,
+                        fev1,
+                        bloodPressureDiastolic,
+                        bloodPressureSystolic,
+                        heartrate,
+                        bodyWeight,
+                        bmi,
+                        bloodGlucose) as Set<HKSampleType>
         
         return (read: read, write: write)
     }
@@ -384,7 +405,6 @@ extension HealthKitManager{
             if let result = result{
                 goalResult.append(result.goal_data)
                 readingResult.append(result.reading_data)
-                
             }
             
             if countQuantityType >= sampleIdentifier.count {
@@ -397,7 +417,6 @@ extension HealthKitManager{
                     
                     if let error = error{
                         print(error)
-                        completion(nil,error)
                     }
                     
                     if let result = result{
@@ -408,7 +427,21 @@ extension HealthKitManager{
                         if success {
                             goalResult.append(arr)
                         }
-                        completion((goal_data : goalResult, reading_data: readingResult) , nil)
+                        
+//                        completion((goal_data : goalResult, reading_data: readingResult) , nil)
+                        
+                        self.fetchAllDetailForCalories() { arrReading, error in
+                            if let error = error {
+                                print(error)
+                            }
+                            
+                            if !arrReading.isEmpty {
+                                readingResult.append(arrReading)
+                            }
+                            
+                            completion((goal_data : goalResult, reading_data: readingResult) , nil)
+                            
+                        }
                     }
                     
                    
@@ -445,8 +478,22 @@ extension HealthKitManager{
                 return
             }
             
+            var daysFromTodays = dayFromToday
+            
+            if sampleid == .activeEnergyBurned {
+                if UserModel.shared.syncAt != nil && UserModel.shared.syncAt.trim() != "" {
+                    let time = GFunction.shared.convertDateFormate(dt: UserModel.shared.syncAt,
+                                                                   inputFormat: DateTimeFormaterEnum.UTCFormat.rawValue,
+                                                                   outputFormat: DateTimeFormaterEnum.ddmm_yyyy.rawValue,
+                                                                   status: .NOCONVERSION)
+                    
+                    daysFromTodays = Calendar.current.dateComponents([.day], from: time.1, to: Date()).day ?? daysFromTodays
+                    daysFromTodays = daysFromTodays <= 0 ? 1 : daysFromTodays
+                }
+            }
+            
             let endDate     = Date()
-            let startDate   = endDate.daysAgo(dayFromToday)
+            let startDate   = endDate.daysAgo(daysFromTodays)
             
             
             //1. Use HKQuery to load the most recent samples.
@@ -605,19 +652,17 @@ extension HealthKitManager{
                             break
                             
                         ///calories count
-//                        case HKQuantityTypeIdentifier.activeEnergyBurned.rawValue:
-//
-//                            let calories = sample.quantity.doubleValue(for: HKUnit.kilocalorie())
-//                            goalDict = [
-//                                "goal_key"          : GoalType.Calories.rawValue,
-//                                "achieved_datetime" : stringDate,
-//                                "achieved_value"    : String(calories),
-//                                "source_name"       : source_name,
-//                                "source_id"         : source_id
-//                                /*,
-//                                "achieved_unit" : "kcal"*/
-//                            ]
-//                            break
+                        case HKQuantityTypeIdentifier.activeEnergyBurned.rawValue:
+
+                            let calories = sample.quantity.doubleValue(for: HKUnit.kilocalorie())
+                            readingDict = [
+                                "reading_key"       : ReadingType.calories_burned.rawValue,
+                                "reading_datetime"  : stringDate,
+                                "reading_value"     : String(calories),
+                                "source_name"       : source_name,
+                                "source_id"         : source_id
+                            ]
+                            break
                             
                         ///exercise time
                         case HKQuantityTypeIdentifier.appleExerciseTime.rawValue:
@@ -959,6 +1004,146 @@ extension HealthKitManager{
         }
     }
     
+    ///Get all calories from Health
+    private func fetchAllDetailForCalories(completion: @escaping ([[String: Any]], String?) -> Void) {
+        
+        var dayFromToday = 30//180
+        if UserModel.shared.syncAt != nil && UserModel.shared.syncAt.trim() != "" {
+            let time = GFunction.shared.convertDateFormate(dt: UserModel.shared.syncAt,
+                                                           inputFormat: DateTimeFormaterEnum.UTCFormat.rawValue,
+                                                           outputFormat: DateTimeFormaterEnum.ddmm_yyyy.rawValue,
+                                                           status: .NOCONVERSION)
+            
+            dayFromToday = Calendar.current.dateComponents([.day], from: time.1, to: Date()).day ?? dayFromToday
+            dayFromToday = dayFromToday <= 0 ? 1 : dayFromToday
+        }
+        
+        var arrCalories : [[String: Any]] = []
+        //self.lastSevenDaysSteps.removeAll()
+        let caloriesQuantityType = HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)!
+        let now         = Date()
+        var interval    = DateComponents()
+        interval.day    = 1
+        var arrCount    = [Int]()
+        
+        guard dayFromToday > 0 else { return }
+        
+        for i in 0...dayFromToday - 1 {
+            
+            guard let sampleType = HKSampleType.quantityType(forIdentifier: .activeEnergyBurned) else {
+                print("Sample Type is no longer available in HealthKit")
+                completion(arrCalories, "Sample Type is no longer available in HealthKit")
+                return
+            }
+            
+            let day = Calendar.current.date(byAdding: DateComponents(day: -i), to: now)!
+            
+            let startOfDay  = Calendar.current.startOfDay(for: day)
+            let endDate     = Calendar.current.date(byAdding: DateComponents(day: 1), to: startOfDay)!
+            
+            let predicate = HKQuery.predicateForSamples(withStart: startOfDay,
+                                                        end: endDate,
+                                                        options: .strictStartDate)
+            
+            let query = HKStatisticsQuery(quantityType: caloriesQuantityType, quantitySamplePredicate: predicate, options: .cumulativeSum) { (query, result, error) in
+                
+                func completition(){
+                    if arrCount.count == dayFromToday {
+                        completion(arrCalories, nil)
+                    }
+                }
+                
+                arrCount.append(1)
+                
+                if let result = result, let sum = result.sumQuantity() {
+                    let burnedCalories = sum.doubleValue(for: HKUnit.kilocalorie())
+                    print("Burned calories today: \(burnedCalories) kcal")
+                    let sourceName = "Health"
+                    let sourceId = "com.apple.Health"
+                    
+                    let date = DateFormatter()
+                    date.dateFormat = DateTimeFormaterEnum.yyyymmdd.rawValue
+                    let stringDate = date.string(from: result.endDate) + " 00:00:00"
+                    
+                    let readingDict = [
+                        "reading_key"       : ReadingType.calories_burned.rawValue,
+                        "reading_datetime"  : stringDate,
+                        "reading_value"     : String(burnedCalories),
+                        "source_name"       : sourceName,
+                        "source_id"         : sourceId
+                    ]
+                    print(readingDict)
+                    arrCalories.append(readingDict)
+                } else {
+                    // Handle error
+                    if let error = error {
+                        print("Error fetching burned calories: \(error.localizedDescription)")
+                    }
+                }
+                completition()
+            }
+            
+            self.healthStore.execute(query)
+            
+            /*let endDate     = Date()
+            let startDate   = endDate.daysAgo(i)
+            
+            let mostRecentPredicate = HKQuery.predicateForSamples(withStart: startDate,
+                                                                  end: endDate,
+                                                                  options: .strictEndDate)
+            
+            let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate,
+                                                  ascending: false)
+            
+            //let limit = 100000//limit of data to fetch
+            
+            let sampleQuery = HKSampleQuery(sampleType: sampleType, predicate: mostRecentPredicate, limit: HKObjectQueryNoLimit, sortDescriptors: [sortDescriptor]) { query, samples, error in
+                DispatchQueue.main.async {
+                    var sampleCount = 0
+                    
+                    guard let samples = samples as? [HKQuantitySample] else {
+                        completion(arrCalories, error?.localizedDescription)
+                        return
+                    }
+                    arrCalories.removeAll()
+                    for sample in samples {
+                        let sourceName = sample.sourceRevision.source.name
+                        let sourceId = sample.sourceRevision.source.bundleIdentifier
+                        sampleCount += 1
+                        
+                        let date = DateFormatter()
+                        date.dateFormat = DateTimeFormaterEnum.UTCFormat.rawValue
+                        let stringDate = date.string(from: sample.endDate)
+                        let calories = sample.quantity.doubleValue(for: .kilocalorie())
+                        
+                        let readingDict = [
+                            "reading_key"       : ReadingType.calories_burned.rawValue,
+                            "reading_datetime"  : stringDate,
+                            "reading_value"     : String(calories),
+                            "source_name"       : sourceName,
+                            "source_id"         : sourceId
+                        ]
+                        print(readingDict)
+                        arrCalories.append(readingDict)
+                        
+                    }
+                    
+                    print("calories count", arrCalories.count)
+                    if sampleCount == samples.count {
+                        completion(arrCalories, nil)
+                    }
+                    /*if !arrCalories.isEmpty, arrCalories.count == samples.count {
+                        completion(arrCalories, nil)
+                    }*/
+                    
+                }
+            }
+            
+            self.healthStore.execute(sampleQuery)*/
+            
+        }
+    }
+    
     ///get all Steps of records
     private func fetchAllDetailForSteps(dayFromToday:Int,
                                         completion: @escaping (Bool, [[String: Any]]) -> Void) {
@@ -1260,4 +1445,81 @@ extension HealthKitManager{
             print("🟧🟧🟧🟧🟧🟧🟧🟧🟧🟧🟧🟧🟧🟧🟧🟧🟧 \(sleepAnalysis) LOGGED TO HEALTHKIT")
         }
     }
+    
+    func addCaloriesData(reading : Double,dateTime: Date) {
+        
+        let caloriesBurnedType = HKSampleType.quantityType(forIdentifier: .activeEnergyBurned)!
+
+        // Create a quantity to represent the calories burned
+        let caloriesBurned = HKQuantity(unit: .kilocalorie(), doubleValue: reading) // Replace with your actual calorie value
+
+        // Create a sample to log the calories burned
+        let caloriesBurnedSample = HKQuantitySample(type: caloriesBurnedType, quantity: caloriesBurned, start: dateTime, end: dateTime)
+        self.healthStore.save(caloriesBurnedSample) { (success, error) in
+            if success {
+                print("🟧🟧🟧🟧🟧🟧🟧🟧🟧🟧🟧🟧🟧🟧🟧🟧🟧 Calories LOGGED TO HEALTHKIT")
+            } else {
+                // Handle the error
+                print("error occurred saving calories data")
+            }
+        }
+        
+        /*let caloriesBurnedType = HKSampleType.quantityType(forIdentifier: .activeEnergyBurned)!
+
+        // Create a quantity to represent the calories burned
+        let caloriesBurned = HKQuantity(unit: .kilocalorie(), doubleValue: reading) // Replace with your actual calorie value
+
+        // Create a sample to log the calories burned
+        let caloriesBurnedSample = HKQuantitySample(type: caloriesBurnedType, quantity: caloriesBurned, start: dateTime, end: dateTime)
+
+        // Save the sample to HealthKit
+        
+        let calendar = Calendar.current
+        let startDate = calendar.startOfDay(for: yourDate) // Replace yourDate with the date you want to delete
+        let endDate = calendar.date(byAdding: .day, value: 1, to: startDate)
+        
+        let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: .strictStartDate)
+
+        var count = 0
+        // Create a query to fetch the data you want to delete
+        let query = HKSampleQuery(sampleType: HKSampleType.quantityType(forIdentifier: .activeEnergyBurned)!, predicate: predicate, limit: HKObjectQueryNoLimit, sortDescriptors: nil) { (query, results, error) in
+            if let results = results as? [HKQuantitySample] {
+                for sample in results {
+                    // Delete each sample individually
+                    healthStore.delete(sample) { (success, error) in
+                        if success {
+                            print("Calorie data deleted successfully.")
+                            count + = 1
+                            if count == results.count {
+                                
+                            }
+                        } else {
+                            // Handle the error
+                            if let error = error {
+                                print("Error deleting calorie data: \(error.localizedDescription)")
+                            }
+                        }
+                    }
+                }
+            } else if let error = error {
+                // Handle the query error
+                print("Error querying calorie data: \(error.localizedDescription)")
+            }
+        }
+
+        // Execute the query
+        healthStore.execute(query)
+        
+        healthStore.delete(caloriesBurnedSample) { success, error in
+            if success {
+                print("🟧🟧🟧🟧🟧🟧🟧🟧🟧🟧🟧🟧🟧🟧🟧🟧🟧 Calories Deleted TO HEALTHKIT")
+                
+            } else {
+                // Handle the error
+                print("error occurred deleting calories data")
+            }
+        }*/
+        
+    }
+    
 }

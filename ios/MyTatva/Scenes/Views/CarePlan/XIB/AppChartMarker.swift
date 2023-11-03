@@ -202,7 +202,7 @@ class AppChartMarker: MarkerView, ViewLoadable {
                 case .SkeletalMuscle:
                     self.lblValue.text = String(format: "%0.1f", highlight.y)
                     break
-                case .fev1_fvc_ratio,.fvc,.aqi,.humidity,.temperature:
+                case .fev1_fvc_ratio,.fvc,.aqi,.humidity,.temperature,.calories_burned,.sedentary_time:
                     break
                 }
             }

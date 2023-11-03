@@ -46,7 +46,8 @@ extension BCPCarePlanVM {
     
     func managePagenation(tblView: UITableView,
                           refreshControl: UIRefreshControl,
-                          plan_type: String){
+                          plan_type: String,
+                          showPlanType: String? = nil){
         if self.isNextPage {
             self.page += 1
             
@@ -54,7 +55,8 @@ extension BCPCarePlanVM {
                 
                 self.plansListAPI(tblView: tblView,
                                   withLoader: false,
-                                  plan_type: plan_type) { [weak self] (isDone) in
+                                  plan_type: plan_type,
+                                  showPlanType: showPlanType) { [weak self] (isDone) in
                     guard let self = self else {return}
                     
                     tblView.reloadData()
@@ -71,21 +73,23 @@ extension BCPCarePlanVM {
 extension BCPCarePlanVM {
     
     @objc func apiCallFromStartPlansList(tblView: UITableView,
-                                        refreshControl: UIRefreshControl? = nil,
-                                        plan_type: String,
-                                        withLoader: Bool = false) {
+                                         refreshControl: UIRefreshControl? = nil,
+                                         plan_type: String,
+                                         showPlanType: String?,
+                                         withLoader: Bool = false) {
         
         self.page              = 1
         self.isNextPage        = true
         
         //API Call
         self.plansListAPI(tblView: tblView,
-                           withLoader: withLoader,
-                          plan_type: plan_type) { (isLoaded) in
+                          withLoader: withLoader,
+                          plan_type: plan_type,
+                          showPlanType: showPlanType) { (isLoaded) in
             
             self.vmResult.value = .success(nil)
             refreshControl?.endRefreshing()
-//            tblView.reloadData()
+            tblView.reloadData()
         }
     }
     
@@ -93,18 +97,20 @@ extension BCPCarePlanVM {
     func plansListAPI(tblView: UITableView,
                       withLoader: Bool,
                       plan_type: String,
+                      showPlanType: String? = nil,
                       completion: ((Bool) -> Void)?){
         
         /*
          {
-           "plan_type": "I","S"
-           "page": "string"
+         "plan_type": "I","S"
+         "page": "string"
          }
          */
         
         
         var params              = [String : Any]()
-//        params["page"]          = self.page
+        params["show_plan_type"] = showPlanType
+        //        params["page"]          = self.page
         
         params = params.filter({ (obj) -> Bool in
             if obj.value as? String != "" {
@@ -114,7 +120,7 @@ extension BCPCarePlanVM {
                 return false
             }
         })
-
+        
         print(JSON(params))
         
         ApiManager.shared.makeRequest(method: ApiEndPoints.patient_plans(.plans_list), methodType: .post, parameter: params, withErrorAlert: true, withLoader: withLoader, withdebugLog: true) { (result) in
@@ -142,7 +148,7 @@ extension BCPCarePlanVM {
                     }
                     
                     let arr = PlanListModel.modelsFromDictionaryArray(array: response.data.arrayValue).filter({ !$0.planDetails.isEmpty })
-//                    arr[0].planDetails = arr[0].planDetails.filter({$0.planMasterId == "d6e38a09-11a2-11ee-81c9-ac4863195357"})
+                    //                    arr[0].planDetails = arr[0].planDetails.filter({$0.planMasterId == "d6e38a09-11a2-11ee-81c9-ac4863195357"})
                     self.arrPlan.append(arr)
                     break
                 case .emptyData:
@@ -168,7 +174,7 @@ extension BCPCarePlanVM {
                     break
                 case .underMaintenance:
                     break
-              
+                    
                 case .socialIdNotRegister:
                     break
                 case .userSessionExpire:
@@ -212,11 +218,11 @@ extension BCPCarePlanVM {
         
         /*
          {
-           "plan_master_id": "string",
-           "transaction_id": "string",
-           "receipt_data": "string",
-           "plan_package_duration_rel_id": "string",
-           "device_type": "A"
+         "plan_master_id": "string",
+         "transaction_id": "string",
+         "receipt_data": "string",
+         "plan_package_duration_rel_id": "string",
+         "device_type": "A"
          }
          */
         
@@ -228,10 +234,10 @@ extension BCPCarePlanVM {
         params["plan_package_duration_rel_id"]  = plan_package_duration_rel_id
         params["device_type"]                   = "I"
         params["purchase_amount"]               = purchase_amount
-//        params["discount_amount"]               = "\(kBCPCouponCodeAmount)"
-//        params["discounts_master_id"]           = kBCPDiscountMasterId
-//        params["discount_type"]                 = kBCPDiscountType
-//        params["subscription_id"]               = subscription_id
+        //        params["discount_amount"]               = "\(kBCPCouponCodeAmount)"
+        //        params["discounts_master_id"]           = kBCPDiscountMasterId
+        //        params["discount_type"]                 = kBCPDiscountType
+        //        params["subscription_id"]               = subscription_id
         
         ApiManager.shared.makeRequest(method: ApiEndPoints.patient_plans(.add_patient_plan), methodType: .post, parameter: params, withErrorAlert: true, withLoader: withLoader, withdebugLog: true) { (result) in
             
@@ -287,14 +293,14 @@ extension BCPCarePlanVM {
     }
     
     func cancelPlanAPI(patient_plan_rel_id: String,
-                    withLoader: Bool,
-                    completion: ((Bool) -> Void)?){
+                       withLoader: Bool,
+                       completion: ((Bool) -> Void)?){
         
         /*
          {
-           "plan_master_id": "string",
-           "transaction_id": "string",
-           "plan_package_duration_rel_id": "string"
+         "plan_master_id": "string",
+         "transaction_id": "string",
+         "plan_package_duration_rel_id": "string"
          }
          */
         

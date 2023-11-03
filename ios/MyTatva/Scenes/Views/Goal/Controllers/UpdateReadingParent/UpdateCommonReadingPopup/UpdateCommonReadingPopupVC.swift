@@ -690,8 +690,10 @@ extension UpdateCommonReadingPopupVC {
         case .SkeletalMuscle:
             self.txtReading.maxLength   = kMaxSkeletalMuscle.size
             break
-        case .fev1_fvc_ratio,.fvc,.aqi,.humidity,.temperature:
+        case .fev1_fvc_ratio,.fvc,.aqi,.humidity,.temperature,.sedentary_time:
             break
+        case .calories_burned:
+            self.txtReading.maxLength   = kMaxCaloriesBurned.size
         }
     }
     
@@ -744,7 +746,9 @@ extension UpdateCommonReadingPopupVC {
 //                                                                   outputFormat: DateTimeFormaterEnum.UTCFormat.rawValue,
 //                                                                   status: .NOCONVERSION)
                 switch self.readingType {
-                
+                case .calories_burned:
+                    HealthKitManager.shared.addCaloriesData(reading: (Double(self.txtReading.text!) ?? 0),dateTime: self.viewModel.achieved_datetime)
+                    break
                 case .SPO2:
                     HealthKitManager.shared.addLogToHealthKit(identifier: .oxygenSaturation,
                                                               reading: (Double(self.txtReading.text!) ?? 0) / 100,
@@ -859,7 +863,7 @@ extension UpdateCommonReadingPopupVC {
                     break
                 case .SkeletalMuscle:
                     break
-                case .fev1_fvc_ratio,.fvc,.aqi,.humidity,.temperature:
+                case .fev1_fvc_ratio,.fvc,.aqi,.humidity,.temperature,.sedentary_time:
                     break
                 }
                 

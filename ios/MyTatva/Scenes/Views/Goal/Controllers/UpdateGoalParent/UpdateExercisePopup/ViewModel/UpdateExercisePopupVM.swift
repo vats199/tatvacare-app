@@ -74,8 +74,20 @@ extension UpdateExercisePopupVM {
             return
         }
         
-        GlobalAPI.shared.update_goal_logsAPI(goal_id: goalListModel.goalMasterId,
+        let dateFormatter = DateTimeFormaterEnum.UTCFormat.rawValue
+//        let formatterEndTime = convertDateFormatter(date: activityEndTime)
+        var startTime = GFunction.shared.convertDateFormat(dt: date.text! + " " + time.text!, inputFormat: appDateTimeFormat, outputFormat: dateFormatter, status: .NOCONVERSION)
+        var endTime = Calendar.current.date(byAdding: .minute, value: JSON(exercise_duration as Any).intValue, to: startTime.date) ?? Date()
+
+        let formatter = DateFormatter()
+        formatter.dateFormat = dateFormatter
+
+        GlobalAPI.shared.update_goal_logsAPI(isExerciseLog: true,
+                                             goal_id: goalListModel.goalMasterId,
                                              achieved_value: exercise_duration,
+                                             patient_sub_goal_id: exerciseListModel.exerciseValue,
+                                             start_time: startTime.str,
+                                             end_time: formatter.string(from: endTime),
                                              patient_sub_goal_id: exerciseListModel.exerciseMasterId,
                                              start_time: "",
                                              end_time: "",

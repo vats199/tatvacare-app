@@ -233,8 +233,7 @@ extension HomeViewModel {
                     self.arrGoal.append(contentsOf: arr1)
                     
                     self.arrReading.removeAll()
-                    arr2 = ReadingListModel.modelsFromDictionaryArray(array: response.data["readings"].arrayValue).filter({ !(ReadingType(rawValue: $0.keys)?.isSprirometerVital ?? false) })
-                    self.arrReading.append(contentsOf: arr2)
+                    arr2 = ReadingListModel.modelsFromDictionaryArray(array: response.data["readings"].arrayValue).filter({ !(ReadingType(rawValue: $0.keys)?.isSprirometerVital ?? false) })//.filter({ $0.keys == ReadingType.sedentary_time.rawValue })                    self.arrReading.append(contentsOf: arr2)
                     
                     let mark_as_today = response.data["mark_as_today"]
                     self.exercise_done = mark_as_today["exercise_done"].stringValue == "Y" ? true : false

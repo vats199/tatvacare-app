@@ -318,7 +318,7 @@ extension UpdateSleepPopupVC {
         self.txtEndTime.inputView         = self.endTimePicker
         self.txtEndTime.delegate          = self
         self.endTimePicker.datePickerMode = .dateAndTime
-        self.endTimePicker.minimumDate    =  Calendar.current.date(byAdding: .minute, value: 0, to: self.startTimePicker.date)
+        self.endTimePicker.minimumDate = Calendar.current.date(byAdding: .minute, value: 1, to: self.startTimePicker.date)
         self.endTimePicker.maximumDate    = Date()//Calendar.current.date(byAdding: .hour, value: 24, to: self.startTimePicker.date)
         self.endTimePicker.timeZone       = .current
         self.endTimePicker.addTarget(self, action: #selector(self.handleDatePicker(sender:)), for: .valueChanged)
@@ -359,7 +359,7 @@ extension UpdateSleepPopupVC {
             self.dateFormatter.locale       = NSLocale(localeIdentifier: "en_US") as Locale
             self.txtStartTime.text          = self.dateFormatter.string(from: sender.date)
             
-            self.endTimePicker.minimumDate  =  Calendar.current.date(byAdding: .minute, value: 0, to: self.startTimePicker.date)
+            self.endTimePicker.minimumDate = Calendar.current.date(byAdding: .minute, value: 1, to: self.startTimePicker.date)
             
             let nextDate = Calendar.current.date(byAdding: .hour, value: 24, to: self.startTimePicker.date)
             if nextDate?.compare(Date()) == .orderedAscending {
@@ -421,7 +421,7 @@ extension UpdateSleepPopupVC : UITextFieldDelegate {
                 self.dateFormatter.locale       = NSLocale(localeIdentifier: "en_US") as Locale
                 self.txtStartTime.text          = self.dateFormatter.string(from: self.timePicker.date)
                 
-                self.endTimePicker.minimumDate  =  Calendar.current.date(byAdding: .minute, value: 0, to: self.startTimePicker.date)
+                self.endTimePicker.minimumDate = Calendar.current.date(byAdding: .minute, value: 1, to: self.startTimePicker.date)
                 self.txtEndTime.text            = ""
                 
             }
@@ -438,7 +438,7 @@ extension UpdateSleepPopupVC : UITextFieldDelegate {
                     self.dateFormatter.dateFormat   = appDateTimeFormat
                     self.dateFormatter.timeZone     = .current
                     self.dateFormatter.locale       = NSLocale(localeIdentifier: "en_US") as Locale
-                    self.txtEndTime.text            = self.dateFormatter.string(from: self.endTimePicker.date)
+                    self.txtEndTime.text            = self.dateFormatter.string(from: self.endTimePicker.minimumDate ?? Date())
                 }
             }
             

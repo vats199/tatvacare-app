@@ -1911,7 +1911,7 @@ class GlobalAPI : NSObject {
     //MARK: 🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦
     //MARK: ---------------- Update goal and reading API ----------------------
     //MARK: ---------------- update_goal_logs API ----------------------
-    func update_goal_logsAPI(goal_id: String? = "",
+    func update_goal_logsAPI(isExerciseLog: Bool = false, goal_id: String? = "",
                              achieved_value: String = "",
                              patient_sub_goal_id: String = "",
                              start_time: String = "",
@@ -1974,8 +1974,8 @@ class GlobalAPI : NSObject {
         params["goal_id"]                   = goal_id
         params["achieved_value"]            = achieved_value
         params["patient_sub_goal_id"]       = patient_sub_goal_id
-        params["start_time"]                = startTime.0
-        params["end_time"]                  = endTime.0
+        params["start_time"]                = isExerciseLog ? start_time : startTime.0
+        params["end_time"]                  = isExerciseLog ? end_time : endTime.0
         params["achieved_datetime"]         = datetime.0
         
         params = params.filter({ (obj) -> Bool in
@@ -2178,6 +2178,91 @@ class GlobalAPI : NSObject {
         }
     }
     
+    //------------------------------------------------------
+    //MARK: ---------------- update_patient_readings API for Sedentary time ----------------
+    func update_patient_readingsAPI(reading_id: String? = "",
+                                    reading_datetime: String = "",
+                                    reading_value_data: [String: Any]? = nil,
+                                    completion: ((Bool, Date) -> Void)?){
+        
+        let dateFormatter                   = DateFormatter()
+        dateFormatter.dateFormat            = "ss"
+        dateFormatter.timeZone              = .current
+        let secDt                           = dateFormatter.string(from: Date())
+        
+        let datetime = GFunction.shared.convertDateFormate(dt: reading_datetime,
+                                                           inputFormat: appDateTimeFormat,
+                                                           outputFormat: DateTimeFormaterEnum.UTCFormat.rawValue,
+                                                           status: .NOCONVERSION)
+        
+        var params                          = [String : Any]()
+        params["reading_id"]                = reading_id
+        params["reading_datetime"]          = reading_datetime
+        
+        if reading_value_data != nil {
+            params["reading_value_data"]    = reading_value_data
+        }
+        
+        params = params.filter({ (obj) -> Bool in
+            if obj.value as? String != "" {
+                return true
+            }
+            else {
+                return false
+            }
+        })
+        ApiManager.shared.makeRequest(method: ApiEndPoints.goalReading(.update_patient_readings), methodType: .post, parameter: params, withErrorAlert: true, withLoader: true, withdebugLog: true) { (result) in
+            
+            switch result {
+            case .success(let response):
+                
+                var returnVal = false
+                switch response.apiCode {
+                case .invalidOrFail:
+                    Alert.shared.showSnackBar(response.message)
+                    break
+                case .success:
+                    returnVal = true
+                    Alert.shared.showSnackBar(response.message)
+                    break
+                case .emptyData:
+                    Alert.shared.showSnackBar(response.message)
+                    break
+                case .inactiveAccount:
+                    
+                    UIApplication.shared.forceLogOut()
+                    Alert.shared.showSnackBar(response.message)
+                    break
+                case .otpVerify:
+                    break
+                case .emailVerify:
+                    break
+                case .forceUpdateApp:
+                    break
+                case .underMaintenance:
+                    break
+                    
+                case .socialIdNotRegister:
+                    break
+                case .userSessionExpire:
+                    break
+                case .unknown:
+                    break
+                default: break
+                }
+                
+                completion?(returnVal,datetime.1)
+                break
+                
+            case .failure(let error):
+                
+                Alert.shared.showSnackBar(error.localizedDescription)
+                break
+                
+            }
+        }
+    }
+    
     //MARK: ---------------- update_patient_readings API ----------------------
     func update_patient_dosesAPI(arr: [MedicationTodayList],
                                  medication_date: String,
@@ -2334,8 +2419,8 @@ class GlobalAPI : NSObject {
         HealthKitManager.shared.fetchAllRecords(dayFromToday: dayFromToday,
                                                 sampleIdentifier: [
                                                     .stepCount,
-                                                    .dietaryWater/*,
-                                                                  .activeEnergyBurned*/,
+                                                    .dietaryWater,
+                                                                  //.activeEnergyBurned,
                                                     .appleExerciseTime,
                                                     .oxygenSaturation,
                                                     .forcedExpiratoryVolume1,

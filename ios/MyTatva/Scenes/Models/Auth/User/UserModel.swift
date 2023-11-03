@@ -215,7 +215,7 @@ class UserModel: NSObject, NSCoding {
             return true
         })
         
-//        devices = devices.filter({ $0.key != "spirometer" })
+        //        devices = devices.filter({ $0.key != "spirometer" })
         
         let bcaSyncJson = json["bca_sync"]
         if !bcaSyncJson.isEmpty{
@@ -233,7 +233,7 @@ class UserModel: NSObject, NSCoding {
         step = json["step"].intValue
         subRelation = json["sub_relation"].stringValue
         tempPatientSignupId = json["temp_patient_signup_id"].stringValue
-
+        
     }
     
     /**
@@ -804,7 +804,11 @@ extension UserModel {
                         kMinSkeletalMuscle      = JSON(item.min!).intValue
                         kMaxSkeletalMuscle      = JSON(item.max!).intValue
                         break
-                    case .fev1_fvc_ratio,.fvc,.aqi,.humidity,.temperature:
+                    case .fev1_fvc_ratio,.fvc,.aqi,.humidity,.temperature,.sedentary_time:
+                        break
+                    case .calories_burned:
+                        kMinCaloriesBurned      = JSON(item.min ?? "").intValue
+                        kMaxCaloriesBurned      = JSON(item.max ?? "").intValue
                         break
                     }
                 }

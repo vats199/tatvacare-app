@@ -535,7 +535,7 @@ extension ReadingChartDetailPopupVC {
         //SET CHART DATA
         switch type {
 
-        case .SPO2:
+        case .SPO2, .calories_burned,.sedentary_time:
             commonReadingValue()
             setCommonDesc()
             updateLastReadingUI(text1: AppMessages.lastReading + ":",

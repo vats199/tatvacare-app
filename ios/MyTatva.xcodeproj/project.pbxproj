@@ -729,6 +729,8 @@
 		777D644E71468EE68B0D2D08 /* Pods_MyTatva_MyTatvaUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3056644C2AAAC52608A331D7 /* Pods_MyTatva_MyTatvaUITests.framework */; };
 		78EC5639690A840A49120677 /* Pods_NotificationViewController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CC69669994823EA46144A6A /* Pods_NotificationViewController.framework */; };
 		8D11D59325B5DC8A00548102 /* BCASelectAddressListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7035E316A6C13E30B814D4CB /* BCASelectAddressListVM.swift */; };
+		8F09F3F72AF519160088E3B3 /* UpdateSedentaryTimePopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F09F3F62AF519160088E3B3 /* UpdateSedentaryTimePopupVC.swift */; };
+		8F09F3F92AF519740088E3B3 /* UpdateSedentaryTimePopupVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F09F3F82AF519740088E3B3 /* UpdateSedentaryTimePopupVM.swift */; };
 		8F1E96592AD3F70500C7F19E /* EnterLocationPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1E964D2AD3F70500C7F19E /* EnterLocationPopupVC.swift */; };
 		8F1E965A2AD3F70500C7F19E /* EnterLocationPopUpVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1E964E2AD3F70500C7F19E /* EnterLocationPopUpVM.swift */; };
 		8F1E965B2AD3F70500C7F19E /* GeoLocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1E96502AD3F70500C7F19E /* GeoLocationVC.swift */; };
@@ -1692,6 +1694,8 @@
 		7A37D6723B2DA8E07A8C576A /* BCATitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCATitleCell.swift; sourceTree = "<group>"; };
 		7CAC2139AEFA1E3B8E941950 /* Pods-MyTatvaNotificationService.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyTatvaNotificationService.debug.xcconfig"; path = "Target Support Files/Pods-MyTatvaNotificationService/Pods-MyTatvaNotificationService.debug.xcconfig"; sourceTree = "<group>"; };
 		8CC69669994823EA46144A6A /* Pods_NotificationViewController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NotificationViewController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F09F3F62AF519160088E3B3 /* UpdateSedentaryTimePopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateSedentaryTimePopupVC.swift; sourceTree = "<group>"; };
+		8F09F3F82AF519740088E3B3 /* UpdateSedentaryTimePopupVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateSedentaryTimePopupVM.swift; sourceTree = "<group>"; };
 		8F1E964D2AD3F70500C7F19E /* EnterLocationPopupVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterLocationPopupVC.swift; sourceTree = "<group>"; };
 		8F1E964E2AD3F70500C7F19E /* EnterLocationPopUpVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterLocationPopUpVM.swift; sourceTree = "<group>"; };
 		8F1E96502AD3F70500C7F19E /* GeoLocationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoLocationVC.swift; sourceTree = "<group>"; };
@@ -3810,6 +3814,7 @@
 		6186B04127019316009BEC12 /* UpdateReadingParent */ = {
 			isa = PBXGroup;
 			children = (
+				8F09F3F52AF518DB0088E3B3 /* UpdateSedentaryTimePopup */,
 				6186B03D270192E6009BEC12 /* UpdateReadingParentVC.swift */,
 				61927DC62702EBE6003795D6 /* UpdateBloodGlucoseReadingPopup */,
 				61927DC02702E243003795D6 /* UpdateBMIReadingPopup */,
@@ -5486,6 +5491,15 @@
 			path = Transitions;
 			sourceTree = "<group>";
 		};
+		8F09F3F52AF518DB0088E3B3 /* UpdateSedentaryTimePopup */ = {
+			isa = PBXGroup;
+			children = (
+				8F09F3F62AF519160088E3B3 /* UpdateSedentaryTimePopupVC.swift */,
+				8F09F3F82AF519740088E3B3 /* UpdateSedentaryTimePopupVM.swift */,
+			);
+			path = UpdateSedentaryTimePopup;
+			sourceTree = "<group>";
+		};
 		8F1E964B2AD3F70500C7F19E /* GeoLocation */ = {
 			isa = PBXGroup;
 			children = (
@@ -7107,12 +7121,14 @@
 				61D1D1FE26E6295800E483D3 /* AddAccountDetailsVC.swift in Sources */,
 				61FEB243269C39050087ED58 /* AppError.swift in Sources */,
 				61FEB321269C3D130087ED58 /* UserDefault.swift in Sources */,
+				8F09F3F72AF519160088E3B3 /* UpdateSedentaryTimePopupVC.swift in Sources */,
 				61FEB34F269C3D130087ED58 /* AWSFileMimeType.swift in Sources */,
 				618FFE1326F8BA02003D1672 /* SelectStateVM.swift in Sources */,
 				8F1E96652AD3F72600C7F19E /* DiscountVM.swift in Sources */,
 				61A76CDE271ECBE400C29D7E /* IncidentHistoryDetailModel.swift in Sources */,
 				61953280288FB85D00EFED34 /* GlobalSearchParentVC.swift in Sources */,
 				614B01E726E262210048A2DE /* VPMOTPView.swift in Sources */,
+				8F09F3F92AF519740088E3B3 /* UpdateSedentaryTimePopupVM.swift in Sources */,
 				61EE190327F1CFA6004B5211 /* CartListModel.swift in Sources */,
 				6189B52727A3C5D7008E2BD5 /* CommonGoalReminderVC.swift in Sources */,
 				6124F5E12717163E007B980A /* BookmarkVM.swift in Sources */,

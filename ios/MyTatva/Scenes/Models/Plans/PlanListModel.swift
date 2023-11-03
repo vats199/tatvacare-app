@@ -55,7 +55,6 @@ class PlanDetail {
     var iosPrice : Double!
     var isActive : String!
     var isDeleted : String!
-    var isShowRenew : String!
     var offerPerMonthPrice : Double!
     var offerPrice : Double!
     var patientId : String!
@@ -111,7 +110,6 @@ class PlanDetail {
         iosPrice = json["ios_price"].doubleValue
         isActive = json["is_active"].stringValue
         isDeleted = json["is_deleted"].stringValue
-        isShowRenew = json["show_renew"].stringValue
         offerPerMonthPrice = json["offer_per_month_price"].doubleValue
         offerPrice = json["offer_price"].doubleValue
         patientId = json["patient_id"].stringValue

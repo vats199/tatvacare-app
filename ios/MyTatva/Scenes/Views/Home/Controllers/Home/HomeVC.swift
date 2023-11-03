@@ -601,7 +601,7 @@ class HomeVC: ClearNavigationFontBlackBaseVC {
             if let hcServiceLongestPlan = UserModel.shared.hcServicesLongestPlan {
                 let vc = PurchsedCarePlanVC.instantiate(fromAppStoryboard: .BCP_temp)
                 vc.viewModel.planDetails = PlanDetail(fromJson: JSON(hcServiceLongestPlan.toDictionary()))
-                vc.isBack = false
+                vc.isBack = true
                 self.navigationController?.pushViewController(vc, animated: true)
             }else {
                 let vc = BCPCarePlanVC.instantiate(fromAppStoryboard: .BCP_temp)
