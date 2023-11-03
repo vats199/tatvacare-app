@@ -7,6 +7,6 @@ export const globalStyles = StyleSheet.create({
         shadowColor: colors.shadow,
         shadowOpacity: 0.2,
         shadowRadius: 10,
-        elevation: 10,
+        elevation: 12,
     }
 })

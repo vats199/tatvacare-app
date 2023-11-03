@@ -82,8 +82,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
     const date = moment(selectedDate).format('YYYY/MM/DD');
     const diet = await Diet.getDietPlan({ date: date }, {});
     // console.log('diet', diet);
-
-    if (diet) {
+    if (Object.keys(diet).length > 0) {
       setTimeout(() => {
         setLoader(false);
       }, 500);

@@ -50,4 +50,10 @@ export const colors = {
   OVERLAY_DARK_50: 'rgba(0,0,0,0.5)',
   OVERLAY_DARK_60: 'rgba(0,0,0,0.6)',
   OVERLAY_DARK_70: 'rgba(0,0,0,0.7)',
+
+  secondaryDisableButton: 'rgba(158, 158, 158, 0.08)',
+  SECONDARY_BUTTON_OPACITY: 'rgba(158, 158, 158, 0.08)',
+  THEME_OVERLAY: 'rgba(118, 15, 178, 0.08)',
+  transparent:'transparent'
+
 };
