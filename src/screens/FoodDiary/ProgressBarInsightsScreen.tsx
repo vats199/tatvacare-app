@@ -159,7 +159,7 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
             item.progresBarColor ? item.progresBarColor : '#2ecc71'
           }
           inActiveStrokeWidth={3}
-          duration={1000}
+          duration={500}
           allowFontScaling={false}
           showProgressValue={false}
           title={`${isNaN(item?.progressBarVale) ? 0 : item?.progressBarVale}%`}
@@ -264,7 +264,7 @@ const style = StyleSheet.create({
   subtitle: {
     fontSize: Matrics.mvs(15),
     color: colors.labelDarkGray,
-    fontFamily: fonts.BOLD,
+    fontFamily: fonts.MEDIUM,
     lineHeight: 22,
     textTransform: 'capitalize',
   },
@@ -275,7 +275,7 @@ const style = StyleSheet.create({
   consumedCalries: {
     fontSize: Matrics.mvs(12),
     color: colors.labelDarkGray,
-    fontFamily: fonts.BOLD,
+    fontFamily: fonts.MEDIUM,
     lineHeight: 20,
   },
   calorieMainContainer: {

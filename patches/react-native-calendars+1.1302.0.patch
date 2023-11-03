@@ -1,0 +1,67 @@
+diff --git a/node_modules/react-native-calendars/src/calendar-list/index.js b/node_modules/react-native-calendars/src/calendar-list/index.js
+index e0449bc..da401f5 100644
+--- a/node_modules/react-native-calendars/src/calendar-list/index.js
++++ b/node_modules/react-native-calendars/src/calendar-list/index.js
+@@ -193,10 +193,11 @@ const CalendarList = (props, ref) => {
+             onViewableItemsChanged
+         },
+     ]);
++    console.log("swipe ",scrollEnabled);
+     return (<View style={style.current.flatListContainer} testID={testID}>
+       <FlatList 
+     // @ts-expect-error
+-    ref={list} windowSize={shouldUseAndroidRTLFix ? pastScrollRange + futureScrollRange + 1 : undefined} style={listStyle} showsVerticalScrollIndicator={showScrollIndicator} showsHorizontalScrollIndicator={showScrollIndicator} data={items} renderItem={renderItem} getItemLayout={getItemLayout} initialNumToRender={range.current} initialScrollIndex={initialDateIndex} viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs.current} testID={`${testID}.list`} onLayout={onLayout} removeClippedSubviews={removeClippedSubviews} pagingEnabled={pagingEnabled} scrollEnabled={scrollEnabled} scrollsToTop={scrollsToTop} horizontal={horizontal} keyboardShouldPersistTaps={keyboardShouldPersistTaps} keyExtractor={keyExtractor} onEndReachedThreshold={onEndReachedThreshold} onEndReached={onEndReached} nestedScrollEnabled={nestedScrollEnabled} onMomentumScrollBegin={onMomentumScrollBegin} onMomentumScrollEnd={onMomentumScrollEnd} onScrollBeginDrag={onScrollBeginDrag} onScrollEndDrag={onScrollEndDrag}/>
++    ref={list} windowSize={shouldUseAndroidRTLFix ? pastScrollRange + futureScrollRange + 1 : undefined} style={listStyle} showsVerticalScrollIndicator={showScrollIndicator} showsHorizontalScrollIndicator={showScrollIndicator} data={items} renderItem={renderItem} getItemLayout={getItemLayout} initialNumToRender={range.current} initialScrollIndex={initialDateIndex} viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs.current} testID={`${testID}.list`} onLayout={onLayout} removeClippedSubviews={removeClippedSubviews} pagingEnabled={pagingEnabled} scrollEnabled={false} scrollsToTop={scrollsToTop} horizontal={horizontal} keyboardShouldPersistTaps={keyboardShouldPersistTaps} keyExtractor={keyExtractor} onEndReachedThreshold={onEndReachedThreshold} onEndReached={onEndReached} nestedScrollEnabled={nestedScrollEnabled} onMomentumScrollBegin={onMomentumScrollBegin} onMomentumScrollEnd={onMomentumScrollEnd} onScrollBeginDrag={onScrollBeginDrag} onScrollEndDrag={onScrollEndDrag}/>
+       {renderStaticHeader()}
+     </View>);
+ };
+diff --git a/node_modules/react-native-calendars/src/calendar/header/index.d.ts b/node_modules/react-native-calendars/src/calendar/header/index.d.ts
+index eae4b05..0e37b52 100644
+--- a/node_modules/react-native-calendars/src/calendar/header/index.d.ts
++++ b/node_modules/react-native-calendars/src/calendar/header/index.d.ts
+@@ -28,7 +28,6 @@ export interface CalendarHeaderProps {
+     /** Left & Right arrows. Additional distance outside of the buttons in which a press is detected, default: 20 */
+     arrowsHitSlop?: Insets | number;
+     /** Disable left arrow */
+-    disableArrowLeft?: boolean;
+     /** Disable right arrow */
+     disableArrowRight?: boolean;
+     /** Apply custom disable color to selected day names indexes */
+diff --git a/node_modules/react-native-calendars/src/expandableCalendar/WeekCalendar/new.js b/node_modules/react-native-calendars/src/expandableCalendar/WeekCalendar/new.js
+index b7e3a65..5f67f44 100644
+--- a/node_modules/react-native-calendars/src/expandableCalendar/WeekCalendar/new.js
++++ b/node_modules/react-native-calendars/src/expandableCalendar/WeekCalendar/new.js
+@@ -11,6 +11,7 @@ import { extractCalendarProps } from '../../componentUpdater';
+ import constants from '../../commons/constants';
+ import { UpdateSources } from '../commons';
+ import { sameWeek } from '../../dateutils';
++import { Matrics } from '../../../../../src/constants'
+ const NUMBER_OF_PAGES = 50;
+ const DEFAULT_PAGE_HEIGHT = 48;
+ const WeekCalendar = (props) => {
+@@ -53,17 +54,17 @@ const WeekCalendar = (props) => {
+         const { allowShadow, ...calendarListProps } = props;
+         const { /* style,  */ ...others } = extractCalendarProps(calendarListProps);
+         const isSameWeek = sameWeek(item, date, firstDay);
+-        return (<Week {...others} key={item} current={isSameWeek ? date : item} firstDay={firstDay} style={weekStyle} markedDates={markedDates} onDayPress={onDayPress} context={context}/>);
++        return (<Week {...others} key={item} current={isSameWeek ? date : item} firstDay={firstDay} style={weekStyle} markedDates={markedDates} onDayPress={onDayPress} context={context} />);
+     }, [date, markedDates]);
+     return (<View testID={testID} style={[allowShadow && style.current.containerShadow, !hideDayNames && style.current.containerWrapper]}>
+-      {!hideDayNames && (<View style={[style.current.week, style.current.weekCalendar]}>
+-          <WeekDaysNames firstDay={firstDay} style={style.current.dayHeader}/>
++        {!hideDayNames && (<View style={[style.current.week, style.current.weekCalendar, { paddingLeft: 0, paddingRight: 0, marginTop: Matrics.vs(10), marginBottom: Matrics.vs(1), paddingBottom: 0 }]}>
++            <WeekDaysNames firstDay={firstDay} style={style.current.dayHeader} />
+         </View>)}
+-      <View>
+-        <InfiniteList key="week-list" isHorizontal ref={list} data={items} renderItem={renderItem} reloadPages={reloadPages} onReachNearEdgeThreshold={Math.round(NUMBER_OF_PAGES * 0.4)} extendedState={extraData} style={style.current.container} initialPageIndex={NUMBER_OF_PAGES} pageHeight={calendarHeight} pageWidth={containerWidth} onPageChange={onPageChange} scrollViewProps={{
+-            showsHorizontalScrollIndicator: false
+-        }}/>
+-      </View>
++        <View>
++            <InfiniteList key="week-list" isHorizontal ref={list} data={items} renderItem={renderItem} reloadPages={reloadPages} onReachNearEdgeThreshold={Math.round(NUMBER_OF_PAGES * 0.4)} extendedState={extraData} style={style.current.container} initialPageIndex={NUMBER_OF_PAGES} pageHeight={calendarHeight} pageWidth={containerWidth} onPageChange={onPageChange} scrollViewProps={{
++                showsHorizontalScrollIndicator: false
++            }} />
++        </View>
+     </View>);
+ };
+ export default WeekCalendar;

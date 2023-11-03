@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
-import { Icons } from '../../constants/icons';
+import React, {useEffect} from 'react';
+import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+import {Icons} from '../../constants/icons';
 import CircularProgress from 'react-native-circular-progress-indicator';
-import { Fonts, Matrics } from '../../constants';
-import { colors } from '../../constants/colors';
+import {Fonts, Matrics} from '../../constants';
+import {colors} from '../../constants/colors';
 
 type CalorieConsumerProps = {
   totalConsumedcalories: any;
@@ -33,7 +33,7 @@ const CalorieConsumer: React.FC<CalorieConsumerProps> = ({
     } else {
       return colors.progressBarGreen;
     }
-  }
+  };
 
   return (
     <View style={styles.container}>
@@ -48,7 +48,7 @@ const CalorieConsumer: React.FC<CalorieConsumerProps> = ({
             radius={Matrics.mvs(23)}
             activeStrokeWidth={3}
             inActiveStrokeWidth={3}
-            duration={1000}
+            duration={500}
             maxValue={100}
             allowFontScaling={false}
             showProgressValue={false}
@@ -59,17 +59,13 @@ const CalorieConsumer: React.FC<CalorieConsumerProps> = ({
             }}
           />
           <View style={styles.textContainer}>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
               <Text style={styles.boldTitle}>
                 {isNaN(totalConsumedcalories) ? 0 : totalConsumedcalories}
               </Text>
-              <Text style={styles.regularTitle}>
-                {' of ' + totalcalories}
-              </Text>
+              <Text style={styles.regularTitle}>{' of ' + totalcalories}</Text>
             </View>
-            <Text style={styles.textBelowTitle}>
-              Calories consumed today!
-            </Text>
+            <Text style={styles.textBelowTitle}>Calories consumed today!</Text>
           </View>
         </View>
         <Icons.Vector />
@@ -82,13 +78,13 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
     paddingHorizontal: Matrics.s(5),
-    borderRadius: Matrics.s(12)
+    borderRadius: Matrics.s(12),
   },
   topRow: {
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: Matrics.s(10),
-    paddingVertical: Matrics.vs(8)
+    paddingVertical: Matrics.vs(8),
   },
   leftContent: {
     flexDirection: 'row',
@@ -98,26 +94,25 @@ const styles = StyleSheet.create({
   textContainer: {
     flex: 1,
     marginLeft: 10,
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   boldTitle: {
     fontSize: Matrics.mvs(18),
     fontFamily: Fonts.BOLD,
     color: colors.labelDarkGray,
-    lineHeight: 26
+    lineHeight: 26,
   },
   regularTitle: {
     fontSize: Matrics.mvs(14),
     fontFamily: Fonts.MEDIUM,
     color: colors.subTitleLightGray,
-    lineHeight: 20
-
+    lineHeight: 20,
   },
   textBelowTitle: {
     fontSize: Matrics.mvs(12),
     fontFamily: Fonts.MEDIUM,
     color: colors.subTitleLightGray,
-    lineHeight: 18
+    lineHeight: 18,
   },
 });
 

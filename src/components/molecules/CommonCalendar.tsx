@@ -1,400 +1,454 @@
-import { Animated, Dimensions, LayoutAnimation, Platform, StyleSheet, Text, TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native'
-import React, { memo, useMemo, useState } from 'react'
-import { CalendarProvider, DateData, ExpandableCalendar, ExpandableCalendarProps, LocaleConfig, WeekCalendar, WeekCalendarProps } from 'react-native-calendars';
+import {
+  Animated,
+  Dimensions,
+  LayoutAnimation,
+  Platform,
+  StyleSheet,
+  Text,
+  TextStyle,
+  TouchableOpacity,
+  View,
+  ViewStyle,
+} from 'react-native';
+import React, {memo, useCallback, useEffect, useMemo, useState} from 'react';
+import {
+  CalendarProvider,
+  DateData,
+  ExpandableCalendar,
+  ExpandableCalendarProps,
+  LocaleConfig,
+  WeekCalendar,
+  WeekCalendarProps,
+} from 'react-native-calendars';
 import moment from 'moment';
-import { Fonts, Matrics } from '../../constants';
-import { colors } from '../../constants/colors';
-import { MarkedDates, Theme } from 'react-native-calendars/src/types';
-import { Icons } from '../../constants/icons';
-import { useIsFocused } from '@react-navigation/native';
+import {Fonts, Matrics} from '../../constants';
+import {colors} from '../../constants/colors';
+import {MarkedDates, Theme} from 'react-native-calendars/src/types';
+import {Icons} from '../../constants/icons';
+import {useIsFocused} from '@react-navigation/native';
 
 type CommonCalendarProps = {
-    selectedDate: Date,
-    weekCalendarProps?: WeekCalendarProps,
-    expandableCalendarProps?: ExpandableCalendarProps,
-    calendarContainerStyle?: ViewStyle,
-    onPressDay: (date: Date) => void
-    setSelectedDate: React.Dispatch<React.SetStateAction<Date>>,
-    containerStyle?: ViewStyle,
-    headerTxtContainer?: ViewStyle,
-    titleStyle?: TextStyle,
-    iconContainerStyle?: ViewStyle,
+  selectedDate: Date;
+  weekCalendarProps?: WeekCalendarProps;
+  expandableCalendarProps?: ExpandableCalendarProps;
+  calendarContainerStyle?: ViewStyle;
+  onPressDay: (date: Date) => void;
+  setSelectedDate: React.Dispatch<React.SetStateAction<Date>>;
+  containerStyle?: ViewStyle;
+  headerTxtContainer?: ViewStyle;
+  titleStyle?: TextStyle;
+  iconContainerStyle?: ViewStyle;
 };
 
-const { width } = Dimensions.get('window');
+const {width} = Dimensions.get('window');
 
 const CommonCalendar: React.FC<CommonCalendarProps> = ({
-    selectedDate,
-    weekCalendarProps,
-    expandableCalendarProps,
-    containerStyle,
-    onPressDay,
-    setSelectedDate,
-    calendarContainerStyle,
-    headerTxtContainer,
-    titleStyle,
-    iconContainerStyle
+  selectedDate,
+  weekCalendarProps,
+  expandableCalendarProps,
+  containerStyle,
+  onPressDay,
+  setSelectedDate,
+  calendarContainerStyle,
+  headerTxtContainer,
+  titleStyle,
+  iconContainerStyle,
 }) => {
+  const focus = useIsFocused();
+  const [seletedDay, setseletedDay] = useState(
+    moment(selectedDate).format('YYYY-MM-DD'),
+  );
+  const [calendarKey, setCalendarKey] = useState(0);
+  const [showMore, setShowMore] = useState<boolean>(false);
 
-    const focus = useIsFocused();
-    const [seletedDay, setseletedDay] = useState(moment(selectedDate).format('YYYY-MM-DD'));
-    const [calendarKey, setCalendarKey] = useState(0);
-    const [showMore, setShowMore] = useState<boolean>(false);
+  LocaleConfig.locales['en'] = {
+    monthNames: [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ],
+    monthNamesShort: [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ],
+    dayNames: [
+      'Sunday',
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+    ],
+    dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+    today: 'Today',
+  };
 
-    LocaleConfig.locales['en'] = {
-        monthNames: [
-            'January',
-            'February',
-            'March',
-            'April',
-            'May',
-            'June',
-            'July',
-            'August',
-            'September',
-            'October',
-            'November',
-            'December',
-        ],
-        monthNamesShort: [
-            'Jan',
-            'Feb',
-            'Mar',
-            'Apr',
-            'May',
-            'Jun',
-            'Jul',
-            'Aug',
-            'Sep',
-            'Oct',
-            'Nov',
-            'Dec',
-        ],
-        dayNames: [
-            'Sunday',
-            'Monday',
-            'Tuesday',
-            'Wednesday',
-            'Thursday',
-            'Friday',
-            'Saturday',
-        ],
-        dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-        today: 'Today',
+  LocaleConfig.defaultLocale = 'en';
+
+  const markedDateStyle: MarkedDates | undefined = useMemo(() => {
+    return {
+      [seletedDay]: {
+        customStyles: {
+          container: {
+            backgroundColor: colors.themePurple,
+            borderRadius: Matrics.mvs(11),
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: Matrics.vs(26),
+            width: Matrics.s(35),
+          },
+          text: {
+            color: 'white',
+            fontFamily: Fonts.REGULAR,
+            fontSize: Matrics.mvs(13),
+            lineHeight: 18,
+          },
+        },
+      },
     };
+  }, [seletedDay]);
 
-    LocaleConfig.defaultLocale = 'en';
+  const themeStyle: Theme | undefined = {
+    backgroundColor: colors.lightGreyishBlue,
+    calendarBackground: colors.lightGreyishBlue,
+    textSectionTitleColor: colors.subTitleLightGray,
+    textSectionTitleDisabledColor: colors.black,
+    dayTextColor: colors.subTitleLightGray,
+    textDisabledColor: '#d9e1e8',
+    todayTextColor: colors.themePurple,
+    disabledArrowColor: '#d9e1e8',
+    textMonthFontFamily: Fonts.BOLD,
+    textDayFontWeight: '400',
+    textDayHeaderFontWeight: '400',
+    textDayFontSize: Matrics.mvs(13),
+    textMonthFontSize: Matrics.mvs(13),
+    textDayHeaderFontSize: Matrics.mvs(12),
+    monthTextColor: colors.black,
+  };
 
-    const markedDateStyle: MarkedDates | undefined = useMemo(() => {
-        return {
-            [seletedDay]: {
-                customStyles: {
-                    container: {
-                        backgroundColor: colors.themePurple,
-                        borderRadius: Matrics.mvs(11),
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        height: Matrics.vs(26),
-                        width: Matrics.s(35),
-                    },
-                    text: {
-                        color: 'white',
-                        fontFamily: Fonts.REGULAR,
-                        fontSize: Matrics.mvs(13),
-                        lineHeight: 18,
-                    },
-                },
-            },
-        };
-    }, [seletedDay]);
+  const onDayPress = (date: DateData) => {
+    let tempDate = new Date(date?.dateString);
+    onPressDay(tempDate);
+    setSelectedDate(tempDate);
+    setseletedDay(date?.dateString);
+  };
 
-    const themeStyle: Theme | undefined = {
-        backgroundColor: colors.lightGreyishBlue,
-        calendarBackground: colors.lightGreyishBlue,
-        textSectionTitleColor: colors.subTitleLightGray,
-        textSectionTitleDisabledColor: colors.black,
-        dayTextColor: colors.subTitleLightGray,
-        textDisabledColor: '#d9e1e8',
-        todayTextColor: colors.themePurple,
-        disabledArrowColor: '#d9e1e8',
-        textMonthFontFamily: Fonts.BOLD,
-        textDayFontWeight: '400',
-        textDayHeaderFontWeight: '400',
-        textDayFontSize: Matrics.mvs(13),
-        textMonthFontSize: Matrics.mvs(13),
-        textDayHeaderFontSize: Matrics.mvs(12),
-        monthTextColor: colors.black,
-    };
+  const onChangeMonth = (date: DateData) => {
+    let tempDate = new Date(date?.dateString);
+    setSelectedDate(tempDate);
+  };
 
-    const onDayPress = (date: DateData) => {
-        let tempDate = new Date(date?.dateString);
-        onPressDay(tempDate)
-        setSelectedDate(tempDate);
-        setseletedDay(date?.dateString);
-    };
+  const handleNextWeek = () => {
+    const nextWeek = new Date(selectedDate);
+    nextWeek.setDate(nextWeek.getDate() + 7);
+    setSelectedDate(nextWeek);
+    setCalendarKey(calendarKey + 1);
+  };
 
-    const onChangeMonth = (date: DateData) => {
-        let tempDate = new Date(date?.dateString);
-        setSelectedDate(tempDate);
-    };
+  const handlePreviousWeek = () => {
+    const previousWeek = new Date(selectedDate);
+    previousWeek.setDate(previousWeek.getDate() - 7);
+    setSelectedDate(previousWeek);
+    setCalendarKey(calendarKey - 1);
+  };
 
-    const handleNextWeek = () => {
-        const nextWeek = new Date(selectedDate);
-        nextWeek.setDate(nextWeek.getDate() + 7);
-        setSelectedDate(nextWeek);
-        setCalendarKey(calendarKey + 1);
-    };
+  const handleNextMonth = () => {
+    const currentMonnth = new Date(selectedDate);
+    var nextMonth = moment(currentMonnth).add(1, 'months');
+    setSelectedDate(new Date(nextMonth.toString()));
+    setCalendarKey(calendarKey + 1);
+  };
 
-    const handlePreviousWeek = () => {
-        const previousWeek = new Date(selectedDate);
-        previousWeek.setDate(previousWeek.getDate() - 7);
-        setSelectedDate(previousWeek);
-        setCalendarKey(calendarKey - 1);
-    };
+  const handlePreviousMonth = () => {
+    const currentMonnth = new Date(selectedDate);
+    var previousMonth = moment(currentMonnth).subtract(1, 'months');
+    setSelectedDate(new Date(previousMonth.toString()));
+    setCalendarKey(calendarKey + 1);
+  };
 
-    const handleNextMonth = () => {
-        const currentMonnth = new Date(selectedDate);
-        var nextMonth = moment(currentMonnth).add(1, 'months');
-        setSelectedDate(new Date(nextMonth.toString()));
-        setCalendarKey(calendarKey + 1);
-    };
+  const getMonthRangeText = (date: Date) => {
+    const weekStartDate = new Date(date);
+    const weekEndDate = new Date(weekStartDate);
 
-    const handlePreviousMonth = () => {
-        const currentMonnth = new Date(selectedDate);
-        var previousMonth = moment(currentMonnth).subtract(1, 'months');
-        setSelectedDate(new Date(previousMonth.toString()))
-        setCalendarKey(calendarKey + 1);
-    };
+    while (weekStartDate.getDay() !== 1) {
+      weekStartDate.setDate(weekStartDate.getDate() - 1);
+    }
+    while (weekEndDate.getDay() !== 0) {
+      weekEndDate.setDate(weekEndDate.getDate() + 1);
+    }
+    const startMonth = weekStartDate.toLocaleString('default', {month: 'long'});
+    const endMonth = weekEndDate.toLocaleString('default', {month: 'long'});
 
-    const getMonthRangeText = (date: Date) => {
-        const weekStartDate = new Date(date);
-        const weekEndDate = new Date(weekStartDate);
+    const year = weekStartDate.getFullYear();
 
-        while (weekStartDate.getDay() !== 1) {
-            weekStartDate.setDate(weekStartDate.getDate() - 1);
-        }
-        while (weekEndDate.getDay() !== 0) {
-            weekEndDate.setDate(weekEndDate.getDate() + 1);
-        }
-        const startMonth = weekStartDate.toLocaleString('default', { month: 'long' });
-        const endMonth = weekEndDate.toLocaleString('default', { month: 'long' });
+    if (
+      startMonth !== endMonth ||
+      weekEndDate.getDate() >
+        new Date(year, weekStartDate.getMonth() + 1, 0).getDate()
+    ) {
+      return `${startMonth} - ${endMonth} ${year}`;
+    } else {
+      return `${startMonth} ${year}`;
+    }
+  };
 
-        const year = weekStartDate.getFullYear();
+  const getMonthText = (date: Date) => {
+    return moment(date).format('MMMM  YYYY');
+  };
 
-        if (
-            startMonth !== endMonth ||
-            weekEndDate.getDate() >
-            new Date(year, weekStartDate.getMonth() + 1, 0).getDate()
-        ) {
-            return `${startMonth} - ${endMonth} ${year}`;
-        } else {
-            return `${startMonth} ${year}`;
-        }
-    };
-
-    const getMonthText = (date: Date) => {
-        return moment(date).format('MMMM  YYYY');
-    };
-
+  const renderDays = date => {
+    const isCurrentDate =
+      moment(selectedDate).format('MM') ==
+      moment(date.date?.dateString).format('MM');
+    if (date.state == 'disabled' || !isCurrentDate) return null;
     return (
-        <>
-            <View style={[styles.container, containerStyle]}>
-                <View style={[styles.leftRightContent, headerTxtContainer]}>
-                    <Text style={[styles.monthYearStyle, titleStyle]}>
-                        {!showMore
-                            ? getMonthRangeText(selectedDate)
-                            : getMonthText(selectedDate)}
-                    </Text>
-                </View>
-                <View style={[styles.leftRightContent, iconContainerStyle]}>
-                    <TouchableOpacity
-                        onPress={!showMore ? handlePreviousWeek : handlePreviousMonth}
-                        hitSlop={8}>
-                        <Icons.backArrow
-                            height={11}
-                            width={11}
-                            style={{
-                                marginHorizontal: Matrics.s(12),
-                            }}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={!showMore ? handleNextWeek : handleNextMonth}
-                        hitSlop={8}>
-                        <Icons.RightArrow height={22} width={22} />
-                    </TouchableOpacity>
-                </View>
-            </View>
-            <View
-                style={[styles.calendarContainer, { height: showMore ? Matrics.vs(Platform.OS == 'android' ? 275 : 250) : Matrics.vs(65), }, calendarContainerStyle]}>
-                <CalendarProvider
-                    date={moment(selectedDate).format('YYYY-MM-DD')}
-                    disabledOpacity={0.6}
-                >
-                    {!showMore ? (
-                        <Animated.View style={{ overflow: 'hidden' }}>
-                            <WeekCalendar
-                                firstDay={1}
-                                current={moment(selectedDate).format('YYYY-MM-DD')}
-                                onDayPress={onDayPress}
-                                markingType="custom"
-                                markedDates={markedDateStyle}
-                                allowShadow={false}
-                                theme={{
-                                    ...themeStyle,
-                                    selectedDayBackgroundColor: undefined,
-                                    selectedDayTextColor: colors.subTitleLightGray,
-                                    textDisabledColor: colors.inactiveGray,
-                                }}
-                                style={[styles.removePaddingHorizontal, { marginTop: Matrics.vs(8) }]}
-                                {...weekCalendarProps}
-                            />
-                        </Animated.View>
-                    ) : (
-                        <ExpandableCalendar
-                            horizontal
-                            hideKnob
-                            firstDay={1}
-                            initialPosition={ExpandableCalendar.positions.OPEN}
-                            current={moment(selectedDate).format('YYYY-MM-DD')}
-                            disableAllTouchEventsForDisabledDays={true}
-                            hideExtraDays={false}
-                            onMonthChange={onChangeMonth}
-                            markingType="custom"
-                            pagingEnabled={true}
-                            calendarStyle={{
-                                paddingLeft: Matrics.s(4),
-                                paddingRight: Matrics.s(4)
-                            }}
-                            headerStyle={{
-                                paddingLeft: Matrics.s(4),
-                                paddingRight: Matrics.s(4)
-                            }}
-                            disablePan={true}
-                            collapsable={false}
-                            allowShadow={false}
-                            dayComponent={(date) => {
-                                if (date.state == 'disabled')
-                                    return null
-                                return (
-                                    <TouchableOpacity onPress={() => onDayPress(date.date)} style={{
-                                        backgroundColor: date.state == 'selected' ? colors.themePurple : colors.transparent, height: Matrics.vs(26),
-                                        width: Matrics.s(35), borderRadius: Matrics.s(10), alignItems: "center", justifyContent: "center"
-                                    }}>
-                                        <Text style={{
-                                            fontFamily: Fonts.REGULAR,
-                                            fontSize: Matrics.mvs(13),
-                                            lineHeight: 18,
-                                            color: date.state == 'selected' ? colors.white : colors.subTitleLightGray
-                                        }}>{date.date?.day}</Text>
-                                    </TouchableOpacity>
-                                )
-                            }}
-                            theme={{
-                                ...themeStyle,
-                                selectedDayBackgroundColor: undefined,
-                                selectedDayTextColor: colors.subTitleLightGray,
-                                stylesheet: {
-                                    calendar: {
-                                        header: {
-                                            height: 0,
-                                            opacity: 0,
-                                        }
-                                    }
-                                }
-                            }}
-                            hideArrows
-                            renderHeader={() => null}
-                            markedDates={markedDateStyle}
-                            {...expandableCalendarProps}
-                        />
-                    )}
-                </CalendarProvider>
-            </View>
-            <TouchableOpacity
-                style={styles.dropDwonIcon}
-                onPress={() => {
-                    setShowMore(!showMore);
-                    focus
-                        ? LayoutAnimation.configureNext(
-                            LayoutAnimation.Presets.easeInEaseOut,
-                        )
-                        : null;
-                }}>
-                {showMore ? <Icons.ShowMore /> : <Icons.ShowLess />}
-            </TouchableOpacity>
-        </>
-    )
-}
+      <TouchableOpacity
+        onPress={() => onDayPress(date.date)}
+        style={{
+          backgroundColor:
+            date.state == 'selected' ? colors.themePurple : colors.transparent,
+          height: Matrics.vs(26),
+          width: Matrics.s(35),
+          borderRadius: Matrics.s(10),
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+        <Text
+          style={{
+            fontFamily: Fonts.REGULAR,
+            fontSize: Matrics.mvs(13),
+            lineHeight: 18,
+            color:
+              date.state == 'selected'
+                ? colors.white
+                : colors.subTitleLightGray,
+          }}>
+          {date.date?.day}
+        </Text>
+      </TouchableOpacity>
+    );
+  };
 
-export default memo(CommonCalendar)
+  return (
+    <>
+      <View style={[styles.container, containerStyle]}>
+        <View style={[styles.leftRightContent, headerTxtContainer]}>
+          <Text style={[styles.monthYearStyle, titleStyle]}>
+            {!showMore
+              ? getMonthRangeText(selectedDate)
+              : getMonthText(selectedDate)}
+          </Text>
+        </View>
+        <View style={[styles.leftRightContent, iconContainerStyle]}>
+          <TouchableOpacity
+            onPress={!showMore ? handlePreviousWeek : handlePreviousMonth}
+            hitSlop={8}>
+            <Icons.backArrow
+              height={11}
+              width={11}
+              style={{
+                marginHorizontal: Matrics.s(12),
+              }}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={!showMore ? handleNextWeek : handleNextMonth}
+            hitSlop={8}>
+            <Icons.RightArrow height={22} width={22} />
+          </TouchableOpacity>
+        </View>
+      </View>
+      <View
+        style={[
+          styles.calendarContainer,
+          {
+            height: showMore
+              ? Matrics.vs(Platform.OS == 'android' ? 275 : 270)
+              : Matrics.vs(65),
+          },
+          calendarContainerStyle,
+        ]}>
+        <CalendarProvider
+          date={moment(selectedDate).format('YYYY-MM-DD')}
+          disabledOpacity={0.6}>
+          {!showMore ? (
+            <Animated.View style={{overflow: 'hidden'}}>
+              <WeekCalendar
+                firstDay={1}
+                current={moment(selectedDate).format('YYYY-MM-DD')}
+                onDayPress={onDayPress}
+                markingType="custom"
+                markedDates={markedDateStyle}
+                allowShadow={false}
+                scrollEnabled={true}
+                theme={{
+                  ...themeStyle,
+                  selectedDayBackgroundColor: undefined,
+                  selectedDayTextColor: colors.subTitleLightGray,
+                  textDisabledColor: colors.inactiveGray,
+                }}
+                style={[
+                  styles.removePaddingHorizontal,
+                  {
+                    marginTop: Matrics.vs(8),
+                    paddingLeft: Matrics.s(5),
+                    paddingRight: Matrics.s(5),
+                  },
+                ]}
+                {...weekCalendarProps}
+              />
+            </Animated.View>
+          ) : (
+            <ExpandableCalendar
+              horizontal
+              hideKnob
+              firstDay={1}
+              initialPosition={ExpandableCalendar.positions.OPEN}
+              current={moment(selectedDate).format('YYYY-MM-DD')}
+              disableAllTouchEventsForDisabledDays={true}
+              hideExtraDays={true}
+              onMonthChange={onChangeMonth}
+              markingType="custom"
+              pagingEnabled={true}
+              scrollEnabled={false}
+              calendarStyle={{
+                paddingLeft: Matrics.s(4),
+                paddingRight: Matrics.s(4),
+              }}
+              headerStyle={{
+                paddingLeft: Matrics.s(4),
+                paddingRight: Matrics.s(4),
+              }}
+              disablePan={true}
+              collapsable={false}
+              allowShadow={false}
+              dayComponent={memo(renderDays)}
+              theme={{
+                ...themeStyle,
+                selectedDayBackgroundColor: undefined,
+                selectedDayTextColor: colors.subTitleLightGray,
+                stylesheet: {
+                  calendar: {
+                    header: {
+                      height: 0,
+                      opacity: 0,
+                    },
+                  },
+                },
+              }}
+              hideArrows
+              renderHeader={() => null}
+              markedDates={markedDateStyle}
+              {...expandableCalendarProps}
+            />
+          )}
+        </CalendarProvider>
+      </View>
+      <TouchableOpacity
+        style={styles.dropDwonIcon}
+        hitSlop={8}
+        onPress={() => {
+          setShowMore(!showMore);
+          focus
+            ? LayoutAnimation.configureNext(
+                LayoutAnimation.Presets.easeInEaseOut,
+              )
+            : null;
+        }}>
+        {showMore ? <Icons.ShowMore /> : <Icons.ShowLess />}
+      </TouchableOpacity>
+    </>
+  );
+};
+
+export default memo(CommonCalendar);
 
 const styles = StyleSheet.create({
-    removePaddingHorizontal: {
-        paddingLeft: 0,
-        paddingRight: 0,
-    },
-    calendarContainer: {
-        width: width,
-        overflow: 'hidden'
-    },
-    container: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        paddingHorizontal: Matrics.s(15),
-        paddingTop: Matrics.vs(5),
-        paddingBottom: Matrics.vs(3)
-    },
-    row: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-    },
-    monthYearStyle: {
-        fontSize: Matrics.mvs(14),
-        fontFamily: Fonts.MEDIUM,
-        color: colors.labelDarkGray,
-        lineHeight: Matrics.vs(18)
-    },
-    dropDwonIcon: {
-        opacity: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom: Matrics.vs(4)
-    },
-    arrowContainer: {
-        height: Matrics.mvs(20),
-        width: Matrics.mvs(30),
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    customHeaderText: {
-        fontSize: 19,
-        fontWeight: 'bold',
-        color: colors.black,
-        marginLeft: 6,
-    },
-    dateNumberStyle: {
-        fontSize: Matrics.mvs(14),
-        color: '#656566',
-        height: Matrics.vs(26),
-        width: Matrics.s(35),
-        alignItems: 'center',
-        paddingVertical: Platform.OS == 'ios' ? Matrics.vs(5) : 0,
-        marginTop: Matrics.vs(10),
-    },
-    highlighetdDateNumberStyle: {
-        fontSize: Matrics.mvs(14),
-        backgroundColor: '#760FB1',
-        borderRadius: Matrics.mvs(12),
-        color: 'white',
-        overflow: 'hidden',
-        fontFamily: Fonts.REGULAR,
-        fontWeight: '400',
-    },
-    leftRightContent: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-    },
-})
+  removePaddingHorizontal: {
+    paddingLeft: 0,
+    paddingRight: 0,
+  },
+  calendarContainer: {
+    width: width,
+    overflow: 'hidden',
+  },
+  container: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: Matrics.s(15),
+    paddingTop: Matrics.vs(5),
+    paddingBottom: Matrics.vs(3),
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  monthYearStyle: {
+    fontSize: Matrics.mvs(14),
+    fontFamily: Fonts.MEDIUM,
+    color: colors.labelDarkGray,
+    lineHeight: Matrics.vs(18),
+  },
+  dropDwonIcon: {
+    opacity: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: Matrics.vs(4),
+  },
+  arrowContainer: {
+    height: Matrics.mvs(20),
+    width: Matrics.mvs(30),
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  customHeaderText: {
+    fontSize: 19,
+    fontWeight: 'bold',
+    color: colors.black,
+    marginLeft: 6,
+  },
+  dateNumberStyle: {
+    fontSize: Matrics.mvs(14),
+    color: '#656566',
+    height: Matrics.vs(26),
+    width: Matrics.s(35),
+    alignItems: 'center',
+    paddingVertical: Platform.OS == 'ios' ? Matrics.vs(5) : 0,
+    marginTop: Matrics.vs(10),
+  },
+  highlighetdDateNumberStyle: {
+    fontSize: Matrics.mvs(14),
+    backgroundColor: '#760FB1',
+    borderRadius: Matrics.mvs(12),
+    color: 'white',
+    overflow: 'hidden',
+    fontFamily: Fonts.REGULAR,
+    fontWeight: '400',
+  },
+  leftRightContent: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+});
