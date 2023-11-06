@@ -1,19 +1,19 @@
-import { StyleSheet, Text, View, TextInput, Platform } from 'react-native';
-import React, { useEffect } from 'react';
-import { DietStackParamList } from '../../interface/Navigation.interface';
+import {StyleSheet, Text, View, TextInput, Platform} from 'react-native';
+import React, {useEffect} from 'react';
+import {DietStackParamList} from '../../interface/Navigation.interface';
 import RecentSearchDiet from '../../components/organisms/RecentSearchFood';
 import DietSearchHeader from '../../components/molecules/DietSearchHeader';
-import { colors } from '../../constants/colors';
-import { StackScreenProps } from '@react-navigation/stack';
+import {colors} from '../../constants/colors';
+import {StackScreenProps} from '@react-navigation/stack';
 import Diet from '../../api/diet';
-import { useApp } from '../../context/app.context';
+import {useApp} from '../../context/app.context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Container, Screen } from '../../components/styled/Views';
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import {Container, Screen} from '../../components/styled/Views';
+import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import Matrics from '../../constants/Matrics';
-import { useFocusEffect } from '@react-navigation/native';
-import { trackEvent } from '../../helpers/TrackEvent';
-import { Constants } from '../../constants';
+import {useFocusEffect} from '@react-navigation/native';
+import {trackEvent} from '../../helpers/TrackEvent';
+import {Constants} from '../../constants';
 import moment = require('moment');
 // import MyStatusbar from '../../components/atoms/MyStatusBar';
 
@@ -40,9 +40,17 @@ type SearcheFood = {
   total_monounsaturated_fatty_acids: string;
   total_polyunsaturated_fatty_acids: string;
 };
-const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
+const AddDietScreen: React.FC<AddDietScreenProps> = ({navigation, route}) => {
   const insets = useSafeAreaInsets();
-  const { healthCoachId, mealName, patient_id, optionFoodItems } = route.params;
+  const {userData} = useApp();
+  const {
+    optionFoodItems,
+    healthCoachId,
+    patient_id,
+    mealName,
+    mealData,
+    selectedDate,
+  } = route.params;
   const [recentSerach, setRecentSerach] = React.useState([]);
   const [searchResult, setSearchResult] = React.useState([]);
   const [message, setMessage] = React.useState('');
@@ -54,7 +62,7 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
   );
   const debouncingDelay = 500;
 
-  console.log(route.params, "route.paramsroute.params")
+  console.log(route.params, 'route.paramsroute.params');
   useEffect(() => {
     const getRecentSerache = async () => {
       const recentSearchResults = await AsyncStorage.getItem(
@@ -92,8 +100,6 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
     navigation.goBack();
   };
   const handlePressPlus = async (data: SearcheFood) => {
-
-
     const isFoodItemInList = optionFoodItems?.food_items.find(
       item => item.food_item_id === data?.food_item_id,
     );
@@ -101,8 +107,8 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
     trackEvent(Constants.EVENT_NAME.FOOD_DIARY.USER_SEARCHED_FOOD_DISH, {
       meal_types: route?.params?.mealName,
       date: moment().format(Constants.DATE_FORMAT),
-      food_item_name: isFoodItemInList?.food_item_name ?? ""
-    })
+      food_item_name: isFoodItemInList?.food_item_name ?? '',
+    });
     if (isFoodItemInList) {
       navigation.navigate('DietDetail', {
         foodItem: isFoodItemInList,
@@ -144,13 +150,25 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
         is_food_item_added_by_patient: 'Y',
       };
 
-      navigation.navigate('DietDetail', {
-        foodItem: FoodItems,
-        buttonText: 'Add',
-        healthCoachId: healthCoachId,
-        mealName: mealName,
-        patient_id: patient_id,
-      });
+      if (mealData) {
+        navigation.navigate('DietDetail', {
+          foodItem: FoodItems,
+          buttonText: 'Add',
+          healthCoachId: healthCoachId,
+          mealName: mealName,
+          mealData: mealData,
+          selectedDate: selectedDate,
+        });
+      } else {
+        navigation.navigate('DietDetail', {
+          foodItem: FoodItems,
+          buttonText: 'Add',
+          healthCoachId: healthCoachId,
+          mealName: mealName,
+          mealData: null,
+          patient_id: patient_id,
+        });
+      }
     }
 
     const seletedItem = recentSerach;
@@ -174,9 +192,9 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
         trackEvent(Constants.EVENT_NAME.FOOD_DIARY.USER_SEARCHED_FOOD_DISH, {
           meal_types: route?.params?.mealName,
           date: moment().format(Constants.DATE_FORMAT),
-          food_item_name: text
-        })
-        const result = await Diet.searchFoodItem({ food_name: text }, {});
+          food_item_name: text,
+        });
+        const result = await Diet.searchFoodItem({food_name: text}, {});
         setResult(result);
         setSearchResult(result?.data);
         if (result?.data?.length > 0) {

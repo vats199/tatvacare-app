@@ -70,6 +70,20 @@ type Consumption = {
   date: string;
   diet_plan_food_consumption_id: null;
 };
+
+
+type mealTYpe = {
+  meal_types_id: string;
+  value: string;
+  meal_type: string;
+  label: string;
+  keys: string;
+  default_time: string;
+  order_no: number;
+};
+
+
+
 export type AppStackParamList = {
   // BottomTabs: undefined;
   DrawerScreen: DrawerParamList;
@@ -85,18 +99,21 @@ export type DietStackParamList = {
   HomeScreen: undefined;
   DietScreen: undefined;
   AddDiet: {
-    optionFoodItems: Options;
+    optionFoodItems?: Options;
     healthCoachId: string;
     mealName: string;
-    patient_id: string;
-
+    patient_id?: string;
+    mealData?: mealTYpe | null;
+    selectedDate?: any | null;
   };
   DietDetail: {
     foodItem: FoodItems;
     buttonText: string;
     healthCoachId: string;
     mealName: string;
-    patient_id: string;
+    patient_id?: string;
+    mealData?: mealTYpe | null;
+    selectedDate?: any | null;
   };
   ProgressBarInsightsScreen: { calories: Options[] };
 };
