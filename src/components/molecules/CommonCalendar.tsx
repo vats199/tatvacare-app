@@ -368,12 +368,12 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
               pagingEnabled={true}
               scrollEnabled={false}
               calendarStyle={{
-                paddingLeft: Matrics.s(4),
-                paddingRight: Matrics.s(4),
+                paddingLeft: Matrics.s(3),
+                paddingRight: Matrics.s(3),
               }}
               headerStyle={{
-                paddingLeft: Matrics.s(4),
-                paddingRight: Matrics.s(4),
+                paddingLeft: Matrics.s(3),
+                paddingRight: Matrics.s(3),
               }}
               disablePan={true}
               collapsable={false}
