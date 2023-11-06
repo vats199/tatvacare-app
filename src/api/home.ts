@@ -69,6 +69,13 @@ const Home = {
       payload,
     });
   },
+  getIncidentDetails: () => {
+    const route = '/survey/get_incident_survey';
+    return Ajax.request(route, {
+      method: Ajax.POST,
+      priv: true,
+    });
+  },
 };
 
 export default Home;

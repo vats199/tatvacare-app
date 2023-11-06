@@ -1,4 +1,11 @@
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Image,
+  NativeModules,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React from 'react';
 import {colors} from '../../constants/colors';
 import {Icons} from '../../constants/icons';
@@ -11,6 +18,8 @@ type MyHealthDiaryProps = {
   onPressDevices: () => void;
   onPressMyIncidents: () => void;
   data: any;
+  hideIncident: boolean;
+  incidentDetails: any;
 };
 type HealthDiaryItem = {
   title: 'Medicines' | 'Diet' | 'Exercises' | 'Devices' | 'My Incidents';
@@ -25,6 +34,8 @@ const MyHealthDiary: React.FC<MyHealthDiaryProps> = ({
   onPressMedicine,
   onPressMyIncidents,
   data,
+  hideIncident,
+  incidentDetails,
 }) => {
   const dietObj = data?.find((goalObj: any) => goalObj.goal_name === 'Diet');
   const medicineObj = data?.find(
@@ -38,12 +49,15 @@ const MyHealthDiary: React.FC<MyHealthDiaryProps> = ({
       description: 'Connect and monitor your condition!',
       onPress: onPressDevices,
     },
-    {
+  ];
+
+  if (!NativeModules.RNShare.hide_incident_survey || !hideIncident) {
+    options.unshift({
       title: 'My Incidents',
       description: 'Log your exercise details!',
       onPress: onPressMyIncidents,
-    },
-  ];
+    });
+  }
 
   if (exeObj) {
     options.unshift({

@@ -19,7 +19,7 @@ const PlanItem: React.FC<PlanItemProps> = ({
       <Image
         source={{uri: plan.image_url}}
         style={styles.image}
-        resizeMode={'stretch'}
+        resizeMode={'cover'}
       />
     </TouchableOpacity>
   );
@@ -34,7 +34,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.lightGrey,
     borderRadius: 12,
-    padding: 10,
+    overflow: 'hidden',
+    // padding: 10,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -43,6 +44,7 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
     backgroundColor: colors.lightGrey,
+    borderRadius: 12,
   },
   textContainer: {
     flex: 1,

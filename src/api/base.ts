@@ -10,7 +10,6 @@ const PUT = 'put';
 const PATCH = 'patch';
 const DELETE = 'delete';
 const DEFAULT_ERROR = 'Something went wrong, Please try again later';
-console.log(NativeModules.RNShare.token, 'RNShareRNShareRNShareRNShare==>');
 
 // BASE_URL=https://api-uat.mytatva.in/api/v6
 // encKey=9Ddyaf6rfywpiTvTiax2iq6ykKpaxgJ6
@@ -87,8 +86,8 @@ const handleResponse = async (response: any) => {
 const request: any = async (
   route: string,
   {
-    // baseURL = config.BASE_URL,
-    baseURL = 'https://api.mytatva.in/api/v7',
+    baseURL = 'https://api-uat.mytatva.in/api/v7',
+    // baseURL = 'https://api.mytatva.in/api/v7',
     method = GET,
     payload = null,
     formData = null,

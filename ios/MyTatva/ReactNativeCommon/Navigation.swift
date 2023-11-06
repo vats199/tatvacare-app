@@ -37,12 +37,46 @@ class Navigation: NSObject {
     }
     
     @objc
-    func navigateToIncident() -> Void {
-        if let carePlan = UIApplication.topViewController()?.parent as? TabbarVC {
+    func navigateToIncident(_ surveyDetails :NSArray) -> Void {
+        let planData = surveyDetails.firstObject as? NSDictionary
+        let surveyDetails = planData?["surveyDetails"] as? NSDictionary
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: surveyDetails!, options: [])
+            let obj = IncidentSurvayModel(fromJson: try JSON.init(data: jsonData))
+            let vc = AddIncidentPopupVC.instantiate(fromAppStoryboard: .carePlan)
+            vc.modalPresentationStyle = .overFullScreen
+            vc.modalTransitionStyle = .crossDissolve
+            vc.completionHandler = { objc in
+                if objc != nil {
+                    SurveySparrowManager.shared.startSurveySparrow(token: obj.surveyId)
+                    SurveySparrowManager.shared.completionHandler = { object in
+                        print(object as Any)
+                        
+                        if object != nil {
+                            GlobalAPI.shared.add_incident_detailsAPI(incident_tracking_master_id: obj.incidentTrackingMasterId,
+                                                                     survey_id: obj.surveyId,
+                                                                     response: object!["response"] as! [[String: Any]]) { (isDone, msg) in
+                                if isDone {
+                                    //self.updateIncident(completion: nil)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            DispatchQueue.main.async {
+                UIApplication.topViewController()?.present(vc, animated: true, completion: nil)
+            }
+        }catch {
+            print(error)
+        }
+        
+        //Uncomment below to open care paln tab from tabbar
+        /*if let carePlan = UIApplication.topViewController()?.parent as? TabbarVC {
             DispatchQueue.main.async {
                 carePlan.selectedIndex = 1
             }
-        }
+        }*/
     }
     
     @objc
@@ -196,9 +230,10 @@ class Navigation: NSObject {
     }
     
     @objc
-    func navigateToChronicCareProgram() -> Void {
+    func navigateToChronicCareProgram(_ selectedType: NSString) -> Void {
         DispatchQueue.main.async {
             let vc = BCPCarePlanVC.instantiate(fromAppStoryboard: .BCP_temp)
+            vc.showPlanType = BCPCarePlanVC.planType(rawValue: selectedType as String)
             vc.hidesBottomBarWhenPushed = true
             UIApplication.topViewController()?.navigationController?.pushViewController(vc, animated: true)
         }

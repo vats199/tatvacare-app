@@ -66,6 +66,9 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   const [healthInsights, setHealthInsights] = React.useState<any>({});
   const [hcDevicePlans, setHcDevicePlans] = React.useState<any>({});
   const [healthDiaries, setHealthDiaries] = React.useState<any>([]);
+  const [hideIncidentSurvey, setHideIncidentSurvey] =
+    React.useState<boolean>(false);
+  const [incidentDetails, setIncidentDetails] = React.useState<any>(null);
 
   const canBookHealthCoach: boolean = !!carePlanData?.patient_plans?.find(
     (pp: any) => {
@@ -97,6 +100,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
     getMyHealthInsights();
     getHCDevicePlans();
     getMyHealthDiaries();
+    getIncidentDetails();
   }, []);
 
   // Health Insight Updates
@@ -234,6 +238,14 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
     setLoading(false);
   };
 
+  const getIncidentDetails = async () => {
+    setLoading(true);
+    const details = await Home.getIncidentDetails();
+    setHideIncidentSurvey(!!!details?.data.incidentSurveyData);
+    setIncidentDetails(details?.data);
+    setLoading(false);
+  };
+
   const onPressLocation = () => {
     navigateTo('SetLocationVC');
   };
@@ -263,31 +275,32 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
     ]);
   };
   const onPressMyIncidents = () => {
-    navigateToIncident();
+    navigateToIncident([{surveyDetails: incidentDetails}]);
   };
 
   const onPressConsultNutritionist = () => {
     if (canBookHealthCoach) {
       navigateToBookAppointment('HC');
     } else {
-      navigateToChronicCareProgram();
+      navigateToChronicCareProgram('show_nutritionist');
     }
   };
   const onPressConsultPhysio = (type: 'HC' | 'D') => {
     if (canBookHealthCoach) {
       navigateToBookAppointment(type);
     } else {
-      navigateToChronicCareProgram();
+      navigateToChronicCareProgram('show_physio');
     }
   };
   const onPressBookDiagnostic = () => {
     navigateTo('LabTestListVC');
   };
+
   const onPressBookDevices = () => {
     if (Object.values(hcDevicePlans.devices).length > 0) {
       navigateTo('MyDevices');
     } else {
-      navigateToChronicCareProgram();
+      navigateToChronicCareProgram('show_book_device');
     }
   };
   const onPressCarePlan = (plan: any) => {
@@ -372,6 +385,8 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
               onPressMedicine={onPressMedicine}
               onPressMyIncidents={onPressMyIncidents}
               data={healthDiaries}
+              hideIncident={hideIncidentSurvey}
+              incidentDetails={incidentDetails}
             />
             <AdditionalCareServices
               onPressConsultNutritionist={onPressConsultNutritionist}

@@ -11,7 +11,7 @@ import Foundation
 class RNShare : NSObject {
     @objc
     func constantsToExport() -> [AnyHashable : Any]! {
-        return ["token": UserModel.accessToken]
+        return ["token": UserModel.accessToken ?? "","hide_incident_survey":hide_incident_surveyMain]
     }
     
     @objc static func requiresMainQueueSetup() -> Bool {

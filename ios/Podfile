@@ -100,6 +100,17 @@ pod 'Charts'
 #      end
 #    end
 #  end
+
+  pre_install do |installer|
+    installer.pod_targets.each do |pod|
+      if pod.name.eql?('RNScreens') || pod.name.eql?('RCTImageLoader') || pod.name.eql?('RNReanimated')
+        def pod.build_type
+          Pod::BuildType.static_library
+        end
+      end
+    end
+  end
+
   post_install do |installer|
     react_native_post_install(
       installer,
