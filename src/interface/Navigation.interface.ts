@@ -82,7 +82,7 @@ type mealTYpe = {
   keys: string;
   default_time: string;
   order_no: number;
-}
+};
 
 export type AppStackParamList = {
   DrawerScreen: DrawerParamList;

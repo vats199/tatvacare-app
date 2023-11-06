@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-import { DrawerItemList } from '@react-navigation/drawer';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
-  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -10,42 +7,30 @@ import {
 } from 'react-native';
 import { colors } from '../../constants/colors';
 import { Icons } from '../../constants/icons';
-import DietOption from './DietOption';
-import { Fonts, Matrics } from '../../constants';
-import fonts from '../../constants/fonts';
-import moment from 'moment';
-import { useFocusEffect } from '@react-navigation/native';
-import { globalStyles } from '../../constants/globalStyles';
-=======
-import React from 'react';
-import {
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
-} from 'react-native';
-import { colors } from '../../constants/colors';
-import { Icons } from '../../constants/icons';
 import { Fonts, Matrics } from '../../constants';
 import moment from 'moment';
 import { globalStyles } from '../../constants/globalStyles';
->>>>>>> f764d4c ( calendar fixes)
 
 interface MealCardProps {
   onPressPlus: (optionFoodItems: mealTYpe) => void;
   cardData: mealTYpe;
 }
 type mealTYpe = {
-  meal_types_id: string;
-  value: string;
-  meal_type: string;
-  label: string;
-  keys: string;
-  default_time: string;
-  order_no: number;
-};
-const MealCard: React.FC<MealCardProps> = ({ cardData, onPressPlus }) => {
-  const [foodItmeData, setFoodItemData] = React.useState<any | null>(cardData);
+  meal_types_id: string,
+  value: string,
+  meal_type: string,
+  label: string,
+  keys: string,
+  default_time: string,
+  order_no: number,
+}
+const MealCard: React.FC<MealCardProps> = ({
+  cardData,
+  onPressPlus,
+}) => {
+  const [foodItmeData, setFoodItemData] = React.useState<any | null>(
+    cardData
+  );
 
   const handlePulsIconPress = (item: mealTYpe) => {
     onPressPlus(item);

@@ -11,7 +11,7 @@ import { useApp } from '../../context/app.context';
 import { Constants, Fonts, Matrics } from '../../constants';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { trackEvent } from '../../helpers/TrackEvent';
-import { mealTypes } from '../../constants/data';
+import mealTypes from '../../constants/data';
 import moment from 'moment';
 import { number } from 'yup';
 import Diet from '../../api/diet';

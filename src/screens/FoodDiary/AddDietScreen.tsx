@@ -1,19 +1,19 @@
-import {StyleSheet, Text, View, TextInput, Platform} from 'react-native';
-import React, {useEffect} from 'react';
-import {DietStackParamList} from '../../interface/Navigation.interface';
+import { StyleSheet, Text, View, TextInput, Platform } from 'react-native';
+import React, { useEffect } from 'react';
+import { DietStackParamList } from '../../interface/Navigation.interface';
 import RecentSearchDiet from '../../components/organisms/RecentSearchFood';
 import DietSearchHeader from '../../components/molecules/DietSearchHeader';
-import {colors} from '../../constants/colors';
-import {StackScreenProps} from '@react-navigation/stack';
+import { colors } from '../../constants/colors';
+import { StackScreenProps } from '@react-navigation/stack';
 import Diet from '../../api/diet';
-import {useApp} from '../../context/app.context';
+import { useApp } from '../../context/app.context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Container, Screen} from '../../components/styled/Views';
-import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+import { Container, Screen } from '../../components/styled/Views';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import Matrics from '../../constants/Matrics';
-import {useFocusEffect} from '@react-navigation/native';
-import {trackEvent} from '../../helpers/TrackEvent';
-import {Constants} from '../../constants';
+import { useFocusEffect } from '@react-navigation/native';
+import { trackEvent } from '../../helpers/TrackEvent';
+import { Constants } from '../../constants';
 import moment = require('moment');
 // import MyStatusbar from '../../components/atoms/MyStatusBar';
 
@@ -40,9 +40,9 @@ type SearcheFood = {
   total_monounsaturated_fatty_acids: string;
   total_polyunsaturated_fatty_acids: string;
 };
-const AddDietScreen: React.FC<AddDietScreenProps> = ({navigation, route}) => {
+const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
   const insets = useSafeAreaInsets();
-  const {userData} = useApp();
+  const { userData } = useApp();
   const {
     optionFoodItems,
     healthCoachId,
@@ -194,9 +194,9 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({navigation, route}) => {
           food_item_name: text,
         });
         const result = await Diet.searchFoodItem(
-          {food_name: text},
+          { food_name: text },
           {},
-          {token: userData.token},
+          { token: userData.token },
         );
         setResult(result);
         setSearchResult(result?.data);

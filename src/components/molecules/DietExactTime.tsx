@@ -236,12 +236,8 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
       meal_types: cardData?.meal_name ?? '',
       option_number: index + 1,
     });
-    console.log(" log intitalks 111111", item.diet_meal_options_id);
-
     setSelectedOptionId(item.diet_meal_options_id);
   };
-
-  // console.log("selectedOptionId", selectedOptionId);
 
   return (
     <View style={[styles.container, globalStyles.shadowContainer]}>

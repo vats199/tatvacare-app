@@ -28,7 +28,7 @@ import CommonBottomSheetModal from '../../components/molecules/CommonBottomSheet
 import AlertBottomSheet from '../../components/organisms/AlertBottomSheet';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { trackEvent } from '../../helpers/TrackEvent';
-import { mealTypes } from '../../constants/data';
+import mealTypes from '../../constants/data';
 import MealCard from '../../components/molecules/MealCard';
 
 type DietScreenProps = StackScreenProps<DietStackParamList, 'DietScreen'>;
@@ -186,6 +186,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   };
 
   const deleteFoodItem = async () => {
+    console.log('yessss');
     // setModalVisible(false);
     bottomSheetModalRef.current?.close();
     const deleteFoodItem = await Diet.deleteFoodItem(
@@ -345,34 +346,37 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
             totalcalories={totalcalorie}
           />
         </TouchableOpacity>
-        {Object.keys(dietPlane)?.length > 0 ? (
-          <DietTime
-            onPressPlus={handlePulsIconPress}
-            dietOption={dietOption}
-            dietPlane={JSON.parse(JSON.stringify(dietPlane?.meals))}
-            onpressOfEdit={handaleEdit}
-            onPressOfDelete={handaleDelete}
-            onPressOfcomplete={handalecompletion}
-            getCalories={handalTotalCalories}
-          />
-        ) : loader ? null : (
-          <ScrollView
-            style={[styles.innercontainer]}
-            contentContainerStyle={{
-              paddingBottom: insets.bottom + Matrics.vs(10),
-            }}
-            showsVerticalScrollIndicator={false}>
-            {mealTypes?.map(item => {
-              return (
-                <MealCard
-                  cardData={item}
-                  onPressPlus={handlePressOfNoPlanePlusIcon}
-                />
-              );
-            })}
-          </ScrollView>
-        )}
-      </View>
+        {
+          Object.keys(dietPlane)?.length > 0 ? (
+            <DietTime
+              onPressPlus={handlePulsIconPress}
+              dietOption={dietOption}
+              dietPlane={JSON.parse(JSON.stringify(dietPlane?.meals))}
+              onpressOfEdit={handaleEdit}
+              onPressOfDelete={handaleDelete}
+              onPressOfcomplete={handalecompletion}
+              getCalories={handalTotalCalories}
+            />
+          ) : loader ? null : (
+            <ScrollView
+              style={[styles.innercontainer]}
+              contentContainerStyle={{
+                paddingBottom: insets.bottom + Matrics.vs(10),
+              }}
+              showsVerticalScrollIndicator={false}>
+              {
+                mealTypes?.map(item => {
+                  return (
+                    <MealCard
+                      cardData={item}
+                      onPressPlus={handlePressOfNoPlanePlusIcon}
+                    />
+                  );
+                })
+              }
+            </ScrollView >
+          )}
+      </View >
       <CommonBottomSheetModal snapPoints={['35%']} ref={bottomSheetModalRef}>
         <AlertBottomSheet
           onPressAccept={deleteFoodItem}
@@ -386,7 +390,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
         />
       </CommonBottomSheetModal>
       <Loader visible={loader} />
-    </SafeAreaView>
+    </SafeAreaView >
   );
 };
 
@@ -426,6 +430,7 @@ const styles = StyleSheet.create({
   innercontainer: {
     flex: 1,
     // paddingHorizontal: Matrics.s(15),
+    paddingHorizontal: Matrics.s(15),
     marginTop: Matrics.vs(5),
   },
 });
