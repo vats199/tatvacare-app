@@ -14,7 +14,7 @@ import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import LocationBottomSheet, {
   LocationBottomSheetRef,
 } from './src/components/molecules/LocationBottomSheet';
-import Geolocation from 'react-native-geolocation-service';
+// import Geolocation from 'react-native-geolocation-service';
 import {request, check, PERMISSIONS, RESULTS} from 'react-native-permissions';
 import {Linking} from 'react-native';
 import Home from './src/api/home';
@@ -51,7 +51,7 @@ const App = () => {
         const granted = await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
         setLocationPermission(granted);
         if (granted === 'granted') {
-          getLocation();
+          // getLocation();
         } else if (
           goToSettings &&
           ['blocked', 'never_ask_again'].includes(granted)
@@ -64,7 +64,7 @@ const App = () => {
         const granted = await request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
         setLocationPermission(granted);
         if (granted == RESULTS.GRANTED) {
-          getLocation();
+          // getLocation();
         } else if (goToSettings) {
           Alert.alert(
             'App Permission Denied',
@@ -88,21 +88,21 @@ const App = () => {
     }
   };
 
-  const getLocation = () => {
-    Geolocation.getCurrentPosition(
-      async position => {
-        await getLocationFromLatLng(
-          position?.coords?.latitude,
-          position?.coords?.longitude,
-        );
-      },
-      error => {
-        // Handle location error here
-        requestLocationPermission(false);
-      },
-      {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
-    );
-  };
+  // const getLocation = () => {
+  //   Geolocation.getCurrentPosition(
+  //     async position => {
+  //       await getLocationFromLatLng(
+  //         position?.coords?.latitude,
+  //         position?.coords?.longitude,
+  //       );
+  //     },
+  //     error => {
+  //       // Handle location error here
+  //       requestLocationPermission(false);
+  //     },
+  //     {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
+  //   );
+  // };
 
   const getLocationFromLatLng = async (lat: any, long: any) => {
     const res = await fetch(
@@ -166,7 +166,7 @@ const App = () => {
       setLocationPermission(permissionResult);
 
       if (permissionResult === RESULTS.GRANTED) {
-        getLocation();
+        // getLocation();
       } else {
         requestLocationPermission(false);
       }

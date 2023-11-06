@@ -9,7 +9,7 @@ var webengage = new WebEngage();
 export const trackEvent = (event_name: string, params: Array<any> | Object | String) => {
     try {
         webengage.track(event_name, params)
-        console.log("success")
+        // console.log("success")
     } catch (error) {
         console.log(error, "event error")
     }
