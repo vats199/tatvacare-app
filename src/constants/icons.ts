@@ -96,7 +96,7 @@ import Cart from '../assets/icons/Cart.svg';
 import forwardArrow from '../assets/icons/arrowForward.svg';
 import MedicineBlack from '../assets/icons/medicineBlacksvg.svg';
 import Location from '../assets/icons/location.svg';
-import Delete from '../assets/icons/delete.svg';
+import DeletePurple from '../assets/icons/deletePurple.svg';
 import Offer from '../assets/icons/offer.svg';
 import Gps from '../assets/icons/gps.svg';
 import upArrow from '../assets/icons/upArrow.svg';
@@ -134,6 +134,10 @@ import Call from '../assets/icons/call.svg';
 import Heart from '../assets/icons/heart.svg';
 import Schedule from '../assets/icons/schedule.svg';
 import Event from '../assets/icons/event.svg';
+
+import NoUserImage from '../assets/icons/noUserImage.svg';
+import DrawerBMI from '../assets/icons/drawerBMI.svg';
+import Delete from '../assets/icons/deletIcon.svg';
 
 export const Icons = {
   HomeActive,
@@ -228,7 +232,7 @@ export const Icons = {
   forwardArrow,
   MedicineBlack,
   Location,
-  Delete,
+  DeletePurple,
   Offer,
   Gps,
   upArrow,
@@ -265,4 +269,7 @@ export const Icons = {
   Heart,
   Schedule,
   Event,
+  NoUserImage,
+  DrawerBMI,
+  Delete
 };

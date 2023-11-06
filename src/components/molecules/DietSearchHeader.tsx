@@ -1,9 +1,9 @@
-import { StyleSheet, View, TextInput, TouchableOpacity } from 'react-native';
-import React, { useState } from 'react';
-import { Icons } from '../../constants/icons';
-import { Matrics } from '../../constants';
-import { colors } from '../../constants/colors';
-import { globalStyles } from '../../constants/globalStyles';
+import {StyleSheet, View, TextInput, TouchableOpacity} from 'react-native';
+import React, {useState} from 'react';
+import {Icons} from '../../constants/icons';
+import {Matrics} from '../../constants';
+import {colors} from '../../constants/colors';
+import {globalStyles} from '../../constants/globalStyles';
 
 type DietSearchHeaderProps = {
   onPressBack: () => void;
@@ -17,7 +17,7 @@ const DietSearchHeader: React.FC<DietSearchHeaderProps> = ({
   const [searchText, setSearchText] = useState<string>('');
 
   const handleSerache = (text: string) => {
-    const spaceFree = text.trimStart()
+    const spaceFree = text.trimStart();
     const cleanedText = spaceFree.replace(/[^a-zA-Z\s]/g, '');
     setSearchText(cleanedText);
     onSearch(text);
@@ -28,14 +28,14 @@ const DietSearchHeader: React.FC<DietSearchHeaderProps> = ({
         <Icons.backArrow height={20} width={20} />
       </TouchableOpacity>
       <TextInput
-        style={[globalStyles.shadowContainer, styles.input,]}
+        style={[globalStyles.shadowContainer, styles.input]}
         placeholder="Search foods"
         placeholderTextColor="gray"
         value={searchText}
         onChangeText={text => {
-          handleSerache(text)
+          handleSerache(text);
         }}
-        keyboardType='ascii-capable'
+        keyboardType="ascii-capable"
       />
     </View>
   );
@@ -62,6 +62,6 @@ const styles = StyleSheet.create({
     fontSize: Matrics.mvs(12),
     color: 'gray',
     shadowOpacity: 0.1,
-    shadowRadius: 5
+    shadowRadius: 5,
   },
 });

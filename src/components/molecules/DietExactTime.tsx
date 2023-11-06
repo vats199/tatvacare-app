@@ -1,5 +1,5 @@
-import { DrawerItemList } from '@react-navigation/drawer';
-import React, { useEffect, useState } from 'react';
+import {DrawerItemList} from '@react-navigation/drawer';
+import React, {useEffect, useState} from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -7,21 +7,27 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { colors } from '../../constants/colors';
-import { Icons } from '../../constants/icons';
+import {colors} from '../../constants/colors';
+import {Icons} from '../../constants/icons';
 import DietOption from './DietOption';
-import { Fonts, Matrics } from '../../constants';
+import {Constants, Fonts, Matrics} from '../../constants';
 import fonts from '../../constants/fonts';
 import moment from 'moment';
-import { useFocusEffect } from '@react-navigation/native';
-import { globalStyles } from '../../constants/globalStyles';
+import {useFocusEffect} from '@react-navigation/native';
+import {globalStyles} from '../../constants/globalStyles';
+import {trackEvent} from '../../helpers/TrackEvent';
 
 interface ExactTimeProps {
   onPressPlus: (optionFoodItems: Options, mealName: string) => void;
   dietOption: boolean;
   cardData: MealsData;
   onpressOfEdit: (editeData: FoodItems, mealName: string) => void;
-  onPressOfDelete: (deleteFoodItemId: string, is_food_item_added_by_patient: string) => void;
+  onPressOfDelete: (
+    deleteFoodItemId: string,
+    is_food_item_added_by_patient: string,
+    optionId: string,
+    data: FoodItems,
+  ) => void;
   onPressOfcomplete: (consumptionData: Consumption, optionId: string) => void;
   getCalories: (calories: Options) => void;
 }
@@ -151,12 +157,39 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
   }, [cardData?.options[0]]);
 
   const handaleEdit = (data: FoodItems) => {
+    const index = cardData?.options?.findIndex(
+      (item: Options, index: number) =>
+        data.diet_meal_options_id == item?.diet_meal_options_id,
+    );
+    trackEvent(Constants.EVENT_NAME.FOOD_DIARY.USER_CLICKED_ON_EDIT_MEAL, {
+      meal_types: cardData?.meal_name ?? '',
+      option_number: `Option ${index + 1}`,
+      food_item_name: data?.food_item_name ?? '',
+    });
     onpressOfEdit(data, cardData.meal_name);
   };
-  const handaleDelete = (Id: string, is_food_item_added_by_patient: string) => {
-    onPressOfDelete(Id, is_food_item_added_by_patient);
+  const handaleDelete = (
+    Id: string,
+    is_food_item_added_by_patient: string,
+    data: FoodItems,
+  ) => {
+    const index = cardData?.options?.findIndex(
+      (item: Options, index: number) =>
+        selectedOptionId == item?.diet_meal_options_id,
+    );
+    trackEvent(Constants.EVENT_NAME.FOOD_DIARY.USER_CLICKED_ON_EDIT_MEAL, {
+      meal_types: cardData?.meal_name ?? '',
+      option_number: `Option ${index + 1}`,
+      manual_tag: is_food_item_added_by_patient == 'N' ? 'no' : 'yes',
+    });
+    onPressOfDelete(Id, is_food_item_added_by_patient, selectedOptionId, data);
   };
   const handlePulsIconPress = () => {
+    trackEvent(Constants.EVENT_NAME.FOOD_DIARY.USER_CLICKED_ADD_FOOD_DISH, {
+      meal_types: cardData?.meal_name,
+      date: moment().format(Constants.DATE_FORMAT),
+    });
+
     if (selectedOptionId !== null) {
       let data = cardData.options.filter(
         item => item.diet_meal_options_id == selectedOptionId,
@@ -168,7 +201,7 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
     }
   };
   const handalecompletion = (item: Consumption) => {
-    console.log({ item: item, selectedOptionId });
+    console.log({item: item, selectedOptionId});
 
     onPressOfcomplete(item, selectedOptionId);
   };
@@ -198,6 +231,14 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
     }
   };
 
+  const onPressOption = (item: Options, index: number) => {
+    trackEvent(Constants.EVENT_NAME.FOOD_DIARY.USER_CLICKS_ON_OPTION, {
+      meal_types: cardData?.meal_name ?? '',
+      option_number: index + 1,
+    });
+    setSelectedOptionId(item.diet_meal_options_id);
+  };
+
   return (
     <View style={[styles.container, globalStyles.shadowContainer]}>
       <View style={styles.topRow}>
@@ -206,16 +247,17 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
           <View style={styles.textContainer}>
             <Text style={styles.title}>{cardData?.meal_name}</Text>
             <Text style={styles.textBelowTitle}>
-              {cardData?.start_time && cardData?.end_time ? moment(cardData?.start_time, 'HH:mm:ss').format('h:mm A') +
-                ' - ' +
-                moment(cardData?.end_time, 'HH:mm:ss').format('h:mm A') + ' | '
+              {cardData?.start_time && cardData?.end_time
+                ? moment(cardData?.start_time, 'HH:mm:ss').format('h:mm A') +
+                  ' - ' +
+                  moment(cardData?.end_time, 'HH:mm:ss').format('h:mm A') +
+                  ' | '
                 : 'Ideal Time' + ' | '}
               <Text style={styles.caloriesTxt}>
-                {
-                  (isNaN(Math.round(Number(foodItmeData?.consumed_calories)))
-                    ? 0
-                    : Number(foodItmeData?.consumed_calories)
-                  ).toFixed(0) +
+                {(isNaN(Math.round(Number(foodItmeData?.consumed_calories)))
+                  ? 0
+                  : Number(foodItmeData?.consumed_calories)
+                ).toFixed(0) +
                   ' of ' +
                   Number(foodItmeData?.total_calories).toFixed(0) +
                   'cal'}{' '}
@@ -239,7 +281,7 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
               showsHorizontalScrollIndicator={false}
               horizontal
               bounces={false}
-              style={{ flexDirection: 'row' }}>
+              style={{flexDirection: 'row'}}>
               {cardData?.options?.map((item: Options, index: number) => {
                 const isOptionSelected =
                   selectedOptionId === item?.diet_meal_options_id;
@@ -258,14 +300,20 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
                         marginRight: Matrics.s(8),
                       },
                     ]}
-                    onPress={() =>
-                      setSelectedOptionId(item.diet_meal_options_id)
-                    }>
-                    <Text style={[styles.optionText, {
-                      color: isOptionSelected
-                        ? colors.labelDarkGray
-                        : colors.subTitleLightGray,
-                    }]}>Option {index + 1}</Text>
+                    onPress={() => {
+                      onPressOption(item, index);
+                    }}>
+                    <Text
+                      style={[
+                        styles.optionText,
+                        {
+                          color: isOptionSelected
+                            ? colors.labelDarkGray
+                            : colors.subTitleLightGray,
+                        },
+                      ]}>
+                      Option {index + 1}
+                    </Text>
                   </TouchableOpacity>
                 );
               })}
@@ -274,14 +322,15 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
               foodItmeData={
                 selectedOptionId !== null
                   ? cardData.options.filter(
-                    item => item.diet_meal_options_id == selectedOptionId,
-                  )[0]
+                      item => item.diet_meal_options_id == selectedOptionId,
+                    )[0]
                   : cardData.options[0]
               }
               patient_permission={cardData.patient_permission}
               onpressOfEdit={handaleEdit}
               onPressOfDelete={handaleDelete}
               onPressOfcomplete={handalecompletion}
+              mealName={cardData.meal_name}
             />
           </>
         ) : (
@@ -301,7 +350,8 @@ const styles = StyleSheet.create({
     borderRadius: Matrics.mvs(12),
     marginVertical: Matrics.vs(8),
     backgroundColor: colors.white,
-    paddingVertical: Matrics.vs(12)
+    paddingVertical: Matrics.vs(12),
+    marginHorizontal: Matrics.s(15),
   },
   innerContainer: {
     backgroundColor: 'white',
@@ -340,7 +390,7 @@ const styles = StyleSheet.create({
     fontSize: Matrics.mvs(11),
     fontFamily: Fonts.REGULAR,
     color: colors.subTitleLightGray,
-    lineHeight: 16
+    lineHeight: 16,
   },
   line: {
     height: StyleSheet.hairlineWidth,
@@ -367,13 +417,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     marginVertical: Matrics.vs(10),
-    marginTop: Matrics.vs(15)
+    marginTop: Matrics.vs(15),
   },
   optionText: {
     fontFamily: Fonts.REGULAR,
     color: colors.labelDarkGray,
     fontSize: Matrics.mvs(12),
-    lineHeight: 16
+    lineHeight: 16,
   },
   iconContainer: {
     height: 30,
@@ -385,7 +435,7 @@ const styles = StyleSheet.create({
     fontSize: Matrics.mvs(11),
     fontFamily: Fonts.REGULAR,
     color: colors.labelDarkGray,
-  }
+  },
 });
 
 export default DietExactTime;

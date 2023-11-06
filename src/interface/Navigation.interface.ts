@@ -74,6 +74,16 @@ type Consumption = {
   diet_plan_food_consumption_id: null;
 };
 
+type mealTYpe = {
+  meal_types_id: string;
+  value: string;
+  meal_type: string;
+  label: string;
+  keys: string;
+  default_time: string;
+  order_no: number;
+}
+
 export type AppStackParamList = {
   DrawerScreen: DrawerParamList;
   AuthStackScreen: AuthStackParamList;
@@ -82,11 +92,13 @@ export type AppStackParamList = {
   DeviceConnectionScreen: undefined;
   SetupProfileScreen: SetupProfileStackParamList;
   DiagnosticStackScreen: DiagnosticStackParamList;
+  DietStackScreen: DietStackParamList;
 };
 
 export type DrawerParamList = {
-  Home: BottomTabParamList;
+  HomeScreen: undefined;
   AboutUsScreen: undefined;
+  AllLearnItemsScreen: undefined;
   // ExerciseDetailScreen: {Data: any};
   // ExplorScreen: undefined;
 };
@@ -131,9 +143,9 @@ export type BottomTabParamList = {
   Exercies: ExerciesStackParamList;
   EngageScreen: EngageStackParamList;
   CarePlanScreen: undefined;
-  // ProgramsScreen: undefined;
-  // LearnScreen: undefined;
-  // ExerciseScreen: undefined;
+  ProgramsScreen: undefined;
+  LearnScreen: undefined;
+  ExerciseScreen: undefined;
 };
 
 export type AuthStackParamList = {
@@ -147,17 +159,21 @@ export type DietStackParamList = {
   HomeScreen: undefined;
   DietScreen: undefined;
   AddDiet: {
-    optionFoodItems: Options;
+    optionFoodItems?: Options;
     healthCoachId: string;
     mealName: string;
-    // patient_id: string;
+    patient_id?: string;
+    mealData?: mealTYpe | null;
+    selectedDate?: any | null;
   };
   DietDetail: {
     foodItem: FoodItems;
     buttonText: string;
     healthCoachId: string;
     mealName: string;
-    // patient_id: string;
+    patient_id?: string;
+    mealData?: mealTYpe | null;
+    selectedDate?: any | null;
   };
   ProgressBarInsightsScreen: {calories: Options[]};
 };

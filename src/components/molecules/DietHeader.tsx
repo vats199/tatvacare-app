@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,30 +7,35 @@ import {
   LayoutAnimation,
   Platform,
 } from 'react-native';
-import { colors } from '../../constants/colors';
-import { Icons } from '../../constants/icons';
-import { TouchableOpacity } from 'react-native';
-import { Fonts, Matrics } from '../../constants';
-import { useIsFocused } from '@react-navigation/native';
+import {colors} from '../../constants/colors';
+import {Icons} from '../../constants/icons';
+import {TouchableOpacity} from 'react-native';
+import {Fonts, Matrics} from '../../constants';
+import {useIsFocused} from '@react-navigation/native';
 import CommonCalendar from './CommonCalendar';
-import { globalStyles } from '../../constants/globalStyles';
+import {globalStyles} from '../../constants/globalStyles';
 
 type DietHeaderProps = {
   onPressBack: () => void;
   onPressOfNextAndPerviousDate: (data: any) => void;
   title: string;
+  getCurrentSeletedDate: (data: any) => void;
 };
 const DietHeader: React.FC<DietHeaderProps> = ({
   onPressBack,
   onPressOfNextAndPerviousDate,
   title,
+  getCurrentSeletedDate,
 }) => {
-
   const [selectedDate, setSelectedDate] = useState(new Date());
 
+  React.useEffect(() => {
+    getCurrentSeletedDate(selectedDate);
+  }, [selectedDate]);
+
   const onPressDay = (date: Date) => {
-    onPressOfNextAndPerviousDate(date)
-  }
+    onPressOfNextAndPerviousDate(date);
+  };
 
   return (
     <View style={styles.mainContainer}>
@@ -76,6 +81,7 @@ const styles = StyleSheet.create({
     color: colors.labelDarkGray,
     fontFamily: Fonts.MEDIUM,
     marginLeft: Matrics.s(10),
+    lineHeight: 20,
   },
   dateNumberStyle: {
     fontSize: Matrics.mvs(14),

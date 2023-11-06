@@ -1,17 +1,17 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import { colors } from '../../constants/colors';
+import {colors} from '../../constants/colors';
 import RecentDietItem from '../molecules/RecentFoodItem';
-import { Icons } from '../../constants/icons';
-import { TouchableOpacity } from 'react-native';
-import { Fonts, Matrics } from '../../constants';
-import { log } from 'console';
+import {Icons} from '../../constants/icons';
+import {TouchableOpacity} from 'react-native';
+import {Fonts, Matrics} from '../../constants';
+import {log} from 'console';
 
 type RecentSerachDietProps = {
   onPressPlus: (data: SearcheFood) => void;
   searchData: SearcheFood[];
   title: string;
-  message: string
+  message: string;
 };
 // type data = {
 //   code: string,
@@ -44,18 +44,18 @@ type SearcheFood = {
 const RecentSearchDiet: React.FC<RecentSerachDietProps> = ({
   onPressPlus,
   searchData,
-  title, message
+  title,
+  message,
 }) => {
   const renderRecentSearchItem = (item: SearcheFood, index: number) => {
-    console.log("🚀 ~ file: RecentSearchFood.tsx:50 ~ renderRecentSearchItem ~ item:", item)
-
     return (
       <TouchableOpacity
         style={styles.container}
         onPress={() => onPressPlus(item)}>
-        <View style={{
-          flex: 1,
-        }}>
+        <View
+          style={{
+            flex: 1,
+          }}>
           <Text style={styles.titleText}>{item?.food_name}</Text>
           {/* <Text style={styles.messageText}>
             {'  ' +
@@ -64,13 +64,12 @@ const RecentSearchDiet: React.FC<RecentSerachDietProps> = ({
                 : 0) +
               ' g'}
           </Text> */}
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Text style={[styles.messageText, { textTransform: 'capitalize' }]}>
-              {"1" + " " + item.unit_name + '  | '}
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <Text style={[styles.messageText, {textTransform: 'capitalize'}]}>
+              {'1' + ' ' + item.unit_name + '  | '}
             </Text>
-            <Text style={[styles.messageText, { textTransform: 'lowercase' }]}>
-              {Math.round(Number(item.total_micronutrients)) +
-                ' g'}
+            <Text style={[styles.messageText, {textTransform: 'lowercase'}]}>
+              {Math.round(Number(item.total_micronutrients)) + ' g'}
             </Text>
           </View>
         </View>
@@ -91,7 +90,14 @@ const RecentSearchDiet: React.FC<RecentSerachDietProps> = ({
         searchData?.map(renderRecentSearchItem)
       ) : (
         <View>
-          <Text style={{ textTransform: 'capitalize' }}>{message}</Text>
+          <Text
+            style={{
+              fontFamily: Fonts.REGULAR,
+              color: colors.subTitleLightGray,
+              marginHorizontal: Matrics.s(5),
+            }}>
+            {message}
+          </Text>
         </View>
       )}
     </ScrollView>
@@ -106,7 +112,7 @@ const styles = StyleSheet.create({
     color: colors.labelDarkGray,
     fontFamily: Fonts.BOLD,
     marginBottom: 5,
-    marginHorizontal: Matrics.s(5)
+    marginHorizontal: Matrics.s(5),
   },
   container: {
     flexDirection: 'row',
@@ -118,14 +124,15 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: Matrics.mvs(13),
     color: colors.labelDarkGray,
-    paddingVertical: Matrics.vs(5),
     textTransform: 'capitalize',
-    fontFamily: Fonts.REGULAR
+    fontFamily: Fonts.REGULAR,
+    lineHeight: 18,
   },
   messageText: {
     fontSize: Matrics.mvs(12),
     color: colors.subTitleLightGray,
-    fontFamily: Fonts.REGULAR
+    fontFamily: Fonts.REGULAR,
+    lineHeight: 16,
   },
   calorieText: {
     fontSize: Matrics.mvs(14),
