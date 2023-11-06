@@ -1158,8 +1158,6 @@
   resolved "https://registry.npmjs.org/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-<<<<<<< HEAD
-=======
 "@callstack/react-theme-provider@^3.0.9":
   version "3.0.9"
   resolved "https://registry.npmjs.org/@callstack/react-theme-provider/-/react-theme-provider-3.0.9.tgz"
@@ -1168,7 +1166,6 @@
     deepmerge "^3.2.0"
     hoist-non-react-statics "^3.3.0"
 
->>>>>>> e0b0509 (track event changes)
 "@egjs/hammerjs@^2.0.17":
   version "2.0.17"
   resolved "https://registry.npmjs.org/@egjs/hammerjs/-/hammerjs-2.0.17.tgz"
@@ -1201,15 +1198,9 @@
     eslint-visitor-keys "^3.3.0"
 
 "@eslint-community/regexpp@^4.4.0", "@eslint-community/regexpp@^4.6.1":
-<<<<<<< HEAD
-  version "4.9.1"
-  resolved "https://registry.npmjs.org/@eslint-community/regexpp/-/regexpp-4.9.1.tgz"
-  integrity sha512-Y27x+MBLjXa+0JWDhykM3+JE+il3kHKAEqabfEWq3SDhZjLYb6/BHL/JKFnH3fe207JaXkyDo685Oc2Glt6ifA==
-=======
   version "4.10.0"
   resolved "https://registry.npmjs.org/@eslint-community/regexpp/-/regexpp-4.10.0.tgz"
   integrity sha512-Cu96Sd2By9mCNTx2iyKOmq10v22jUVQv0lQnlGNy16oE9589yE+QADPbrMGCkA51cKZSg3Pu/aTJVTGfL/qjUA==
->>>>>>> e0b0509 (track event changes)
 
 "@eslint/eslintrc@^2.1.2":
   version "2.1.2"
@@ -1583,15 +1574,9 @@
     fastq "^1.6.0"
 
 "@react-native-async-storage/async-storage@^1.19.3":
-<<<<<<< HEAD
-  version "1.19.3"
-  resolved "https://registry.npmjs.org/@react-native-async-storage/async-storage/-/async-storage-1.19.3.tgz"
-  integrity sha512-CwGfoHCWdPOTPS+2fW6YRE1fFBpT9++ahLEroX5hkgwyoQ+TkmjOaUxixdEIoVua9Pz5EF2pGOIJzqOTMWfBlA==
-=======
   version "1.19.4"
   resolved "https://registry.npmjs.org/@react-native-async-storage/async-storage/-/async-storage-1.19.4.tgz"
   integrity sha512-Stj6Q1v5knTMaYOinEEJl030SzJWEhqW+IYI5uA9Nl9Olo+vDUecmQXqpIxELucwOGDJ8KwvI0UL22UHudwZeQ==
->>>>>>> e0b0509 (track event changes)
   dependencies:
     merge-options "^3.0.4"
 
@@ -1760,6 +1745,7 @@
     semver "^7.5.2"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 "@react-native-community/clipboard@^1.2.2", "@react-native-community/clipboard@^1.5.1":
   version "1.5.1"
   resolved "https://registry.npmjs.org/@react-native-community/clipboard/-/clipboard-1.5.1.tgz"
@@ -1769,6 +1755,9 @@
 =======
 "@react-native-community/datetimepicker@>=6.1.3":
 >>>>>>> e0b0509 (track event changes)
+=======
+"@react-native-community/datetimepicker@>=6.1.3":
+>>>>>>> 5395c9d (SP : Api issues and Calander selected date changes)
   version "7.6.1"
   resolved "https://registry.npmjs.org/@react-native-community/datetimepicker/-/datetimepicker-7.6.1.tgz"
   integrity sha512-g66Q2Kd9Uw3eRL7kkrTsGhi+eXxNoPDRFYH6z78sZQuYjPkUQgJDDMUYgBmaBsQx/fKMtemPrCj1ulGmyi0OSw==
@@ -1776,10 +1765,14 @@
     invariant "^2.2.4"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 "@react-native-picker/picker@^2.5.1", "@react-native-picker/picker@>=2.4.1":
 =======
 "@react-native-picker/picker@>=2.4.1":
 >>>>>>> e0b0509 (track event changes)
+=======
+"@react-native-picker/picker@>=2.4.1":
+>>>>>>> 5395c9d (SP : Api issues and Calander selected date changes)
   version "2.5.1"
   resolved "https://registry.npmjs.org/@react-native-picker/picker/-/picker-2.5.1.tgz"
   integrity sha512-/sADUfQsosMRYtrqqL3ZYZSECRygj0fXtpRLqxJfwuMEoqfvfn40756R6B1alzusVvDRZFI0ari0iQid56hA/Q==
@@ -1930,6 +1923,7 @@
     warn-once "^0.1.0"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 "@react-navigation/native-stack@^6.9.13":
   version "6.9.15"
   resolved "https://registry.npmjs.org/@react-navigation/native-stack/-/native-stack-6.9.15.tgz"
@@ -1940,6 +1934,8 @@
 
 =======
 >>>>>>> e0b0509 (track event changes)
+=======
+>>>>>>> 5395c9d (SP : Api issues and Calander selected date changes)
 "@react-navigation/native@^6.0.0", "@react-navigation/native@^6.1.7":
   version "6.1.9"
   resolved "https://registry.npmjs.org/@react-navigation/native/-/native-6.1.9.tgz"
@@ -2434,10 +2430,13 @@ acorn-jsx@^5.3.2:
 
 "acorn@^6.0.0 || ^7.0.0 || ^8.0.0", acorn@^8.8.2, acorn@^8.9.0:
 <<<<<<< HEAD
+<<<<<<< HEAD
   version "8.10.0"
   resolved "https://registry.npmjs.org/acorn/-/acorn-8.10.0.tgz"
   integrity sha512-F0SAmZ8iUtS//m8DmCTA0jlh6TDKkHQyK6xc6V4KDTyZKA9dnvX9/3sRTVQrWm79glUAZbnmmNcdYwUIHWVybw==
 =======
+=======
+>>>>>>> 5395c9d (SP : Api issues and Calander selected date changes)
   version "8.11.2"
   resolved "https://registry.npmjs.org/acorn/-/acorn-8.11.2.tgz"
   integrity sha512-nc0Axzp/0FILLEVsm4fNwLCwMttvhEI263QtVPQcbpfZZ3ts0hLsZGOpE6czNlid7CJ9MlyH8reXkpsf3YUY4w==
@@ -2488,7 +2487,10 @@ ansi-styles@^3.2.0:
   version "3.2.1"
   resolved "https://registry.npmjs.org/ansi-styles/-/ansi-styles-3.2.1.tgz"
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 5395c9d (SP : Api issues and Calander selected date changes)
   integrity sha512-VT0ZI6kZRdTh8YyJw3SMbYm/u+NqfsAxEpWO0Pf9sq8/e94WxxOpPKx9FR1FlyCtOVDNOQ+8ntlqFxiRc+r5qA==
   dependencies:
     color-convert "^1.9.0"
@@ -2496,7 +2498,10 @@ ansi-styles@^3.2.0:
 ansi-styles@^3.2.1:
   version "3.2.1"
   resolved "https://registry.npmjs.org/ansi-styles/-/ansi-styles-3.2.1.tgz"
+<<<<<<< HEAD
 >>>>>>> e0b0509 (track event changes)
+=======
+>>>>>>> 5395c9d (SP : Api issues and Calander selected date changes)
   integrity sha512-VT0ZI6kZRdTh8YyJw3SMbYm/u+NqfsAxEpWO0Pf9sq8/e94WxxOpPKx9FR1FlyCtOVDNOQ+8ntlqFxiRc+r5qA==
   dependencies:
     color-convert "^1.9.0"
@@ -2936,6 +2941,7 @@ chalk@^4.0.0, chalk@^4.1.2:
   version "4.1.2"
   resolved "https://registry.npmjs.org/chalk/-/chalk-4.1.2.tgz"
 <<<<<<< HEAD
+<<<<<<< HEAD
   integrity sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==
   dependencies:
     ansi-styles "^4.1.0"
@@ -2946,6 +2952,8 @@ chalk@^4.1.0:
   resolved "https://registry.npmjs.org/chalk/-/chalk-4.1.2.tgz"
 =======
 >>>>>>> e0b0509 (track event changes)
+=======
+>>>>>>> 5395c9d (SP : Api issues and Calander selected date changes)
   integrity sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==
   dependencies:
     ansi-styles "^4.1.0"
@@ -3362,6 +3370,7 @@ deepmerge@^4.2.2:
   version "4.3.1"
   resolved "https://registry.npmjs.org/deepmerge/-/deepmerge-4.3.1.tgz"
 <<<<<<< HEAD
+<<<<<<< HEAD
   integrity sha512-3sUqbMEc77XqpdNO7FRyRog+eW3ph+GYCbj+rK+uYyRMuwsVy0rMiVtPn+QJlKFvWP/1PYpapqYn0Me2knFn+A==
 
 deepmerge@^4.3.0:
@@ -3374,6 +3383,8 @@ deepmerge@^4.3.1:
   resolved "https://registry.npmjs.org/deepmerge/-/deepmerge-4.3.1.tgz"
 =======
 >>>>>>> e0b0509 (track event changes)
+=======
+>>>>>>> 5395c9d (SP : Api issues and Calander selected date changes)
   integrity sha512-3sUqbMEc77XqpdNO7FRyRog+eW3ph+GYCbj+rK+uYyRMuwsVy0rMiVtPn+QJlKFvWP/1PYpapqYn0Me2knFn+A==
 
 defaults@^1.0.3:
@@ -3805,6 +3816,7 @@ eslint-visitor-keys@^3.3.0:
   integrity sha512-wpc+LXeiyiisxPlEkUzU6svyS1frIO3Mgxj1fdy7Pm8Ygzguax2N3Fa/D/ag1WqbOprdI+uY6wMUl8/a2G+iag==
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 eslint-visitor-keys@^3.4.1:
   version "3.4.3"
   resolved "https://registry.npmjs.org/eslint-visitor-keys/-/eslint-visitor-keys-3.4.3.tgz"
@@ -3817,6 +3829,8 @@ eslint-visitor-keys@^3.4.3:
 
 =======
 >>>>>>> e0b0509 (track event changes)
+=======
+>>>>>>> 5395c9d (SP : Api issues and Calander selected date changes)
 eslint@*, "eslint@^3 || ^4 || ^5 || ^6 || ^7 || ^8", "eslint@^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0", "eslint@^3.17.0 || ^4 || ^5 || ^6 || ^7 || ^8", "eslint@^6.0.0 || ^7.0.0 || ^8.0.0", "eslint@^6.0.0 || ^7.0.0 || >=8.0.0", "eslint@^7.5.0 || ^8.0.0", eslint@^8.1.0, eslint@^8.19.0, eslint@>=4.19.1, eslint@>=7.0.0, eslint@>=7.28.0, eslint@>=8:
   version "8.52.0"
   resolved "https://registry.npmjs.org/eslint/-/eslint-8.52.0.tgz"
@@ -4461,10 +4475,14 @@ internal-slot@^1.0.5:
     side-channel "^1.0.4"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 invariant@*, invariant@^2.2.4:
 =======
 invariant@*, invariant@^2.2.4, invariant@2.2.4:
 >>>>>>> e0b0509 (track event changes)
+=======
+invariant@*, invariant@^2.2.4, invariant@2.2.4:
+>>>>>>> 5395c9d (SP : Api issues and Calander selected date changes)
   version "2.2.4"
   resolved "https://registry.npmjs.org/invariant/-/invariant-2.2.4.tgz"
   integrity sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA==
@@ -5409,6 +5427,7 @@ locate-path@^6.0.0:
     p-locate "^5.0.0"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 lodash-es@^4.17.21:
   version "4.17.21"
   resolved "https://registry.npmjs.org/lodash-es/-/lodash-es-4.17.21.tgz"
@@ -5416,6 +5435,8 @@ lodash-es@^4.17.21:
 
 =======
 >>>>>>> e0b0509 (track event changes)
+=======
+>>>>>>> 5395c9d (SP : Api issues and Calander selected date changes)
 lodash.debounce@^4.0.8, lodash.debounce@4.0.8:
   version "4.0.8"
   resolved "https://registry.npmjs.org/lodash.debounce/-/lodash.debounce-4.0.8.tgz"
@@ -5496,6 +5517,7 @@ make-dir@^2.0.0:
   version "2.1.0"
   resolved "https://registry.npmjs.org/make-dir/-/make-dir-2.1.0.tgz"
 <<<<<<< HEAD
+<<<<<<< HEAD
   integrity sha512-LS9X+dc8KLxXCb8dni79fLIIUA5VyZoyjSMCwTluaXA0o27cCK0bhXkpgw+sTXVpPy/lSO57ilRixqk0vDmtRA==
   dependencies:
     pify "^4.0.1"
@@ -5506,6 +5528,8 @@ make-dir@^2.1.0:
   resolved "https://registry.npmjs.org/make-dir/-/make-dir-2.1.0.tgz"
 =======
 >>>>>>> e0b0509 (track event changes)
+=======
+>>>>>>> 5395c9d (SP : Api issues and Calander selected date changes)
   integrity sha512-LS9X+dc8KLxXCb8dni79fLIIUA5VyZoyjSMCwTluaXA0o27cCK0bhXkpgw+sTXVpPy/lSO57ilRixqk0vDmtRA==
   dependencies:
     pify "^4.0.1"
@@ -6694,10 +6718,14 @@ prompts@^2.0.1, prompts@^2.4.0:
     sisteransi "^1.0.5"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 prop-types@*, prop-types@^15.5.10, prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.7.2, prop-types@^15.8.1, prop-types@15.8.1:
 =======
 prop-types@*, prop-types@^15.5.10, prop-types@^15.6.0, prop-types@^15.7.2, prop-types@^15.8.1, prop-types@15.8.1:
 >>>>>>> e0b0509 (track event changes)
+=======
+prop-types@*, prop-types@^15.5.10, prop-types@^15.6.0, prop-types@^15.7.2, prop-types@^15.8.1, prop-types@15.8.1:
+>>>>>>> 5395c9d (SP : Api issues and Calander selected date changes)
   version "15.8.1"
   resolved "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -6789,6 +6817,7 @@ react-devtools-core@^4.27.2:
     scheduler "^0.23.0"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 react-fast-compare@^2.0.1:
   version "2.0.4"
   resolved "https://registry.npmjs.org/react-fast-compare/-/react-fast-compare-2.0.4.tgz"
@@ -6796,6 +6825,8 @@ react-fast-compare@^2.0.1:
 
 =======
 >>>>>>> e0b0509 (track event changes)
+=======
+>>>>>>> 5395c9d (SP : Api issues and Calander selected date changes)
 react-freeze@^1.0.0:
   version "1.0.3"
   resolved "https://registry.npmjs.org/react-freeze/-/react-freeze-1.0.3.tgz"
@@ -6822,6 +6853,7 @@ react-is@^18.2.0:
   integrity sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 react-native-barcode-mask@^1.2.4:
   version "1.2.4"
   resolved "https://registry.npmjs.org/react-native-barcode-mask/-/react-native-barcode-mask-1.2.4.tgz"
@@ -6831,6 +6863,8 @@ react-native-barcode-mask@^1.2.4:
 
 =======
 >>>>>>> e0b0509 (track event changes)
+=======
+>>>>>>> 5395c9d (SP : Api issues and Calander selected date changes)
 react-native-calendar-strip@^2.2.6:
   version "2.2.6"
   resolved "https://registry.npmjs.org/react-native-calendar-strip/-/react-native-calendar-strip-2.2.6.tgz"
@@ -6922,10 +6956,13 @@ react-native-geolocation-service@^5.3.1:
 
 react-native-gesture-handler@*, react-native-gesture-handler@^2.12.1, "react-native-gesture-handler@>= 1.0.0", react-native-gesture-handler@>=1.10.1:
 <<<<<<< HEAD
+<<<<<<< HEAD
   version "2.13.3"
   resolved "https://registry.npmjs.org/react-native-gesture-handler/-/react-native-gesture-handler-2.13.3.tgz"
   integrity sha512-6sNXtmRfYxQWgH0TjQX03QQ4UfCyM8jX1Ee1jXc3uNgefk03qapGGxZ2noXodGWKHzpsqMxB0O1lFLGew0GRrw==
 =======
+=======
+>>>>>>> 5395c9d (SP : Api issues and Calander selected date changes)
   version "2.13.4"
   resolved "https://registry.npmjs.org/react-native-gesture-handler/-/react-native-gesture-handler-2.13.4.tgz"
   integrity sha512-smpYOVbvWABpq2H+lmDnfOLCTH934aUPO1w2/pQXvm1j+M/vmGQmvgRDJOpXcks17HLtNNKXD6tcODf3aPqDfA==
@@ -7018,10 +7055,13 @@ react-native-popup-menu@^0.16.1:
 
 react-native-reanimated@^3.4.2, "react-native-reanimated@>= 1.0.0", react-native-reanimated@>=2.0.0, react-native-reanimated@>=2.2.0:
 <<<<<<< HEAD
+<<<<<<< HEAD
   version "3.4.2"
   resolved "https://registry.npmjs.org/react-native-reanimated/-/react-native-reanimated-3.4.2.tgz"
   integrity sha512-FbtG+f1PB005vDTJSv4zAnTK7nNXi+FjFgbAM5gOzIZDajfph2BFMSUstzIsN8T77+OKuugUBmcTqLnQ24EBVg==
 =======
+=======
+>>>>>>> 5395c9d (SP : Api issues and Calander selected date changes)
   version "3.5.4"
   resolved "https://registry.npmjs.org/react-native-reanimated/-/react-native-reanimated-3.5.4.tgz"
   integrity sha512-8we9LLDO1o4Oj9/DICeEJ2K1tjfqkJagqQUglxeUAkol/HcEJ6PGxIrpBcNryLqCDYEcu6FZWld/FzizBIw6bg==
@@ -7042,6 +7082,7 @@ react-native-redash@*:
     parse-svg-path "^0.1.2"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 react-native-safe-area-context@^4.7.2, "react-native-safe-area-context@>= 3.0.0":
   version "4.7.3"
   resolved "https://registry.npmjs.org/react-native-safe-area-context/-/react-native-safe-area-context-4.7.3.tgz"
@@ -7052,6 +7093,8 @@ react-native-screens@^3.24.0, "react-native-screens@>= 3.0.0":
   resolved "https://registry.npmjs.org/react-native-screens/-/react-native-screens-3.26.0.tgz"
   integrity sha512-KLJZkYSeKnK3gNzlJXsaz2GZQE09YKlvCVgh/yvGAcl0t5x65Zj+fhci+OLx9F7El/Bah/v1ZmSlGYgnASO2BQ==
 =======
+=======
+>>>>>>> 5395c9d (SP : Api issues and Calander selected date changes)
 react-native-safe-area-context@*, react-native-safe-area-context@^4.7.1, "react-native-safe-area-context@>= 3.0.0":
   version "4.7.4"
   resolved "https://registry.npmjs.org/react-native-safe-area-context/-/react-native-safe-area-context-4.7.4.tgz"
@@ -7087,10 +7130,14 @@ react-native-svg-transformer@^1.1.0:
     path-dirname "^1.0.2"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 react-native-svg@^13.11.0, react-native-svg@>=12.0.0, react-native-svg@>=12.1.1:
 =======
 react-native-svg@^13.11.0, react-native-svg@>=12.0.0, react-native-svg@>=12.1.1, react-native-svg@>=7.0.0:
 >>>>>>> e0b0509 (track event changes)
+=======
+react-native-svg@^13.11.0, react-native-svg@>=12.0.0, react-native-svg@>=12.1.1, react-native-svg@>=7.0.0:
+>>>>>>> 5395c9d (SP : Api issues and Calander selected date changes)
   version "13.14.0"
   resolved "https://registry.npmjs.org/react-native-svg/-/react-native-svg-13.14.0.tgz"
   integrity sha512-27ZnxUkHgWICimhuj6MuqBkISN53lVvgWJB7pIypjXysAyM+nqgQBPh4vXg+7MbqLBoYvR4PiBgKfwwGAqVxHg==
@@ -7116,7 +7163,10 @@ react-native-toast-notifications@^3.4.0:
   integrity sha512-ZvB//jLhRiBRemtcH7vGP1maiKCikqtW4aDqo+QYvEIOcX0y3GrjxRayVAqI4oh0qJgd/26DkbM8COobj+0MEQ==
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 5395c9d (SP : Api issues and Calander selected date changes)
 react-native-vector-icons@*, react-native-vector-icons@^10.0.0:
   version "10.0.1"
   resolved "https://registry.npmjs.org/react-native-vector-icons/-/react-native-vector-icons-10.0.1.tgz"
@@ -7160,10 +7210,14 @@ react-native-wheel-pick@^1.2.2:
     moment "^2.19.1"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 react-native@*, "react-native@^0.0.0-0 || 0.60 - 0.72 || 1000.0.0", "react-native@>= 0.30.0", "react-native@>= 0.59", "react-native@>= 0.64.3", react-native@>=0.40.0, react-native@>=0.42.0, react-native@>=0.46, react-native@>=0.48.4, react-native@>=0.57, react-native@>=0.57.0, react-native@>=0.59.0, react-native@>=0.63.3, react-native@>=0.65.0, react-native@0.72.4:
 =======
 react-native@*, "react-native@^0.0.0-0 || 0.60 - 0.72 || 1000.0.0", "react-native@>= 0.30.0", react-native@>=0.39.0, react-native@>=0.40.0, react-native@>=0.46, react-native@>=0.50.0, react-native@>=0.57, react-native@>=0.59.0, react-native@>=0.63.3, react-native@0.72.4:
 >>>>>>> e0b0509 (track event changes)
+=======
+react-native@*, "react-native@^0.0.0-0 || 0.60 - 0.72 || 1000.0.0", "react-native@>= 0.30.0", react-native@>=0.39.0, react-native@>=0.40.0, react-native@>=0.46, react-native@>=0.50.0, react-native@>=0.57, react-native@>=0.59.0, react-native@>=0.63.3, react-native@0.72.4:
+>>>>>>> 5395c9d (SP : Api issues and Calander selected date changes)
   version "0.72.4"
   resolved "https://registry.npmjs.org/react-native/-/react-native-0.72.4.tgz"
   integrity sha512-+vrObi0wZR+NeqL09KihAAdVlQ9IdplwznJWtYrjnQ4UbCW6rkzZJebRsugwUneSOKNFaHFEo1uKU89HsgtYBg==
@@ -7228,10 +7282,14 @@ react-test-renderer@18.2.0:
     scheduler "^0.23.0"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 react@*, "react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", react@^18.2.0, "react@>= 15.2.1", "react@>= 16.8.0", "react@>= 17.0.1", react@>=16, react@>=16.0, react@>=16.13.1, react@>=16.8, react@>=16.8.0, react@>=17.0.0, react@18.2.0:
 =======
 react@*, "react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", react@^18.2.0, "react@>= 15.2.1", "react@>= 16.8.0", react@>=16, react@>=16.0.0, react@>=16.13.1, react@>=16.3.0, react@>=16.8, react@>=16.8.0, react@>=17.0.0, react@18.2.0:
 >>>>>>> e0b0509 (track event changes)
+=======
+react@*, "react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", react@^18.2.0, "react@>= 15.2.1", "react@>= 16.8.0", react@>=16, react@>=16.0.0, react@>=16.13.1, react@>=16.3.0, react@>=16.8, react@>=16.8.0, react@>=17.0.0, react@18.2.0:
+>>>>>>> 5395c9d (SP : Api issues and Calander selected date changes)
   version "18.2.0"
   resolved "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
   integrity sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==
@@ -7707,10 +7765,14 @@ source-map-js@^1.0.1, source-map-js@^1.0.2:
   integrity sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 source-map-support@^0.5.16:
 =======
 source-map-support@^0.5.16, source-map-support@~0.5.20:
 >>>>>>> e0b0509 (track event changes)
+=======
+source-map-support@^0.5.16, source-map-support@~0.5.20:
+>>>>>>> 5395c9d (SP : Api issues and Calander selected date changes)
   version "0.5.21"
   resolved "https://registry.npmjs.org/source-map-support/-/source-map-support-0.5.21.tgz"
   integrity sha512-uBHU3L3czsIyYXKX88fdrGovxdSCoTGDRZ6SYXtSRxLZUzHg5P/66Ht6uoUlHu9EZod+inXhKo3qQgwXUT/y1w==
@@ -7718,6 +7780,7 @@ source-map-support@^0.5.16, source-map-support@~0.5.20:
     buffer-from "^1.0.0"
     source-map "^0.6.0"
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 source-map-support@~0.5.20:
   version "0.5.21"
@@ -7733,6 +7796,8 @@ source-map-support@0.5.13:
     buffer-from "^1.0.0"
     source-map "^0.6.0"
 
+=======
+>>>>>>> 5395c9d (SP : Api issues and Calander selected date changes)
 source-map-support@0.5.13:
   version "0.5.13"
   resolved "https://registry.npmjs.org/source-map-support/-/source-map-support-0.5.13.tgz"
@@ -7750,13 +7815,19 @@ source-map@^0.6.0:
   version "0.6.1"
   resolved "https://registry.npmjs.org/source-map/-/source-map-0.6.1.tgz"
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 5395c9d (SP : Api issues and Calander selected date changes)
   integrity sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==
 
 source-map@^0.6.1:
   version "0.6.1"
   resolved "https://registry.npmjs.org/source-map/-/source-map-0.6.1.tgz"
+<<<<<<< HEAD
 >>>>>>> e0b0509 (track event changes)
+=======
+>>>>>>> 5395c9d (SP : Api issues and Calander selected date changes)
   integrity sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==
 
 source-map@^0.7.3:
@@ -8198,16 +8269,24 @@ typed-array-length@^1.0.4:
     is-typed-array "^1.1.9"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 typescript@^4.8.4, "typescript@>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta", typescript@>=4.9.5:
   version "4.9.5"
   resolved "https://registry.npmjs.org/typescript/-/typescript-4.9.5.tgz"
   integrity sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==
 =======
+=======
+>>>>>>> 5395c9d (SP : Api issues and Calander selected date changes)
 "typescript@>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta", typescript@4.8.4:
   version "4.8.4"
   resolved "https://registry.npmjs.org/typescript/-/typescript-4.8.4.tgz"
   integrity sha512-QCh+85mCy+h0IGff8r5XWzOVSbBO+KfeYrMQh7NJ58QujwcE22u+NUSmUxqF+un70P9GXKxa2HCNiTTMJknyjQ==
 >>>>>>> e0b0509 (track event changes)
+
+typescript@>=4.9.5:
+  version "5.2.2"
+  resolved "https://registry.npmjs.org/typescript/-/typescript-5.2.2.tgz"
+  integrity sha512-mI4WrpHsbCIcwT9cF4FZvr80QUeKvsUsUvKDoR+X/7XHQH98xYD8YHZg7ANtz2GtZt/CBq2QJ0thkGJMHfqc1w==
 
 typescript@>=4.9.5:
   version "5.2.2"

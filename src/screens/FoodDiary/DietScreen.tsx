@@ -49,7 +49,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   const title = route.params?.dietData;
   const [dietOption, setDietOption] = useState<boolean>(false);
   const [loader, setLoader] = useState<boolean>(false);
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(null);
   const [dietPlane, setDiePlane] = useState<any>([]);
   const { userData } = useApp();
   const [deletpayload, setDeletpayload] = useState<string | null>(null);
@@ -98,7 +98,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
         deleteItemRef.current = null;
         setDiePlane([]);
       };
-    }, []),
+    }, [selectedDate, stateOfAPIcall]),
   );
 
   const getData = async (optionId?: string, dietPlanId?: string) => {

@@ -22,6 +22,7 @@ import Geolocation from 'react-native-geolocation-service';
 import { request, check, PERMISSIONS, RESULTS } from 'react-native-permissions';
 import { Linking } from 'react-native';
 // import Geolocation from 'react-native-geolocation-service';
+// import Geolocation from 'react-native-geolocation-service';
 import Home from './src/api/home';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AppProvider } from './src/context/app.context';

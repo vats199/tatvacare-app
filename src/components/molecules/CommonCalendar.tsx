@@ -114,7 +114,7 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
 
   const markedDateStyle: MarkedDates | undefined = useMemo(() => {
     return {
-      [seletedDay]: {
+      [moment(seletedDay).format('YYYY-MM-DD')]: {
         customStyles: {
           container: {
             backgroundColor: colors.themePurple,
