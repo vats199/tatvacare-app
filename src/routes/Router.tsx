@@ -5,19 +5,21 @@ import {
   DrawerParamList,
   DietStackParamList,
 } from '../interface/Navigation.interface';
-import {NavigationContainer} from '@react-navigation/native';
+import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
 import {
   DrawerContentComponentProps,
   createDrawerNavigator,
 } from '@react-navigation/drawer';
 import CustomDrawer from '../components/organisms/CustomDrawer';
-import {NativeModules} from 'react-native';
-import {createStackNavigator} from '@react-navigation/stack';
+import { NativeModules } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
 import DietScreen from '../screens/FoodDiary/DietScreen';
 import AddDietScreen from '../screens/FoodDiary/AddDietScreen';
 import DietDetailScreen from '../screens/FoodDiary/DietDetailScreen';
 import ProgressBarInsightsScreen from '../screens/FoodDiary/ProgressBarInsightsScreen';
-import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import { useRef } from 'react';
+import { useApp } from '../context/app.context';
 
 const Navigation = NativeModules.Navigation;
 export const navigateTo = Navigation.navigateTo;
@@ -65,7 +67,7 @@ const DietStack = createStackNavigator<DietStackParamList>();
 const DietStackScreen = () => {
   return (
     <DietStack.Navigator
-      screenOptions={{headerShown: false}}
+      screenOptions={{ headerShown: false }}
       initialRouteName="DietScreen">
       <DietStack.Screen name="HomeScreen" component={HomeScreen} />
       <DietStack.Screen name="DietScreen" component={DietScreen} />
@@ -81,8 +83,29 @@ const DietStackScreen = () => {
 
 const AppStack = createStackNavigator<AppStackParamList>();
 const Router = () => {
+  const navigationRef = useNavigationContainerRef();
+  const routeNameRef = useRef<string | undefined>(undefined);
+  const { setCurrentScreenName } = useApp()
+
   return (
-    <NavigationContainer>
+    <NavigationContainer
+      ref={navigationRef}
+      onReady={() => {
+        routeNameRef.current = navigationRef.getCurrentRoute()?.name;
+      }}
+      onStateChange={async () => {
+        const previousRouteName = routeNameRef.current;
+        const currentRouteName = navigationRef.getCurrentRoute()?.name;
+        console.log(previousRouteName, "innnnnn", currentRouteName)
+        if (previousRouteName !== currentRouteName) {
+          // Save the current route name for later comparison
+          routeNameRef.current = currentRouteName;
+          setCurrentScreenName(routeNameRef.current)
+          // Replace the line below to add the tracker from a mobile analytics SDK
+
+        }
+      }}
+    >
       <BottomSheetModalProvider>
         <AppStack.Navigator
           screenOptions={{

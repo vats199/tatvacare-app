@@ -10,7 +10,7 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import React, {memo, useMemo, useState} from 'react';
+import React, { memo, useMemo, useState } from 'react';
 import {
   CalendarProvider,
   DateData,
@@ -21,12 +21,12 @@ import {
   WeekCalendarProps,
 } from 'react-native-calendars';
 import moment from 'moment';
-import {Constants, Fonts, Matrics} from '../../constants';
-import {colors} from '../../constants/colors';
-import {MarkedDates, Theme} from 'react-native-calendars/src/types';
-import {Icons} from '../../constants/icons';
-import {useIsFocused} from '@react-navigation/native';
-import {trackEvent} from '../../helpers/TrackEvent';
+import { Constants, Fonts, Matrics } from '../../constants';
+import { colors } from '../../constants/colors';
+import { MarkedDates, Theme } from 'react-native-calendars/src/types';
+import { Icons } from '../../constants/icons';
+import { useIsFocused } from '@react-navigation/native';
+import { trackEvent } from '../../helpers/TrackEvent';
 
 type CommonCalendarProps = {
   selectedDate: Date;
@@ -41,7 +41,7 @@ type CommonCalendarProps = {
   iconContainerStyle?: ViewStyle;
 };
 
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 const CommonCalendar: React.FC<CommonCalendarProps> = ({
   selectedDate,
@@ -210,15 +210,15 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
     while (weekEndDate.getDay() !== 0) {
       weekEndDate.setDate(weekEndDate.getDate() + 1);
     }
-    const startMonth = weekStartDate.toLocaleString('default', {month: 'long'});
-    const endMonth = weekEndDate.toLocaleString('default', {month: 'long'});
+    const startMonth = weekStartDate.toLocaleString('default', { month: 'long' });
+    const endMonth = weekEndDate.toLocaleString('default', { month: 'long' });
 
     const year = weekStartDate.getFullYear();
 
     if (
       startMonth !== endMonth ||
       weekEndDate.getDate() >
-        new Date(year, weekStartDate.getMonth() + 1, 0).getDate()
+      new Date(year, weekStartDate.getMonth() + 1, 0).getDate()
     ) {
       return `${startMonth} - ${endMonth} ${year}`;
     } else {
@@ -318,7 +318,7 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
           date={moment(selectedDate).format('YYYY-MM-DD')}
           disabledOpacity={0.6}>
           {!showMore ? (
-            <Animated.View style={{overflow: 'hidden'}}>
+            <Animated.View style={{ overflow: 'hidden' }}>
               <WeekCalendar
                 firstDay={1}
                 current={moment(selectedDate).format('YYYY-MM-DD')}
