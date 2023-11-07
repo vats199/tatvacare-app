@@ -1,5 +1,5 @@
-import {DrawerItemList} from '@react-navigation/drawer';
-import React, {useEffect, useState} from 'react';
+import { DrawerItemList } from '@react-navigation/drawer';
+import React, { useEffect, useState } from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -7,15 +7,15 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {colors} from '../../constants/colors';
-import {Icons} from '../../constants/icons';
+import { colors } from '../../constants/colors';
+import { Icons } from '../../constants/icons';
 import DietOption from './DietOption';
-import {Constants, Fonts, Matrics} from '../../constants';
+import { Constants, Fonts, Matrics } from '../../constants';
 import fonts from '../../constants/fonts';
 import moment from 'moment';
-import {useFocusEffect} from '@react-navigation/native';
-import {globalStyles} from '../../constants/globalStyles';
-import {trackEvent} from '../../helpers/TrackEvent';
+import { useFocusEffect } from '@react-navigation/native';
+import { globalStyles } from '../../constants/globalStyles';
+import { trackEvent } from '../../helpers/TrackEvent';
 
 interface ExactTimeProps {
   onPressPlus: (optionFoodItems: Options, mealName: string) => void;
@@ -201,7 +201,7 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
     }
   };
   const handalecompletion = (item: Consumption) => {
-    console.log({item: item, selectedOptionId});
+    console.log({ item: item, selectedOptionId });
 
     onPressOfcomplete(item, selectedOptionId);
   };
@@ -236,8 +236,12 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
       meal_types: cardData?.meal_name ?? '',
       option_number: index + 1,
     });
+    console.log(" log intitalks 111111", item.diet_meal_options_id);
+
     setSelectedOptionId(item.diet_meal_options_id);
   };
+
+  // console.log("selectedOptionId", selectedOptionId);
 
   return (
     <View style={[styles.container, globalStyles.shadowContainer]}>
@@ -249,9 +253,9 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
             <Text style={styles.textBelowTitle}>
               {cardData?.start_time && cardData?.end_time
                 ? moment(cardData?.start_time, 'HH:mm:ss').format('h:mm A') +
-                  ' - ' +
-                  moment(cardData?.end_time, 'HH:mm:ss').format('h:mm A') +
-                  ' | '
+                ' - ' +
+                moment(cardData?.end_time, 'HH:mm:ss').format('h:mm A') +
+                ' | '
                 : 'Ideal Time' + ' | '}
               <Text style={styles.caloriesTxt}>
                 {(isNaN(Math.round(Number(foodItmeData?.consumed_calories)))
@@ -281,10 +285,11 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
               showsHorizontalScrollIndicator={false}
               horizontal
               bounces={false}
-              style={{flexDirection: 'row'}}>
+              style={{ flexDirection: 'row' }}>
               {cardData?.options?.map((item: Options, index: number) => {
                 const isOptionSelected =
                   selectedOptionId === item?.diet_meal_options_id;
+
                 return (
                   <TouchableOpacity
                     style={[
@@ -322,8 +327,8 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
               foodItmeData={
                 selectedOptionId !== null
                   ? cardData.options.filter(
-                      item => item.diet_meal_options_id == selectedOptionId,
-                    )[0]
+                    item => item.diet_meal_options_id == selectedOptionId,
+                  )[0]
                   : cardData.options[0]
               }
               patient_permission={cardData.patient_permission}

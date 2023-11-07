@@ -34,7 +34,7 @@ type CommonCalendarProps = {
   expandableCalendarProps?: ExpandableCalendarProps;
   calendarContainerStyle?: ViewStyle;
   onPressDay: (date: Date) => void;
-  setSelectedDate: React.Dispatch<React.SetStateAction<Date>>;
+  // setSelectedDate: React.Dispatch<React.SetStateAction<Date>>;
   containerStyle?: ViewStyle;
   headerTxtContainer?: ViewStyle;
   titleStyle?: TextStyle;
@@ -49,14 +49,14 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
   expandableCalendarProps,
   containerStyle,
   onPressDay,
-  setSelectedDate,
+  // setSelectedDate,
   calendarContainerStyle,
   headerTxtContainer,
   titleStyle,
   iconContainerStyle,
 }) => {
   const focus = useIsFocused();
-  const [seletedDay, setseletedDay] = useState(
+  const [seletedDay, setSeletedDay] = useState(
     moment(selectedDate).format('YYYY-MM-DD'),
   );
   const [calendarKey, setCalendarKey] = useState(0);
@@ -108,7 +108,7 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
 
   const markedDateStyle: MarkedDates | undefined = useMemo(() => {
     return {
-      [seletedDay]: {
+      [moment(seletedDay).format('YYYY-MM-DD')]: {
         customStyles: {
           container: {
             backgroundColor: colors.themePurple,
@@ -150,8 +150,8 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
   const onDayPress = (date: DateData) => {
     let tempDate = new Date(date?.dateString);
     onPressDay(tempDate);
-    setSelectedDate(tempDate);
-    setseletedDay(date?.dateString);
+    // selectedDate(tempDate);
+    setSeletedDay(moment(date?.dateString).format("YYYY-MM-DD"));
     trackEvent(Constants.EVENT_NAME.FOOD_DIARY.USER_CHANGES_DATE, {
       current_date: moment().format(Constants.DATE_FORMAT),
       date_selected: moment(date?.dateString).format(Constants.DATE_FORMAT),
@@ -161,42 +161,49 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
 
   const onChangeMonth = (date: DateData) => {
     let tempDate = new Date(date?.dateString);
-    setSelectedDate(tempDate);
+    setSeletedDay(moment(tempDate).format('YYYY-MM-DD'));
   };
 
   const handleNextWeek = () => {
-    const nextWeek = new Date(selectedDate);
+    const nextWeek = new Date(seletedDay);
     nextWeek.setDate(nextWeek.getDate() + 7);
-    setSelectedDate(nextWeek);
+    // setSelectedDate(nextWeek);
+    setSeletedDay(moment(nextWeek).format('YYYY-MM-DD'));
     setCalendarKey(calendarKey + 1);
   };
 
   const handlePreviousWeek = () => {
-    const previousWeek = new Date(selectedDate);
+    const previousWeek = new Date(seletedDay);
     previousWeek.setDate(previousWeek.getDate() - 7);
-    setSelectedDate(previousWeek);
+    setSeletedDay(moment(previousWeek).format('YYYY-MM-DD'));
     setCalendarKey(calendarKey - 1);
   };
 
   const handleNextMonth = () => {
-    const currentMonnth = new Date(selectedDate);
+    const currentMonnth = new Date(seletedDay);
     var nextMonth = moment(currentMonnth).add(1, 'months');
     trackEvent(Constants.EVENT_NAME.FOOD_DIARY.USER_CHANGES_MONTH, {
       current_month: moment(currentMonnth).format('MM'),
       new_month: nextMonth,
     });
-    setSelectedDate(new Date(nextMonth.toString()));
+    setSeletedDay(moment(new Date(nextMonth.toString())).format('YYYY-MM-DD'));
+    console.log("previousMonth", currentMonnth);
+
+    // setSelectedDate(new Date(nextMonth.toString()));
     setCalendarKey(calendarKey + 1);
   };
 
   const handlePreviousMonth = () => {
-    const currentMonnth = new Date(selectedDate);
+    const currentMonnth = new Date(seletedDay);
     var previousMonth = moment(currentMonnth).subtract(1, 'months');
     trackEvent(Constants.EVENT_NAME.FOOD_DIARY.USER_CHANGES_MONTH, {
       current_month: moment(currentMonnth).format('MM'),
       new_month: previousMonth,
     });
-    setSelectedDate(new Date(previousMonth.toString()));
+    console.log("previousMonth", previousMonth);
+
+    setSeletedDay(moment(new Date(previousMonth.toString())).format('YYYY-MM-DD'));
+    // setSelectedDate(new Date(previousMonth.toString()));
     setCalendarKey(calendarKey + 1);
   };
 
@@ -275,14 +282,17 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
     setShowMore(!showMore);
   };
 
+  // console.log("seletedDay", seletedDay);
+  // console.log("seletedtDate", selectedDate);
+
   return (
     <>
       <View style={[styles.container, containerStyle]}>
         <View style={[styles.leftRightContent, headerTxtContainer]}>
           <Text style={[styles.monthYearStyle, titleStyle]}>
             {!showMore
-              ? getMonthRangeText(selectedDate)
-              : getMonthText(selectedDate)}
+              ? getMonthRangeText(new Date(seletedDay))
+              : getMonthText(new Date(seletedDay))}
           </Text>
         </View>
         <View style={[styles.leftRightContent, iconContainerStyle]}>
@@ -315,13 +325,13 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
           calendarContainerStyle,
         ]}>
         <CalendarProvider
-          date={moment(selectedDate).format('YYYY-MM-DD')}
+          date={moment(seletedDay).format('YYYY-MM-DD')}
           disabledOpacity={0.6}>
           {!showMore ? (
             <Animated.View style={{ overflow: 'hidden' }}>
               <WeekCalendar
                 firstDay={1}
-                current={moment(selectedDate).format('YYYY-MM-DD')}
+                current={moment(seletedDay).format('YYYY-MM-DD')}
                 onDayPress={onDayPress}
                 markingType="custom"
                 markedDates={markedDateStyle}
@@ -350,7 +360,7 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
               hideKnob
               firstDay={1}
               initialPosition={ExpandableCalendar.positions.OPEN}
-              current={moment(selectedDate).format('YYYY-MM-DD')}
+              current={moment(seletedDay).format('YYYY-MM-DD')}
               disableAllTouchEventsForDisabledDays={true}
               hideExtraDays={true}
               onMonthChange={onChangeMonth}
@@ -358,12 +368,12 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
               pagingEnabled={true}
               scrollEnabled={false}
               calendarStyle={{
-                paddingLeft: Matrics.s(4),
-                paddingRight: Matrics.s(4),
+                paddingLeft: Matrics.s(3),
+                paddingRight: Matrics.s(3),
               }}
               headerStyle={{
-                paddingLeft: Matrics.s(4),
-                paddingRight: Matrics.s(4),
+                paddingLeft: Matrics.s(3),
+                paddingRight: Matrics.s(3),
               }}
               disablePan={true}
               collapsable={false}
