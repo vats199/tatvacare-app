@@ -1,25 +1,25 @@
-import {Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import { Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
-import {DietStackParamList} from '../../interface/Navigation.interface';
-import {Icons} from '../../constants/icons';
-import {colors} from '../../constants/colors';
+import { DietStackParamList } from '../../interface/Navigation.interface';
+import { Icons } from '../../constants/icons';
+import { colors } from '../../constants/colors';
 import MicronutrientsInformation from '../../components/organisms/MicronutrientsInformation';
 import AddDiet from '../../components/organisms/AddDiet';
-import {StackScreenProps} from '@react-navigation/stack';
+import { StackScreenProps } from '@react-navigation/stack';
 import Deit from '../../api/diet';
-import {useApp} from '../../context/app.context';
-import {Constants, Fonts, Matrics} from '../../constants';
-import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
-import {trackEvent} from '../../helpers/TrackEvent';
-import {mealTypes} from '../../constants/data';
+import { useApp } from '../../context/app.context';
+import { Constants, Fonts, Matrics } from '../../constants';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { trackEvent } from '../../helpers/TrackEvent';
+import { mealTypes } from '../../constants/data';
 import moment from 'moment';
-import {number} from 'yup';
+import { number } from 'yup';
 import Diet from '../../api/diet';
 // import MyStatusbar from '../../components/atoms/MyStatusBar';
 
 type DietDetailProps = StackScreenProps<DietStackParamList, 'DietDetail'>;
 
-const DietDetailScreen: React.FC<DietDetailProps> = ({navigation, route}) => {
+const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
   const insets = useSafeAreaInsets();
   const {
     foodItem,
@@ -31,7 +31,7 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({navigation, route}) => {
   } = route.params;
   let quantity = Math.round(Number(foodItem?.quantity)).toString();
   const [qty, setQty] = React.useState<string>(quantity);
-  const {userData} = useApp();
+  const { userData } = useApp();
 
   const onPressBack = () => {
     navigation.goBack();
@@ -159,10 +159,10 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({navigation, route}) => {
       const result = await Deit?.noDietPlanCreate(
         noPlanPayload,
         {},
-        {token: userData.token},
+        { token: userData.token },
       );
       if (result) {
-        navigation.popToTop();
+        navigation.navigate('DietScreen');
       }
     } else {
       const addPayload = {
@@ -217,16 +217,16 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({navigation, route}) => {
         const result = await Deit?.addFoodItem(
           addPayload,
           {},
-          {token: userData.token},
+          { token: userData.token },
         );
         if (result) {
-          navigation.popToTop();
+          navigation.navigate('DietScreen');
         }
       } else {
         const result = await Deit?.updateFoodItem(
           updatePayload,
           {},
-          {token: userData.token},
+          { token: userData.token },
         );
         if (result) {
           if (foodItem?.is_consumed) {
@@ -243,13 +243,13 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({navigation, route}) => {
             const UpadteFoodItem = await Diet?.updateFoodConsumption(
               payload,
               {},
-              {token: userData.token},
+              { token: userData.token },
             );
             if (UpadteFoodItem) {
-              navigation.popToTop();
+              navigation.goBack();
             }
           } else {
-            navigation.popToTop();
+            navigation.navigate('DietScreen');
           }
         }
       }

@@ -832,6 +832,7 @@
 		9AF1E62A29FFA4CE002CF3D8 /* SomeoneElseDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF1E62929FFA4CE002CF3D8 /* SomeoneElseDataModel.swift */; };
 		A3FAD6282ACAA2F50026CE46 /* DevicesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FAD6272ACAA2F50026CE46 /* DevicesVC.swift */; };
 		A3FAD62B2ACABB060026CE46 /* DevicesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FAD62A2ACABB060026CE46 /* DevicesViewModel.swift */; };
+		AD10D9BA2AF8A3B300268353 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = AD10D9B92AF8A3B300268353 /* main.jsbundle */; };
 		B8604DF02E0C2D06389976FD /* Pods_MyTatvaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8812ED21F4E5B3EE77B1ABF /* Pods_MyTatvaTests.framework */; };
 		BF33826EC9D0A0C48EE46588 /* BcaVitalsDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2509CDD5D4A1BE01B75F4BB1 /* BcaVitalsDetailsVC.swift */; };
 		BFAA0D6644207B582BFBA3CB /* Pods_MyTatvaNotificationService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF2F1970E270DDCE225DC47F /* Pods_MyTatvaNotificationService.framework */; };
@@ -1807,6 +1808,7 @@
 		A3FAD6272ACAA2F50026CE46 /* DevicesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesVC.swift; sourceTree = "<group>"; };
 		A3FAD62A2ACABB060026CE46 /* DevicesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesViewModel.swift; sourceTree = "<group>"; };
 		A6FEE104F66D229A87C5E44C /* Pods-NotificationViewController.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationViewController.release.xcconfig"; path = "Target Support Files/Pods-NotificationViewController/Pods-NotificationViewController.release.xcconfig"; sourceTree = "<group>"; };
+		AD10D9B92AF8A3B300268353 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		BCFDED6C635C9CBCE4693024 /* BCAAddAddressVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCAAddAddressVC.swift; sourceTree = "<group>"; };
 		BDC02DF0FBC43D6C933CAE4A /* Pods-MyTatvaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyTatvaTests.debug.xcconfig"; path = "Target Support Files/Pods-MyTatvaTests/Pods-MyTatvaTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C8812ED21F4E5B3EE77B1ABF /* Pods_MyTatvaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyTatvaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
