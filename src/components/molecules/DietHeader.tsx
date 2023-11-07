@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,13 +7,13 @@ import {
   LayoutAnimation,
   Platform,
 } from 'react-native';
-import {colors} from '../../constants/colors';
-import {Icons} from '../../constants/icons';
-import {TouchableOpacity} from 'react-native';
-import {Fonts, Matrics} from '../../constants';
-import {useIsFocused} from '@react-navigation/native';
+import { colors } from '../../constants/colors';
+import { Icons } from '../../constants/icons';
+import { TouchableOpacity } from 'react-native';
+import { Fonts, Matrics } from '../../constants';
+import { useIsFocused } from '@react-navigation/native';
 import CommonCalendar from './CommonCalendar';
-import {globalStyles} from '../../constants/globalStyles';
+import { globalStyles } from '../../constants/globalStyles';
 
 type DietHeaderProps = {
   onPressBack: () => void;
@@ -34,6 +34,7 @@ const DietHeader: React.FC<DietHeaderProps> = ({
   }, [selectedDate]);
 
   const onPressDay = (date: Date) => {
+    setSelectedDate(date)
     onPressOfNextAndPerviousDate(date);
   };
 
@@ -49,7 +50,7 @@ const DietHeader: React.FC<DietHeaderProps> = ({
         <CommonCalendar
           selectedDate={selectedDate}
           onPressDay={onPressDay}
-          setSelectedDate={setSelectedDate}
+        // setSelectedDate={setSelectedDate}
         />
       </View>
     </View>
