@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewMedicine"
+        android:layout_width="@dimen/dp_52"
+        android:layout_height="@dimen/dp_52"
+        android:layout_margin="@dimen/dp_10"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewMedicine"
+        style="@style/TextView.SemiBold.sp_14"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_12"
+        android:layout_marginTop="@dimen/dp_5"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="Formonide"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintEnd_toStartOf="@id/buttonOrderTest"
+        app:layout_constraintStart_toEndOf="@id/imageViewMedicine"
+        app:layout_constraintTop_toTopOf="@id/imageViewMedicine" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewSubTitle"
+        style="@style/TextView.Regular.sp_12"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_8"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="Updated by Dr. Sharma"
+        android:textColor="@color/gray2"
+        app:layout_constraintEnd_toEndOf="@id/textViewMedicine"
+        app:layout_constraintStart_toStartOf="@id/textViewMedicine"
+        app:layout_constraintTop_toBottomOf="@id/textViewMedicine" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonOrderTest"
+        style="@style/buttonStrokeSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_24"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:paddingStart="@dimen/dp_8"
+        android:paddingEnd="@dimen/dp_8"
+        android:visibility="gone"
+        android:text="Order Test"
+        android:textSize="@dimen/sp_10"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/viewLine1"
+        style="@style/viewLine"
+        android:layout_width="0dp"
+        android:layout_marginBottom="0dp"
+        android:alpha="0.5"
+        app:layout_constraintTop_toBottomOf="@id/textViewSubTitle"
+        app:layout_constraintEnd_toEndOf="@id/buttonOrderTest"
+        app:layout_constraintStart_toStartOf="@id/imageViewMedicine" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

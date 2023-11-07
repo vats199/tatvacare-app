@@ -1,4 +1,4 @@
-import {bindQueryParams} from '../helpers/Tools';
+import { bindQueryParams } from '../helpers/Tools';
 import Ajax from './base';
 
 const Home = {

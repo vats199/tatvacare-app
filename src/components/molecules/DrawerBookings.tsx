@@ -1,18 +1,25 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import { NativeModules, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
-import {colors} from '../../constants/colors';
-import {Icons} from '../../constants/icons';
-import {navigateTo, navigateToHistory} from '../../routes/Router';
+import { colors } from '../../constants/colors';
+import { Icons } from '../../constants/icons';
+import { navigateTo, navigateToHistory } from '../../routes/Router';
 
 type DrawerBookingsProps = {};
 
-const DrawerBookings: React.FC<DrawerBookingsProps> = ({}) => {
+const DrawerBookings: React.FC<DrawerBookingsProps> = ({ }) => {
   const onPressConsultations = () => {
-    navigateTo('AppointmentsHistoryVC');
+    if (Platform.OS == 'ios') {
+      navigateTo('AppointmentsHistoryVC');
+    } else {
+      NativeModules.AndroidBridge.openAllAppointmentScreen();
+    }
   };
   const onPressLabTests = () => {
-    // navigateTo('LabTestListVC');
-    navigateToHistory('Tests');
+    if (Platform.OS == 'ios') {
+      navigateTo('LabTestListVC');
+    } else {
+      NativeModules.AndroidBridge.openLabTestScreen();
+    }
   };
 
   return (
@@ -57,7 +64,7 @@ const styles = StyleSheet.create({
   headerText: {
     color: colors.black,
     fontSize: 14,
-    fontWeight: '700',
+    fontFamily: 'SFProDisplay-Bold',
     marginHorizontal: 10,
   },
   itemContainer: {

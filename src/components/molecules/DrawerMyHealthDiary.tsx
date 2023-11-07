@@ -1,31 +1,47 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import { NativeModules, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
-import {colors} from '../../constants/colors';
-import {Icons} from '../../constants/icons';
-import {
-  navigateTo,
-  navigateToHistory,
-  navigateToBookmark,
-  openAddWeightHeight,
-} from '../../routes/Router';
+import { colors } from '../../constants/colors';
+import { Icons } from '../../constants/icons';
+// import {
+//   navigateTo,
+//   navigateToHistory,
+//   navigateToBookmark,
+//   openAddWeightHeight,
+// } from '../../routes/Router';
 
 type DrawerMyHealthDiaryProps = {};
 
-const DrawerMyHealthDiary: React.FC<DrawerMyHealthDiaryProps> = ({}) => {
+const DrawerMyHealthDiary: React.FC<DrawerMyHealthDiaryProps> = ({ }) => {
   const onPressGoals = () => {
-    navigateTo('SetGoalsVC');
+    if (Platform.OS == 'ios') {
+      //navigateTo('SetGoalsVC');
+    } else {
+      NativeModules.AndroidBridge.openHealthGoalScreen();
+    }
   };
   const onPressBMI = () => {
-    openAddWeightHeight();
+    if (Platform.OS == 'ios') {
+      //openAddWeightHeight();
+    } else {
+      NativeModules.AndroidBridge.openBMIScreen();
+    }
   };
 
 
-  
+
   const onPressHealthRecords = () => {
-    navigateToHistory('Records');
+    if (Platform.OS == 'ios') {
+      //navigateToHistory('Records');
+    } else {
+      NativeModules.AndroidBridge.openHealthRecordScreen();
+    }
   };
   const onPressBookmarks = () => {
-    navigateToBookmark();
+    if (Platform.OS == 'ios') {
+      //navigateToBookmark();
+    } else {
+      NativeModules.AndroidBridge.openBookmarkScreen();
+    }
   };
 
   return (
@@ -92,8 +108,9 @@ const styles = StyleSheet.create({
   headerText: {
     color: colors.black,
     fontSize: 14,
-    fontWeight: '700',
+    fontFamily: 'SFProDisplay-Bold',
     marginHorizontal: 10,
+
   },
   itemContainer: {
     flexDirection: 'row',

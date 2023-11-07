@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/videoContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/textBlack1"
+    android:keepScreenOn="true"
+    tools:showIn="@layout/video_activity">
+
+    <com.twilio.video.VideoView
+        android:id="@+id/primaryVideoView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        app:tviMirror="true"
+        app:tviScaleType="fit" />
+
+    <!--<androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="@dimen/dp_20"
+        android:layout_marginBottom="@dimen/dp_90"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/dp_8">-->
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginBottom="@dimen/dp_90">
+
+        <FrameLayout
+            android:id="@+id/localVideoContainer"
+            android:layout_width="@dimen/dp_120"
+            android:layout_height="@dimen/dp_160"
+            android:layout_gravity="bottom|end"
+            android:background="@drawable/bg_common_rounded_rect_10"
+            android:backgroundTint="@color/black"
+            android:outlineProvider="background">
+
+            <com.twilio.video.VideoTextureView
+                android:id="@+id/thumbnailVideoView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="visible"
+                app:tviMirror="false"
+                app:tviOverlaySurface="true"
+                app:tviScaleType="fit" />
+
+        </FrameLayout>
+
+    </FrameLayout>
+
+    <ProgressBar
+        android:id="@+id/reconnectingProgressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/status"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/videoStatusTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="20sp"
+            tools:text="status" />
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--android:layout_width="@dimen/dp_45"
+        android:layout_height="@dimen/dp_60"-->
+
+        <FrameLayout
+            android:id="@+id/localVideoContainerPiP"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_gravity="bottom|end"
+            android:background="@drawable/bg_common_rounded_rect_10"
+            android:backgroundTint="@color/black"
+            android:outlineProvider="background"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="3:4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.94"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.97"
+            app:layout_constraintWidth_percent="0.32">
+
+            <com.twilio.video.VideoTextureView
+                android:id="@+id/thumbnailVideoViewPiP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="visible"
+                app:tviMirror="false"
+                app:tviOverlaySurface="true"
+                app:tviScaleType="fit" />
+
+        </FrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
+
+    <!--<?xml version="1.0" encoding="utf-8"?>
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/videoContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:keepScreenOn="true"
+        tools:showIn="@layout/video_activity">
+
+        <com.twilio.video.VideoView
+            android:id="@+id/primaryVideoView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/textBlack1"
+            app:tviMirror="true"
+            app:tviScaleType="fill" />
+
+        &lt;!&ndash;<androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:layout_marginBottom="@dimen/dp_90"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="@dimen/dp_8">&ndash;&gt;
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginBottom="@dimen/dp_90">
+
+            <FrameLayout
+                android:id="@+id/localVideoContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_common_rounded_rect_10"
+                android:backgroundTint="@color/textBlack1"
+                android:outlineProvider="background"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <com.twilio.video.VideoTextureView
+                    android:id="@+id/thumbnailVideoView"
+                    android:layout_width="@dimen/dp_96"
+                    android:layout_height="@dimen/dp_120"
+                    android:layout_gravity="bottom|end"
+                    android:visibility="gone"
+                    app:tviMirror="true"
+                    app:tviOverlaySurface="true"
+                    app:tviScaleType="fill" />
+
+            </FrameLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ProgressBar
+            android:id="@+id/reconnectingProgressBar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/status"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/videoStatusTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@color/colorAccent"
+                android:textSize="20sp"
+                tools:text="status" />
+
+        </LinearLayout>
+
+    </FrameLayout>-->

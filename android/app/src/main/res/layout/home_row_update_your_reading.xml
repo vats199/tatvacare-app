@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardRoot"
+        android:layout_width="@dimen/dp_117"
+        android:layout_height="@dimen/dp_180"
+        android:layout_margin="@dimen/dp_4"
+        android:outlineAmbientShadowColor="@color/red"
+        android:outlineSpotShadowColor="@color/red"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/dp_10"
+        app:cardElevation="@dimen/dp_3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:targetApi="p">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewIcon"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_80"
+                android:background="@drawable/bg_reading_icons_transparent"
+                android:padding="@dimen/dp_12"
+                android:scaleType="fitCenter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewInfo"
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_20"
+                android:layout_margin="@dimen/dp_4"
+                android:background="@drawable/bg_circle_white"
+                android:elevation="@dimen/dp_4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_reading_info"
+                app:tint="@color/colorPrimary" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewReading"
+                style="@style/TextView.SemiBold.sp_11"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_4"
+                android:alpha="0.7"
+                android:ellipsize="end"
+                android:gravity="center_horizontal"
+                android:lines="2"
+                android:maxLines="2"
+                android:text="SPO2"
+                android:textAlignment="gravity"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintBottom_toTopOf="@id/layoutData"
+                app:layout_constraintEnd_toEndOf="@id/imageViewIcon"
+                app:layout_constraintStart_toStartOf="@id/imageViewIcon"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewIcon"
+                app:layout_constraintVertical_bias="0" />
+
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layoutData"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewReading">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/layoutReadingValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_44"
+                    android:paddingHorizontal="@dimen/dp_4"
+                    android:gravity="center"
+                    app:layout_constraintEnd_toEndOf="@id/imageViewIcon"
+                    app:layout_constraintStart_toStartOf="@id/imageViewIcon"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewReading">
+
+                    <com.google.android.flexbox.FlexboxLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        app:flexDirection="row"
+                        app:flexWrap="wrap"
+                        app:justifyContent="center"
+                        app:layout_constraintEnd_toEndOf="@id/imageViewIcon"
+                        app:layout_constraintStart_toStartOf="@id/imageViewIcon"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewReading">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/textViewReadingValue"
+                            style="@style/TextView.Medium.sp_18"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/dp_18"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="0"
+                            android:textAlignment="gravity"
+                            android:textColor="@color/textBlack1" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/textViewReadingUnit"
+                            style="@style/TextView.Medium.sp_10"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/dp_10"
+                            android:layout_marginStart="@dimen/dp_2"
+                            android:ellipsize="end"
+                            android:gravity="center_vertical|bottom"
+                            android:maxLines="1"
+                            android:visibility="visible"
+                            android:text="0"
+                            app:layout_alignSelf="baseline"
+                            android:textAlignment="gravity"
+                            android:textColor="@color/textBlack1" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/textViewReadingValueSeparator"
+                            style="@style/TextView.Medium.sp_18"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/dp_18"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:visibility="visible"
+                            android:text="/"
+                            android:textAlignment="gravity"
+                            android:textColor="@color/textBlack1" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/textViewReadingValue2"
+                            style="@style/TextView.Medium.sp_18"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/dp_18"
+                            android:visibility="visible"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="0"
+                            android:textAlignment="gravity"
+                            android:textColor="@color/textBlack1" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/textViewReadingUnit2"
+                            style="@style/TextView.Medium.sp_10"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_2"
+                            android:textSize="@dimen/dp_10"
+                            android:visibility="visible"
+                            android:ellipsize="end"
+                            android:gravity="center_vertical|bottom"
+                            android:maxLines="1"
+                            android:text="0"
+                            app:layout_alignSelf="baseline"
+                            android:textAlignment="gravity"
+                            android:textColor="@color/textBlack1" />
+
+                    </com.google.android.flexbox.FlexboxLayout>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewAverageReading"
+                    style="@style/TextView.Medium.sp_9"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dp_8"
+                    android:autoSizeMaxTextSize="@dimen/sp_9"
+                    android:ellipsize="end"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:freezesText="true"
+                    android:gravity="center"
+                    android:lines="2"
+                    android:maxLines="2"
+                    android:paddingHorizontal="@dimen/dp_8"
+                    android:text="Average readings of others - x"
+                    android:textAlignment="gravity"
+                    android:textColor="@color/gray8"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toTopOf="@id/textViewUpdatedAt"
+                    app:layout_constraintEnd_toEndOf="@id/imageViewIcon"
+                    app:layout_constraintStart_toStartOf="@id/imageViewIcon"
+                    app:layout_constraintTop_toBottomOf="@+id/layoutReadingValue" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewUpdatedAt"
+                style="@style/TextView.Medium.sp_9"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_4"
+                android:layout_marginBottom="@dimen/dp_6"
+                android:ellipsize="end"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:freezesText="true"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="Updated today"
+                android:textAlignment="gravity"
+                android:textColor="@color/gray8"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutData" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewDefaultMessage"
+                style="@style/TextView.Medium.sp_9"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_4"
+                android:layout_marginBottom="@dimen/dp_6"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="Tap to update"
+                android:textAlignment="gravity"
+                android:textColor="@color/gray8"
+                app:layout_constrainedHeight="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutData" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewStar"
+        android:layout_width="@dimen/dp_24"
+        android:layout_height="@dimen/dp_24"
+        android:elevation="@dimen/dp_3"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_red_star" />
+
+</androidx.constraintlayout.widget.ConstraintLayout><!--
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/dp_178">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardRoot"
+        android:layout_width="@dimen/dp_117"
+        android:layout_height="@dimen/dp_170"
+        android:layout_margin="@dimen/dp_4"
+        android:outlineAmbientShadowColor="@color/red"
+        android:outlineSpotShadowColor="@color/red"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/dp_10"
+        app:cardElevation="@dimen/dp_3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:targetApi="p">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewIcon"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent="0.45"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewInfo"
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_20"
+                android:layout_margin="@dimen/dp_4"
+                android:background="@drawable/bg_circle_white"
+                android:elevation="@dimen/dp_2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_reading_info"
+                app:tint="@color/colorPrimary" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewReading"
+                style="@style/TextView.SemiBold.sp_11"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8"
+                android:alpha="0.7"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:autoSizeMaxTextSize="@dimen/sp_11"
+                android:maxLines="1"
+                android:text="SPO2"
+                android:textAlignment="gravity"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintBottom_toTopOf="@id/layoutData"
+                app:layout_constraintEnd_toEndOf="@id/imageViewIcon"
+                app:layout_constraintStart_toStartOf="@id/imageViewIcon"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewIcon"
+                app:layout_constraintVertical_bias="0" />
+
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layoutData"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@id/textViewUpdatedAt"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewReading">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/layoutReadingValue"
+                    style="@style/TextView.Medium.sp_18"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:gravity="center|bottom"
+                    android:maxLines="1"
+                    android:orientation="horizontal"
+                    android:text="0"
+                    android:textAlignment="gravity"
+                    android:textColor="@color/textBlack1"
+                    app:layout_constraintEnd_toEndOf="@id/imageViewIcon"
+                    app:layout_constraintStart_toStartOf="@id/imageViewIcon"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewReading">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewReadingValue"
+                        style="@style/TextView.Medium.sp_18"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:autoSizeMaxTextSize="@dimen/sp_18"
+                        android:maxLines="1"
+                        android:text="0"
+                        android:textAlignment="gravity"
+                        android:textColor="@color/textBlack1" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewReadingUnit"
+                        style="@style/TextView.Medium.sp_10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_2"
+                        android:ellipsize="end"
+                        android:gravity="center_vertical|bottom"
+                        android:maxLines="1"
+                        android:autoSizeMaxTextSize="@dimen/sp_10"
+                        android:text="0"
+                        android:textAlignment="gravity"
+                        android:textColor="@color/textBlack1" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewAverageReading"
+                    style="@style/TextView.Medium.sp_9"
+                    android:autoSizeMaxTextSize="@dimen/sp_9"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dp_8"
+                    android:ellipsize="end"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:freezesText="true"
+                    android:gravity="center"
+                    android:lines="2"
+                    android:maxLines="2"
+                    android:paddingHorizontal="@dimen/dp_8"
+                    android:text="Average readings of others - x"
+                    android:textAlignment="gravity"
+                    android:textColor="@color/gray8"
+                    app:layout_constraintBottom_toTopOf="@id/textViewUpdatedAt"
+                    app:layout_constraintEnd_toEndOf="@id/imageViewIcon"
+                    app:layout_constraintStart_toStartOf="@id/imageViewIcon"
+                    app:layout_constraintTop_toBottomOf="@+id/layoutReadingValue" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewUpdatedAt"
+                style="@style/TextView.Medium.sp_9"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_8"
+                android:ellipsize="end"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:freezesText="true"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="Updated today"
+                android:textAlignment="gravity"
+                android:textColor="@color/gray8"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutData" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewDefaultMessage"
+                style="@style/TextView.Medium.sp_10"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_marginBottom="@dimen/dp_8"
+                android:autoSizeMaxTextSize="@dimen/sp_10"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="3"
+                android:text="Tap to update"
+                android:textAlignment="gravity"
+                android:textColor="@color/gray8"
+                app:layout_constrainedHeight="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/imageViewIcon"
+                app:layout_constraintStart_toStartOf="@id/imageViewIcon"
+                app:layout_constraintTop_toBottomOf="@+id/layoutData"
+                app:layout_constraintVertical_bias="0.5" />
+
+            &lt;!&ndash;<androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewReading"
+                style="@style/TextView.SemiBold.sp_11"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8"
+                android:alpha="0.7"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="SPO2"
+                android:textAlignment="gravity"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintBottom_toTopOf="@+id/layoutReadingValue"
+                app:layout_constraintEnd_toEndOf="@id/imageViewIcon"
+                app:layout_constraintStart_toStartOf="@id/imageViewIcon"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewIcon"
+                app:layout_constraintVertical_bias="0" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layoutReadingValue"
+                style="@style/TextView.Medium.sp_18"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="center|bottom"
+                android:maxLines="1"
+                android:orientation="horizontal"
+                android:text="0"
+                android:textAlignment="gravity"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintBottom_toTopOf="@+id/textViewAverageReading"
+                app:layout_constraintEnd_toEndOf="@id/imageViewIcon"
+                app:layout_constraintStart_toStartOf="@id/imageViewIcon"
+                app:layout_constraintTop_toBottomOf="@+id/textViewReading">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewReadingValue"
+                    style="@style/TextView.Medium.sp_18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="0"
+                    android:textAlignment="gravity"
+                    android:textColor="@color/textBlack1" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewReadingUnit"
+                    style="@style/TextView.Medium.sp_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_2"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical|bottom"
+                    android:maxLines="1"
+                    android:text="0"
+                    android:textAlignment="gravity"
+                    android:textColor="@color/textBlack1" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewUpdatedAt"
+                style="@style/TextView.Medium.sp_9"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_4"
+                android:layout_marginBottom="@dimen/dp_4"
+                android:ellipsize="end"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:freezesText="true"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="Updated today"
+                android:textAlignment="gravity"
+                android:textColor="@color/gray8"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/imageViewIcon"
+                app:layout_constraintStart_toStartOf="@id/imageViewIcon"
+                app:layout_constraintTop_toBottomOf="@+id/textViewAverageReading" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewAverageReading"
+                style="@style/TextView.Medium.sp_9"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:freezesText="true"
+                android:gravity="center"
+                android:lines="2"
+                android:maxLines="2"
+                android:paddingHorizontal="@dimen/dp_8"
+                android:text="Average readings of others - x"
+                android:textAlignment="gravity"
+                android:textColor="@color/gray8"
+                app:layout_constraintBottom_toTopOf="@id/textViewUpdatedAt"
+                app:layout_constraintEnd_toEndOf="@id/imageViewIcon"
+                app:layout_constraintStart_toStartOf="@id/imageViewIcon"
+                app:layout_constraintTop_toBottomOf="@+id/layoutReadingValue" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewDefaultMessage"
+                style="@style/TextView.Medium.sp_10"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="3"
+                android:text="Please update your weight"
+                android:textAlignment="gravity"
+                android:textColor="@color/gray8"
+                android:visibility="gone"
+                app:layout_constrainedHeight="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/imageViewIcon"
+                app:layout_constraintStart_toStartOf="@id/imageViewIcon"
+                app:layout_constraintTop_toBottomOf="@+id/textViewAverageReading"
+                app:layout_constraintVertical_bias="0.5" />&ndash;&gt;
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewStar"
+        android:layout_width="@dimen/dp_24"
+        android:layout_height="@dimen/dp_24"
+        android:elevation="@dimen/dp_3"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_red_star" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>-->

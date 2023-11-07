@@ -6,9 +6,9 @@ import {
   View,
 } from 'react-native';
 import React from 'react';
-import {colors} from '../../constants/colors';
-import {Icons} from '../../constants/icons';
-import {useApp} from '../../context/app.context';
+import { colors } from '../../constants/colors';
+import { Icons } from '../../constants/icons';
+import { useApp } from '../../context/app.context';
 type AdditionalServicesProps = {
   onPressConsultNutritionist: () => void;
   onPressConsultPhysio: (type: 'HC' | 'D') => void;
@@ -18,11 +18,11 @@ type AdditionalServicesProps = {
 
 type AdditionalServicesItem = {
   title:
-    | 'Consult\nNutritionist'
-    | 'Consult\nPhysio'
-    | 'Book\nDiagnostic'
-    | 'Book\nDevices'
-    | 'Doctor\nAppointment';
+  | 'Consult\nNutritionist'
+  | 'Consult\nPhysio'
+  | 'Book\nDiagnostic'
+  | 'Book\nDevices'
+  | 'Doctor\nAppointment';
   onPress: () => void;
 };
 
@@ -32,7 +32,7 @@ const AdditionalCareServices: React.FC<AdditionalServicesProps> = ({
   onPressBookDiagnostic,
   onPressBookDevices,
 }) => {
-  const {userData} = useApp();
+  const { userData } = useApp();
 
   const showDoctorButton: boolean = !!userData?.patient_guid ?? false;
 
@@ -86,7 +86,7 @@ const AdditionalCareServices: React.FC<AdditionalServicesProps> = ({
   };
 
   const renderServiceItem = (item: AdditionalServicesItem, index: number) => {
-    const {title, onPress} = item;
+    const { title, onPress } = item;
     return (
       <TouchableOpacity
         key={index.toString()}
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 16,
-    fontWeight: '700',
+    fontFamily: 'SFProDisplay-Bold',
     color: colors.black,
   },
   itemsContainer: {
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 12,
-    fontWeight: '500',
+    fontFamily: 'SFProDisplay-Bold',
     color: colors.inputValueDarkGray,
     lineHeight: 16.71,
     textAlign: 'center',

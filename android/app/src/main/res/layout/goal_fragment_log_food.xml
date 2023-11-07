@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/layoutHeader"
+        layout="@layout/layout_common_toolbar_with_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutHeader">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/screen_space" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/screen_space" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewDate"
+                style="@style/TextView.SemiBold.sp_18"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8"
+                android:background="@drawable/bg_edittext_gray_stroke"
+                android:drawableEnd="@drawable/ic_calendar_date"
+                android:ellipsize="end"
+                android:hint="@string/log_food_hint_select_date"
+                android:maxLines="1"
+                android:paddingStart="@dimen/dp_12"
+                android:paddingTop="@dimen/dp_8"
+                android:paddingEnd="@dimen/dp_12"
+                android:paddingBottom="@dimen/dp_8"
+                android:text=""
+                android:textColor="@color/textBlack1"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewFoodLogType"
+                style="@style/TextView.SemiBold.sp_18"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8"
+                android:background="@drawable/bg_edittext_gray_stroke"
+                android:drawableEnd="@drawable/ic_dropdown"
+                android:ellipsize="end"
+                android:hint="@string/log_food_hint_select_food_type"
+                android:maxLines="1"
+                android:paddingStart="@dimen/dp_12"
+                android:paddingTop="@dimen/dp_8"
+                android:paddingEnd="@dimen/dp_12"
+                android:paddingBottom="@dimen/dp_8"
+                android:text=""
+                android:textColor="@color/textBlack1"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/textViewDate"
+                app:layout_constraintWidth_percent="0.42" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewHelp"
+                style="@style/TextView.Regular.sp_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_20"
+                android:background="?selectableItemBackground"
+                android:drawableEnd="@drawable/ic_help_question_mark_small"
+                android:drawablePadding="@dimen/dp_16"
+                android:gravity="center"
+                android:text="@string/log_food_label_quantity_help"
+                android:textAlignment="center"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintBottom_toBottomOf="@id/textViewFoodLogType"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toEndOf="@id/textViewFoodLogType"
+                app:layout_constraintTop_toTopOf="@id/textViewFoodLogType" />
+
+            <View
+                android:id="@+id/viewLine1"
+                style="@style/viewLine"
+                android:layout_width="0dp"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/textViewFoodLogType" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tetViewLabelAddYourMeal"
+                style="@style/TextView.SemiBold.sp_16"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:text="@string/log_food_label_add_your_meal"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/viewLine1" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewMealImages"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                android:background="@drawable/bg_edittext_gray_stroke_dashed"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                android:padding="@dimen/dp_8"
+                app:layoutManager="LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/tetViewLabelAddYourMeal"
+                tools:itemCount="4"
+                tools:listitem="@layout/goal_row_meal_images" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewAddedFoodItems"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:nestedScrollingEnabled="false"
+                android:orientation="vertical"
+                android:overScrollMode="never"
+                app:layoutManager="LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/recyclerViewMealImages"
+                tools:itemCount="2"
+                tools:listitem="@layout/goal_row_added_food_items" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/editTextSearch"
+                style="@style/editTextStroke"
+                android:layout_width="0dp"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginEnd="@dimen/dp_16"
+                android:drawableEnd="@drawable/ic_search"
+                android:drawableTint="@color/gray8"
+                android:hint="@string/log_food_hint_search_and_add_food"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:focusable="false"
+                android:cursorVisible="false"
+                android:longClickable="false"
+                android:maxLength="15"
+                android:maxLines="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recyclerViewAddedFoodItems"
+                app:layout_goneMarginTop="@dimen/dp_8" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layoutNoSearchResults"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/editTextSearch">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewNoItemFound"
+                    style="@style/TextView.Regular.sp_14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:layout_marginBottom="@dimen/dp_16"
+                    android:gravity="center"
+                    android:textAlignment="gravity"
+                    android:textColor="@color/textBlack1"
+                    tools:text="Not found in MyTatva Database" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/buttonAddNewFood"
+                    style="@style/buttonStrokeSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_margin="@dimen/dp_4"
+                    android:drawableStart="@drawable/ic_add_food_item_small"
+                    android:drawablePadding="@dimen/dp_8"
+                    android:paddingStart="@dimen/dp_12"
+                    android:paddingTop="@dimen/dp_8"
+                    android:paddingEnd="@dimen/dp_12"
+                    android:paddingBottom="@dimen/dp_8"
+                    android:text="@string/log_food_button_add_new"
+                    android:textColor="@color/textBlack1" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewSearchItems"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:nestedScrollingEnabled="false"
+                android:orientation="vertical"
+                android:overScrollMode="never"
+                app:layoutManager="LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/layoutNoSearchResults"
+                tools:itemCount="2"
+                tools:listitem="@layout/goal_row_search_frequently_added_food_items_common" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tetViewLabelFrequentlyAddedItems"
+                style="@style/TextView.SemiBold.sp_16"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:text="@string/log_food_label_frequently_added_items"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/recyclerViewSearchItems" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewFrequentlyAddedItems"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:nestedScrollingEnabled="false"
+                android:orientation="vertical"
+                android:overScrollMode="never"
+                app:layoutManager="LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/tetViewLabelFrequentlyAddedItems"
+                tools:itemCount="2"
+                tools:listitem="@layout/goal_row_search_frequently_added_food_items_common" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonCancel"
+                style="@style/buttonStrokeSmallRadius7"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_50"
+                android:layout_marginEnd="@dimen/dp_16"
+                android:layout_marginBottom="@dimen/dp_30"
+                android:background="@android:color/transparent"
+                android:enabled="true"
+                android:text="@string/log_food_button_cancel"
+                app:layout_constraintBottom_toTopOf="@id/textViewMessage"
+                app:layout_constraintEnd_toStartOf="@id/buttonDone"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/recyclerViewFrequentlyAddedItems" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonDone"
+                style="@style/buttonSolidSmallRadius7"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_50"
+                android:layout_marginBottom="@dimen/dp_30"
+                android:enabled="true"
+                android:text="@string/log_food_button_done"
+                app:layout_constraintBottom_toTopOf="@id/textViewMessage"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toEndOf="@id/buttonCancel"
+                app:layout_constraintTop_toBottomOf="@id/recyclerViewFrequentlyAddedItems" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewMessage"
+                style="@style/TextView.Regular.sp_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_16"
+                android:text="@string/log_food_label_note"
+                android:textColor="@color/gray8"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart" />
+
+            <!--android:text="Food logging feature is in beta phase. Hence, presently you would find only a sample list of food items. Entire list of food items would be available to you very soon."-->
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

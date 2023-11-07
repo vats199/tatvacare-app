@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/progressBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:trackThickness="@dimen/dp_8"
+        app:trackCornerRadius="@dimen/dp_6"
+        app:trackColor="@color/lightGray_50"
+        app:indicatorColor="@color/colorAccent"
+        android:layout_marginHorizontal="@dimen/screen_space"
+        android:layout_marginTop="@dimen/dp_22"
+        tools:progress="100"
+        android:max="100"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewToolbarBack"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/dp_12"
+        android:layout_marginStart="@dimen/screen_space"
+        android:background="?selectableItemBackgroundBorderless"
+        android:paddingStart="@dimen/dp_8"
+        android:paddingEnd="@dimen/dp_8"
+        android:scaleType="centerInside"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/progressBar"
+        app:srcCompat="@drawable/ic_back"
+        app:tint="@color/textBlack1" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewToolbarTitle"
+        style="@style/TextView.Medium.sp_16"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/screen_space"
+        android:layout_marginEnd="@dimen/screen_space"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintBottom_toBottomOf="@id/imageViewToolbarBack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imageViewToolbarBack"
+        app:layout_constraintTop_toTopOf="@id/imageViewToolbarBack"
+        tools:text="Back"
+        android:text="Back" />
+
+    <!--<androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewLogo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_15"
+        android:adjustViewBounds="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageViewToolbarBack"
+        app:layout_constraintWidth_percent="0.60"
+        app:srcCompat="@drawable/ic_login_logo"
+        android:visibility="gone" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewTextLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageViewLogo"
+        app:srcCompat="@drawable/ic_app_text_logo_new"
+        android:visibility="gone" />-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

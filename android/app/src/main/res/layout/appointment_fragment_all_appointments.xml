@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/layoutHeader"
+        layout="@layout/layout_common_toolbar_with_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewBgThemeColor"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutHeader"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/bg_rounded_top" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutHeader">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewLabelSelectAppointmentType"
+            style="@style/TextView.SemiBold.sp_14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/screen_space"
+            android:layout_marginTop="@dimen/dp_16"
+            android:layout_marginEnd="@dimen/screen_space"
+            android:text="@string/all_appointment_label_select_type"
+            android:textColor="@color/textBlack1" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/editTextAppointmentType"
+            style="@style/editTextStroke"
+            android:layout_width="match_parent"
+            android:layout_marginStart="@dimen/screen_space"
+            android:layout_marginTop="@dimen/dp_8"
+            android:layout_marginEnd="@dimen/screen_space"
+            android:cursorVisible="false"
+            android:drawableEnd="@drawable/ic_dropdown"
+            android:focusable="false"
+            android:hint="@string/all_appointment_hint_select_appointment_type"
+            android:inputType="textPersonName"
+            android:longClickable="false" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutIncident"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/screen_space"
+            android:layout_marginTop="@dimen/dp_16"
+            android:layout_marginEnd="@dimen/screen_space"
+            android:background="@drawable/bg_layout_appointment_your_doctor"
+            android:visibility="gone"
+            android:padding="@dimen/dp_14"
+            app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+            app:layout_constraintStart_toStartOf="@id/guideLineStart"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelYourDoctor"
+                style="@style/TextView.Regular.sp_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.9"
+                android:text="@string/all_appointment_label_your_doctor"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewProfile"
+                android:layout_width="@dimen/dp_40"
+                android:layout_height="@dimen/dp_40"
+                android:layout_marginTop="@dimen/dp_10"
+                android:background="@drawable/bg_circle_white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewLabelYourDoctor"
+                tools:backgroundTint="@color/grayDivider" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewDoctorName"
+                style="@style/TextView.SemiBold.sp_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:ellipsize="end"
+                android:maxLines="1"
+                tools:text="Dr. Sameer Sharma"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintEnd_toStartOf="@id/buttonBookAppointment"
+                app:layout_constraintStart_toEndOf="@id/imageViewProfile"
+                app:layout_constraintTop_toTopOf="@id/imageViewProfile" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewDegree"
+                style="@style/TextView.Regular.sp_13"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_3"
+                android:ellipsize="end"
+                android:maxLines="1"
+                tools:text="MBBS - Pulmonologist"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintBottom_toBottomOf="@id/imageViewProfile"
+                app:layout_constraintEnd_toEndOf="@id/textViewDoctorName"
+                app:layout_constraintStart_toStartOf="@id/textViewDoctorName"
+                app:layout_constraintTop_toBottomOf="@id/textViewDoctorName" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonBookAppointment"
+                style="@style/buttonSolidSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_30"
+                android:paddingStart="@dimen/dp_6"
+                android:paddingEnd="@dimen/dp_6"
+                android:text="@string/all_appointment_button_book_appointment"
+                app:layout_constraintBottom_toBottomOf="@id/imageViewProfile"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/imageViewProfile" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewLabelSelectClinic"
+            style="@style/TextView.SemiBold.sp_14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/screen_space"
+            android:layout_marginTop="@dimen/dp_16"
+            android:layout_marginEnd="@dimen/screen_space"
+            android:text="Select Clinic"
+            android:textColor="@color/textBlack1"
+            android:visibility="gone" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/editTextClinic"
+            style="@style/editTextStroke"
+            android:layout_width="match_parent"
+            android:layout_marginStart="@dimen/screen_space"
+            android:layout_marginTop="@dimen/dp_8"
+            android:layout_marginEnd="@dimen/screen_space"
+            android:cursorVisible="false"
+            android:drawableEnd="@drawable/ic_dropdown"
+            android:focusable="false"
+            android:hint="Select"
+            android:inputType="textPersonName"
+            android:longClickable="false"
+            android:visibility="gone" />
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewNoData"
+                    style="@style/textViewNoData"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:paddingTop="@dimen/dp_16"
+                    android:paddingBottom="@dimen/dp_16" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewAppointment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:paddingTop="@dimen/dp_8"
+                    android:paddingBottom="@dimen/dp_8"
+                    android:visibility="visible"
+                    tools:listitem="@layout/menu_row_history_appointment" />
+
+            </FrameLayout>
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

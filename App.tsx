@@ -6,34 +6,57 @@ import {
   AppState,
   AppStateStatus,
   Alert,
-  NativeModules,
+  NativeModules, DeviceEventEmitter, Text
 } from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
-import Router, {openHealthKitSyncView} from './src/routes/Router';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import React, { useEffect } from 'react';
+import Router, { openHealthKitSyncView } from './src/routes/Router';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import LocationBottomSheet, {
   LocationBottomSheetRef,
 } from './src/components/molecules/LocationBottomSheet';
-// import Geolocation from 'react-native-geolocation-service';
-import {request, check, PERMISSIONS, RESULTS} from 'react-native-permissions';
-import {Linking} from 'react-native';
+import Geolocation from 'react-native-geolocation-service';
+import { request, check, PERMISSIONS, RESULTS } from 'react-native-permissions';
+import { Linking } from 'react-native';
 import Home from './src/api/home';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {AppProvider} from './src/context/app.context';
-import {MenuProvider} from 'react-native-popup-menu';
-import {ToastProvider} from 'react-native-toast-notifications';
-import {colors} from './src/constants/colors';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {PaperProvider} from 'react-native-paper';
-const App = () => {
-  const {height, width} = useWindowDimensions();
-  // const [location, setLocation] = useState<object>({});
-  // const BottomSheetRef = useRef<LocationBottomSheetRef>(null);
-  // const [locationPermission, setLocationPermission] = useState<string>('');
+import { AppProvider } from './src/context/app.context';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { PaperProvider } from 'react-native-paper';
+import { colors } from './src/constants/colors';
+import { MenuProvider } from 'react-native-popup-menu';
+import { ToastProvider } from 'react-native-toast-notifications';
 
-  const Navigation = NativeModules.Navigation;
-  const showTabBarNative = Navigation.showTabbar;
-  const hideTabBarNative = Navigation.hideTabbar;
+const App = () => {
+
+  useEffect(() => {
+    if (Platform.OS == "android") {
+      NativeModules.AndroidBridge.triggerUserToken();
+    }
+  }, [])
+
+  useEffect(() => {
+    if (Platform.OS == "android") {
+      const subscribe = DeviceEventEmitter.addListener(
+        'UserToken',
+        async (data: any) => {
+          global.isHideIncident = data.IsHideIncident
+          //AsyncStorage.setItem("IsHideIncident", data.IsHideIncident ? "true" : "false")
+          await AsyncStorage.setItem("accessToken", data.Token)
+        },
+      );
+
+      return () => {
+        subscribe.remove();
+      };
+    }
+
+  }, []);
+
+  const { height, width } = useWindowDimensions();
+  //const Navigation = NativeModules.Navigation;
+  //const showTabBarNative = Navigation.showTabbar;
+  //const hideTabBarNative = Navigation.hideTabbar;
+
   const [location, setLocation] = React.useState<object>({});
   const appState = React.useRef<AppStateStatus>(AppState.currentState);
   const BottomSheetRef = React.useRef<LocationBottomSheetRef>(null);
@@ -48,18 +71,18 @@ const App = () => {
     }
     try {
       if (Platform.OS === 'android') {
-        const granted = await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
-        setLocationPermission(granted);
-        if (granted === 'granted') {
-          // getLocation();
-        } else if (
-          goToSettings &&
-          ['blocked', 'never_ask_again'].includes(granted)
-        ) {
-          Linking.openSettings();
-        } else {
-          BottomSheetRef.current?.show();
-        }
+        // const granted = await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
+        // setLocationPermission(granted);
+        // if (granted === 'granted') {
+        //   getLocation();
+        // } else if (
+        //   goToSettings &&
+        //   ['blocked', 'never_ask_again'].includes(granted)
+        // ) {
+        //   Linking.openSettings();
+        // } else {
+        //   BottomSheetRef.current?.show();
+        // }
       } else {
         const granted = await request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
         setLocationPermission(granted);
@@ -84,25 +107,26 @@ const App = () => {
         }
       }
     } catch (err) {
+      console.log("request error:", err);
       BottomSheetRef.current?.show();
     }
   };
 
-  // const getLocation = () => {
-  //   Geolocation.getCurrentPosition(
-  //     async position => {
-  //       await getLocationFromLatLng(
-  //         position?.coords?.latitude,
-  //         position?.coords?.longitude,
-  //       );
-  //     },
-  //     error => {
-  //       // Handle location error here
-  //       requestLocationPermission(false);
-  //     },
-  //     {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
-  //   );
-  // };
+  const getLocation = () => {
+    Geolocation.getCurrentPosition(
+      async position => {
+        await getLocationFromLatLng(
+          position?.coords?.latitude,
+          position?.coords?.longitude,
+        );
+      },
+      error => {
+        // Handle location error here
+        requestLocationPermission(false);
+      },
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 },
+    );
+  };
 
   const getLocationFromLatLng = async (lat: any, long: any) => {
     const res = await fetch(
@@ -147,7 +171,7 @@ const App = () => {
       await AsyncStorage.setItem('location', JSON.stringify(locationPayload));
       await Home.updatePatientLocation({}, locationPayload);
       BottomSheetRef.current?.hide();
-      showTabBarNative();
+      //showTabBarNative();
     }
   };
 
@@ -171,7 +195,7 @@ const App = () => {
         requestLocationPermission(false);
       }
     } catch (err) {
-      console.log(err);
+      console.log("check error: ", err);
       BottomSheetRef.current?.show();
       // hideTabBarNative()
     }
@@ -200,21 +224,23 @@ const App = () => {
 
   return (
     <ToastProvider
-      textStyle={{fontSize: 14, color: colors.white, fontWeight: '400'}}>
-      <GestureHandlerRootView style={{height, width}}>
+      textStyle={{ fontSize: 14, color: colors.white, fontWeight: '400' }}>
+      <GestureHandlerRootView style={{ height, width }}>
         <MenuProvider>
-          <AppProvider>
-            {/* <SafeAreaView style={{flex:1}}> */}
-            <Router />
-            <LocationBottomSheet
-              ref={BottomSheetRef}
-              setLocation={setLocation}
-              requestLocationPermission={requestLocationPermission}
-              setLocationPermission={setLocationPermission}
-              locationPermission={locationPermission}
-            />
-            {/* </SafeAreaView> */}
-          </AppProvider>
+          <PaperProvider>
+            <AppProvider>
+              {/* <SafeAreaView style={{flex:1}}> */}
+              <Router />
+              <LocationBottomSheet
+                ref={BottomSheetRef}
+                setLocation={setLocation}
+                requestLocationPermission={requestLocationPermission}
+                setLocationPermission={setLocationPermission}
+                locationPermission={locationPermission}
+              />
+            </AppProvider>
+          </PaperProvider>
+          {/* </SafeAreaView> */}
         </MenuProvider>
       </GestureHandlerRootView>
     </ToastProvider>

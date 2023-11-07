@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fillViewport="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include
+            android:id="@+id/layoutHeader"
+            layout="@layout/auth_common_header"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/dp_8"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutHeader"
+            app:srcCompat="@drawable/bg_rounded_top" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewLabelSignUp"
+            style="@style/TextView.Bold.sp_20"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_30"
+            android:layout_marginEnd="@dimen/screen_space"
+            android:text="@string/sign_up_verify_otp_label_verify_mobile_no"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imageViewBack"
+            app:layout_constraintTop_toBottomOf="@id/layoutHeader" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/screen_space"
+            android:background="?selectableItemBackgroundBorderless"
+            android:padding="@dimen/dp_4"
+            app:layout_constraintBottom_toBottomOf="@id/textViewLabelSignUp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textViewLabelSignUp"
+            app:srcCompat="@drawable/ic_back" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewLabelMobileNumber"
+            style="@style/TextView.Medium.sp_14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_24"
+            android:text="@string/sign_up_verify_otp_label_mobile_number"
+            android:textColor="@color/textBlack1"
+            app:layout_constraintEnd_toEndOf="@id/textViewLabelSignUp"
+            app:layout_constraintStart_toStartOf="@id/imageViewBack"
+            app:layout_constraintTop_toBottomOf="@id/textViewLabelSignUp" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/layoutMobileNumber"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_12"
+            android:background="@drawable/bg_edittext_gray_stroke"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@id/textViewLabelSignUp"
+            app:layout_constraintStart_toStartOf="@id/imageViewBack"
+            app:layout_constraintTop_toBottomOf="@id/textViewLabelMobileNumber">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/EditText.Medium.sp_16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_16"
+                android:text="+91"
+                android:textColor="@color/textBlack1" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/editTextMobileNumber"
+                style="@style/editTextStroke"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:maxLength="10"
+                android:hint="@string/sign_up_verify_otp_hint_mobile_number"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:longClickable="false" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewLabelEnterOTP"
+            style="@style/TextView.Medium.sp_14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_16"
+            android:text="@string/sign_up_verify_otp_label_enter_otp"
+            android:textColor="@color/textBlack1"
+            app:layout_constraintEnd_toEndOf="@id/textViewLabelSignUp"
+            app:layout_constraintStart_toStartOf="@id/imageViewBack"
+            app:layout_constraintTop_toBottomOf="@id/layoutMobileNumber" />
+
+        <include
+            android:id="@+id/layoutOTP"
+            layout="@layout/common_layout_otp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_8"
+            app:layout_constraintStart_toStartOf="@id/textViewLabelEnterOTP"
+            app:layout_constraintTop_toBottomOf="@id/textViewLabelEnterOTP" />
+
+        <!--<com.mytatva.patient.utils.pinview.Pinview
+            android:id="@+id/pintViewOTP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_8"
+            app:inputType="number"
+            app:layout_constraintStart_toStartOf="@id/textViewLabelEnterOTP"
+            app:layout_constraintTop_toBottomOf="@id/textViewLabelEnterOTP"
+            app:pinBackground="@drawable/bg_edittext_gray_stroke"
+            app:pinLength="4"
+            app:splitWidth="@dimen/dp_12"
+            app:textSize="@dimen/sp_5" />-->
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewLabelDidntReceive"
+            style="@style/TextView.Medium.sp_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginBottom="@dimen/dp_40"
+            android:text="@string/sign_up_verify_otp_label_didn_t_receive_otp"
+            android:textColor="@color/textBlack1"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="@id/layoutOTP"
+            app:layout_constraintTop_toBottomOf="@id/layoutOTP" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewResend"
+            style="@style/TextView.Medium.sp_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_3"
+            android:text="@string/sign_up_verify_otp_label_resend_otp"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintStart_toEndOf="@id/textViewLabelDidntReceive"
+            app:layout_constraintTop_toTopOf="@id/textViewLabelDidntReceive" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewTimer"
+            style="@style/TextView.Medium.sp_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginBottom="@dimen/dp_40"
+            android:text="1 : 40s"
+            android:textColor="@color/textBlack1"
+            app:layout_constraintEnd_toEndOf="@id/textViewLabelSignUp"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintTop_toBottomOf="@id/layoutOTP" />
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/checkBoxAgreeTerms"
+            style="@style/checkBox"
+            android:layout_width="0dp"
+            android:layout_marginTop="@dimen/dp_20"
+            android:text="I agree to the terms and conditions"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@id/textViewLabelSignUp"
+            app:layout_constraintStart_toStartOf="@id/imageViewBack"
+            app:layout_constraintTop_toBottomOf="@id/textViewLabelDidntReceive" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonVerify"
+            style="@style/buttonSolid"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_30"
+            android:text="@string/sign_up_verify_otp_button_next"
+            app:layout_constraintEnd_toEndOf="@id/textViewLabelSignUp"
+            app:layout_constraintStart_toStartOf="@id/imageViewBack"
+            app:layout_constraintTop_toBottomOf="@id/checkBoxAgreeTerms" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewAlreadyHaveAcc"
+            style="@style/TextView.Medium.sp_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginBottom="@dimen/dp_40"
+            android:text="@string/sign_up_verify_otp_label_already_have_an_account"
+            android:textColor="@color/textBlack1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/textViewSignIn"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="@id/imageViewBack"
+            app:layout_constraintTop_toBottomOf="@id/buttonVerify" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewSignIn"
+            style="@style/TextView.Medium.sp_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_5"
+            android:text="@string/sign_up_verify_otp_label_sign_in"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/textViewAlreadyHaveAcc"
+            app:layout_constraintTop_toTopOf="@id/textViewAlreadyHaveAcc" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

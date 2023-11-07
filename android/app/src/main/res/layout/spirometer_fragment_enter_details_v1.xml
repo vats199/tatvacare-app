@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_screen_color"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/layoutHeader"
+        layout="@layout/layout_common_toolbar_with_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@id/layoutSaveAndNext"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutHeader"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bg_screen_color">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/screen_space" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/screen_space" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layoutDisclaimerHeader"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/dp_12"
+                android:background="@drawable/bg_common_gray_stroke_rect_12"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/dp_14"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelDisclaimer"
+                    style="@style/TextView.Light.sp_12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Disclaimer: We need this information to get your Lung Function values correctly."
+                    android:textColor="@color/textGray7" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputLayoutHeight"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                style="@style/TextInputLayoutAuth"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutDisclaimerHeader">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextHeight"
+                    style="@style/TextInputEditText.regular.14.Selector"
+                    android:hint="Select Height *"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/dp_18"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                app:layout_constraintTop_toTopOf="@id/inputLayoutHeight"
+                android:layout_marginEnd="@dimen/dp_32"
+                app:layout_constraintBottom_toBottomOf="@id/inputLayoutHeight"
+                app:layout_constraintEnd_toEndOf="@id/inputLayoutHeight"
+                app:srcCompat="@drawable/ic_dropdown_gray"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputLayoutWeight"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                style="@style/TextInputLayoutAuth"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/inputLayoutHeight">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextWeight"
+                    style="@style/TextInputEditText.regular.14.Selector"
+                    android:hint="Select Weight *"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/dp_18"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                app:layout_constraintTop_toTopOf="@id/inputLayoutWeight"
+                android:layout_marginEnd="@dimen/dp_32"
+                app:layout_constraintBottom_toBottomOf="@id/inputLayoutWeight"
+                app:layout_constraintEnd_toEndOf="@id/inputLayoutWeight"
+                app:srcCompat="@drawable/ic_dropdown_gray"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputLayoutEthnicity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                style="@style/TextInputLayoutAuth"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/inputLayoutWeight">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextEthnicity"
+                    style="@style/TextInputEditText.regular.14.Selector"
+                    android:hint="Select Ethnicity *"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/dp_18"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                app:layout_constraintTop_toTopOf="@id/inputLayoutEthnicity"
+                android:layout_marginEnd="@dimen/dp_32"
+                app:layout_constraintBottom_toBottomOf="@id/inputLayoutEthnicity"
+                app:layout_constraintEnd_toEndOf="@id/inputLayoutEthnicity"
+                app:srcCompat="@drawable/ic_dropdown_gray"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputLayoutAge"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                style="@style/TextInputLayoutAuth"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/inputLayoutEthnicity">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextAge"
+                    style="@style/TextInputEditText.regular.14.Selector"
+                    android:hint="Age *"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewBiologicalSex"
+                style="@style/TextView.Medium.sp_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_24"
+                android:text="Biological Sex *"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/inputLayoutAge"
+                />
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                android:visibility="gone"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/textViewBiologicalSex"
+                >
+
+               <!-- <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/radioMale"
+                    style="@style/CustomRadioButton"
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:text="@string/add_patient_label_male" />
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/radioFemale"
+                    style="@style/CustomRadioButton"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:layout_marginStart="@dimen/dp_24"
+                    android:text="@string/add_patient_label_female" />
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/radioOther"
+                    style="@style/radioGenderSpirometer"
+                    android:text="@string/add_patient_label_other"
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:visibility="gone" />-->
+
+            </RadioGroup>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/radioGroupGender"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dp_12"
+                android:layout_marginTop="@dimen/dp_2"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/radioGroup">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/radioMale"
+                    style="@style/CustomRadioButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/dp_10"
+                    android:layout_marginStart="@dimen/dp_4"
+                    android:layout_marginEnd="@dimen/dp_6"
+                    android:layout_weight="1"
+                    android:elevation="@dimen/dp_4"
+                    android:paddingVertical="@dimen/dp_14">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/viewMale"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp_24"
+                        android:layout_marginEnd="@dimen/dp_4"
+                        android:adjustViewBounds="true"
+                        app:layout_constraintBottom_toBottomOf="@id/textViewLabelMale"
+                        app:layout_constraintEnd_toStartOf="@id/textViewLabelMale"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/textViewLabelMale"
+                        app:srcCompat="@drawable/ic_gender_male"
+                        app:tint="@color/clr_selector_black_gray" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewLabelMale"
+                        style="@style/TextView.Bold.sp_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Male"
+                        android:textColor="@color/clr_selector_black_gray"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/viewMale"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/radioFemale"
+                    style="@style/CustomRadioButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_6"
+                    android:layout_marginEnd="@dimen/dp_4"
+                    android:layout_weight="1"
+                    android:elevation="@dimen/dp_4"
+                    android:paddingVertical="@dimen/dp_14">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/viewFemale"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp_24"
+                        android:layout_marginEnd="@dimen/dp_4"
+                        android:adjustViewBounds="true"
+                        app:layout_constraintBottom_toBottomOf="@id/textViewLabelFemale"
+                        app:layout_constraintEnd_toStartOf="@id/textViewLabelFemale"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/textViewLabelFemale"
+                        app:srcCompat="@drawable/ic_gender_female"
+                        app:tint="@color/clr_selector_black_gray" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewLabelFemale"
+                        style="@style/TextView.Bold.sp_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Female"
+                        android:textColor="@color/clr_selector_black_gray"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/viewFemale"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutSaveAndNext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:elevation="@dimen/dp_12"
+        android:translationZ="@dimen/dp_20"
+        >
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonSaveAndNext"
+            style="@style/buttonSolidWithCorner16"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/screen_space"
+            android:layout_marginTop="@dimen/dp_12"
+            android:layout_marginEnd="@dimen/screen_space"
+            android:layout_marginBottom="@dimen/dp_12"
+            android:text="Save &amp; Next"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

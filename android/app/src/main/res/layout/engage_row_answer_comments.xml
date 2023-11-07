@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutTopAnswer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/dp_14"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/layoutTopic">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewAnsGivenBy"
+        style="@style/TextView.Medium.sp_13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_130"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="You"
+        android:textColor="@color/textBlack1"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/layoutTopAnsTime"
+        android:layout_width="@dimen/dp_70"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_10"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="@id/textViewAnsGivenBy"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@id/textViewAnsGivenBy"
+        app:layout_constraintTop_toTopOf="@id/textViewAnsGivenBy">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="@dimen/dp_1"
+            android:layout_height="@dimen/sp_14"
+            android:alpha="0.5"
+            android:background="@color/gray8" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewCommentTime"
+            style="@style/TextView.Regular.sp_11"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_weight="1"
+            android:alpha="0.5"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="01 min ago"
+            android:textColor="@color/textBlack1" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewComment"
+        style="@style/TextView.Light.sp_12"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_8"
+        android:lineSpacingExtra="@dimen/dp_2"
+        android:text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr dolor sit amet, consetetur sadipscing elitr dolor sit amet, consetetur sadipscing elitr"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewAnsGivenBy" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/layoutOptions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewLike"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_20"
+            android:adjustViewBounds="true"
+            android:background="?selectableItemBackgroundBorderless"
+            android:padding="@dimen/dp_3"
+            app:srcCompat="@drawable/selector_like" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewLikeCount"
+            style="@style/TextView.Regular.sp_9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_4"
+            android:textColor="@color/textBlack1"
+            tools:text="10k" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewReportComment"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_20"
+            android:layout_marginStart="@dimen/dp_10"
+            android:adjustViewBounds="true"
+            android:background="?selectableItemBackgroundBorderless"
+            android:padding="@dimen/dp_3"
+            app:srcCompat="@drawable/selector_flag" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewOptionMenu"
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_20"
+            android:adjustViewBounds="true"
+            android:background="?selectableItemBackgroundBorderless"
+            android:padding="@dimen/dp_4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_option_menu" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

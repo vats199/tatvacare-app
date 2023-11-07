@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:background="@color/gray">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        tools:background="@color/gray">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewClose"
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_24"
+            android:layout_gravity="end"
+            android:background="@drawable/bg_circle_white"
+            android:backgroundTint="@color/gray"
+            android:elevation="@dimen/dp_4"
+            android:padding="@dimen/dp_6"
+            app:srcCompat="@drawable/ic_cross_small" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/rootSub"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_7"
+            android:background="@drawable/bg_common_rounded_rect_10"
+            android:elevation="@dimen/dp_2">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/screen_space" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/screen_space" />
+
+            <include
+                android:id="@+id/layoutHeader"
+                layout="@layout/reading_common_layout_header" />
+
+            <View
+                android:id="@+id/viewLine1"
+                style="@style/viewLine"
+                android:layout_width="0dp"
+                android:layout_marginTop="0dp"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/layoutHeader" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelDate"
+                style="@style/TextView.Regular.sp_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_18"
+                android:layout_marginEnd="@dimen/dp_14"
+                android:text="Date"
+                android:textColor="@color/textDarkBlue"
+                app:layout_constraintEnd_toStartOf="@id/textViewLabelTime"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/viewLine1" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelTime"
+                style="@style/TextView.Regular.sp_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Time"
+                android:textColor="@color/textDarkBlue"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toEndOf="@id/textViewLabelDate"
+                app:layout_constraintTop_toTopOf="@id/textViewLabelDate" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/editTextDate"
+                style="@style/editTextStrokeSmall"
+                android:layout_width="0dp"
+                android:layout_marginTop="@dimen/dp_8"
+                android:cursorVisible="false"
+                android:drawableEnd="@drawable/ic_reading_date"
+                android:ellipsize="end"
+                android:focusable="false"
+                android:hint="Select"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:lines="1"
+                android:longClickable="false"
+                android:maxLines="1"
+                app:layout_constraintEnd_toEndOf="@id/textViewLabelDate"
+                app:layout_constraintStart_toStartOf="@id/textViewLabelDate"
+                app:layout_constraintTop_toBottomOf="@id/textViewLabelDate"
+                tools:text="09-Aug-2021" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/editTextTime"
+                style="@style/editTextStrokeSmall"
+                android:layout_width="0dp"
+                android:layout_marginTop="@dimen/dp_8"
+                android:cursorVisible="false"
+                android:drawableEnd="@drawable/ic_clock_time"
+                android:ellipsize="end"
+                android:focusable="false"
+                android:hint="Select"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:lines="1"
+                android:longClickable="false"
+                android:maxLines="1"
+                app:layout_constraintEnd_toEndOf="@id/textViewLabelTime"
+                app:layout_constraintStart_toStartOf="@id/textViewLabelTime"
+                app:layout_constraintTop_toBottomOf="@id/textViewLabelTime"
+                tools:text="05:00" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelLsm"
+                style="@style/TextView.Regular.sp_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_18"
+                android:text="LSM"
+                android:textColor="@color/textDarkBlue"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/editTextDate" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/editTextLsm"
+                style="@style/editTextStrokeSmall"
+                android:layout_width="0dp"
+                android:layout_marginTop="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_14"
+                android:ellipsize="end"
+                android:hint="Enter"
+                android:imeOptions="actionDone"
+                android:inputType="numberDecimal"
+                android:maxLength="3"
+                android:maxLines="1"
+                app:layout_constraintEnd_toStartOf="@id/textViewUnit"
+                app:layout_constraintStart_toStartOf="@id/textViewLabelDate"
+                app:layout_constraintTop_toBottomOf="@id/textViewLabelLsm"
+                tools:text="20" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/textViewUnit"
+                style="@style/TextView.Medium.sp_14"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:background="@drawable/bg_textview_solid_lightgray_stroke_gray"
+                android:clickable="false"
+                android:ellipsize="end"
+                android:focusable="false"
+                android:gravity="center"
+                android:imeOptions="actionDone"
+                android:inputType="numberDecimal"
+                android:longClickable="false"
+                android:maxLines="1"
+                android:minWidth="@dimen/dp_80"
+                android:text="kpa"
+                android:textAlignment="gravity"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintBottom_toBottomOf="@id/editTextLsm"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toEndOf="@id/editTextLsm"
+                app:layout_constraintTop_toTopOf="@id/editTextLsm" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelCap"
+                style="@style/TextView.Regular.sp_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_18"
+                android:text="CAP"
+                android:textColor="@color/textDarkBlue"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/editTextLsm" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/editTextCap"
+                style="@style/editTextStrokeSmall"
+                android:layout_width="0dp"
+                android:layout_marginTop="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_14"
+                android:ellipsize="end"
+                android:hint="Enter"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:maxLength="3"
+                android:maxLines="1"
+                app:layout_constraintEnd_toStartOf="@id/textViewUnitCap"
+                app:layout_constraintStart_toStartOf="@id/textViewLabelDate"
+                app:layout_constraintTop_toBottomOf="@id/textViewLabelCap"
+                tools:text="20" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/textViewUnitCap"
+                style="@style/TextView.Medium.sp_14"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:background="@drawable/bg_textview_solid_lightgray_stroke_gray"
+                android:clickable="false"
+                android:ellipsize="end"
+                android:focusable="false"
+                android:gravity="center"
+                android:imeOptions="actionDone"
+                android:inputType="numberDecimal"
+                android:longClickable="false"
+                android:maxLines="1"
+                android:minWidth="@dimen/dp_80"
+                android:text="dB/m"
+                android:textAlignment="gravity"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintBottom_toBottomOf="@id/editTextCap"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toEndOf="@id/editTextCap"
+                app:layout_constraintTop_toTopOf="@id/editTextCap" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewStandardValue"
+                style="@style/textViewStandardValueLabel"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/editTextCap" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonCancel"
+                style="@style/buttonStrokeSmallRadius7"
+                android:layout_width="@dimen/dp_94"
+                android:layout_marginTop="@dimen/dp_24"
+                android:layout_marginEnd="@dimen/dp_20"
+                android:layout_marginBottom="@dimen/dp_24"
+                android:paddingStart="@dimen/dp_24"
+                android:paddingEnd="@dimen/dp_24"
+                android:text="Cancel"
+                app:layout_constraintBottom_toTopOf="@id/layoutSyncData"
+                app:layout_constraintEnd_toStartOf="@id/buttonUpdate"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/textViewStandardValue" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonUpdate"
+                style="@style/buttonSolidSmallRadius7"
+                android:layout_width="@dimen/dp_94"
+                android:layout_marginBottom="@dimen/dp_30"
+                android:paddingStart="@dimen/dp_24"
+                android:paddingEnd="@dimen/dp_24"
+                android:text="Update"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toEndOf="@id/buttonCancel"
+                app:layout_constraintTop_toTopOf="@id/buttonCancel" />
+
+            <include
+                android:id="@+id/layoutSyncData"
+                layout="@layout/reading_common_layout_sync_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_20"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/buttonCancel" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+
+</FrameLayout>

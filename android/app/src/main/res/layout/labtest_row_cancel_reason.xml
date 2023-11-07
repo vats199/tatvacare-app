@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.AppCompatCheckBox xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/TextView.Regular.sp_13"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/dp_16"
+    android:layout_marginEnd="@dimen/dp_16"
+    android:id="@+id/checkBoxReason"
+    android:button="@drawable/selector_ic_radio_black"
+    android:buttonTint="@color/colorPrimary"
+    android:gravity="center_vertical"
+    android:paddingStart="@dimen/dp_24"
+    android:paddingTop="@dimen/dp_8"
+    android:paddingEnd="@dimen/dp_24"
+    android:paddingBottom="@dimen/dp_8"
+    android:text="wrong tests or lab selected" />

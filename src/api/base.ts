@@ -1,8 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Alert, NativeModules } from 'react-native';
+import { Alert, NativeModules, DeviceEventEmitter, Platform } from 'react-native';
 import config from './config';
 import Config from 'react-native-config';
 import CRYPTO from 'crypto-js';
+import React, { useEffect } from 'react';
 
 const POST = 'post';
 const GET = 'get';
@@ -15,6 +16,9 @@ const DEFAULT_ERROR = 'Something went wrong, Please try again later';
 // encKey=9Ddyaf6rfywpiTvTiax2iq6ykKpaxgJ6
 // encIV=9Ddyaf6rfywpiTvT
 // apiKey=
+
+
+
 
 export const getEncryptedText = (data: any) => {
   var truncHexKey = CRYPTO.SHA256(
@@ -59,6 +63,7 @@ const getToken = async () => {
     const token = await AsyncStorage.getItem('accessToken');
     if (token !== null) {
       // token previously stored
+      console.log("Android token===", token)
       return token;
     }
   } catch (e) {
@@ -101,7 +106,7 @@ const request: any = async (
     headers: {
       ...headers,
       'api-key': 'lChjFRJce3bxmoS3TSQk5w==',
-      token: NativeModules.RNShare.token,
+      token: Platform.OS == "ios" ? NativeModules.RNShare.token : await getToken(),
     },
     body: '',
   };
@@ -135,11 +140,13 @@ const request: any = async (
   console.log(`${baseURL}${route}`);
 
   return fetch(`${baseURL}${route}`, init).then(async res => {
+
     if (!json) {
       return res;
     }
-
     res = await handleResponse(res);
+    console.log("Test log== ", ` ${baseURL}${route} `, res)
+
     // if (res?.status === 'new token') {
     //   return request(route, {
     //     method,

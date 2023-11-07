@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewPlanType"
+        style="@style/TextView.SemiBold.sp_18"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/screen_space"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/screen_space"
+        android:text="Currently active plan"
+        android:textColor="@color/textBlack1" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/screen_space"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/screen_space"
+        android:layout_marginBottom="@dimen/dp_10"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/dp_10"
+        app:cardElevation="@dimen/dp_3">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewBg"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/bg_gradient_payment_plan"
+                android:backgroundTint="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/viewLine1"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginTop="@dimen/dp_10"
+                android:alpha="0.07"
+                android:background="@color/textBlack1"
+                app:layout_constraintEnd_toEndOf="@id/imageViewPlanIcon"
+                app:layout_constraintStart_toStartOf="@id/textViewTitle"
+                app:layout_constraintTop_toBottomOf="@id/textViewSubTitle" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewPlanIcon"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_80"
+                android:layout_margin="@dimen/dp_12"
+                android:adjustViewBounds="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.35"
+                app:srcCompat="@drawable/ic_dummy_plan" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewTitle"
+                style="@style/TextView.Bold.sp_18"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_14"
+                android:layout_marginTop="@dimen/dp_12"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="2"
+                android:text="Platform Access"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintEnd_toStartOf="@id/imageViewPlanIcon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewSubTitle"
+                style="@style/TextView.Medium.sp_13"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_5"
+                android:alpha="0.8"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:lines="2"
+                android:maxLines="2"
+                android:text="Heal your disease with MyTatva"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintEnd_toEndOf="@id/textViewTitle"
+                app:layout_constraintStart_toStartOf="@id/textViewTitle"
+                app:layout_constraintTop_toBottomOf="@id/textViewTitle" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelWhatIncluded"
+                style="@style/TextView.Medium.sp_11"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_12"
+                android:alpha="0.7"
+                android:text="What's included?"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintEnd_toEndOf="@id/textViewTitle"
+                app:layout_constraintStart_toStartOf="@id/textViewTitle"
+                app:layout_constraintTop_toBottomOf="@id/viewLine1" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewDescription"
+                style="@style/TextView.Regular.sp_11"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_6"
+                android:alpha="0.7"
+                android:ellipsize="end"
+                android:lineSpacingExtra="@dimen/dp_2"
+                android:lines="5"
+                android:maxLines="5"
+                android:text="2 calls with a certified coach and unlimited chat 2 calls with a certified coach and unlimited chat 2 calls with a certified coach and unlimited chat 2 calls with a certified coach and unlimited chat 2 calls with a certified coach"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintEnd_toEndOf="@id/textViewTitle"
+                app:layout_constraintStart_toStartOf="@id/textViewTitle"
+                app:layout_constraintTop_toBottomOf="@id/textViewLabelWhatIncluded" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewMoreDetails"
+                style="@style/TextView.SemiBold.sp_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_5"
+                android:paddingTop="@dimen/dp_2"
+                android:paddingBottom="@dimen/dp_2"
+                android:text="More details"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintStart_toStartOf="@id/textViewTitle"
+                app:layout_constraintTop_toBottomOf="@id/textViewDescription" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewNext"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/dp_10"
+                android:adjustViewBounds="true"
+                android:padding="@dimen/dp_2"
+                app:layout_constraintBottom_toBottomOf="@id/textViewMoreDetails"
+                app:layout_constraintStart_toEndOf="@id/textViewMoreDetails"
+                app:layout_constraintTop_toTopOf="@id/textViewMoreDetails"
+                app:srcCompat="@drawable/ic_next"
+                app:tint="@color/colorPrimary" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layoutPriceMain"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/dp_6"
+                android:layout_marginBottom="@dimen/dp_46"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@id/viewLine2"
+                app:layout_constraintEnd_toEndOf="@id/imageViewPlanIcon"
+                app:layout_constraintStart_toStartOf="@id/imageViewPlanIcon"
+                app:layout_constraintTop_toBottomOf="@id/imageViewPlanIcon">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelStartAt"
+                    style="@style/TextView.Regular.sp_16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.6"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="Starts at"
+                    android:textColor="@color/textBlack1"
+                    app:layout_constraintEnd_toEndOf="@id/imageViewPlanIcon"
+                    app:layout_constraintStart_toStartOf="@id/imageViewPlanIcon"
+                    app:layout_constraintTop_toBottomOf="@id/imageViewPlanIcon" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewPriceOld"
+                    style="@style/TextView.Regular.sp_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.6"
+                    android:ellipsize="end"
+                    android:foreground="@drawable/line_strike_through"
+                    android:maxLines="1"
+                    android:textColor="@color/textBlack1"
+                    app:layout_constraintEnd_toEndOf="@id/imageViewPlanIcon"
+                    app:layout_constraintStart_toStartOf="@id/imageViewPlanIcon"
+                    app:layout_constraintTop_toBottomOf="@id/textViewLabelStartAt"
+                    tools:text="3400" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/layoutPrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:gravity="bottom|center"
+                    app:layout_constraintEnd_toEndOf="@id/imageViewPlanIcon"
+                    app:layout_constraintStart_toStartOf="@id/imageViewPlanIcon"
+                    app:layout_constraintTop_toBottomOf="@id/textViewPriceOld">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewPriceSymbol"
+                        style="@style/TextView.SemiBold.sp_20"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="@string/symbol_rupee"
+                        android:textColor="@color/textBlack1" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewPrice"
+                        style="@style/TextView.SemiBold.sp_20"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="@color/textBlack1"
+                        tools:text="2400" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewLabelPer"
+                        style="@style/TextView.SemiBold.sp_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="/month"
+                        android:textColor="@color/textBlack1" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonChoosePlan"
+                style="@style/buttonSolidSmall"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_28"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginBottom="@dimen/dp_12"
+                android:text="Buy"
+                android:textSize="@dimen/sp_12"
+                app:layout_constraintBottom_toTopOf="@id/viewLine2"
+                app:layout_constraintEnd_toEndOf="@id/imageViewPlanIcon"
+                app:layout_constraintStart_toStartOf="@id/imageViewPlanIcon" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonCancelPlan"
+                style="@style/buttonSolidSmall"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_28"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginBottom="@dimen/dp_12"
+                android:text="Cancel Plan"
+                android:textSize="@dimen/sp_12"
+                app:layout_constraintBottom_toTopOf="@id/viewLine2"
+                app:layout_constraintEnd_toEndOf="@id/imageViewPlanIcon"
+                app:layout_constraintStart_toStartOf="@id/imageViewPlanIcon" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/viewLine2"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginTop="@dimen/dp_8"
+                android:alpha="0.07"
+                android:background="@color/textBlack1"
+                app:layout_constraintEnd_toEndOf="@id/imageViewPlanIcon"
+                app:layout_constraintStart_toStartOf="@id/textViewTitle"
+                app:layout_constraintTop_toBottomOf="@id/textViewMoreDetails" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layoutCurrentPlanDates"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/dp_12"
+                android:paddingBottom="@dimen/dp_12"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="@id/imageViewPlanIcon"
+                app:layout_constraintStart_toStartOf="@id/textViewTitle"
+                app:layout_constraintTop_toBottomOf="@id/viewLine2">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/TextView.Regular.sp_11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:alpha="0.7"
+                        android:text="Purchase date -"
+                        android:textColor="@color/textBlack1" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewPurchaseDate"
+                        style="@style/TextView.SemiBold.sp_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="01/09/2021"
+                        android:textColor="@color/textBlack1" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/TextView.Regular.sp_11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:alpha="0.7"
+                        android:text="Next renewal -"
+                        android:textColor="@color/textBlack1" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewNestRenewalDate"
+                        style="@style/TextView.SemiBold.sp_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="01/09/2021"
+                        android:textColor="@color/textBlack1" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

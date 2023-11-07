@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_16"
+        android:background="@drawable/bg_common_rounded_rect_20"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/dp_20">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutChatBot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_8"
+            android:layout_marginEnd="@dimen/dp_8">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp_14"
+                app:cardCornerRadius="@dimen/dp_8"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageViewProfile"
+                    android:layout_width="@dimen/dp_60"
+                    android:layout_height="@dimen/dp_60"
+                    android:background="@drawable/bg_common_rounded_rect_7"
+                    android:elevation="@dimen/dp_4"
+                    app:srcCompat="@drawable/place_holder" />
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewName"
+                style="@style/TextView.Bold.sp_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_14"
+                android:layout_marginTop="@dimen/dp_2"
+                android:layout_marginEnd="@dimen/dp_14"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/cardViewImage"
+                app:layout_constraintTop_toTopOf="@id/cardViewImage"
+                tools:text="Dr. Dheeraj Kesari" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewDescription"
+                style="@style/TextView.Regular.sp_13"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_4"
+                android:layout_marginEnd="@dimen/dp_14"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/textViewName"
+                app:layout_constraintTop_toBottomOf="@id/textViewName"
+                tools:text="Physician" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewExperience"
+                style="@style/TextView.Regular.sp_13"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_5"
+                android:layout_marginEnd="@dimen/dp_14"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/gray8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/textViewName"
+                app:layout_constraintTop_toBottomOf="@id/textViewDescription"
+                tools:text="12 yrs of experience" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/viewLine1"
+            style="@style/viewLine"
+            android:layout_width="match_parent"
+            android:layout_marginStart="@dimen/dp_14"
+            android:layout_marginTop="@dimen/dp_4"
+            android:layout_marginEnd="@dimen/dp_14"
+            android:layout_marginBottom="0dp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_36"
+            android:layout_marginTop="@dimen/dp_16"
+            android:layout_marginEnd="@dimen/dp_36"
+            android:layout_marginBottom="@dimen/dp_20">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewAddress"
+                android:layout_width="@dimen/dp_24"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_hc_address" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewHospital"
+                style="@style/TextView.Medium.sp_13"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_28"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/imageViewAddress"
+                app:layout_constraintTop_toTopOf="@id/imageViewAddress"
+                tools:text="Breach Candy Hospital" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewAddress"
+                style="@style/TextView.Regular.sp_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_5"
+                android:alpha="0.6"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintEnd_toEndOf="@id/textViewHospital"
+                app:layout_constraintStart_toStartOf="@id/textViewHospital"
+                app:layout_constraintTop_toBottomOf="@id/textViewHospital"
+                tools:text="60 A, Bhulabhai Desai Marg, Breach Candy, Cumballa Hill, Mumbai" />
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewContact"
+                android:layout_width="@dimen/dp_24"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_14"
+                android:adjustViewBounds="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewAddress"
+                app:srcCompat="@drawable/ic_hc_contact" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewContact"
+                style="@style/TextView.Medium.sp_13"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintBottom_toBottomOf="@id/imageViewContact"
+                app:layout_constraintEnd_toEndOf="@id/textViewHospital"
+                app:layout_constraintStart_toStartOf="@id/textViewHospital"
+                app:layout_constraintTop_toTopOf="@id/imageViewContact"
+                tools:text="+91 - 9878543210" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewLanguage"
+                android:layout_width="@dimen/dp_24"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_14"
+                android:adjustViewBounds="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imageViewContact"
+                app:srcCompat="@drawable/ic_hc_language" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelLanguage"
+                style="@style/TextView.Medium.sp_13"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/halthcoach_profile_label_languages_spoken"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintEnd_toEndOf="@id/textViewHospital"
+                app:layout_constraintStart_toStartOf="@id/textViewHospital"
+                app:layout_constraintTop_toTopOf="@id/imageViewLanguage" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLanguage"
+                style="@style/TextView.Regular.sp_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_5"
+                android:alpha="0.6"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintEnd_toEndOf="@id/textViewHospital"
+                app:layout_constraintStart_toStartOf="@id/textViewHospital"
+                app:layout_constraintTop_toBottomOf="@id/textViewLabelLanguage"
+                tools:text="Hindi , English , Punjabi" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewLink"
+                android:layout_width="@dimen/dp_24"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_hc_link" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewClose"
+        android:layout_width="@dimen/dp_46"
+        android:layout_height="@dimen/dp_46"
+        android:layout_gravity="end"
+        app:srcCompat="@drawable/ic_chat_close" />
+</FrameLayout>

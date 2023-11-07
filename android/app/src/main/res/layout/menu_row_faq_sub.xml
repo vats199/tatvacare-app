@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/screen_space"
+    android:layout_marginTop="@dimen/dp_4"
+    android:layout_marginEnd="@dimen/screen_space"
+    android:layout_marginBottom="@dimen/dp_4"
+    android:background="@drawable/bg_common_rounded_rect_10"
+    android:elevation="@dimen/dp_3"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/layoutQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackground"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp_12">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewQuestion"
+            style="@style/TextView.Medium.sp_16"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_2"
+            android:layout_weight="1"
+            android:text="Lorem Ipsum is simply dummy text"
+            android:textColor="@color/textBlack1" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewUpDown"
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_24"
+            android:padding="@dimen/dp_6"
+            android:rotation="180"
+            app:srcCompat="@drawable/ic_dropdown_gray" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <View
+        android:id="@+id/viewLine1"
+        style="@style/viewLine"
+        android:layout_marginStart="@dimen/dp_12"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="@dimen/dp_12"
+        android:layout_marginBottom="0dp"
+        android:visibility="gone" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewAns"
+        style="@style/TextView.Medium.sp_14"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lineSpacingExtra="@dimen/dp_5"
+        android:padding="@dimen/dp_12"
+        android:text="It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum. It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum"
+        android:textColor="@color/textBlack1" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

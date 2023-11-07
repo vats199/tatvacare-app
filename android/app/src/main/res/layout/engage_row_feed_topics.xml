@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.AppCompatTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/textViewTopic"
+    style="@style/TextView.SemiBold.sp_10"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/dp_5"
+    android:layout_marginEnd="@dimen/dp_10"
+    android:background="@drawable/bg_common_rounded_rect_7"
+    android:backgroundTint="@color/gray1"
+    android:ellipsize="end"
+    android:gravity="center"
+    android:maxLines="1"
+    android:padding="@dimen/dp_5"
+    android:text="COPD Basics"
+    android:textAlignment="gravity"
+    android:textColor="@color/textBlack1" />

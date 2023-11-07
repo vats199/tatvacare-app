@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:background="@drawable/bg_rounded_top_bottomsheet">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/viewBottomSheetHandle"
+        style="@style/bottomSheetHandleView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewLabelEnterAddress"
+        style="@style/TextView.Bold.sp_20"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginHorizontal="@dimen/screen_space"
+        android:text="@string/enter_address_bottomsheet_label_enter_address"
+        android:textColor="@color/textBlack7"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewBottomSheetHandle" />
+
+    <View
+        android:id="@+id/viewLine"
+        style="@style/viewLine"
+        android:layout_width="0dp"
+        android:background="@color/gray5"
+        android:layout_marginTop="@dimen/dp_12"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewLabelEnterAddress" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        app:layout_constrainedHeight="true"
+        android:paddingBottom="@dimen/dp_15"
+        app:layout_constraintBottom_toTopOf="@id/buttonSaveAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewLine">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/screen_space" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/screen_space" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelDisclaimer"
+                style="@style/TextView.Regular.sp_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_12"
+                android:background="@drawable/bg_disclaimer_rounded_rect_16"
+                android:paddingHorizontal="@dimen/dp_12"
+                android:paddingVertical="@dimen/dp_12"
+                android:text="@string/enter_address_bottomsheet_label_disclaimer"
+                android:textColor="@color/textGray7"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputLayoutPincode"
+                style="@style/TextInputLayoutAuth"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_11"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewLabelDisclaimer">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextPinCode"
+                    style="@style/TextInputEditText"
+                    android:inputType="number"
+                    android:imeOptions="actionNext"
+                    android:maxLines="1"
+                    android:maxLength="6"
+                    android:hint="@string/enter_address_bottomsheet_hint_pincode" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputLayoutHouseNumberBuilding"
+                style="@style/TextInputLayoutAuth"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_13"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/inputLayoutPincode">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextHouseNumberBuilding"
+                    style="@style/TextInputEditText"
+                    android:inputType="text"
+                    android:imeOptions="actionNext"
+                    android:maxLines="1"
+                    android:hint="@string/enter_address_bottomsheet_hint_house_number" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputLayoutStreetName"
+                style="@style/TextInputLayoutAuth"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_13"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/inputLayoutHouseNumberBuilding">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextStreetName"
+                    style="@style/TextInputEditText"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:hint="@string/enter_address_bottomsheet_hint_street_number" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelAddressType"
+                style="@style/TextView.Bold.sp_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/enter_address_bottomsheet_label_address_type"
+                android:textColor="@color/textBlack9"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/inputLayoutStreetName" />
+
+            <RadioGroup
+                android:id="@+id/radioGroupAddressType"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_7"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/textViewLabelAddressType">
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/radioHome"
+                    style="@style/radioButtonAddressType"
+                    android:layout_width="wrap_content"
+                    android:background="@color/transparent"
+                    android:checked="true"
+                    android:text="Home" />
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/radioOffice"
+                    style="@style/radioButtonAddressType"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="@dimen/dp_22"
+                    android:background="@color/transparent"
+                    android:text="Office" />
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/radioOther"
+                    style="@style/radioButtonAddressType"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="@dimen/dp_22"
+                    android:background="@color/transparent"
+                    android:text="Other" />
+
+            </RadioGroup>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonSaveAddress"
+        style="@style/buttonSolidWithCorner16Bold"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_30"
+        android:layout_marginBottom="@dimen/dp_16"
+        android:backgroundTint="@color/clr_selector_button_isenable_primary_gray"
+        android:enabled="false"
+        android:layout_marginHorizontal="@dimen/screen_space"
+        android:text="@string/enter_address_bottomsheet_btn_save_address"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_screen_color"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/layoutHeader"
+        layout="@layout/layout_common_toolbar_with_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutHeader">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bg_screen_color"
+            android:paddingBottom="@dimen/dp_20">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/screen_space" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/screen_space" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelSummary"
+                style="@style/TextView.Bold.sp_16"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:text="@string/payment_bcp_my_device_label_summary"
+                android:textColor="@color/textBlack9"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutOrderSummary"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_12"
+                android:elevation="@dimen/dp_2"
+                android:background="@drawable/bg_common_rounded_rect_12"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/textViewLabelSummary">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewName"
+                    style="@style/TextView.Bold.sp_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:text="@string/payment_care_plan_order_review_label_name"
+                    android:textColor="@color/textBlack9"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageViewAddress"
+                    android:layout_width="@dimen/dp_16"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:adjustViewBounds="true"
+                    app:layout_constraintStart_toStartOf="@id/textViewName"
+                    app:layout_constraintTop_toBottomOf="@id/textViewName"
+                    app:srcCompat="@drawable/ic_address_new" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewPickupFromAddress"
+                    style="@style/TextView.Regular.sp_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_11"
+                    tools:text="Address"
+                    android:textColor="@color/gray2"
+                    app:layout_constraintEnd_toEndOf="@id/textViewName"
+                    app:layout_constraintStart_toEndOf="@id/imageViewAddress"
+                    app:layout_constraintTop_toTopOf="@id/imageViewAddress" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageViewEmail"
+                    android:layout_width="@dimen/dp_16"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:adjustViewBounds="true"
+                    app:layout_constraintStart_toStartOf="@id/textViewName"
+                    app:layout_constraintTop_toBottomOf="@id/textViewPickupFromAddress"
+                    app:srcCompat="@drawable/ic_email" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewEmail"
+                    style="@style/TextView.Regular.sp_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_11"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    tools:text="abc@gmail.com"
+                    android:textColor="@color/gray2"
+                    app:layout_constraintBottom_toBottomOf="@id/imageViewEmail"
+                    app:layout_constraintEnd_toEndOf="@+id/textViewName"
+                    app:layout_constraintStart_toEndOf="@id/imageViewEmail"
+                    app:layout_constraintTop_toTopOf="@id/imageViewEmail" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageViewPhone"
+                    android:layout_width="@dimen/dp_16"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:adjustViewBounds="true"
+                    app:layout_constraintStart_toStartOf="@id/textViewName"
+                    app:layout_constraintTop_toBottomOf="@id/imageViewEmail"
+                    app:srcCompat="@drawable/ic_phone" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewContact"
+                    style="@style/TextView.Regular.sp_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_11"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    tools:text="+91 1234567890"
+                    android:textColor="@color/gray2"
+                    app:layout_constraintBottom_toBottomOf="@id/imageViewPhone"
+                    app:layout_constraintEnd_toEndOf="@+id/textViewName"
+                    app:layout_constraintStart_toEndOf="@id/imageViewPhone"
+                    app:layout_constraintTop_toTopOf="@id/imageViewPhone" />
+
+                <View
+                    android:id="@+id/viewLine"
+                    style="@style/viewLine"
+                    android:layout_width="0dp"
+                    android:layout_marginTop="@dimen/dp_13"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/imageViewPhone" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelOrderId"
+                    style="@style/TextView.Regular.sp_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_16"
+                    app:layout_constraintEnd_toStartOf="@id/textViewValueOrderId"
+                    android:text="@string/payment_bcp_my_device_order_id"
+                    android:textColor="@color/gray2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/viewLine" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewValueOrderId"
+                    style="@style/TextView.Bold.sp_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    tools:text="Vl34"
+                    android:textColor="@color/textBlack1"
+                    app:layout_constraintBottom_toBottomOf="@id/textViewLabelOrderId"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/textViewLabelOrderId"
+                    app:layout_constraintTop_toTopOf="@id/textViewLabelOrderId" />
+
+                <View
+                    android:id="@+id/viewLine1"
+                    style="@style/viewLine"
+                    android:layout_width="0dp"
+                    android:layout_marginHorizontal="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_16"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textViewValueOrderId" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelStatus"
+                    style="@style/TextView.Regular.sp_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:layout_marginBottom="@dimen/dp_20"
+                    android:text="@string/payment_bcp_my_device_status"
+                    app:layout_constraintEnd_toStartOf="@id/textViewValueStatus"
+                    android:textColor="@color/gray2"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/viewLine1" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewValueStatus"
+                    style="@style/TextView.Bold.sp_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    tools:text="Ordered"
+                    android:textColor="@color/textBlack1"
+                    app:layout_constraintBottom_toBottomOf="@id/textViewLabelStatus"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/textViewLabelStatus"
+                    app:layout_constraintTop_toTopOf="@id/textViewLabelStatus" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelDeviceDetails"
+                style="@style/TextView.Bold.sp_16"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_24"
+                android:text="@string/payment_bcp_my_device_label_device_details"
+                android:textColor="@color/textBlack9"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@+id/layoutOrderSummary" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewMyDevices"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_12"
+                android:background="@drawable/bg_common_rounded_rect_12"
+                android:clipToPadding="false"
+                android:nestedScrollingEnabled="false"
+                android:orientation="vertical"
+                android:elevation="@dimen/dp_2"
+                android:padding="@dimen/dp_1"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/textViewLabelDeviceDetails"
+                tools:itemCount="3"
+                tools:listitem="@layout/home_row_my_devices" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelWhatNext"
+                style="@style/TextView.Bold.sp_16"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_24"
+                android:text="@string/payment_bcp_my_device_label_what_next"
+                android:textColor="@color/textBlack9"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerViewMyDevices" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutWhatNext"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_12"
+                android:layout_marginBottom="@dimen/dp_12"
+                android:background="@drawable/bg_common_rounded_rect_12"
+                android:elevation="@dimen/dp_2"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/textViewLabelWhatNext">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewValueWhatNext"
+                    style="@style/TextView.Regular.sp_12"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_18"
+                    android:layout_marginBottom="@dimen/dp_18"
+                    android:lineSpacingExtra="@dimen/dp_3"
+                    android:text="@string/payment_bcp_my_device_value_what_next"
+                    android:textColor="@color/gray9"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layoutContactUs"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/dp_16"
+                android:background="@drawable/bg_common_rounded_rect_12"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/dp_16"
+                android:weightSum="1"
+                android:elevation="@dimen/dp_2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/layoutWhatNext"
+                app:layout_constraintVertical_bias="0.2">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelNeedHelpSomething"
+                    style="@style/TextView.Regular.sp_12"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Need Help with something?"
+                    android:textColor="@color/textBlack7" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewContactUs"
+                    style="@style/TextView.Bold.sp_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Contact Us"
+                    android:textColor="@color/colorPrimary" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

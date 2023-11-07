@@ -1,0 +1,170 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:id="@+id/rootChooseCondition"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/layoutHeader"
+        layout="@layout/layout_common_toolbar_with_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:layout_marginBottom="@dimen/dp_8"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toTopOf="@id/buttonFinish"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutHeader">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/dp_20" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/dp_20" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelQuestion"
+                style="@style/TextView.Bold.sp_20"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                android:text="@string/choose_condition_label_diagnosed"
+                android:textColor="@color/textBlack8"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelChooseCondition"
+                style="@style/TextView.Regular.sp_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_12"
+                android:text="@string/choose_condition_label_choose_condition"
+                android:textColor="@color/textGray6"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/textViewLabelQuestion" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewChooseCondition"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewLabelChooseCondition"
+                app:spanCount="3"
+                android:paddingHorizontal="@dimen/dp_14"
+                android:layout_marginTop="@dimen/dp_18"
+                tools:itemCount="5"
+                tools:listitem="@layout/auth_row_choose_condition_v2" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/groupProvideCondition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="textViewLabelProvide,textViewLabelOptional,inputLayoutProvideCondition"
+                android:visibility="gone" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelProvide"
+                style="@style/TextView.Bold.sp_16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toStartOf="@id/textViewLabelOptional"
+                android:layout_marginTop="@dimen/dp_28"
+                app:layout_constrainedWidth="true"
+                android:maxLines="1"
+                android:ellipsize="end"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintHorizontal_bias="0"
+                android:text="@string/choose_condition_label_provide_condition"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/recyclerViewChooseCondition"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelOptional"
+                style="@style/TextView.Regular.sp_16"
+                android:layout_width="wrap_content"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constrainedWidth="true"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_28"
+                android:layout_marginStart="@dimen/dp_5"
+                android:text="@string/choose_condition_label_optional"
+                android:textColor="@color/textGray7"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toEndOf="@id/textViewLabelProvide"
+                app:layout_constraintTop_toBottomOf="@id/recyclerViewChooseCondition"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputLayoutProvideCondition"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_12"
+                style="@style/TextInputLayoutAuth"
+                android:hint="@string/choose_condition_hint_enter"
+                app:layout_constraintVertical_bias="0"
+                android:layout_marginBottom="@dimen/dp_14"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewLabelProvide">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextProvideCondition"
+                    style="@style/TextInputEditText.Name"
+                    android:inputType="textEmailAddress"
+                    android:singleLine="true" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonFinish"
+        style="@style/buttonStrokeSmallRadius16"
+        android:layout_width="0dp"
+        android:layout_marginTop="@dimen/dp_24"
+        app:layout_goneMarginTop="@dimen/dp_24"
+        android:layout_marginBottom="@dimen/dp_16"
+        android:paddingStart="@dimen/dp_24"
+        android:paddingEnd="@dimen/dp_24"
+        android:layout_marginHorizontal="@dimen/screen_space"
+        android:text="@string/choose_condition_button_finish"
+        android:enabled="false"
+        android:textColor="@color/clr_selector_gray_white"
+        android:background="@drawable/selector_button_stroke_fill_rect_16"
+        app:layout_constraintVertical_bias="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

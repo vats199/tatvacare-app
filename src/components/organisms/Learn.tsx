@@ -7,8 +7,8 @@ import {
   View,
 } from 'react-native';
 import React from 'react';
-import {colors} from '../../constants/colors';
-import {Icons} from '../../constants/icons';
+import { colors } from '../../constants/colors';
+import { Icons } from '../../constants/icons';
 import moment from 'moment';
 import LearnItem from '../atoms/LearnItem';
 
@@ -66,13 +66,13 @@ const styles = StyleSheet.create({
   },
   title: {
     color: colors.black,
-    fontWeight: '700',
+    fontFamily: 'SFProDisplay-Bold',
     fontSize: 16,
   },
   linkText: {
     color: colors.themePurple,
     fontSize: 12,
-    fontWeight: '700',
+    fontFamily: 'SFProDisplay-Bold',
     textDecorationLine: 'underline',
   },
   scrollContainer: {

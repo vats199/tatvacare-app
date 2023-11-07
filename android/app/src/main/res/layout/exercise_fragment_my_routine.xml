@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLineStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/screen_space" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLineEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/screen_space" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewExerciseTitle"
+        style="@style/TextView.SemiBold.sp_20"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_15"
+        android:layout_marginEnd="@dimen/dp_4"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintEnd_toStartOf="@id/textViewDate"
+        app:layout_constraintStart_toStartOf="@id/guideLineStart"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Exercise Plan Name" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewDate"
+        style="@style/TextView.Medium.sp_11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_common_rounded_rect_6_stroke"
+        android:drawableStart="@drawable/ic_date_dark_pink"
+        android:drawablePadding="@dimen/dp_3"
+        android:gravity="center"
+        android:paddingHorizontal="@dimen/dp_7"
+        android:paddingVertical="@dimen/dp_6"
+        android:textAlignment="center"
+        android:textColor="@color/textBlack1Transparent50"
+        app:layout_constraintBottom_toBottomOf="@id/textViewExerciseTitle"
+        app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+        app:layout_constraintTop_toTopOf="@id/textViewExerciseTitle"
+        tools:text="17 Mar 2023" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewExerciseValidDate"
+        style="@style/TextView.Regular.sp_12"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:paddingBottom="@dimen/dp_10"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+        app:layout_constraintStart_toStartOf="@id/guideLineStart"
+        app:layout_constraintTop_toBottomOf="@id/textViewExerciseTitle"
+        tools:text="Valid from 17 Mar 2023 to 21 Mar 2023" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewBg"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/bg_rounded_top_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tabLayout" />
+
+    <!--plan routine data views-->
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/dp_20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewExerciseValidDate"
+        app:tabIndicator="@drawable/bg_tab_selector"
+        app:tabIndicatorColor="@color/colorPrimary"
+        app:tabIndicatorFullWidth="true"
+        app:tabIndicatorGravity="bottom"
+        app:tabIndicatorHeight="@dimen/dp_4"
+        app:tabMode="scrollable"
+        app:tabPaddingEnd="@dimen/dp_24"
+        app:tabPaddingStart="@dimen/dp_24"
+        app:tabRippleColor="@android:color/transparent"
+        app:tabSelectedTextColor="@color/colorPrimary"
+        app:tabTextAppearance="@style/MyTextAppearance14"
+        app:tabTextColor="@color/purpleWhitish" />
+
+    <com.mytatva.patient.utils.NonSwipeableViewPager
+        android:id="@+id/viewPagerRoutine"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/imageViewBg" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/groupPlanData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="tabLayout,viewPagerRoutine"
+        tools:visibility="visible" />
+
+    <!--rest day views-->
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewRestDay"
+        style="@style/TextView.Bold.sp_20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/screen_space"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="Rest Day"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintBottom_toTopOf="@id/imageViewRestDay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tabLayout"
+        app:layout_constraintVertical_bias="0.45"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewRestDay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/screen_space"
+        android:layout_marginTop="@dimen/dp_60"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewRestDay"
+        app:srcCompat="@drawable/ic_rest_day" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/groupOfRestDay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="textViewRestDay,imageViewRestDay" />
+
+    <!--textViewNoData-->
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewNoData"
+        style="@style/textViewNoData"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:paddingTop="@dimen/dp_8"
+        android:paddingBottom="@dimen/dp_40"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/exercise_row_more"
+        tools:text="No data found" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

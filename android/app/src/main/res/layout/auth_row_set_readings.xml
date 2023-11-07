@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dp_8"
+    android:background="@drawable/bg_common_rounded_rect_5"
+    android:elevation="@dimen/dp_3"
+    android:padding="@dimen/dp_8">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewIconReading"
+        android:layout_width="@dimen/dp_40"
+        android:layout_height="@dimen/dp_40"
+        android:padding="@dimen/dp_5"
+        android:background="@drawable/bg_reading_icons_transparent_rounded"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:srcCompat="@drawable/ic_lungs" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewUpdate"
+        style="@style/TextView.Regular.sp_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableEnd="@drawable/ic_add"
+        android:drawablePadding="@dimen/dp_7"
+        android:padding="@dimen/dp_5"
+        android:text="Record reading"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="@id/textViewReading"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/textViewReading" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewReading"
+        style="@style/TextView.SemiBold.sp_14"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_16"
+        android:layout_marginEnd="@dimen/dp_5"
+        android:ellipsize="end"
+        android:text="Lung Function"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/textViewUpdate"
+        app:layout_constraintStart_toEndOf="@id/imageViewIconReading"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
