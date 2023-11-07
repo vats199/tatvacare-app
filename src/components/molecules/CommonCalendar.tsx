@@ -272,6 +272,19 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
     );
   };
 
+  const getMondayOfWeek = (dateString: any) => {
+    const date = new Date(dateString);
+    const dayOfWeek = date.getDay();
+    let diff = dayOfWeek - 1;
+    if (dayOfWeek === 0) {
+      diff = 6;
+    }
+    const mondayOfWeek = new Date(date);
+    mondayOfWeek.setDate(date.getDate() - diff);
+
+    return mondayOfWeek;
+  }
+
   const onExpandCalendar = () => {
     trackEvent(Constants.EVENT_NAME.FOOD_DIARY.USER_CHANGES_DATE, {
       current_date: moment().format(Constants.DATE_FORMAT),
@@ -282,11 +295,17 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
       ? LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
       : null;
     setShowMore(!showMore);
+    const mondayOfWeek = getMondayOfWeek(seletedDay);
+    console.log("mondayOfWeek", mondayOfWeek);
+
+    setCalendarDates(moment(mondayOfWeek).format('YYYY-MM-DD'));
   };
 
   const onDateChanged = useCallback((date: any, updateSource: any) => {
     let tempDate = new Date(date);
     setNewMonth(tempDate)
+    console.log("tempDate", tempDate);
+
     // setSeletedDay(moment(date?.dateString).format('YYYY-MM-DD'))
     // if (updateSource === 'weekScroll') {
     //   let month = getMonthRangeText(new Date(tempDate))
@@ -295,6 +314,7 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
     //   setNewMonth(month)
     // }
   }, []);
+
 
   return (
     <>
@@ -345,7 +365,7 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
             <Animated.View style={{ overflow: 'hidden' }}>
               <WeekCalendar
                 firstDay={1}
-                current={moment(seletedDay).format('YYYY-MM-DD')}
+                current={moment(calendarDates).format('YYYY-MM-DD')}
                 onDayPress={onDayPress}
                 markingType="custom"
                 markedDates={markedDateStyle}
