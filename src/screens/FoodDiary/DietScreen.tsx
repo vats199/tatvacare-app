@@ -68,10 +68,6 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
     data: FoodItems;
     mealId: string;
   } | null>();
-  useEffect(() => {
-    getData();
-    return () => setDiePlane([]);
-  }, [selectedDate, stateOfAPIcall]);
 
   useEffect(() => {
     if (title) {
@@ -202,12 +198,10 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
       { token: userData.token },
     );
     if (deleteFoodItem?.data) {
-      // setStateOfAPIcall(false);
       getData(deleteItemRef.current?.optionId, deleteItemRef.current?.mealId);
       deleteItemRef.current = null;
       setTimeout(() => {
         bottomSheetModalRef.current?.close();
-        // setModalVisible(false);
       }, 1000);
     }
   };
@@ -295,10 +289,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
 
   const handlePressOfNoPlanePlusIcon = (mealData: mealTYpe) => {
     const today = new Date();
-    if (
-      moment(new Date(selectedDate)).format('DD-MM-YYYY') >=
-      moment(today).format('DD-MM-YYYY')
-    ) {
+    if (moment(new Date(selectedDate)).format('YYYY-MM-DD') >= moment(today).format("YYYY-MM-DD")) {
       navigation.navigate('AddDiet', {
         healthCoachId: dietPlane?.health_coach_id,
         mealName: mealData?.label,
@@ -307,7 +298,24 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
         patient_id: dietPlane?.patient_id,
       });
     } else {
-      toast.show("Food item can't be added in past date meals");
+      toast.show("Food item can't be added in past date meals",
+        {
+          type: 'normal',
+          placement: 'bottom',
+          duration: 2000,
+          animationType: 'slide-in',
+          style: {
+            borderRadius: Matrics.mvs(12),
+            width: Matrics.screenWidth - 20,
+          },
+          textStyle: {
+            fontSize: Matrics.mvs(13),
+            fontFamily: Fonts.REGULAR,
+            color: colors.white,
+            lineHeight: 18,
+          },
+        }
+      );
     }
   };
 
@@ -321,7 +329,6 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
             Platform.OS == 'android' ? insets.top + Matrics.vs(20) : 0,
         },
       ]}>
-      {/* <MyStatusbar backgroundColor={colors.lightGreyishBlue} /> */}
       <DietHeader
         onPressBack={onPressBack}
         onPressOfNextAndPerviousDate={handleDate}

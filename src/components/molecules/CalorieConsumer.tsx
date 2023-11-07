@@ -1,9 +1,9 @@
-import React, {useEffect} from 'react';
-import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
-import {Icons} from '../../constants/icons';
+import React, { useEffect } from 'react';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { Icons } from '../../constants/icons';
 import CircularProgress from 'react-native-circular-progress-indicator';
-import {Fonts, Matrics} from '../../constants';
-import {colors} from '../../constants/colors';
+import { Fonts, Matrics } from '../../constants';
+import { colors } from '../../constants/colors';
 
 type CalorieConsumerProps = {
   totalConsumedcalories: any;
@@ -59,7 +59,7 @@ const CalorieConsumer: React.FC<CalorieConsumerProps> = ({
             }}
           />
           <View style={styles.textContainer}>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Text style={styles.boldTitle}>
                 {isNaN(totalConsumedcalories) ? 0 : totalConsumedcalories}
               </Text>
@@ -104,13 +104,13 @@ const styles = StyleSheet.create({
   },
   regularTitle: {
     fontSize: Matrics.mvs(14),
-    fontFamily: Fonts.MEDIUM,
+    fontFamily: Fonts.REGULAR,
     color: colors.subTitleLightGray,
     lineHeight: 20,
   },
   textBelowTitle: {
     fontSize: Matrics.mvs(12),
-    fontFamily: Fonts.MEDIUM,
+    fontFamily: Fonts.REGULAR,
     color: colors.subTitleLightGray,
     lineHeight: 18,
   },
