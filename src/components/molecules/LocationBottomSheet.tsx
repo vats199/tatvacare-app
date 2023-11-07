@@ -28,6 +28,7 @@ import Home from '../../api/home';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useApp } from '../../context/app.context';
 import { TextInput } from 'react-native-paper';
+import { trackEvent } from '../../helpers/TrackEvent';
 
 type LocationBottomSheetProps = {
   requestLocationPermission?: (goToSettings: boolean) => void;
@@ -54,6 +55,8 @@ const LocationBottomSheet = forwardRef<
     },
     ref,
   ) => {
+
+
     const bottomSheetModalRef = React.useRef<BottomSheetModal>(null);
 
     const { setUserLocation } = useApp();
@@ -74,7 +77,25 @@ const LocationBottomSheet = forwardRef<
     const [pincode, setPincode] = useState<string>('');
     const [error, setError] = useState<string>('');
 
+
+    React.useEffect(() => {
+      trackBottomSheetButton()
+    }, [pincodeDetailsShown])
+
+    const trackBottomSheetButton = () => {
+      let payload = {
+        bottom_sheet_name: pincodeDetailsShown ? "add pincode" : "grant location permission"
+      }
+      trackEvent("SHOW_BOTTOM_SHEET", payload)
+    }
+
     const onPressUseCurrentLocation = () => {
+      trackEvent("USE_CURRENT_LOCATION", {
+        "bottom_sheet_name": "add pincode"
+      })
+      trackEvent("CLICK_APPLY", {
+        "bottom_sheet_name": "add pincode"
+      })
       if (Platform.OS === 'android') {
         requestLocationPermission(
           ['blocked', 'never_ask_again'].includes(locationPermission || '')
@@ -103,6 +124,9 @@ const LocationBottomSheet = forwardRef<
 
     const onApplyPincode = async () => {
       setLoading(true);
+      trackEvent("PINCODE_ENTERED", {
+        "bottom_sheet_name": "grant location permission"
+      })
       const res = await fetch(
         `https://maps.googleapis.com/maps/api/geocode/json?address=${pincode}&key=AIzaSyD8zxk4kvKlAMGaOQrABy8xqdRKIWGBJlo`,
         {
@@ -270,6 +294,9 @@ const LocationBottomSheet = forwardRef<
                   <Button
                     title={'Select Manually'}
                     onPress={() => {
+                      trackEvent("CLICKED_SELECT_MANUALLY", {
+                        bottom_sheet_name: "grant location permission"
+                      })
                       setPincodeDetailsShown(true);
                     }}
                     titleStyle={styles.outlinedButtonText}
@@ -280,6 +307,9 @@ const LocationBottomSheet = forwardRef<
                   <Button
                     title={'Grant'}
                     onPress={() => {
+                      trackEvent("CLICKED_GRANT_LOCATION", {
+                        bottom_sheet_name: "grant location permission"
+                      })
                       Platform.OS == 'android'
                         ? requestLocationPermission(
                           ['blocked', 'never_ask_again'].includes(

@@ -67,7 +67,7 @@ type HomeScreenProps = CompositeScreenProps<
 >;
 
 const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
-  const { setUserData, setUserLocation } = useApp();
+  const { setUserData, setUserLocation, userData } = useApp();
 
   const [loading, setLoading] = React.useState<boolean>(true);
 
@@ -307,6 +307,10 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
   };
 
   const onPressBell = () => {
+    trackEvent("CLICKED_NOTIFICATION", {
+
+    })
+    // CLICKED_NOTIFICATION
     if (Platform.OS == 'ios') {
       navigateTo('NotificationVC');
     } else {
@@ -314,6 +318,9 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
     }
   };
   const onPressProfile = () => {
+    trackEvent("USER_CLICKED_ON_MENU", {
+      "photo_uploaded": userData.profile_pic ? "yes" : "no"
+    })
     navigation.toggleDrawer();
   };
   const onPressDevices = () => {
@@ -583,6 +590,9 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
                 style={styles.searchContainer}
                 activeOpacity={1}
                 onPress={() => {
+                  trackEvent("CLICKED_SEARCH", {
+                    "search_type": "attempted"
+                  })
                   if (Platform.OS == 'ios') {
                     navigateTo('GlobalSearchParentVC');
                   } else {

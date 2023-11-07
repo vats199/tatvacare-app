@@ -1,6 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import { colors } from '../../constants/colors';
+import { trackEvent } from '../../helpers/TrackEvent';
 
 type AboutUsTabSwitcherProps = {
   activeTab: 'about' | 'terms' | 'policy';
@@ -18,7 +19,12 @@ const AboutUsTabSwitcher: React.FC<AboutUsTabSwitcherProps> = ({
       <TouchableOpacity
         style={[styles.tab, activeTab === 'about' && styles.activeTab]}
         activeOpacity={0.7}
-        onPress={() => setActiveTab('about')}>
+        onPress={() => {
+          trackEvent("ABOUT_US_NAVIGATION", {
+            tabs: "About US"
+          })
+          setActiveTab('about')
+        }}>
         <Text
           style={[styles.tabText, activeTab === 'about' && styles.activeText]}>
           About Us
@@ -27,7 +33,12 @@ const AboutUsTabSwitcher: React.FC<AboutUsTabSwitcherProps> = ({
       <TouchableOpacity
         style={[styles.tab, activeTab === 'terms' && styles.activeTab]}
         activeOpacity={0.7}
-        onPress={() => setActiveTab('terms')}>
+        onPress={() => {
+          trackEvent("ABOUT_US_NAVIGATION", {
+            tabs: "Terms & Conditions"
+          })
+          setActiveTab('terms')
+        }}>
         <Text
           style={[styles.tabText, activeTab === 'terms' && styles.activeText]}>
           T&C's
@@ -36,7 +47,12 @@ const AboutUsTabSwitcher: React.FC<AboutUsTabSwitcherProps> = ({
       <TouchableOpacity
         style={[styles.tab, activeTab === 'policy' && styles.activeTab]}
         activeOpacity={0.7}
-        onPress={() => setActiveTab('policy')}>
+        onPress={() => {
+          trackEvent("ABOUT_US_NAVIGATION", {
+            tabs: "Privacy Policy"
+          })
+          setActiveTab('policy')
+        }}>
         <Text
           style={[styles.tabText, activeTab === 'policy' && styles.activeText]}>
           Privacy Policy

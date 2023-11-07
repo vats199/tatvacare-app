@@ -2,6 +2,7 @@ import { Linking, NativeModules, Platform, StyleSheet, Text, TouchableOpacity, V
 import React from 'react';
 import { colors } from '../../constants/colors';
 import { Icons } from '../../constants/icons';
+import { trackEvent } from '../../helpers/TrackEvent';
 //import { navigateTo, navigateToShareKit } from '../../routes/Router';
 
 type DrawerMoreProps = {
@@ -9,8 +10,15 @@ type DrawerMoreProps = {
 };
 
 const DrawerMore: React.FC<DrawerMoreProps> = ({ onPressAboutUs = () => { } }) => {
+  const trackCommonEvent = (name: string) => {
+    trackEvent("MENU_NAVIGATION", {
+      menu: name
+    })
+  }
+
   const onAccountSettingsPress = () => {
     if (Platform.OS == 'ios') {
+      trackCommonEvent("Account Settings")
       //navigateTo('AccountSettingVC');
     } else {
       NativeModules.AndroidBridge.openAccountSettingScreen();
@@ -25,6 +33,7 @@ const DrawerMore: React.FC<DrawerMoreProps> = ({ onPressAboutUs = () => { } }) =
   };
   const onShareAppPress = () => {
     if (Platform.OS == 'ios') {
+      trackCommonEvent("Share App")
       //navigateToShareKit();
     } else {
       NativeModules.AndroidBridge.openShareAppScreen();
@@ -33,6 +42,7 @@ const DrawerMore: React.FC<DrawerMoreProps> = ({ onPressAboutUs = () => { } }) =
 
   const onPressRateApp = () => {
     if (Platform.OS == 'ios') {
+      trackCommonEvent("Rate App")
       Linking.openURL('https://apps.apple.com/in/app/mytatva/id1590299281');
     } else {
       NativeModules.AndroidBridge.openRateAppScreen();
