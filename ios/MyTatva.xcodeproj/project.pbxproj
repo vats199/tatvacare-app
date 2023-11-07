@@ -853,7 +853,7 @@
 		D9BD6C0FB1A1F2256E90DB40 /* BCATitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A37D6723B2DA8E07A8C576A /* BCATitleCell.swift */; };
 		E13834D99E16E018826EDC61 /* BcaVitalsDetailsTypeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407E82FF51C2D6C7EEA80955 /* BcaVitalsDetailsTypeViewModel.swift */; };
 		E58207EA32FEB6C90DB1FBF5 /* BcaDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75E1C5F51F3C9172E7EB16D /* BcaDetailViewModel.swift */; };
-		E8C099892AF4F57F00C5826A /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = E8C099882AF4F57F00C5826A /* main.jsbundle */; };
+		E82D8C9A2AF8A4DE0087031E /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = E82D8C992AF8A4DE0087031E /* main.jsbundle */; };
 		FF72F88221A8B3C771D91F74 /* WKWebView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC4F2BA61708A40D6BB9C72 /* WKWebView+Extension.swift */; };
 /* End PBXBuildFile section */
 
@@ -1828,8 +1828,8 @@
 		DAD76F3678F23771023D92FE /* BCA.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BCA.storyboard; sourceTree = "<group>"; };
 		E4F51818B96D5002CA72C0C1 /* Weigth_scale.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Weigth_scale.json; sourceTree = "<group>"; };
 		E75E1C5F51F3C9172E7EB16D /* BcaDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BcaDetailViewModel.swift; sourceTree = "<group>"; };
+		E82D8C992AF8A4DE0087031E /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		E87033987CBEF1810B150E8D /* DurationDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationDetailModel.swift; sourceTree = "<group>"; };
-		E8C099882AF4F57F00C5826A /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		EE2886FF35CA65A52803EB28 /* Pods-MyTatvaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyTatvaTests.release.xcconfig"; path = "Target Support Files/Pods-MyTatvaTests/Pods-MyTatvaTests.release.xcconfig"; sourceTree = "<group>"; };
 		F819BAA65E886BD76DA13854 /* BcaListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BcaListCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -5979,7 +5979,7 @@
 		91A1754026789CC500297B66 = {
 			isa = PBXGroup;
 			children = (
-				E8C099882AF4F57F00C5826A /* main.jsbundle */,
+				E82D8C992AF8A4DE0087031E /* main.jsbundle */,
 				91A1754B26789CC500297B66 /* MyTatva */,
 				6169A390272BE1D70081C3B7 /* MyTatvaNotificationService */,
 				618AFEF6272C0884003C244C /* NotificationViewController */,
@@ -6623,7 +6623,7 @@
 				618606F827070AD300C38236 /* GoalSummaryChartCell.xib in Resources */,
 				61738D4F2768D7F500B58953 /* CustomThemeFileOld.plist in Resources */,
 				61849ADE26CBC25A00C3DD61 /* soda_loader.json in Resources */,
-				E8C099892AF4F57F00C5826A /* main.jsbundle in Resources */,
+				E82D8C9A2AF8A4DE0087031E /* main.jsbundle in Resources */,
 				4097D64D2A2E050500D5574B /* Gilroy-SemiBold.ttf in Resources */,
 				8F8545C92ADE4C1F0019128D /* EvilIcons.ttf in Resources */,
 				61AD9C8A2799709200F86EBC /* GaneshToPaldi.gpx in Resources */,
