@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Alert, NativeModules} from 'react-native';
+import { Alert, NativeModules } from 'react-native';
 import config from './config';
 import Config from 'react-native-config';
 import CRYPTO from 'crypto-js';
@@ -74,7 +74,7 @@ const handleResponse = async (response: any) => {
     const parsedResponse = await JSON.parse(getDecryptedData(jsonRes));
 
     if (parsedResponse?.code == 1) {
-      return {data: parsedResponse?.data};
+      return { data: parsedResponse?.data };
     } else {
       return {};
     }

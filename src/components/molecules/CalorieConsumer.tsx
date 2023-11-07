@@ -1,61 +1,74 @@
-import React, { useEffect } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
-import { Icons } from '../../constants/icons';
+import React, {useEffect} from 'react';
+import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+import {Icons} from '../../constants/icons';
 import CircularProgress from 'react-native-circular-progress-indicator';
-import Matrics from '../../constants/Matrics';
-import fonts from '../../constants/fonts';
+import {Fonts, Matrics} from '../../constants';
+import {colors} from '../../constants/colors';
 
 type CalorieConsumerProps = {
-  totalConsumedcalories: number,
-  totalcalories: number
-}
-const CalorieConsumer: React.FC<CalorieConsumerProps> = ({ totalConsumedcalories = 0,
-  totalcalories = 0, }) => {
-  const [values, setVAlues] = React.useState(0)
+  totalConsumedcalories: any;
+  totalcalories: any;
+};
+const CalorieConsumer: React.FC<CalorieConsumerProps> = ({
+  totalConsumedcalories = 0,
+  totalcalories = 0,
+}) => {
+  const [values, setVAlues] = React.useState(0);
   useEffect(() => {
-    let vale = Math.round((totalConsumedcalories / totalcalories) * 100)
-
+    let vale = Math.round((totalConsumedcalories / totalcalories) * 100);
     if (isNaN(vale)) {
       setVAlues(0);
     } else {
-      console.log("vale is a number");
       setVAlues(vale);
     }
+  }, [totalConsumedcalories, totalcalories]);
 
-  }, [totalConsumedcalories, totalcalories])
+  const colorsOfprogressBar = (values: number) => {
+    if (values === 0) {
+      return colors.inactiveGray;
+    } else if (values > 0 && values < 25) {
+      return colors.progressBarRed;
+    } else if (values >= 25 && values < 75) {
+      return colors.progressBarYellow;
+    } else {
+      return colors.progressBarGreen;
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <View style={styles.innerContainer}>
-        <View style={styles.topRow}>
-          <View style={styles.leftContent}>
-            <CircularProgress
-              value={values}
-              inActiveStrokeColor={'#2ecc71'}
-              inActiveStrokeOpacity={0.2}
-              progressValueColor={'green'}
-              radius={Matrics.mvs(23)}
-              activeStrokeWidth={3}
-              inActiveStrokeWidth={3}
-              duration={1000}
-              maxValue={100}
-              allowFontScaling={false}
-              showProgressValue={false}
-              title={`${values}%`}
-              titleStyle={{
-                fontSize: Matrics.mvs(11),
-                fontFamily: fonts.BOLD,
-              }}
-            />
-            <View style={styles.textContainer}>
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={styles.boldTitle}>{isNaN(totalConsumedcalories) ? 0 : totalConsumedcalories}</Text>
-                <Text style={styles.regularTitle}>{" of " + totalcalories}</Text>
-              </View>
-              <Text style={styles.textBelowTitle}>Calories consumed today!</Text>
+      <View style={styles.topRow}>
+        <View style={styles.leftContent}>
+          <CircularProgress
+            value={values}
+            inActiveStrokeColor={colorsOfprogressBar(values)}
+            activeStrokeColor={colorsOfprogressBar(values)}
+            inActiveStrokeOpacity={0.2}
+            progressValueColor={'green'}
+            radius={Matrics.mvs(23)}
+            activeStrokeWidth={3}
+            inActiveStrokeWidth={3}
+            duration={500}
+            maxValue={100}
+            allowFontScaling={false}
+            showProgressValue={false}
+            title={`${values}%`}
+            titleStyle={{
+              fontSize: Matrics.mvs(11),
+              fontFamily: Fonts.BOLD,
+            }}
+          />
+          <View style={styles.textContainer}>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <Text style={styles.boldTitle}>
+                {isNaN(totalConsumedcalories) ? 0 : totalConsumedcalories}
+              </Text>
+              <Text style={styles.regularTitle}>{' of ' + totalcalories}</Text>
             </View>
+            <Text style={styles.textBelowTitle}>Calories consumed today!</Text>
           </View>
-          <Icons.Vector />
         </View>
+        <Icons.Vector />
       </View>
     </View>
   );
@@ -63,22 +76,15 @@ const CalorieConsumer: React.FC<CalorieConsumerProps> = ({ totalConsumedcalories
 
 const styles = StyleSheet.create({
   container: {
-    borderWidth: 0.1,
-    borderColor: '#808080',
-    borderRadius: 12,
-    marginTop: 20,
-    marginBottom: 5,
-    overflow: 'hidden',
-  },
-  innerContainer: {
     backgroundColor: 'white',
-    paddingHorizontal: Matrics.s(10)
+    paddingHorizontal: Matrics.s(5),
+    borderRadius: Matrics.s(12),
   },
   topRow: {
-    padding: 10,
     flexDirection: 'row',
     alignItems: 'center',
-
+    paddingHorizontal: Matrics.s(10),
+    paddingVertical: Matrics.vs(8),
   },
   leftContent: {
     flexDirection: 'row',
@@ -88,19 +94,25 @@ const styles = StyleSheet.create({
   textContainer: {
     flex: 1,
     marginLeft: 10,
+    justifyContent: 'space-between',
   },
   boldTitle: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: '#000',
+    fontSize: Matrics.mvs(18),
+    fontFamily: Fonts.BOLD,
+    color: colors.labelDarkGray,
+    lineHeight: 26,
   },
   regularTitle: {
-    fontSize: 17,
-    color: '#444444',
+    fontSize: Matrics.mvs(14),
+    fontFamily: Fonts.MEDIUM,
+    color: colors.subTitleLightGray,
+    lineHeight: 20,
   },
   textBelowTitle: {
-    fontSize: 13,
-    color: '#444444',
+    fontSize: Matrics.mvs(12),
+    fontFamily: Fonts.MEDIUM,
+    color: colors.subTitleLightGray,
+    lineHeight: 18,
   },
 });
 

@@ -1,29 +1,58 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
-import { Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import CalorieConsumer from '../../components/molecules/CalorieConsumer';
 import DietHeader from '../../components/molecules/DietHeader';
-import DietTime from '../../components/organisms/DietTime';
+import DietTime, { FoodItems } from '../../components/organisms/DietTime';
 import { colors } from '../../constants/colors';
 import { DietStackParamList } from '../../interface/Navigation.interface';
 import { StackScreenProps } from '@react-navigation/stack';
 import Diet from '../../api/diet';
+import { useApp } from '../../context/app.context';
 import moment from 'moment';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
-import Matrics from '../../constants/Matrics';
+import { Constants, Matrics, Fonts } from '../../constants';
 import Loader from '../../components/atoms/Loader';
 import BasicModal from '../../components/atoms/BasicModal';
-import MyStatusbar from '../../components/atoms/MyStatusBar';
-
+// import MyStatusbar from '../../components/atoms/MyStatusBar';
+import { useToast } from 'react-native-toast-notifications';
+import { globalStyles } from '../../constants/globalStyles';
+import CommonBottomSheetModal from '../../components/molecules/CommonBottomSheetModal';
+import AlertBottomSheet from '../../components/organisms/AlertBottomSheet';
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
+import { trackEvent } from '../../helpers/TrackEvent';
+import mealTypes from '../../constants/data';
+import MealCard from '../../components/molecules/MealCard';
+ 
 type DietScreenProps = StackScreenProps<DietStackParamList, 'DietScreen'>;
+
+type mealTYpe = {
+  meal_types_id: string;
+  value: string;
+  meal_type: string;
+  label: string;
+  keys: string;
+  default_time: string;
+  order_no: number;
+};
 
 const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   const insets = useSafeAreaInsets();
+
+  const toast = useToast();
   const title = route.params?.dietData;
   const [dietOption, setDietOption] = useState<boolean>(false);
   const [loader, setLoader] = useState<boolean>(false);
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(null);
   const [dietPlane, setDiePlane] = useState<any>([]);
+  const { userData } = useApp();
   const [deletpayload, setDeletpayload] = useState<string | null>(null);
   const [modalVisible, setModalVisible] = React.useState<boolean>(false);
   const [stateOfAPIcall, setStateOfAPIcall] = React.useState<boolean>(false);
@@ -32,12 +61,15 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   const [totalConsumedcalorie, setTotalConsumedcalories] = useState<
     number | null
   >(null);
-
-  useEffect(() => {
-    getData();
-    return () => setDiePlane([]);
-  }, [selectedDate, stateOfAPIcall]);
-
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const deleteItemRef = useRef<{
+    deleteFoodItemId: string;
+    is_food_item_added_by_patient: string;
+    optionId: string;
+    data: FoodItems;
+    mealId: string;
+  } | null>();
+ 
   useEffect(() => {
     if (title) {
       setDietOption(true);
@@ -63,27 +95,30 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   useFocusEffect(
     React.useCallback(() => {
       getData();
-      return () => setDiePlane([]);
-    }, []),
+      return () => {
+        deleteItemRef.current = null;
+        setDiePlane([]);
+      };
+    }, [selectedDate, stateOfAPIcall]),
   );
 
   const getData = async (optionId?: string, dietPlanId?: string) => {
     setLoader(true);
-    const date = moment(selectedDate).format('YYYY/MM/DD');
-    const diet = await Diet.getDietPlan(
-      { date: date },
-      {},
-    );
-
-
-    if (diet) {
-      setLoader(false);
-      setDiePlane(diet?.data[0]);
-      if (optionId && dietPlanId)
-        countCalories(optionId, dietPlanId, diet?.data[0]);
+    const date = moment(selectedDate ?? new Date()).format('YYYY/MM/DD');
+    const diet = await Diet.getDietPlan({ date: date }, {});
+    if (Object.keys(diet).length > 0) {
+      setTimeout(() => {
+        setLoader(false);
+      }, 500);
+      setDiePlane(diet?.data?.[0]);
+      if (optionId && dietPlanId) {
+        countCalories(optionId, dietPlanId, diet?.data?.[0]);
+      }
     } else {
       setDiePlane([]);
       setLoader(false);
+      setTotalConsumedcalories(0);
+      setTotalcalories(0);
     }
   };
 
@@ -105,13 +140,52 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
     });
   };
 
-  const handaleDelete = (id: string) => {
-    setDeletpayload(id);
-    setModalVisible(!modalVisible);
+  const handaleDelete = (
+    id: string,
+    is_food_item_added_by_patient: string,
+    optionId: string,
+    data: FoodItems,
+    mealId: string,
+  ) => {
+    if (is_food_item_added_by_patient === 'Y') {
+      setDeletpayload(id);
+      const param = {
+        deleteFoodItemId: id,
+        is_food_item_added_by_patient: is_food_item_added_by_patient,
+        optionId: optionId,
+        data: data,
+        mealId: mealId,
+      };
+      deleteItemRef.current = param;
+      // setModalVisible(!modalVisible);
+      bottomSheetModalRef.current?.present();
+    } else {
+      toast.show(
+        'Unfortunately, you can not delete this food item since it was recommended by your nutritionist.',
+        {
+          type: 'normal',
+          placement: 'bottom',
+          duration: 2500,
+          animationType: 'slide-in',
+          style: {
+            borderRadius: Matrics.mvs(12),
+            width: Matrics.screenWidth - 20,
+          },
+          textStyle: {
+            fontSize: Matrics.mvs(13),
+            fontFamily: Fonts.REGULAR,
+            color: colors.white,
+            lineHeight: 18,
+          },
+        },
+      );
+    }
   };
 
   const deleteFoodItem = async () => {
-    setStateOfAPIcall(true);
+    console.log('yessss');
+    // setModalVisible(false);
+    bottomSheetModalRef.current?.close();
     const deleteFoodItem = await Diet.deleteFoodItem(
       {
         patient_id: dietPlane?.patient_id,
@@ -120,21 +194,30 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
       },
       {},
     );
-    getData();
-    if (deleteFoodItem?.code === '1') {
-      setStateOfAPIcall(false);
-      getData();
+    console.log(
+      deleteFoodItem?.data,
+      'deleteFoodItemdeleteFoodItemdeleteFoodItem',
+    );
+    if (deleteFoodItem?.data) {
+      // setStateOfAPIcall(false);
+      getData(deleteItemRef.current?.optionId, deleteItemRef.current?.mealId);
+      deleteItemRef.current = null;
       setTimeout(() => {
-        setModalVisible(false);
+        bottomSheetModalRef.current?.close();
+        // setModalVisible(false);
       }, 1000);
     }
   };
-  const handlePulsIconPress = async (optionFoodItems: any, mealName: string) => {
+  const handlePulsIconPress = async (
+    optionFoodItems: any,
+    mealName: string,
+  ) => {
     navigation.navigate('AddDiet', {
       optionFoodItems: optionFoodItems,
       healthCoachId: dietPlane?.health_coach_id,
       mealName: mealName,
       patient_id: dietPlane?.patient_id,
+      mealData: null,
     });
   };
 
@@ -143,12 +226,9 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
     optionId: string,
     dietPlanId: string,
   ) => {
-    const UpadteFoodItem = await Diet.updateFoodConsumption(
-      item,
-      {},
-    );
+    const UpadteFoodItem = await Diet.updateFoodConsumption(item, {});
     getData(optionId, dietPlanId);
-    if (UpadteFoodItem?.code === '1') {
+    if (UpadteFoodItem) {
     }
   };
 
@@ -157,7 +237,16 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
       (item: any) => item.meal_types_id == mealId,
     );
     if (dietPlanFound.length !== 0) {
-      handalTotalCalories(dietPlanFound[0].options[0]);
+      const itemOptionFound = dietPlanFound[0]?.options?.filter(
+        (q: any) => q.diet_meal_options_id == optionId,
+      );
+
+      if (itemOptionFound.length > 0) {
+        const mealName = dietPlanFound[0].meal_name;
+        itemOptionFound[0].meal_name = mealName;
+      }
+
+      handalTotalCalories(itemOptionFound[0]);
     }
   };
 
@@ -176,8 +265,40 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
       }
     });
   };
+
   const handelOnpressOfprogressBar = () => {
+    let vale = Math.round((totalConsumedcalorie / totalcalorie) * 100);
+    if (isNaN(vale)) {
+      vale = 0;
+    }
+    console.log(
+      caloriesArray,
+      'caloriesArraycaloriesArray',
+      JSON.stringify(userData),
+    );
+    trackEvent(Constants.EVENT_NAME.FOOD_DIARY.USER_CLICKS_ON_INSIGHT, {
+      date_of_insight: moment(selectedDate).format(Constants.DATE_FORMAT),
+      goal_value: totalcalorie,
+      actual_value: totalConsumedcalorie,
+      percentage_completion: vale,
+      goal_unit: 'cal',
+    });
     navigation.navigate('ProgressBarInsightsScreen', { calories: caloriesArray });
+  };
+
+  const handlePressOfNoPlanePlusIcon = (mealData: mealTYpe) => {
+    const today = new Date();
+    if (new Date(selectedDate) > today) {
+      navigation.navigate('AddDiet', {
+        healthCoachId: dietPlane?.health_coach_id,
+        mealName: mealData?.label,
+        mealData: mealData,
+        selectedDate: selectedDate,
+        patient_id: dietPlane?.patient_id,
+      });
+    } else {
+      toast.show("Food item can't be added in past date meals");
+    }
   };
 
   return (
@@ -190,14 +311,18 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
             Platform.OS == 'android' ? insets.top + Matrics.vs(20) : 0,
         },
       ]}>
-      <MyStatusbar backgroundColor={colors.lightGreyishBlue} />
+      {/* <MyStatusbar backgroundColor={colors.lightGreyishBlue} /> */}
       <DietHeader
         onPressBack={onPressBack}
         onPressOfNextAndPerviousDate={handleDate}
         title="Diet"
+        getCurrentSeletedDate={handleDate}
       />
       <View style={styles.belowContainer}>
-        <TouchableOpacity onPress={handelOnpressOfprogressBar}>
+        <TouchableOpacity
+          activeOpacity={0.5}
+          style={[styles.caloriesContainer, globalStyles.shadowContainer]}
+          onPress={handelOnpressOfprogressBar}>
           <CalorieConsumer
             totalConsumedcalories={totalConsumedcalorie}
             totalcalories={totalcalorie}
@@ -214,21 +339,37 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
             getCalories={handalTotalCalories}
           />
         ) : loader ? null : (
-          <View style={styles.messageContainer}>
-            <Text style={{ fontSize: 15 }}>{'No diet plan available'}</Text>
-          </View>
+          <ScrollView
+            style={[styles.innercontainer]}
+            contentContainerStyle={{
+              paddingBottom: insets.bottom + Matrics.vs(10),
+            }}
+            showsVerticalScrollIndicator={false}>
+            <View>
+              {mealTypes.map(item => {
+                return (
+                  <MealCard
+                    cardData={item}
+                    onPressPlus={handlePressOfNoPlanePlusIcon}
+                  />
+                );
+              })}
+            </View>
+          </ScrollView>
         )}
       </View>
-      <BasicModal
-        modalVisible={modalVisible}
-        messgae={
-          'Are you sure you want to delete this food item from your meal'
-        }
-        NegativeButtonsText="Cancle"
-        positiveButtonText="Ok"
-        onPressOK={deleteFoodItem}
-        onPressCancle={() => setModalVisible(!modalVisible)}
-      />
+      <CommonBottomSheetModal snapPoints={['35%']} ref={bottomSheetModalRef}>
+        <AlertBottomSheet
+          onPressAccept={deleteFoodItem}
+          onPressCancel={() => {
+            bottomSheetModalRef.current?.dismiss();
+          }}
+          insets={insets}
+          title={
+            'Are you sure you want to delete this food item from your meal?'
+          }
+        />
+      </CommonBottomSheetModal>
       <Loader visible={loader} />
     </SafeAreaView>
   );
@@ -238,7 +379,6 @@ const styles = StyleSheet.create({
   mainContienr: { flex: 1, backgroundColor: colors.lightGreyishBlue },
   belowContainer: {
     flex: 1,
-    paddingHorizontal: Matrics.s(15),
     backgroundColor: colors.lightGreyishBlue,
   },
   messageContainer: {
@@ -261,6 +401,17 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: Matrics.s(-7),
     top: Matrics.vs(-7),
+  },
+  caloriesContainer: {
+    borderRadius: Matrics.mvs(12),
+    marginTop: Matrics.vs(5),
+    marginBottom: Matrics.vs(5),
+    marginHorizontal: Matrics.s(15),
+  },
+  innercontainer: {
+    flex: 1,
+    paddingHorizontal: Matrics.s(15),
+    marginTop: Matrics.vs(5),
   },
 });
 

@@ -41,7 +41,8 @@ export const colors = {
   progressBarGreen: '#2ecc71',
   progressBarRed: '#FF3333',
   progressBarYellow: '#FAB000',
-
+  shadow: 'rgba(33, 33, 33, 0.5)',
+  seprator: '#e0e0e0',
   OVERLAY_DARK_10: 'rgba(0,0,0,0.1)',
   OVERLAY_DARK_20: 'rgba(0,0,0,0.2)',
   OVERLAY_DARK_30: 'rgba(0,0,0,0.3)',
@@ -49,4 +50,10 @@ export const colors = {
   OVERLAY_DARK_50: 'rgba(0,0,0,0.5)',
   OVERLAY_DARK_60: 'rgba(0,0,0,0.6)',
   OVERLAY_DARK_70: 'rgba(0,0,0,0.7)',
+
+  secondaryDisableButton: 'rgba(158, 158, 158, 0.08)',
+  SECONDARY_BUTTON_OPACITY: 'rgba(158, 158, 158, 0.08)',
+  THEME_OVERLAY: 'rgba(118, 15, 178, 0.08)',
+  transparent:'transparent'
+
 };

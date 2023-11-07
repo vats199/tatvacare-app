@@ -3,9 +3,9 @@ import AboutUsScreen from '../screens/AboutUsScreen';
 import {
   AppStackParamList,
   DrawerParamList,
-  DietStackParamList
+  DietStackParamList,
 } from '../interface/Navigation.interface';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
 import {
   DrawerContentComponentProps,
   createDrawerNavigator,
@@ -17,6 +17,9 @@ import DietScreen from '../screens/FoodDiary/DietScreen';
 import AddDietScreen from '../screens/FoodDiary/AddDietScreen';
 import DietDetailScreen from '../screens/FoodDiary/DietDetailScreen';
 import ProgressBarInsightsScreen from '../screens/FoodDiary/ProgressBarInsightsScreen';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import { useRef } from 'react';
+import { useApp } from '../context/app.context';
 
 const Navigation = NativeModules.Navigation;
 export const navigateTo = Navigation.navigateTo;
@@ -63,27 +66,58 @@ const DrawerScreen = () => {
 const DietStack = createStackNavigator<DietStackParamList>();
 const DietStackScreen = () => {
   return (
-    <DietStack.Navigator screenOptions={{ headerShown: false, }} initialRouteName="DietScreen" >
+    <DietStack.Navigator
+      screenOptions={{ headerShown: false }}
+      initialRouteName="DietScreen">
       <DietStack.Screen name="HomeScreen" component={HomeScreen} />
       <DietStack.Screen name="DietScreen" component={DietScreen} />
       <DietStack.Screen name="AddDiet" component={AddDietScreen} />
       <DietStack.Screen name="DietDetail" component={DietDetailScreen} />
-      <DietStack.Screen name="ProgressBarInsightsScreen" component={ProgressBarInsightsScreen} />
+      <DietStack.Screen
+        name="ProgressBarInsightsScreen"
+        component={ProgressBarInsightsScreen}
+      />
     </DietStack.Navigator>
   );
 };
 
 const AppStack = createStackNavigator<AppStackParamList>();
 const Router = () => {
+  const navigationRef = useNavigationContainerRef();
+  const routeNameRef = useRef<string | undefined>(undefined);
+  const { setCurrentScreenName } = useApp()
+
   return (
-    <NavigationContainer>
-      <AppStack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}>
-        <AppStack.Screen name={'DrawerScreen'} component={DrawerScreen} />
-        <AppStack.Screen name={'DietStackScreen'} component={DietStackScreen} />
-      </AppStack.Navigator>
+    <NavigationContainer
+      ref={navigationRef}
+      onReady={() => {
+        routeNameRef.current = navigationRef.getCurrentRoute()?.name;
+      }}
+      onStateChange={async () => {
+        const previousRouteName = routeNameRef.current;
+        const currentRouteName = navigationRef.getCurrentRoute()?.name;
+        console.log(previousRouteName, "innnnnn", currentRouteName)
+        if (previousRouteName !== currentRouteName) {
+          // Save the current route name for later comparison
+          routeNameRef.current = currentRouteName;
+          setCurrentScreenName(routeNameRef.current)
+          // Replace the line below to add the tracker from a mobile analytics SDK
+
+        }
+      }}
+    >
+      <BottomSheetModalProvider>
+        <AppStack.Navigator
+          screenOptions={{
+            headerShown: false,
+          }}>
+          <AppStack.Screen name={'DrawerScreen'} component={DrawerScreen} />
+          <AppStack.Screen
+            name={'DietStackScreen'}
+            component={DietStackScreen}
+          />
+        </AppStack.Navigator>
+      </BottomSheetModalProvider>
     </NavigationContainer>
   );
 };

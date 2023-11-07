@@ -39,7 +39,7 @@ import {
   openPlanDetails,
   openMedicineExerciseDiet,
   navigateToPlan,
-  navigateToMedicines
+  navigateToMedicines,
 } from '../routes/Router';
 import Home from '../api/home';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -52,6 +52,8 @@ import InputField, {
   AnimatedInputFieldRef,
 } from '../components/atoms/AnimatedInputField';
 import SearchModal from '../components/molecules/SearchModal';
+import { trackEvent } from '../helpers/TrackEvent'
+import { Constants } from '../constants';
 
 const { RNEventEmitter } = NativeModules;
 const eventEmitter = new NativeEventEmitter(RNEventEmitter);
@@ -268,7 +270,12 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
   };
   const onPressDiet = () => {
     // navigateTo('FoodDiaryParentVC');
-    navigation.navigate('DietStackScreen')
+    trackEvent(Constants.EVENT_NAME.FOOD_DIARY.CLICKED_HEALTH_DIARY, {
+      "goal_id": "",
+      "goal_name": "",
+      "diet_plan_assigned": ""
+    })
+    navigation.navigate('DietStackScreen');
   };
   const onPressExercise = (filteredData: any) => {
     openMedicineExerciseDiet([
@@ -283,7 +290,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
     ]);
   };
   const onPressMyIncidents = () => {
-    navigateToIncident([{surveyDetails: incidentDetails}]);
+    navigateToIncident([{ surveyDetails: incidentDetails }]);
   };
 
   const onPressConsultNutritionist = () => {
