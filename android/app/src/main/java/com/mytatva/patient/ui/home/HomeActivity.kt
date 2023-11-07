@@ -278,7 +278,6 @@ class HomeActivity : BaseActivity(), View.OnClickListener, DefaultHardwareBackBt
             if (!AppFlagHandler.getIsHomeFromReactNative(firebaseConfigUtil)) {
                 setUpDrawer()
             }
-            setUpDrawer()
 
             /*showBiometricPrompt()*/
 
@@ -1556,7 +1555,9 @@ class HomeActivity : BaseActivity(), View.OnClickListener, DefaultHardwareBackBt
 
     private fun getIncidentSurvey() {
         val apiRequest = ApiRequest()
-        showLoader()
+        if (!AppFlagHandler.getIsHomeFromReactNative(firebaseConfigUtil)) {
+            showLoader()
+        }
         goalReadingViewModel.getIncidentSurvey(apiRequest)
     }
 
