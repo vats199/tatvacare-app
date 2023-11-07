@@ -1,4 +1,4 @@
-import {bindQueryParams} from '../helpers/Tools';
+import { bindQueryParams } from '../helpers/Tools';
 import Ajax from './base';
 
 const Home = {
@@ -67,6 +67,13 @@ const Home = {
       method: Ajax.POST,
       priv: true,
       payload,
+    });
+  },
+  getIncidentDetails: () => {
+    const route = '/survey/get_incident_survey';
+    return Ajax.request(route, {
+      method: Ajax.POST,
+      priv: true,
     });
   },
 };

@@ -333,8 +333,8 @@ dependencies {
 
     //facebook SDKs for marketing
     //implementation("com.facebook.android:facebook-android-sdk:4.42.0")
-    //implementation("com.facebook.android:facebook-core:12.1.0")
-    //implementation("com.facebook.android:facebook-marketing:4.42.0")
+    implementation("com.facebook.android:facebook-core:12.1.0")
+    implementation("com.facebook.android:facebook-marketing:4.42.0")
 
     implementation("com.facebook.react:react-android")
     implementation("com.facebook.react:hermes-android")

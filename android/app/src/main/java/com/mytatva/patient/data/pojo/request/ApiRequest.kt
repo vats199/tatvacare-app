@@ -157,6 +157,9 @@ class ApiRequest {
     @SerializedName("month")
     var month: String? = null
 
+    @SerializedName("study_id")
+    var study_id: String? = null
+
     @SerializedName("year")
     var year: String? = null
 

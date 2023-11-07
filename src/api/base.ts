@@ -93,7 +93,7 @@ const request: any = async (
   route: string,
   {
     // baseURL = config.BASE_URL,
-    baseURL = 'https://api.mytatva.in/api/v7',
+    baseURL = 'https://api-uat.mytatva.in/api/v7',
     method = GET,
     payload = null,
     formData = null,
@@ -141,12 +141,13 @@ const request: any = async (
   console.log(`${baseURL}${route}`);
 
   return fetch(`${baseURL}${route}`, init).then(async res => {
-    console.log("Test log== ", ` ${baseURL}${route} `, res)
 
     if (!json) {
       return res;
     }
     res = await handleResponse(res);
+    console.log("Test log== ", ` ${baseURL}${route} `, res)
+
     // if (res?.status === 'new token') {
     //   return request(route, {
     //     method,

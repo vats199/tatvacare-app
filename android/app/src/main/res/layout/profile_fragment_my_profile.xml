@@ -469,6 +469,76 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/screen_space"
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginEnd="@dimen/screen_space"
+                android:layout_marginBottom="@dimen/dp_32"
+                android:background="@drawable/bg_common_rounded_rect_5"
+                android:elevation="@dimen/dp_3"
+                android:padding="@dimen/dp_16">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelStudyId"
+                    style="@style/TextView.SemiBold.sp_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/my_profile_label_study_id"
+                    android:textColor="@color/textBlack1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewSaveStudyId"
+                    style="@style/TextView.Medium.sp_9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_rounded_rect_purple_stroke_4"
+                    android:paddingStart="@dimen/dp_24"
+                    android:paddingTop="@dimen/dp_4"
+                    android:paddingEnd="@dimen/dp_24"
+                    android:paddingBottom="@dimen/dp_4"
+                    android:text="@string/my_profile_label_edit"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewStudyId"
+                    style="@style/TextView.Regular.sp_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_14"
+                    android:textColor="@color/textBlack1"
+                    android:textSize="@dimen/sp_12"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/textViewLabelStudyId"
+                    app:layout_constraintTop_toBottomOf="@id/textViewLabelStudyId"
+                    tools:text="ABCDEFGH" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/editTextStudyId"
+                    style="@style/editTextStrokeSmall"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_14"
+                    android:digits="@string/alpha_numeric_with_hyphen"
+                    android:imeOptions="actionDone"
+                    android:lines="1"
+                    android:maxLength="11"
+                    android:singleLine="true"
+                    android:textColor="@color/textBlack1"
+                    android:textSize="@dimen/sp_12"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/textViewLabelStudyId"
+                    app:layout_constraintTop_toBottomOf="@id/textViewStudyId"
+                    tools:text="B-607 Fairdeal House, Swastik Char Rasta, Navrangpura Apt, Ahmedabad, Gujarat, 399802" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.core.widget.NestedScrollView>

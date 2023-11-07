@@ -25,6 +25,8 @@ data class User(
     val sync_at: String? = null,
     @SerializedName("address")
     val address: String? = null,
+    @SerializedName("study_id")
+    val study_id: String? = null,
     @SerializedName("is_active")
     val is_active: String? = null,
     @SerializedName("created_at")

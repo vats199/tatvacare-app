@@ -36,7 +36,9 @@ const App = () => {
       const subscribe = DeviceEventEmitter.addListener(
         'UserToken',
         (data: any) => {
-          AsyncStorage.setItem("accessToken", data)
+          global.isHideIncident = data.IsHideIncident
+          //AsyncStorage.setItem("IsHideIncident", data.IsHideIncident ? "true" : "false")
+          AsyncStorage.setItem("accessToken", data.Token)
         },
       );
 

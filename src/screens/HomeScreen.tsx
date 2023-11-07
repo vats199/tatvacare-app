@@ -70,7 +70,8 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
   const [healthInsights, setHealthInsights] = React.useState<any>({});
   const [hcDevicePlans, setHcDevicePlans] = React.useState<any>({});
   const [healthDiaries, setHealthDiaries] = React.useState<any>([]);
-
+  const [hideIncidentSurvey, setHideIncidentSurvey] = React.useState<boolean>(false);
+  const [incidentDetails, setIncidentDetails] = React.useState<any>(null);
   const canBookHealthCoach: boolean = !!carePlanData?.patient_plans?.find(
     (pp: any) => {
       return pp?.features_res.find((fr: any) =>
@@ -101,6 +102,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
     getMyHealthInsights();
     getHCDevicePlans();
     getMyHealthDiaries();
+    getIncidentDetails();
   }, []);
 
   // Health Insight Updates
@@ -110,7 +112,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
       const subscribeToken = DeviceEventEmitter.addListener(
         'UserToken',
         (data: any) => {
-          AsyncStorage.setItem("accessToken", data)
+          //AsyncStorage.setItem("accessToken", data)
           getCurrentLocation();
           getHomeCarePlan();
           getLearnMoreData();
@@ -123,6 +125,21 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
 
       return () => {
         subscribeToken.remove();
+      };
+    }
+  }, []);
+
+  useEffect(() => {
+    if (Platform.OS == "android") {
+      const subscribe = DeviceEventEmitter.addListener(
+        'HideIncidentSurvey',
+        (data: any) => {
+          console.log("HideIncidentSurvey==", data);
+        },
+      );
+
+      return () => {
+        subscribe.remove();
       };
     }
   }, []);
@@ -229,6 +246,14 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
     setLoading(false);
   };
 
+  const getIncidentDetails = async () => {
+    setLoading(true);
+    const details = await Home.getIncidentDetails();
+    setHideIncidentSurvey(!!!details?.data.incidentSurveyData);
+    setIncidentDetails(details?.data);
+    setLoading(false);
+  };
+
   const getLearnMoreData = async () => {
     const learnMore = await Home.getLearnMoreData({});
     setLearnMoreData(learnMore?.data);
@@ -329,9 +354,13 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
   };
   const onPressMyIncidents = () => {
     if (Platform.OS == 'ios') {
-      navigateToIncident();
+      navigateToIncident([{ surveyDetails: incidentDetails }]);
     } else {
-      NativeModules.AndroidBridge.openIncidentScreen();
+      if (incidentDetails) {
+        console.log("Incident Value---", JSON.stringify(incidentDetails));
+
+        NativeModules.AndroidBridge.openIncidentScreen(JSON.stringify(incidentDetails));
+      }
     }
   };
 
@@ -344,7 +373,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
       }
     } else {
       if (Platform.OS == 'ios') {
-        navigateToChronicCareProgram();
+        navigateToChronicCareProgram('show_nutritionist');
       } else {
         NativeModules.AndroidBridge.openAllPlanScreen("show_nutritionist");
       }
@@ -359,7 +388,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
       }
     } else {
       if (Platform.OS == 'ios') {
-        navigateToChronicCareProgram();
+        navigateToChronicCareProgram('show_physio');
       } else {
         NativeModules.AndroidBridge.openAllPlanScreen("show_physio");
       }
@@ -381,7 +410,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
       }
     } else {
       if (Platform.OS == 'ios') {
-        navigateToChronicCareProgram();
+        navigateToChronicCareProgram('show_book_device');
       } else {
         NativeModules.AndroidBridge.openAllPlanScreen("show_book_device");
       }
@@ -490,6 +519,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
               onPressMedicine={onPressMedicine}
               onPressMyIncidents={onPressMyIncidents}
               data={healthDiaries}
+              hideIncident={hideIncidentSurvey}
             />
             <AdditionalCareServices
               onPressConsultNutritionist={onPressConsultNutritionist}

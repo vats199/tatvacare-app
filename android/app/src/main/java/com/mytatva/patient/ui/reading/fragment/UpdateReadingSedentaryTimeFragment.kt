@@ -24,6 +24,7 @@ import com.mytatva.patient.utils.bottomsheet.BottomSheetAdapter
 import com.mytatva.patient.utils.datetime.DateTimeFormatter
 import com.mytatva.patient.utils.firebaseanalytics.AnalyticsScreenNames
 import com.mytatva.patient.utils.formatToDecimalPoint
+import com.mytatva.patient.utils.rnbridge.ContextHolder
 import java.util.*
 
 class UpdateReadingSedentaryTimeFragment :
@@ -581,6 +582,13 @@ class UpdateReadingSedentaryTimeFragment :
 
         goalReadingViewModel.updatePatientReadingsLiveData.observe(this,
             onChange = { responseBody ->
+                ContextHolder.reactContext?.let {
+                    sendEventToRN(
+                        it,
+                        "updatedGoalReadingSuccess",
+                        ""
+                    )
+                }
                 hideLoader()
                 writeToGoogleFit()
                 analytics.logEvent(analytics.USER_UPDATED_READING, Bundle().apply {

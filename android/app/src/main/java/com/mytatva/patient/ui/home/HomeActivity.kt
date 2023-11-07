@@ -257,7 +257,6 @@ class HomeActivity : BaseActivity(), View.OnClickListener, DefaultHardwareBackBt
             reactInstanceManager.createReactContextInBackground()
 
 
-
             if (!AppFlagHandler.getIsHomeFromReactNative(firebaseConfigUtil)) {
                 observeLiveData()
             }
@@ -302,9 +301,8 @@ class HomeActivity : BaseActivity(), View.OnClickListener, DefaultHardwareBackBt
         }*/
 
             handleNotificationNavigation()
-            if (!AppFlagHandler.getIsHomeFromReactNative(firebaseConfigUtil)) {
-                getIncidentSurvey()
-            }
+            getIncidentSurvey()
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 checkForAllowedVerifiedDomain()
             }
@@ -496,7 +494,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener, DefaultHardwareBackBt
             Log.d("APP_DOMAINS", "unapprovedDomains: ${mapData.key} :: VALUE : ${mapData.value}")
         }
 
-        try {
+        /*try {
             if (userState?.hostToStateMap?.containsKey("mytatva.page.link") == true) {
                 analytics.logEvent(
                     analytics.APP_LINK_DOMAINS,
@@ -527,7 +525,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener, DefaultHardwareBackBt
             }
         } catch (e: Exception) {
             e.printStackTrace()
-        }
+        }*/
 
 
         if (unapprovedDomains?.isNotEmpty() == true && unapprovedDomains.containsKey("mytatva.page.link")) {

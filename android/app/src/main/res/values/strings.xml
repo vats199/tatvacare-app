@@ -53,7 +53,7 @@
     <string name="AZ_az_dot_single_coat">abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ.\'</string>
     <string name="AZaz">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
     <string name="digit_0_to_9">0123456789</string>
-
+    <string name="alpha_numeric_with_hyphen">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-</string>
 
     <string name="connection_exception">No Internet connection. Please check your Internet connection and try again.</string>
     <string name="socket_time_out_exception">Connection timeout</string>
@@ -223,6 +223,8 @@
     <string name="validation_select_record_type">Please select medical record type</string>
     <string name="validation_upload_one_doc">Please upload at least one doc</string>
     <string name="validation_enter_address">Please enter address</string>
+    <string name="validation_enter_study_id">Please enter study id</string>
+    <string name="validation_valid_study_id">Please enter valid study id</string>
     <string name="validation_select_days_of_week">Please select days of the week</string>
     <string name="validation_select_frequency">Please select frequency</string>
     <string name="validation_select_time_of_the_day">Please select time of the day</string>
@@ -1179,6 +1181,7 @@
     <string name="my_profile_label_indication">Indication</string>
     <string name="my_profile_label_consulting_doctor">Consulting Doctor</string>
     <string name="my_profile_label_add_new_doctor">Add New Doctor</string>
+    <string name="my_profile_label_study_id">Study Id</string>
     <!--my_profile end-->
 
     <!--notification_setting start-->

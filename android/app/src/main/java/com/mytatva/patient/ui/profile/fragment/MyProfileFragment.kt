@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -24,6 +25,7 @@ import com.mytatva.patient.data.pojo.response.LanguageData
 import com.mytatva.patient.databinding.ProfileFragmentMyProfileBinding
 import com.mytatva.patient.di.MyTatvaApp
 import com.mytatva.patient.di.component.FragmentComponent
+import com.mytatva.patient.exception.ApplicationException
 import com.mytatva.patient.ui.activity.IsolatedFullActivity
 import com.mytatva.patient.ui.auth.fragment.SelectLanguageListFragment
 import com.mytatva.patient.ui.auth.fragment.SelectYourLocationFragment
@@ -44,7 +46,7 @@ class MyProfileFragment : BaseFragment<ProfileFragmentMyProfileBinding>() {
 
     var selectedLanguage: LanguageData? = null
     var isEditAddress = false
-
+    var isEditStudyId = false
     var resumedTime = Calendar.getInstance().timeInMillis
 
     private val indicationList = arrayListOf<TempDataModel>()
@@ -58,8 +60,10 @@ class MyProfileFragment : BaseFragment<ProfileFragmentMyProfileBinding>() {
         MyProfileConsultingDoctorAdapter(consultingDoctorList,
             object : MyProfileConsultingDoctorAdapter.AdapterListener {
                 override fun onClick(position: Int) {
-                    navigator.loadActivity(IsolatedFullActivity::class.java,
-                        DoctorProfileFragment::class.java)
+                    navigator.loadActivity(
+                        IsolatedFullActivity::class.java,
+                        DoctorProfileFragment::class.java
+                    )
                         .start()
                 }
             })
@@ -186,6 +190,8 @@ class MyProfileFragment : BaseFragment<ProfileFragmentMyProfileBinding>() {
 
                 editTextAddress.setText(it.address ?: "")
                 textViewAddress.text = it.address ?: ""
+                editTextStudyId.setText(it.study_id ?: "")
+                textViewStudyId.text = it.study_id ?: ""
 
                 indicationList.clear()
                 it.medical_condition_name?.firstOrNull()?.medical_condition_name?.let { name ->
@@ -197,6 +203,18 @@ class MyProfileFragment : BaseFragment<ProfileFragmentMyProfileBinding>() {
                 consultingDoctorList.clear()
                 it.patient_link_doctor_details?.let { it1 -> consultingDoctorList.addAll(it1) }
                 myProfileConsultingDoctorAdapter.notifyDataSetChanged()
+
+                editTextStudyId.doAfterTextChanged {
+                    val formattedText = editTextStudyId.text.toString().replace("-", "").chunked(3)
+                        .joinToString("-")
+
+                    if (formattedText != editTextStudyId.text.toString()) {
+                        /*editTextStudyId.setText(formattedText)
+                        editTextStudyId.setSelection(editTextStudyId.length())*/
+                        editTextStudyId.text?.clear()
+                        editTextStudyId.append(formattedText)
+                    }
+                }
             }
         }
     }
@@ -234,6 +252,7 @@ class MyProfileFragment : BaseFragment<ProfileFragmentMyProfileBinding>() {
             imageViewEditProfile.setOnClickListener { onViewClick(it) }
             imageViewProfile.setOnClickListener { onViewClick(it) }
             textViewSaveAddress.setOnClickListener { onViewClick(it) }
+            textViewSaveStudyId.setOnClickListener { onViewClick(it) }
             textViewEditLocation.setOnClickListener { onViewClick(it) }
             textViewEditIndication.setOnClickListener { onViewClick(it) }
             textViewAddNewDoctor.setOnClickListener { onViewClick(it) }
@@ -245,11 +264,29 @@ class MyProfileFragment : BaseFragment<ProfileFragmentMyProfileBinding>() {
     }
 
     private fun logNavigationEvent(cardItem: NavigationCard) {
-        analytics.logEvent(analytics.PROFILE_NAVIGATION,
+        analytics.logEvent(
+            analytics.PROFILE_NAVIGATION,
             Bundle().apply {
                 putString(analytics.PARAM_CARDS, cardItem.name)
-            }, screenName = AnalyticsScreenNames.MyProfile)
+            }, screenName = AnalyticsScreenNames.MyProfile
+        )
     }
+
+    private val isValidStudyId: Boolean
+        get() {
+            return try {
+                validator.submit(binding.editTextStudyId)
+                    .checkEmpty()
+                    .errorMessage(getString(R.string.validation_enter_study_id))
+                    .matchPatter(Common.STUDY_ID_PATTERN)
+                    .errorMessage(getString(R.string.validation_valid_study_id))
+                    .check()
+                true
+            } catch (e: ApplicationException) {
+                showMessage(e.message)
+                false
+            }
+        }
 
     override fun onViewClick(view: View) {
         when (view.id) {
@@ -257,37 +294,49 @@ class MyProfileFragment : BaseFragment<ProfileFragmentMyProfileBinding>() {
                 //logNavigationEvent(NavigationCard.Profile)
                 navigator.showImageViewerDialog(arrayListOf(session.user?.profile_pic ?: ""))
             }
+
             R.id.imageViewToolbarBack -> {
                 navigator.goBack()
             }
+
             R.id.imageViewNotification -> {
                 openNotificationScreen()
             }
+
             R.id.textViewLanguage -> {
                 navigator.loadActivity(
                     IsolatedFullActivity::class.java,
                     SelectLanguageListFragment::class.java
                 ).forResult(Common.RequestCode.REQUEST_SELECT_LANGUAGE).start()
             }
+
             R.id.imageViewEditProfile -> {
                 logNavigationEvent(NavigationCard.EditProfile)
                 navigator.loadActivity(
                     IsolatedFullActivity::class.java,
                     EditProfileFragment::class.java
-                ).addSharedElements(arrayListOf(
-                    androidx.core.util.Pair(binding.imageViewProfile,
-                        binding.imageViewProfile.transitionName),
-                    /*androidx.core.util.Pair(binding.textViewName,
-                        binding.textViewName.transitionName),
-                    androidx.core.util.Pair(binding.textViewEmail,
-                        binding.textViewEmail.transitionName)*/
-                )).start()
+                ).addSharedElements(
+                    arrayListOf(
+                        androidx.core.util.Pair(
+                            binding.imageViewProfile,
+                            binding.imageViewProfile.transitionName
+                        ),
+                        /*androidx.core.util.Pair(binding.textViewName,
+                            binding.textViewName.transitionName),
+                        androidx.core.util.Pair(binding.textViewEmail,
+                            binding.textViewEmail.transitionName)*/
+                    )
+                ).start()
             }
+
             R.id.textViewEditLocation -> {
                 logNavigationEvent(NavigationCard.Location)
-                navigator.loadActivity(IsolatedFullActivity::class.java,
-                    SelectYourLocationFragment::class.java).start()
+                navigator.loadActivity(
+                    IsolatedFullActivity::class.java,
+                    SelectYourLocationFragment::class.java
+                ).start()
             }
+
             R.id.textViewSaveAddress -> {
                 with(binding) {
                     if (isEditAddress) {
@@ -298,8 +347,10 @@ class MyProfileFragment : BaseFragment<ProfileFragmentMyProfileBinding>() {
                         }
                     } else {
                         logNavigationEvent(NavigationCard.Address)
-                        TransitionManager.beginDelayedTransition(root,
-                            AutoTransition().setDuration(100))
+                        TransitionManager.beginDelayedTransition(
+                            root,
+                            AutoTransition().setDuration(100)
+                        )
                         isEditAddress = true
                         textViewSaveAddress.text = getString(R.string.my_profile_label_save)
                         editTextAddress.visibility = View.VISIBLE
@@ -310,8 +361,30 @@ class MyProfileFragment : BaseFragment<ProfileFragmentMyProfileBinding>() {
                     }
                 }
             }
+
+            R.id.textViewSaveStudyId -> {
+                with(binding) {
+                    if (isValidStudyId) {
+                        updateProfile()
+                    } else {
+                        TransitionManager.beginDelayedTransition(
+                            root,
+                            AutoTransition().setDuration(100)
+                        )
+                        isEditStudyId = true
+                        textViewSaveStudyId.text = getString(R.string.my_profile_label_save)
+                        editTextStudyId.visibility = View.VISIBLE
+                        textViewStudyId.visibility = View.GONE
+                        editTextStudyId.requestFocus()
+                        editTextStudyId.setSelection(editTextStudyId.text.toString().length)
+                        showKeyBoard()
+                    }
+                }
+            }
+
             R.id.textViewEditIndication -> {
             }
+
             R.id.textViewAddNewDoctor -> {
             }
         }
@@ -333,9 +406,13 @@ class MyProfileFragment : BaseFragment<ProfileFragmentMyProfileBinding>() {
      * *****************************************************
      **/
     private fun updateProfile() {
-        //showLoader()
+        showLoader()
         val apiRequest = ApiRequest().apply {
-            address = binding.editTextAddress.text.toString().trim()
+            if (isEditAddress) {
+                address = binding.editTextAddress.text.toString().trim()
+            } else if (isEditStudyId) {
+                study_id = binding.editTextStudyId.text.toString().trim()
+            }
         }
         authViewModel.updateProfile(apiRequest)
     }
@@ -389,6 +466,11 @@ class MyProfileFragment : BaseFragment<ProfileFragmentMyProfileBinding>() {
                         }
                     })*/
                 onAddressUpdated()
+                if (isEditAddress) {
+                    onAddressUpdated()
+                } else if (isEditStudyId) {
+                    onStudyIdUpdated()
+                }
                 showMessage(responseBody.message)
             },
             onError = { throwable ->
@@ -423,8 +505,10 @@ class MyProfileFragment : BaseFragment<ProfileFragmentMyProfileBinding>() {
                 hideLoader()
                 responseBody.data?.let {
                     HealthCoachProfileDialog(it)
-                        .show(requireActivity().supportFragmentManager,
-                            HealthCoachProfileDialog::class.java.simpleName)
+                        .show(
+                            requireActivity().supportFragmentManager,
+                            HealthCoachProfileDialog::class.java.simpleName
+                        )
                 }
             },
             onError = { throwable ->
@@ -446,8 +530,10 @@ class MyProfileFragment : BaseFragment<ProfileFragmentMyProfileBinding>() {
 
     private fun onAddressUpdated() {
         binding.apply {
-            TransitionManager.beginDelayedTransition(root,
-                AutoTransition().setDuration(100))
+            TransitionManager.beginDelayedTransition(
+                root,
+                AutoTransition().setDuration(100)
+            )
             hideKeyBoard()
             isEditAddress = false
             textViewSaveAddress.text = getString(R.string.my_profile_label_edit)
@@ -455,6 +541,22 @@ class MyProfileFragment : BaseFragment<ProfileFragmentMyProfileBinding>() {
             editTextAddress.clearFocus()
             editTextAddress.visibility = View.GONE
             textViewAddress.visibility = View.VISIBLE
+        }
+    }
+
+    private fun onStudyIdUpdated() {
+        binding.apply {
+            TransitionManager.beginDelayedTransition(
+                root,
+                AutoTransition().setDuration(100)
+            )
+            hideKeyBoard()
+            isEditStudyId = false
+            textViewSaveStudyId.text = getString(R.string.my_profile_label_edit)
+            textViewStudyId.text = session.user?.study_id
+            editTextStudyId.clearFocus()
+            editTextStudyId.visibility = View.GONE
+            textViewStudyId.visibility = View.VISIBLE
         }
     }
 }

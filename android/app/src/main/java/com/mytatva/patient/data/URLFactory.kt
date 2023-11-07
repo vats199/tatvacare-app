@@ -14,7 +14,7 @@ object URLFactory {
      * UAT:- api-uat.mytatva.in
      * PROD:- api.mytatva.in
      * ********************************/
-    val ENVIRONMENT = Env.PRODUCTION
+    val ENVIRONMENT = Env.UAT
 
     //const val IS_PRODUCTION = true
 

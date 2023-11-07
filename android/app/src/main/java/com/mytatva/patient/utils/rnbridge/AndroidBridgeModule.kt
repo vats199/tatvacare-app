@@ -2,6 +2,7 @@ package com.mytatva.patient.utils.rnbridge
 
 import android.os.Bundle
 import androidx.core.os.bundleOf
+import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
@@ -13,6 +14,7 @@ import com.mytatva.patient.data.model.Goals
 import com.mytatva.patient.data.model.PlanFeatures
 import com.mytatva.patient.data.model.Readings
 import com.mytatva.patient.data.pojo.response.GoalReadingData
+import com.mytatva.patient.data.pojo.response.IncidentSurveyData
 import com.mytatva.patient.ui.activity.IsolatedFullActivity
 import com.mytatva.patient.ui.activity.TransparentActivity
 import com.mytatva.patient.ui.appointment.fragment.AllAppointmentsFragment
@@ -21,6 +23,7 @@ import com.mytatva.patient.ui.auth.fragment.SelectYourLocationFragment
 import com.mytatva.patient.ui.auth.fragment.SetupGoalsReadingsFragment
 import com.mytatva.patient.ui.auth.fragment.SetupHeightWeightFragment
 import com.mytatva.patient.ui.base.BaseActivity
+import com.mytatva.patient.ui.careplan.fragment.AddIncidentFragment
 import com.mytatva.patient.ui.engage.fragment.EngageFeedDetailsFragment
 import com.mytatva.patient.ui.goal.fragment.FoodDiaryMainFragment
 import com.mytatva.patient.ui.goal.fragment.UpdateGoalLogsFragment
@@ -38,6 +41,7 @@ import com.mytatva.patient.ui.profile.fragment.AccountSettingsFragment
 import com.mytatva.patient.ui.profile.fragment.MyProfileFragment
 import com.mytatva.patient.ui.profile.fragment.NotificationsFragment
 import com.mytatva.patient.ui.reading.fragment.UpdateReadingsMainFragment
+import com.mytatva.patient.utils.apputils.AppFlagHandler
 import com.mytatva.patient.utils.firebaseanalytics.AnalyticsClient
 import com.mytatva.patient.utils.openAppInStore
 import com.mytatva.patient.utils.shareApp
@@ -45,6 +49,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.json.JSONObject
+
 
 class AndroidBridgeModule(var reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(
     reactContext
@@ -108,7 +113,7 @@ class AndroidBridgeModule(var reactContext: ReactApplicationContext) : ReactCont
     fun openAllPlanScreen(showPlanType: String) {
         (currentActivity as BaseActivity?)!!.loadActivity(
             IsolatedFullActivity::class.java, PaymentCarePlanListingFragment::class.java
-        ) .addBundle(Bundle().apply {
+        ).addBundle(Bundle().apply {
             putString(Common.BundleKey.SHOW_PLAN_TYPE, showPlanType)
         }).start()
     }
@@ -380,7 +385,7 @@ class AndroidBridgeModule(var reactContext: ReactApplicationContext) : ReactCont
     }
 
     @ReactMethod
-    fun openIncidentScreen() {
+    fun openIncidentScreen(incidentData: String) {
         (currentActivity as BaseActivity?)!!.analytics.logEvent(
             AnalyticsClient.CLICKED_HEALTH_DIARY,
             Bundle().apply {
@@ -391,9 +396,24 @@ class AndroidBridgeModule(var reactContext: ReactApplicationContext) : ReactCont
             }
         )
 
-        runOnUiThread(Runnable {
+        /*runOnUiThread(Runnable {
             (currentActivity as HomeActivity?)!!.navigateToCarePlan()
-        })
+        })*/
+
+        val data = Gson().fromJson<IncidentSurveyData>(incidentData, IncidentSurveyData::class.java)
+
+        (currentActivity as HomeActivity?)!!.loadActivity(
+            TransparentActivity::class.java,
+            AddIncidentFragment::class.java
+        )
+            .addBundle(
+                bundleOf(
+                    Pair(
+                        Common.BundleKey.INCIDENT_SURVEY_DATA,
+                        data
+                    )
+                )
+            ).start()
     }
 
     @ReactMethod
@@ -684,13 +704,29 @@ class AndroidBridgeModule(var reactContext: ReactApplicationContext) : ReactCont
 
     @ReactMethod
     fun triggerUserToken() {
+        val map = Arguments.createMap()
+        map.putString("Token", (currentActivity as BaseActivity?)!!.session.user?.token.toString())
+        map.putBoolean(
+            "IsHideIncident",
+            AppFlagHandler.isToHideIncidentSurvey((currentActivity as BaseActivity?)!!.firebaseConfigUtil)
+        )
+
         ContextHolder.reactContext?.let {
             (currentActivity as BaseActivity?)!!.sendEventToRN(
                 it,
                 "UserToken",
-                (currentActivity as BaseActivity?)!!.session.user?.token.toString()
+                map
             )
         }
+
+        /*ContextHolder.reactContext?.let {
+            (currentActivity as BaseActivity?)!!.sendEventToRN(
+                it,
+                "HideIncidentSurvey",
+                AppFlagHandler.isToHideIncidentSurvey((currentActivity as BaseActivity?)!!.firebaseConfigUtil)
+            )
+        }*/
+
         GlobalScope.launch(Dispatchers.Main) {
             (currentActivity as HomeActivity).initLocation()
         }

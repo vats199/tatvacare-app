@@ -4,12 +4,14 @@ import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import com.facebook.react.ReactInstanceManager
 import com.facebook.react.ReactRootView
 import com.mytatva.patient.databinding.FragmentReactBinding
 import com.mytatva.patient.di.component.FragmentComponent
 import com.mytatva.patient.fcm.Notification
 import com.mytatva.patient.ui.base.BaseFragment
+import com.mytatva.patient.utils.apputils.AppFlagHandler
 import com.mytatva.patient.utils.rnbridge.ContextHolder
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -42,15 +44,7 @@ class RNHomeFragment : BaseFragment<FragmentReactBinding>() {
     }
 
     override fun bindData() {
-        /*GlobalScope.launch(Dispatchers.Main) {
-            ContextHolder.reactContext?.let {
-                sendEventToRN(
-                    it,
-                    "UserToken",
-                    session.user?.token.toString()
-                )
-            }
-        }*/
+
     }
 
     fun setReactInstanceManager(reactInstanceManager: ReactInstanceManager?, bundle: Bundle?) {

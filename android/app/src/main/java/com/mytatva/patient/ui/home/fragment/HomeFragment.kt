@@ -935,6 +935,12 @@ class HomeFragment : BaseFragment<HomeFragmentHomeNewBinding>() {
             })*/
 
         }
+
+        if (AppFlagHandler.isToHideIncidentSurvey(firebaseConfigUtil)) {
+            binding.clIncident.isVisible = HomeActivity.incidentSurveyData != null
+        } else {
+            binding.clIncident.isVisible = false
+        }
     }
 
     private fun setUpNestedScrollListener() {
@@ -1329,7 +1335,21 @@ class HomeFragment : BaseFragment<HomeFragmentHomeNewBinding>() {
             }
 
             R.id.clIncident -> {
-                (requireActivity() as HomeActivity).navigateToCarePlan()
+                if (HomeActivity.incidentSurveyData != null) {
+                    navigator.loadActivity(
+                        TransparentActivity::class.java,
+                        AddIncidentFragment::class.java
+                    )
+                        .addBundle(
+                            bundleOf(
+                                Pair(
+                                    Common.BundleKey.INCIDENT_SURVEY_DATA,
+                                    HomeActivity.incidentSurveyData
+                                )
+                            )
+                        ).start()
+                }
+                //(requireActivity() as HomeActivity).navigateToCarePlan()
             }
 
             R.id.tvViewAll -> {
@@ -1359,7 +1379,9 @@ class HomeFragment : BaseFragment<HomeFragmentHomeNewBinding>() {
                 } else {
                     navigator.loadActivity(
                         IsolatedFullActivity::class.java, PaymentCarePlanListingFragment::class.java
-                    ).start()
+                    ).addBundle(Bundle().apply {
+                        putString(Common.BundleKey.SHOW_PLAN_TYPE, "show_nutritionist")
+                    }).start()
                 }
 
             }
@@ -1386,7 +1408,9 @@ class HomeFragment : BaseFragment<HomeFragmentHomeNewBinding>() {
                 } else {
                     navigator.loadActivity(
                         IsolatedFullActivity::class.java, PaymentCarePlanListingFragment::class.java
-                    ).start()
+                    ).addBundle(Bundle().apply {
+                        putString(Common.BundleKey.SHOW_PLAN_TYPE, "show_physio")
+                    }).start()
                 }
             }
 
@@ -1402,7 +1426,9 @@ class HomeFragment : BaseFragment<HomeFragmentHomeNewBinding>() {
                 if (hcDevicePlan?.devices?.isActive.isNullOrEmpty()) {
                     navigator.loadActivity(
                         IsolatedFullActivity::class.java, PaymentCarePlanListingFragment::class.java
-                    ).start()
+                    ).addBundle(Bundle().apply {
+                        putString(Common.BundleKey.SHOW_PLAN_TYPE, "show_book_device")
+                    }).start()
                 } else {
                     navigator.loadActivity(
                         IsolatedFullActivity::class.java,
