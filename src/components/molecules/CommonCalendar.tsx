@@ -10,7 +10,7 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import React, { memo, useEffect, useMemo, useState, useCallback } from 'react';
+import React, { memo, useMemo, useState } from 'react';
 import {
   CalendarProvider,
   DateData,
