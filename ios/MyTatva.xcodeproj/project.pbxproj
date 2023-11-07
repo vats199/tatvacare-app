@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -7785,12 +7785,10 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MyTatvaNotificationService/MyTatvaNotificationService.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = U7V9239BVN;
+				DEVELOPMENT_TEAM = U7V9239BVN;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = s;
 				INFOPLIST_FILE = MyTatvaNotificationService/Info.plist;
@@ -7804,7 +7802,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mytatva.patient.MyTatvaNotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "MyTatvaNotificationService Distribution";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/MyTatvaNotificationService/NotificationService-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -7819,12 +7816,10 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MyTatvaNotificationService/MyTatvaNotificationService.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = U7V9239BVN;
+				DEVELOPMENT_TEAM = U7V9239BVN;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = MyTatvaNotificationService/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -7837,7 +7832,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mytatva.patient.MyTatvaNotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "MyTatvaNotificationService Distribution";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/MyTatvaNotificationService/NotificationService-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Osize";
@@ -7946,14 +7940,12 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NotificationViewController/NotificationViewController.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEPLOYMENT_POSTPROCESSING = YES;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = U7V9239BVN;
+				DEVELOPMENT_TEAM = U7V9239BVN;
 				ENABLE_BITCODE = NO;
 				GCC_OPTIMIZATION_LEVEL = s;
 				INFOPLIST_FILE = NotificationViewController/Info.plist;
@@ -7967,7 +7959,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mytatva.patient.MyTatvaNotificationContent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "MyTatvaNotificationContent Distribution";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/NotificationViewController/NotificationContent-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -7982,13 +7973,11 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NotificationViewController/NotificationViewController.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEPLOYMENT_POSTPROCESSING = YES;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = U7V9239BVN;
+				DEVELOPMENT_TEAM = U7V9239BVN;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = NotificationViewController/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -8001,7 +7990,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mytatva.patient.MyTatvaNotificationContent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "MyTatvaNotificationContent Distribution";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/NotificationViewController/NotificationContent-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Osize";
@@ -8164,16 +8152,14 @@
 				CODE_SIGN_ALLOW_ENTITLEMENTS_MODIFICATION = Yes;
 				CODE_SIGN_ENTITLEMENTS = MyTatva/MyTatva.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 3;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEPLOYMENT_POSTPROCESSING = NO;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = U7V9239BVN;
+				DEVELOPMENT_TEAM = U7V9239BVN;
 				ENABLE_BITCODE = NO;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 i386";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/WebEngage/xc11",
@@ -8193,11 +8179,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mytatva.patient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "MyTatva Distribution";
 				STRIP_INSTALLED_PRODUCT = YES;
 				STRIP_SWIFT_SYMBOLS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/MyTatva/Resources/MyTatva-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_REFLECTION_METADATA_LEVEL = all;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -8213,14 +8199,12 @@
 				CODE_SIGN_ALLOW_ENTITLEMENTS_MODIFICATION = Yes;
 				CODE_SIGN_ENTITLEMENTS = MyTatva/MyTatva.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 3;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEPLOYMENT_POSTPROCESSING = NO;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = U7V9239BVN;
+				DEVELOPMENT_TEAM = U7V9239BVN;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "i386 arm64";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -8241,11 +8225,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mytatva.patient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "MyTatva Distribution";
 				STRIP_INSTALLED_PRODUCT = YES;
 				STRIP_SWIFT_SYMBOLS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/MyTatva/Resources/MyTatva-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Osize";
+				SWIFT_REFLECTION_METADATA_LEVEL = all;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
