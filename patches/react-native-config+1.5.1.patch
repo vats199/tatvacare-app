@@ -1,0 +1,19 @@
+diff --git a/node_modules/react-native-config/android/build.gradle b/node_modules/react-native-config/android/build.gradle
+index c8f7fd4..469281e 100644
+--- a/node_modules/react-native-config/android/build.gradle
++++ b/node_modules/react-native-config/android/build.gradle
+@@ -16,11 +16,11 @@ def safeExtGet(prop, fallback) {
+ }
+ 
+ android {
+-    compileSdkVersion rootProject.ext.compileSdkVersion
++    compileSdkVersion 33
+ 
+     defaultConfig {
+-        minSdkVersion rootProject.ext.minSdkVersion
+-        targetSdkVersion rootProject.ext.targetSdkVersion
++        minSdkVersion 24
++        targetSdkVersion 33
+         versionCode 1
+         versionName "1.0"
+     }
