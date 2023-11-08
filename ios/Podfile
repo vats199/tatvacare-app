@@ -12,6 +12,7 @@ end
 target 'MyTatva' do
   # Comment the next line if you don't want to use dynamic frameworks
     use_frameworks!
+    # use_modular_headers!
     use_react_native!
   platform :ios, '13.0'
   config = use_native_modules!

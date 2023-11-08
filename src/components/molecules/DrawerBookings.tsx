@@ -3,12 +3,21 @@ import React from 'react';
 import { colors } from '../../constants/colors';
 import { Icons } from '../../constants/icons';
 import { navigateTo, navigateToHistory } from '../../routes/Router';
+import { trackEvent } from '../../helpers/TrackEvent';
 
 type DrawerBookingsProps = {};
 
 const DrawerBookings: React.FC<DrawerBookingsProps> = ({ }) => {
+
+  const trackCommonEvent = (name: string) => {
+    trackEvent("MENU_NAVIGATION", {
+      menu: name
+    })
+  }
+
   const onPressConsultations = () => {
     if (Platform.OS == 'ios') {
+      trackCommonEvent("Consultations")
       navigateTo('AppointmentsHistoryVC');
     } else {
       NativeModules.AndroidBridge.openAllAppointmentScreen();
@@ -16,6 +25,7 @@ const DrawerBookings: React.FC<DrawerBookingsProps> = ({ }) => {
   };
   const onPressLabTests = () => {
     if (Platform.OS == 'ios') {
+      trackCommonEvent("Lab Tests")
       navigateTo('LabTestListVC');
     } else {
       NativeModules.AndroidBridge.openLabTestScreen();

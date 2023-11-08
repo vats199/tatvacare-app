@@ -2,6 +2,7 @@ import { NativeModules, Platform, StyleSheet, Text, TouchableOpacity, View } fro
 import React from 'react';
 import { colors } from '../../constants/colors';
 import { Icons } from '../../constants/icons';
+import { trackEvent } from '../../helpers/TrackEvent';
 // import {
 //   navigateTo,
 //   navigateToHistory,
@@ -12,8 +13,15 @@ import { Icons } from '../../constants/icons';
 type DrawerMyHealthDiaryProps = {};
 
 const DrawerMyHealthDiary: React.FC<DrawerMyHealthDiaryProps> = ({ }) => {
+
+  const trackCommonEvent = (name: string) => {
+    trackEvent("MENU_NAVIGATION", {
+      menu: name
+    })
+  }
   const onPressGoals = () => {
     if (Platform.OS == 'ios') {
+      trackCommonEvent("Goals")
       //navigateTo('SetGoalsVC');
     } else {
       NativeModules.AndroidBridge.openHealthGoalScreen();
@@ -21,6 +29,7 @@ const DrawerMyHealthDiary: React.FC<DrawerMyHealthDiaryProps> = ({ }) => {
   };
   const onPressBMI = () => {
     if (Platform.OS == 'ios') {
+      trackCommonEvent("BMI")
       //openAddWeightHeight();
     } else {
       NativeModules.AndroidBridge.openBMIScreen();
@@ -31,6 +40,7 @@ const DrawerMyHealthDiary: React.FC<DrawerMyHealthDiaryProps> = ({ }) => {
 
   const onPressHealthRecords = () => {
     if (Platform.OS == 'ios') {
+      trackCommonEvent("Health Records")
       //navigateToHistory('Records');
     } else {
       NativeModules.AndroidBridge.openHealthRecordScreen();
@@ -38,6 +48,7 @@ const DrawerMyHealthDiary: React.FC<DrawerMyHealthDiaryProps> = ({ }) => {
   };
   const onPressBookmarks = () => {
     if (Platform.OS == 'ios') {
+      trackCommonEvent("Bookmarks")
       //navigateToBookmark();
     } else {
       NativeModules.AndroidBridge.openBookmarkScreen();

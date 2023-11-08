@@ -1,7 +1,8 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import { colors } from '../../constants/colors';
 import { Icons } from '../../constants/icons';
+import { trackEvent } from '../../helpers/TrackEvent';
 
 type HealthTipProps = {
   tip: any;
@@ -9,10 +10,12 @@ type HealthTipProps = {
 
 const HealthTip: React.FC<HealthTipProps> = ({ tip }) => {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container} activeOpacity={1} onPress={() => {
+      trackEvent("CLICKED_DOCTOR_SAYS", {})
+    }}>
       <Icons.LightBulb />
       <Text style={styles.text}>{tip?.description || '-'}</Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 

@@ -1,19 +1,23 @@
-import {StyleSheet, Text, View} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import {
   DrawerContentComponentProps,
   DrawerContentScrollView,
   DrawerItemList,
 } from '@react-navigation/drawer';
-import {colors} from '../../constants/colors';
+import { colors } from '../../constants/colors';
 import DrawerUserInfo from '../molecules/DrawerUserInfo';
 import DrawerMyHealthDiary from '../molecules/DrawerMyHealthDiary';
 import DrawerBookings from '../molecules/DrawerBookings';
 import DrawerMore from '../molecules/DrawerMore';
 import DeviceInfo from 'react-native-device-info';
+import { trackEvent } from '../../helpers/TrackEvent';
 
 const CustomDrawer = (props: DrawerContentComponentProps) => {
   const onPressAboutUs = () => {
+    trackEvent("MENU_NAVIGATION", {
+      menu: "About Us"
+    })
     props.navigation.navigate('AboutUsScreen');
   };
 

@@ -4,6 +4,7 @@ import { colors } from '../../constants/colors';
 import { Icons } from '../../constants/icons';
 import { CircularProgress } from 'react-native-circular-progress';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { trackEvent } from '../../helpers/TrackEvent';
 
 
 type MyHealthDiaryProps = {
@@ -41,7 +42,15 @@ const MyHealthDiary: React.FC<MyHealthDiaryProps> = ({
     {
       title: 'Devices',
       description: 'Connect and monitor your condition!',
-      onPress: onPressDevices,
+      onPress: () => {
+        if (Platform.OS == "ios") {
+          trackEvent("CLICKED_HEALTH_DIARY", {
+            diary_item: "device",
+            diary_item_completion: null
+          });
+        }
+        onPressDevices()
+      },
     },
   ];
 
@@ -52,7 +61,15 @@ const MyHealthDiary: React.FC<MyHealthDiaryProps> = ({
     options.unshift({
       title: 'My Incidents',
       description: 'Log your exercise details!',
-      onPress: onPressMyIncidents,
+      onPress: () => {
+        if (Platform.OS == "ios") {
+          trackEvent("CLICKED_HEALTH_DIARY", {
+            diary_item: "incident",
+            diary_item_completion: null
+          });
+        }
+        onPressMyIncidents()
+      },
     });
   }
 
@@ -65,7 +82,17 @@ const MyHealthDiary: React.FC<MyHealthDiaryProps> = ({
             exeObj?.goal_value,
           )} minutes`
           : 'Log your exercise details!',
-      onPress: () => onPressExercise(data),
+      onPress: () => {
+        if (Platform.OS == "ios") {
+          trackEvent("CLICKED_HEALTH_DIARY", {
+            diary_item: "exercises",
+            diary_item_completion: `${parseInt(exeObj?.todays_achieved_value)}/${parseInt(
+              exeObj?.goal_value,
+            )}`
+          });
+        }
+        onPressExercise(data)
+      },
     });
   }
 
@@ -78,7 +105,17 @@ const MyHealthDiary: React.FC<MyHealthDiaryProps> = ({
             dietObj?.goal_value,
           )} cal`
           : 'Log and track your calories!',
-      onPress: () => onPressDiet(data),
+      onPress: () => {
+        if (Platform.OS == "ios") {
+          trackEvent("CLICKED_HEALTH_DIARY", {
+            diary_item: "diet",
+            diary_item_completion: `${parseInt(dietObj?.todays_achieved_value)}/${parseInt(
+              dietObj?.goal_value,
+            )}`
+          })
+        }
+        ; onPressDiet(data)
+      },
     });
   }
 
@@ -91,7 +128,18 @@ const MyHealthDiary: React.FC<MyHealthDiaryProps> = ({
             medicineObj?.goal_value,
           )} doses`
           : 'Log and track your medicines!',
-      onPress: () => onPressMedicine(data),
+      onPress: () => {
+        if (Platform.OS == "ios") {
+          trackEvent("CLICKED_HEALTH_DIARY", {
+            diary_item: "medicines",
+            diary_item_completion: `${parseInt(medicineObj?.todays_achieved_value)}/${parseInt(
+              medicineObj?.goal_value,
+            )}`
+          })
+        }
+
+        onPressMedicine(data)
+      },
     });
   }
 

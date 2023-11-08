@@ -14,6 +14,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 import { Icons } from '../../constants/icons';
 //import { navigateTo } from '../../routes/Router';
 import { useApp } from '../../context/app.context';
+import { trackEvent } from '../../helpers/TrackEvent';
 
 type DrawerUserInfoProps = {};
 
@@ -21,6 +22,10 @@ const DrawerUserInfo: React.FC<DrawerUserInfoProps> = () => {
   const { userData } = useApp();
 
   const onPressProfile = () => {
+
+    trackEvent("MENU_NAVIGATION", {
+      menu: "Profile Tab"
+    })
     if (Platform.OS == 'ios') {
       //navigateTo('ProfileVC');
     } else {

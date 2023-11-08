@@ -15,6 +15,7 @@ class TabbarVC: BFPaperTabBarController {
     private var showEngageVC = true
     private var isFromRN = true
     private var currentIndex = 0
+    var prevTabBarIndex = 0
     private var tempVariable = false
     
     //MARK: -------------------------- Memory Management Method --------------------------
@@ -111,6 +112,12 @@ class TabbarVC: BFPaperTabBarController {
             tab5.selectedImage  = UIImage(named: "more_selected")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
             tab5.title          = "More"
             tab5.imageInsets    = UIEdgeInsets(top: paddingTop, left: 0, bottom: paddingBottom, right: 0)
+        } else {
+            let tab6           = self.tabBar.items![index]
+            tab6.image          = UIImage(named: "chat_unselected")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+            tab6.selectedImage  = UIImage(named: "chat_unselected")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+            tab6.title          = "Ask"
+            tab6.imageInsets    = UIEdgeInsets(top: paddingTop, left: 0, bottom: paddingBottom, right: 0)
         }
     }
     
@@ -118,6 +125,19 @@ class TabbarVC: BFPaperTabBarController {
         
 #if DEBUG
         let rootView = RCTRootView(
+            bundleURL: URL(string: "http://192.168.1.2:8081/index.bundle?platform=ios")!,
+//            bundleURL: URL(string: "http://localhost:8081/index.bundle?platform=ios")!,
+            //           bundleURL: URL(string: "http://192.168.1.5:8081/index.bundle?platform=ios")!,
+            //            bundleURL: URL(string: "http://192.168.1.36:8081/index.bundle?platform=ios")!,
+            
+            //           bundleURL: URL(string: "http://169.254.76.56:8081/index.bundle?platform=ios")!,
+            
+            moduleName: "TatvacareApp",
+            initialProperties: nil,
+            launchOptions: nil
+        )
+        
+        let chatView = RCTRootView(
             bundleURL: URL(string: "http://192.168.1.2:8081/index.bundle?platform=ios")!,
 //            bundleURL: URL(string: "http://localhost:8081/index.bundle?platform=ios")!,
             //           bundleURL: URL(string: "http://192.168.1.5:8081/index.bundle?platform=ios")!,
@@ -141,6 +161,18 @@ class TabbarVC: BFPaperTabBarController {
             initialProperties: nil,
             launchOptions: nil
         )
+        
+        let chatView = RCTRootView(
+            bundleURL: Bundle.main.url(forResource: "main", withExtension: "jsbundle")!,
+            //           bundleURL: URL(string: "http://192.168.1.5:8081/index.bundle?platform=ios")!,
+            //            bundleURL: URL(string: "http://192.168.1.32:8081/index.bundle?platform=ios")!,
+            
+            //           bundleURL: URL(string: "http://169.254.76.56:8081/index.bundle?platform=ios")!,
+            
+            moduleName: "TatvacareApp",
+            initialProperties: nil,
+            launchOptions: nil
+        )
 #endif
         
         let vc = UIViewController()
@@ -153,6 +185,13 @@ class TabbarVC: BFPaperTabBarController {
             homeVC = HomeVC.instantiate(fromAppStoryboard: .home)
         }
         
+        let cvc = UIViewController()
+        cvc.view = chatView
+        var chatVC: UIViewController!
+        
+        if self.isFromRN {
+            chatVC = cvc
+        }
         
         let carePlanVC          = CarePlanVC.instantiate(fromAppStoryboard: .carePlan)
         let engageVC            = EngageParentVC.instantiate(fromAppStoryboard: .engage)
@@ -165,17 +204,21 @@ class TabbarVC: BFPaperTabBarController {
         }
         
         if !self.isFromRN {
-                arrVC.append(moreVC)
-            }
+            arrVC.append(moreVC)
+        } else {
+            //            Chat Module
+            arrVC.append(chatVC!)
+        }
         
         self.viewControllers    = arrVC
         self.viewControllers    = arrVC.map({ (vc) in
             UINavigationController(rootViewController: vc)
         })
         
-            if self.isFromRN {
-                self.viewControllers?[0] = homeVC
-            }
+        if self.isFromRN {
+            self.viewControllers?[0] = homeVC
+            self.viewControllers?[arrVC.count - 1] = chatVC
+        }
         
         
     }
@@ -216,9 +259,9 @@ class TabbarVC: BFPaperTabBarController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-            if self.isFromRN {
-                self.navigationController?.setNavigationBarHidden(true, animated: animated)
-            }
+        if self.isFromRN {
+            self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        }
         
         NotificationCenter.default.removeObserver(self)
         NotificationCenter.default.addObserver(self, selector: #selector(self.appStatusActivity), name: UIApplication.didBecomeActiveNotification, object: nil)
@@ -305,9 +348,27 @@ extension TabbarVC: TransitionableTab {
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         
-            if self.isFromRN {
-                RNEventEmitter.emitter.sendEvent(withName: "bottomTabNavigationInitiated", body: [:])
+        if self.isFromRN {
+            RNEventEmitter.emitter.sendEvent(withName: "bottomTabNavigationInitiated", body: [:])
+            if(tabBarController.selectedIndex == 4){
+                IQKeyboardManager.shared.enable = false
+                IQKeyboardManager.shared.enableAutoToolbar = false
+                var params: [String: Any] = [:]
+                params[AnalyticsParameters.module.rawValue] = "Chatbot"
+                FIRAnalytics.FIRLogEvent(eventName: .USER_TAPS_ON_BOTTOM_NAV,
+                                         screen: .Home,
+                                         parameter: params)
+                tabBar.isHidden = true
+                RNEventEmitter.emitter.sendEvent(withName: "chatScreenOpened", body: [:])
             }
+            if(tabBarController.selectedIndex == 1){
+                var params: [String: Any] = [:]
+                params[AnalyticsParameters.module.rawValue] = "Home"
+                FIRAnalytics.FIRLogEvent(eventName: .USER_TAPS_ON_BOTTOM_NAV,
+                                         screen: .Home,
+                                         parameter: params)
+            }
+        }
         
         let vcs = viewController.children[0]
         
@@ -381,6 +442,9 @@ extension TabbarVC: TransitionableTab {
             if let items = self.myTabbar.items {
                 for i in 0...items.count - 1 {
                     if items[i] == self.myTabbar.selectedItem {
+                        if(self.currentIndex != 4){
+                            self.prevTabBarIndex = self.currentIndex
+                        }
                         self.currentIndex = i
                         if self.myTabbar.subviews.count > 0 {
                             if i + 3 < self.myTabbar.subviews.count {
