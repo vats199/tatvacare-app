@@ -88,6 +88,7 @@ export type AppStackParamList = {
   // BottomTabs: undefined;
   DrawerScreen: DrawerParamList;
   DietStackScreen: DietStackParamList;
+  ChatScreen: undefined;
 };
 
 export type DrawerParamList = {

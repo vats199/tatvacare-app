@@ -20,12 +20,14 @@ import ProgressBarInsightsScreen from '../screens/FoodDiary/ProgressBarInsightsS
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { useRef } from 'react';
 import { useApp } from '../context/app.context';
-
+import ChatScreen from '../screens/ChatScreen';
 const Navigation = NativeModules.Navigation;
 export const navigateTo = Platform.OS == "ios" && Navigation.navigateTo;
 export const navigateToHistory = Platform.OS == "ios" && Navigation.navigateToHistory;
 export const navigateToBookmark = Platform.OS == "ios" && Navigation.navigateToBookmark;
 export const navigateToPlan = Platform.OS == "ios" && Navigation.navigateToPlan;
+export const goBackFromChat = Platform.OS == "ios" && Navigation.goBackFromChat;
+
 export const navigateToEngagement = Platform.OS == "ios" && Navigation.navigateToEngagement;
 export const navigateToMedicines = Platform.OS == "ios" && Navigation.navigateToMedicines;
 export const navigateToIncident = Platform.OS == "ios" && Navigation.navigateToIncident;
@@ -116,6 +118,7 @@ const Router = () => {
             name={'DietStackScreen'}
             component={DietStackScreen}
           />
+          <AppStack.Screen name={'ChatScreen'} component={ChatScreen} />
         </AppStack.Navigator>
       </BottomSheetModalProvider>
     </NavigationContainer>

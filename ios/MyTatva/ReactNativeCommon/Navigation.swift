@@ -30,6 +30,23 @@ class Navigation: NSObject {
     }
     
     @objc
+    func goBackFromChat() -> Void{
+        IQKeyboardManager.shared.enable = true
+        IQKeyboardManager.shared.enableAutoToolbar = true
+        DispatchQueue.main.async {
+            var params: [String: Any] = [:]
+            params[AnalyticsParameters.module.rawValue] = "chatbot screen"
+            FIRAnalytics.FIRLogEvent(eventName: .BACK_BUTTON_CLICK,
+                                     screen: .Home,
+                                     parameter: params)
+            if let tabbar = UIApplication.topViewController()?.parent as? TabbarVC {
+                tabbar.tabBar.isHidden = false
+                tabbar.selectedIndex = tabbar.prevTabBarIndex
+            }
+        }
+    }
+    
+    @objc
     func navigateToHistory(_ selectedType: NSString) -> Void {
         let historyModelVC = HistoryParentVC.instantiate(fromAppStoryboard: .setting)
         historyModelVC.selectedType = HistoryType(rawValue: selectedType as String)
@@ -546,6 +563,6 @@ open class RNEventEmitter: RCTEventEmitter {
   }
 
   open override func supportedEvents() -> [String] {
-    ["updatedGoalReadingSuccess","bookmarkUpdated","bottomTabNavigationInitiated","profileUpdatedSuccess","locationUpdatedSuccessfully"]
+    ["updatedGoalReadingSuccess","bookmarkUpdated","bottomTabNavigationInitiated","profileUpdatedSuccess","locationUpdatedSuccessfully","chatScreenOpened"]
   }
 }
