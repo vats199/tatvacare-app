@@ -56,7 +56,7 @@ class MyTatvaApp : Application(), ReactApplication, LifecycleObserver {
     companion object {
         const val TAG = "MyTatvaApp"
 
-        val IS_RAZORPAY_LIVE = URLFactory.ENVIRONMENT == URLFactory.Env.PRODUCTION
+        val IS_RAZORPAY_LIVE = URLFactory.ENVIRONMENT == URLFactory.Env.UAT
         val IS_TO_USE_FIREBASE_FLAGS = true
 
         val YOUR_WEBENGAGE_LICENSE_CODE =

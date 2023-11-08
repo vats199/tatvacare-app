@@ -196,7 +196,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener, DefaultHardwareBackBt
                 else if (layoutCarePlan.isSelected) R.id.layoutCarePlan
                 else if (layoutMyCircle.isSelected) R.id.layoutMyCircle
                 else if (layoutExercise.isSelected) R.id.layoutExercise
-                else R.id.layoutMore
+                else R.id.layoutGenAI
             }
         }
     var lastSelectedTabTime = Calendar.getInstance().timeInMillis
@@ -253,9 +253,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener, DefaultHardwareBackBt
                 .setInitialLifecycleState(LifecycleState.RESUMED)
                 .build()
 
-
             reactInstanceManager.createReactContextInBackground()
-
 
             if (!AppFlagHandler.getIsHomeFromReactNative(firebaseConfigUtil)) {
                 observeLiveData()
@@ -875,7 +873,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener, DefaultHardwareBackBt
             layoutCarePlan.setOnClickListener { onClick(it) }
             layoutMyCircle.setOnClickListener { onClick(it) }
             layoutExercise.setOnClickListener { onClick(it) }
-            layoutMore.setOnClickListener { onClick(it) }
+            layoutGenAI.setOnClickListener { onClick(it) }
             layoutNavigation.apply {
                 imageViewProfile.setOnClickListener { onClick(it) }
                 textViewPatientName.setOnClickListener { onClick(it) }
@@ -1008,10 +1006,10 @@ class HomeActivity : BaseActivity(), View.OnClickListener, DefaultHardwareBackBt
                 }
             }
 
-            R.id.layoutMore -> {
-                if (binding.layoutMore.isSelected.not()) {
+            R.id.layoutGenAI -> {
+                if (binding.layoutGenAI.isSelected.not()) {
                     setBottomSelection(v.id)
-                    homeHandler?.showMoreFragment()
+                    homeHandler?.showGenAIFragment()
                 }
             }
 
@@ -1152,17 +1150,17 @@ class HomeActivity : BaseActivity(), View.OnClickListener, DefaultHardwareBackBt
             else if (layoutCarePlan.isSelected) R.id.layoutCarePlan
             else if (layoutMyCircle.isSelected) R.id.layoutMyCircle
             else if (layoutExercise.isSelected) R.id.layoutExercise
-            else R.id.layoutMore
+            else R.id.layoutGenAI
         }
 
         when (viewId) {
-            R.id.layoutHome, R.id.layoutCarePlan, R.id.layoutMyCircle, R.id.layoutExercise, R.id.layoutMore -> {
+            R.id.layoutHome, R.id.layoutCarePlan, R.id.layoutMyCircle, R.id.layoutExercise, R.id.layoutGenAI -> {
                 with(binding) {
                     layoutHome.isSelected = viewId == R.id.layoutHome
                     layoutCarePlan.isSelected = viewId == R.id.layoutCarePlan
                     layoutMyCircle.isSelected = viewId == R.id.layoutMyCircle
                     layoutExercise.isSelected = viewId == R.id.layoutExercise
-                    layoutMore.isSelected = viewId == R.id.layoutMore
+                    layoutGenAI.isSelected = viewId == R.id.layoutGenAI
                 }
             }
         }

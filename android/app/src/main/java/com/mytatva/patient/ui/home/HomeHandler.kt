@@ -2,6 +2,7 @@ package com.mytatva.patient.ui.home
 
 import com.facebook.react.ReactInstanceManager
 import com.mytatva.patient.fcm.Notification
+import com.mytatva.patient.ui.GenAIFragment
 import com.mytatva.patient.ui.careplan.fragment.CarePlanFragment
 import com.mytatva.patient.ui.engage.fragment.EngageFragment
 import com.mytatva.patient.ui.exercise.ExerciseFragment
@@ -16,7 +17,7 @@ class HomeHandler {
     val carePlanFragment: CarePlanFragment//CarePlanFragment
     val engageFragment: EngageFragment//EngageFragment
     val exerciseFragment: ExerciseFragment//ExerciseFragment
-    val moreFragment: HomeFragment//MoreFragment
+    val genAIFragment: GenAIFragment
     val fragmentHandler: FragmentHandler
     val firebaseConfigUtil: FirebaseConfigUtil
 
@@ -27,7 +28,7 @@ class HomeHandler {
         carePlanFragment = CarePlanFragment()
         engageFragment = EngageFragment()
         exerciseFragment = ExerciseFragment()
-        moreFragment = HomeFragment()
+        genAIFragment = GenAIFragment()
         this.firebaseConfigUtil = firebaseConfigUtil
     }
 
@@ -44,7 +45,7 @@ class HomeHandler {
                 carePlanFragment,
                 engageFragment,
                 exerciseFragment,
-                moreFragment
+                genAIFragment
             )
         } else {
             homeFragment.notification = notification
@@ -53,7 +54,7 @@ class HomeHandler {
                 carePlanFragment,
                 engageFragment,
                 exerciseFragment,
-                moreFragment
+                genAIFragment
             )
         }
     }
@@ -64,7 +65,7 @@ class HomeHandler {
                 carePlanFragment,
                 engageFragment,
                 exerciseFragment,
-                moreFragment,
+                genAIFragment,
                 rnHomeFragment
             )
         } else {
@@ -72,7 +73,7 @@ class HomeHandler {
                 carePlanFragment,
                 engageFragment,
                 exerciseFragment,
-                moreFragment,
+                genAIFragment,
                 homeFragment
             )
         }
@@ -83,7 +84,7 @@ class HomeHandler {
             fragmentHandler.showFragment(
                 engageFragment,
                 exerciseFragment,
-                moreFragment,
+                genAIFragment,
                 rnHomeFragment,
                 carePlanFragment
             )
@@ -91,7 +92,7 @@ class HomeHandler {
             fragmentHandler.showFragment(
                 engageFragment,
                 exerciseFragment,
-                moreFragment,
+                genAIFragment,
                 homeFragment,
                 carePlanFragment
             )
@@ -102,7 +103,7 @@ class HomeHandler {
         if (AppFlagHandler.getIsHomeFromReactNative(firebaseConfigUtil)) {
             fragmentHandler.showFragment(
                 exerciseFragment,
-                moreFragment,
+                genAIFragment,
                 rnHomeFragment,
                 carePlanFragment,
                 engageFragment
@@ -110,7 +111,7 @@ class HomeHandler {
         } else {
             fragmentHandler.showFragment(
                 exerciseFragment,
-                moreFragment,
+                genAIFragment,
                 homeFragment,
                 carePlanFragment,
                 engageFragment
@@ -118,10 +119,10 @@ class HomeHandler {
         }
     }
 
-    fun showMoreFragment() {
+    fun showGenAIFragment() {
         if (AppFlagHandler.getIsHomeFromReactNative(firebaseConfigUtil)) {
             fragmentHandler.showFragment(
-                moreFragment,
+                genAIFragment,
                 rnHomeFragment,
                 carePlanFragment,
                 engageFragment,
@@ -129,7 +130,7 @@ class HomeHandler {
             )
         } else {
             fragmentHandler.showFragment(
-                moreFragment,
+                genAIFragment,
                 homeFragment,
                 carePlanFragment,
                 engageFragment,

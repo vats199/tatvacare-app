@@ -235,7 +235,7 @@ class AndroidBridgeModule(var reactContext: ReactApplicationContext) : ReactCont
         }*/
 
         (currentActivity as BaseActivity?)!!.loadActivity(
-            IsolatedFullActivity::class.java, PaymentCarePlanListingFragment::class.java
+            IsolatedFullActivity::class.java, DevicesFragment::class.java
         ).start()
     }
 
