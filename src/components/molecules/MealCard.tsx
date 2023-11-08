@@ -67,15 +67,20 @@ const MealCard: React.FC<MealCardProps> = ({
           <View style={styles.circle}>{mealIcons(cardData?.meal_type)}</View>
           <View style={styles.textContainer}>
             <Text style={styles.title}>{cardData.label}</Text>
-            <Text style={styles.textBelowTitle}>
-              {moment(cardData?.default_time, 'HH:mm:ss').format('h:mm A') +
-                ' - ' +
-                moment(cardData?.default_time, 'HH:mm:ss').add(1, "hour").format('h:mm A') +
-                ' | ' + 0 +
-                ' of ' +
-                0 +
-                'cal'}
-            </Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Text style={styles.textBelowTitle}>
+                {moment(cardData?.default_time, 'HH:mm:ss').format('h:mm A') +
+                  ' - ' +
+                  moment(cardData?.default_time, 'HH:mm:ss').add(1, "hour").format('h:mm A') +
+                  ' | '}
+              </Text>
+              <Text style={[styles.textBelowTitle, { textTransform: 'lowercase', color: colors.labelDarkGray }]}>
+                {+ 0 +
+                  ' of ' +
+                  0 +
+                  'cal'}
+              </Text>
+            </View>
           </View>
         </View>
         <TouchableOpacity

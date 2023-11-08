@@ -20,14 +20,15 @@ type DietHeaderProps = {
   onPressOfNextAndPerviousDate: (data: any) => void;
   title: string;
   getCurrentSeletedDate: (data: any) => void;
+  currentSelectedDate?: Date | null
 };
 const DietHeader: React.FC<DietHeaderProps> = ({
   onPressBack,
   onPressOfNextAndPerviousDate,
   title,
-  getCurrentSeletedDate,
+  getCurrentSeletedDate, currentSelectedDate
 }) => {
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(currentSelectedDate ?? new Date());
 
   React.useEffect(() => {
     getCurrentSeletedDate(selectedDate);
@@ -35,7 +36,6 @@ const DietHeader: React.FC<DietHeaderProps> = ({
 
   const onPressDay = (date: Date) => {
     setSelectedDate(date)
-    onPressOfNextAndPerviousDate(date);
   };
 
   return (

@@ -68,7 +68,6 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
     data: FoodItems;
     mealId: string;
   } | null>();
-  console.log("selectedDate", selectedDate);
 
   useEffect(() => {
     if (title) {
@@ -110,7 +109,6 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
       {},
       { token: userData.token },
     );
-    console.log("diet", diet);
 
     if (diet.code == '1') {
       setTimeout(() => {
@@ -189,8 +187,6 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   };
 
   const deleteFoodItem = async () => {
-    console.log('yessss');
-    // setModalVisible(false);
     bottomSheetModalRef.current?.close();
     const deleteFoodItem = await Diet.deleteFoodItem(
       {
@@ -209,6 +205,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
       }, 1000);
     }
   };
+
   const handlePulsIconPress = async (
     optionFoodItems: any,
     mealName: string,
@@ -250,16 +247,14 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
         const mealName = dietPlanFound[0].meal_name;
         itemOptionFound[0].meal_name = mealName;
       }
-
       handalTotalCalories(itemOptionFound[0]);
     }
   };
 
-  const handalTotalCalories = async (caloriesValue: any) => {
-    setCaloriesArray(prevCalories => {
-      const indexToUpdate = prevCalories?.findIndex(
-        item =>
-          item?.diet_meal_type_rel_id === caloriesValue?.diet_meal_type_rel_id,
+  const handalTotalCalories = (caloriesValue: any) => {
+    setCaloriesArray((prevCalories) => {
+      const indexToUpdate = prevCalories.findIndex(
+        (item) => item.diet_meal_type_rel_id === caloriesValue.diet_meal_type_rel_id
       );
       if (indexToUpdate !== -1) {
         const updatedCaloriesArray = [...prevCalories];
@@ -276,11 +271,6 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
     if (isNaN(vale)) {
       vale = 0;
     }
-    console.log(
-      caloriesArray,
-      'caloriesArraycaloriesArray',
-      JSON.stringify(userData),
-    );
     trackEvent(Constants.EVENT_NAME.FOOD_DIARY.USER_CLICKS_ON_INSIGHT, {
       date_of_insight: moment(selectedDate).format(Constants.DATE_FORMAT),
       goal_value: totalcalorie,
@@ -288,7 +278,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
       percentage_completion: vale,
       goal_unit: 'cal',
     });
-    navigation.navigate('ProgressBarInsightsScreen', { calories: caloriesArray });
+    navigation.navigate('ProgressBarInsightsScreen', { calories: caloriesArray, currentSelectedDate: new Date(selectedDate) });
   };
 
   const handlePressOfNoPlanePlusIcon = (mealData: mealTYpe) => {

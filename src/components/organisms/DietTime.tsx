@@ -1,8 +1,8 @@
-import {StyleSheet, ScrollView, View, Text} from 'react-native';
-import React, {useEffect} from 'react';
+import { StyleSheet, ScrollView, View, Text } from 'react-native';
+import React, { useEffect } from 'react';
 import DietExactTime from '../molecules/DietExactTime';
-import {Matrics} from '../../constants';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import { Matrics } from '../../constants';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type DietTimeProps = {
   onPressPlus: (optionFoodItems: Options, mealName: string) => void;
@@ -139,6 +139,7 @@ const DietTime: React.FC<DietTimeProps> = ({
   const handalTotleCalories = (calories: string) => {
     getCalories(calories);
   };
+
   const renderDietTimeItem = (item: MealsData, index: number) => {
     return (
       <DietExactTime

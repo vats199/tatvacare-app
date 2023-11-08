@@ -168,7 +168,7 @@ const TabScreen = () => {
           tabBarInactiveTintColor: colors.tabTitleColor,
           tabBarLabelStyle: {
             textAlign: 'center',
-            fontSize: 18,
+            fontSize: Matrics.mvs(18),
             textTransform: 'none',
             fontWeight: '600',
           },

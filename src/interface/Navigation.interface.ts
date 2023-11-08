@@ -175,7 +175,7 @@ export type DietStackParamList = {
     mealData?: mealTYpe | null;
     selectedDate?: any | null;
   };
-  ProgressBarInsightsScreen: {calories: Options[]};
+  ProgressBarInsightsScreen: {calories: Options[]; currentSelectedDate: Date};
 };
 
 export type SetupProfileStackParamList = {

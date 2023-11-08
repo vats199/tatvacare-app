@@ -236,12 +236,8 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
       meal_types: cardData?.meal_name ?? '',
       option_number: index + 1,
     });
-    console.log(" log intitalks 111111", item.diet_meal_options_id);
-
     setSelectedOptionId(item.diet_meal_options_id);
   };
-
-  // console.log("selectedOptionId", selectedOptionId);
 
   return (
     <View style={[styles.container, globalStyles.shadowContainer]}>
@@ -269,13 +265,11 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
             </Text>
           </View>
         </View>
-        {/* {cardData.patient_permission === 'W' ? ( */}
         <TouchableOpacity
           onPress={handlePulsIconPress}
           style={styles.iconContainer}>
           <Icons.AddCircle height={20} width={20} />
         </TouchableOpacity>
-        {/* // ) : null} */}
       </View>
       <View style={styles.line} />
       <View>

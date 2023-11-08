@@ -303,7 +303,6 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
   const onDateChanged = useCallback((date: any, updateSource: any) => {
     let tempDate = new Date(date);
     setNewMonth(tempDate)
-    console.log("tempDate", tempDate);
 
     // setSeletedDay(moment(date?.dateString).format('YYYY-MM-DD'))
     // if (updateSource === 'weekScroll') {
