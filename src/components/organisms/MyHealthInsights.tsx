@@ -2,6 +2,7 @@ import {
   Dimensions,
   FlatList,
   Image,
+  Platform,
   ScrollView,
   StyleSheet,
   Text,
@@ -12,6 +13,7 @@ import React, { useEffect } from 'react';
 import { colors } from '../../constants/colors';
 import { Icons } from '../../constants/icons';
 import { getEncryptedText } from '../../api/base';
+import { trackEvent } from '../../helpers/TrackEvent';
 
 type MyHealthInsightsProps = {
   data: any;
@@ -38,6 +40,23 @@ const MyHealthInsights: React.FC<MyHealthInsightsProps> = ({
       });
     } else {
       return '-';
+    }
+  };
+  const getTrackEvnetValue = (
+    keys: string,
+    reading_value: any,
+    reading_value_data: any,
+  ) => {
+    switch (keys) {
+      case 'bloodpressure':
+        return JSON.stringify(reading_value_data)
+
+      case 'fibro_scan':
+        return JSON.stringify(reading_value_data)
+      case 'blood_glucose':
+        return JSON.stringify(reading_value_data)
+      default:
+        return reading_value
     }
   };
 
@@ -99,7 +118,18 @@ const MyHealthInsights: React.FC<MyHealthInsightsProps> = ({
       <TouchableOpacity
         key={index.toString()}
         style={styles.hiItemContainerBottom}
-        onPress={() => onPressReading(data?.readings, item.keys, index)}>
+        onPress={() => {
+          if (Platform.OS == "ios") {
+            trackEvent("CLICKED_HEALTH_INSIGHTS", {
+              health_marker_name: item?.reading_name ?? "",
+              health_marker_colour: item?.in_range?.icon_color ?? "",
+              health_marker_value: getTrackEvnetValue(item.keys,
+                item.reading_value,
+                item.reading_value_data,)
+            })
+          }
+          onPressReading(data?.readings, item.keys, index)
+        }}>
         <View style={[styles.row, styles.flex]}>
           <Image
             resizeMode="contain"
@@ -126,7 +156,17 @@ const MyHealthInsights: React.FC<MyHealthInsightsProps> = ({
       <TouchableOpacity
         key={index.toString()}
         style={styles.hiItemContainerTop}
-        onPress={() => onPressGoal(data?.goals, item.keys, index)}>
+        onPress={() => {
+          if (Platform.OS == "ios") {
+            trackEvent("CLICKED_HEALTH_INSIGHTS", {
+              health_marker_name: item?.goal_name ?? "",
+              health_marker_colour: item?.icon_color ?? "",
+              health_marker_value: item?.todays_achieved_value
+            })
+          }
+          onPressGoal(data?.goals, item.keys, index)
+        }
+        }>
         <View style={[styles.row, styles.flex]}>
           <Image
             resizeMode="contain"

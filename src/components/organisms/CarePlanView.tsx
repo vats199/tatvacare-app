@@ -55,9 +55,8 @@ const CarePlanView: React.FC<CarePlanViewProps> = ({
   };
 
   const onPressKnowMore = (plan: any) => {
-    // navigateToChronicCareProgram();
     if (Platform.OS == 'ios') {
-      //onPressRenewPlan([{planDetails: plan}]);
+      onPressRenewPlan([{ planDetails: plan }]);
     } else {
       console.log("Plan Press= ", plan)
       NativeModules.AndroidBridge.openFreePlanDetailScreen(JSON.stringify(plan))
@@ -66,7 +65,7 @@ const CarePlanView: React.FC<CarePlanViewProps> = ({
 
   const onCarePlanNeedCotainer = () => {
     if (Platform.OS == 'ios') {
-      //navigateToChronicCareProgram();
+      navigateToChronicCareProgram();
     } else {
       NativeModules.AndroidBridge.openCheckAllPlanScreen();
     }

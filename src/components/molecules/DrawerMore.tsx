@@ -3,6 +3,7 @@ import React from 'react';
 import { colors } from '../../constants/colors';
 import { Icons } from '../../constants/icons';
 import { trackEvent } from '../../helpers/TrackEvent';
+import { navigateTo, navigateToShareKit } from '../../routes/Router';
 //import { navigateTo, navigateToShareKit } from '../../routes/Router';
 
 type DrawerMoreProps = {
@@ -19,14 +20,14 @@ const DrawerMore: React.FC<DrawerMoreProps> = ({ onPressAboutUs = () => { } }) =
   const onAccountSettingsPress = () => {
     if (Platform.OS == 'ios') {
       trackCommonEvent("Account Settings")
-      //navigateTo('AccountSettingVC');
+      navigateTo('AccountSettingVC');
     } else {
       NativeModules.AndroidBridge.openAccountSettingScreen();
     }
   };
   const onHelpAndSupportPress = () => {
     if (Platform.OS == 'ios') {
-      //navigateTo('HelpAndSupportVC');
+      navigateTo('HelpAndSupportVC');
     } else {
       NativeModules.AndroidBridge.openHelpSupportScreen();
     }
@@ -34,7 +35,7 @@ const DrawerMore: React.FC<DrawerMoreProps> = ({ onPressAboutUs = () => { } }) =
   const onShareAppPress = () => {
     if (Platform.OS == 'ios') {
       trackCommonEvent("Share App")
-      //navigateToShareKit();
+      navigateToShareKit();
     } else {
       NativeModules.AndroidBridge.openShareAppScreen();
     }

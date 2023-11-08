@@ -15,7 +15,7 @@ import LearnItem from '../atoms/LearnItem';
 type LearnProps = {
   data: any;
   onPressBookmark: (data: any) => void;
-  onPressItem: (contentId: string, contentType: string) => void;
+  onPressItem: (contentId: string, contentType: string, learnItem: any) => void;
   onPressViewAll: () => void;
 };
 

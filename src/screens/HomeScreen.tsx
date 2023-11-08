@@ -57,6 +57,7 @@ import InputField, {
 import SearchModal from '../components/molecules/SearchModal';
 import { trackEvent } from '../helpers/TrackEvent'
 import { Constants } from '../constants';
+import moment from 'moment';
 
 const { RNEventEmitter } = NativeModules;
 const eventEmitter = new NativeEventEmitter(RNEventEmitter);
@@ -330,7 +331,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
       NativeModules.AndroidBridge.openDeviceScreen();
     }
   };
-  const onPressDiet = () => {
+  const RNonPressDiet = () => {
     // navigateTo('FoodDiaryParentVC');
     trackEvent(Constants.EVENT_NAME.FOOD_DIARY.CLICKED_HEALTH_DIARY, {
       "goal_id": "",
@@ -340,7 +341,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
     navigation.navigate('DietStackScreen');
   };
 
-  const onPressDietAndroid = (data: any) => {
+  const onPressDiet = (data: any) => {
     if (Platform.OS == 'ios') {
       navigateTo('FoodDiaryParentVC');
     } else {
@@ -396,12 +397,14 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
   const onPressConsultNutritionist = () => {
     if (canBookHealthCoach) {
       if (Platform.OS == 'ios') {
+        trackEvent("CLICKED_CONSULT_NUTRITIONIST", {})
         navigateToBookAppointment('HC');
       } else {
         NativeModules.AndroidBridge.openConsultNutritionistScreen();
       }
     } else {
       if (Platform.OS == 'ios') {
+        trackEvent("CLICKED_CONSULT_NUTRITIONIST", {})
         navigateToChronicCareProgram('show_nutritionist');
       } else {
         NativeModules.AndroidBridge.openAllPlanScreen("show_nutritionist");
@@ -411,12 +414,14 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
   const onPressConsultPhysio = (type: 'HC' | 'D') => {
     if (canBookHealthCoach) {
       if (Platform.OS == 'ios') {
+        trackEvent("CLICKED_CONSULT_PHYSIO", {})
         navigateToBookAppointment(type);
       } else {
         NativeModules.AndroidBridge.openConsultPhysioScreen();
       }
     } else {
       if (Platform.OS == 'ios') {
+        trackEvent("CLICKED_CONSULT_PHYSIO", {})
         navigateToChronicCareProgram('show_physio');
       } else {
         NativeModules.AndroidBridge.openAllPlanScreen("show_physio");
@@ -425,6 +430,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
   };
   const onPressBookDiagnostic = () => {
     if (Platform.OS == 'ios') {
+      trackEvent("HOME_LABTEST_CARD_CLICKED", {})
       navigateTo('LabTestListVC');
     } else {
       NativeModules.AndroidBridge.openBookDiagnosticScreen();
@@ -434,6 +440,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
   const onPressBookDevices = () => {
     if (Object.values(hcDevicePlans.devices).length > 0) {
       if (Platform.OS == 'ios') {
+        trackEvent("CLICKED_BOOK_DEVICES", {})
         navigateTo('MyDevices');
       } else {
         NativeModules.AndroidBridge.openBookDeviceScreen();
@@ -441,6 +448,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
     } else {
 
       if (Platform.OS == 'ios') {
+        trackEvent("CLICKED_BOOK_DEVICES", {})
         navigateToChronicCareProgram('show_book_device');
       } else {
         NativeModules.AndroidBridge.openAllPlanScreen("show_book_device");
@@ -450,6 +458,11 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
 
   const onPressCarePlan = (plan: any) => {
     if (Platform.OS == 'ios') {
+      trackEvent("HOME_CARE_PLAN_CARD_CLICKED", {
+        plan_id: plan?.plan_master_id ?? "",
+        plan_type: plan?.plan_type ?? "",
+        plan_duration: moment(plan?.expiry_date, "YYYY-MM-DD").diff(moment(plan.plan_start_date).format("YYYY-MM-DD"), "days")
+      })
       openPlanDetails([{ planDetails: plan }]);
     } else {
       console.log("Plan Details===", plan)
@@ -475,14 +488,21 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
 
   const onPressViewAllLearn = () => {
     if (Platform.OS == 'ios') {
+      trackEvent("CLICKED_CONTENT_VIEW_ALL", {})
       navigateToDiscover();
     } else {
       NativeModules.AndroidBridge.openLearnScreen();
     }
   };
 
-  const onPressLearnItem = (contentId: string, contentType: string) => {
+  const onPressLearnItem = (contentId: string, contentType: string, learnItem: any) => {
     if (Platform.OS == 'ios') {
+      trackEvent("USER_CLICKED_ON_CARD", {
+        content_master_id: learnItem?.content_master_id ?? "",
+        content_type: learnItem?.content_type ?? "",
+        content_heading: learnItem?.title ?? "",
+        content_card_number: learnItem?.content_id ?? ""
+      })
       navigateToEngagement(contentId.toString());
     } else {
       NativeModules.AndroidBridge.openLearnDetailsScreen(contentId, contentType);
@@ -490,6 +510,13 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
   };
 
   const onPressBookmark = async (data: any) => {
+    let trackEventPayload = {
+      content_master_id: data?.content_master_id ?? "",
+      content_type: data?.content_type ?? "",
+      content_heading: data?.title ?? "",
+      content_card_number: data?.content_id ?? ""
+    }
+    trackEvent(`${data?.bookmarked === 'Y' ? "USER_UN_BOOKMARK_CONTENT" : "USER_BOOKMARKED_CONTENT"}`, trackEventPayload)
     const payload = {
       content_master_id: data?.content_master_id,
       is_active: data?.bookmarked === 'Y' ? 'N' : 'Y',

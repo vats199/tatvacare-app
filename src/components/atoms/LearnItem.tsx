@@ -14,7 +14,7 @@ import { colors } from '../../constants/colors';
 type LearnItemProps = {
   learnItem: any;
   onPressBookmark: (data: any) => void;
-  onPressItem: (contentId: string, contentType: string) => void;
+  onPressItem: (contentId: string, contentType: string, learnItem: any) => void;
   style?: ViewStyle;
 };
 
@@ -33,7 +33,7 @@ const LearnItem: React.FC<LearnItemProps> = ({
       activeOpacity={0.7}
       style={[styles.itemContainer, style]}
       onPress={() =>
-        onPressItem(learnItem.content_master_id, learnItem.content_type)
+        onPressItem(learnItem.content_master_id, learnItem.content_type, learnItem)
       }>
       <Image
         style={styles.imageStyle}
