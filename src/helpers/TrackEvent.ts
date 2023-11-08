@@ -13,7 +13,6 @@ export const trackEvent = (
   let payload = {...global.trackEventDefaultParams, ...params};
   try {
     webengage.track(event_name, payload);
-    console.log('success');
   } catch (error) {
     console.log(error, 'event error');
   }

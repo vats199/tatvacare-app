@@ -296,7 +296,6 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
       : null;
     setShowMore(!showMore);
     const mondayOfWeek = getMondayOfWeek(seletedDay);
-    console.log("mondayOfWeek", mondayOfWeek);
 
     setCalendarDates(moment(mondayOfWeek).format('YYYY-MM-DD'));
   };

@@ -68,6 +68,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
     data: FoodItems;
     mealId: string;
   } | null>();
+  console.log("selectedDate", selectedDate);
 
   useEffect(() => {
     if (title) {
@@ -109,6 +110,8 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
       {},
       { token: userData.token },
     );
+    console.log("diet", diet);
+
     if (diet.code == '1') {
       setTimeout(() => {
         setLoader(false);
