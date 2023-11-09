@@ -41,8 +41,7 @@ const TestSummary: React.FC<TestSummaryProps> = ({ showMore }) => {
     return (
         <View>
             <Text style={[styles.summaryText, {
-                marginTop: 15,
-                marginBottom: 10
+                marginVertical: Matrics.s(15)
             }]}>Summary</Text>
             <View style={[styles.summaryBox, styles.containerShadow]}>
                 <View style={{ padding: 15 }}>
@@ -67,21 +66,21 @@ const TestSummary: React.FC<TestSummaryProps> = ({ showMore }) => {
                             <View style={{ paddingHorizontal: 15, paddingVertical: 8 }}>
                                 <View style={styles.row}>
                                     <Text style={styles.textStyle}>Order ID:</Text>
-                                    <Text style={[styles.textStyle, { color: colors.labelDarkGray }, { fontWeight: '700' }]}>VL 39670</Text>
+                                    <Text style={styles.valueStyle}>VL 39670</Text>
                                 </View>
                                 <View style={styles.row}>
                                     <Text style={styles.textStyle}>Appointment On:</Text>
-                                    <Text style={[styles.textStyle, { color: colors.labelDarkGray }, { fontWeight: '700' }]}>VL 39670</Text>
+                                    <Text style={styles.valueStyle}>VL 39670</Text>
                                 </View>
                                 <View style={styles.row}>
                                     <Text style={styles.textStyle}>Time:</Text>
-                                    <Text style={[styles.textStyle, { color: colors.labelDarkGray }, { fontWeight: '700' }]}>09:30-10:30</Text>
+                                    <Text style={styles.valueStyle}>09:30-10:30</Text>
                                 </View>
                                 <View style={styles.separator} />
                                 <View style={{ flexDirection: 'row', justifyContent: "space-between" }}>
                                     <View style={styles.row}>
                                         <Text style={styles.textStyle}>Status:</Text>
-                                        <Text style={[styles.textStyle, { color: colors.labelDarkGray }, { fontWeight: '700' }]}>Phlebo Assignsed</Text>
+                                        <Text style={styles.valueStyle}>Phlebo Assignsed</Text>
                                     </View>
                                     <TouchableOpacity style={styles.row} onPress={() => setShowDetail(!showDetail)} >
                                         <Text style={styles.viewText}>View</Text>
@@ -120,26 +119,24 @@ const styles = StyleSheet.create({
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray,
-
+        lineHeight: Matrics.s(20)
     },
     summaryBox: {
-        //padding: Matrics.s(10),
         flex: 1,
-        borderRadius: 12,
+        borderRadius: Matrics.s(12),
         backgroundColor: colors.white,
-
     },
     containerShadow: {
         shadowColor: colors.black,
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.08,
-        shadowRadius: 8,
+        shadowRadius: Matrics.s(8),
         elevation: 0.4,
     },
     row: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginVertical: 2
+        marginVertical: Matrics.s(2)
     },
     separator: {
         borderBottomWidth: 1,
@@ -151,6 +148,14 @@ const styles = StyleSheet.create({
         fontWeight: '400',
         fontFamily: Fonts.BOLD,
         color: colors.subTitleLightGray,
+        lineHeight: Matrics.s(18),
+    },
+    valueStyle: {
+        fontSize: Matrics.mvs(14),
+        fontWeight: '600',
+        fontFamily: Fonts.BOLD,
+        color: colors.labelDarkGray,
+        lineHeight: Matrics.s(18),
     },
     viewText: {
         fontSize: Matrics.s(12),

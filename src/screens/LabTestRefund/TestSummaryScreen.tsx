@@ -1,25 +1,25 @@
 import { StyleSheet, Text, View, ScrollView } from 'react-native'
-import React, { useEffect, useState } from 'react';
-import {
-    DiagnosticStackParamList,
-} from '../../interface/Navigation.interface';
+import React, { useRef, useState, useEffect } from 'react';
+import { LabTestRefundStackParamList } from '../../interface/Navigation.interface';
 import { StackScreenProps } from '@react-navigation/stack';
-import Header from '../../components/atoms/Header';
-import { Icons } from '../../constants/icons';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { colors } from '../../constants/colors';
 import { Fonts, Matrics } from '../../constants';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import Button from '../../components/atoms/Button';
-import TestSummary from '../../components/molecules/TestSummary';
-import SampleCollection from '../../components/molecules/SampleCollection';
+import MyStatusbar from '../../components/atoms/MyStatusBar';
+import { Icons } from '../../constants/icons';
+import Header from '../../components/atoms/Header';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Billing from '../../components/organisms/Billing';
 import TestDetails from '../../components/organisms/TestDetails';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import SampleCollection from '../../components/molecules/SampleCollection';
+import Button from '../../components/atoms/Button';
+import TestSummary from '../../components/molecules/TestSummary';
 
-type LabTestSummaryScreenProps = StackScreenProps<
-    DiagnosticStackParamList,
-    'LabTestSummary'
+type TestSummaryScreenProps = StackScreenProps<
+    LabTestRefundStackParamList,
+    'TestSummaryScreen'
 >;
+
 type TestItem = {
     id: number;
     title: string;
@@ -43,21 +43,20 @@ export type billingData = {
     }
 }
 
-
-const LabTestSummaryScreen: React.FC<LabTestSummaryScreenProps> = ({ route, navigation }) => {
+const TestSummaryScreen: React.FC<TestSummaryScreenProps> = ({ route, navigation }) => {
 
     const [cartItems, setCartItems] = useState<TestItem[]>([]);
-    const time: selectTime = route.params?.time;
+    const time: selectTime | undefined = route.params?.time;
     console.log(time);
     const onPressBack = () => {
         navigation.goBack();
     }
-    const onPressProceedPay = () => {
-        navigation.navigate("CongratulationScreen");
+    const onPressReschedule = () => {
+        navigation.navigate("CongratulationsScreen");
     }
 
 
-    const dateObj = new Date(time.date);
+    const dateObj = new Date(time?.date);
 
     const dateOptions: Intl.DateTimeFormatOptions = {
         weekday: 'long',
@@ -125,9 +124,9 @@ const LabTestSummaryScreen: React.FC<LabTestSummaryScreenProps> = ({ route, navi
 
         fetchData();
     }, []);
-
     return (
         <SafeAreaView edges={['top']} style={styles.screen} >
+            <MyStatusbar />
             <ScrollView style={{ padding: 20 }}>
                 <Header
                     title='Lab Test Summary'
@@ -137,7 +136,7 @@ const LabTestSummaryScreen: React.FC<LabTestSummaryScreenProps> = ({ route, navi
                     onBackPress={onPressBack}
                 />
                 <TestSummary />
-                <SampleCollection slot={time.slot} timeZone={time.timeZone} dayAndDate={formattedDate} />
+                <SampleCollection slot={time?.slot} timeZone={time?.timeZone} dayAndDate={formattedDate} />
                 <TestDetails data={cartItems} title="Test" />
                 <View style={{ marginBottom: 50 }}>
                     <Billing data={billingOptions} />
@@ -145,9 +144,9 @@ const LabTestSummaryScreen: React.FC<LabTestSummaryScreenProps> = ({ route, navi
             </ScrollView>
             <View style={styles.bottomContainer}>
                 <Button
-                    title="Proceed To Payment"
+                    title="Reschedule"
                     titleStyle={styles.buttonTextStyle}
-                    onPress={onPressProceedPay}
+                    onPress={onPressReschedule}
                     buttonStyle={{ marginHorizontal: 10 }}
                 />
             </View>
@@ -156,32 +155,32 @@ const LabTestSummaryScreen: React.FC<LabTestSummaryScreenProps> = ({ route, navi
     )
 }
 
-export default LabTestSummaryScreen
+export default TestSummaryScreen;
 
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
         backgroundColor: colors.lightGreyishBlue,
-        marginBottom: 20,
+        marginBottom: Matrics.s(20),
         justifyContent: 'space-between'
     },
     upperHeader: {
-        marginVertical: 10
+        marginVertical: Matrics.s(10)
     },
     titleStyle: {
-        fontSize: 16,
+        fontSize: Matrics.mvs(16),
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray,
-        marginLeft: 20
+        marginLeft: Matrics.s(20)
     },
     bottomContainer: {
         backgroundColor: colors.white,
-        paddingHorizontal: 10,
-        paddingVertical: 15,
+        paddingHorizontal: Matrics.s(10),
+        paddingVertical: Matrics.vs(15),
         elevation: 4,
-        borderRadius: 12,
-        marginBottom: 20
+        borderRadius: Matrics.s(12),
+        marginBottom: Matrics.s(20)
     },
     buttonTextStyle: {
         fontSize: Matrics.s(16),

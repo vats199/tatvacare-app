@@ -1,11 +1,11 @@
-import {StyleSheet, Text, View} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import {
   DrawerContentComponentProps,
   DrawerContentScrollView,
   DrawerItemList,
 } from '@react-navigation/drawer';
-import {colors} from '../../constants/colors';
+import { colors } from '../../constants/colors';
 import DrawerUserInfo from '../molecules/DrawerUserInfo';
 import DrawerMyHealthDiary from '../molecules/DrawerMyHealthDiary';
 import DrawerBookings from '../molecules/DrawerBookings';
@@ -15,6 +15,9 @@ const CustomDrawer = (props: DrawerContentComponentProps) => {
   const onPressAboutUs = () => {
     props.navigation.navigate('AboutUsScreen');
   };
+  const onPressLabTests = () => {
+    props.navigation.navigate('LabTestRefundStackScreen');
+  }
 
   return (
     <View style={styles.screen}>
@@ -23,7 +26,7 @@ const CustomDrawer = (props: DrawerContentComponentProps) => {
         contentContainerStyle={styles.container}>
         <DrawerUserInfo />
         <DrawerMyHealthDiary />
-        <DrawerBookings />
+        <DrawerBookings onPressLabTest={onPressLabTests} />
         <DrawerMore onPressAboutUs={onPressAboutUs} />
         <Text style={styles.version}>Version 1.0</Text>
       </DrawerContentScrollView>

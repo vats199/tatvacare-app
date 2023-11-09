@@ -8,16 +8,18 @@ import Button from '../atoms/Button';
 
 type BottomSheetLocationProps = {
     onPressAddCompleteAddress: () => void;
+    locationTitle?: string;
+    locationDescription?: string;
 }
 
-const BottomSheetLocation: React.FC<BottomSheetLocationProps> = ({ onPressAddCompleteAddress }) => {
+const BottomSheetLocation: React.FC<BottomSheetLocationProps> = ({ onPressAddCompleteAddress, locationTitle, locationDescription }) => {
     return (
         <View style={{ flex: 1, padding: 15 }}>
             <View style={{ flexDirection: "row", justifyContent: "flex-start" }}>
                 <Icons.LocationActive height={24} width={24} style={{ marginTop: 5 }} />
                 <View style={{ marginLeft: 15 }}>
-                    <Text style={styles.locationTitle}>addd</Text>
-                    <Text style={styles.locationDescription}>ddd</Text>
+                    <Text style={styles.locationTitle}>{locationTitle}</Text>
+                    <Text style={styles.locationDescription}>{locationDescription}</Text>
                 </View>
             </View>
             <View style={{ marginTop: 20 }}>

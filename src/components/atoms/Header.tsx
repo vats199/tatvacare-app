@@ -19,7 +19,7 @@ const Header: React.FC<HeaderProps> = ({
     <View style={containerStyle}>
       <View style={styles.row}>
         <View style={styles.subRow}>
-          <Icons.backArrow height={20} width={20} onPress={onBackPress} />
+          <Icons.backArrow height={22} width={22} onPress={onBackPress} />
           <Text style={[styles.titleText, titleStyle]}>{title}</Text>
         </View>
         <TouchableOpacity onPress={onIconPress}>
@@ -34,7 +34,7 @@ const Header: React.FC<HeaderProps> = ({
   )
 }
 
-export default Header
+export default Header;
 
 const styles = StyleSheet.create({
   row: {

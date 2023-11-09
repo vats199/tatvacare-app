@@ -17,7 +17,7 @@ type CoupansForYouProps = {
 const CoupansForYou: React.FC<CoupansForYouProps> = ({ onApply }) => {
 
     const [showDetail, setShowDetail] = useState<number[]>([]);
-    //console.log(showDetail);
+
 
 
     const handleViewDetails = (id: number) => {
@@ -25,7 +25,6 @@ const CoupansForYou: React.FC<CoupansForYouProps> = ({ onApply }) => {
 
             setShowDetail(showDetail.filter((item) => item !== id));
         } else {
-
             setShowDetail([...showDetail, id]);
         }
     }
@@ -140,7 +139,7 @@ const styles = StyleSheet.create({
     coupanContainer: {
         backgroundColor: 'white',
         borderRadius: 12,
-        //padding: 14,
+        elevation: 0.5,
         marginVertical: 10,
         minHeight: 124
     },
@@ -173,6 +172,7 @@ const styles = StyleSheet.create({
         fontWeight: "400",
         fontFamily: Fonts.BOLD,
         color: colors.inactiveGray,
+        marginTop: 5
     },
     maximumDiscount: {
         fontSize: 12,

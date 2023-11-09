@@ -1,0 +1,271 @@
+import { StyleSheet, Text, View, ScrollView } from 'react-native'
+import React, { useRef, useState, useEffect } from 'react';
+import { LabTestRefundStackParamList } from '../../interface/Navigation.interface';
+import { StackScreenProps } from '@react-navigation/stack';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { colors } from '../../constants/colors';
+import { Fonts, Matrics } from '../../constants';
+import MyStatusbar from '../../components/atoms/MyStatusBar';
+import { Icons } from '../../constants/icons';
+import Header from '../../components/atoms/Header';
+import SlotButton from '../../components/atoms/SlotButton';
+import Calender from '../../components/atoms/Calender';
+import Button from '../../components/atoms/Button';
+
+
+type TestSlotScreenProps = StackScreenProps<
+    LabTestRefundStackParamList,
+    'SelectTestSlot'
+>;
+type selectTime = {
+    id?: number;
+    date?: any;
+    slot?: string;
+    timeZone?: string
+};
+type SlotDetailsType = {
+    id: number;
+    timeZone: string;
+    slots: string[];
+};
+
+
+
+const TestSlotScreen: React.FC<TestSlotScreenProps> = ({ route, navigation }) => {
+
+    const [selectedTime, setSelectedTime] = useState<selectTime>();
+    const [selectedDate, setSelectedDate] = useState(new Date());
+    const insets = useSafeAreaInsets();
+
+    const handleDate = (date: any) => {
+        setSelectedDate(date);
+    };
+
+    const onPressBack = () => {
+        navigation.goBack();
+    }
+
+    const onPressReviewDetails = () => {
+        navigation.navigate("TestSummaryScreen", { time: selectedTime })
+    }
+
+    const slots: SlotDetailsType[] = [
+        {
+            id: 1,
+            timeZone: 'Morning',
+            slots: [
+                '05:30 - 07:30',
+                '07:30 - 09:30',
+                '09:30 - 10:30',
+                '10:30 - 11:30',
+            ],
+        },
+        {
+            id: 2,
+            timeZone: 'Afternoon',
+            slots: [
+                '05:30 - 07:30',
+                '07:30 - 09:30',
+                '09:30 - 10:30',
+                '10:30 - 11:30',
+            ],
+        },
+        {
+            id: 3,
+            timeZone: 'Evening',
+            slots: [
+                '05:30 - 07:30',
+                '07:30 - 09:30',
+                '09:30 - 10:30',
+                '10:30 - 11:30',
+            ],
+        },
+    ]
+
+    const onPressTimeSlot = (id: number, slot: string, timeZone: string) => {
+        setSelectedTime({ id: id, date: selectedDate, slot: slot, timeZone: timeZone });
+    }
+
+    const renderSlots = (timeZone: string, id: number, slot: string, index: number) => {
+        return (
+            <SlotButton
+                title={slot}
+                onPress={() => onPressTimeSlot(id, slot, timeZone)}
+                buttonStyle={{
+                    backgroundColor: selectedTime?.id === id && selectedTime.timeZone === timeZone && selectedTime.slot === slot ? colors.boxLightPurple : colors.white,
+                    borderColor: selectedTime?.id === id && selectedTime.timeZone === timeZone && selectedTime.slot === slot ? colors.darkBorder : colors.lightBorder,
+                }}
+                titleStyle={
+                    selectedTime?.id === id && selectedTime.timeZone === timeZone ? styles.activeTimeTxt : styles.inactiveTimeTxt
+                }
+            />
+
+        );
+    };
+
+    const renderImage = (title: string) => {
+        const imageHeight = Matrics.vs(35);
+        const imageWidth = Matrics.s(35);
+        switch (title) {
+            case 'Morning':
+                return <Icons.Morning height={imageHeight} width={imageWidth} />;
+            case 'Afternoon':
+                return <Icons.Afternoon height={imageHeight} width={imageWidth} />;
+            case 'Evening':
+                return <Icons.Moon height={imageHeight} width={imageWidth} />;
+            default:
+                return null;
+        }
+    };
+
+    const renderSlot = (item: SlotDetailsType, index: number) => {
+        return (
+            <View style={[styles.container, styles.containerShadow]} key={item.id}>
+                {renderImage(item.timeZone)}
+                <View
+                    style={{
+                        marginLeft: Matrics.s(10),
+                    }}>
+                    <Text style={styles.timeZoneTxt}>{item.timeZone}</Text>
+                    <View style={styles.slotWraper}>
+                        {item.slots.map((slot, index) => renderSlots(item.timeZone, item.id, slot, index))}
+                    </View>
+                </View>
+            </View>
+        );
+    }
+
+    return (
+        <SafeAreaView edges={['top']} style={[styles.screen, { paddingBottom: insets.bottom == 0 ? Matrics.vs(20) : insets.bottom }]}>
+            <MyStatusbar />
+            <Header
+                title='Select Test Slot'
+                isIcon={true}
+                titleStyle={styles.titleStyle}
+                containerStyle={styles.upperHeader}
+                onBackPress={onPressBack}
+            />
+            <Calender onPressOfNextAndPerviousDate={handleDate} />
+            <ScrollView style={{}} showsVerticalScrollIndicator={false}>
+                <View>
+                    <Text style={styles.sampleText}>Sample Collection Time</Text>
+                    {slots.map(renderSlot)}
+                </View>
+
+
+            </ScrollView>
+            {
+                (selectedTime) && (
+                    <View style={styles.bottomContainer}>
+                        <Button
+                            title="Review Details"
+                            titleStyle={styles.buttonTextStyle}
+                            buttonStyle={{ marginHorizontal: 6 }}
+                            onPress={onPressReviewDetails}
+                        />
+                    </View>
+                )
+            }
+        </SafeAreaView>
+    )
+}
+
+export default TestSlotScreen;
+
+const styles = StyleSheet.create({
+    screen: {
+        flex: 1,
+        backgroundColor: colors.lightGreyishBlue,
+    },
+    upperHeader: {
+        margin: Matrics.s(20)
+    },
+    titleStyle: {
+        fontSize: 16,
+        fontWeight: '700',
+        fontFamily: Fonts.BOLD,
+        color: colors.labelDarkGray,
+        marginLeft: Matrics.s(20)
+    },
+    sampleText: {
+        fontSize: Matrics.s(16),
+        fontWeight: '700',
+        fontFamily: Fonts.BOLD,
+        color: colors.labelDarkGray,
+        marginLeft: 20,
+        marginTop: Matrics.s(20)
+    },
+    container: {
+        flexDirection: 'row',
+        backgroundColor: colors.white,
+        paddingHorizontal: Matrics.s(15),
+        paddingTop: Matrics.s(10),
+        borderRadius: Matrics.s(12),
+        alignItems: 'flex-start',
+        marginVertical: Matrics.s(8.5),
+        marginHorizontal: Matrics.s(15),
+    },
+    containerShadow: {
+        shadowColor: colors.black,
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.08,
+        shadowRadius: Matrics.s(8),
+        elevation: 0.5,
+    },
+    timeZoneTxt: {
+        fontFamily: Fonts.BOLD,
+        fontSize: Matrics.mvs(14),
+        fontWeight: '700',
+        color: colors.labelDarkGray,
+        marginVertical: Matrics.s(10),
+    },
+    slotWraper: {
+        flexWrap: 'wrap',
+        flexDirection: 'row',
+        maxWidth: Matrics.s(250),
+    },
+    activeTimeTxt: {
+        color: colors.black,
+        fontWeight: '500',
+    },
+    inactiveTimeTxt: {
+        color: colors.inactiveGray,
+    },
+    timeTxt: {
+        fontFamily: Fonts.MEDIUM,
+        fontSize: Matrics.mvs(12),
+        lineHeight: Matrics.vs(14),
+        color: colors.titleLightGray,
+    },
+    timeContainerSlot: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: Matrics.s(12),
+        borderWidth: Matrics.s(1),
+        paddingHorizontal: Matrics.s(7),
+        paddingVertical: Matrics.vs(7),
+        marginRight: Matrics.s(10),
+        marginBottom: Matrics.vs(10),
+    },
+    timeContainerShadow: {
+        shadowColor: colors.black,
+        shadowOffset: { width: 0, height: 0 },
+        shadowOpacity: 0.04,
+        shadowRadius: Matrics.s(3),
+        elevation: 1,
+    },
+    bottomContainer: {
+        backgroundColor: colors.white,
+        paddingHorizontal: Matrics.s(10),
+        paddingVertical: Matrics.vs(15),
+        elevation: 4,
+        borderRadius: Matrics.s(12),
+
+    },
+    buttonTextStyle: {
+        fontSize: Matrics.s(16),
+        fontWeight: '700',
+        fontFamily: Fonts.BOLD,
+        color: colors.white,
+    }
+})

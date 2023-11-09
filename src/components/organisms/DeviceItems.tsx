@@ -205,7 +205,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderColor: colors.themePurple,
         borderWidth: 1,
-        minHeight: 36,
+        height: 36,
+        borderRadius: Matrics.s(12)
     },
     buttonText: {
         fontSize: 12,

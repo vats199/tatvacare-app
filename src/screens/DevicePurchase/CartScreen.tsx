@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Modal } from 'react-native'
+import { StyleSheet, Text, View, Modal, PermissionsAndroid, Platform } from 'react-native'
 import React, { useRef, useState, useEffect } from 'react';
 import { DevicePurchaseStackParamList } from '../../interface/Navigation.interface';
 import { StackScreenProps } from '@react-navigation/stack';
@@ -18,6 +18,7 @@ import CommonBottomSheetModal from '../../components/molecules/CommonBottomSheet
 import SelectAddressBottomSheet from '../../components/organisms/SelectAddressBottomSheet';
 import { useApp } from '../../context/app.context';
 import CoupanModal from '../../components/molecules/CoupanModal';
+import { check, request, PERMISSIONS, RESULTS } from 'react-native-permissions';
 
 type CartScreenProps = StackScreenProps<
     DevicePurchaseStackParamList,
@@ -56,10 +57,52 @@ const CartScreen: React.FC<CartScreenProps> = ({ route, navigation }) => {
     const onPressAddNewAddress = () => {
         bottomSheetModalRef.current?.present();
     }
-    const onPressAddAddress = () => {
-        bottomSheetModalRef.current?.forceClose();
-        navigation.navigate("ConfirmLocationScreen");
-    }
+    // const onPressAddAddress = () => {
+    //     bottomSheetModalRef.current?.forceClose();
+    //     navigation.navigate("ConfirmLocationScreen");
+    // }
+    const onPressAddAddress = async () => {
+        if (Platform.OS === 'android') {
+            try {
+                const granted = await PermissionsAndroid.request(
+                    PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+                    {
+                        title: 'Location Permission',
+                        message: 'We need your location for this feature.',
+                        buttonNeutral: 'Ask Me Later',
+                        buttonNegative: 'Cancel',
+                        buttonPositive: 'OK',
+                    }
+                );
+
+                if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                    navigation.navigate('ConfirmLocationScreen');
+                } else {
+                    console.log("hey");
+                }
+            } catch (err) {
+                console.warn(err);
+            }
+        } else if (Platform.OS === 'ios') {
+            try {
+                const status = await check(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
+                if (status === RESULTS.GRANTED) {
+                    navigation.navigate('ConfirmLocationScreen');
+                } else {
+                    const requestStatus = await request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
+
+                    if (requestStatus === RESULTS.GRANTED) {
+                        navigation.navigate('ConfirmLocationScreen');
+                    } else {
+                    }
+                }
+            } catch (err) {
+                console.warn(err);
+            }
+        }
+    };
+
+
     const onPressProceedToCheckout = () => {
         bottomSheetModalRef.current?.forceClose();
         navigation.navigate("OrderSummary");

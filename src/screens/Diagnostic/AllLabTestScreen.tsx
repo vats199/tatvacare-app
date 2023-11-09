@@ -11,7 +11,7 @@ import DocumentPicker, {
     DocumentPickerResponse,
     isCancel,
     isInProgress,
-} from 'react-native-document-picker'
+} from 'react-native-document-picker';
 import {
     DiagnosticStackParamList,
 } from '../../interface/Navigation.interface';
@@ -22,7 +22,7 @@ import { colors } from '../../constants/colors';
 import LabTest from '../../components/organisms/LabTest';
 import { Fonts } from '../../constants';
 import { useApp } from '../../context/app.context';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import UploadPrescription from '../../components/molecules/UploadPrescription';
 import FreeTest from '../../components/molecules/FreeTest';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
@@ -30,6 +30,8 @@ import ImagePicker from 'react-native-image-crop-picker';
 import PerscriptionBottomSheet from '../../components/organisms/PerscriptionBottomSheet';
 import CommonBottomSheetModal from '../../components/molecules/CommonBottomSheetModal';
 import FreeTestBottomSheet from '../../components/molecules/FreeTestBottomSheet';
+import { Matrics } from '../../constants';
+import MyStatusbar from '../../components/atoms/MyStatusBar';
 
 
 type AllLabTestProps = StackScreenProps<
@@ -62,6 +64,10 @@ const AllLabTestScreen: React.FC<AllLabTestProps> = ({ route, navigation }) => {
         Array<DocumentPickerResponse> | DirectoryPickerResponse | undefined | null
     >();
     const [uploadedPerscription, setUploadedPerscription] = useState<perscription[]>([]);
+    const insets = useSafeAreaInsets();
+    const { location } = useApp();
+    const addedItem = addedCartItem.length;
+    const snapPoints = (selectedBottomsheet === "FreeTest") ? ["31%"] : ['63%'];
 
     useEffect(() => {
         console.log(JSON.stringify(result, null, 2))
@@ -76,10 +82,6 @@ const AllLabTestScreen: React.FC<AllLabTestProps> = ({ route, navigation }) => {
             throw err
         }
     }
-
-    const { location } = useApp();
-
-    const snapPoints = (selectedBottomsheet === "FreeTest") ? ["35%"] : ['63%'];
 
     const selectImageFromCamera = async () => {
         try {
@@ -97,20 +99,13 @@ const AllLabTestScreen: React.FC<AllLabTestProps> = ({ route, navigation }) => {
     }
     const setNewPerscription = (uri: string) => {
         const id = Math.floor(Math.random() * 1000);
-
-
         const today = new Date();
-        console.log
         const date = today.toISOString().split('T')[0];
-
-
         const newPrescription: perscription = {
             id,
             date,
             uri: uri,
         };
-
-
         setUploadedPerscription([...uploadedPerscription, newPrescription]);
     }
 
@@ -142,15 +137,9 @@ const AllLabTestScreen: React.FC<AllLabTestProps> = ({ route, navigation }) => {
             handleError(e)
         }
     }
-
-
     const handleItemAdded = (item: TestItem) => {
         setAddedCartItem(prevAddedItems => [...prevAddedItems, item]);
     };
-
-
-    const addedItem = addedCartItem.length;
-    console.log(addedItem);
     const iconPress = () => { };
     const onPressUploadPerscription = useCallback(() => {
         setSelectedBottomsheet("Perscription");
@@ -175,10 +164,14 @@ const AllLabTestScreen: React.FC<AllLabTestProps> = ({ route, navigation }) => {
     const onPressTest = () => {
         navigation.navigate("TestDetail");
     }
+    const onPressSearchTab = () => {
+        navigation.navigate('SearchLabTest');
+    }
 
 
     return (
-        <SafeAreaView edges={['top']} style={styles.screen}>
+        <SafeAreaView edges={['top']} style={[styles.screen, { paddingBottom: insets.bottom == 0 ? Matrics.vs(20) : insets.bottom }]} >
+            <MyStatusbar />
             <ScrollView showsVerticalScrollIndicator={false}>
                 <Header
                     title="All Lab test"
@@ -191,15 +184,15 @@ const AllLabTestScreen: React.FC<AllLabTestProps> = ({ route, navigation }) => {
                 />
                 <View style={styles.location}>
                     <Icons.Location height={16} width={16} />
+                    <Text style={styles.locationText}>{location.city} {location.pincode} </Text>
+                    <Icons.dropArrow height={16} width={16} />
                 </View>
 
-                <View style={{ flex: 1, paddingHorizontal: 15 }}>
+                <View style={{ flex: 1, paddingHorizontal: Matrics.s(16) }}>
                     <TouchableOpacity
                         style={styles.searchContainer}
                         activeOpacity={1}
-                        onPress={() => {
-                            navigation.navigate('SearchLabTest');
-                        }}>
+                        onPress={onPressSearchTab}>
                         <Icons.Search height={20} width={20} />
 
                         <Text style={styles.placeholderText}> Search for Tests, Health Packages</Text>
@@ -208,7 +201,7 @@ const AllLabTestScreen: React.FC<AllLabTestProps> = ({ route, navigation }) => {
                     <UploadPrescription onPressUpload={onPressUploadPerscription} />
                     <FreeTest onPressAdd={onPressAdd} onPressViewFreeTest={onPressViewFreeTests} />
 
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20, marginBottom: 5 }}>
+                    <View style={styles.titleButtonStyle}>
                         <Text style={styles.title}>Liver Test</Text>
                         <TouchableOpacity onPress={onPressViewAll} >
                             <Text style={styles.textViewButton}>View all</Text>
@@ -217,7 +210,7 @@ const AllLabTestScreen: React.FC<AllLabTestProps> = ({ route, navigation }) => {
 
                     <LabTest title="Liver Test" onAdded={handleItemAdded} onPressTest={onPressTest} />
 
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20, marginBottom: 5 }}>
+                    <View style={styles.titleButtonStyle}>
                         <Text style={styles.title}>Kidney Test</Text>
                         <TouchableOpacity  >
                             <Text style={styles.textViewButton}>View all</Text>
@@ -229,13 +222,13 @@ const AllLabTestScreen: React.FC<AllLabTestProps> = ({ route, navigation }) => {
             {addedCartItem.length > 0 && (
                 <View style={styles.belowContainer}>
                     <View>
-                        <Text>{addedItem} test added</Text>
+                        <Text style={styles.testAddedText}>{addedItem} Test Added</Text>
                         <Text style={styles.textViewButton}> View Details</Text>
                     </View>
                     <TouchableOpacity
                         style={styles.viewCartButton}
                         onPress={onPressViewCart}>
-                        <Text style={styles.viewCartText}>View cart</Text>
+                        <Text style={styles.viewCartText}>View Cart</Text>
                     </TouchableOpacity>
                 </View>
             )}
@@ -249,7 +242,6 @@ const AllLabTestScreen: React.FC<AllLabTestProps> = ({ route, navigation }) => {
                         />
                     ) : (
                         <FreeTestBottomSheet />
-
                     )
                 }
             </CommonBottomSheetModal>
@@ -263,27 +255,34 @@ const styles = StyleSheet.create({
     screen: {
         flex: 1,
         backgroundColor: colors.lightGreyishBlue,
-        marginBottom: 50
     },
     upperHeader: {
-        marginHorizontal: 20,
-        marginTop: 30,
-        marginBottom: 20
+        marginHorizontal: Matrics.s(15),
+        marginTop: Matrics.s(15),
+        marginBottom: Matrics.s(20)
     },
     titleStyle: {
-        fontSize: 16,
+        fontSize: Matrics.mvs(16),
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray,
-        marginLeft: 20,
+        marginLeft: Matrics.s(20),
+        lineHeight: Matrics.s(20)
     },
     location: {
         backgroundColor: colors.white,
-        height: 36,
-        marginBottom: 10,
+        height: Matrics.vs(36),
+        marginBottom: Matrics.s(10),
         flexDirection: 'row',
         alignItems: 'center',
-        paddingHorizontal: 20,
+        paddingHorizontal: Matrics.s(20),
+    },
+    locationText: {
+        fontSize: Matrics.mvs(12),
+        fontWeight: "400",
+        fontFamily: Fonts.BOLD,
+        color: colors.subTitleLightGray,
+        lineHeight: Matrics.s(16)
     },
     searchContainer: {
         flexDirection: 'row',
@@ -291,24 +290,31 @@ const styles = StyleSheet.create({
         backgroundColor: colors.white,
         borderWidth: 1,
         borderColor: colors.inputBoxLightBorder,
-        borderRadius: 12,
-        paddingHorizontal: 10,
-        marginBottom: 10,
-        marginTop: 5,
-        minHeight: 44,
+        borderRadius: Matrics.s(12),
+        paddingHorizontal: Matrics.s(10),
+        marginBottom: Matrics.s(10),
+        marginTop: Matrics.s(5),
+        minHeight: Matrics.vs(44),
     },
     searchText: {
         color: colors.subTitleLightGray,
-        marginLeft: 10,
+        marginLeft: Matrics.s(10),
+    },
+    titleButtonStyle: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginTop: Matrics.s(25),
+        marginBottom: Matrics.s(5)
     },
     title: {
-        fontSize: 16,
+        fontSize: Matrics.mvs(16),
         fontWeight: "700",
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray
     },
     textViewButton: {
-        fontSize: 12,
+        fontSize: Matrics.mvs(12),
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.themePurple,
@@ -318,33 +324,33 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingHorizontal: 15,
-        paddingVertical: 10,
+        paddingHorizontal: Matrics.s(15),
+        paddingVertical: Matrics.vs(10),
         backgroundColor: colors.white,
-        elevation: 10,
-        shadowColor: '#313131',
+        elevation: Matrics.s(10),
+        shadowColor: colors.labelDarkGray,
         shadowOffset: { width: 0, height: 1 }
     },
     viewCartButton: {
-        paddingHorizontal: 16,
-        paddingVertical: 12,
+        paddingHorizontal: Matrics.s(16),
+        paddingVertical: Matrics.s(12),
         backgroundColor: colors.themePurple,
-        borderRadius: 16,
+        borderRadius: Matrics.s(16),
     },
     viewCartText: {
         fontFamily: Fonts.BOLD,
         fontWeight: '700',
-        fontSize: 16,
+        fontSize: Matrics.mvs(16),
         color: colors.white,
     },
     testAddedText: {
-        fontSize: 14,
+        fontSize: Matrics.mvs(14),
         fontWeight: '400',
         fontFamily: Fonts.BOLD,
         color: colors.darkGray,
     },
     placeholderText: {
-        fontSize: 12,
+        fontSize: Matrics.mvs(12),
         fontWeight: '400',
         fontFamily: Fonts.BOLD,
         color: colors.inactiveGray,

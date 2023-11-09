@@ -7,11 +7,11 @@ import { Container } from '../../components/styled/Views';
 import { StackScreenProps } from '@react-navigation/stack';
 import Header from '../../components/atoms/Header';
 import { colors } from '../../constants/colors';
-import { Fonts } from '../../constants';
+import { Fonts, Matrics } from '../../constants';
 import TestDetails from '../../components/organisms/TestDetails';
 import Billing from '../../components/organisms/Billing';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import OfferAndPromotion from '../../components/molecules/OfferAndPromotion';
 import BottomAdddressLocationButton from '../../components/molecules/BottomAdddressLocationButton';
@@ -19,6 +19,7 @@ import CommonBottomSheetModal from '../../components/molecules/CommonBottomSheet
 import SelectPatientBottomSheet from '../../components/organisms/SelectPatientBottomSheet';
 import CoupanModal from '../../components/molecules/CoupanModal';
 import { useApp } from '../../context/app.context';
+import MyStatusbar from '../../components/atoms/MyStatusBar';
 
 type LabTestCartScreenProps = StackScreenProps<
     DiagnosticStackParamList,
@@ -51,9 +52,8 @@ type billingData = {
 const LabTestCartScreen: React.FC<LabTestCartScreenProps> = ({ route, navigation }) => {
     const [isClicked, setIsClicked] = useState(false);
     const [cartItems, setCartItems] = useState<TestItem[]>([]);
-
-    // const coupanTitle: string = route.params?.coupan;
     const { coupan } = useApp();
+    const insets = useSafeAreaInsets();
     const bottomSheetModalRef = useRef<BottomSheetModal>(null);
     const [selectedPatient, setSelectedPatient] = useState<string>();
     const [selecetedCoupan, setSelectedCoupan] = useState<string>();
@@ -75,6 +75,26 @@ const LabTestCartScreen: React.FC<LabTestCartScreenProps> = ({ route, navigation
         };
         fetchData();
     }, []);
+
+    const deleteCartItem = async (itemId: number) => {
+        try {
+            const cart = await AsyncStorage.getItem('cartItems');
+            let cartItems: TestItem[] = [];
+            if (cart !== null) {
+                cartItems = JSON.parse(cart) || [];
+            }
+            const itemIndex = cartItems.findIndex((item: TestItem) => item.id === itemId);
+            if (itemIndex !== -1) {
+                cartItems.splice(itemIndex, 1);
+                await AsyncStorage.setItem('cartItems', JSON.stringify(cartItems));
+                setCartItems(cartItems);
+            }
+        } catch (error) {
+            console.error('Error deleting cart item:', error);
+        }
+
+    }
+
 
     useEffect(() => {
         if (coupan?.length > 0) {
@@ -179,8 +199,9 @@ const LabTestCartScreen: React.FC<LabTestCartScreenProps> = ({ route, navigation
 
 
     return (
-        <SafeAreaView edges={['top']} style={styles.screen}>
-            <ScrollView style={{ flex: 1, marginBottom: 20 }}>
+        <SafeAreaView edges={['top']} style={[styles.screen, { paddingBottom: insets.bottom == 0 ? Matrics.vs(20) : insets.bottom }]} >
+            <MyStatusbar />
+            <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
                 <Header
                     title="Lab Test Cart"
                     containerStyle={styles.upperHeader}
@@ -188,7 +209,7 @@ const LabTestCartScreen: React.FC<LabTestCartScreenProps> = ({ route, navigation
                     onBackPress={onBackPress}
                 />
                 <Container >
-                    <TestDetails data={cartItems} title='Test Details' />
+                    <TestDetails data={cartItems} title='Test Details' onPressDelete={deleteCartItem} />
                     <OfferAndPromotion
                         onPressApplyCoupan={onPressApplyCoupan}
                         coupanTitle={coupan}
@@ -203,7 +224,7 @@ const LabTestCartScreen: React.FC<LabTestCartScreenProps> = ({ route, navigation
                     buttonColor={backColor}
                 />
             </ScrollView>
-            <Modal transparent={true} animationType='slide' visible={isClicked} >
+            <Modal transparent={true} animationType='slide' visible={isClicked} backdropOpacity={0.7} >
                 <CoupanModal
                     coupanTitle={selecetedCoupan}
                     handleModal={handleModal}
@@ -229,31 +250,31 @@ const styles = StyleSheet.create({
         backgroundColor: colors.lightGreyishBlue,
     },
     upperHeader: {
-        marginHorizontal: 20,
-        marginTop: 30,
-        marginBottom: 10
+        marginHorizontal: Matrics.s(20),
+        marginTop: Matrics.s(20),
+        marginBottom: Matrics.s(10)
     },
     titleStyle: {
-        fontSize: 16,
+        fontSize: Matrics.mvs(16),
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray,
-        marginLeft: 20
+        marginLeft: Matrics.s(20)
     },
     heading: {
-        fontSize: 16,
+        fontSize: Matrics.mvs(16),
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray,
-        marginTop: 10
+        marginTop: Matrics.s(10)
     },
     offerContainer: {
-        marginVertical: 10,
-        padding: 12,
+        marginVertical: Matrics.s(10),
+        padding: Matrics.s(12),
         backgroundColor: colors.white,
-        borderRadius: 12,
+        borderRadius: Matrics.s(12),
         elevation: 0.3,
-        minHeight: 52,
+        minHeight: Matrics.vs(52),
         width: '100%',
         flexDirection: 'row',
         justifyContent: "space-between",
@@ -262,11 +283,11 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 1 },
     },
     applyCoupanText: {
-        fontSize: 14,
+        fontSize: Matrics.mvs(14),
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray,
-        marginLeft: 10
+        marginLeft: Matrics.s(10)
     },
 
 })

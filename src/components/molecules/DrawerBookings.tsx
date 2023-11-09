@@ -4,17 +4,17 @@ import { colors } from '../../constants/colors'
 import { Icons } from '../../constants/icons'
 import { navigateTo } from '../../routes/Router'
 
-type DrawerBookingsProps = {}
+type DrawerBookingsProps = {
+    onPressLabTest: () => void;
+}
 
-const DrawerBookings: React.FC<DrawerBookingsProps> = ({ }) => {
+const DrawerBookings: React.FC<DrawerBookingsProps> = ({ onPressLabTest }) => {
 
-    
+
     const onPressConsultations = () => {
         navigateTo('AppointmentsHistoryVC')
-     }
-    const onPressLabTests = () => {
-        navigateTo('LabTestListVC')
-     }
+    }
+
 
     return (
         <View style={styles.container}>
@@ -25,7 +25,7 @@ const DrawerBookings: React.FC<DrawerBookingsProps> = ({ }) => {
                     <Text style={styles.mhdItemText}>Consultations</Text>
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.itemContainer} activeOpacity={0.7} onPress={onPressLabTests}>
+            <TouchableOpacity style={styles.itemContainer} activeOpacity={0.7} onPress={onPressLabTest}>
                 <View style={styles.icon}><Icons.DrawerLabTests /></View>
                 <View style={styles.mhdItemTextContainer}>
                     <Text style={styles.mhdItemText}>Lab Tests</Text>

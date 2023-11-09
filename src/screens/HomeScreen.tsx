@@ -175,6 +175,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
   };
   const onPressConsultPhysio = () => {
     // navigateTo('AppointmentsHistoryVC');
+
   };
   const onPressBookDiagnostic = () => {
     // navigateTo('LabTestListVC');

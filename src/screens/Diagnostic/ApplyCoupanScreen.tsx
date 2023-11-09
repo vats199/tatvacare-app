@@ -11,6 +11,8 @@ import { Fonts } from '../../constants';
 import CoupansForYou from '../../components/organisms/CoupansForYou';
 import { Matrics } from '../../constants';
 import { useApp } from '../../context/app.context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import MyStatusbar from '../../components/atoms/MyStatusBar';
 
 
 type ApplyCoupanScreenProps = StackScreenProps<
@@ -22,6 +24,7 @@ const ApplyCoupanScreen: React.FC<ApplyCoupanScreenProps> = ({ route, navigation
 
     const [isFocused, setIsFocused] = useState<boolean>(false);
     const { setCoupan } = useApp();
+    const insets = useSafeAreaInsets();
     const handleSelectedCoupan = (title: string) => {
         setCoupan(title);
         navigation.goBack();
@@ -29,32 +32,35 @@ const ApplyCoupanScreen: React.FC<ApplyCoupanScreenProps> = ({ route, navigation
     const onPressApply = () => { };
 
     return (
-        <>
-            <Screen>
-                <ScrollView style={{ flex: 1 }}>
-                    <Header
-                        title="Apply Coupan"
-                        containerStyle={styles.upperHeader}
-                        titleStyle={styles.titleStyle}
-                    />
-                    <Container>
-                        <View style={[styles.inputContainer, { borderColor: isFocused ? "black" : colors.inputBoxLightBorder }]}>
-                            <TextInput placeholder='Enter the coupan code' onFocus={() => setIsFocused(true)} onBlur={() => setIsFocused(false)} />
-                            <TouchableOpacity onPress={onPressApply}>
-                                <Text style={styles.applyText}>Apply</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <CoupansForYou onApply={handleSelectedCoupan} />
-                    </Container>
-                </ScrollView>
-            </Screen >
-        </>
+        <SafeAreaView edges={['top']} style={[styles.screen, { paddingBottom: insets.bottom == 0 ? Matrics.vs(10) : insets.bottom }]}>
+            <MyStatusbar />
+            <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+                <Header
+                    title="Apply Coupan"
+                    containerStyle={styles.upperHeader}
+                    titleStyle={styles.titleStyle}
+                />
+                <Container>
+                    <View style={[styles.inputContainer, { borderColor: isFocused ? "black" : colors.inputBoxLightBorder }]}>
+                        <TextInput placeholder='Enter the coupan code' onFocus={() => setIsFocused(true)} onBlur={() => setIsFocused(false)} />
+                        <TouchableOpacity onPress={onPressApply}>
+                            <Text style={styles.applyText}>Apply</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <CoupansForYou onApply={handleSelectedCoupan} />
+                </Container>
+            </ScrollView>
+        </SafeAreaView>
     )
 }
 
 export default ApplyCoupanScreen
 
 const styles = StyleSheet.create({
+    screen: {
+        flex: 1,
+        backgroundColor: colors.lightGreyishBlue,
+    },
     upperHeader: {
         marginHorizontal: Matrics.s(10),
         paddingVertical: Matrics.vs(15),
@@ -75,7 +81,7 @@ const styles = StyleSheet.create({
         backgroundColor: colors.white,
         borderRadius: Matrics.s(12),
         paddingHorizontal: Matrics.s(10),
-        minHeight: Matrics.vs(44)
+        height: Matrics.vs(44)
     },
     applyText: {
         fontSize: Matrics.mvs(14),

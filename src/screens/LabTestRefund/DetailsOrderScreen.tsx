@@ -1,24 +1,17 @@
 import { StyleSheet, Text, View, ScrollView } from 'react-native'
-import React, { useState, useEffect } from 'react';
-import {
-    DiagnosticStackParamList
-} from '../../interface/Navigation.interface';
+import React, { useRef, useState, useEffect } from 'react';
+import { LabTestRefundStackParamList } from '../../interface/Navigation.interface';
 import { StackScreenProps } from '@react-navigation/stack';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { colors } from '../../constants/colors';
-import { Fonts } from '../../constants';
-import { Icons } from '../../constants/icons';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import Button from '../../components/atoms/Button';
-import Header from '../../components/atoms/Header';
-import TestSummary from '../../components/molecules/TestSummary';
-import TestDetails from '../../components/organisms/TestDetails';
-import Billing from '../../components/organisms/Billing';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Fonts, Matrics } from '../../constants';
 import MyStatusbar from '../../components/atoms/MyStatusBar';
-type OrderDetailsScreenProps = StackScreenProps<
-    DiagnosticStackParamList,
-    'OrderDetails'
->;
+import { Icons } from '../../constants/icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import TestSummary from '../../components/molecules/TestSummary';
+import Billing from '../../components/organisms/Billing';
+import TestDetails from '../../components/organisms/TestDetails';
+
 type TestItem = {
     id: number;
     title: string;
@@ -37,9 +30,12 @@ export type billingData = {
     }
 }
 
+type OrderDetailsScreenProps = StackScreenProps<
+    LabTestRefundStackParamList,
+    'OrderDetails'
+>;
 
-const OrderDetailsScreen: React.FC<OrderDetailsScreenProps> = ({ route, navigation }) => {
-
+const DetailsOrderScreen: React.FC<OrderDetailsScreenProps> = ({ route, navigation }) => {
     const [cartItems, setCartItems] = useState<TestItem[]>([]);
 
     const onBackPress = () => {
@@ -100,18 +96,15 @@ const OrderDetailsScreen: React.FC<OrderDetailsScreenProps> = ({ route, navigati
             }
         },
     ]
+
     return (
         <SafeAreaView edges={['top']} style={styles.screen} >
             <MyStatusbar />
             <ScrollView style={{ padding: 20 }}>
-                <Header
-                    title='Order Details'
-                    isIcon={false}
-                    titleStyle={styles.titleStyle}
-                    containerStyle={styles.upperHeader}
-                    onBackPress={onBackPress}
-
-                />
+                <View style={styles.header}>
+                    <Icons.Close height={24} width={24} onPress={onBackPress} />
+                    <Text style={styles.titleStyle}>Order Details</Text>
+                </View>
                 <TestSummary showMore={true} />
 
                 <TestDetails data={cartItems} title="Test" />
@@ -123,21 +116,24 @@ const OrderDetailsScreen: React.FC<OrderDetailsScreenProps> = ({ route, navigati
     )
 }
 
-export default OrderDetailsScreen
+export default DetailsOrderScreen;
 
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
         backgroundColor: colors.lightGreyishBlue
     },
-    upperHeader: {
-        marginVertical: 10
+    header: {
+        marginVertical: Matrics.s(15),
+        flexDirection: 'row',
+        alignItems: "center"
     },
     titleStyle: {
-        fontSize: 16,
+        fontSize: Matrics.mvs(16),
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray,
-        marginLeft: 20
+        marginLeft: Matrics.s(15),
+        lineHeight: Matrics.s(20)
     },
 })

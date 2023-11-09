@@ -68,7 +68,7 @@ const AddPatientDetailsScreen: React.FC<AddPatientDetailsScreenProps> = ({ route
         navigation.navigate("LabTestCart");
     }
     return (
-        <ScrollView style={{ flex: 1, backgroundColor: '#F9F9FF', padding: 15 }}>
+        <ScrollView style={{ flex: 1, backgroundColor: '#F9F9FF', padding: 15 }} showsVerticalScrollIndicator={false}>
             <View style={styles.upperHeader}>
                 <Icons.backArrow height={24} width={24} onPress={onPressBack} />
                 <Text style={styles.headerText}>Add Patients Details</Text>
@@ -147,7 +147,6 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: 'center',
         marginVertical: 20,
-
     },
     headerText: {
         fontSize: 16,
@@ -163,7 +162,6 @@ const styles = StyleSheet.create({
         borderWidth: 1.3,
         borderRadius: 14,
         paddingHorizontal: 8,
-
     },
     messageText: {
         fontSize: 12,

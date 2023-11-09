@@ -53,7 +53,8 @@ const ConfirmLocationScreen: React.FC<ConfirmLocationScreenProps> = ({ route, na
 
     useEffect(() => {
         handlePresentModalPress();
-    }, [])
+    }, [selectedAddress, selectedLocation, selectedBottomsheet]);
+
     const handlePresentModalPress = useCallback(() => {
         bottomSheetModalRef.current?.present();
     }, []);
@@ -93,7 +94,8 @@ const ConfirmLocationScreen: React.FC<ConfirmLocationScreenProps> = ({ route, na
     ]
 
 
-    const snapPoints = (selectedBottomsheet === "Location") ? ["40%"] : ['80%'];
+    const snapPoints = (selectedBottomsheet === "Location") ? ["40%"] : (selectedBottomsheet === "Enter Address") ? ['75%'] : ['65%'];
+
 
     const onPressBack = () => {
         navigation.goBack();
@@ -136,7 +138,7 @@ const ConfirmLocationScreen: React.FC<ConfirmLocationScreenProps> = ({ route, na
                         style={styles.searchContainer}
                         activeOpacity={1}
                     >
-                        <Icons.Search />
+                        <Icons.Search width={20} height={20} />
                         <GooglePlacesAutocomplete
                             placeholder='Search for area,stree name...'
                             onPress={(data, details = null) => {
@@ -157,10 +159,12 @@ const ConfirmLocationScreen: React.FC<ConfirmLocationScreenProps> = ({ route, na
                     </View>
                 </View>
             </View >
-            <CommonBottomSheetModal snapPoints={snapPoints} ref={bottomSheetModalRef} >
+            <CommonBottomSheetModal snapPoints={snapPoints} ref={bottomSheetModalRef} onDismiss={() => setSelectedBottomsheet("Location")}  >
                 {
                     (selectedBottomsheet === 'Location') && (
                         <BottomSheetLocation
+                            locationTitle={selectedAddress.cityName}
+                            locationDescription={selectedAddress.streetName}
                             onPressAddCompleteAddress={() => setSelectedBottomsheet('Select Address')}
                         />
                     )
@@ -181,6 +185,7 @@ const ConfirmLocationScreen: React.FC<ConfirmLocationScreenProps> = ({ route, na
                         <BottomSheetSelectAddress
                             data={options}
                             onPressAddNew={() => setSelectedBottomsheet('Enter Address')}
+                            onPressAdddressItem={() => navigation.goBack()}
                         />
                     )
                 }

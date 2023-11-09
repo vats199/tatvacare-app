@@ -84,6 +84,8 @@ export type AppStackParamList = {
   SetupProfileScreen: SetupProfileStackParamList;
   DiagnosticStackScreen: DiagnosticStackParamList;
   DevicePurchaseStackScreen:DevicePurchaseStackParamList;
+  VitalDetailStackScreen:VitalDetailStackParamList;
+  LabTestRefundStackScreen:LabTestRefundStackParamList;
 };
 
 export type DrawerParamList = {
@@ -111,6 +113,13 @@ export type AppointmentStackParamList = {
   AppointmentWithScreen: {type: string};
   AppointmentDetailsScreen: {appointmentDetails: AppointmentDetailsScreenProps};
 };
+export type LabTestRefundStackParamList={
+  LabTestScreen:undefined;
+  OrderDetails:undefined;
+  SelectTestSlot:undefined;
+  TestSummaryScreen:{time:selectTime | undefined};
+  CongratulationsScreen:undefined;
+}
 
 export type DiagnosticStackParamList = {
   AllLabTestScreen: undefined;
@@ -137,7 +146,11 @@ export type DevicePurchaseStackParamList={
   PaymentDone:undefined;
   DevicesScreen:undefined;
   ApplyCoupan:undefined;
-}
+};
+
+export type VitalDetailStackParamList={
+ StepsScreen:undefined;
+};
 
 export type BottomTabParamList = {
   HomeScreen: HomeStackParamList;

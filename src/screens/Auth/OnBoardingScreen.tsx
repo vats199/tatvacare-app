@@ -156,7 +156,7 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({
         backgroundColor={colors.white}
         barStyle={'dark-content'}
       />
-      {/* <View style={[styles.wrapper, { paddingTop: insets.top }]}>
+      <View style={[styles.wrapper, { paddingTop: insets.top }]}>
         <FlatList
           ref={flatListRef}
           // onScroll={_onscroll}
@@ -188,7 +188,7 @@ const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({
             );
           })}
         </View>
-      </View> */}
+      </View>
       <View style={styles.spaceView} />
       {/* <Button
         title="Get Started"

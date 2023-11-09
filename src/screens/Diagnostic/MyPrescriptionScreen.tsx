@@ -70,7 +70,7 @@ const MyPrescriptionScreen: React.FC<MyPerscriptionScreenProps> = ({ route, navi
                     onBackPress={onPressBack}
                 />
             </View>
-            <ScrollView style={{ paddingLeft: 20, flex: 1 }}>
+            <ScrollView style={{ paddingLeft: 20, flex: 1 }} showsVerticalScrollIndicator={false}>
                 {data?.map(renderPerscription)}
 
             </ScrollView>

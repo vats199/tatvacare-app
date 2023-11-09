@@ -18,34 +18,34 @@ const PerscriptionBottomSheet: React.FC<PerscriptionBottomSheetProps> = ({
 }) => {
     return (
         <View style={styles.contentContainer}>
-            <View style={{ padding: 15 }}>
+            <View style={{ padding: Matrics.s(15) }}>
                 <Text style={styles.bottomSheetTitle}>Upload Perscription</Text>
-                <View style={{ flexDirection: 'row', alignItems: "center", marginVertical: 5 }}>
-                    <Icons.Camera />
+                <View style={styles.rowStyle}>
+                    <Icons.Camera width={24} height={24} />
                     <TouchableOpacity
                         onPress={onPressClickAPhoto}
                     >
                         <Text style={styles.subTitle}>Click a Photo</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={{ flexDirection: 'row', alignItems: "center", marginVertical: 5 }}>
-                    <Icons.Gallery />
+                <View style={styles.rowStyle}>
+                    <Icons.Gallery width={24} height={24} />
                     <TouchableOpacity
                         onPress={onPressChooseFromGallery}
                     >
-                        <Text style={styles.subTitle}>Choose from Gallery</Text>
+                        <Text style={styles.subTitle}>Choose From Gallery</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={{ flexDirection: 'row', alignItems: "center", marginVertical: 5 }}>
-                    <Icons.File />
+                <View style={styles.rowStyle}>
+                    <Icons.File width={24} height={24} />
                     <TouchableOpacity
                         onPress={onPressUploadaFile}
                     >
-                        <Text style={styles.subTitle}>Upload File</Text>
+                        <Text style={styles.subTitle}>Upload a File</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={{ flexDirection: 'row', alignItems: "center", marginVertical: 5 }}>
-                    <Icons.Article />
+                <View style={styles.rowStyle}>
+                    <Icons.Article width={24} height={24} />
                     <TouchableOpacity
                     // onPress={() => navigation.navigate("MyPerscription", { data: uploadedPerscription })}
                     >
@@ -74,39 +74,44 @@ const styles = StyleSheet.create({
     contentContainer: {
         flex: 1,
         backgroundColor: colors.white,
-        elevation: 2
+        elevation: 2,
+        shadowOffset: { width: 0, height: -2 }
     },
     bottomSheetTitle: {
-        fontSize: 20,
+        fontSize: Matrics.mvs(20),
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
-        color: colors.inputValueDarkGray,
-        marginBottom: 10
+        color: colors.labelDarkGray,
+        lineHeight: Matrics.s(26),
+        marginBottom: Matrics.s(15)
+    },
+    rowStyle: {
+        flexDirection: 'row',
+        alignItems: "center",
+        marginVertical: Matrics.s(5)
     },
     subTitle: {
-        fontSize: 14,
+        fontSize: Matrics.mvs(14),
         fontWeight: '500',
         fontFamily: Fonts.BOLD,
         color: colors.inputValueDarkGray,
-        marginLeft: 10
+        marginLeft: Matrics.s(10)
     },
     guidePerscriptionTitle: {
-        fontSize: 15,
-        fontWeight: '600',
+        fontSize: Matrics.mvs(14),
+        fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray,
-        marginTop: 25,
-        marginBottom: 5
+        lineHeight: Matrics.s(18),
+        marginTop: Matrics.s(20),
+        marginBottom: Matrics.s(10)
     },
     guideSubtitle: {
-        fontSize: 12,
+        fontSize: Matrics.mvs(12),
         fontWeight: '400',
         fontFamily: Fonts.BOLD,
         color: colors.inactiveGray,
-        marginLeft: 4
+        marginLeft: Matrics.s(4)
     },
-    border: {
-        borderBottomWidth: 2,
-        borderBottomColor: "#D7D7D7",
-    },
+
 })

@@ -17,11 +17,11 @@ const SampleCollection: React.FC<SampleCollectionProps> = ({ slot, timeZone, day
             <View style={[styles.sampleBox, styles.containerShadow]}>
                 <View style={styles.row}>
                     <Icons.Event height={20} width={20} />
-                    <Text style={{ marginLeft: 10 }}>{dayAndDate} </Text>
+                    <Text style={styles.textStyle}>{dayAndDate} </Text>
                 </View>
                 <View style={styles.row}>
                     <Icons.Schedule height={20} width={20} />
-                    <Text style={{ marginLeft: 10 }}>{timeZone}, {slot} </Text>
+                    <Text style={styles.textStyle}>{timeZone} , {slot} </Text>
                 </View>
             </View>
         </View>
@@ -36,25 +36,33 @@ const styles = StyleSheet.create({
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray,
-        marginTop: 20,
-        marginBottom: 10
+        marginTop: Matrics.s(20),
+        marginBottom: Matrics.s(10)
     },
     sampleBox: {
         padding: Matrics.s(10),
-        borderRadius: 12,
+        borderRadius: Matrics.s(12),
         backgroundColor: colors.white,
-
+        minHeight: Matrics.vs(76)
     },
     containerShadow: {
         shadowColor: colors.black,
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.08,
-        shadowRadius: 8,
+        shadowRadius: Matrics.s(5),
         elevation: 0.4,
     },
     row: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginVertical: 5
+        marginVertical: Matrics.s(5)
+    },
+    textStyle: {
+        fontSize: Matrics.s(14),
+        fontWeight: '400',
+        fontFamily: Fonts.BOLD,
+        color: colors.subTitleLightGray,
+        lineHeight: Matrics.s(18),
+        marginLeft: Matrics.s(10)
     }
 })

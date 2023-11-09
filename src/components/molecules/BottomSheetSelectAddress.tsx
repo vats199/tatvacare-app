@@ -9,14 +9,17 @@ import { addressItem } from '../../screens/Diagnostic/ConfirmLocationScreen';
 type BottomSheetSelectAddressProps = {
     data?: addressItem[];
     onPressAddNew: () => void;
+    onPressAdddressItem?: () => void;
 }
 
 
-const BottomSheetSelectAddress: React.FC<BottomSheetSelectAddressProps> = ({ data, onPressAddNew }) => {
+const BottomSheetSelectAddress: React.FC<BottomSheetSelectAddressProps> = ({ data, onPressAddNew, onPressAdddressItem }) => {
 
     const renderAddressItem = (item: addressItem, idex: number) => {
         return (
-            <View style={styles.addressItemContainer}>
+            <TouchableOpacity style={styles.addressItemContainer}
+                onPress={onPressAdddressItem}
+            >
                 <View style={{ flexDirection: "row", width: "70%" }}>
                     <View style={{ marginRight: 5 }}>
                         {
@@ -33,7 +36,7 @@ const BottomSheetSelectAddress: React.FC<BottomSheetSelectAddressProps> = ({ dat
                 <View style={{ alignItems: "flex-end" }}>
                     <Icons.ThreeDot width={16} height={16} />
                 </View>
-            </View>
+            </TouchableOpacity>
         );
     }
     return (
@@ -65,7 +68,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: "space-between",
         alignItems: "center",
-        marginBottom: 20,
+        marginBottom: Matrics.s(20),
     },
     upperSubRow: {
         flexDirection: 'row',
@@ -73,14 +76,14 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     addNewText: {
-        fontSize: 12,
+        fontSize: Matrics.mvs(12),
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.themePurple,
         marginRight: 10
     },
     selectAddressTitle: {
-        fontSize: 20,
+        fontSize: Matrics.mvs(20),
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray,
@@ -106,13 +109,13 @@ const styles = StyleSheet.create({
         elevation: 0.1
     },
     addressTitleText: {
-        fontSize: 14,
+        fontSize: Matrics.mvs(14),
         fontWeight: '400',
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray,
     },
     addressDescription: {
-        fontSize: 12,
+        fontSize: Matrics.mvs(12),
         fontWeight: '400',
         fontFamily: Fonts.BOLD,
         color: colors.subTitleLightGray,

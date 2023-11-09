@@ -1,35 +1,30 @@
-import { StyleSheet, Text, View } from 'react-native';
-import { Dimensions } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native'
 import React, { useEffect } from 'react';
-import {
-    DiagnosticStackParamList
-} from '../../interface/Navigation.interface';
-import { StackScreenProps } from '@react-navigation/stack';
+import { LabTestRefundStackParamList } from '../../interface/Navigation.interface';
 import { colors } from '../../constants/colors';
 import { Fonts, Matrics } from '../../constants';
 import { Icons } from '../../constants/icons';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import Button from '../../components/atoms/Button';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { StackScreenProps } from '@react-navigation/stack';
 import MyStatusbar from '../../components/atoms/MyStatusBar';
-type CongratulationScreenProps = StackScreenProps<
-    DiagnosticStackParamList,
-    'CongratulationScreen'
+
+
+type CongratulationsScreenProps = StackScreenProps<
+    LabTestRefundStackParamList,
+    'CongratulationsScreen'
 >;
 
-const windowHeight = Dimensions.get('window').height;
-const CongratulationScreen: React.FC<CongratulationScreenProps> = ({ route, navigation }) => {
 
-    const onPressContinue = () => {
-        navigation.navigate("OrderDetails");
-    }
+const CongratulationsScreen: React.FC<CongratulationsScreenProps> = ({ route, navigation }) => {
+
     useEffect(() => {
         const timeout = setTimeout(() => {
-            navigation.replace('OrderDetails');
-        }, 2000);
+            navigation.replace('LabTestScreen');
+        }, 5000);
 
         return () => clearTimeout(timeout);
     }, [navigation]);
-
     return (
         <SafeAreaView edges={['top']} style={styles.screen}>
             <MyStatusbar />
@@ -37,14 +32,14 @@ const CongratulationScreen: React.FC<CongratulationScreenProps> = ({ route, navi
             <View style={{ flex: 1 }}>
                 <View style={{ alignItems: "center" }}>
                     <Icons.Success height={80} width={80} />
-                    <Text style={styles.congratulationText}>Congratulations</Text>
+                    <Text style={styles.congratulationText}>Congratulations!</Text>
                 </View>
                 <View style={{ paddingHorizontal: 13 }}>
-                    <Text style={styles.descriptiontext}>Your payment is successful, and the phlebotomist will be  assigned to you before your sample pickup slot.</Text>
+                    <Text style={styles.descriptiontext}>Your booking has been rescheduled.</Text>
                     <Button
                         title="Continue"
                         buttonStyle={{ marginHorizontal: 0 }}
-                        onPress={onPressContinue}
+                        titleStyle={styles.buttonText}
                     />
                 </View>
                 <View style={{ flex: 1 }} />
@@ -56,27 +51,36 @@ const CongratulationScreen: React.FC<CongratulationScreenProps> = ({ route, navi
     )
 }
 
-export default CongratulationScreen
+export default CongratulationsScreen;
 
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
-        backgroundColor: colors.white,
+        backgroundColor: colors.lightGreyishBlue,
     },
     congratulationText: {
-        fontSize: 16,
+        fontSize: Matrics.mvs(16),
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray,
-        marginVertical: 10
+        marginVertical: Matrics.s(10),
+        lineHeight: Matrics.s(20),
+        textAlign: "center"
     },
     descriptiontext: {
-        fontSize: 14,
+        fontSize: Matrics.mvs(14),
         fontWeight: '400',
         fontFamily: Fonts.BOLD,
         color: colors.subTitleLightGray,
         marginBottom: Matrics.s(20),
         alignContent: 'center',
         textAlign: "center"
+    },
+    buttonText: {
+        fontSize: Matrics.mvs(16),
+        fontWeight: '700',
+        fontFamily: Fonts.BOLD,
+        color: colors.white,
+        lineHeight: Matrics.s(20)
     }
 })

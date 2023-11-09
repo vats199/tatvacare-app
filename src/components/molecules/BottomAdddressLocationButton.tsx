@@ -24,7 +24,7 @@ const BottomAdddressLocationButton: React.FC<BottomAddressLocationButtonProps> =
                     <Text style={styles.locationText}>{location}</Text>
                 </View>
                 <TouchableOpacity onPress={onPressAddAddress} >
-                    <Text style={styles.textAddButton}>Add address</Text>
+                    <Text style={styles.textAddButton}>Add Address</Text>
                 </TouchableOpacity>
             </View>
             <View style={styles.border} />
@@ -38,24 +38,23 @@ const BottomAdddressLocationButton: React.FC<BottomAddressLocationButtonProps> =
     )
 }
 
-export default BottomAdddressLocationButton
+export default BottomAdddressLocationButton;
 
 const styles = StyleSheet.create({
     bootomContainer: {
-        marginTop: 10,
-        padding: 12,
+        marginTop: Matrics.s(10),
+        padding: Matrics.s(14),
         backgroundColor: colors.white,
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20,
-        minHeight: 104,
+        borderTopLeftRadius: Matrics.s(20),
+        borderTopRightRadius: Matrics.s(20),
+        minHeight: Matrics.vs(108),
         width: '100%',
-        elevation: 0.3,
+        elevation: 2,
         shadowColor: colors.inputValueDarkGray,
         shadowOffset: { width: 0, height: 1 },
-        marginBottom: 50
     },
     textAddButton: {
-        fontSize: 12,
+        fontSize: Matrics.mvs(12),
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.themePurple,
@@ -74,8 +73,9 @@ const styles = StyleSheet.create({
     },
     border: {
         borderBottomWidth: 0.5,
-        borderBottomColor: "#D3D3D3",
-        marginVertical: Matrics.s(6)
+        borderBottomColor: colors.secondaryLabel,
+        marginVertical: Matrics.s(8),
+
     },
     buttonTitleStyle: {
         fontSize: Matrics.mvs(16),

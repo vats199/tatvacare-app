@@ -9,8 +9,10 @@ import Header from '../../components/atoms/Header';
 import { Icons } from '../../constants/icons';
 import { colors } from '../../constants/colors';
 import LabTest from '../../components/organisms/LabTest';
-import { Fonts } from '../../constants';
-import { Container } from '../../components/styled/Views';
+import { Fonts, Matrics } from '../../constants';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import MyStatusbar from '../../components/atoms/MyStatusBar';
+import { ScrollView } from 'react-native';
 
 
 type ViewAllTestScreenProps = StackScreenProps<
@@ -19,25 +21,29 @@ type ViewAllTestScreenProps = StackScreenProps<
 >;
 
 const ViewAllTestScreen: React.FC<ViewAllTestScreenProps> = ({ route, navigation }) => {
+    const insets = useSafeAreaInsets();
 
     const onPressBack = () => {
         navigation.goBack();
     }
-    return (
-        <View style={styles.screen}>
-            <Header
-                title="Liver Test"
-                isIcon={true}
-                icon={<Icons.Cart height={24} width={24} />}
-                containerStyle={styles.upperHeader}
-                titleStyle={styles.titleStyle}
-                onBackPress={onPressBack}
-            />
-            <Container>
-                <LabTest title='Liver Test' />
-            </Container>
 
-        </View>
+    return (
+        <SafeAreaView edges={['top']} style={[styles.screen, { paddingBottom: insets.bottom == 0 ? Matrics.vs(20) : insets.bottom }]} >
+            <MyStatusbar />
+            <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1, }}>
+                <Header
+                    title="Liver Test"
+                    isIcon={true}
+                    icon={<Icons.Cart height={24} width={24} />}
+                    containerStyle={styles.upperHeader}
+                    titleStyle={styles.titleStyle}
+                    onBackPress={onPressBack}
+                />
+                <View style={{ marginHorizontal: 16 }}>
+                    <LabTest title='Liver Test' />
+                </View>
+            </ScrollView>
+        </SafeAreaView>
     )
 }
 
@@ -51,14 +57,14 @@ const styles = StyleSheet.create({
     },
     upperHeader: {
         marginHorizontal: 15,
-        paddingTop: 25,
-        paddingBottom: 15
+        paddingTop: Matrics.s(20),
+        paddingBottom: Matrics.s(15)
     },
     titleStyle: {
-        fontSize: 16,
+        fontSize: Matrics.mvs(16),
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray,
-        marginLeft: 20,
+        marginLeft: Matrics.s(20),
     },
 })

@@ -42,7 +42,7 @@ export default PaymentDoneScreen;
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
-        backgroundColor: colors.lightGreyishBlue,
+        backgroundColor: colors.white,
         justifyContent: 'center',
         alignItems: "center"
     },

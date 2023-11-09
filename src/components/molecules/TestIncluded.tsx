@@ -2,8 +2,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { Icons } from '../../constants/icons';
 import { colors } from '../../constants/colors';
-import { Fonts } from '../../constants';
-
+import { Fonts, Matrics } from '../../constants';
 
 type testInclude = {
     id?: number;
@@ -83,13 +82,15 @@ export default TestIncluded
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
         backgroundColor: colors.white,
         padding: 10,
         borderRadius: 12,
         elevation: 0.4,
         shadowColor: colors.inputValueDarkGray,
         shadowOffset: { width: 0, height: 1 },
-        marginVertical: 10
+        marginTop: 10,
+
     },
     testTitle: {
         fontSize: 14,

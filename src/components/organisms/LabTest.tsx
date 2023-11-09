@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react';
 import { colors } from '../../constants/colors';
 import { Icons } from '../../constants/icons';
-import { Fonts } from '../../constants';
+import { Fonts, Matrics } from '../../constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type LabTestProp = {
@@ -51,48 +51,56 @@ const LabTest: React.FC<LabTestProp> = ({ title, onAdded, onPressTest }) => {
             discount: 40,
             isAdded: false,
         },
+        {
+            id: 4,
+            title: 'Fitgen',
+            description: 'Also known as Genetic Risk assessment for obesity',
+            newPrice: 1078,
+            oldPrice: 2695,
+            discount: 40,
+            isAdded: false,
+        },
+        {
+            id: 5,
+            title: 'Fitgen',
+            description: 'Also known as Genetic Risk assessment for obesity',
+            newPrice: 1078,
+            oldPrice: 2695,
+            discount: 40,
+            isAdded: false,
+        },
+
     ]);
-    //console.log(options);
+
 
     const handleCartItem = async (item: TestItem) => {
         try {
             const cart = await AsyncStorage.getItem('cartItems');
-            let cartItems = JSON.parse(cart) || [];
-
-            if (!Array.isArray(cartItems)) {
-                cartItems = [];
+            let cartItems: TestItem[] = [];
+            if (cart !== null) {
+                cartItems = JSON.parse(cart) || [];
             }
-
             const existingItem = cartItems.find((cartItem: TestItem) => cartItem.id === item.id);
-            console.log("inside set", cartItems);
             if (!existingItem) {
                 cartItems.push(item);
             }
-
-            console.log("inside set", cartItems);
             await AsyncStorage.setItem('cartItems', JSON.stringify(cartItems));
         } catch (error) {
             console.error('Error handling cart item:', error);
         }
     }
 
-
     const addCartHandler = (id: number) => {
         const updatedOptions = options.map((item) => {
-
             if (item.id === id && item.isAdded === false) {
                 if (onAdded) {
                     onAdded(item);
-
                 }
-                console.log("id>>", id);
                 handleCartItem(item);
                 return { ...item, isAdded: true };
             }
             return item;
         });
-
-
         setOptions(updatedOptions);
     }
 
@@ -111,7 +119,7 @@ const LabTest: React.FC<LabTestProp> = ({ title, onAdded, onPressTest }) => {
                     <Text style={styles.description}>{item.description}</Text>
                     <View style={styles.priceRow}>
                         <Text style={styles.price}>{rupee}{item.newPrice}</Text>
-                        <Text style={{ textDecorationLine: 'line-through' }}>{rupee}{item.oldPrice}</Text>
+                        <Text style={[styles.oldPrice, { textDecorationLine: 'line-through' }]}>{rupee}{item.oldPrice}</Text>
                         <Text style={styles.discount}> {item.discount}% off</Text>
                     </View>
                     <TouchableOpacity
@@ -119,45 +127,42 @@ const LabTest: React.FC<LabTestProp> = ({ title, onAdded, onPressTest }) => {
                         onPress={() => addCartHandler(item?.id)}
                     >
                         {
-                            item.isAdded ? (<Text style={styles.addedText}> Added</Text>) : <Text style={styles.addCartText}> Add to Cart</Text>
+                            item.isAdded ? (<Text style={styles.addedText}> Added</Text>) : <Text style={styles.addCartText}> Add To Cart</Text>
                         }
                     </TouchableOpacity>
-                    {
-                        (item.id < options.length) && (
-                            <View style={styles.border} />
-                        )
-                    }
+                    <View style={{ width: '100%' }}>
+                        {
+                            (index < options.length - 1) && (
+                                <View style={styles.border} />
+                            )
+                        }
+                    </View>
                 </View>
             </View>
         );
     };
     return (
-        <View style={{ flex: 1 }}>
-
-            <View style={styles.container}>
-                {options.map(renderTestItem)}
-            </View>
-
+        <View style={styles.container}>
+            {options.map(renderTestItem)}
         </View>
-    )
+    );
 }
 
-export default LabTest
+export default LabTest;
 
 const styles = StyleSheet.create({
-
     textViewButton: {
-        fontSize: 12,
+        fontSize: Matrics.mvs(12),
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.themePurple,
     },
     container: {
-        flex: 1,
+        // flex: 1,
         backgroundColor: 'white',
-        borderRadius: 12,
-        padding: 10,
-        marginVertical: 10,
+        borderRadius: Matrics.s(12),
+        padding: Matrics.s(10),
+        marginVertical: Matrics.s(10),
         elevation: 0.4,
         shadowColor: colors.inputValueDarkGray,
         shadowOffset: { width: 0, height: 1 },
@@ -165,56 +170,57 @@ const styles = StyleSheet.create({
     renderItemContainer: {
         width: '100%',
         flexDirection: 'row',
-        marginVertical: 10
+        marginVertical: Matrics.s(10)
     },
     titleStyle: {
-        fontSize: 14,
+        fontSize: Matrics.mvs(14),
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray,
-        marginBottom: 5
+        lineHeight: Matrics.s(18),
+        marginBottom: Matrics.s(5)
     },
     description: {
-        fontSize: 12,
+        fontSize: Matrics.mvs(12),
         fontWeight: '400',
         fontFamily: Fonts.BOLD,
         color: colors.inactiveGray,
-        marginBottom: 5
+        marginBottom: Matrics.s(5)
     },
     priceRow: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginVertical: 5
+        marginVertical: Matrics.s(5)
     },
     price: {
-        fontSize: 16,
+        fontSize: Matrics.mvs(16),
         fontWeight: "700",
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray,
-        marginRight: 10
+        marginRight: Matrics.s(10)
     },
     oldPrice: {
-        fontSize: 12,
+        fontSize: Matrics.mvs(12),
         fontWeight: "400",
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray,
     },
     discount: {
-        fontSize: 14,
+        fontSize: Matrics.mvs(14),
         fontWeight: "700",
         fontFamily: Fonts.BOLD,
         color: colors.green,
-        marginLeft: 10
+        marginLeft: Matrics.s(10)
     },
     addCartButton: {
-        marginTop: 10,
-        marginBottom: 15,
+        marginTop: Matrics.s(10),
+        marginBottom: Matrics.s(15),
         width: "100%",
         borderWidth: 1,
         borderColor: colors.themePurple,
-        paddingHorizontal: 6,
-        paddingVertical: 8,
-        borderRadius: 12,
+        paddingHorizontal: Matrics.s(6),
+        paddingVertical: Matrics.vs(8),
+        borderRadius: Matrics.s(12),
         justifyContent: 'center',
         alignItems: 'center'
     },
@@ -222,20 +228,19 @@ const styles = StyleSheet.create({
         borderColor: colors.darkGray,
     },
     addCartText: {
-        fontSize: 14,
+        fontSize: Matrics.mvs(14),
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.themePurple
     },
     addedText: {
-        fontSize: 14,
+        fontSize: Matrics.mvs(14),
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.darkGray,
     },
     border: {
         borderBottomWidth: 0.5,
-        borderBottomColor: "#999999"
+        borderBottomColor: colors.secondaryLabel
     }
-
 })

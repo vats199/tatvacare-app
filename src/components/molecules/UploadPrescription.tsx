@@ -3,12 +3,13 @@ import React from 'react';
 import { Icons } from '../../constants/icons';
 import { colors } from '../../constants/colors';
 import { Fonts } from '../../constants';
+import { Matrics } from '../../constants';
 
-type UploadPerscriptionProps={
-    onPressUpload :()=> void
+type UploadPerscriptionProps = {
+    onPressUpload: () => void
 }
 
-const UploadPrescription: React.FC<UploadPerscriptionProps> = ({onPressUpload}) => {
+const UploadPrescription: React.FC<UploadPerscriptionProps> = ({ onPressUpload }) => {
     return (
         <View style={styles.perscription}>
             <View
@@ -28,7 +29,7 @@ const UploadPrescription: React.FC<UploadPerscriptionProps> = ({onPressUpload}) 
                 </View>
             </View>
             <View>
-                <Icons.forwardArrow height={12} width={12} onPress={onPressUpload}  />
+                <Icons.forwardArrow height={12} width={12} onPress={onPressUpload} />
             </View>
         </View>
     )
@@ -38,31 +39,33 @@ export default UploadPrescription
 
 const styles = StyleSheet.create({
     perscription: {
-        marginVertical: 10,
-        padding: 14,
+        marginVertical: Matrics.s(12),
+        padding: Matrics.s(14),
         backgroundColor: colors.white,
-        borderRadius: 12,
+        borderRadius: Matrics.s(12),
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        minHeight: 70,
-        elevation: 0.2,
+        minHeight: Matrics.vs(60),
+        elevation: 0.5,
         shadowColor: colors.inputValueDarkGray,
         shadowOffset: { width: 0, height: 1 },
     },
     textBox: {
-        marginLeft: 10,
+        marginLeft: Matrics.s(10),
     },
     uploadPerscription: {
-        fontSize: 14,
+        fontSize: Matrics.mvs(14),
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray,
+        lineHeight: Matrics.s(18)
     },
     arrangeMedicine: {
         color: colors.darkGray,
-        fontSize: 12,
+        fontSize: Matrics.mvs(12),
         fontWeight: '400',
         fontFamily: Fonts.BOLD,
+        lineHeight: Matrics.s(16)
     },
 })

@@ -15,12 +15,12 @@ const FreeTestBottomSheet: React.FC<FreeTestBottomSheetProps> = ({
     return (
         <View style={styles.contentContainer}>
             <View>
-                <Text style={[styles.bottomSheetTitle, { marginLeft: 20 }]}>Free Tests</Text>
+                <Text style={styles.bottomSheetTitle}>Free Tests</Text>
                 <View style={styles.border} />
                 <View style={{ padding: 10 }}>
-                    <Text style={[styles.subTitle, { marginVertical: 5 }]}>Test Name 1</Text>
-                    <Text style={[styles.subTitle, { marginVertical: 5 }]}>Test Name 2</Text>
-                    <Text style={[styles.subTitle, { marginVertical: 5 }]}>Test Name 3</Text>
+                    <Text style={styles.subTitle}>Test Name 1</Text>
+                    <Text style={styles.subTitle}>Test Name 2</Text>
+                    <Text style={styles.subTitle}>Test Name 3</Text>
                 </View>
             </View>
         </View>
@@ -33,24 +33,29 @@ const styles = StyleSheet.create({
     contentContainer: {
         flex: 1,
         backgroundColor: colors.white,
-        elevation: 2
+        elevation: 2,
+        shadowOffset: { width: 0, height: -2 }
     },
     bottomSheetTitle: {
         fontSize: Matrics.mvs(20),
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.inputValueDarkGray,
-        marginBottom: 10
+        marginBottom: Matrics.s(10),
+        marginLeft: Matrics.s(20),
+        lineHeight: Matrics.s(26)
     },
     subTitle: {
-        fontSize: Matrics.mvs(20),
+        fontSize: Matrics.mvs(14),
         fontWeight: '500',
         fontFamily: Fonts.BOLD,
         color: colors.inputValueDarkGray,
-        marginLeft: Matrics.s(10)
+        lineHeight: Matrics.s(18),
+        marginLeft: Matrics.s(10),
+        marginVertical: Matrics.s(5)
     },
     border: {
-        borderBottomWidth: 2,
-        borderBottomColor: "#D7D7D7",
+        borderBottomWidth: 1,
+        borderBottomColor: colors.lightSilver,
     },
 })
