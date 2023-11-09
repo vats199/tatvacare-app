@@ -10,7 +10,7 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import React, { memo, useMemo, useState } from 'react';
+import React, { memo, useMemo, useState, useCallback } from 'react';
 import {
   CalendarProvider,
   DateData,
@@ -34,7 +34,7 @@ type CommonCalendarProps = {
   expandableCalendarProps?: ExpandableCalendarProps;
   calendarContainerStyle?: ViewStyle;
   onPressDay: (date: Date) => void;
-  setSelectedDate: React.Dispatch<React.SetStateAction<Date>>;
+  // setSelectedDate: React.Dispatch<React.SetStateAction<Date>>;
   containerStyle?: ViewStyle;
   headerTxtContainer?: ViewStyle;
   titleStyle?: TextStyle;
@@ -49,19 +49,24 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
   expandableCalendarProps,
   containerStyle,
   onPressDay,
-  setSelectedDate,
+  // setSelectedDate,
   calendarContainerStyle,
   headerTxtContainer,
   titleStyle,
   iconContainerStyle,
 }) => {
   const focus = useIsFocused();
-  const [seletedDay, setseletedDay] = useState(
+  const [seletedDay, setSeletedDay] = useState(
+    moment(selectedDate).format('YYYY-MM-DD'),
+  );
+  const [calendarDates, setCalendarDates] = useState(
     moment(selectedDate).format('YYYY-MM-DD'),
   );
   const [calendarKey, setCalendarKey] = useState(0);
   const [showMore, setShowMore] = useState<boolean>(false);
-  const [newMonth, setNewMonth] = useState<string>(moment(selectedDate).format('YYYY-MM-DD'))
+  const [newMonth, setNewMonth] = useState(
+    moment(selectedDate).format('YYYY-MM-DD'),
+  );
 
   LocaleConfig.locales['en'] = {
     monthNames: [
@@ -109,7 +114,7 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
 
   const markedDateStyle: MarkedDates | undefined = useMemo(() => {
     return {
-      [seletedDay]: {
+      [moment(seletedDay).format('YYYY-MM-DD')]: {
         customStyles: {
           container: {
             backgroundColor: colors.themePurple,
@@ -148,10 +153,10 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
     monthTextColor: colors.black,
   };
 
-  const onDayPress = (date: DateData,) => {
+  const onDayPress = (date: DateData) => {
     let tempDate = new Date(date?.dateString);
     onPressDay(tempDate);
-    setseletedDay(moment(date?.dateString).format("YYYY-MM-DD"));
+    setSeletedDay(moment(date?.dateString).format('YYYY-MM-DD'));
     trackEvent(Constants.EVENT_NAME.FOOD_DIARY.USER_CHANGES_DATE, {
       current_date: moment().format(Constants.DATE_FORMAT),
       date_selected: moment(date?.dateString).format(Constants.DATE_FORMAT),
@@ -161,43 +166,44 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
 
   const onChangeMonth = (date: DateData) => {
     let tempDate = new Date(date?.dateString);
-    setseletedDay(moment(tempDate).format('YYYY-MM-DD'))
+    setNewMonth(tempDate)
   };
 
   const handleNextWeek = () => {
-    const nextWeek = new Date(selectedDate);
+    const nextWeek = new Date(calendarDates);
     nextWeek.setDate(nextWeek.getDate() + 7);
-    setseletedDay(moment(nextWeek).format('YYYY-MM-DD'));
+    setCalendarDates(moment(nextWeek).format('YYYY-MM-DD'));
     setCalendarKey(calendarKey + 1);
   };
 
   const handlePreviousWeek = () => {
-    const previousWeek = new Date(selectedDate);
+    const previousWeek = new Date(calendarDates);
     previousWeek.setDate(previousWeek.getDate() - 7);
-    setSelectedDate(previousWeek);
+    setCalendarDates(moment(previousWeek).format('YYYY-MM-DD'));
     setCalendarKey(calendarKey - 1);
   };
 
   const handleNextMonth = () => {
-    const currentMonnth = new Date(selectedDate);
+    const currentMonnth = new Date(calendarDates);
     var nextMonth = moment(currentMonnth).add(1, 'months');
     trackEvent(Constants.EVENT_NAME.FOOD_DIARY.USER_CHANGES_MONTH, {
       current_month: moment(currentMonnth).format('MM'),
       new_month: nextMonth,
     });
-    setseletedDay(moment(new Date(nextMonth.toString())).format('YYYY-MM-DD'));
+    setCalendarDates(moment(new Date(nextMonth.toString())).format('YYYY-MM-DD'));
     setCalendarKey(calendarKey + 1);
   };
 
   const handlePreviousMonth = () => {
-    const currentMonnth = new Date(selectedDate);
+    const currentMonnth = new Date(calendarDates);
     var previousMonth = moment(currentMonnth).subtract(1, 'months');
     trackEvent(Constants.EVENT_NAME.FOOD_DIARY.USER_CHANGES_MONTH, {
       current_month: moment(currentMonnth).format('MM'),
       new_month: previousMonth,
     });
+    console.log("previousMonth", previousMonth);
 
-    setseletedDay(moment(new Date(previousMonth.toString())).format('YYYY-MM-DD'));
+    setCalendarDates(moment(new Date(previousMonth.toString())).format('YYYY-MM-DD'));
     setCalendarKey(calendarKey + 1);
   };
 
@@ -232,16 +238,18 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
   };
 
   const renderDays = date => {
-    const isCurrentDate =
-      moment(seletedDay).format('MM') ==
-      moment(date.date?.dateString).format('MM');
-    if (date.state == 'disabled' || !isCurrentDate) return null;
+    // const isCurrentDate =
+    //   moment(seletedDay).format('MM') ==
+    //   moment(date.date?.dateString).format('MM');
+    // if (date.state == 'disabled' || !isCurrentDate) return null;
+
     return (
       <TouchableOpacity
+        key={date}
         onPress={() => onDayPress(date.date)}
         style={{
           backgroundColor:
-            date.state == 'selected' ? colors.themePurple : colors.transparent,
+            date?.date?.dateString == seletedDay ? colors.themePurple : colors.transparent,
           height: Matrics.vs(26),
           width: Matrics.s(35),
           borderRadius: Matrics.s(10),
@@ -254,7 +262,7 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
             fontSize: Matrics.mvs(13),
             lineHeight: 18,
             color:
-              date.state == 'selected'
+              date?.date?.dateString == seletedDay
                 ? colors.white
                 : colors.subTitleLightGray,
           }}>
@@ -263,6 +271,19 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
       </TouchableOpacity>
     );
   };
+
+  const getMondayOfWeek = (dateString: any) => {
+    const date = new Date(dateString);
+    const dayOfWeek = date.getDay();
+    let diff = dayOfWeek - 1;
+    if (dayOfWeek === 0) {
+      diff = 6;
+    }
+    const mondayOfWeek = new Date(date);
+    mondayOfWeek.setDate(date.getDate() - diff);
+
+    return mondayOfWeek;
+  }
 
   const onExpandCalendar = () => {
     trackEvent(Constants.EVENT_NAME.FOOD_DIARY.USER_CHANGES_DATE, {
@@ -274,7 +295,24 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
       ? LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
       : null;
     setShowMore(!showMore);
+    const mondayOfWeek = getMondayOfWeek(seletedDay);
+
+    setCalendarDates(moment(mondayOfWeek).format('YYYY-MM-DD'));
   };
+
+  const onDateChanged = useCallback((date: any, updateSource: any) => {
+    let tempDate = new Date(date);
+    setNewMonth(tempDate)
+
+    // setSeletedDay(moment(date?.dateString).format('YYYY-MM-DD'))
+    // if (updateSource === 'weekScroll') {
+    //   let month = getMonthRangeText(new Date(tempDate))
+    // } else {
+    //   let month = getMonthText(new Date(tempDate))
+    //   setNewMonth(month)
+    // }
+  }, []);
+
 
   return (
     <>
@@ -282,8 +320,8 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
         <View style={[styles.leftRightContent, headerTxtContainer]}>
           <Text style={[styles.monthYearStyle, titleStyle]}>
             {!showMore
-              ? getMonthRangeText(selectedDate)
-              : getMonthText(selectedDate)}
+              ? getMonthRangeText(new Date(newMonth))
+              : getMonthText(new Date(newMonth))}
           </Text>
         </View>
         <View style={[styles.leftRightContent, iconContainerStyle]}>
@@ -316,15 +354,16 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
           calendarContainerStyle,
         ]}>
         <CalendarProvider
-          date={moment(seletedDay).format('YYYY-MM-DD')}
+          date={moment(calendarDates).format('YYYY-MM-DD')}
           disabledOpacity={0.6}
           onMonthChange={onChangeMonth}
+          onDateChanged={onDateChanged}
         >
           {!showMore ? (
             <Animated.View style={{ overflow: 'hidden' }}>
               <WeekCalendar
                 firstDay={1}
-                // current={moment(seletedDay).format('YYYY-MM-DD')}
+                current={moment(calendarDates).format('YYYY-MM-DD')}
                 onDayPress={onDayPress}
                 markingType="custom"
                 markedDates={markedDateStyle}
@@ -344,6 +383,10 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
                     paddingRight: Matrics.s(3),
                   },
                 ]}
+                headerStyle={{
+                  paddingLeft: Matrics.s(3),
+                  paddingRight: Matrics.s(3),
+                }}
                 {...weekCalendarProps}
               />
             </Animated.View>
@@ -353,11 +396,11 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
               hideKnob
               firstDay={1}
               initialPosition={ExpandableCalendar.positions.OPEN}
-              // current={moment(seletedDay).format('YYYY-MM-DD')}
+              current={moment(seletedDay).format('YYYY-MM-DD')}
               disableAllTouchEventsForDisabledDays={true}
               hideExtraDays={true}
               markingType="custom"
-              pagingEnabled={false}
+              pagingEnabled={true}
               scrollEnabled={false}
               calendarStyle={{
                 paddingLeft: Matrics.s(3),
@@ -387,6 +430,7 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
               hideArrows
               renderHeader={() => null}
               markedDates={markedDateStyle}
+              closeOnDayPress
               {...expandableCalendarProps}
             />
           )}
@@ -429,7 +473,7 @@ const styles = StyleSheet.create({
   },
   monthYearStyle: {
     fontSize: Matrics.mvs(14),
-    fontFamily: Fonts.MEDIUM,
+    fontFamily: Fonts.REGULAR,
     color: colors.labelDarkGray,
     lineHeight: Matrics.vs(18),
   },

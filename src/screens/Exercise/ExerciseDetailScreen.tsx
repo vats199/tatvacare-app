@@ -7,28 +7,28 @@ import {
   SafeAreaView,
 } from 'react-native';
 import React from 'react';
-import {CompositeScreenProps} from '@react-navigation/native';
-import {DrawerScreenProps} from '@react-navigation/drawer';
-import {StackScreenProps} from '@react-navigation/stack';
+import { CompositeScreenProps } from '@react-navigation/native';
+import { DrawerScreenProps } from '@react-navigation/drawer';
+import { StackScreenProps } from '@react-navigation/stack';
 import {
   AppStackParamList,
-  DrawerParamList,ExerciesStackParamList
+  DrawerParamList, ExerciesStackParamList
 } from '../../interface/Navigation.interface';
 import ExerciseCard from '../../components/molecules/ExerciseCard';
-import {colors} from '../../constants/colors';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-import {Icons} from '../../constants/icons';
-const {width} = Dimensions.get('window');
+import { colors } from '../../constants/colors';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Icons } from '../../constants/icons';
+const { width } = Dimensions.get('window');
 
 type ExerciseDetailProps = CompositeScreenProps<
-StackScreenProps<ExerciesStackParamList, 'ExerciseDetailScreen'>,
+  StackScreenProps<ExerciesStackParamList, 'ExerciseDetailScreen'>,
   StackScreenProps<AppStackParamList, 'TabScreen'>
 >;
 const ExerciseDetailScreen: React.FC<ExerciseDetailProps> = ({
   route,
   navigation,
 }) => {
-  const {Data} = route?.params;
+  const { Data } = route?.params;
   const [data, setData] = React.useState(Data);
 
   const handlePlayPause = (id: number) => {
@@ -42,7 +42,7 @@ const ExerciseDetailScreen: React.FC<ExerciseDetailProps> = ({
   const handleBackButton = () => {
     navigation.goBack()
   };
-  const rendringData = ({item, index}: {item: any; index: number}) => {
+  const rendringData = ({ item, index }: { item: any; index: number }) => {
     return (
       <View style={styles.vedioConatiner}>
         <ExerciseCard

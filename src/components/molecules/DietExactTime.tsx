@@ -1,5 +1,5 @@
 import { DrawerItemList } from '@react-navigation/drawer';
-import React, { memo, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {
   FlatList,
   StyleSheet,

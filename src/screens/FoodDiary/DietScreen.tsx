@@ -386,7 +386,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
         />
       </CommonBottomSheetModal>
       <Loader visible={loader} />
-    </SafeAreaView>
+    </SafeAreaView >
   );
 };
 

@@ -191,7 +191,6 @@ const DietOption: React.FC<DietOptionItem> = ({
               Math.round(Number(item?.quantity))}
             cal
           </Text>
-          {/* {patient_permission === 'W' ? ( */}
           <View>
             <Menu>
               <MenuTrigger
@@ -257,9 +256,6 @@ const DietOption: React.FC<DietOptionItem> = ({
               </MenuOptions>
             </Menu>
           </View>
-          {/* ) : (
-            <View style={styles.threeDot}></View>
-          )} */}
         </View>
       </View>
     );
@@ -378,4 +374,5 @@ const styles = StyleSheet.create({
     lineHeight: 20,
     color: colors.subTitleLightGray,
   },
+
 });

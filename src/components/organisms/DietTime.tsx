@@ -175,7 +175,7 @@ const DietTime: React.FC<DietTimeProps> = ({
   return (
     <View
       style={{
-        paddingBottom: insets.bottom !== 0 ? insets.bottom : Matrics.vs(20),
+        paddingBottom: insets.bottom,
         flex: 1,
 
       }}>

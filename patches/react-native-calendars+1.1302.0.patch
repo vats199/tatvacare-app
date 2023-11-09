@@ -1,0 +1,21 @@
+diff --git a/node_modules/react-native-calendars/src/expandableCalendar/WeekCalendar/new.js b/node_modules/react-native-calendars/src/expandableCalendar/WeekCalendar/new.js
+index b7e3a65..e704715 100644
+--- a/node_modules/react-native-calendars/src/expandableCalendar/WeekCalendar/new.js
++++ b/node_modules/react-native-calendars/src/expandableCalendar/WeekCalendar/new.js
+@@ -11,6 +11,7 @@ import { extractCalendarProps } from '../../componentUpdater';
+ import constants from '../../commons/constants';
+ import { UpdateSources } from '../commons';
+ import { sameWeek } from '../../dateutils';
++import {Matrics} from '../../../../../src/constants'
+ const NUMBER_OF_PAGES = 50;
+ const DEFAULT_PAGE_HEIGHT = 48;
+ const WeekCalendar = (props) => {
+@@ -56,7 +57,7 @@ const WeekCalendar = (props) => {
+         return (<Week {...others} key={item} current={isSameWeek ? date : item} firstDay={firstDay} style={weekStyle} markedDates={markedDates} onDayPress={onDayPress} context={context}/>);
+     }, [date, markedDates]);
+     return (<View testID={testID} style={[allowShadow && style.current.containerShadow, !hideDayNames && style.current.containerWrapper]}>
+-      {!hideDayNames && (<View style={[style.current.week, style.current.weekCalendar]}>
++      {!hideDayNames && (<View style={[style.current.week, style.current.weekCalendar,{ paddingLeft: Matrics.s(3), paddingRight: Matrics.s(3), marginTop: Matrics.vs(10), marginBottom: Matrics.vs(1), paddingBottom: 0 }]}>
+           <WeekDaysNames firstDay={firstDay} style={style.current.dayHeader}/>
+         </View>)}
+       <View>

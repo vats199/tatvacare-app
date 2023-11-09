@@ -1,8 +1,8 @@
-import {View, Text, StyleSheet, TouchableOpacity, FlatList} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
 import React from 'react';
-import {colors} from '../../constants/colors';
+import { colors } from '../../constants/colors';
 import Video from 'react-native-video';
-import {Icons} from '../../constants/icons';
+import { Icons } from '../../constants/icons';
 type RoutineExercisesProps = {
   onPressOfDone: () => void;
   onpressOfVideo: () => void;
@@ -59,7 +59,7 @@ const RoutineExercises: React.FC<RoutineExercisesProps> = ({
             </View>
           );
         }}
-        renderItem={({item, index}: {item: any; index: number}) => {
+        renderItem={({ item, index }: { item: any; index: number }) => {
           return (
             <View>
               <View style={styles.cardTitleContainer}>
@@ -71,107 +71,109 @@ const RoutineExercises: React.FC<RoutineExercisesProps> = ({
                   <Text style={styles.doneText}>Done</Text>
                 </TouchableOpacity>
               </View>
-              <View style={styles.vedioConatiner}>
-                <View style={styles.video}>
-                  <Video
-                    source={item?.video}
-                    style={styles.backgroundVideo}
-                    resizeMode="cover"
-                    paused={!isPlayingList[index]}
-                    controls={true}
-                  />
-                  {!isPlayingList[index] ? (
-                    <TouchableOpacity
-                      onPress={() => handlePlay(index)}
-                      style={{
-                        position: 'absolute',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        width: '100%',
-                        marginTop: '17%',
-                       }}>
-                      <Icons.Play />
-                    </TouchableOpacity>
-                  ) : null}
-                  {item?.levle ? (
-                    <View style={styles.dificultBtnContainer}>
+              <View style={styles?.shadowContainer}>
+                <View style={styles.vedioConatiner}>
+                  <View style={styles.video}>
+                    <Video
+                      source={item?.video}
+                      style={styles.backgroundVideo}
+                      resizeMode="cover"
+                      paused={!isPlayingList[index]}
+                      controls={true}
+                    />
+                    {!isPlayingList[index] ? (
                       <TouchableOpacity
-                        style={styles.dificultBtn}
-                        onPress={() => handleLevleOfDifficulty(index)}>
-                        {!isDifficult[index] ? (
-                          <Icons.Pending />
-                        ) : (
-                          <Icons.DoneIcon />
-                        )}
-                        <Text style={styles.doneText}>
-                          {item?.levle}
-                          {isDifficult[index] ? ': Easy' : null}
-                        </Text>
+                        onPress={() => handlePlay(index)}
+                        style={{
+                          position: 'absolute',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          width: '100%',
+                          marginTop: '17%',
+                        }}>
+                        <Icons.Play />
                       </TouchableOpacity>
-                    </View>
-                  ) : null}
-                </View>
-                <View style={styles.videoDetails}>
-                  <View style={styles.exerciseTypetextContainer}>
-                    <View style={styles.textConteiner}>
-                      <Text style={styles.exerciseTypeTitle}>
-                        Exercise Type :{' '}
-                      </Text>
-                      <Text style={styles.exerciseTypeText}>Exercise</Text>
-                    </View>
-                    <View style={[styles.textConteiner, {marginLeft: 10}]}>
-                      <Text style={styles.exerciseTypeTitle}>Reps : </Text>
-                      <Text style={styles.exerciseTypeText}>1</Text>
-                    </View>
-                    <View style={[styles.textConteiner, {marginLeft: 10}]}>
-                      <Text style={styles.exerciseTypeTitle}>Sets : </Text>
-                      <Text style={styles.exerciseTypeText}>1</Text>
-                    </View>
+                    ) : null}
+                    {item?.levle ? (
+                      <View style={styles.dificultBtnContainer}>
+                        <TouchableOpacity
+                          style={styles.dificultBtn}
+                          onPress={() => handleLevleOfDifficulty(index)}>
+                          {!isDifficult[index] ? (
+                            <Icons.Pending />
+                          ) : (
+                            <Icons.DoneIcon />
+                          )}
+                          <Text style={styles.doneText}>
+                            {item?.levle}
+                            {isDifficult[index] ? ': Easy' : null}
+                          </Text>
+                        </TouchableOpacity>
+                      </View>
+                    ) : null}
                   </View>
-                  <View
-                    style={[
-                      styles.exerciseTypetextContainer,
-                      {flexWrap: 'wrap'},
-                    ]}>
-                    <View style={styles.textConteiner}>
-                      <Text style={styles.exerciseTypeTitle}>
-                        Rest Post Sets :{' '}
-                      </Text>
-                      <Text style={styles.exerciseTypeText}>3 mins</Text>
+                  <View style={styles.videoDetails}>
+                    <View style={styles.exerciseTypetextContainer}>
+                      <View style={styles.textConteiner}>
+                        <Text style={styles.exerciseTypeTitle}>
+                          Exercise Type :{' '}
+                        </Text>
+                        <Text style={styles.exerciseTypeText}>Exercise</Text>
+                      </View>
+                      <View style={[styles.textConteiner, { marginLeft: 10 }]}>
+                        <Text style={styles.exerciseTypeTitle}>Reps : </Text>
+                        <Text style={styles.exerciseTypeText}>1</Text>
+                      </View>
+                      <View style={[styles.textConteiner, { marginLeft: 10 }]}>
+                        <Text style={styles.exerciseTypeTitle}>Sets : </Text>
+                        <Text style={styles.exerciseTypeText}>1</Text>
+                      </View>
                     </View>
-                    <View style={styles.textConteiner}>
-                      <Text style={styles.exerciseTypeTitle}>
-                        Rest Post Exercise :{' '}
-                      </Text>
-                      <Text style={styles.exerciseTypeText}>10 mins</Text>
-                    </View>
-                    <View style={styles.line}></View>
-                    <View>
-                      {!showMore ? (
-                        <View>
-                          <Text
-                            numberOfLines={2}
-                            style={styles.exerciseTypeTitle}>
-                            Venenatis id eget tincidunt enim adipiscing amet
-                            sollicitudin feugiat. Eros pharetra phasellus urna
-                            vitae
-                          </Text>
-                          <TouchableOpacity onPress={handelReadMore}>
-                            <Text style={styles.readMore}>Read More</Text>
-                          </TouchableOpacity>
-                        </View>
-                      ) : (
-                        <View>
-                          <Text style={styles.exerciseTypeTitle}>
-                            Venenatis id eget tincidunt enim adipiscing amet
-                            sollicitudin feugiat. Eros pharetra phasellus urna
-                            vitae
-                          </Text>
-                          <TouchableOpacity onPress={handelReadMore}>
-                            <Text style={styles.readMore}>Read less</Text>
-                          </TouchableOpacity>
-                        </View>
-                      )}
+                    <View
+                      style={[
+                        styles.exerciseTypetextContainer,
+                        { flexWrap: 'wrap' },
+                      ]}>
+                      <View style={styles.textConteiner}>
+                        <Text style={styles.exerciseTypeTitle}>
+                          Rest Post Sets :{' '}
+                        </Text>
+                        <Text style={styles.exerciseTypeText}>3 mins</Text>
+                      </View>
+                      <View style={styles.textConteiner}>
+                        <Text style={styles.exerciseTypeTitle}>
+                          Rest Post Exercise :{' '}
+                        </Text>
+                        <Text style={styles.exerciseTypeText}>10 mins</Text>
+                      </View>
+                      <View style={styles.line}></View>
+                      <View>
+                        {!showMore ? (
+                          <View>
+                            <Text
+                              numberOfLines={2}
+                              style={styles.exerciseTypeTitle}>
+                              Venenatis id eget tincidunt enim adipiscing amet
+                              sollicitudin feugiat. Eros pharetra phasellus urna
+                              vitae
+                            </Text>
+                            <TouchableOpacity onPress={handelReadMore}>
+                              <Text style={styles.readMore}>Read More</Text>
+                            </TouchableOpacity>
+                          </View>
+                        ) : (
+                          <View>
+                            <Text style={styles.exerciseTypeTitle}>
+                              Venenatis id eget tincidunt enim adipiscing amet
+                              sollicitudin feugiat. Eros pharetra phasellus urna
+                              vitae
+                            </Text>
+                            <TouchableOpacity onPress={handelReadMore}>
+                              <Text style={styles.readMore}>Read less</Text>
+                            </TouchableOpacity>
+                          </View>
+                        )}
+                      </View>
                     </View>
                   </View>
                 </View>
@@ -256,9 +258,9 @@ const styles = StyleSheet.create({
     flex: 0.5,
     height: 160,
   },
-  videoDetails: {flex: 0.5, marginHorizontal: 10},
-  exerciseTypetextContainer: {flexDirection: 'row', marginTop: 10},
-  textConteiner: {flexDirection: 'row'},
+  videoDetails: { flex: 0.5, marginHorizontal: 10 },
+  exerciseTypetextContainer: { flexDirection: 'row', marginTop: 10 },
+  textConteiner: { flexDirection: 'row' },
   exerciseTypeTitle: {
     color: colors.titleLightGray,
     fontSize: 14,
@@ -292,5 +294,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: colors.darkBlue,
     fontWeight: '600',
+  },
+  shadowContainer: {
+    shadowOffset: { width: -2, height: 2 },
+    shadowColor: colors.shadow,
+    shadowOpacity: 0.3,
+    shadowRadius: 3,
+    elevation: 3,
   },
 });

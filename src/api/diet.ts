@@ -83,6 +83,18 @@ const Diet = {
       headers: token,
     });
   },
+  noDietPalncraet: (payload: object, query: object) => {
+    const route = bindQueryParams(
+      '/patient_hc/create_diet_plan_patient',
+      query,
+    );
+    return Ajax.request(route, {
+      method: Ajax.POST,
+      priv: true,
+      payload: payload,
+      // headers: token,
+    });
+  },
 };
 
 export default Diet;

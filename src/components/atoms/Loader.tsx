@@ -1,16 +1,16 @@
 import React from 'react';
-import {Modal, StyleSheet, Animated} from 'react-native';
+import { Modal, StyleSheet, Animated } from 'react-native';
 import LottieView from 'lottie-react-native';
 // --------------- ASSETS ---------------
-import {colors} from '../../constants/colors';
-import {Fonts, Matrics} from '../../constants';
+import { colors } from '../../constants/colors';
+import { Fonts, Matrics } from '../../constants';
 // --------------- COMPONENT DECLARATION ---------------
 type LoaderProps = {
   visible: boolean;
   label?: string;
 };
 
-const Loader: React.FC<LoaderProps> = ({visible, label}) => {
+const Loader: React.FC<LoaderProps> = ({ visible, label }) => {
   const animations = {
     backdrop: React.useRef(new Animated.Value(0)).current,
     scale: React.useRef(new Animated.Value(0)).current,
@@ -86,7 +86,7 @@ const Loader: React.FC<LoaderProps> = ({visible, label}) => {
           source={require('../../assets/raw/mytatva_animate_loader.json')}
           autoPlay
           loop
-          style={{height: Matrics.vs(150), width: Matrics.s(150)}}
+          style={{ height: Matrics.vs(150), width: Matrics.s(150) }}
           speed={1.5}
         />
       </Animated.View>
