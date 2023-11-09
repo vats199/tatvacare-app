@@ -1,10 +1,10 @@
-import {StyleSheet, Text, View} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import {Icons} from '../../constants/icons';
-import {colors} from '../../constants/colors';
-import {Fonts} from '../../constants';
+import { Icons } from '../../constants/icons';
+import { colors } from '../../constants/colors';
+import { Fonts } from '../../constants';
 import Matrics from '../../constants/Matrics';
-import {globalStyles} from '../../constants/globalStyles';
+import { globalStyles } from '../../constants/globalStyles';
 
 type MicronutrientsInformationProps = {
   foodItemDetails: FoodItems;
@@ -42,7 +42,7 @@ type FoodItems = {
 type NutritionData = {
   name: string;
   value: string;
-  icon: React.ReactNode;
+  icon: any;
 };
 const MicronutrientsInformation: React.FC<MicronutrientsInformationProps> = ({
   foodItemDetails,
@@ -51,22 +51,22 @@ const MicronutrientsInformation: React.FC<MicronutrientsInformationProps> = ({
     {
       name: 'Protein',
       value: foodItemDetails?.protein,
-      icon: <Icons.Protein />,
+      icons: <Icons.Protein />,
     },
     {
       name: 'Fats',
       value: foodItemDetails?.fats,
-      icon: <Icons.Fats />,
+      icons: <Icons.Fats />,
     },
     {
       name: 'Carbs',
       value: foodItemDetails?.carbs,
-      icon: <Icons.Carbs />,
+      icons: <Icons.Carbs />,
     },
     {
       name: 'Fibers',
       value: foodItemDetails?.fibers,
-      icon: <Icons.Fiber />,
+      icons: <Icons.Fiber />,
     },
   ];
 
@@ -74,11 +74,11 @@ const MicronutrientsInformation: React.FC<MicronutrientsInformationProps> = ({
     return (
       <View style={styles.belowRow} key={index}>
         <View style={styles.topRow}>
-          <View style={styles.square}>{item.icon}</View>
+          <View style={styles.square}>{item.icons}</View>
           <Text style={styles.name}>{item.name}</Text>
         </View>
         <Text style={styles.value}>
-          {item.value.replace('g', '').replace('m', '') + ' g'}
+          {item.value.replace('g', '').replace('m', '') + " g"}
         </Text>
       </View>
     );
@@ -93,16 +93,13 @@ const MicronutrientsInformation: React.FC<MicronutrientsInformationProps> = ({
             <Text style={styles.calorieValue}>
               {Math.round(Number(foodItemDetails?.calories))}
             </Text>
-            <Text
-              style={{
-                fontFamily: Fonts.REGULAR,
-                fontSize: Matrics.mvs(11),
-                color: colors.subTitleLightGray,
-                lineHeight: 16,
-                marginTop: Matrics.vs(2),
-              }}>
-              Calories
-            </Text>
+            <Text style={{
+              fontFamily: Fonts.REGULAR,
+              fontSize: Matrics.mvs(11),
+              color: colors.subTitleLightGray,
+              lineHeight: 16,
+              marginTop: Matrics.vs(2)
+            }}>Calories</Text>
           </View>
           <View style={styles.circle}>
             <Icons.Flame />
@@ -126,13 +123,13 @@ const styles = StyleSheet.create({
     color: colors.labelDarkGray,
     fontFamily: Fonts.BOLD,
     marginVertical: Matrics.vs(5),
-    marginBottom: Matrics.vs(10),
+    marginBottom: Matrics.vs(10)
   },
   container: {
     borderRadius: Matrics.mvs(12),
     backgroundColor: colors.white,
     padding: Matrics.mvs(14),
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.1
   },
   topRow: {
     flexDirection: 'row',
@@ -143,7 +140,7 @@ const styles = StyleSheet.create({
     fontSize: Matrics.mvs(19),
     fontFamily: Fonts.BOLD,
     color: colors.labelDarkGray,
-    lineHeight: 26,
+    lineHeight: 26
   },
   borderline: {
     height: Matrics.s(1),

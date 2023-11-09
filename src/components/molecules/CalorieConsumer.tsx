@@ -1,27 +1,26 @@
-import React, {useEffect} from 'react';
-import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
-import {Icons} from '../../constants/icons';
+import React, { useEffect } from 'react';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { Icons } from '../../constants/icons';
 import CircularProgress from 'react-native-circular-progress-indicator';
-import {Fonts, Matrics} from '../../constants';
-import {colors} from '../../constants/colors';
+import { Fonts, Matrics } from '../../constants';
+import { colors } from '../../constants/colors';
+import { useDiet } from '../../context/diet.context';
 
-type CalorieConsumerProps = {
-  totalConsumedcalories: any;
-  totalcalories: any;
-};
-const CalorieConsumer: React.FC<CalorieConsumerProps> = ({
-  totalConsumedcalories = 0,
-  totalcalories = 0,
-}) => {
+// type CalorieConsumerProps = {
+//   totalConsumedcalories: any;
+//   totalcalories: any;
+// };
+const CalorieConsumer = () => {
   const [values, setVAlues] = React.useState(0);
+  const { totalCalories, totalConsumedCalories } = useDiet();
   useEffect(() => {
-    let vale = Math.round((totalConsumedcalories / totalcalories) * 100);
+    let vale = Math.round((totalConsumedCalories / totalCalories) * 100);
     if (isNaN(vale)) {
       setVAlues(0);
     } else {
       setVAlues(vale);
     }
-  }, [totalConsumedcalories, totalcalories]);
+  }, [totalConsumedCalories, totalCalories]);
 
   const colorsOfprogressBar = (values: number) => {
     if (values === 0) {
@@ -59,11 +58,11 @@ const CalorieConsumer: React.FC<CalorieConsumerProps> = ({
             }}
           />
           <View style={styles.textContainer}>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Text style={styles.boldTitle}>
-                {isNaN(totalConsumedcalories) ? 0 : totalConsumedcalories}
+                {!totalConsumedCalories ? 0 : totalConsumedCalories}
               </Text>
-              <Text style={styles.regularTitle}>{' of ' + totalcalories}</Text>
+              <Text style={styles.regularTitle}>{' of '} {!totalCalories ? 0 : totalCalories}</Text>
             </View>
             <Text style={styles.textBelowTitle}>Calories consumed today!</Text>
           </View>
@@ -104,13 +103,13 @@ const styles = StyleSheet.create({
   },
   regularTitle: {
     fontSize: Matrics.mvs(14),
-    fontFamily: Fonts.MEDIUM,
+    fontFamily: Fonts.REGULAR,
     color: colors.subTitleLightGray,
     lineHeight: 20,
   },
   textBelowTitle: {
     fontSize: Matrics.mvs(12),
-    fontFamily: Fonts.MEDIUM,
+    fontFamily: Fonts.REGULAR,
     color: colors.subTitleLightGray,
     lineHeight: 18,
   },

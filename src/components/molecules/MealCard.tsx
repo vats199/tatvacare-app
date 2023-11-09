@@ -1,20 +1,10 @@
-import {DrawerItemList} from '@react-navigation/drawer';
-import React, {useEffect, useState} from 'react';
-import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import {colors} from '../../constants/colors';
-import {Icons} from '../../constants/icons';
-import DietOption from './DietOption';
-import {Fonts, Matrics} from '../../constants';
-import fonts from '../../constants/fonts';
+import React from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { colors } from '../../constants/colors';
+import { Icons } from '../../constants/icons';
+import { Fonts, Matrics } from '../../constants';
 import moment from 'moment';
-import {useFocusEffect} from '@react-navigation/native';
-import {globalStyles} from '../../constants/globalStyles';
+import { globalStyles } from '../../constants/globalStyles';
 
 interface MealCardProps {
   onPressPlus: (optionFoodItems: mealTYpe) => void;
@@ -29,7 +19,7 @@ type mealTYpe = {
   default_time: string;
   order_no: number;
 };
-const MealCard: React.FC<MealCardProps> = ({cardData, onPressPlus}) => {
+const MealCard: React.FC<MealCardProps> = ({ cardData, onPressPlus }) => {
   const [foodItmeData, setFoodItemData] = React.useState<any | null>(cardData);
 
   const handlePulsIconPress = (item: mealTYpe) => {
@@ -62,52 +52,39 @@ const MealCard: React.FC<MealCardProps> = ({cardData, onPressPlus}) => {
 
   return (
     <View style={[styles.container, globalStyles.shadowContainer]}>
-      <View style={styles.innerContainer}>
-        <View style={styles.topRow}>
-          <View style={styles.leftContent}>
-            <View style={styles.circle}>{mealIcons(cardData?.meal_type)}</View>
-            <View style={styles.textContainer}>
-              <Text style={styles.title}>{cardData.label}</Text>
+      <View style={styles.topRow}>
+        <View style={styles.leftContent}>
+          <View style={styles.circle}>{mealIcons(cardData?.meal_type)}</View>
+          <View style={styles.textContainer}>
+            <Text style={styles.title}>{cardData.label}</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Text style={styles.textBelowTitle}>
                 {moment(cardData?.default_time, 'HH:mm:ss').format('h:mm A') +
                   ' - ' +
-                  moment(cardData?.default_time, 'HH:mm:ss')
-                    .add(1, 'hour')
-                    .format('h:mm A') +
-                  ' | ' +
-                  0 +
+                  moment(cardData?.default_time, 'HH:mm:ss').add(1, "hour").format('h:mm A') +
+                  ' | '}
+              </Text>
+              <Text style={[styles.textBelowTitle, { textTransform: 'lowercase', color: colors.labelDarkGray }]}>
+                {+ 0 +
                   ' of ' +
                   0 +
-                  'cal'}{' '}
+                  'cal'}
               </Text>
             </View>
           </View>
-          <TouchableOpacity
-            onPress={() => {
-              handlePulsIconPress(cardData);
-            }}
-            style={styles.iconContainer}>
-            <Icons.AddCircle height={25} width={25} />
-          </TouchableOpacity>
-          {/* // ) : null} */}
         </View>
-        <View style={styles.line} />
-        <View style={styles.belowRow}>
-          {cardData?.options?.length > 0 ? (
-            <>
-              <ScrollView
-                showsHorizontalScrollIndicator={false}
-                horizontal
-                bounces={false}
-                style={{flexDirection: 'row'}}></ScrollView>
-            </>
-          ) : (
-            <View style={styles.messageContainer}>
-              <Text style={styles.message}>
-                {mealMessage(cardData.meal_type)}
-              </Text>
-            </View>
-          )}
+        <TouchableOpacity
+          onPress={() => {
+            handlePulsIconPress(cardData);
+          }}
+          style={styles.iconContainer}>
+          <Icons.AddCircle height={20} width={20} />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.line} />
+      <View>
+        <View style={styles.messageContainer}>
+          <Text style={styles.message}>{mealMessage(cardData.meal_type)}</Text>
         </View>
       </View>
     </View>
@@ -116,19 +93,16 @@ const MealCard: React.FC<MealCardProps> = ({cardData, onPressPlus}) => {
 
 const styles = StyleSheet.create({
   container: {
-    borderWidth: 0.1,
-    borderColor: 'white',
-    borderRadius: 12,
-    marginVertical: 8,
-    overflow: 'hidden',
-    marginHorizontal: Matrics.s(15),
+    borderRadius: Matrics.mvs(12),
+    marginVertical: Matrics.vs(8),
+    backgroundColor: colors.white,
+    paddingVertical: Matrics.vs(12),
   },
   innerContainer: {
     backgroundColor: 'white',
   },
   topRow: {
-    paddingHorizontal: Matrics.s(14),
-    paddingVertical: 8,
+    paddingHorizontal: Matrics.s(15),
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -153,18 +127,20 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   title: {
-    fontSize: 16,
-    fontWeight: 'bold',
+    fontSize: Matrics.mvs(14),
+    fontFamily: Fonts.BOLD,
     color: colors.labelDarkGray,
   },
   textBelowTitle: {
-    fontSize: Matrics.mvs(13),
-    color: '#444444',
+    fontSize: Matrics.mvs(11),
+    fontFamily: Fonts.REGULAR,
+    color: colors.subTitleLightGray,
+    lineHeight: 16,
   },
   line: {
-    borderBottomWidth: Matrics.mvs(0.5),
-    borderColor: '#808080',
-    opacity: 0.5,
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: colors.seprator,
+    marginTop: Matrics.vs(11),
   },
   belowRow: {
     paddingVertical: Matrics.vs(15),
@@ -175,9 +151,10 @@ const styles = StyleSheet.create({
   },
   message: {
     fontSize: Matrics.mvs(12),
-    color: '#919191',
-    fontWeight: '400',
+    color: colors.darkGray,
     fontFamily: Fonts.REGULAR,
+    paddingTop: Matrics.vs(16),
+    paddingBottom: Matrics.vs(4),
   },
   optionContainer: {
     height: Matrics.vs(28),
@@ -186,18 +163,25 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
+    marginVertical: Matrics.vs(10),
+    marginTop: Matrics.vs(15),
   },
   optionText: {
     fontFamily: Fonts.REGULAR,
-    fontWeight: '500',
     color: colors.labelDarkGray,
     fontSize: Matrics.mvs(12),
+    lineHeight: 16,
   },
   iconContainer: {
     height: 30,
     width: 30,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  caloriesTxt: {
+    fontSize: Matrics.mvs(11),
+    fontFamily: Fonts.REGULAR,
+    color: colors.labelDarkGray,
   },
 });
 

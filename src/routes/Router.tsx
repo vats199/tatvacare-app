@@ -71,6 +71,7 @@ import LabTestSummaryScreen from '../screens/Diagnostic/LabTestSummaryScreen';
 import CongratulationScreen from '../screens/Diagnostic/CongratulationScreen';
 import OrderDetailsScreen from '../screens/Diagnostic/OrderDetailsScreen';
 import { Matrics } from '../constants';
+import { DietProvider } from '../context/diet.context';
 
 const Drawer = createDrawerNavigator<DrawerParamList>();
 const DrawerScreen = () => {
@@ -369,23 +370,31 @@ const HomeStackScreen = () => {
     </HomeStack.Navigator>
   );
 };
+
 const DietStack = createStackNavigator<DietStackParamList>();
 const DietStackScreen = () => {
   return (
-    <DietStack.Navigator
-      screenOptions={{ headerShown: false }}
-      initialRouteName="DietScreen">
-      <DietStack.Screen name="HomeScreen" component={HomeScreen} />
-      <DietStack.Screen name="DietScreen" component={DietScreen} />
-      <DietStack.Screen name="AddDiet" component={AddDietScreen} />
-      <DietStack.Screen name="DietDetail" component={DietDetailScreen} />
-      <DietStack.Screen
-        name="ProgressBarInsightsScreen"
-        component={ProgressBarInsightsScreen}
-      />
-    </DietStack.Navigator>
+    <DietProvider>
+      <DietStack.Navigator
+        screenOptions={{ headerShown: false }}
+        initialRouteName="DietScreen">
+        <DietStack.Screen name="HomeScreen" component={HomeScreen} />
+        <DietStack.Screen name="DietScreen" component={DietScreen} />
+        <DietStack.Screen name="AddDiet" component={AddDietScreen} />
+        <DietStack.Screen
+          name="DietDetail"
+          component={DietDetailScreen}
+          initialParams={{ option: undefined }}
+        />
+        <DietStack.Screen
+          name="ProgressBarInsightsScreen"
+          component={ProgressBarInsightsScreen}
+        />
+      </DietStack.Navigator>
+    </DietProvider>
   );
 };
+
 const AppStack = createStackNavigator<AppStackParamList>();
 const Router = () => {
   const navigationRef = useNavigationContainerRef();

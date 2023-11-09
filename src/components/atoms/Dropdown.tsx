@@ -1,12 +1,12 @@
-import React, {useState} from 'react';
-import {View, StyleSheet, Text, ViewStyle, TextStyle} from 'react-native';
-import {Dropdown as ElementDropdown} from 'react-native-element-dropdown';
-import {Icons} from '../../constants/icons';
-import {Fonts, Matrics} from '../../constants';
-import {colors} from '../../constants/colors';
+import React, { useState } from 'react';
+import { View, StyleSheet, Text, ViewStyle, TextStyle } from 'react-native';
+import { Dropdown as ElementDropdown } from 'react-native-element-dropdown';
+import { Icons } from '../../constants/icons';
+import { Fonts, Matrics } from '../../constants';
+import { colors } from '../../constants/colors';
 
 interface DropdownProps {
-  data: Array<{label: string; value: string}>;
+  data: Array<{ label: string; value: string }>;
   dropdownStyle?: ViewStyle;
   labelStyle?: TextStyle;
   placeholderStyle?: TextStyle;
@@ -43,7 +43,7 @@ const DropdownComponent: React.FC<DropdownProps> = ({
     <ElementDropdown
       style={[
         styles.dropdown,
-        isFocus && {borderColor: colors.darkGray},
+        isFocus && { borderColor: colors.darkGray },
         dropdownStyle,
       ]}
       placeholderStyle={[styles.placeholderStyle, placeholderStyle]}
@@ -58,7 +58,7 @@ const DropdownComponent: React.FC<DropdownProps> = ({
       maxHeight={300}
       labelField="label"
       valueField="value"
-      itemTextStyle={{color: colors.subTitleLightGray}}
+      itemTextStyle={{ color: colors.subTitleLightGray }}
       placeholder={!isFocus ? placeholder : 'select'}
       searchPlaceholder="Search..."
       value={value}

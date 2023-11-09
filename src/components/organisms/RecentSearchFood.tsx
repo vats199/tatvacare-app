@@ -1,11 +1,11 @@
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import {colors} from '../../constants/colors';
+import { colors } from '../../constants/colors';
 import RecentDietItem from '../molecules/RecentFoodItem';
-import {Icons} from '../../constants/icons';
-import {TouchableOpacity} from 'react-native';
-import {Fonts, Matrics} from '../../constants';
-import {log} from 'console';
+import { Icons } from '../../constants/icons';
+import { TouchableOpacity } from 'react-native';
+import { Fonts, Matrics } from '../../constants';
+import { log } from 'console';
 
 type RecentSerachDietProps = {
   onPressPlus: (data: SearcheFood) => void;
@@ -64,11 +64,11 @@ const RecentSearchDiet: React.FC<RecentSerachDietProps> = ({
                 : 0) +
               ' g'}
           </Text> */}
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <Text style={[styles.messageText, {textTransform: 'capitalize'}]}>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Text style={[styles.messageText, { textTransform: 'capitalize' }]}>
               {'1' + ' ' + item.unit_name + '  | '}
             </Text>
-            <Text style={[styles.messageText, {textTransform: 'lowercase'}]}>
+            <Text style={[styles.messageText, { textTransform: 'lowercase' }]}>
               {Math.round(Number(item.total_micronutrients)) + ' g'}
             </Text>
           </View>

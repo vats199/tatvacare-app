@@ -1,20 +1,21 @@
-import {StyleSheet, Text, View, TextInput, Platform} from 'react-native';
-import React, {useEffect} from 'react';
-import {DietStackParamList} from '../../interface/Navigation.interface';
+import { StyleSheet, Text, View, TextInput, Platform } from 'react-native';
+import React, { useEffect } from 'react';
+import { DietStackParamList } from '../../interface/Navigation.interface';
 import RecentSearchDiet from '../../components/organisms/RecentSearchFood';
 import DietSearchHeader from '../../components/molecules/DietSearchHeader';
-import {colors} from '../../constants/colors';
-import {StackScreenProps} from '@react-navigation/stack';
+import { colors } from '../../constants/colors';
+import { StackScreenProps } from '@react-navigation/stack';
 import Diet from '../../api/diet';
-import {useApp} from '../../context/app.context';
+import { useApp } from '../../context/app.context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Container, Screen} from '../../components/styled/Views';
-import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+import { Container, Screen } from '../../components/styled/Views';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import Matrics from '../../constants/Matrics';
-import {useFocusEffect} from '@react-navigation/native';
-import {trackEvent} from '../../helpers/TrackEvent';
-import {Constants} from '../../constants';
+import { useFocusEffect } from '@react-navigation/native';
+import { trackEvent } from '../../helpers/TrackEvent';
+import { Constants } from '../../constants';
 import moment = require('moment');
+import MyStatusbar from '../../components/atoms/MyStatusBar';
 // import MyStatusbar from '../../components/atoms/MyStatusBar';
 
 type AddDietScreenProps = StackScreenProps<DietStackParamList, 'AddDiet'>;
@@ -40,9 +41,9 @@ type SearcheFood = {
   total_monounsaturated_fatty_acids: string;
   total_polyunsaturated_fatty_acids: string;
 };
-const AddDietScreen: React.FC<AddDietScreenProps> = ({navigation, route}) => {
+const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
   const insets = useSafeAreaInsets();
-  const {userData} = useApp();
+  const { userData } = useApp();
   const {
     optionFoodItems,
     healthCoachId,
@@ -50,6 +51,7 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({navigation, route}) => {
     mealName,
     mealData,
     selectedDate,
+    option,
   } = route.params;
   const [recentSerach, setRecentSerach] = React.useState([]);
   const [searchResult, setSearchResult] = React.useState([]);
@@ -62,6 +64,7 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({navigation, route}) => {
   );
   const debouncingDelay = 500;
 
+  console.log(route.params, 'route.paramsroute.params');
   useEffect(() => {
     const getRecentSerache = async () => {
       const recentSearchResults = await AsyncStorage.getItem(
@@ -96,7 +99,11 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({navigation, route}) => {
   );
 
   const onPressBack = () => {
-    navigation.goBack();
+    if (Array.isArray(option) && option.length !== 0) {
+      navigation.navigate('DietScreen', { option: option });
+    } else {
+      navigation.goBack();
+    }
   };
   const handlePressPlus = async (data: SearcheFood) => {
     const isFoodItemInList = optionFoodItems?.food_items.find(
@@ -115,6 +122,7 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({navigation, route}) => {
         healthCoachId: healthCoachId,
         mealName: mealName,
         patient_id: patient_id,
+        option: option,
       });
     } else {
       const FoodItems = {
@@ -157,6 +165,7 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({navigation, route}) => {
           mealName: mealName,
           mealData: mealData,
           selectedDate: selectedDate,
+          option: option,
         });
       } else {
         navigation.navigate('DietDetail', {
@@ -166,6 +175,7 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({navigation, route}) => {
           mealName: mealName,
           mealData: null,
           patient_id: patient_id,
+          option: option,
         });
       }
     }
@@ -193,26 +203,44 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({navigation, route}) => {
           date: moment().format(Constants.DATE_FORMAT),
           food_item_name: text,
         });
-        const result = await Diet.searchFoodItem(
-          {food_name: text},
-          {},
-          {token: userData.token},
-        );
+        const result = await Diet.searchFoodItem({ food_name: text }, {}, { token: userData.token });
         setResult(result);
         setSearchResult(result?.data);
-        if (result?.data?.length > 0) {
-          setSearchResult(result?.data);
-          setTitle('Search Result');
-          setMessage('');
+        console.log("result", result);
+
+        if (Constants.IS_CHECK_API_CODE) {
+          if (result?.code === '1') {
+            if (result?.data?.length > 0) {
+              setSearchResult(result?.data);
+              setTitle('Search Result');
+              setMessage('');
+            }
+          } else {
+            if (text.length === 0) {
+              setSearchResult(recentSerach);
+              setTitle(recentSerach.length > 0 ? 'Recent Search' : '');
+              setMessage('');
+            } else {
+              setTitle('Search Result');
+              setSearchResult([]);
+              setMessage('Searched meal not found!');
+            }
+          }
         } else {
-          if (text.length === 0) {
-            setSearchResult(recentSerach);
-            setTitle(recentSerach.length > 0 ? 'Recent Search' : '');
+          if (result?.data?.length > 0) {
+            setSearchResult(result?.data);
+            setTitle('Search Result');
             setMessage('');
           } else {
-            setTitle('Search Result');
-            setSearchResult([]);
-            setMessage('Searched meal not found!');
+            if (text.length === 0) {
+              setSearchResult(recentSerach);
+              setTitle(recentSerach.length > 0 ? 'Recent Search' : '');
+              setMessage('');
+            } else {
+              setTitle('Search Result');
+              setSearchResult([]);
+              setMessage('Searched meal not found!');
+            }
           }
         }
       };
@@ -230,11 +258,11 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({navigation, route}) => {
         styles.container,
         {
           paddingTop:
-            Platform.OS == 'android' ? insets.top + Matrics.vs(10) : 0,
+            Platform.OS == 'android' ? Matrics.vs(10) : 0,
           paddingBottom: insets.bottom !== 0 ? insets.bottom : Matrics.vs(15),
         },
       ]}>
-      {/* <MyStatusbar backgroundColor={colors.lightGreyishBlue} /> */}
+      <MyStatusbar backgroundColor={colors.lightGreyishBlue} />
       <DietSearchHeader onPressBack={onPressBack} onSearch={handleSearch} />
       <RecentSearchDiet
         onPressPlus={handlePressPlus}

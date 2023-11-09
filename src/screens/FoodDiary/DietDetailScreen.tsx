@@ -1,25 +1,27 @@
-import {Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import { Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
-import {DietStackParamList} from '../../interface/Navigation.interface';
-import {Icons} from '../../constants/icons';
-import {colors} from '../../constants/colors';
+import { DietStackParamList } from '../../interface/Navigation.interface';
+import { Icons } from '../../constants/icons';
+import { colors } from '../../constants/colors';
 import MicronutrientsInformation from '../../components/organisms/MicronutrientsInformation';
 import AddDiet from '../../components/organisms/AddDiet';
-import {StackScreenProps} from '@react-navigation/stack';
+import { StackScreenProps } from '@react-navigation/stack';
 import Deit from '../../api/diet';
-import {useApp} from '../../context/app.context';
-import {Constants, Fonts, Matrics} from '../../constants';
-import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
-import {trackEvent} from '../../helpers/TrackEvent';
-import {mealTypes} from '../../constants/data';
+import { useApp } from '../../context/app.context';
+import { Constants, Fonts, Matrics } from '../../constants';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { trackEvent } from '../../helpers/TrackEvent';
+import mealTypes from '../../constants/data';
 import moment from 'moment';
-import {number} from 'yup';
+import { number } from 'yup';
 import Diet from '../../api/diet';
+import { useDiet } from '../../context/diet.context';
+import MyStatusbar from '../../components/atoms/MyStatusBar';
 // import MyStatusbar from '../../components/atoms/MyStatusBar';
 
 type DietDetailProps = StackScreenProps<DietStackParamList, 'DietDetail'>;
 
-const DietDetailScreen: React.FC<DietDetailProps> = ({navigation, route}) => {
+const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
   const insets = useSafeAreaInsets();
   const {
     foodItem,
@@ -28,13 +30,20 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({navigation, route}) => {
     mealName,
     mealData,
     selectedDate,
+    option,
   } = route.params;
   let quantity = Math.round(Number(foodItem?.quantity)).toString();
   const [qty, setQty] = React.useState<string>(quantity);
-  const {userData} = useApp();
+  const { userData } = useApp();
 
   const onPressBack = () => {
-    navigation.goBack();
+    if (Array.isArray(option) && option.length !== 0) {
+      navigation.navigate('DietScreen', {
+        option: option,
+      });
+    } else {
+      navigation.goBack();
+    }
   };
 
   const onPressAdd = async () => {
@@ -156,13 +165,20 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({navigation, route}) => {
         meals: filterData,
         end_date: moment(selectedDate).format('YYYY-MM-DD'),
       };
-      const result = await Deit?.noDietPlanCreate(
-        noPlanPayload,
-        {},
-        {token: userData.token},
-      );
-      if (result) {
-        navigation.popToTop();
+      const result = await Deit?.noDietPlanCreate(noPlanPayload, {}, { token: userData.token });
+
+      if (Constants.IS_CHECK_API_CODE) {
+        if (result?.code === '1') {
+          navigation.navigate('DietScreen', {
+            option: option,
+          });
+        }
+      } else {
+        if (result) {
+          navigation.navigate('DietScreen', {
+            option: option,
+          });
+        }
       }
     } else {
       const addPayload = {
@@ -214,42 +230,100 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({navigation, route}) => {
       };
 
       if (buttonText === 'Add') {
-        const result = await Deit?.addFoodItem(
-          addPayload,
-          {},
-          {token: userData.token},
-        );
-        if (result) {
-          navigation.popToTop();
+        const result = await Deit?.addFoodItem(addPayload, {}, { token: userData.token },);
+        if (Constants.IS_CHECK_API_CODE) {
+          if (result?.code === '1') {
+            navigation.navigate('DietScreen', {
+              option: option,
+            });
+          }
+        } else {
+          if (result) {
+            navigation.navigate('DietScreen', {
+              option: option,
+            });
+          }
         }
       } else {
-        const result = await Deit?.updateFoodItem(
-          updatePayload,
-          {},
-          {token: userData.token},
-        );
-        if (result) {
-          if (foodItem?.is_consumed) {
-            const payload = {
-              consumed_qty: qty,
-              diet_plan_id: foodItem?.consumption?.diet_plan_id,
-              diet_plan_food_item_id:
-                foodItem?.consumption?.diet_plan_food_item_id,
-              date: foodItem?.consumption?.date,
-              diet_plan_food_consumption_id:
-                foodItem?.consumption?.diet_plan_food_consumption_id,
-            };
+        const result = await Deit?.updateFoodItem(updatePayload, {}, { token: userData.token },);
+        if (Constants.IS_CHECK_API_CODE) {
+          if (result?.code === '1') {
+            if (result?.data) {
+              if (foodItem?.is_consumed) {
+                const payload = {
+                  consumed_qty: qty,
+                  diet_plan_id: foodItem?.consumption?.diet_plan_id,
+                  diet_plan_food_item_id:
+                    foodItem?.consumption?.diet_plan_food_item_id,
+                  date: foodItem?.consumption?.date,
+                  diet_plan_food_consumption_id:
+                    foodItem?.consumption?.diet_plan_food_consumption_id,
+                };
 
-            const UpadteFoodItem = await Diet?.updateFoodConsumption(
-              payload,
-              {},
-              {token: userData.token},
-            );
-            if (UpadteFoodItem) {
-              navigation.popToTop();
+                const UpadteFoodItem = await Diet?.updateFoodConsumption(
+                  payload,
+                  {}, { token: userData.token },
+                );
+                if (Constants.IS_CHECK_API_CODE) {
+                  if (UpadteFoodItem.code == '1') {
+                    if (UpadteFoodItem) {
+                      navigation.navigate('DietScreen', {
+                        option: option,
+                      });
+                    }
+                  }
+                } else {
+                  if (UpadteFoodItem) {
+                    navigation.navigate('DietScreen', {
+                      option: option,
+                    });
+                  }
+                }
+              } else {
+                navigation.navigate('DietScreen', {
+                  option: option,
+                });
+              }
             }
-          } else {
-            navigation.popToTop();
+          }
+        } else {
+          if (result) {
+            if (foodItem?.is_consumed) {
+              const payload = {
+                consumed_qty: qty,
+                diet_plan_id: foodItem?.consumption?.diet_plan_id,
+                diet_plan_food_item_id:
+                  foodItem?.consumption?.diet_plan_food_item_id,
+                date: foodItem?.consumption?.date,
+                diet_plan_food_consumption_id:
+                  foodItem?.consumption?.diet_plan_food_consumption_id,
+              };
+
+              const UpadteFoodItem = await Diet?.updateFoodConsumption(
+                payload,
+                {}, { token: userData.token },
+              );
+
+              if (Constants.IS_CHECK_API_CODE) {
+                if (UpadteFoodItem.code == '1') {
+                  if (UpadteFoodItem) {
+                    navigation.navigate('DietScreen', {
+                      option: option,
+                    });
+                  }
+                }
+              } else {
+                if (UpadteFoodItem) {
+                  navigation.navigate('DietScreen', {
+                    option: option,
+                  });
+                }
+              }
+            } else {
+              navigation.navigate('DietScreen', {
+                option: option,
+              });
+            }
           }
         }
       }
@@ -264,11 +338,11 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({navigation, route}) => {
       style={{
         flex: 1,
         backgroundColor: colors.lightGreyishBlue,
-        paddingTop: Platform.OS == 'android' ? insets.top + Matrics.vs(20) : 0,
-        paddingBottom:
-          insets.bottom !== 0 && Platform.OS == 'android' ? insets.bottom : 0,
+        paddingTop: Platform.OS == 'android' ? Matrics.vs(10) : 0,
+        // paddingBottom:
+        //   insets.bottom !== 0 && Platform.OS == 'android' ? insets.bottom : 0,
       }}>
-      {/* <MyStatusbar backgroundColor={colors.lightGreyishBlue} /> */}
+      <MyStatusbar backgroundColor={colors.lightGreyishBlue} />
       <View style={styles.header}>
         <TouchableOpacity hitSlop={8} onPress={onPressBack}>
           <Icons.backArrow height={20} width={20} />
@@ -296,7 +370,7 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: Matrics.vs(Platform.OS == 'ios' ? 20 : 10),
+    marginBottom: Matrics.vs(20),
     marginLeft: 15,
   },
   dietTitle: {

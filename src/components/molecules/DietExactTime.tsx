@@ -1,25 +1,24 @@
-import {DrawerItemList} from '@react-navigation/drawer';
-import React, {useEffect, useState} from 'react';
+import { DrawerItemList } from '@react-navigation/drawer';
+import React, { memo, useEffect, useRef, useState } from 'react';
 import {
-  ScrollView,
+  FlatList,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import {colors} from '../../constants/colors';
-import {Icons} from '../../constants/icons';
+import { colors } from '../../constants/colors';
+import { Icons } from '../../constants/icons';
 import DietOption from './DietOption';
-import {Constants, Fonts, Matrics} from '../../constants';
+import { Constants, Fonts, Matrics } from '../../constants';
 import fonts from '../../constants/fonts';
 import moment from 'moment';
-import {useFocusEffect} from '@react-navigation/native';
-import {globalStyles} from '../../constants/globalStyles';
-import {trackEvent} from '../../helpers/TrackEvent';
-
+import { useFocusEffect } from '@react-navigation/native';
+import { globalStyles } from '../../constants/globalStyles';
+import { trackEvent } from '../../helpers/TrackEvent';
+import { OptionType, useDiet } from '../../context/diet.context';
 interface ExactTimeProps {
   onPressPlus: (optionFoodItems: Options, mealName: string) => void;
-  dietOption: boolean;
   cardData: MealsData;
   onpressOfEdit: (editeData: FoodItems, mealName: string) => void;
   onPressOfDelete: (
@@ -29,7 +28,12 @@ interface ExactTimeProps {
     data: FoodItems,
   ) => void;
   onPressOfcomplete: (consumptionData: Consumption, optionId: string) => void;
-  getCalories: (calories: Options) => void;
+  optionId: string;
+  totalPreCalories: number;
+  totalPreConsumedCalories: number;
+  setTotalPreCalories: React.Dispatch<React.SetStateAction<number>>;
+  setTotalPreConsumedCalories: React.Dispatch<React.SetStateAction<number>>;
+  options?: OptionType[];
 }
 
 type MealsData = {
@@ -116,45 +120,69 @@ type Consumption = {
 const DietExactTime: React.FC<ExactTimeProps> = ({
   cardData,
   onPressPlus,
-  dietOption,
   onpressOfEdit,
   onPressOfDelete,
   onPressOfcomplete,
-  getCalories,
+  optionId,
+  options,
 }) => {
-  const [foodItmeData, setFoodItemData] = React.useState<Options | null>(
-    cardData?.options[0],
-  );
-
-  const [selectedOptionId, setSelectedOptionId] = useState<string>(
-    cardData?.options[0].diet_meal_options_id,
-  );
-
-  const filterMealData = () => {
-    const itemFound = cardData?.options.filter(
-      item => item.diet_meal_options_id == selectedOptionId,
-    );
-    return itemFound.length !== 0 ? itemFound : cardData.options;
-  };
-
-  const countCalories = (itemFound: Options) => {
-    const data = itemFound;
-    data.meal_name = cardData.meal_name;
-    getCalories(data);
-  };
+  const { updateOptionsId, selectedOptionsId, dietPlanData } = useDiet();
+  const [foodItmeData, setFoodItemData] = React.useState<Options | null>(null);
+  const _selectedOptionId = useRef<string>(optionId);
 
   useEffect(() => {
-    const itemFound = filterMealData();
-    if (itemFound.length !== 0) {
-      countCalories(itemFound[0]);
-      setFoodItemData(itemFound[0]);
+    if (Array.isArray(options) && options.length !== 0) {
+      const tempOption = cardData.options.find(item =>
+        options?.find(
+          q =>
+            q.mealId == item.diet_meal_type_rel_id &&
+            q.optionId == item.diet_meal_options_id,
+        ),
+      );
+      if (tempOption?.diet_meal_options_id) {
+        _selectedOptionId.current = tempOption.diet_meal_options_id;
+      }
+    } else {
+      const mealFound = selectedOptionsId?.current?.find(
+        item =>
+          item.mealId == cardData?.diet_meal_type_rel_id &&
+          item.optionId == optionId,
+      );
+      let selectedOption;
+      if (mealFound?.mealId && mealFound?.optionId) {
+        selectedOption = mealFound?.optionId;
+      } else {
+        selectedOption = optionId;
+      }
+      _selectedOptionId.current = selectedOption;
     }
-  }, [selectedOptionId]);
+  }, [optionId]);
 
   useEffect(() => {
-    const itemFound = filterMealData();
-    setFoodItemData(itemFound[0]);
-  }, [cardData?.options[0]]);
+    const param = {
+      mealId: cardData.diet_meal_type_rel_id,
+      optionId: _selectedOptionId.current,
+    };
+    updateOptionsId(param);
+  }, [_selectedOptionId?.current]);
+
+  useEffect(() => {
+    const tempArray = selectedOptionsId?.current?.length > 0 ? [...selectedOptionsId?.current] : [];
+    if (tempArray.length !== 0) {
+      dietPlanData?.meals?.map((item: any) =>
+        tempArray.map(q => {
+          if (q?.mealId == item?.diet_meal_type_rel_id) {
+            const optionData = item?.options.filter(
+              (op: any) => op?.diet_meal_options_id == _selectedOptionId?.current,
+            );
+            if (optionData.length !== 0) {
+              setFoodItemData(optionData[0]);
+            }
+          }
+        }),
+      );
+    }
+  }, [dietPlanData, _selectedOptionId?.current]);
 
   const handaleEdit = (data: FoodItems) => {
     const index = cardData?.options?.findIndex(
@@ -168,6 +196,7 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
     });
     onpressOfEdit(data, cardData.meal_name);
   };
+
   const handaleDelete = (
     Id: string,
     is_food_item_added_by_patient: string,
@@ -175,24 +204,30 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
   ) => {
     const index = cardData?.options?.findIndex(
       (item: Options, index: number) =>
-        selectedOptionId == item?.diet_meal_options_id,
+        _selectedOptionId.current == item?.diet_meal_options_id,
     );
     trackEvent(Constants.EVENT_NAME.FOOD_DIARY.USER_CLICKED_ON_EDIT_MEAL, {
       meal_types: cardData?.meal_name ?? '',
       option_number: `Option ${index + 1}`,
       manual_tag: is_food_item_added_by_patient == 'N' ? 'no' : 'yes',
     });
-    onPressOfDelete(Id, is_food_item_added_by_patient, selectedOptionId, data);
+    onPressOfDelete(
+      Id,
+      is_food_item_added_by_patient,
+      _selectedOptionId.current,
+      data,
+    );
   };
+
   const handlePulsIconPress = () => {
     trackEvent(Constants.EVENT_NAME.FOOD_DIARY.USER_CLICKED_ADD_FOOD_DISH, {
       meal_types: cardData?.meal_name,
       date: moment().format(Constants.DATE_FORMAT),
     });
 
-    if (selectedOptionId !== null) {
+    if (_selectedOptionId.current !== null) {
       let data = cardData.options.filter(
-        item => item.diet_meal_options_id == selectedOptionId,
+        item => item.diet_meal_options_id == _selectedOptionId.current,
       )[0];
       onPressPlus(data, cardData.meal_name);
     } else {
@@ -201,9 +236,7 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
     }
   };
   const handalecompletion = (item: Consumption) => {
-    console.log({item: item, selectedOptionId});
-
-    onPressOfcomplete(item, selectedOptionId);
+    onPressOfcomplete(item, _selectedOptionId.current);
   };
 
   const mealMessage = (name: string) => {
@@ -236,7 +269,14 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
       meal_types: cardData?.meal_name ?? '',
       option_number: index + 1,
     });
-    setSelectedOptionId(item.diet_meal_options_id);
+    _selectedOptionId.current = item.diet_meal_options_id;
+
+    const tempOption = {
+      mealId: item.diet_meal_type_rel_id,
+      optionId: item.diet_meal_options_id,
+    };
+
+    updateOptionsId(tempOption);
   };
 
   return (
@@ -249,9 +289,9 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
             <Text style={styles.textBelowTitle}>
               {cardData?.start_time && cardData?.end_time
                 ? moment(cardData?.start_time, 'HH:mm:ss').format('h:mm A') +
-                  ' - ' +
-                  moment(cardData?.end_time, 'HH:mm:ss').format('h:mm A') +
-                  ' | '
+                ' - ' +
+                moment(cardData?.end_time, 'HH:mm:ss').format('h:mm A') +
+                ' | '
                 : 'Ideal Time' + ' | '}
               <Text style={styles.caloriesTxt}>
                 {(isNaN(Math.round(Number(foodItmeData?.consumed_calories)))
@@ -265,26 +305,26 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
             </Text>
           </View>
         </View>
-        {/* {cardData.patient_permission === 'W' ? ( */}
         <TouchableOpacity
           onPress={handlePulsIconPress}
           style={styles.iconContainer}>
-          <Icons.AddCircle height={25} width={25} />
+          <Icons.AddCircle height={20} width={20} />
         </TouchableOpacity>
-        {/* // ) : null} */}
       </View>
       <View style={styles.line} />
       <View>
         {cardData.options.length > 0 ? (
           <>
-            <ScrollView
+            <FlatList
               showsHorizontalScrollIndicator={false}
               horizontal
               bounces={false}
-              style={{flexDirection: 'row'}}>
-              {cardData?.options?.map((item: Options, index: number) => {
+              style={{ flexDirection: 'row' }}
+              data={cardData?.options}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={({ item, index }) => {
                 const isOptionSelected =
-                  selectedOptionId === item?.diet_meal_options_id;
+                  _selectedOptionId.current === item?.diet_meal_options_id;
                 return (
                   <TouchableOpacity
                     style={[
@@ -316,14 +356,15 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
                     </Text>
                   </TouchableOpacity>
                 );
-              })}
-            </ScrollView>
+              }}
+            />
             <DietOption
               foodItmeData={
-                selectedOptionId !== null
+                _selectedOptionId.current !== null
                   ? cardData.options.filter(
-                      item => item.diet_meal_options_id == selectedOptionId,
-                    )[0]
+                    item =>
+                      item.diet_meal_options_id == _selectedOptionId.current,
+                  )[0]
                   : cardData.options[0]
               }
               patient_permission={cardData.patient_permission}
@@ -351,7 +392,6 @@ const styles = StyleSheet.create({
     marginVertical: Matrics.vs(8),
     backgroundColor: colors.white,
     paddingVertical: Matrics.vs(12),
-    marginHorizontal: Matrics.s(15),
   },
   innerContainer: {
     backgroundColor: 'white',

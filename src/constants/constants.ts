@@ -12,6 +12,7 @@ export default {
     MEDIUM: 'medium',
     LOW: 'low',
   },
+  IS_CHECK_API_CODE: true,
   DATE_FORMAT: 'YYYY-MM-DD',
   EVENT_NAME: {
     FOOD_DIARY: {

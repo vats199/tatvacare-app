@@ -1,12 +1,12 @@
-import {StyleSheet, ScrollView, View, Text} from 'react-native';
-import React, {useEffect} from 'react';
+import { StyleSheet, ScrollView, View, Text, FlatList } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import DietExactTime from '../molecules/DietExactTime';
-import {Matrics} from '../../constants';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import { Matrics } from '../../constants';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { OptionType } from '../../context/diet.context';
 
 type DietTimeProps = {
   onPressPlus: (optionFoodItems: Options, mealName: string) => void;
-  dietOption: boolean;
   dietPlane: MealsData[];
   onpressOfEdit: (editeData: FoodItems, mealName: string) => void;
   onPressOfDelete: (
@@ -21,10 +21,10 @@ type DietTimeProps = {
     optionId: string,
     mealId: string,
   ) => void;
-  getCalories: (calories: Options) => void;
+  options?: OptionType[];
 };
 
-type MealsData = {
+export type MealsData = {
   diet_meal_type_rel_id: string;
   diet_plan_id: string;
   meal_types_id: string;
@@ -106,14 +106,14 @@ type Consumption = {
 };
 const DietTime: React.FC<DietTimeProps> = ({
   onPressPlus,
-  dietOption,
   dietPlane,
   onpressOfEdit,
   onPressOfDelete,
   onPressOfcomplete,
-  getCalories,
+  options,
 }) => {
   const insets = useSafeAreaInsets();
+
   const handaleEdit = (data: FoodItems, mealName: string) => {
     onpressOfEdit(data, mealName);
   };
@@ -136,17 +136,20 @@ const DietTime: React.FC<DietTimeProps> = ({
   ) => {
     onPressOfcomplete(item, optionId, dietPlanId);
   };
-  const handalTotleCalories = (calories: string) => {
-    getCalories(calories);
-  };
-  const renderDietTimeItem = (item: MealsData, index: number) => {
+  const renderDietTimeItem = ({
+    item,
+    index,
+  }: {
+    item: MealsData;
+    index: number;
+  }) => {
     return (
       <DietExactTime
         key={index}
         onPressPlus={handlePulsIconPress}
-        dietOption={dietOption}
         cardData={item}
         onpressOfEdit={handaleEdit}
+        optionId={item.options[0].diet_meal_options_id}
         onPressOfDelete={(
           deleteFoodItemId,
           is_food_item_added_by_patient,
@@ -164,22 +167,26 @@ const DietTime: React.FC<DietTimeProps> = ({
         onPressOfcomplete={(consumptionData, optionId) =>
           handalecompletion(consumptionData, optionId, item.meal_types_id)
         }
-        getCalories={handalTotleCalories}
+        options={options}
       />
     );
   };
 
   return (
-    <ScrollView
-      style={styles.innercontainer}
-      showsVerticalScrollIndicator={false}>
-      <View
-        style={{
-          paddingBottom: insets.bottom,
-        }}>
-        {dietPlane?.map(renderDietTimeItem)}
-      </View>
-    </ScrollView>
+    <View
+      style={{
+        paddingBottom: insets.bottom !== 0 ? insets.bottom : Matrics.vs(20),
+        flex: 1,
+
+      }}>
+      <FlatList
+        style={styles.innercontainer}
+        showsVerticalScrollIndicator={false}
+        data={dietPlane}
+        renderItem={renderDietTimeItem}
+        keyExtractor={(item, index) => index.toString()}
+      />
+    </View>
   );
 };
 
@@ -188,6 +195,7 @@ export default DietTime;
 const styles = StyleSheet.create({
   innercontainer: {
     flex: 1,
+    paddingHorizontal: Matrics.s(15),
     marginTop: Matrics.vs(5),
   },
   noDataFound: {

@@ -1,12 +1,12 @@
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import Button from '../atoms/Button';
 import DropdownComponent from '../atoms/Dropdown';
-import {colors} from '../../constants/colors';
-import {Icons} from '../../constants/icons';
-import {Fonts, Matrics} from '../../constants';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {globalStyles} from '../../constants/globalStyles';
+import { colors } from '../../constants/colors';
+import { Icons } from '../../constants/icons';
+import { Fonts, Matrics } from '../../constants';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { globalStyles } from '../../constants/globalStyles';
 
 type AddDietProps = {
   onPressAdd: () => void;
@@ -61,23 +61,23 @@ const AddDiet: React.FC<AddDietProps> = ({
   const insets = useSafeAreaInsets();
 
   const data = [
-    {label: '1', value: '1'},
-    {label: '2', value: '2'},
-    {label: '3', value: '3'},
-    {label: '4', value: '4'},
-    {label: '5', value: '5'},
+    { label: '1', value: '1' },
+    { label: '2', value: '2' },
+    { label: '3', value: '3' },
+    { label: '4', value: '4' },
+    { label: '5', value: '5' },
   ];
   const handleSelectedQty = (ietm: string) => {
     onSeleteQty(ietm);
   };
-  const handleSelectedMeasures = (ietm: string) => {};
+  const handleSelectedMeasures = (ietm: string) => { };
 
   return (
     <View
       style={[
         styles.container,
         globalStyles.shadowContainer,
-        {paddingBottom: insets.bottom !== 0 ? insets.bottom : Matrics.vs(16)},
+        { paddingBottom: insets.bottom },
       ]}>
       <Text numberOfLines={2} style={styles.title}>
         {'Add ' + Data?.food_item_name + ' as ' + mealName}
@@ -90,7 +90,10 @@ const AddDiet: React.FC<AddDietProps> = ({
             style={[
               styles.dropdownContainer,
               {
-                paddingBottom: 0,
+                paddingBottom:
+                  insets.bottom !== 0 && Platform.OS == 'android'
+                    ? Matrics.vs(10)
+                    : 0,
               },
             ]}>
             <DropdownComponent
@@ -119,11 +122,10 @@ const AddDiet: React.FC<AddDietProps> = ({
               <Text
                 style={[
                   styles.dropdownTitleText,
-                  {color: colors.subTitleLightGray},
+                  { color: colors.subTitleLightGray },
                 ]}>
                 {Data?.measure_name}
               </Text>
-              {/* <Icons.DropdownIcon /> */}
             </View>
           </View>
           <Button
@@ -149,7 +151,7 @@ const styles = StyleSheet.create({
     shadowColor: colors.shadow,
     shadowRadius: 5,
     shadowOpacity: 1,
-    shadowOffset: {height: 0, width: 0},
+    shadowOffset: { height: 0, width: 0 },
     backgroundColor: 'white',
   },
   title: {
@@ -165,6 +167,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.seprator,
   },
   belowBox: {
+    paddingBottom: 20,
     paddingHorizontal: Matrics.s(15),
   },
   belowBoxContent: {
@@ -186,7 +189,7 @@ const styles = StyleSheet.create({
     textTransform: 'capitalize',
   },
   conatiner: {
-    bottom: 5,
+    marginBottom: Platform.OS === 'android' ? Matrics.mvs(22) : Matrics.mvs(5),
   },
   outlinedButtonText: {
     fontSize: Matrics.mvs(15),

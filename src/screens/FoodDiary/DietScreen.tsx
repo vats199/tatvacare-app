@@ -1,6 +1,7 @@
-import React, {useState, useEffect, useRef} from 'react';
-import {useFocusEffect} from '@react-navigation/native';
+import React, { useState, useEffect, useRef, createContext } from 'react';
+import { useFocusEffect, useIsFocused } from '@react-navigation/native';
 import {
+  FlatList,
   Platform,
   ScrollView,
   StyleSheet,
@@ -10,26 +11,31 @@ import {
 } from 'react-native';
 import CalorieConsumer from '../../components/molecules/CalorieConsumer';
 import DietHeader from '../../components/molecules/DietHeader';
-import DietTime, {FoodItems} from '../../components/organisms/DietTime';
-import {colors} from '../../constants/colors';
-import {DietStackParamList} from '../../interface/Navigation.interface';
-import {StackScreenProps} from '@react-navigation/stack';
+import DietTime, {
+  FoodItems,
+  MealsData,
+} from '../../components/organisms/DietTime';
+import { colors } from '../../constants/colors';
+import { DietStackParamList } from '../../interface/Navigation.interface';
+import { StackScreenProps } from '@react-navigation/stack';
 import Diet from '../../api/diet';
-import {useApp} from '../../context/app.context';
+import { useApp } from '../../context/app.context';
 import moment from 'moment';
-import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
-import {Constants, Matrics, Fonts} from '../../constants';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Constants, Matrics, Fonts } from '../../constants';
 import Loader from '../../components/atoms/Loader';
 import BasicModal from '../../components/atoms/BasicModal';
 // import MyStatusbar from '../../components/atoms/MyStatusBar';
-import {useToast} from 'react-native-toast-notifications';
-import {globalStyles} from '../../constants/globalStyles';
+import { useToast } from 'react-native-toast-notifications';
+import { globalStyles } from '../../constants/globalStyles';
 import CommonBottomSheetModal from '../../components/molecules/CommonBottomSheetModal';
 import AlertBottomSheet from '../../components/organisms/AlertBottomSheet';
-import {BottomSheetModal} from '@gorhom/bottom-sheet';
-import {trackEvent} from '../../helpers/TrackEvent';
-import {mealTypes} from '../../constants/data';
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
+import { trackEvent } from '../../helpers/TrackEvent';
+import mealTypes from '../../constants/data';
 import MealCard from '../../components/molecules/MealCard';
+import { useDiet } from '../../context/diet.context';
+import MyStatusbar from '../../components/atoms/MyStatusBar';
 
 type DietScreenProps = StackScreenProps<DietStackParamList, 'DietScreen'>;
 
@@ -43,23 +49,23 @@ type mealTYpe = {
   order_no: number;
 };
 
-const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
+const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   const insets = useSafeAreaInsets();
+  const {
+    resetData,
+    selectedOptionsId,
+    dietPlanDataAssign,
+    resetCalories,
+    totalCalories,
+    totalConsumedCalories,
+  } = useDiet();
   const toast = useToast();
-  const title = route.params?.dietData;
-  const [dietOption, setDietOption] = useState<boolean>(false);
   const [loader, setLoader] = useState<boolean>(false);
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState<string | Date>(null);
   const [dietPlane, setDiePlane] = useState<any>([]);
-  const {userData} = useApp();
+  const { userData } = useApp();
   const [deletpayload, setDeletpayload] = useState<string | null>(null);
   const [modalVisible, setModalVisible] = React.useState<boolean>(false);
-  const [stateOfAPIcall, setStateOfAPIcall] = React.useState<boolean>(false);
-  const [caloriesArray, setCaloriesArray] = React.useState<any[]>([]);
-  const [totalcalorie, setTotalcalories] = useState<number | null>(null);
-  const [totalConsumedcalorie, setTotalConsumedcalories] = useState<
-    number | null
-  >(null);
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const deleteItemRef = useRef<{
     deleteFoodItemId: string;
@@ -68,64 +74,51 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
     data: FoodItems;
     mealId: string;
   } | null>();
-  useEffect(() => {
-    getData();
-    return () => setDiePlane([]);
-  }, [selectedDate, stateOfAPIcall]);
+  const focus = useIsFocused();
+  const _selectedDateRef = useRef<Date | null>(null);
+  const options = route?.params?.option;
 
   useEffect(() => {
-    if (title) {
-      setDietOption(true);
-    } else {
-      setDietOption(false);
-    }
-  }, [title]);
-
-  useEffect(() => {
-    const totalcalories = caloriesArray?.reduce((accumulator, currentValue) => {
-      return accumulator + Number(currentValue?.total_calories ?? 0);
-    }, 0);
-    setTotalcalories(totalcalories);
-    const totalConsumedcalories = caloriesArray?.reduce(
-      (accumulator, currentValue) => {
-        return accumulator + Number(currentValue?.consumed_calories ?? 0);
-      },
-      0,
-    );
-    setTotalConsumedcalories(totalConsumedcalories);
-  }, [caloriesArray]);
-
-  useFocusEffect(
-    React.useCallback(() => {
+    console.log('focus:', focus);
+    if (focus) {
       getData();
-      return () => {
-        deleteItemRef.current = null;
-        setDiePlane([]);
-      };
-    }, []),
-  );
+    } else {
+      selectedOptionsId.current = [];
+      deleteItemRef.current = null;
+      setDiePlane([]);
+    }
+  }, [focus]);
 
   const getData = async (optionId?: string, dietPlanId?: string) => {
     setLoader(true);
-    const date = moment(selectedDate).format('YYYY/MM/DD');
-    const diet = await Diet.getDietPlan(
-      {date: date},
-      {},
-      {token: userData.token},
+    const date = moment(_selectedDateRef.current ?? new Date()).format(
+      'YYYY-MM-DD',
     );
-    if (diet.code == '1') {
-      setTimeout(() => {
+    const diet = await Diet.getDietPlan({ date: date }, {}, { token: userData.token },);
+    if (Constants.IS_CHECK_API_CODE) {
+      if (diet.code == '1') {
+        setTimeout(() => {
+          setLoader(false);
+        }, 500);
+        setDiePlane(diet?.data?.[0]);
+        dietPlanDataAssign(diet?.data?.[0]);
+      } else {
+        setDiePlane([]);
         setLoader(false);
-      }, 500);
-      setDiePlane(diet?.data?.[0]);
-      if (optionId && dietPlanId) {
-        countCalories(optionId, dietPlanId, diet?.data?.[0]);
+        resetCalories();
       }
     } else {
-      setDiePlane([]);
-      setLoader(false);
-      setTotalConsumedcalories(0);
-      setTotalcalories(0);
+      if (Object.keys(diet).length > 0) {
+        setTimeout(() => {
+          setLoader(false);
+        }, 500);
+        setDiePlane(diet?.data?.[0]);
+        dietPlanDataAssign(diet?.data?.[0]);
+      } else {
+        setDiePlane([]);
+        setLoader(false);
+        resetCalories();
+      }
     }
   };
 
@@ -134,16 +127,21 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
   };
 
   const handleDate = (date: any) => {
+    navigation.setParams({ option: undefined });
     setSelectedDate(date);
+    _selectedDateRef.current = date;
+    getData();
   };
 
   const handaleEdit = (data: any, mealName: string) => {
+    const tempOption = [...selectedOptionsId.current];
     navigation.navigate('DietDetail', {
       foodItem: data,
       buttonText: 'Update',
       healthCoachId: dietPlane?.health_coach_id,
       mealName: mealName,
       patient_id: dietPlane?.patient_id,
+      option: tempOption,
     });
   };
 
@@ -190,6 +188,7 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
   };
 
   const deleteFoodItem = async () => {
+    console.log('yessss');
     // setModalVisible(false);
     bottomSheetModalRef.current?.close();
     const deleteFoodItem = await Diet.deleteFoodItem(
@@ -199,28 +198,39 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
         diet_plan_food_item_id: deletpayload,
       },
       {},
-      {token: userData.token},
+      { token: userData.token }
     );
-    if (deleteFoodItem?.data) {
-      // setStateOfAPIcall(false);
-      getData(deleteItemRef.current?.optionId, deleteItemRef.current?.mealId);
-      deleteItemRef.current = null;
-      setTimeout(() => {
-        bottomSheetModalRef.current?.close();
-        // setModalVisible(false);
-      }, 1000);
+    if (Constants.IS_CHECK_API_CODE) {
+      if (deleteFoodItem?.code === '1') {
+        getData();
+        deleteItemRef.current = null;
+        setTimeout(() => {
+          bottomSheetModalRef.current?.close();
+        }, 1000);
+      }
+    } else {
+      if (deleteFoodItem?.data) {
+        getData();
+        deleteItemRef.current = null;
+        setTimeout(() => {
+          bottomSheetModalRef.current?.close();
+        }, 1000);
+      }
     }
   };
+
   const handlePulsIconPress = async (
     optionFoodItems: any,
     mealName: string,
   ) => {
+    const tempOption = [...selectedOptionsId.current];
     navigation.navigate('AddDiet', {
       optionFoodItems: optionFoodItems,
       healthCoachId: dietPlane?.health_coach_id,
       mealName: mealName,
       patient_id: dietPlane?.patient_id,
       mealData: null,
+      option: tempOption,
     });
   };
 
@@ -229,85 +239,84 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
     optionId: string,
     dietPlanId: string,
   ) => {
-    const UpadteFoodItem = await Diet.updateFoodConsumption(
-      item,
-      {},
-      {token: userData.token},
-    );
+    const UpadteFoodItem = await Diet.updateFoodConsumption(item, {}, { token: userData.token },);
     getData(optionId, dietPlanId);
     if (UpadteFoodItem) {
     }
   };
 
-  const countCalories = (optionId: string, mealId: string, data: any) => {
-    const dietPlanFound = data.meals.filter(
-      (item: any) => item.meal_types_id == mealId,
-    );
-    if (dietPlanFound.length !== 0) {
-      const itemOptionFound = dietPlanFound[0]?.options?.filter(
-        (q: any) => q.diet_meal_options_id == optionId,
-      );
-
-      if (itemOptionFound.length > 0) {
-        const mealName = dietPlanFound[0].meal_name;
-        itemOptionFound[0].meal_name = mealName;
-      }
-
-      handalTotalCalories(itemOptionFound[0]);
-    }
-  };
-
-  const handalTotalCalories = async (caloriesValue: any) => {
-    setCaloriesArray(prevCalories => {
-      const indexToUpdate = prevCalories?.findIndex(
-        item =>
-          item?.diet_meal_type_rel_id === caloriesValue?.diet_meal_type_rel_id,
-      );
-      if (indexToUpdate !== -1) {
-        const updatedCaloriesArray = [...prevCalories];
-        updatedCaloriesArray[indexToUpdate] = caloriesValue;
-        return updatedCaloriesArray;
-      } else {
-        return [...prevCalories, caloriesValue];
-      }
-    });
-  };
-
   const handelOnpressOfprogressBar = () => {
-    let vale = Math.round((totalConsumedcalorie / totalcalorie) * 100);
+    let vale = Math.round((totalConsumedCalories / totalCalories) * 100);
     if (isNaN(vale)) {
       vale = 0;
     }
-    console.log(
-      caloriesArray,
-      'caloriesArraycaloriesArray',
-      JSON.stringify(userData),
-    );
+    let tempCaloriesArray: any[] = [];
+    dietPlane?.meals?.map((meal, index) => {
+      meal.options.map(item => {
+        item?.food_items?.length !== 0 &&
+          selectedOptionsId.current.map(q => {
+            if (
+              q.mealId == item.diet_meal_type_rel_id &&
+              q.optionId == item.diet_meal_options_id
+            ) {
+              const tempItem = {
+                meal_name: meal?.meal_name,
+                ...item,
+              };
+              tempCaloriesArray.push(tempItem);
+            }
+          });
+      });
+    });
+
     trackEvent(Constants.EVENT_NAME.FOOD_DIARY.USER_CLICKS_ON_INSIGHT, {
       date_of_insight: moment(selectedDate).format(Constants.DATE_FORMAT),
-      goal_value: totalcalorie,
-      actual_value: totalConsumedcalorie,
+      goal_value: totalCalories,
+      actual_value: totalConsumedCalories,
       percentage_completion: vale,
       goal_unit: 'cal',
     });
-    navigation.navigate('ProgressBarInsightsScreen', {calories: caloriesArray});
+    const tempOption = [...selectedOptionsId.current];
+    navigation.navigate('ProgressBarInsightsScreen', {
+      calories: tempCaloriesArray,
+      currentSelectedDate:
+        selectedDate != null ? new Date(selectedDate) : new Date(),
+      option: tempOption,
+    });
   };
 
   const handlePressOfNoPlanePlusIcon = (mealData: mealTYpe) => {
     const today = new Date();
     if (
-      moment(new Date(selectedDate)).format('DD-MM-YYYY') >=
-      moment(today).format('DD-MM-YYYY')
+      moment(new Date(selectedDate)).format('YYYY-MM-DD') >=
+      moment(today).format('YYYY-MM-DD')
     ) {
+      const tempOption = [...selectedOptionsId.current];
       navigation.navigate('AddDiet', {
         healthCoachId: dietPlane?.health_coach_id,
         mealName: mealData?.label,
         mealData: mealData,
         selectedDate: selectedDate,
         patient_id: dietPlane?.patient_id,
+        option: tempOption,
       });
     } else {
-      toast.show("Food item can't be added in past date meals");
+      toast.show("Food item can't be added in past date meals", {
+        type: 'normal',
+        placement: 'bottom',
+        duration: 2000,
+        animationType: 'slide-in',
+        style: {
+          borderRadius: Matrics.mvs(12),
+          width: Matrics.screenWidth - 20,
+        },
+        textStyle: {
+          fontSize: Matrics.mvs(13),
+          fontFamily: Fonts.REGULAR,
+          color: colors.white,
+          lineHeight: 18,
+        },
+      });
     }
   };
 
@@ -318,52 +327,50 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
         styles.mainContienr,
         {
           paddingTop:
-            Platform.OS == 'android' ? insets.top + Matrics.vs(20) : 0,
+            Platform.OS == 'android' ? Matrics.vs(10) : 0,
+          paddingBottom: insets.bottom
         },
       ]}>
-      {/* <MyStatusbar backgroundColor={colors.lightGreyishBlue} /> */}
+      <MyStatusbar backgroundColor={colors.lightGreyishBlue} />
       <DietHeader
         onPressBack={onPressBack}
         onPressOfNextAndPerviousDate={handleDate}
         title="Diet"
-        getCurrentSeletedDate={handleDate}
       />
       <View style={styles.belowContainer}>
         <TouchableOpacity
           activeOpacity={0.5}
           style={[styles.caloriesContainer, globalStyles.shadowContainer]}
           onPress={handelOnpressOfprogressBar}>
-          <CalorieConsumer
-            totalConsumedcalories={totalConsumedcalorie}
-            totalcalories={totalcalorie}
-          />
+          <CalorieConsumer />
         </TouchableOpacity>
-        {Object.keys(dietPlane)?.length > 0 ? (
+        {Object.keys(dietPlane).length > 0 ? (
           <DietTime
             onPressPlus={handlePulsIconPress}
-            dietOption={dietOption}
             dietPlane={JSON.parse(JSON.stringify(dietPlane?.meals))}
             onpressOfEdit={handaleEdit}
             onPressOfDelete={handaleDelete}
             onPressOfcomplete={handalecompletion}
-            getCalories={handalTotalCalories}
+            options={options}
           />
         ) : loader ? null : (
-          <ScrollView
+          <FlatList
             style={[styles.innercontainer]}
             contentContainerStyle={{
               paddingBottom: insets.bottom + Matrics.vs(10),
             }}
-            showsVerticalScrollIndicator={false}>
-            {mealTypes?.map(item => {
+            showsVerticalScrollIndicator={false}
+            data={mealTypes}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item, index }: { item: mealTYpe; index: number }) => {
               return (
                 <MealCard
                   cardData={item}
                   onPressPlus={handlePressOfNoPlanePlusIcon}
                 />
               );
-            })}
-          </ScrollView>
+            }}
+          />
         )}
       </View>
       <CommonBottomSheetModal snapPoints={['35%']} ref={bottomSheetModalRef}>
@@ -384,7 +391,7 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
 };
 
 const styles = StyleSheet.create({
-  mainContienr: {flex: 1, backgroundColor: colors.lightGreyishBlue},
+  mainContienr: { flex: 1, backgroundColor: colors.lightGreyishBlue },
   belowContainer: {
     flex: 1,
     backgroundColor: colors.lightGreyishBlue,
@@ -418,7 +425,7 @@ const styles = StyleSheet.create({
   },
   innercontainer: {
     flex: 1,
-    // paddingHorizontal: Matrics.s(15),
+    paddingHorizontal: Matrics.s(15),
     marginTop: Matrics.vs(5),
   },
 });

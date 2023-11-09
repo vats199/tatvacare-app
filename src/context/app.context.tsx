@@ -83,6 +83,7 @@ const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         setUserLocation,
         setUserData,
         setCurrentScreenName,
+        userData
       }}>
       {children}
     </AppContext.Provider>

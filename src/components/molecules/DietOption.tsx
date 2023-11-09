@@ -1,8 +1,8 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
-import {Icons} from '../../constants/icons';
-import {colors} from '../../constants/colors';
-import {Constants, Fonts, Matrics} from '../../constants';
+import { Icons } from '../../constants/icons';
+import { colors } from '../../constants/colors';
+import { Constants, Fonts, Matrics } from '../../constants';
 import styled from 'styled-components/native';
 import {
   Menu,
@@ -10,8 +10,8 @@ import {
   MenuOption,
   MenuTrigger,
 } from 'react-native-popup-menu';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {trackEvent} from '../../helpers/TrackEvent';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { trackEvent } from '../../helpers/TrackEvent';
 import moment = require('moment');
 
 type DietOptionItem = {
@@ -23,7 +23,12 @@ type DietOptionItem = {
     is_food_item_added_by_patient: string,
     data: FoodItems,
   ) => void;
-  onPressOfcomplete: (consumptionData: Consumption) => void;
+  onPressOfcomplete: (
+    consumptionData: Consumption,
+    consumed: boolean,
+    calories: number,
+    itemQuantity: number,
+  ) => void;
 };
 
 type Options = {
@@ -131,7 +136,12 @@ const DietOption: React.FC<DietOptionItem> = ({
         diet_plan_food_consumption_id:
           item?.consumption?.diet_plan_food_consumption_id,
       };
-      onPressOfcomplete(cunsumpotion);
+      onPressOfcomplete(
+        cunsumpotion,
+        item.is_consumed,
+        Number(item.calories),
+        item.quantity,
+      );
     };
 
     return (
@@ -140,13 +150,13 @@ const DietOption: React.FC<DietOptionItem> = ({
           {item?.is_consumed ? (
             <TouchableOpacity
               onPress={() => handaleFoodConsumption(item)}
-              style={[styles.shadowContainer, {height: 28, width: 28}]}>
+              style={[styles.shadowContainer, { height: 28, width: 28 }]}>
               <Icons.Success height={28} width={28} />
             </TouchableOpacity>
           ) : (
             <TouchableOpacity
               onPress={() => handaleFoodConsumption(item)}
-              style={[styles.shadowContainer, {height: 28, width: 28}]}>
+              style={[styles.shadowContainer, { height: 28, width: 28 }]}>
               <Icons.Ellipse height={28} width={28} />
             </TouchableOpacity>
           )}
@@ -162,20 +172,20 @@ const DietOption: React.FC<DietOptionItem> = ({
                 <Text style={styles.manualBtnTxt}>Manual</Text>
               ) : null}
             </View>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Text style={[styles.description, {textTransform: 'capitalize'}]}>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Text style={[styles.description, { textTransform: 'capitalize' }]}>
                 {Math.round(Number(item?.quantity)) +
                   ' ' +
                   item?.measure_name +
                   '  | '}
               </Text>
-              <Text style={[styles.description, {textTransform: 'lowercase'}]}>
+              <Text style={[styles.description, { textTransform: 'lowercase', }]}>
                 {Math.round(Number(item.total_micronutrients)) + ' g'}
               </Text>
             </View>
           </View>
         </View>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <Text style={styles.value}>
             {Math.round(Number(item.calories)) *
               Math.round(Number(item?.quantity))}
@@ -186,8 +196,10 @@ const DietOption: React.FC<DietOptionItem> = ({
             <Menu>
               <MenuTrigger
                 customStyles={{
+                  TriggerTouchableComponent: TouchableOpacity,
                   triggerTouchable: {
                     underlayColor: colors.transparent,
+                    activeOpacity: 70,
                   },
                 }}>
                 <Icons.ThreeDot
@@ -207,9 +219,18 @@ const DietOption: React.FC<DietOptionItem> = ({
                       index !== foodItmeData?.food_items.length - 1
                         ? Matrics.vs(22)
                         : 0,
-                  },
+                    shadowOffset: { width: -2, height: 2 },
+                    shadowColor: colors.shadow,
+                    shadowOpacity: 0.2,
+                    shadowRadius: 3,
+                    elevation: 3,
+                  }
                 }}>
-                <MenuOption onSelect={() => handaleEdit(item)}>
+                <MenuOption customStyles={{
+                  OptionTouchableComponent: TouchableOpacity,
+                  optionTouchable: { activeOpacity: 0.6 },
+                }}
+                  onSelect={() => handaleEdit(item)}>
                   <View style={styles.optionContainer}>
                     <Icons.Edit />
                     <Text style={styles.optionText}>Edit</Text>
@@ -217,6 +238,10 @@ const DietOption: React.FC<DietOptionItem> = ({
                 </MenuOption>
                 <View style={styles.line}></View>
                 <MenuOption
+                  customStyles={{
+                    OptionTouchableComponent: TouchableOpacity,
+                    optionTouchable: { activeOpacity: 0.6 },
+                  }}
                   onSelect={() => {
                     handaleDelete(
                       item?.diet_plan_food_item_id,
@@ -309,6 +334,7 @@ const styles = StyleSheet.create({
   menuOptionsContainer: {
     borderRadius: Matrics.mvs(12),
     width: Matrics.s(75),
+    // marginTop: Matrics.vs(20),
     paddingVertical: Matrics.mvs(2),
   },
   optionContainer: {
@@ -340,7 +366,7 @@ const styles = StyleSheet.create({
     lineHeight: 16,
   },
   shadowContainer: {
-    shadowOffset: {width: 0, height: 0},
+    shadowOffset: { width: 0, height: 0 },
     shadowColor: colors.shadow,
     shadowOpacity: 0.1,
     shadowRadius: 3,

@@ -1,6 +1,6 @@
 import {AppointmentDetailsScreenProps} from '../screens/Appointment/AppointmentDetailsScreen';
 import carePlanScreen from '../screens/CarePlan/CarePlanScreen';
-import Diet from '../api/diet';
+import {OptionType} from '../context/diet.context';
 type Options = {
   diet_meal_options_id: string;
   diet_meal_type_rel_id: string;
@@ -82,7 +82,7 @@ type mealTYpe = {
   keys: string;
   default_time: string;
   order_no: number;
-}
+};
 
 export type AppStackParamList = {
   DrawerScreen: DrawerParamList;
@@ -157,7 +157,9 @@ export type AuthStackParamList = {
 
 export type DietStackParamList = {
   HomeScreen: undefined;
-  DietScreen: undefined;
+  DietScreen: {
+    option?: OptionType[];
+  };
   AddDiet: {
     optionFoodItems?: Options;
     healthCoachId: string;
@@ -165,6 +167,7 @@ export type DietStackParamList = {
     patient_id?: string;
     mealData?: mealTYpe | null;
     selectedDate?: any | null;
+    option: OptionType[];
   };
   DietDetail: {
     foodItem: FoodItems;
@@ -174,8 +177,13 @@ export type DietStackParamList = {
     patient_id?: string;
     mealData?: mealTYpe | null;
     selectedDate?: any | null;
+    option: OptionType[];
   };
-  ProgressBarInsightsScreen: {calories: Options[]};
+  ProgressBarInsightsScreen: {
+    calories: Options[];
+    currentSelectedDate: Date;
+    option: OptionType[];
+  };
 };
 
 export type SetupProfileStackParamList = {
