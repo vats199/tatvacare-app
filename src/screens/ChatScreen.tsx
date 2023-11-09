@@ -68,16 +68,30 @@ const ChatScreen: React.FC<ChatScreenProps> = ({navigation, route}) => {
 
     const headers = {
       Accept: 'application/json',
+      'Content-Type': 'application/json',
     };
-    const url = `http://20.243.170.91:8002/bot?query=${encodeURIComponent(
-      JSON.stringify(msg.trim()),
-    )}&id=${patient_id}`;
+    const body = {
+      query: msg,
+      id: 0,
+      bot_chat: true,
+      welcome_message: true,
+      welcome_message_validation: true,
+      conversation: [{}],
+      bot_response: 'string',
+    };
+    const url = 'https://mytatva.azurewebsites.net/bot';
 
     try {
-      const res = await fetch(url, {method: 'post', headers});
+      const res = await fetch(url, {
+        method: 'post',
+        headers,
+        body: JSON.stringify(body),
+      });
+
       const response = await res.json();
+      const {bot_response} = response;
       const botReply: Message = {
-        message: response,
+        message: bot_response,
         sender: 'bot',
       };
       setMessages([...messages, userMsg, botReply]);
