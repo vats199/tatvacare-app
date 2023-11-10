@@ -1,12 +1,6 @@
 import { DrawerItemList } from '@react-navigation/drawer';
 import React, { useEffect, useState, useRef } from 'react';
-import {
-  FlatList,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { colors } from '../../constants/colors';
 import { Icons } from '../../constants/icons';
 import DietOption from './DietOption';
@@ -167,13 +161,17 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
   }, [_selectedOptionId?.current]);
 
   useEffect(() => {
-    const tempArray = selectedOptionsId?.current?.length > 0 ? [...selectedOptionsId?.current] : [];
-    if (tempArray?.length !== 0) {
+    const tempArray =
+      selectedOptionsId?.current?.length > 0
+        ? [...selectedOptionsId?.current]
+        : [];
+    if (tempArray.length !== 0) {
       dietPlanData?.meals?.map((item: any) =>
         tempArray?.map(q => {
           if (q?.mealId == item?.diet_meal_type_rel_id) {
             const optionData = item?.options.filter(
-              (op: any) => op?.diet_meal_options_id == _selectedOptionId?.current,
+              (op: any) =>
+                op?.diet_meal_options_id == _selectedOptionId?.current,
             );
             if (optionData?.length !== 0) {
               setFoodItemData(optionData[0]);
@@ -392,6 +390,7 @@ const styles = StyleSheet.create({
     marginVertical: Matrics.vs(8),
     backgroundColor: colors.white,
     paddingVertical: Matrics.vs(12),
+    marginHorizontal: Matrics.s(15),
   },
   innerContainer: {
     backgroundColor: 'white',

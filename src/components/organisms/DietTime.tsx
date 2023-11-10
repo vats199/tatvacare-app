@@ -1,9 +1,9 @@
-import { StyleSheet, ScrollView, View, Text, FlatList } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import {StyleSheet, ScrollView, View, Text, FlatList} from 'react-native';
+import React, {useEffect, useState} from 'react';
 import DietExactTime from '../molecules/DietExactTime';
-import { Matrics } from '../../constants';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { OptionType } from '../../context/diet.context';
+import {Matrics} from '../../constants';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {OptionType} from '../../context/diet.context';
 
 type DietTimeProps = {
   onPressPlus: (optionFoodItems: Options, mealName: string) => void;
@@ -177,7 +177,6 @@ const DietTime: React.FC<DietTimeProps> = ({
       style={{
         paddingBottom: insets.bottom,
         flex: 1,
-
       }}>
       <FlatList
         style={styles.innercontainer}
@@ -195,7 +194,6 @@ export default DietTime;
 const styles = StyleSheet.create({
   innercontainer: {
     flex: 1,
-    paddingHorizontal: Matrics.s(15),
     marginTop: Matrics.vs(5),
   },
   noDataFound: {

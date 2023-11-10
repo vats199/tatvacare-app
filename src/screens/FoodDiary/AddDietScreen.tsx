@@ -96,6 +96,18 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
     }, [recentSerach]),
   );
 
+  useEffect(() => {
+    navigation.addListener('beforeRemove', e => {
+      if (e.data.action.type === 'NAVIGATE') {
+        return;
+      }
+      e.preventDefault();
+      navigation.navigate('DietScreen', {
+        option: option,
+      });
+    });
+  }, [navigation]);
+
   const onPressBack = () => {
     if (Array.isArray(option) && option.length !== 0) {
       navigation.navigate('DietScreen', { option: option });
@@ -121,6 +133,8 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
         mealName: mealName,
         patient_id: patient_id,
         option: option,
+        toDietScreen: false,
+        optionFoodItems: optionFoodItems,
       });
     } else {
       const FoodItems = {
@@ -164,6 +178,8 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
           mealData: mealData,
           selectedDate: selectedDate,
           option: option,
+          toDietScreen: false,
+          optionFoodItems: optionFoodItems,
         });
       } else {
         navigation.navigate('DietDetail', {
@@ -174,6 +190,8 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
           mealData: null,
           patient_id: patient_id,
           option: option,
+          toDietScreen: false,
+          optionFoodItems: optionFoodItems,
         });
       }
     }
@@ -255,8 +273,7 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
       style={[
         styles.container,
         {
-          paddingTop:
-            Platform.OS == 'android' ? Matrics.vs(10) : 0,
+          paddingTop: Platform.OS == 'android' ? Matrics.vs(10) : 0,
           paddingBottom: insets.bottom !== 0 ? insets.bottom : Matrics.vs(15),
         },
       ]}>

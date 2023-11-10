@@ -178,6 +178,8 @@ export type DietStackParamList = {
     mealData?: mealTYpe | null;
     selectedDate?: any | null;
     option: OptionType[];
+    toDietScreen:boolean
+    optionFoodItems?:Options
   };
   ProgressBarInsightsScreen: {
     calories: Options[];

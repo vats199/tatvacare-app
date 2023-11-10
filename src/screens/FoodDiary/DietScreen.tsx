@@ -89,9 +89,9 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   const [tempSelectedDate, setTempSelectedDate] = useState<string | Date>(
     new Date(),
   );
-  const [newMonth, setNewMonth] = useState<string | Date>(
-    moment(tempSelectedDate).format('YYYY-MM-DD'),
-  );
+  // const [newMonth, setNewMonth] = useState<string | Date>(
+  //   moment(tempSelectedDate).format('YYYY-MM-DD'),
+  // );
 
   useEffect(() => {
     console.log('focus:', focus);
@@ -106,11 +106,14 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
 
   const getData = async () => {
     setLoader(true);
-    const date = moment(_selectedDateRef?.current ?? new Date()).format('YYYY-MM-DD');
-    const diet = await Diet.getDietPlan({ date: date }, {}, { token: userData.token },);
-
-    console.log("diet", diet);
-
+    const date = moment(_selectedDateRef?.current ?? new Date()).format(
+      'YYYY-MM-DD',
+    );
+    const diet = await Diet.getDietPlan(
+      { date: date },
+      {},
+      { token: userData.token },
+    );
     if (Constants.IS_CHECK_API_CODE) {
       if (diet.code == '1') {
         setTimeout(() => {
@@ -159,6 +162,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
       mealName: mealName,
       patient_id: dietPlane?.patient_id,
       option: tempOption,
+      toDietScreen: true,
     });
   };
 
@@ -215,7 +219,8 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
         diet_plan_food_item_id: deletpayload,
       },
       {},
-      { token: userData.token });
+      { token: userData.token },
+    );
     if (Constants.IS_CHECK_API_CODE) {
       if (deleteFoodItem?.code === '1') {
         getData();
@@ -255,7 +260,11 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
     optionId: string,
     dietPlanId: string,
   ) => {
-    const UpadteFoodItem = await Diet.updateFoodConsumption(item, {}, { token: userData.token });
+    const UpadteFoodItem = await Diet.updateFoodConsumption(
+      item,
+      {},
+      { token: userData.token },
+    );
     getData(optionId, dietPlanId);
     if (UpadteFoodItem) {
     }
@@ -286,7 +295,9 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
     });
 
     trackEvent(Constants.EVENT_NAME.FOOD_DIARY.USER_CLICKS_ON_INSIGHT, {
-      date_of_insight: moment(_selectedDateRef.current).format(Constants.DATE_FORMAT),
+      date_of_insight: moment(_selectedDateRef.current).format(
+        Constants.DATE_FORMAT,
+      ),
       goal_value: totalCalories,
       actual_value: totalConsumedCalories,
       percentage_completion: vale,
@@ -296,7 +307,9 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
     navigation.navigate('ProgressBarInsightsScreen', {
       calories: tempCaloriesArray,
       currentSelectedDate:
-        _selectedDateRef.current != null ? new Date(_selectedDateRef.current) : new Date(),
+        _selectedDateRef.current != null
+          ? new Date(_selectedDateRef.current)
+          : new Date(),
       option: tempOption,
     });
   };
@@ -304,8 +317,9 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   const handlePressOfNoPlanePlusIcon = (mealData: mealTYpe) => {
     const today = new Date();
     if (
-      moment(new Date(_selectedDateRef.current)).format('YYYY-MM-DD') >=
-      moment(today).format('YYYY-MM-DD')
+      moment(new Date(_selectedDateRef.current ?? new Date())).format(
+        'YYYY-MM-DD',
+      ) >= moment(today).format('YYYY-MM-DD')
     ) {
       const tempOption = [...selectedOptionsId.current];
       navigation.navigate('AddDiet', {
@@ -336,15 +350,16 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
     }
   };
 
-  const onChangeMonth = (date: DateData) => {
-    let tempDate = new Date(date?.dateString);
-    setNewMonth(tempDate);
-  };
+  // const onChangeMonth = (date: DateData) => {
+  //   let tempDate = new Date(date?.dateString);
+  //   setNewMonth(tempDate);
+  // };
 
-  const onDateChanged = useCallback((date: any, updateSource: any) => {
-    let tempDate = new Date(date);
-    setNewMonth(tempDate);
-  }, []);
+  // const onDateChanged = useCallback((date: any, updateSource: any) => {
+  //   let tempDate = new Date(date);
+  //   setNewMonth(tempDate);
+  //   console.log('tempDate', tempDate);
+  // }, []);
 
   return (
     <SafeAreaView
@@ -352,27 +367,25 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
       style={[
         styles.mainContienr,
         {
-          paddingTop:
-            Platform.OS == 'android' ? Matrics.vs(10) : 0,
-          // paddingBottom: insets.bottom
+          paddingTop: Platform.OS == 'android' ? Matrics.vs(10) : 0,
         },
       ]}>
       <MyStatusbar backgroundColor={colors.lightGreyishBlue} />
-
       <CalendarProvider
         date={moment(tempSelectedDate).format('YYYY-MM-DD')}
         disabledOpacity={0.6}
-        onMonthChange={onChangeMonth}
-        onDateChanged={onDateChanged}>
+      // onMonthChange={onChangeMonth}
+      // onDateChanged={onDateChanged}
+      >
         <DietHeader
           onPressBack={onPressBack}
           onPressOfNextAndPerviousDate={handleDate}
           title="Diet"
           selectedDate={tempSelectedDate}
-          newMonth={newMonth}
+          // newMonth={newMonth}
           onChangeDate={date => {
             setTempSelectedDate(date);
-            setNewMonth(date);
+            // setNewMonth(date);
           }}
         />
         <View style={styles.belowContainer}>

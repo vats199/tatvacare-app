@@ -1,3 +1,98 @@
+diff --git a/node_modules/react-native-calendars/src/calendar/header/index.js b/node_modules/react-native-calendars/src/calendar/header/index.js
+index bd75364..ac466a5 100644
+--- a/node_modules/react-native-calendars/src/calendar/header/index.js
++++ b/node_modules/react-native-calendars/src/calendar/header/index.js
+@@ -1,9 +1,13 @@
+ import includes from 'lodash/includes';
+ import XDate from 'xdate';
+ import React, { Fragment, useCallback, useMemo, forwardRef, useImperativeHandle, useRef } from 'react';
+-import { ActivityIndicator, Platform, View, Text, TouchableOpacity, Image } from 'react-native';
++import { ActivityIndicator, Platform, View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
+ import { formatNumbers, weekDayNames } from '../../dateutils';
+ import styleConstructor from './style';
++import { colors } from '../../../../../src/constants/colors';
++import { Fonts, Matrics } from '../../../../../src/constants';
++import { Icons } from '../../../../../src/constants/icons';
++import moment from 'moment/moment';
+ const accessibilityActions = [
+     { name: 'increment', label: 'increment' },
+     { name: 'decrement', label: 'decrement' }
+@@ -86,11 +90,43 @@ const CalendarHeader = forwardRef((props, ref) => {
+         if (customHeaderTitle) {
+             return customHeaderTitle;
+         }
+-        return (<Fragment>
+-        <Text allowFontScaling={false} style={style.current.monthText} testID={`${testID}.title`} {...webProps}>
+-          {formatNumbers(month?.toString(monthFormat))}
+-        </Text>
+-      </Fragment>);
++        return (
++            <Fragment>
++                <View style={[styles.container]}>
++                    <View style={[styles.leftRightContent]}>
++                    <Text  testID={`${testID}.title`}  allowFontScaling={false} style={[styles.monthYearStyle]} {...webProps}>
++                        {moment(month.toString()).format("MMMM YYYY")}
++                        {/* {!showMore
++                        ? getMonthRangeText(new Date(_selectedDateRef.current))
++                        : getMonthText(new Date(_selectedDateRef.current))} */}
++                    </Text>
++                    </View>
++                    <View style={[styles.leftRightContent]}>
++                    <TouchableOpacity
++                        onPress={onPressLeft}
++                        hitSlop={8}>
++                        <Icons.backArrow
++                        height={11}
++                        width={11}
++                        style={{
++                            marginHorizontal: Matrics.s(12),
++                        }}
++                        />
++                    </TouchableOpacity>
++                    <TouchableOpacity
++                        onPress={onPressRight}
++                        hitSlop={8}>
++                        <Icons.RightArrow height={22} width={22} />
++                    </TouchableOpacity>
++                    </View>
++            </View>
++          </Fragment>
++        )
++    //     return (<Fragment>
++    //     <Text allowFontScaling={false} style={style.current.monthText} testID={`${testID}.title`} {...webProps}>
++    //       {formatNumbers(month?.toString(monthFormat))}
++    //     </Text>
++    //   </Fragment>);
+     };
+     const _renderArrow = (direction) => {
+         if (hideArrows) {
+@@ -143,3 +179,25 @@ CalendarHeader.defaultProps = {
+     webAriaLevel: 1,
+     arrowsHitSlop: 20
+ };
++
++const styles = StyleSheet.create({
++      container: {
++        flexDirection: 'row',
++        justifyContent: 'space-between',
++        alignItems: 'center',
++        height: Matrics.vs(38),
++        paddingHorizontal: Matrics.s(3),
++        flex: 1,
++      },
++      monthYearStyle: {
++        fontSize: Matrics.mvs(14),
++        fontFamily: Fonts.REGULAR,
++        color: colors.labelDarkGray,
++        lineHeight: Matrics.vs(18),
++      },
++      leftRightContent: {
++        flexDirection: 'row',
++        justifyContent: 'space-between',
++        alignItems: 'center',
++      },
++  });
+\ No newline at end of file
 diff --git a/node_modules/react-native-calendars/src/expandableCalendar/WeekCalendar/new.js b/node_modules/react-native-calendars/src/expandableCalendar/WeekCalendar/new.js
 index b7e3a65..e704715 100644
 --- a/node_modules/react-native-calendars/src/expandableCalendar/WeekCalendar/new.js

@@ -6,14 +6,15 @@ import DietHeader from '../../components/molecules/DietHeader';
 import { colors } from '../../constants/colors';
 import fonts from '../../constants/fonts';
 import Matrics from '../../constants/Matrics';
-import CircularProgress from 'react-native-circular-progress-indicator';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 // import MyStatusbar from '../../components/atoms/MyStatusBar';
-import { Fonts } from '../../constants';
+import { Constants, Fonts } from '../../constants';
 import { globalStyles } from '../../constants/globalStyles';
 import { CalendarProvider, DateData } from 'react-native-calendars';
 import moment from 'moment';
 import MyStatusbar from '../../components/atoms/MyStatusBar';
+import AnimatedRoundProgressBar from '../../components/atoms/AnimatedRoundProgressBar';
+import { colorsOfprogressBar } from '../../helpers/ColorsOfProgressBar';
 
 type ProgressBarInsightsScreenProps = StackScreenProps<
   DietStackParamList,
@@ -32,9 +33,21 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
   const [tempSelectedDate, setTempSelectedDate] = useState<string | Date>(
     new Date(),
   );
-  const [newMonth, setNewMonth] = useState<string | Date>(
-    moment(tempSelectedDate).format('YYYY-MM-DD'),
-  );
+  // const [newMonth, setNewMonth] = useState<string | Date>(
+  //   moment(tempSelectedDate).format('YYYY-MM-DD'),
+  // );
+
+  useEffect(() => {
+    navigation.addListener('beforeRemove', e => {
+      if (e.data.action.type === 'NAVIGATE') {
+        return;
+      }
+      e.preventDefault();
+      navigation.navigate('DietScreen', {
+        option: option,
+      });
+    });
+  }, [navigation]);
 
   const onPressBack = () => {
     if (Array.isArray(option) && option.length !== 0) {
@@ -47,18 +60,6 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
   };
   const handleDate = (date: any) => {
     setSelectedDate(date);
-  };
-
-  const colorsOfprogressBar = (values: number) => {
-    if (values === 0) {
-      return colors.inactiveGray;
-    } else if (values > 0 && values < 25) {
-      return colors.progressBarRed;
-    } else if (values >= 25 && values < 75) {
-      return colors.progressBarYellow;
-    } else {
-      return colors.progressBarGreen;
-    }
   };
 
   useEffect(() => {
@@ -159,30 +160,10 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
       <View
         style={[style.calorieMainContainer, { paddingVertical: Matrics.vs(5) }]}
         key={index?.toString()}>
-        <CircularProgress
-          value={isNaN(item?.progressBarVale) ? 0 : item?.progressBarVale}
-          inActiveStrokeColor={
-            item.progresBarColor ? item.progresBarColor : '#2ecc71'
-          }
-          inActiveStrokeOpacity={0.2}
-          progressValueColor={'green'}
-          // valueSuffix={'%'}
-          maxValue={100}
-          radius={Matrics.mvs(22)}
-          activeStrokeWidth={3}
-          activeStrokeColor={
-            item.progresBarColor ? item.progresBarColor : '#2ecc71'
-          }
-          inActiveStrokeWidth={3}
-          duration={500}
-          allowFontScaling={false}
-          showProgressValue={false}
-          title={`${isNaN(item?.progressBarVale) ? 0 : item?.progressBarVale}%`}
-          titleStyle={{
-            fontSize: Matrics.mvs(11),
-            fontFamily: Fonts.BOLD,
-          }}
+        <AnimatedRoundProgressBar
+          values={isNaN(item?.progressBarVale) ? 0 : item?.progressBarVale}
         />
+
         <View
           style={[
             style.textContainer,
@@ -217,15 +198,16 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
     );
   };
 
-  const onChangeMonth = (date: DateData) => {
-    let tempDate = new Date(date?.dateString);
-    setNewMonth(tempDate);
-  };
+  // const onChangeMonth = (date: DateData) => {
+  //   let tempDate = new Date(date?.dateString);
+  //   setNewMonth(tempDate);
+  // };
 
-  const onDateChanged = useCallback((date: any, updateSource: any) => {
-    let tempDate = new Date(date);
-    setNewMonth(tempDate);
-  }, []);
+  // const onDateChanged = useCallback((date: any, updateSource: any) => {
+  //   let tempDate = new Date(date);
+  //   setNewMonth(tempDate);
+  //   console.log('tempDate', tempDate);
+  // }, []);
 
   return (
     <SafeAreaView
@@ -240,20 +222,29 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
       <CalendarProvider
         date={moment(tempSelectedDate).format('YYYY-MM-DD')}
         disabledOpacity={0.6}
-        onMonthChange={onChangeMonth}
-        onDateChanged={onDateChanged}>
+      // onMonthChange={onChangeMonth}
+      // onDateChanged={onDateChanged}
+      >
         <DietHeader
           onPressBack={onPressBack}
           onPressOfNextAndPerviousDate={handleDate}
           title="Insights"
           selectedDate={tempSelectedDate}
-          newMonth={newMonth}
+          // newMonth={newMonth}
           onChangeDate={date => {
             setTempSelectedDate(date);
-            setNewMonth(date);
+            // setNewMonth(date);
           }}
         />
-        <ScrollView style={{ paddingBottom: 14 }}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{
+            paddingBottom: Constants.IS_NATIVE_UI
+              ? Matrics.vs(14)
+              : Platform.OS == 'ios'
+                ? insets.bottom
+                : insets.bottom + Matrics.s(16),
+          }}>
           <Text style={style.title}>Daily Macronutrients Analysis</Text>
           <View
             style={[
@@ -270,14 +261,7 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
           {dailyCalories.length > 0 ? (
             <View style={{ flex: 1 }}>
               <Text style={style.title}>Meal Energy Distribution</Text>
-              <View
-                style={[
-                  globalStyles.shadowContainer,
-                  style.boxContainer,
-                  {
-                    marginBottom: Matrics.vs(20),
-                  },
-                ]}>
+              <View style={[globalStyles.shadowContainer, style.boxContainer]}>
                 {dailyCalories?.map((item, index) => {
                   return renderItem(item, index, 'cal');
                 })}
