@@ -6,9 +6,9 @@ import {
   View,
 } from 'react-native';
 import React from 'react';
-import {colors} from '../../constants/colors';
-import {Icons} from '../../constants/icons';
-import {useApp} from '../../context/app.context';
+import { colors } from '../../constants/colors';
+import { Icons } from '../../constants/icons';
+import { useApp } from '../../context/app.context';
 type AdditionalServicesProps = {
   onPressConsultNutritionist: () => void;
   onPressConsultPhysio: (type: 'HC' | 'D') => void;
@@ -18,11 +18,11 @@ type AdditionalServicesProps = {
 
 type AdditionalServicesItem = {
   title:
-    | 'Consult\nNutritionist'
-    | 'Consult\nPhysio'
-    | 'Book\nDiagnostic'
-    | 'Book\nDevices'
-    | 'Doctor\nAppointment';
+  | 'Consult\nNutritionist'
+  | 'Consult\nPhysio'
+  | 'Book\nDiagnostic'
+  | 'Book\nDevices'
+  | 'Doctor\nAppointment';
   onPress: () => void;
 };
 
@@ -32,7 +32,7 @@ const AdditionalCareServices: React.FC<AdditionalServicesProps> = ({
   onPressBookDiagnostic,
   onPressBookDevices,
 }) => {
-  const {userData} = useApp();
+  const { userData } = useApp();
 
   const showDoctorButton: boolean = !!userData?.patient_guid ?? false;
 
@@ -86,7 +86,7 @@ const AdditionalCareServices: React.FC<AdditionalServicesProps> = ({
   };
 
   const renderServiceItem = (item: AdditionalServicesItem, index: number) => {
-    const {title, onPress} = item;
+    const { title, onPress } = item;
     return (
       <TouchableOpacity
         key={index.toString()}
@@ -105,7 +105,7 @@ const AdditionalCareServices: React.FC<AdditionalServicesProps> = ({
       <ScrollView
         horizontal
         style={styles.itemsContainer}
-        contentContainerStyle={{paddingLeft: 16}}
+        contentContainerStyle={{ paddingLeft: 16 }}
         showsHorizontalScrollIndicator={false}>
         {options.map(renderServiceItem)}
       </ScrollView>
@@ -141,6 +141,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.2,
     shadowRadius: 1.41,
+    elevation: 2
   },
   iconContainer: {
     backgroundColor: colors.white,

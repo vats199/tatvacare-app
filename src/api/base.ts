@@ -1,9 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Alert, NativeModules, DeviceEventEmitter, Platform} from 'react-native';
+import { Alert, NativeModules, DeviceEventEmitter, Platform } from 'react-native';
 import config from './config';
 import Config from 'react-native-config';
 import CRYPTO from 'crypto-js';
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 
 const POST = 'post';
 const GET = 'get';
@@ -76,7 +76,7 @@ const handleResponse = async (response: any) => {
     const parsedResponse = await JSON.parse(getDecryptedData(jsonRes));
 
     if (parsedResponse?.code == 1) {
-      return {data: parsedResponse?.data};
+      return { data: parsedResponse?.data };
     } else {
       return {};
     }
@@ -88,8 +88,8 @@ const handleResponse = async (response: any) => {
 const request: any = async (
   route: string,
   {
-    baseURL = 'https://api-uat.mytatva.in/api/v7',
-    //baseURL = 'https://api.mytatva.in/api/v7',
+    //baseURL = 'https://api-uat.mytatva.in/api/v7',
+    baseURL = 'https://api.mytatva.in/api/v7',
     method = GET,
     payload = null,
     formData = null,

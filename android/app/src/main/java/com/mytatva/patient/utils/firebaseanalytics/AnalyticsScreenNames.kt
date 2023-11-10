@@ -55,6 +55,7 @@ object AnalyticsScreenNames {
     const val LogGoal = "LogGoal" //LogGoal{NameFromAPI(param-goal key)}
     const val LogReading = "LogReading" //LogReading{param reading key}
     const val SetHeightWeight = "SetHeightWeight"
+    const val GenAI = "genAi"
 
     //const val GoalChart = "GoalChart" //GoalChart{goal key} // no need already inside care plan
     const val ReadingChart = "ReadingChart" //ReadingChart{reading key}

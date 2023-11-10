@@ -56,6 +56,7 @@ import com.mytatva.patient.di.component.ActivityComponent
 import com.mytatva.patient.di.component.DaggerActivityComponent
 import com.mytatva.patient.location.LocationException
 import com.mytatva.patient.location.LocationManager
+import com.mytatva.patient.ui.GenAIActivity
 import com.mytatva.patient.ui.activity.AuthActivity
 import com.mytatva.patient.ui.activity.IsolatedFullActivity
 import com.mytatva.patient.ui.activity.TransparentActivity
@@ -1369,6 +1370,12 @@ BaseActivity : AppCompatActivity(), HasComponent<ActivityComponent>, HasToolbar,
                     loadActivity(HomeActivity::class.java).start()
                 }
             }*/
+            AnalyticsScreenNames.GenAI -> {
+                Handler(mainLooper).postDelayed({
+                    loadActivity(GenAIActivity::class.java).start()
+                }, 1500)
+            }
+
             AnalyticsScreenNames.Home,
             AnalyticsScreenNames.LogGoal,
             AnalyticsScreenNames.CarePlan,
