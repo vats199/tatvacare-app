@@ -104,6 +104,21 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
   };
 
   useEffect(() => {
+    if (Platform.OS == "android") {
+      const subscribe = DeviceEventEmitter.addListener(
+        'UserToken',
+        async (data: any) => {
+          await AsyncStorage.setItem("accessToken", data.Token)
+        },
+      );
+
+      return () => {
+        subscribe.remove();
+      };
+    }
+  }, []);
+
+  useEffect(() => {
     getCurrentLocation();
     getHomeCarePlan();
     getLearnMoreData();
@@ -305,7 +320,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
   const getIncidentDetails = async () => {
     setLoading(true);
     const details = await Home.getIncidentDetails();
-    setHideIncidentSurvey(!!!details?.data.incidentSurveyData);
+    setHideIncidentSurvey(!!!details?.data);
     setIncidentDetails(details?.data);
     setLoading(false);
   };
@@ -449,6 +464,8 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
   };
 
   const onPressBookDevices = () => {
+    console.log("Device data===", JSON.stringify(hcDevicePlans));
+
     if (Object.values(hcDevicePlans.devices).length > 0) {
       if (Platform.OS == 'ios') {
         trackEvent("CLICKED_BOOK_DEVICES", {})

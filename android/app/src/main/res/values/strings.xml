@@ -38,11 +38,11 @@
     <!-- =================================================== -->
 
     <!-- APXOR SDK STAGING/UAT-->
-    <string name="apxor_key_value">fe260ab5-f0db-4e21-8d36-f7d5ea698255</string>
+    <!--<string name="apxor_key_value">fe260ab5-f0db-4e21-8d36-f7d5ea698255</string>-->
     <!-- APXOR SDK -->
 
     <!-- APXOR SDK PRODUCTION-->
-    <!--<string name="apxor_key_value">37765d29-ed97-4ecd-aed4-06d231986ff6</string>-->
+    <string name="apxor_key_value">37765d29-ed97-4ecd-aed4-06d231986ff6</string>
     <!-- APXOR SDK -->
 
     <!-- FACEBOOK SDK-->
@@ -261,6 +261,7 @@
     <string name="bottom_nav_label_care_plan">Programs</string><!--Care Plan , Programs-->
     <string name="bottom_nav_label_engage">Learn</string><!--Learn , Discover-->
     <string name="bottom_nav_label_exercise">Exercise</string>
+    <string name="bottom_nav_label_ask">Ask</string>
     <!--bottom_nav end-->
 
     <!--add_account start-->

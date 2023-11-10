@@ -22,14 +22,11 @@ import androidx.core.view.GravityCompat
 import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
-import com.facebook.react.PackageList
 import com.facebook.react.ReactInstanceManager
-import com.facebook.react.ReactPackage
 import com.facebook.react.ReactRootView
 import com.facebook.react.bridge.Callback
 import com.facebook.react.bridge.WritableMap
 import com.facebook.react.bridge.WritableNativeMap
-import com.facebook.react.common.LifecycleState
 import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler
 import com.facebook.react.modules.core.PermissionAwareActivity
 import com.facebook.react.modules.core.PermissionListener
@@ -50,10 +47,10 @@ import com.mytatva.patient.data.pojo.response.HealthCoachData
 import com.mytatva.patient.data.pojo.response.IncidentSurveyData
 import com.mytatva.patient.databinding.HomeActivityBinding
 import com.mytatva.patient.di.component.ActivityComponent
-import com.mytatva.patient.di.module.AndroidBridgeReactPackage
 import com.mytatva.patient.exception.ServerException
 import com.mytatva.patient.fcm.Notification
 import com.mytatva.patient.location.MyLocationUtil
+import com.mytatva.patient.ui.GenAIActivity
 import com.mytatva.patient.ui.activity.IsolatedFullActivity
 import com.mytatva.patient.ui.appointment.fragment.AllAppointmentsFragment
 import com.mytatva.patient.ui.auth.fragment.SetupGoalsReadingsFragment
@@ -84,6 +81,7 @@ import com.mytatva.patient.utils.imagepicker.loadUrl
 import com.mytatva.patient.utils.listOfField
 import com.mytatva.patient.utils.openAppInStore
 import com.mytatva.patient.utils.rnbridge.ContextHolder
+import com.mytatva.patient.utils.rnbridge.ReactInstanceManagerSingleton
 import com.mytatva.patient.utils.shareApp
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -95,8 +93,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener, DefaultHardwareBackBt
     PermissionAwareActivity {
     private val REQUEST_CHECK_PERMISSION = 111
     private lateinit var reactRootView: ReactRootView
-    private lateinit var reactInstanceManager: ReactInstanceManager
-
+    private lateinit var homeReactInstanceManager: ReactInstanceManager
 
     companion object {
         const val OVERLAY_PERMISSION_REQ_CODE = 1
@@ -231,29 +228,38 @@ class HomeActivity : BaseActivity(), View.OnClickListener, DefaultHardwareBackBt
             startActivityForResult(intent, OVERLAY_PERMISSION_REQ_CODE)
             return
         }*/
-        initRN()
+        init()
     }
 
-    private fun initRN() {
-        GlobalScope.launch(Dispatchers.Main) {
-            SoLoader.init(this@HomeActivity, false)
-            reactRootView = ReactRootView(this@HomeActivity)
-            val packages: List<ReactPackage> = PackageList(application).packages
-            // Packages that cannot be autolinked yet can be added manually here, for example:
-            // packages.add(MyReactNativePackage())
-            // Remember to include them in `settings.gradle` and `app/build.gradle` too.
-            reactInstanceManager = ReactInstanceManager.builder()
-                .setApplication(application)
-                .setCurrentActivity(this@HomeActivity)
-                .setBundleAssetName("index.android.bundle")
-                .setJSMainModulePath("index")
-                .addPackages(packages)
-                .addPackage(AndroidBridgeReactPackage())
-                .setUseDeveloperSupport(BuildConfig.DEBUG)
-                .setInitialLifecycleState(LifecycleState.RESUMED)
-                .build()
+    private fun init() {
 
-            reactInstanceManager.createReactContextInBackground()
+
+        GlobalScope.launch(Dispatchers.Main) {
+            if (AppFlagHandler.getIsHomeFromReactNative(firebaseConfigUtil)) {
+                showLoader()
+
+                SoLoader.init(this@HomeActivity, false)
+                reactRootView = ReactRootView(this@HomeActivity)
+                /*val packages: List<ReactPackage> = PackageList(application).packages
+                // Packages that cannot be autolinked yet can be added manually here, for example:
+                // packages.add(MyReactNativePackage())
+                // Remember to include them in `settings.gradle` and `app/build.gradle` too.
+                homeReactInstanceManager = ReactInstanceManager.builder()
+                    .setApplication(application)
+                    .setCurrentActivity(this@HomeActivity)
+                    .setBundleAssetName("index.android.bundle")
+                    .setJSMainModulePath("index")
+                    .addPackages(packages)
+                    .addPackage(AndroidBridgeReactPackage())
+                    .setUseDeveloperSupport(BuildConfig.DEBUG)
+                    .setInitialLifecycleState(LifecycleState.RESUMED)
+                    .build()*/
+
+                homeReactInstanceManager =
+                    ReactInstanceManagerSingleton.getInstance(this@HomeActivity)
+
+                homeReactInstanceManager.createReactContextInBackground()
+            }
 
             if (!AppFlagHandler.getIsHomeFromReactNative(firebaseConfigUtil)) {
                 observeLiveData()
@@ -261,18 +267,20 @@ class HomeActivity : BaseActivity(), View.OnClickListener, DefaultHardwareBackBt
 
             handleToShowHideEngageTab()
 
-            if (homeHandler/*savedInstanceState*/ == null) {
+            binding.layoutGenAI.isVisible = AppFlagHandler.getIsHideGenAIChatBot(firebaseConfigUtil)
+
+            if (homeHandler == null) {
                 homeHandler = HomeHandler(navigationFactory.fragmentHandler, firebaseConfigUtil)
                 //handleHomeNavigation(intent?.extras?.getString(Common.BundleKey.SCREEN_NAME) ?: "")
                 //handleHomeNavigation() // pass empty to open default home flow
 
-                homeHandler?.showHomeFragment(notification, reactInstanceManager)
-
+                homeHandler?.showHomeFragment(notification, homeReactInstanceManager)
                 analytics.setScreenName(AnalyticsScreenNames.Home)
                 setBottomSelection(R.id.layoutHome)
             }
 
             setViewListeners()
+
             if (!AppFlagHandler.getIsHomeFromReactNative(firebaseConfigUtil)) {
                 setUpDrawer()
             }
@@ -295,7 +303,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener, DefaultHardwareBackBt
             exception?.let {
                 // location will not be updated
             }
-        }*/
+            }*/
 
             handleNotificationNavigation()
             getIncidentSurvey()
@@ -361,10 +369,10 @@ class HomeActivity : BaseActivity(), View.OnClickListener, DefaultHardwareBackBt
             if (!Settings.canDrawOverlays(this)) {
 
             } else {
-                initRN()
+                init()
             }
         }
-        reactInstanceManager.onActivityResult(this, requestCode, resultCode, data);
+        homeReactInstanceManager.onActivityResult(this, requestCode, resultCode, data);
     }
 
     private fun startLocationUpdate() {
@@ -604,7 +612,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener, DefaultHardwareBackBt
                 if (deepLink.queryParameterNames?.contains(FirebaseLink.Params.SCREEN_SECTION) == true) {
                     // show home if not currently open
                     if (binding.layoutHome.isSelected.not()) {
-                        homeHandler?.showHomeFragment(notification, reactInstanceManager)
+                        homeHandler?.showHomeFragment(notification, homeReactInstanceManager)
                         ContextHolder.reactContext?.let {
                             sendEventToRN(
                                 it,
@@ -628,7 +636,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener, DefaultHardwareBackBt
                 if (deepLink.queryParameterNames?.contains(FirebaseLink.Params.GOAL_KEY) == true) {
                     // show home if not currently open
                     if (binding.layoutHome.isSelected.not()) {
-                        homeHandler?.showHomeFragment(notification, reactInstanceManager)
+                        homeHandler?.showHomeFragment(notification, homeReactInstanceManager)
                         ContextHolder.reactContext?.let {
                             sendEventToRN(
                                 it,
@@ -693,7 +701,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener, DefaultHardwareBackBt
 
             AnalyticsScreenNames.FaqQuery -> {
                 //default HomeFragment for popup
-                homeHandler?.showHomeFragment(notification, reactInstanceManager)
+                homeHandler?.showHomeFragment(notification, homeReactInstanceManager)
                 ContextHolder.reactContext?.let {
                     sendEventToRN(
                         it,
@@ -714,7 +722,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener, DefaultHardwareBackBt
 
             else -> {
                 //default HomeFragment
-                homeHandler?.showHomeFragment(notification, reactInstanceManager)
+                homeHandler?.showHomeFragment(notification, homeReactInstanceManager)
                 ContextHolder.reactContext?.let {
                     sendEventToRN(
                         it,
@@ -751,7 +759,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener, DefaultHardwareBackBt
     fun openHomeFragmentAndNavigateToCatSurvey() {
         // open home if not already opened
         if (!binding.layoutHome.isSelected) {
-            homeHandler?.showHomeFragment(notification, reactInstanceManager)
+            homeHandler?.showHomeFragment(notification, homeReactInstanceManager)
             ContextHolder.reactContext?.let {
                 sendEventToRN(
                     it,
@@ -771,8 +779,8 @@ class HomeActivity : BaseActivity(), View.OnClickListener, DefaultHardwareBackBt
 
     override fun onResume() {
         super.onResume()
-        if (this::reactInstanceManager.isInitialized && reactInstanceManager != null) {
-            reactInstanceManager.onHostResume(this, this)
+        if (this::homeReactInstanceManager.isInitialized && homeReactInstanceManager != null) {
+            homeReactInstanceManager.onHostResume(this, this)
         }
         /*Handler(Looper.getMainLooper()).postDelayed({
             getPatientDetails()
@@ -799,8 +807,8 @@ class HomeActivity : BaseActivity(), View.OnClickListener, DefaultHardwareBackBt
 
     override fun onPause() {
         super.onPause()
-        if (reactInstanceManager != null) {
-            reactInstanceManager.onHostPause(this)
+        if (homeReactInstanceManager != null) {
+            homeReactInstanceManager.onHostPause(this)
         }
         updateScreenTimeDurationInAnalytics()
     }
@@ -954,7 +962,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener, DefaultHardwareBackBt
                     }, screenName = AnalyticsScreenNames.Home)
 
                     setBottomSelection(v.id)
-                    homeHandler?.showHomeFragment(notification, reactInstanceManager)
+                    homeHandler?.showHomeFragment(notification, homeReactInstanceManager)
                     ContextHolder.reactContext?.let {
                         sendEventToRN(
                             it,
@@ -1007,10 +1015,11 @@ class HomeActivity : BaseActivity(), View.OnClickListener, DefaultHardwareBackBt
             }
 
             R.id.layoutGenAI -> {
-                if (binding.layoutGenAI.isSelected.not()) {
+                /*if (binding.layoutGenAI.isSelected.not()) {
                     setBottomSelection(v.id)
                     homeHandler?.showGenAIFragment()
-                }
+                }*/
+                startActivity(Intent(this@HomeActivity, GenAIActivity::class.java))
             }
 
             R.id.imageViewCloseMenu -> {
@@ -1241,8 +1250,8 @@ class HomeActivity : BaseActivity(), View.OnClickListener, DefaultHardwareBackBt
             //binding.drawerLayout.closeDrawer(GravityCompat.START)
             toggleDrawer()
         } else {
-            if (reactInstanceManager != null) {
-                reactInstanceManager.onBackPressed()
+            if (homeReactInstanceManager != null) {
+                homeReactInstanceManager.onBackPressed()
                 super.onBackPressed()
             } else {
                 super.onBackPressed()
@@ -1412,7 +1421,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener, DefaultHardwareBackBt
     private fun startCoachMarksFlow() {
         if (binding.layoutHome.isSelected.not()) {
             //display home screen if not
-            homeHandler?.showHomeFragment(notification, reactInstanceManager)
+            homeHandler?.showHomeFragment(notification, homeReactInstanceManager)
             ContextHolder.reactContext?.let {
                 sendEventToRN(
                     it,
@@ -1808,16 +1817,16 @@ class HomeActivity : BaseActivity(), View.OnClickListener, DefaultHardwareBackBt
     }
 
     override fun invokeDefaultOnBackPressed() {
-        if (reactInstanceManager != null) {
-            reactInstanceManager.onBackPressed()
+        if (homeReactInstanceManager != null) {
+            homeReactInstanceManager.onBackPressed()
         }
     }
 
 
     override fun onDestroy() {
         super.onDestroy()
-        if (reactInstanceManager != null) {
-            reactInstanceManager.onHostDestroy(this);
+        if (homeReactInstanceManager != null) {
+            homeReactInstanceManager.onHostDestroy(this);
         }
         if (reactRootView != null) {
             reactRootView.unmountReactApplication();
@@ -1826,7 +1835,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener, DefaultHardwareBackBt
 
     override fun onKeyUp(keyCode: Int, event: KeyEvent?): Boolean {
         if (keyCode == KeyEvent.KEYCODE_MENU) {
-            reactInstanceManager.showDevOptionsDialog()
+            homeReactInstanceManager.showDevOptionsDialog()
             return true
         }
         return super.onKeyUp(keyCode, event)

@@ -83,6 +83,9 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup"
         tools:targetApi="s">
+        <activity
+            android:name=".ui.GenAIActivity"
+            android:exported="false" />
         <!-- RazorPay metadata -->
         <!--
 <meta-data
@@ -100,13 +103,14 @@
         <meta-data
             android:name="APXOR_APP_ID"
             android:value="@string/apxor_key_value" />
-
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
-        <!--<meta-data
+        <!--
+<meta-data
             android:name="com.facebook.sdk.ClientToken"
-            android:value="@string/facebook_client_token" />-->
+            android:value="@string/facebook_client_token" />
+        -->
         <meta-data
             android:name="com.facebook.sdk.CodelessDebugLogEnabled"
             android:value="true" />
@@ -138,7 +142,8 @@
             android:enabled="true"
             android:exported="false"
             android:foregroundServiceType="dataSync" /> <!-- Activities -->
-        <!-- <activity
+        <!--
+ <activity
              android:name=".ui.splash.SplashActivity"
              android:exported="true"
              android:screenOrientation="portrait"
@@ -164,8 +169,8 @@
                  <data android:scheme="https" />
                  <data android:host="mytatva.page.link" />
              </intent-filter>
-         </activity>-->
-
+         </activity>
+        -->
         <activity
             android:name=".ui.splash.SplashActivity"
             android:exported="true"

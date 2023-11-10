@@ -15,6 +15,7 @@ import com.mytatva.patient.data.model.PlanFeatures
 import com.mytatva.patient.data.model.Readings
 import com.mytatva.patient.data.pojo.response.GoalReadingData
 import com.mytatva.patient.data.pojo.response.IncidentSurveyData
+import com.mytatva.patient.ui.GenAIActivity
 import com.mytatva.patient.ui.activity.IsolatedFullActivity
 import com.mytatva.patient.ui.activity.TransparentActivity
 import com.mytatva.patient.ui.appointment.fragment.AllAppointmentsFragment
@@ -719,17 +720,19 @@ class AndroidBridgeModule(var reactContext: ReactApplicationContext) : ReactCont
             )
         }
 
-        /*ContextHolder.reactContext?.let {
-            (currentActivity as BaseActivity?)!!.sendEventToRN(
-                it,
-                "HideIncidentSurvey",
-                AppFlagHandler.isToHideIncidentSurvey((currentActivity as BaseActivity?)!!.firebaseConfigUtil)
-            )
-        }*/
-
         GlobalScope.launch(Dispatchers.Main) {
-            (currentActivity as HomeActivity).initLocation()
+            if (currentActivity is HomeActivity) {
+                (currentActivity as HomeActivity).initLocation()
+            }
         }
     }
+
+    @ReactMethod
+    fun onBackPressed() {
+        if (currentActivity is GenAIActivity) {
+            (currentActivity as GenAIActivity).finish()
+        }
+    }
+
 
 }

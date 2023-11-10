@@ -3,9 +3,11 @@ import {
   FlatList,
   Keyboard,
   KeyboardAvoidingView,
+  NativeModules,
   Platform,
   SafeAreaView,
   ScrollView,
+  StatusBar,
   StyleSheet,
   Text,
   TextInput,
@@ -13,21 +15,22 @@ import {
   View,
   useWindowDimensions,
 } from 'react-native';
-import React from 'react';
-import {goBackFromChat} from '../routes/Router';
-import {useApp} from '../context/app.context';
-import {Screen} from '../components/styled/Views';
+import React, { useState } from 'react';
+import { goBackFromChat } from '../routes/Router';
+import { useApp } from '../context/app.context';
+import { Screen } from '../components/styled/Views';
 import ChatScreenHeader from '../components/atoms/ChatScreenHeader';
 import ChatDisclaimer from '../components/atoms/ChatDisclaimer';
-import {StackScreenProps} from '@react-navigation/stack';
-import {AppStackParamList} from '../interface/Navigation.interface';
+import { StackScreenProps } from '@react-navigation/stack';
+import { AppStackParamList } from '../interface/Navigation.interface';
 import ChatbotMessage from '../components/atoms/ChatbotMessage';
 import UserMessage from '../components/atoms/UserMessage';
 import ChatbotMessageLoader from '../components/atoms/ChatbotMessageLoader';
 import moment from 'moment';
-import {colors} from '../constants/colors';
-import {Icons} from '../constants/icons';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import { colors } from '../constants/colors';
+import { Icons } from '../constants/icons';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { useHeaderHeight } from '@react-navigation/elements';
 
 type ChatScreenProps = StackScreenProps<AppStackParamList, 'ChatScreen'>;
 
@@ -36,13 +39,21 @@ type Message = {
   message: string;
 };
 
-const ChatScreen: React.FC<ChatScreenProps> = ({navigation, route}) => {
+const ChatScreen: React.FC<ChatScreenProps> = ({ navigation, route }) => {
   const {
-    userData: {patient_id},
+    userData: { patient_id },
   } = useApp();
 
+  const headerHeight = useHeaderHeight()
+  const [keyboardStatus, setKeyboardStatus] = useState<boolean>(false);
+
+
   const onPressGoBack = () => {
-    goBackFromChat();
+    if (Platform.OS == "ios") {
+      goBackFromChat();
+    } else {
+      NativeModules.AndroidBridge.onBackPressed();
+    }
   };
 
   const scrollRef = React.useRef<ScrollView>(null);
@@ -74,7 +85,7 @@ const ChatScreen: React.FC<ChatScreenProps> = ({navigation, route}) => {
     )}&id=${patient_id}`;
 
     try {
-      const res = await fetch(url, {method: 'post', headers});
+      const res = await fetch(url, { method: 'post', headers });
       const response = await res.json();
       const botReply: Message = {
         message: response,
@@ -96,11 +107,17 @@ const ChatScreen: React.FC<ChatScreenProps> = ({navigation, route}) => {
   React.useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
       'keyboardDidShow',
-      () => scrollRef.current?.scrollToEnd({animated: true}),
+      () => { setKeyboardStatus(true), scrollRef.current?.scrollToEnd({ animated: true }) },
+    );
+
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => { setKeyboardStatus(false) },
     );
 
     return () => {
       keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove()
     };
   }, []);
 
@@ -116,13 +133,13 @@ const ChatScreen: React.FC<ChatScreenProps> = ({navigation, route}) => {
   return (
     <>
       <Screen>
-        <KeyboardAvoidingView behavior={'padding'} style={{flex: 1}}>
+        <KeyboardAvoidingView {...Platform.OS == 'ios' ? { behavior: 'padding' } : { behavior: 'height' }} style={{ flex: 1 }}>
           <ChatScreenHeader onPressBack={onPressGoBack} />
           <ChatDisclaimer />
           <ScrollView
             ref={scrollRef}
             onContentSizeChange={() =>
-              scrollRef.current?.scrollToEnd({animated: true})
+              scrollRef.current?.scrollToEnd({ animated: true })
             }
             bounces={false}
             contentContainerStyle={styles.container}
@@ -134,34 +151,34 @@ const ChatScreen: React.FC<ChatScreenProps> = ({navigation, route}) => {
             {loading && <ChatbotMessageLoader loading={loading} />}
           </ScrollView>
           {!loading && (
-            <View style={styles.inputContainer}>
+            <View style={[styles.inputContainer, { marginBottom: Platform.OS == "android" ? keyboardStatus ? StatusBar.currentHeight : 0 : 0 }]}>
               <View style={styles.textInputContainer}>
                 <TextInput
                   placeholder={'Type a message...'}
                   placeholderTextColor={'#72777A'}
                   value={msg}
                   onChangeText={e => setMsg(e)}
-                  keyboardType={
-                    Platform.OS === 'ios' ? 'ascii-capable' : 'visible-password'
-                  }
+                  keyboardType={Platform.OS == 'ios' ? 'ascii-capable' : 'visible-password'}
+                  // returnKeyType='next'
                   multiline
                   numberOfLines={3}
                   style={{
                     maxHeight: 68,
                     paddingTop: 0,
+                    ...(Platform.OS == 'android' && { paddingBottom: 0 })
                   }}
                 />
               </View>
               <TouchableOpacity
                 onPress={onPressSend}
-                disabled={msg.length <= 0}
+                disabled={msg.trim().length <= 0}
                 activeOpacity={0.6}>
-                {msg.length > 0 ? <Icons.SendActive /> : <Icons.SendInactive />}
+                {msg.trim().length > 0 ? <Icons.SendActive /> : <Icons.SendInactive />}
               </TouchableOpacity>
             </View>
           )}
         </KeyboardAvoidingView>
-      </Screen>
+      </Screen >
       <SafeAreaView style={styles.bottomColor} />
     </>
   );
@@ -175,7 +192,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
   container: {
-    // flex: 1,
     paddingHorizontal: 16,
     paddingBottom: 16,
   },
@@ -198,13 +214,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 12,
     gap: 16,
-    backgroundColor: colors.white,
+    backgroundColor: colors.white
   },
   textInputContainer: {
     flex: 1,
     borderWidth: 0.5,
     borderRadius: 24,
-    paddingVertical: 12,
+    // paddingVertical: 12,
     paddingHorizontal: 16,
     borderColor: colors.darkGray,
   },

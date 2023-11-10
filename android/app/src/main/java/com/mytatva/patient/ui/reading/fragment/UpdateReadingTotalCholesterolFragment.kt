@@ -28,6 +28,7 @@ import com.mytatva.patient.ui.reading.ReadingMinMax.MIN_TRIGLYCERIDES
 import com.mytatva.patient.ui.viewmodel.GoalReadingViewModel
 import com.mytatva.patient.utils.datetime.DateTimeFormatter
 import com.mytatva.patient.utils.firebaseanalytics.AnalyticsClient
+import com.mytatva.patient.utils.firebaseanalytics.AnalyticsScreenNames
 import com.mytatva.patient.utils.rnbridge.ContextHolder
 import java.util.*
 
@@ -121,7 +122,7 @@ class UpdateReadingTotalCholesterolFragment() :
 
     override fun onResume() {
         super.onResume()
-        //analytics.setScreenName(AnalyticsScreenNames.LogReading.plus(goalReadingData?.keys))
+        analytics.setScreenName(AnalyticsScreenNames.LogReading.plus(goalReadingData?.keys))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
