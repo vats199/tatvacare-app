@@ -26,6 +26,7 @@ import AWSS3
 @_exported import HGCircularSlider
 @_exported import Hero
 @_exported import libLifetronsSdk
+@_exported import FBAudienceNetwork
 
 import React
 //import React_debug
@@ -101,6 +102,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.handlePushNotification(userInfo: JSON(userInfo),
                                         type: .didreceiveFetch)
         }
+        
+        FBAudienceNetworkAds.initialize(with: nil, completionHandler: nil)
+        
+        // Pass user's consent after acquiring it. For sample app purposes, this is set to YES.
+        FBAdSettings.setAdvertiserTrackingEnabled(true)
         
         WebEngage.sharedInstance()?.application(application, didFinishLaunchingWithOptions: launchOptions, notificationDelegate: self, autoRegister: true)
         

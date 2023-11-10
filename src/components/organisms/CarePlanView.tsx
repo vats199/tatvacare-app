@@ -64,7 +64,7 @@ const CarePlanView: React.FC<CarePlanViewProps> = ({
 
   const onCarePlanNeedCotainer = () => {
     if (Platform.OS == 'ios') {
-      navigateToChronicCareProgram();
+      navigateToChronicCareProgram('');
     } else {
       NativeModules.AndroidBridge.openCheckAllPlanScreen();
     }
@@ -117,9 +117,7 @@ const CarePlanView: React.FC<CarePlanViewProps> = ({
                 With diagnostic tests and monitoring devices.
               </Text>
             </View>
-            <TouchableOpacity
-              style={styles.arrowContainer}
-              onPress={onCarePlanNeedCotainer}>
+            <TouchableOpacity onPress={onCarePlanNeedCotainer}>
               <Icons.RightArrow />
             </TouchableOpacity>
           </View>

@@ -744,7 +744,9 @@
 		8F1E96692AD3F73B00C7F19E /* ApplyCouponPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1E96682AD3F73B00C7F19E /* ApplyCouponPopupVC.swift */; };
 		8F1E966D2AD3F75000C7F19E /* DiscountCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F1E966B2AD3F74F00C7F19E /* DiscountCell.xib */; };
 		8F1E966E2AD3F75000C7F19E /* DiscountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1E966C2AD3F74F00C7F19E /* DiscountCell.swift */; };
-		8F86498B2AFDF93400D7677E /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 8F86498A2AFDF93400D7677E /* main.jsbundle */; };
+		8F86498E2AFE363E00D7677E /* FBAudienceNetwork.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F86498C2AFE320D00D7677E /* FBAudienceNetwork.xcframework */; };
+		8F86498F2AFE363E00D7677E /* FBAudienceNetwork.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8F86498C2AFE320D00D7677E /* FBAudienceNetwork.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8F878AA02AFE3E930068D44C /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 8F878A9F2AFE3E930068D44C /* main.jsbundle */; };
 		8F93C5CA2AE10149002C4F81 /* SelectPatientDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F93C5C92AE10149002C4F81 /* SelectPatientDetailsVC.swift */; };
 		8F9D2C9E2AD3CA68007F43FB /* DiscountListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9D2C9D2AD3CA68007F43FB /* DiscountListModel.swift */; };
 		8F9D2CA92AD3CCBE007F43FB /* BCANewAddressListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F9D2CA72AD3CCBE007F43FB /* BCANewAddressListCell.xib */; };
@@ -902,6 +904,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				8F86498F2AFE363E00D7677E /* FBAudienceNetwork.xcframework in Embed Frameworks */,
 				9AADC7462A124214003D627D /* libLifetronsSdk.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -1691,7 +1694,8 @@
 		8F1E96682AD3F73B00C7F19E /* ApplyCouponPopupVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplyCouponPopupVC.swift; sourceTree = "<group>"; };
 		8F1E966B2AD3F74F00C7F19E /* DiscountCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DiscountCell.xib; sourceTree = "<group>"; };
 		8F1E966C2AD3F74F00C7F19E /* DiscountCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountCell.swift; sourceTree = "<group>"; };
-		8F86498A2AFDF93400D7677E /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
+		8F86498C2AFE320D00D7677E /* FBAudienceNetwork.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = FBAudienceNetwork.xcframework; sourceTree = "<group>"; };
+		8F878A9F2AFE3E930068D44C /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		8F93C5C92AE10149002C4F81 /* SelectPatientDetailsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectPatientDetailsVC.swift; sourceTree = "<group>"; };
 		8F9D2C9D2AD3CA68007F43FB /* DiscountListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountListModel.swift; sourceTree = "<group>"; };
 		8F9D2CA72AD3CCBE007F43FB /* BCANewAddressListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BCANewAddressListCell.xib; sourceTree = "<group>"; };
@@ -1846,6 +1850,7 @@
 				61CA3701297A91A100B4BD03 /* PDFKit.framework in Frameworks */,
 				615E8F0B2716B16400DFD742 /* HealthKit.framework in Frameworks */,
 				61A0AAFE27455B37005E19DA /* AppTrackingTransparency.framework in Frameworks */,
+				8F86498E2AFE363E00D7677E /* FBAudienceNetwork.xcframework in Frameworks */,
 				618186CB277AEA2B00CE8064 /* StoreKit.framework in Frameworks */,
 				6164B63726A5E22A00C51438 /* WebKit.framework in Frameworks */,
 				42B163A80057C4E20E397500 /* Pods_MyTatva.framework in Frameworks */,
@@ -5942,7 +5947,7 @@
 		91A1754026789CC500297B66 = {
 			isa = PBXGroup;
 			children = (
-				8F86498A2AFDF93400D7677E /* main.jsbundle */,
+				8F878A9F2AFE3E930068D44C /* main.jsbundle */,
 				91A1754B26789CC500297B66 /* MyTatva */,
 				6169A390272BE1D70081C3B7 /* MyTatvaNotificationService */,
 				618AFEF6272C0884003C244C /* NotificationViewController */,
@@ -6112,6 +6117,7 @@
 		9AADC7422A1241CA003D627D /* SDKFramework */ = {
 			isa = PBXGroup;
 			children = (
+				8F86498C2AFE320D00D7677E /* FBAudienceNetwork.xcframework */,
 				9AADC7432A1241CA003D627D /* libLifetronsSdk.xcframework */,
 			);
 			path = SDKFramework;
@@ -6622,7 +6628,7 @@
 				6186B03927019259009BEC12 /* Goal.storyboard in Resources */,
 				6196788428F563C6008CC4E5 /* doc.json in Resources */,
 				61C33C6C291BDFCE005E37D0 /* mytatva_01.json in Resources */,
-				8F86498B2AFDF93400D7677E /* main.jsbundle in Resources */,
+				8F878AA02AFE3E930068D44C /* main.jsbundle in Resources */,
 				5371B1BA130E70EFA40B354A /* BCA.storyboard in Resources */,
 				73578501955AF9595139CDD3 /* Weigth_scale.json in Resources */,
 			);

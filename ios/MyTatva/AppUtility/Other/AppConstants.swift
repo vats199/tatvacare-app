@@ -34,6 +34,7 @@ var is_bcp_with_in_app              = true
 var is_hide_discount_on_plan        = true
 var is_hide_discount_on_labtest     = true
 var is_home_from_react_native       = true
+var hide_genai_chatbot              = false
 
 var isShowAddressList               = false
 var selectedAddressIndex            = 0
