@@ -1095,7 +1095,8 @@ extension FIRAnalytics {
                 params[AnalyticsParameters.content_type.rawValue]       = content_type
                 
                 switch on {
-                    
+                case .GenAI:
+                    break
                 case .Home:
 //                    FIRAnalytics.FIRLogEvent(eventName: .USER_TIME_SPENT_HOME,
 //                                             screen: on,

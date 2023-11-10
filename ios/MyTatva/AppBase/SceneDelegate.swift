@@ -226,10 +226,24 @@ extension SceneDelegate {
                     }
                 }
                 if UserModel.isUserLoggedIn && UserModel.isVerifiedUser {
-                    UIApplication.shared.setHome()
+                    
+                    if(type != .GenAI){
+                        UIApplication.shared.setHome()
+                    }
                     
                     switch type {
-                        
+                    case .GenAI:
+                        if let tabbar = UIApplication.topViewController()?.parent as? TabbarVC {
+                            if  tabbar.isFromRN && !tabbar.hideChatbot{
+                                tabbar.selectedIndex = 4
+                                tabbar.tabBar.isHidden = true
+                                
+                                RNEventEmitter.emitter.sendEvent(withName: "chatScreenOpened", body: [:])
+                                
+                            }
+                            
+                        }
+                        break
                     case .Home:
                         
                         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {

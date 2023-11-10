@@ -149,6 +149,8 @@ enum ScreenName: String {
     case ConfirmLocationMap
     case EnterAddress
     
+    case GenAI = "genAi"
+    
 }
 
 enum ScreenSection: String {
