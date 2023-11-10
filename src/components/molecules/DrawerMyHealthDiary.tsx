@@ -1,8 +1,21 @@
-import { NativeModules, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  NativeModules,
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React from 'react';
-import { colors } from '../../constants/colors';
-import { Icons } from '../../constants/icons';
-import { trackEvent } from '../../helpers/TrackEvent';
+import {colors} from '../../constants/colors';
+import {Icons} from '../../constants/icons';
+import {trackEvent} from '../../helpers/TrackEvent';
+import {
+  navigateTo,
+  navigateToBookmark,
+  navigateToHistory,
+  openAddWeightHeight,
+} from '../../routes/Router';
 // import {
 //   navigateTo,
 //   navigateToHistory,
@@ -12,44 +25,41 @@ import { trackEvent } from '../../helpers/TrackEvent';
 
 type DrawerMyHealthDiaryProps = {};
 
-const DrawerMyHealthDiary: React.FC<DrawerMyHealthDiaryProps> = ({ }) => {
-
+const DrawerMyHealthDiary: React.FC<DrawerMyHealthDiaryProps> = ({}) => {
   const trackCommonEvent = (name: string) => {
-    trackEvent("MENU_NAVIGATION", {
-      menu: name
-    })
-  }
+    trackEvent('MENU_NAVIGATION', {
+      menu: name,
+    });
+  };
   const onPressGoals = () => {
     if (Platform.OS == 'ios') {
-      trackCommonEvent("Goals")
-      //navigateTo('SetGoalsVC');
+      trackCommonEvent('Goals');
+      navigateTo('SetGoalsVC');
     } else {
       NativeModules.AndroidBridge.openHealthGoalScreen();
     }
   };
   const onPressBMI = () => {
     if (Platform.OS == 'ios') {
-      trackCommonEvent("BMI")
-      //openAddWeightHeight();
+      trackCommonEvent('BMI');
+      openAddWeightHeight();
     } else {
       NativeModules.AndroidBridge.openBMIScreen();
     }
   };
 
-
-
   const onPressHealthRecords = () => {
     if (Platform.OS == 'ios') {
-      trackCommonEvent("Health Records")
-      //navigateToHistory('Records');
+      trackCommonEvent('Health Records');
+      navigateToHistory('Records');
     } else {
       NativeModules.AndroidBridge.openHealthRecordScreen();
     }
   };
   const onPressBookmarks = () => {
     if (Platform.OS == 'ios') {
-      trackCommonEvent("Bookmarks")
-      //navigateToBookmark();
+      trackCommonEvent('Bookmarks');
+      navigateToBookmark();
     } else {
       NativeModules.AndroidBridge.openBookmarkScreen();
     }
@@ -121,7 +131,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: 'SFProDisplay-Bold',
     marginHorizontal: 10,
-
   },
   itemContainer: {
     flexDirection: 'row',

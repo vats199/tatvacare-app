@@ -730,7 +730,6 @@
 		8D11D59325B5DC8A00548102 /* BCASelectAddressListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7035E316A6C13E30B814D4CB /* BCASelectAddressListVM.swift */; };
 		8F09F3F72AF519160088E3B3 /* UpdateSedentaryTimePopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F09F3F62AF519160088E3B3 /* UpdateSedentaryTimePopupVC.swift */; };
 		8F09F3F92AF519740088E3B3 /* UpdateSedentaryTimePopupVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F09F3F82AF519740088E3B3 /* UpdateSedentaryTimePopupVM.swift */; };
-		8F1AD64F2AFCA7B900183BF3 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 8F1AD64E2AFCA7B900183BF3 /* main.jsbundle */; };
 		8F1E96592AD3F70500C7F19E /* EnterLocationPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1E964D2AD3F70500C7F19E /* EnterLocationPopupVC.swift */; };
 		8F1E965A2AD3F70500C7F19E /* EnterLocationPopUpVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1E964E2AD3F70500C7F19E /* EnterLocationPopUpVM.swift */; };
 		8F1E965B2AD3F70500C7F19E /* GeoLocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1E96502AD3F70500C7F19E /* GeoLocationVC.swift */; };
@@ -745,6 +744,7 @@
 		8F1E96692AD3F73B00C7F19E /* ApplyCouponPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1E96682AD3F73B00C7F19E /* ApplyCouponPopupVC.swift */; };
 		8F1E966D2AD3F75000C7F19E /* DiscountCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F1E966B2AD3F74F00C7F19E /* DiscountCell.xib */; };
 		8F1E966E2AD3F75000C7F19E /* DiscountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1E966C2AD3F74F00C7F19E /* DiscountCell.swift */; };
+		8F783C6C2AFD1184003BDA05 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 8F783C6B2AFD1184003BDA05 /* main.jsbundle */; };
 		8F93C5CA2AE10149002C4F81 /* SelectPatientDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F93C5C92AE10149002C4F81 /* SelectPatientDetailsVC.swift */; };
 		8F9D2C9E2AD3CA68007F43FB /* DiscountListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9D2C9D2AD3CA68007F43FB /* DiscountListModel.swift */; };
 		8F9D2CA92AD3CCBE007F43FB /* BCANewAddressListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F9D2CA72AD3CCBE007F43FB /* BCANewAddressListCell.xib */; };
@@ -1677,7 +1677,6 @@
 		80683181CA404FBEAC54A607 /* SFProDisplay-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProDisplay-Bold.ttf"; path = "../assets/fonts/SFProDisplay-Bold.ttf"; sourceTree = "<group>"; };
 		8F09F3F62AF519160088E3B3 /* UpdateSedentaryTimePopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateSedentaryTimePopupVC.swift; sourceTree = "<group>"; };
 		8F09F3F82AF519740088E3B3 /* UpdateSedentaryTimePopupVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateSedentaryTimePopupVM.swift; sourceTree = "<group>"; };
-		8F1AD64E2AFCA7B900183BF3 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		8F1E964D2AD3F70500C7F19E /* EnterLocationPopupVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterLocationPopupVC.swift; sourceTree = "<group>"; };
 		8F1E964E2AD3F70500C7F19E /* EnterLocationPopUpVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterLocationPopUpVM.swift; sourceTree = "<group>"; };
 		8F1E96502AD3F70500C7F19E /* GeoLocationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoLocationVC.swift; sourceTree = "<group>"; };
@@ -1692,6 +1691,7 @@
 		8F1E96682AD3F73B00C7F19E /* ApplyCouponPopupVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplyCouponPopupVC.swift; sourceTree = "<group>"; };
 		8F1E966B2AD3F74F00C7F19E /* DiscountCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DiscountCell.xib; sourceTree = "<group>"; };
 		8F1E966C2AD3F74F00C7F19E /* DiscountCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountCell.swift; sourceTree = "<group>"; };
+		8F783C6B2AFD1184003BDA05 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		8F93C5C92AE10149002C4F81 /* SelectPatientDetailsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectPatientDetailsVC.swift; sourceTree = "<group>"; };
 		8F9D2C9D2AD3CA68007F43FB /* DiscountListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountListModel.swift; sourceTree = "<group>"; };
 		8F9D2CA72AD3CCBE007F43FB /* BCANewAddressListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BCANewAddressListCell.xib; sourceTree = "<group>"; };
@@ -5942,7 +5942,7 @@
 		91A1754026789CC500297B66 = {
 			isa = PBXGroup;
 			children = (
-				8F1AD64E2AFCA7B900183BF3 /* main.jsbundle */,
+				8F783C6B2AFD1184003BDA05 /* main.jsbundle */,
 				91A1754B26789CC500297B66 /* MyTatva */,
 				6169A390272BE1D70081C3B7 /* MyTatvaNotificationService */,
 				618AFEF6272C0884003C244C /* NotificationViewController */,
@@ -6622,7 +6622,7 @@
 				6186B03927019259009BEC12 /* Goal.storyboard in Resources */,
 				6196788428F563C6008CC4E5 /* doc.json in Resources */,
 				61C33C6C291BDFCE005E37D0 /* mytatva_01.json in Resources */,
-				8F1AD64F2AFCA7B900183BF3 /* main.jsbundle in Resources */,
+				8F783C6C2AFD1184003BDA05 /* main.jsbundle in Resources */,
 				5371B1BA130E70EFA40B354A /* BCA.storyboard in Resources */,
 				73578501955AF9595139CDD3 /* Weigth_scale.json in Resources */,
 			);

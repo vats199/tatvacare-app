@@ -305,7 +305,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   const getIncidentDetails = async () => {
     setLoading(true);
     const details = await Home.getIncidentDetails();
-    setHideIncidentSurvey(!!!details?.data.incidentSurveyData);
+    setHideIncidentSurvey(!!!details?.data);
     setIncidentDetails(details?.data);
     setLoading(false);
   };
@@ -367,10 +367,6 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   };
 
   const onPressExercise = (filteredData: any) => {
-    // openMedicineExerciseDiet([
-    //   { filteredData: filteredData },
-    //   { firstRow: 'exercise' },
-    // ]);
     if (Platform.OS == 'ios') {
       openMedicineExerciseDiet([
         {filteredData: filteredData},
@@ -417,7 +413,9 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   };
   const onPressMyIncidents = () => {
     if (Platform.OS == 'ios') {
-      navigateToIncident([{surveyDetails: incidentDetails}]);
+      if (incidentDetails) {
+        navigateToIncident([{surveyDetails: incidentDetails}]);
+      }
     } else {
       console.log('Incident Value---', JSON.stringify(incidentDetails));
       if (incidentDetails) {

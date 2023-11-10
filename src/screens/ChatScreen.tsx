@@ -71,7 +71,7 @@ const ChatScreen: React.FC<ChatScreenProps> = ({navigation, route}) => {
       'Content-Type': 'application/json',
     };
     const body = {
-      query: msg,
+      query: msg.trim(),
       id: 0,
       bot_chat: true,
       welcome_message: true,
@@ -87,7 +87,6 @@ const ChatScreen: React.FC<ChatScreenProps> = ({navigation, route}) => {
         headers,
         body: JSON.stringify(body),
       });
-
       const response = await res.json();
       const {bot_response} = response;
       const botReply: Message = {
@@ -97,6 +96,12 @@ const ChatScreen: React.FC<ChatScreenProps> = ({navigation, route}) => {
       setMessages([...messages, userMsg, botReply]);
     } catch (error) {
       console.log(error);
+      const botReply: Message = {
+        message:
+          'There seems to be an issue with our servers. Please try again later.',
+        sender: 'bot',
+      };
+      setMessages([...messages, userMsg, botReply]);
     }
     setMsg('');
     setLoading(false);
@@ -168,9 +173,13 @@ const ChatScreen: React.FC<ChatScreenProps> = ({navigation, route}) => {
               </View>
               <TouchableOpacity
                 onPress={onPressSend}
-                disabled={msg.length <= 0}
+                disabled={msg.trim().length <= 0}
                 activeOpacity={0.6}>
-                {msg.length > 0 ? <Icons.SendActive /> : <Icons.SendInactive />}
+                {msg.trim().length > 0 ? (
+                  <Icons.SendActive />
+                ) : (
+                  <Icons.SendInactive />
+                )}
               </TouchableOpacity>
             </View>
           )}
