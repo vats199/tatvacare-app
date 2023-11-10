@@ -89,9 +89,9 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
   const [tempSelectedDate, setTempSelectedDate] = useState<string | Date>(
     new Date(),
   );
-  const [newMonth, setNewMonth] = useState<string | Date>(
-    moment(tempSelectedDate).format('YYYY-MM-DD'),
-  );
+  // const [newMonth, setNewMonth] = useState<string | Date>(
+  //   moment(tempSelectedDate).format('YYYY-MM-DD'),
+  // );
 
   useEffect(() => {
     console.log('focus:', focus);
@@ -317,8 +317,9 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
   const handlePressOfNoPlanePlusIcon = (mealData: mealTYpe) => {
     const today = new Date();
     if (
-      moment(new Date(_selectedDateRef.current)).format('YYYY-MM-DD') >=
-      moment(today).format('YYYY-MM-DD')
+      moment(new Date(_selectedDateRef.current ?? new Date())).format(
+        'YYYY-MM-DD',
+      ) >= moment(today).format('YYYY-MM-DD')
     ) {
       const tempOption = [...selectedOptionsId.current];
       navigation.navigate('AddDiet', {
@@ -349,16 +350,16 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
     }
   };
 
-  const onChangeMonth = (date: DateData) => {
-    let tempDate = new Date(date?.dateString);
-    setNewMonth(tempDate);
-  };
+  // const onChangeMonth = (date: DateData) => {
+  //   let tempDate = new Date(date?.dateString);
+  //   setNewMonth(tempDate);
+  // };
 
-  const onDateChanged = useCallback((date: any, updateSource: any) => {
-    let tempDate = new Date(date);
-    setNewMonth(tempDate);
-    console.log('tempDate', tempDate);
-  }, []);
+  // const onDateChanged = useCallback((date: any, updateSource: any) => {
+  //   let tempDate = new Date(date);
+  //   setNewMonth(tempDate);
+  //   console.log('tempDate', tempDate);
+  // }, []);
 
   return (
     <SafeAreaView
@@ -373,17 +374,18 @@ const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
       <CalendarProvider
         date={moment(tempSelectedDate).format('YYYY-MM-DD')}
         disabledOpacity={0.6}
-        onMonthChange={onChangeMonth}
-        onDateChanged={onDateChanged}>
+        // onMonthChange={onChangeMonth}
+        // onDateChanged={onDateChanged}
+      >
         <DietHeader
           onPressBack={onPressBack}
           onPressOfNextAndPerviousDate={handleDate}
           title="Diet"
           selectedDate={tempSelectedDate}
-          newMonth={newMonth}
+          // newMonth={newMonth}
           onChangeDate={date => {
             setTempSelectedDate(date);
-            setNewMonth(date);
+            // setNewMonth(date);
           }}
         />
         <View style={styles.belowContainer}>

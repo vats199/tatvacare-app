@@ -8,7 +8,7 @@ import fonts from '../../constants/fonts';
 import Matrics from '../../constants/Matrics';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 // import MyStatusbar from '../../components/atoms/MyStatusBar';
-import {Fonts} from '../../constants';
+import {Constants, Fonts} from '../../constants';
 import {globalStyles} from '../../constants/globalStyles';
 import {CalendarProvider, DateData} from 'react-native-calendars';
 import moment from 'moment';
@@ -33,9 +33,9 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
   const [tempSelectedDate, setTempSelectedDate] = useState<string | Date>(
     new Date(),
   );
-  const [newMonth, setNewMonth] = useState<string | Date>(
-    moment(tempSelectedDate).format('YYYY-MM-DD'),
-  );
+  // const [newMonth, setNewMonth] = useState<string | Date>(
+  //   moment(tempSelectedDate).format('YYYY-MM-DD'),
+  // );
 
   useEffect(() => {
     navigation.addListener('beforeRemove', e => {
@@ -198,16 +198,16 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
     );
   };
 
-  const onChangeMonth = (date: DateData) => {
-    let tempDate = new Date(date?.dateString);
-    setNewMonth(tempDate);
-  };
+  // const onChangeMonth = (date: DateData) => {
+  //   let tempDate = new Date(date?.dateString);
+  //   setNewMonth(tempDate);
+  // };
 
-  const onDateChanged = useCallback((date: any, updateSource: any) => {
-    let tempDate = new Date(date);
-    setNewMonth(tempDate);
-    console.log('tempDate', tempDate);
-  }, []);
+  // const onDateChanged = useCallback((date: any, updateSource: any) => {
+  //   let tempDate = new Date(date);
+  //   setNewMonth(tempDate);
+  //   console.log('tempDate', tempDate);
+  // }, []);
 
   return (
     <SafeAreaView
@@ -222,26 +222,28 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
       <CalendarProvider
         date={moment(tempSelectedDate).format('YYYY-MM-DD')}
         disabledOpacity={0.6}
-        onMonthChange={onChangeMonth}
-        onDateChanged={onDateChanged}>
+        // onMonthChange={onChangeMonth}
+        // onDateChanged={onDateChanged}
+      >
         <DietHeader
           onPressBack={onPressBack}
           onPressOfNextAndPerviousDate={handleDate}
           title="Insights"
           selectedDate={tempSelectedDate}
-          newMonth={newMonth}
+          // newMonth={newMonth}
           onChangeDate={date => {
             setTempSelectedDate(date);
-            setNewMonth(date);
+            // setNewMonth(date);
           }}
         />
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{
-            paddingBottom:
-              Platform.OS == 'ios'
-                ? insets.bottom
-                : insets.bottom + Matrics.s(16),
+            paddingBottom: Constants.IS_NATIVE_UI
+              ? Matrics.vs(14)
+              : Platform.OS == 'ios'
+              ? insets.bottom
+              : insets.bottom + Matrics.s(16),
           }}>
           <Text style={style.title}>Daily Macronutrients Analysis</Text>
           <View

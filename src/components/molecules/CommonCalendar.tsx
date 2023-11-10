@@ -10,7 +10,14 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import React, { memo, useEffect, useMemo, useState, useCallback } from 'react';
+import React, {
+  memo,
+  useEffect,
+  useMemo,
+  useState,
+  useCallback,
+  useRef,
+} from 'react';
 import {
   CalendarProvider,
   DateData,
@@ -21,13 +28,13 @@ import {
   WeekCalendarProps,
 } from 'react-native-calendars';
 import moment from 'moment';
-import { Constants, Fonts, Matrics } from '../../constants';
-import { colors } from '../../constants/colors';
-import { MarkedDates, Theme } from 'react-native-calendars/src/types';
-import { Icons } from '../../constants/icons';
-import { useIsFocused } from '@react-navigation/native';
-import { trackEvent } from '../../helpers/TrackEvent';
-import { Positions } from 'react-native-calendars/src/expandableCalendar';
+import {Constants, Fonts, Matrics} from '../../constants';
+import {colors} from '../../constants/colors';
+import {MarkedDates, Theme} from 'react-native-calendars/src/types';
+import {Icons} from '../../constants/icons';
+import {useIsFocused} from '@react-navigation/native';
+import {trackEvent} from '../../helpers/TrackEvent';
+import {Positions} from 'react-native-calendars/src/expandableCalendar';
 
 type CommonCalendarProps = {
   selectedDate: Date | string;
@@ -39,11 +46,11 @@ type CommonCalendarProps = {
   headerTxtContainer?: ViewStyle;
   titleStyle?: TextStyle;
   iconContainerStyle?: ViewStyle;
-  newMonth: string | Date;
+  // newMonth: string | Date;
   onChangeDate: (date: string | Date) => void;
 };
 
-const { width } = Dimensions.get('window');
+const {width} = Dimensions.get('window');
 
 const CommonCalendar: React.FC<CommonCalendarProps> = ({
   selectedDate,
@@ -55,7 +62,7 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
   headerTxtContainer,
   titleStyle,
   iconContainerStyle,
-  newMonth,
+  // newMonth,
   onChangeDate,
 }) => {
   const focus = useIsFocused();
@@ -65,7 +72,13 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
   const [calendarDates, setCalendarDates] = useState(
     moment(selectedDate).format('YYYY-MM-DD'),
   );
+
+  const [newMonth, setNewMonth] = useState<string | Date>(
+    moment(selectedDate).format('YYYY-MM-DD'),
+  );
+
   const [showMore, setShowMore] = useState<boolean>(false);
+  const _selectedDateRef = useRef(moment(selectedDate).format('YYYY-MM-DD'));
 
   LocaleConfig.locales['en'] = {
     monthNames: [
@@ -122,98 +135,102 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
     });
   };
 
-  const handleNextWeek = () => {
-    const nextWeek = new Date(calendarDates);
-    nextWeek.setDate(nextWeek.getDate() + 7);
-    const tempDate = moment(nextWeek).format('YYYY-MM-DD');
-    setCalendarDates(tempDate);
-    onChangeDate(tempDate);
+  // const handleNextWeek = () => {
+  //   const nextWeek = new Date(calendarDates);
+  //   nextWeek.setDate(nextWeek.getDate() + 7);
+  //   const tempDate = moment(nextWeek).format('YYYY-MM-DD');
+  //   setCalendarDates(tempDate);
+  //   onChangeDate(tempDate);
+  // };
+
+  // const handlePreviousWeek = () => {
+  //   const previousWeek = new Date(calendarDates);
+  //   previousWeek.setDate(previousWeek.getDate() - 7);
+  //   const tempDate = moment(previousWeek).format('YYYY-MM-DD');
+  //   setCalendarDates(tempDate);
+  //   onChangeDate(tempDate);
+  // };
+
+  // const handleNextMonth = () => {
+  //   const currentMonnth = new Date(calendarDates);
+  //   var nextMonth = moment(currentMonnth).add(1, 'months');
+  //   trackEvent(Constants.EVENT_NAME.FOOD_DIARY.USER_CHANGES_MONTH, {
+  //     current_month: moment(currentMonnth).format('MM'),
+  //     new_month: nextMonth,
+  //   });
+  //   const tempDate = moment(new Date(nextMonth.toString())).format(
+  //     'YYYY-MM-DD',
+  //   );
+  //   focus
+  //     ? LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
+  //     : null;
+  //   setCalendarDates(tempDate);
+  //   onChangeDate(tempDate);
+  // };
+
+  // const handlePreviousMonth = () => {
+  //   const currentMonnth = new Date(calendarDates);
+  //   var previousMonth = moment(currentMonnth).subtract(1, 'months');
+  //   trackEvent(Constants.EVENT_NAME.FOOD_DIARY.USER_CHANGES_MONTH, {
+  //     current_month: moment(currentMonnth).format('MM'),
+  //     new_month: previousMonth,
+  //   });
+  //   const tempDate = moment(new Date(previousMonth.toString())).format(
+  //     'YYYY-MM-DD',
+  //   );
+  //   focus
+  //     ? LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
+  //     : null;
+  //   setCalendarDates(tempDate);
+  //   onChangeDate(tempDate);
+  // };
+
+  // const getMonthRangeText = (date: Date) => {
+  //   const weekStartDate = new Date(date);
+  //   const weekEndDate = new Date(weekStartDate);
+
+  //   while (weekStartDate.getDay() !== 1) {
+  //     weekStartDate.setDate(weekStartDate.getDate() - 1);
+  //   }
+  //   while (weekEndDate.getDay() !== 0) {
+  //     weekEndDate.setDate(weekEndDate.getDate() + 1);
+  //   }
+  //   const startMonth = weekStartDate.toLocaleString('default', {month: 'long'});
+  //   const endMonth = weekEndDate.toLocaleString('default', {month: 'long'});
+
+  //   const year = weekStartDate.getFullYear();
+
+  //   let dateTemp;
+  //   if (
+  //     startMonth !== endMonth ||
+  //     weekEndDate.getDate() >
+  //       new Date(year, weekStartDate.getMonth() + 1, 0).getDate()
+  //   ) {
+  //     dateTemp = `${startMonth} - ${endMonth} ${year}`;
+  //   } else {
+  //     dateTemp = `${startMonth} ${year}`;
+  //   }
+  //   return dateTemp;
+  // };
+
+  const onChangeMonth = (date: DateData) => {
+    let tempDate = new Date(date?.dateString);
+    _selectedDateRef.current = moment(tempDate).format('YYYY-MM-DD');
+    setNewMonth(tempDate);
   };
 
-  const handlePreviousWeek = () => {
-    const previousWeek = new Date(calendarDates);
-    previousWeek.setDate(previousWeek.getDate() - 7);
-    const tempDate = moment(previousWeek).format('YYYY-MM-DD');
-    setCalendarDates(tempDate);
-    onChangeDate(tempDate);
-  };
+  // const getMondayOfWeek = (dateString: any) => {
+  //   const date = new Date(dateString);
+  //   const dayOfWeek = date.getDay();
+  //   let diff = dayOfWeek - 1;
+  //   if (dayOfWeek === 0) {
+  //     diff = 6;
+  //   }
+  //   const mondayOfWeek = new Date(date);
+  //   mondayOfWeek.setDate(date.getDate() - diff);
 
-  const handleNextMonth = () => {
-    const currentMonnth = new Date(calendarDates);
-    var nextMonth = moment(currentMonnth).add(1, 'months');
-    trackEvent(Constants.EVENT_NAME.FOOD_DIARY.USER_CHANGES_MONTH, {
-      current_month: moment(currentMonnth).format('MM'),
-      new_month: nextMonth,
-    });
-    const tempDate = moment(new Date(nextMonth.toString())).format(
-      'YYYY-MM-DD',
-    );
-    focus
-      ? LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
-      : null;
-    setCalendarDates(tempDate);
-    onChangeDate(tempDate);
-  };
-
-  const handlePreviousMonth = () => {
-    const currentMonnth = new Date(calendarDates);
-    var previousMonth = moment(currentMonnth).subtract(1, 'months');
-    trackEvent(Constants.EVENT_NAME.FOOD_DIARY.USER_CHANGES_MONTH, {
-      current_month: moment(currentMonnth).format('MM'),
-      new_month: previousMonth,
-    });
-    const tempDate = moment(new Date(previousMonth.toString())).format(
-      'YYYY-MM-DD',
-    );
-    focus
-      ? LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
-      : null;
-    setCalendarDates(tempDate);
-    onChangeDate(tempDate);
-  };
-
-  const getMonthRangeText = (date: Date) => {
-    const weekStartDate = new Date(date);
-    const weekEndDate = new Date(weekStartDate);
-
-    while (weekStartDate.getDay() !== 1) {
-      weekStartDate.setDate(weekStartDate.getDate() - 1);
-    }
-    while (weekEndDate.getDay() !== 0) {
-      weekEndDate.setDate(weekEndDate.getDate() + 1);
-    }
-    const startMonth = weekStartDate.toLocaleString('default', { month: 'long' });
-    const endMonth = weekEndDate.toLocaleString('default', { month: 'long' });
-
-    const year = weekStartDate.getFullYear();
-
-    if (
-      startMonth !== endMonth ||
-      weekEndDate.getDate() >
-      new Date(year, weekStartDate.getMonth() + 1, 0).getDate()
-    ) {
-      return `${startMonth} - ${endMonth} ${year}`;
-    } else {
-      return `${startMonth} ${year}`;
-    }
-  };
-
-  const getMonthText = (date: Date) => {
-    return moment(date).format('MMMM  YYYY');
-  };
-
-  const getMondayOfWeek = (dateString: any) => {
-    const date = new Date(dateString);
-    const dayOfWeek = date.getDay();
-    let diff = dayOfWeek - 1;
-    if (dayOfWeek === 0) {
-      diff = 6;
-    }
-    const mondayOfWeek = new Date(date);
-    mondayOfWeek.setDate(date.getDate() - diff);
-
-    return mondayOfWeek;
-  };
+  //   return mondayOfWeek;
+  // };
 
   const onExpandCalendar = (isOpen: boolean) => {
     if (isOpen) {
@@ -324,14 +341,47 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
   //   );
   // };
 
+  // renderHeader={() => {
+  //   return (
+  //     <View style={[styles.container, containerStyle]}>
+  //       <View style={[styles.leftRightContent, headerTxtContainer]}>
+  //         <Text style={[styles.monthYearStyle, titleStyle]}>
+  //           {!showMore
+  //             ? getMonthRangeText(new Date(_selectedDateRef.current))
+  //             : getMonthText(new Date(_selectedDateRef.current))}
+  //         </Text>
+  //       </View>
+  //       <View style={[styles.leftRightContent, iconContainerStyle]}>
+  //         <TouchableOpacity
+  //           onPress={!showMore ? handlePreviousWeek : handlePreviousMonth}
+  //           hitSlop={8}>
+  //           <Icons.backArrow
+  //             height={11}
+  //             width={11}
+  //             style={{
+  //               marginHorizontal: Matrics.s(12),
+  //             }}
+  //           />
+  //         </TouchableOpacity>
+  //         <TouchableOpacity
+  //           onPress={!showMore ? handleNextWeek : handleNextMonth}
+  //           hitSlop={8}>
+  //           <Icons.RightArrow height={22} width={22} />
+  //         </TouchableOpacity>
+  //       </View>
+  //     </View>
+  //   );
+  // }}
+
   const calendarHeight: Positions | undefined = useMemo(() => {
     return !showMore
       ? ExpandableCalendar.positions.CLOSED
       : ExpandableCalendar.positions.OPEN;
   }, [showMore]);
+
   return (
     <ExpandableCalendar
-      // current={moment(calendarDates).format('YYYY-MM-DD')}
+      initialDate={moment(calendarDates).format('YYYY-MM-DD')}
       horizontal
       firstDay={1}
       initialPosition={calendarHeight}
@@ -342,38 +392,8 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
       onCalendarToggled={isOpen => {
         onExpandCalendar(isOpen);
       }}
+      onMonthChange={onChangeMonth}
       disabledByDefault
-      renderHeader={() => {
-        return (
-          <View style={[styles.container, containerStyle]}>
-            <View style={[styles.leftRightContent, headerTxtContainer]}>
-              <Text style={[styles.monthYearStyle, titleStyle]}>
-                {!showMore
-                  ? getMonthRangeText(new Date(newMonth))
-                  : getMonthText(new Date(newMonth))}
-              </Text>
-            </View>
-            <View style={[styles.leftRightContent, iconContainerStyle]}>
-              <TouchableOpacity
-                onPress={!showMore ? handlePreviousWeek : handlePreviousMonth}
-                hitSlop={8}>
-                <Icons.backArrow
-                  height={11}
-                  width={11}
-                  style={{
-                    marginHorizontal: Matrics.s(12),
-                  }}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={!showMore ? handleNextWeek : handleNextMonth}
-                hitSlop={8}>
-                <Icons.RightArrow height={22} width={22} />
-              </TouchableOpacity>
-            </View>
-          </View>
-        );
-      }}
       headerStyle={{
         paddingLeft: Matrics.s(3),
         paddingRight: Matrics.s(3),
