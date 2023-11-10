@@ -1,22 +1,16 @@
-import { DrawerItemList } from '@react-navigation/drawer';
-import React, { useEffect, useState, useRef } from 'react';
-import {
-  FlatList,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import { colors } from '../../constants/colors';
-import { Icons } from '../../constants/icons';
+import {DrawerItemList} from '@react-navigation/drawer';
+import React, {useEffect, useState, useRef} from 'react';
+import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {colors} from '../../constants/colors';
+import {Icons} from '../../constants/icons';
 import DietOption from './DietOption';
-import { Constants, Fonts, Matrics } from '../../constants';
+import {Constants, Fonts, Matrics} from '../../constants';
 import fonts from '../../constants/fonts';
 import moment from 'moment';
-import { useFocusEffect } from '@react-navigation/native';
-import { globalStyles } from '../../constants/globalStyles';
-import { trackEvent } from '../../helpers/TrackEvent';
-import { OptionType, useDiet } from '../../context/diet.context';
+import {useFocusEffect} from '@react-navigation/native';
+import {globalStyles} from '../../constants/globalStyles';
+import {trackEvent} from '../../helpers/TrackEvent';
+import {OptionType, useDiet} from '../../context/diet.context';
 interface ExactTimeProps {
   onPressPlus: (optionFoodItems: Options, mealName: string) => void;
   cardData: MealsData;
@@ -126,7 +120,7 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
   optionId,
   options,
 }) => {
-  const { updateOptionsId, selectedOptionsId, dietPlanData } = useDiet();
+  const {updateOptionsId, selectedOptionsId, dietPlanData} = useDiet();
   const [foodItmeData, setFoodItemData] = React.useState<Options | null>(null);
   const _selectedOptionId = useRef<string>(optionId);
 
@@ -167,13 +161,17 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
   }, [_selectedOptionId?.current]);
 
   useEffect(() => {
-    const tempArray = selectedOptionsId?.current?.length > 0 ? [...selectedOptionsId?.current] : [];
+    const tempArray =
+      selectedOptionsId?.current?.length > 0
+        ? [...selectedOptionsId?.current]
+        : [];
     if (tempArray.length !== 0) {
       dietPlanData?.meals?.map((item: any) =>
         tempArray.map(q => {
           if (q?.mealId == item?.diet_meal_type_rel_id) {
             const optionData = item?.options.filter(
-              (op: any) => op?.diet_meal_options_id == _selectedOptionId?.current,
+              (op: any) =>
+                op?.diet_meal_options_id == _selectedOptionId?.current,
             );
             if (optionData.length !== 0) {
               setFoodItemData(optionData[0]);
@@ -289,9 +287,9 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
             <Text style={styles.textBelowTitle}>
               {cardData?.start_time && cardData?.end_time
                 ? moment(cardData?.start_time, 'HH:mm:ss').format('h:mm A') +
-                ' - ' +
-                moment(cardData?.end_time, 'HH:mm:ss').format('h:mm A') +
-                ' | '
+                  ' - ' +
+                  moment(cardData?.end_time, 'HH:mm:ss').format('h:mm A') +
+                  ' | '
                 : 'Ideal Time' + ' | '}
               <Text style={styles.caloriesTxt}>
                 {(isNaN(Math.round(Number(foodItmeData?.consumed_calories)))
@@ -319,10 +317,10 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
               showsHorizontalScrollIndicator={false}
               horizontal
               bounces={false}
-              style={{ flexDirection: 'row' }}
+              style={{flexDirection: 'row'}}
               data={cardData?.options}
               keyExtractor={(item, index) => index.toString()}
-              renderItem={({ item, index }) => {
+              renderItem={({item, index}) => {
                 const isOptionSelected =
                   _selectedOptionId.current === item?.diet_meal_options_id;
                 return (
@@ -362,9 +360,9 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
               foodItmeData={
                 _selectedOptionId.current !== null
                   ? cardData.options.filter(
-                    item =>
-                      item.diet_meal_options_id == _selectedOptionId.current,
-                  )[0]
+                      item =>
+                        item.diet_meal_options_id == _selectedOptionId.current,
+                    )[0]
                   : cardData.options[0]
               }
               patient_permission={cardData.patient_permission}

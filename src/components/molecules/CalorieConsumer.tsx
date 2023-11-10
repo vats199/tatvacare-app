@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
-import { Icons } from '../../constants/icons';
-import CircularProgress from 'react-native-circular-progress-indicator';
-import { Fonts, Matrics } from '../../constants';
-import { colors } from '../../constants/colors';
-import { useDiet } from '../../context/diet.context';
+import React, {useEffect} from 'react';
+import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+import {Icons} from '../../constants/icons';
+import {Fonts, Matrics} from '../../constants';
+import {colors} from '../../constants/colors';
+import {useDiet} from '../../context/diet.context';
+import AnimatedRoundProgressBar from '../atoms/AnimatedRoundProgressBar';
 
 // type CalorieConsumerProps = {
 //   totalConsumedcalories: any;
@@ -12,7 +12,7 @@ import { useDiet } from '../../context/diet.context';
 // };
 const CalorieConsumer = () => {
   const [values, setVAlues] = React.useState(0);
-  const { totalCalories, totalConsumedCalories } = useDiet();
+  const {totalCalories, totalConsumedCalories} = useDiet();
   useEffect(() => {
     let vale = Math.round((totalConsumedCalories / totalCalories) * 100);
     if (isNaN(vale)) {
@@ -22,47 +22,19 @@ const CalorieConsumer = () => {
     }
   }, [totalConsumedCalories, totalCalories]);
 
-  const colorsOfprogressBar = (values: number) => {
-    if (values === 0) {
-      return colors.inactiveGray;
-    } else if (values > 0 && values < 25) {
-      return colors.progressBarRed;
-    } else if (values >= 25 && values < 75) {
-      return colors.progressBarYellow;
-    } else {
-      return colors.progressBarGreen;
-    }
-  };
-
   return (
     <View style={styles.container}>
       <View style={styles.topRow}>
         <View style={styles.leftContent}>
-          <CircularProgress
-            value={values}
-            inActiveStrokeColor={colorsOfprogressBar(values)}
-            activeStrokeColor={colorsOfprogressBar(values)}
-            inActiveStrokeOpacity={0.2}
-            progressValueColor={'green'}
-            radius={Matrics.mvs(23)}
-            activeStrokeWidth={3}
-            inActiveStrokeWidth={3}
-            duration={500}
-            maxValue={100}
-            allowFontScaling={false}
-            showProgressValue={false}
-            title={`${values}%`}
-            titleStyle={{
-              fontSize: Matrics.mvs(11),
-              fontFamily: Fonts.BOLD,
-            }}
-          />
+          <AnimatedRoundProgressBar values={values} />
           <View style={styles.textContainer}>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
               <Text style={styles.boldTitle}>
                 {!totalConsumedCalories ? 0 : totalConsumedCalories}
               </Text>
-              <Text style={styles.regularTitle}>{' of '} {!totalCalories ? 0 : totalCalories}</Text>
+              <Text style={styles.regularTitle}>
+                {' of '} {!totalCalories ? 0 : totalCalories}
+              </Text>
             </View>
             <Text style={styles.textBelowTitle}>Calories consumed today!</Text>
           </View>

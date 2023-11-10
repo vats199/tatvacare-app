@@ -1,27 +1,27 @@
-import { Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React from 'react';
-import { DietStackParamList } from '../../interface/Navigation.interface';
-import { Icons } from '../../constants/icons';
-import { colors } from '../../constants/colors';
+import {Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React, {useEffect} from 'react';
+import {DietStackParamList} from '../../interface/Navigation.interface';
+import {Icons} from '../../constants/icons';
+import {colors} from '../../constants/colors';
 import MicronutrientsInformation from '../../components/organisms/MicronutrientsInformation';
 import AddDiet from '../../components/organisms/AddDiet';
-import { StackScreenProps } from '@react-navigation/stack';
+import {StackScreenProps} from '@react-navigation/stack';
 import Deit from '../../api/diet';
-import { useApp } from '../../context/app.context';
-import { Constants, Fonts, Matrics } from '../../constants';
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
-import { trackEvent } from '../../helpers/TrackEvent';
+import {useApp} from '../../context/app.context';
+import {Constants, Fonts, Matrics} from '../../constants';
+import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+import {trackEvent} from '../../helpers/TrackEvent';
 import mealTypes from '../../constants/data';
 import moment from 'moment';
-import { number } from 'yup';
+import {number} from 'yup';
 import Diet from '../../api/diet';
-import { useDiet } from '../../context/diet.context';
+import {useDiet} from '../../context/diet.context';
 import MyStatusbar from '../../components/atoms/MyStatusBar';
 // import MyStatusbar from '../../components/atoms/MyStatusBar';
 
 type DietDetailProps = StackScreenProps<DietStackParamList, 'DietDetail'>;
 
-const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
+const DietDetailScreen: React.FC<DietDetailProps> = ({navigation, route}) => {
   const insets = useSafeAreaInsets();
   const {
     foodItem,
@@ -31,21 +31,68 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
     mealData,
     selectedDate,
     option,
+    toDietScreen,
+    patient_id,
+    optionFoodItems,
   } = route.params;
   let quantity = Math.round(Number(foodItem?.quantity)).toString();
   const [qty, setQty] = React.useState<string>(quantity);
-  const { userData } = useApp();
+  const {userData} = useApp();
+
+  useEffect(() => {
+    navigation.addListener('beforeRemove', e => {
+      if (e.data.action.type === 'NAVIGATE') {
+        return;
+      }
+      e.preventDefault();
+      let param;
+      if (toDietScreen) {
+        param = {
+          option: option,
+        };
+        navigation.setParams({toDietScreen: false});
+        navigation.navigate('DietScreen', param);
+      } else {
+        param = {
+          option: option,
+          healthCoachId: healthCoachId,
+          mealName: mealName,
+          mealData: mealData,
+          optionFoodItems: optionFoodItems,
+          patient_id: patient_id,
+          selectedDate: selectedDate,
+        };
+        navigation.setParams({toDietScreen: false});
+        navigation.navigate('AddDiet', param);
+      }
+    });
+  }, [navigation]);
 
   const onPressBack = () => {
     if (Array.isArray(option) && option.length !== 0) {
-      navigation.navigate('DietScreen', {
-        option: option,
-      });
+      navigation.setParams({toDietScreen: false});
+      if (toDietScreen) {
+        navigation.setParams({toDietScreen: false});
+
+        navigation.navigate('DietScreen', {
+          option: option,
+        });
+      } else {
+        navigation.setParams({toDietScreen: false});
+        navigation.navigate('AddDiet', {
+          option: option,
+          healthCoachId: healthCoachId,
+          mealName: mealName,
+          mealData: mealData,
+          optionFoodItems: optionFoodItems,
+          patient_id: patient_id,
+          selectedDate: selectedDate,
+        });
+      }
     } else {
       navigation.goBack();
     }
   };
-
   const onPressAdd = async () => {
     if (mealData) {
       const filterData = mealTypes.map(item => {
@@ -165,7 +212,11 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
         meals: filterData,
         end_date: moment(selectedDate).format('YYYY-MM-DD'),
       };
-      const result = await Deit?.noDietPlanCreate(noPlanPayload, {}, { token: userData.token });
+      const result = await Deit?.noDietPlanCreate(
+        noPlanPayload,
+        {},
+        {token: userData.token},
+      );
 
       if (Constants.IS_CHECK_API_CODE) {
         if (result?.code === '1') {
@@ -230,7 +281,11 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
       };
 
       if (buttonText === 'Add') {
-        const result = await Deit?.addFoodItem(addPayload, {}, { token: userData.token },);
+        const result = await Deit?.addFoodItem(
+          addPayload,
+          {},
+          {token: userData.token},
+        );
         if (Constants.IS_CHECK_API_CODE) {
           if (result?.code === '1') {
             navigation.navigate('DietScreen', {
@@ -245,7 +300,11 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
           }
         }
       } else {
-        const result = await Deit?.updateFoodItem(updatePayload, {}, { token: userData.token },);
+        const result = await Deit?.updateFoodItem(
+          updatePayload,
+          {},
+          {token: userData.token},
+        );
         if (Constants.IS_CHECK_API_CODE) {
           if (result?.code === '1') {
             if (result?.data) {
@@ -262,7 +321,8 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
 
                 const UpadteFoodItem = await Diet?.updateFoodConsumption(
                   payload,
-                  {}, { token: userData.token },
+                  {},
+                  {token: userData.token},
                 );
                 if (Constants.IS_CHECK_API_CODE) {
                   if (UpadteFoodItem.code == '1') {
@@ -301,7 +361,8 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
 
               const UpadteFoodItem = await Diet?.updateFoodConsumption(
                 payload,
-                {}, { token: userData.token },
+                {},
+                {token: userData.token},
               );
 
               if (Constants.IS_CHECK_API_CODE) {

@@ -1,19 +1,20 @@
-import { View, Text, StyleSheet, ScrollView, Platform } from 'react-native';
-import React, { useCallback, useEffect, useState } from 'react';
-import { DietStackParamList } from '../../interface/Navigation.interface';
-import { StackScreenProps } from '@react-navigation/stack';
+import {View, Text, StyleSheet, ScrollView, Platform} from 'react-native';
+import React, {useCallback, useEffect, useState} from 'react';
+import {DietStackParamList} from '../../interface/Navigation.interface';
+import {StackScreenProps} from '@react-navigation/stack';
 import DietHeader from '../../components/molecules/DietHeader';
-import { colors } from '../../constants/colors';
+import {colors} from '../../constants/colors';
 import fonts from '../../constants/fonts';
 import Matrics from '../../constants/Matrics';
-import CircularProgress from 'react-native-circular-progress-indicator';
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 // import MyStatusbar from '../../components/atoms/MyStatusBar';
-import { Fonts } from '../../constants';
-import { globalStyles } from '../../constants/globalStyles';
-import { CalendarProvider, DateData } from 'react-native-calendars';
+import {Fonts} from '../../constants';
+import {globalStyles} from '../../constants/globalStyles';
+import {CalendarProvider, DateData} from 'react-native-calendars';
 import moment from 'moment';
 import MyStatusbar from '../../components/atoms/MyStatusBar';
+import AnimatedRoundProgressBar from '../../components/atoms/AnimatedRoundProgressBar';
+import {colorsOfprogressBar} from '../../helpers/ColorsOfProgressBar';
 
 type ProgressBarInsightsScreenProps = StackScreenProps<
   DietStackParamList,
@@ -26,7 +27,7 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
 }) => {
   const insets = useSafeAreaInsets();
   const [selectedDate, setSelectedDate] = React.useState(new Date());
-  const { calories, currentSelectedDate, option } = route.params;
+  const {calories, currentSelectedDate, option} = route.params;
   const [dailyCalories, setDailyCalories] = useState([]);
   const [macroNuitrientes, setMacroNuitrientes] = useState([]);
   const [tempSelectedDate, setTempSelectedDate] = useState<string | Date>(
@@ -35,6 +36,18 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
   const [newMonth, setNewMonth] = useState<string | Date>(
     moment(tempSelectedDate).format('YYYY-MM-DD'),
   );
+
+  useEffect(() => {
+    navigation.addListener('beforeRemove', e => {
+      if (e.data.action.type === 'NAVIGATE') {
+        return;
+      }
+      e.preventDefault();
+      navigation.navigate('DietScreen', {
+        option: option,
+      });
+    });
+  }, [navigation]);
 
   const onPressBack = () => {
     if (Array.isArray(option) && option.length !== 0) {
@@ -49,18 +62,6 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
     setSelectedDate(date);
   };
 
-  const colorsOfprogressBar = (values: number) => {
-    if (values === 0) {
-      return colors.inactiveGray;
-    } else if (values > 0 && values < 25) {
-      return colors.progressBarRed;
-    } else if (values >= 25 && values < 75) {
-      return colors.progressBarYellow;
-    } else {
-      return colors.progressBarGreen;
-    }
-  };
-
   useEffect(() => {
     const data = calories.map((item: any) => {
       return {
@@ -70,12 +71,12 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
         progressBarVale: Math.round(
           (Math.round(Number(item.consumed_calories)) /
             Math.round(Number(item.total_calories))) *
-          100,
+            100,
         ),
         progresBarColor: colorsOfprogressBar(
           (Math.round(Number(item.consumed_calories)) /
             Math.round(Number(item.total_calories))) *
-          100,
+            100,
         ),
       };
     });
@@ -157,32 +158,12 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
   const renderItem = (item: any, index: number, type: string) => {
     return (
       <View
-        style={[style.calorieMainContainer, { paddingVertical: Matrics.vs(5) }]}
+        style={[style.calorieMainContainer, {paddingVertical: Matrics.vs(5)}]}
         key={index?.toString()}>
-        <CircularProgress
-          value={isNaN(item?.progressBarVale) ? 0 : item?.progressBarVale}
-          inActiveStrokeColor={
-            item.progresBarColor ? item.progresBarColor : '#2ecc71'
-          }
-          inActiveStrokeOpacity={0.2}
-          progressValueColor={'green'}
-          // valueSuffix={'%'}
-          maxValue={100}
-          radius={Matrics.mvs(22)}
-          activeStrokeWidth={3}
-          activeStrokeColor={
-            item.progresBarColor ? item.progresBarColor : '#2ecc71'
-          }
-          inActiveStrokeWidth={3}
-          duration={500}
-          allowFontScaling={false}
-          showProgressValue={false}
-          title={`${isNaN(item?.progressBarVale) ? 0 : item?.progressBarVale}%`}
-          titleStyle={{
-            fontSize: Matrics.mvs(11),
-            fontFamily: Fonts.BOLD,
-          }}
+        <AnimatedRoundProgressBar
+          values={isNaN(item?.progressBarVale) ? 0 : item?.progressBarVale}
         />
+
         <View
           style={[
             style.textContainer,
@@ -199,14 +180,14 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
             <Text style={style.consumedCalries}>
               {isNaN(item?.consumedClories) ? 0 : item?.consumedClories}
             </Text>
-            <Text style={[style.consumedCalries, { fontFamily: Fonts.REGULAR }]}>
+            <Text style={[style.consumedCalries, {fontFamily: Fonts.REGULAR}]}>
               {' '}
               of{' '}
             </Text>
             <Text
               style={[
                 style.consumedCalries,
-                { fontFamily: Fonts.REGULAR, color: colors.subTitleLightGray },
+                {fontFamily: Fonts.REGULAR, color: colors.subTitleLightGray},
               ]}>
               {item?.totalCalories}
               {type}
@@ -254,7 +235,7 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
             setNewMonth(date);
           }}
         />
-        <ScrollView style={{ paddingBottom: 14 }}>
+        <ScrollView style={{paddingBottom: 14}}>
           <Text style={style.title}>Daily Macronutrients Analysis</Text>
           <View
             style={[
@@ -269,7 +250,7 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
             })}
           </View>
           {dailyCalories.length > 0 ? (
-            <View style={{ flex: 1 }}>
+            <View style={{flex: 1}}>
               <Text style={style.title}>Meal Energy Distribution</Text>
               <View
                 style={[
