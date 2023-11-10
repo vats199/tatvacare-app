@@ -113,7 +113,6 @@ data class User(
     val hc_list: ArrayList<HealthCoachData>? = null,
     @SerializedName("settings")
     val settings: ArrayList<Settings>? = null,
-
     @SerializedName("bca_sync")
     val bca_sync: BcaSync? = null,// last BCA device sync date
     @SerializedName("spirometer_sync")
@@ -145,14 +144,13 @@ data class User(
     var ethnicity: String? = null,
     @SerializedName("spirometer_target_vol")
     var spirometer_target_vol: String? = null,
-
     @SerializedName("devices")
     val devices: ArrayList<MyDevicesData>? = null,
-
     @SerializedName("image_url")
     var image_url: String? = null,
-
-    ) {
+    @SerializedName("devices_name")
+    val devices_name: DeviceName? = null
+) {
 
     val getGenderCodeForSpirometer: String
         get() {
@@ -479,4 +477,11 @@ data class UnitData(
         get() {
             return min_inch?.toDoubleOrNull()?.toInt() ?: MIN_HEIGHT_INCH
         }
+
 }
+
+data class DeviceName(
+    @SerializedName("device_names")
+    val device_names: String? = "",
+)
+

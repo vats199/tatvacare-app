@@ -156,6 +156,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
           getMyHealthInsights();
           getHCDevicePlans();
           getMyHealthDiaries();
+          getIncidentDetails();
         },
       );
 
