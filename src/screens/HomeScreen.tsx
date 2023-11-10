@@ -9,17 +9,17 @@ import {
   Animated,
   Platform,
   DeviceEventEmitter,
-  Alert
+  Alert,
 } from 'react-native';
-import React, { useEffect, useRef, useState } from 'react';
-import { CompositeScreenProps } from '@react-navigation/native';
+import React, {useEffect, useRef, useState} from 'react';
+import {CompositeScreenProps} from '@react-navigation/native';
 import {
   AppStackParamList,
   DrawerParamList,
 } from '../interface/Navigation.interface';
-import { Container, Screen } from '../components/styled/Views';
-import { Icons } from '../constants/icons';
-import { colors } from '../constants/colors';
+import {Container, Screen} from '../components/styled/Views';
+import {Icons} from '../constants/icons';
+import {colors} from '../constants/colors';
 import CarePlanView from '../components/organisms/CarePlanView';
 import HealthTip from '../components/organisms/HealthTip';
 import MyHealthInsights from '../components/organisms/MyHealthInsights';
@@ -27,7 +27,7 @@ import MyHealthDiary from '../components/organisms/MyHealthDiary';
 import HomeHeader from '../components/molecules/HomeHeader';
 import AdditionalCareServices from '../components/organisms/AdditionalCareServices';
 import Learn from '../components/organisms/Learn';
-import { DrawerScreenProps } from '@react-navigation/drawer';
+import {DrawerScreenProps} from '@react-navigation/drawer';
 import {
   navigateTo,
   navigateToEngagement,
@@ -46,20 +46,20 @@ import {
 } from '../routes/Router';
 import Home from '../api/home';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { StackScreenProps } from '@react-navigation/stack';
-import { useApp } from '../context/app.context';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import {StackScreenProps} from '@react-navigation/stack';
+import {useApp} from '../context/app.context';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import TatvaLoader from '../components/atoms/TatvaLoader';
 // food diary 31st Oct
 import InputField, {
   AnimatedInputFieldRef,
 } from '../components/atoms/AnimatedInputField';
 import SearchModal from '../components/molecules/SearchModal';
-import { trackEvent } from '../helpers/TrackEvent'
-import { Constants } from '../constants';
+import {trackEvent} from '../helpers/TrackEvent';
+import {Constants} from '../constants';
 import moment from 'moment';
 
-const { RNEventEmitter } = NativeModules;
+const {RNEventEmitter} = NativeModules;
 const eventEmitter = new NativeEventEmitter(RNEventEmitter);
 
 type HomeScreenProps = CompositeScreenProps<
@@ -67,8 +67,8 @@ type HomeScreenProps = CompositeScreenProps<
   StackScreenProps<AppStackParamList, 'DrawerScreen'>
 >;
 
-const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
-  const { setUserData, setUserLocation, userData } = useApp();
+const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
+  const {setUserData, setUserLocation, userData} = useApp();
 
   const [loading, setLoading] = React.useState<boolean>(true);
 
@@ -79,7 +79,8 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
   const [healthInsights, setHealthInsights] = React.useState<any>({});
   const [hcDevicePlans, setHcDevicePlans] = React.useState<any>({});
   const [healthDiaries, setHealthDiaries] = React.useState<any>([]);
-  const [hideIncidentSurvey, setHideIncidentSurvey] = React.useState<boolean>(false);
+  const [hideIncidentSurvey, setHideIncidentSurvey] =
+    React.useState<boolean>(false);
   const [incidentDetails, setIncidentDetails] = React.useState<any>(null);
   const canBookHealthCoach: boolean = !!carePlanData?.patient_plans?.find(
     (pp: any) => {
@@ -143,11 +144,11 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
   // Health Insight Updates
 
   useEffect(() => {
-    if (Platform.OS == "android") {
+    if (Platform.OS == 'android') {
       const subscribeToken = DeviceEventEmitter.addListener(
         'UserToken',
         async (data: any) => {
-          await AsyncStorage.setItem("accessToken", data.Token)
+          await AsyncStorage.setItem('accessToken', data.Token);
           getCurrentLocation();
           getHomeCarePlan();
           getLearnMoreData();
@@ -165,11 +166,11 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
   }, []);
 
   useEffect(() => {
-    if (Platform.OS == "android") {
+    if (Platform.OS == 'android') {
       const subscribe = DeviceEventEmitter.addListener(
         'HideIncidentSurvey',
         (data: any) => {
-          console.log("HideIncidentSurvey==", data);
+          console.log('HideIncidentSurvey==', data);
         },
       );
 
@@ -224,8 +225,8 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
     const subscribe = eventEmitter.addListener(
       'locationUpdatedSuccessfully',
       (location: any) => {
-        const { city, state, country } = location;
-        setUserLocation({ city, state, country });
+        const {city, state, country} = location;
+        setUserLocation({city, state, country});
       },
     );
 
@@ -251,9 +252,8 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
     setLocation(currentLocation ? JSON.parse(currentLocation) : {});
     //call for health kit sync
     if (Platform.OS == 'ios') {
-      //await openHealthKitSyncView();
+      await openHealthKitSyncView();
     } else {
-
     }
   };
 
@@ -272,9 +272,9 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
   const getHomeCarePlan = async () => {
     setLoading(true);
     const homeCarePlan = await Home.getPatientCarePlan({});
-    const { city, state, country } = homeCarePlan?.data;
+    const {city, state, country} = homeCarePlan?.data;
     if (city && state && country) {
-      setUserLocation({ city, state, country });
+      setUserLocation({city, state, country});
     }
     setCarePlanData(homeCarePlan?.data);
     setUserData(homeCarePlan?.data);
@@ -288,7 +288,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
 
   const getPlans = async () => {
     setLoading(true);
-    const allPlans = await Home.getHomePagePlans({}, { page: 0 });
+    const allPlans = await Home.getHomePagePlans({}, {page: 0});
     setAllPlans(allPlans?.data ?? []);
     setLoading(false);
   };
@@ -334,9 +334,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
   };
 
   const onPressBell = () => {
-    trackEvent("CLICKED_NOTIFICATION", {
-
-    })
+    trackEvent('CLICKED_NOTIFICATION', {});
     // CLICKED_NOTIFICATION
     if (Platform.OS == 'ios') {
       navigateTo('NotificationVC');
@@ -345,9 +343,9 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
     }
   };
   const onPressProfile = () => {
-    trackEvent("USER_CLICKED_ON_MENU", {
-      "photo_uploaded": userData.profile_pic ? "yes" : "no"
-    })
+    trackEvent('USER_CLICKED_ON_MENU', {
+      photo_uploaded: userData.profile_pic ? 'yes' : 'no',
+    });
     navigation.toggleDrawer();
   };
   const onPressDevices = () => {
@@ -360,10 +358,10 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
   const RNonPressDiet = () => {
     // navigateTo('FoodDiaryParentVC');
     trackEvent(Constants.EVENT_NAME.FOOD_DIARY.CLICKED_HEALTH_DIARY, {
-      "goal_id": "",
-      "goal_name": "",
-      "diet_plan_assigned": ""
-    })
+      goal_id: '',
+      goal_name: '',
+      diet_plan_assigned: '',
+    });
     navigation.navigate('DietStackScreen');
   };
 
@@ -371,9 +369,15 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
     if (Platform.OS == 'ios') {
       navigateTo('FoodDiaryParentVC');
     } else {
-      let achievedVal = data.find((fd: any) => fd.keys === 'diet').todays_achieved_value
-      let goalVal = data.find((fd: any) => fd.keys === 'diet').goal_value
-      NativeModules.AndroidBridge.openDietScreen(isNaN(parseFloat(achievedVal) / parseFloat(goalVal) * 100) ? 0 : parseFloat(achievedVal) / parseFloat(goalVal) * 100);
+      let achievedVal = data.find(
+        (fd: any) => fd.keys === 'diet',
+      ).todays_achieved_value;
+      let goalVal = data.find((fd: any) => fd.keys === 'diet').goal_value;
+      NativeModules.AndroidBridge.openDietScreen(
+        isNaN((parseFloat(achievedVal) / parseFloat(goalVal)) * 100)
+          ? 0
+          : (parseFloat(achievedVal) / parseFloat(goalVal)) * 100,
+      );
     }
   };
 
@@ -384,79 +388,98 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
     // ]);
     if (Platform.OS == 'ios') {
       openMedicineExerciseDiet([
-        { filteredData: filteredData },
-        { firstRow: 'exercise' },
+        {filteredData: filteredData},
+        {firstRow: 'exercise'},
       ]);
     } else {
-      let achievedVal = filteredData.find((fd: any) => fd.keys === 'exercise').todays_achieved_value
-      let goalVal = filteredData.find((fd: any) => fd.keys === 'exercise').goal_value
-      NativeModules.AndroidBridge.openExerciseDetailsScreen(JSON.stringify(filteredData), filteredData.findIndex((fd: any) => fd.keys === 'exercise'), isNaN(parseFloat(achievedVal) / parseFloat(goalVal) * 100) ? 0 : parseFloat(achievedVal) / parseFloat(goalVal) * 100);
+      let achievedVal = filteredData.find(
+        (fd: any) => fd.keys === 'exercise',
+      ).todays_achieved_value;
+      let goalVal = filteredData.find(
+        (fd: any) => fd.keys === 'exercise',
+      ).goal_value;
+      NativeModules.AndroidBridge.openExerciseDetailsScreen(
+        JSON.stringify(filteredData),
+        filteredData.findIndex((fd: any) => fd.keys === 'exercise'),
+        isNaN((parseFloat(achievedVal) / parseFloat(goalVal)) * 100)
+          ? 0
+          : (parseFloat(achievedVal) / parseFloat(goalVal)) * 100,
+      );
     }
   };
   const onPressMedicine = (filteredData: any) => {
     if (Platform.OS == 'ios') {
       openMedicineExerciseDiet([
-        { filteredData: filteredData },
-        { firstRow: 'medication' },
+        {filteredData: filteredData},
+        {firstRow: 'medication'},
       ]);
     } else {
-      let achievedVal = filteredData.find((fd: any) => fd.keys === 'medication').todays_achieved_value
-      let goalVal = filteredData.find((fd: any) => fd.keys === 'medication').goal_value
-      console.log("medication===", achievedVal / goalVal * 100)
-      NativeModules.AndroidBridge.openMedicationScreen(JSON.stringify(filteredData), filteredData.findIndex((fd: any) => fd.keys === 'medication'), isNaN(parseFloat(achievedVal) / parseFloat(goalVal) * 100) ? 0 : parseFloat(achievedVal) / parseFloat(goalVal) * 100);
+      let achievedVal = filteredData.find(
+        (fd: any) => fd.keys === 'medication',
+      ).todays_achieved_value;
+      let goalVal = filteredData.find(
+        (fd: any) => fd.keys === 'medication',
+      ).goal_value;
+      console.log('medication===', (achievedVal / goalVal) * 100);
+      NativeModules.AndroidBridge.openMedicationScreen(
+        JSON.stringify(filteredData),
+        filteredData.findIndex((fd: any) => fd.keys === 'medication'),
+        isNaN((parseFloat(achievedVal) / parseFloat(goalVal)) * 100)
+          ? 0
+          : (parseFloat(achievedVal) / parseFloat(goalVal)) * 100,
+      );
     }
   };
   const onPressMyIncidents = () => {
     if (Platform.OS == 'ios') {
-      navigateToIncident([{ surveyDetails: incidentDetails }]);
+      navigateToIncident([{surveyDetails: incidentDetails}]);
     } else {
-
-      console.log("Incident Value---", JSON.stringify(incidentDetails));
+      console.log('Incident Value---', JSON.stringify(incidentDetails));
       if (incidentDetails) {
-
-        NativeModules.AndroidBridge.openIncidentScreen(JSON.stringify(incidentDetails));
+        NativeModules.AndroidBridge.openIncidentScreen(
+          JSON.stringify(incidentDetails),
+        );
       }
     }
-  }
-
+  };
 
   const onPressConsultNutritionist = () => {
     if (canBookHealthCoach) {
       if (Platform.OS == 'ios') {
-        trackEvent("CLICKED_CONSULT_NUTRITIONIST", {})
+        trackEvent('CLICKED_CONSULT_NUTRITIONIST', {});
         navigateToBookAppointment('HC');
       } else {
         NativeModules.AndroidBridge.openConsultNutritionistScreen();
       }
     } else {
       if (Platform.OS == 'ios') {
-        trackEvent("CLICKED_CONSULT_NUTRITIONIST", {})
+        trackEvent('CLICKED_CONSULT_NUTRITIONIST', {});
         navigateToChronicCareProgram('show_nutritionist');
       } else {
-        NativeModules.AndroidBridge.openAllPlanScreen("show_nutritionist");
+        NativeModules.AndroidBridge.openAllPlanScreen('show_nutritionist');
       }
     }
   };
   const onPressConsultPhysio = (type: 'HC' | 'D') => {
     if (canBookHealthCoach) {
       if (Platform.OS == 'ios') {
-        trackEvent("CLICKED_CONSULT_PHYSIO", {})
+        trackEvent('CLICKED_CONSULT_PHYSIO', {});
         navigateToBookAppointment(type);
       } else {
         NativeModules.AndroidBridge.openConsultPhysioScreen();
       }
     } else {
       if (Platform.OS == 'ios') {
-        trackEvent("CLICKED_CONSULT_PHYSIO", {})
+        trackEvent('CLICKED_CONSULT_PHYSIO', {});
         navigateToChronicCareProgram('show_physio');
       } else {
-        NativeModules.AndroidBridge.openAllPlanScreen("show_physio");
+        NativeModules.AndroidBridge.openAllPlanScreen('show_physio');
       }
     }
   };
   const onPressBookDiagnostic = () => {
     if (Platform.OS == 'ios') {
-      trackEvent("HOME_LABTEST_CARD_CLICKED", {})
+      trackEvent('HOME_LABTEST_CARD_CLICKED', {});
       navigateTo('LabTestListVC');
     } else {
       NativeModules.AndroidBridge.openBookDiagnosticScreen();
@@ -468,83 +491,109 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
 
     if (Object.values(hcDevicePlans.devices).length > 0) {
       if (Platform.OS == 'ios') {
-        trackEvent("CLICKED_BOOK_DEVICES", {})
+        trackEvent('CLICKED_BOOK_DEVICES', {});
         navigateTo('MyDevices');
       } else {
         NativeModules.AndroidBridge.openBookDeviceScreen();
       }
     } else {
-
       if (Platform.OS == 'ios') {
-        trackEvent("CLICKED_BOOK_DEVICES", {})
+        trackEvent('CLICKED_BOOK_DEVICES', {});
         navigateToChronicCareProgram('show_book_device');
       } else {
-        NativeModules.AndroidBridge.openAllPlanScreen("show_book_device");
+        NativeModules.AndroidBridge.openAllPlanScreen('show_book_device');
       }
     }
   };
 
   const onPressCarePlan = (plan: any) => {
     if (Platform.OS == 'ios') {
-      trackEvent("HOME_CARE_PLAN_CARD_CLICKED", {
-        plan_id: plan?.plan_master_id ?? "",
-        plan_type: plan?.plan_type ?? "",
-        plan_duration: moment(plan?.expiry_date, "YYYY-MM-DD").diff(moment(plan.plan_start_date).format("YYYY-MM-DD"), "days")
-      })
-      openPlanDetails([{ planDetails: plan }]);
+      trackEvent('HOME_CARE_PLAN_CARD_CLICKED', {
+        plan_id: plan?.plan_master_id ?? '',
+        plan_type: plan?.plan_type ?? '',
+        plan_duration: moment(plan?.expiry_date, 'YYYY-MM-DD').diff(
+          moment(plan.plan_start_date).format('YYYY-MM-DD'),
+          'days',
+        ),
+      });
+      openPlanDetails([{planDetails: plan}]);
     } else {
-      console.log("Plan Details===", plan)
-      NativeModules.AndroidBridge.openPurchasedPlanDetailScreen(JSON.stringify(plan));
+      console.log('Plan Details===', plan);
+      NativeModules.AndroidBridge.openPurchasedPlanDetailScreen(
+        JSON.stringify(plan),
+      );
     }
   };
 
   const onPressReading = (filteredData: any, firstRow: any, index: any) => {
     if (Platform.OS == 'ios') {
-      openUpdateReading([{ filteredData: filteredData }, { firstRow: firstRow }]);
+      openUpdateReading([{filteredData: filteredData}, {firstRow: firstRow}]);
     } else {
-      NativeModules.AndroidBridge.openReadingsItemDetailScreen(JSON.stringify(filteredData), JSON.stringify(firstRow), index)
+      NativeModules.AndroidBridge.openReadingsItemDetailScreen(
+        JSON.stringify(filteredData),
+        JSON.stringify(firstRow),
+        index,
+      );
     }
   };
 
   const onPressGoal = (filteredData: any, firstRow: any, index: any) => {
     if (Platform.OS == 'ios') {
-      openUpdateGoal([{ filteredData: filteredData }, { firstRow: firstRow }]);
+      openUpdateGoal([{filteredData: filteredData}, {firstRow: firstRow}]);
     } else {
-      NativeModules.AndroidBridge.openGoalItemDetailScreen(JSON.stringify(filteredData), JSON.stringify(firstRow), index)
+      NativeModules.AndroidBridge.openGoalItemDetailScreen(
+        JSON.stringify(filteredData),
+        JSON.stringify(firstRow),
+        index,
+      );
     }
-  }
+  };
 
   const onPressViewAllLearn = () => {
     if (Platform.OS == 'ios') {
-      trackEvent("CLICKED_CONTENT_VIEW_ALL", {})
+      trackEvent('CLICKED_CONTENT_VIEW_ALL', {});
       navigateToDiscover();
     } else {
       NativeModules.AndroidBridge.openLearnScreen();
     }
   };
 
-  const onPressLearnItem = (contentId: string, contentType: string, learnItem: any) => {
+  const onPressLearnItem = (
+    contentId: string,
+    contentType: string,
+    learnItem: any,
+  ) => {
     if (Platform.OS == 'ios') {
-      trackEvent("USER_CLICKED_ON_CARD", {
-        content_master_id: learnItem?.content_master_id ?? "",
-        content_type: learnItem?.content_type ?? "",
-        content_heading: learnItem?.title ?? "",
-        content_card_number: learnItem?.content_id ?? ""
-      })
+      trackEvent('USER_CLICKED_ON_CARD', {
+        content_master_id: learnItem?.content_master_id ?? '',
+        content_type: learnItem?.content_type ?? '',
+        content_heading: learnItem?.title ?? '',
+        content_card_number: learnItem?.content_id ?? '',
+      });
       navigateToEngagement(contentId.toString());
     } else {
-      NativeModules.AndroidBridge.openLearnDetailsScreen(contentId, contentType);
+      NativeModules.AndroidBridge.openLearnDetailsScreen(
+        contentId,
+        contentType,
+      );
     }
   };
 
   const onPressBookmark = async (data: any) => {
     let trackEventPayload = {
-      content_master_id: data?.content_master_id ?? "",
-      content_type: data?.content_type ?? "",
-      content_heading: data?.title ?? "",
-      content_card_number: data?.content_id ?? ""
-    }
-    trackEvent(`${data?.bookmarked === 'Y' ? "USER_UN_BOOKMARK_CONTENT" : "USER_BOOKMARKED_CONTENT"}`, trackEventPayload)
+      content_master_id: data?.content_master_id ?? '',
+      content_type: data?.content_type ?? '',
+      content_heading: data?.title ?? '',
+      content_card_number: data?.content_id ?? '',
+    };
+    trackEvent(
+      `${
+        data?.bookmarked === 'Y'
+          ? 'USER_UN_BOOKMARK_CONTENT'
+          : 'USER_BOOKMARKED_CONTENT'
+      }`,
+      trackEventPayload,
+    );
     const payload = {
       content_master_id: data?.content_master_id,
       is_active: data?.bookmarked === 'Y' ? 'N' : 'Y',
@@ -568,8 +617,8 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
           <Animated.ScrollView
             showsVerticalScrollIndicator={false}
             onScroll={Animated.event(
-              [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-              { useNativeDriver: true },
+              [{nativeEvent: {contentOffset: {y: scrollY}}}],
+              {useNativeDriver: true},
             )}>
             <View
               style={styles.header}
@@ -584,7 +633,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
                 {getGreetings()} {carePlanData?.name}!
               </Text>
             </View>
-            <View style={[styles.searchBar, { backgroundColor: 'red' }]} />
+            <View style={[styles.searchBar, {backgroundColor: 'red'}]} />
             <CarePlanView
               data={carePlanData}
               onPressCarePlan={onPressCarePlan}
@@ -645,9 +694,9 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
                 style={styles.searchContainer}
                 activeOpacity={1}
                 onPress={() => {
-                  trackEvent("CLICKED_SEARCH", {
-                    "search_type": "attempted"
-                  })
+                  trackEvent('CLICKED_SEARCH', {
+                    search_type: 'attempted',
+                  });
                   if (Platform.OS == 'ios') {
                     navigateTo('GlobalSearchParentVC');
                   } else {
@@ -674,7 +723,7 @@ const styles = StyleSheet.create({
     color: colors.black,
     fontSize: 16,
     fontFamily: 'SFProDisplay-Bold',
-    marginVertical: Platform.OS == "ios" ? 15 : 10,
+    marginVertical: Platform.OS == 'ios' ? 15 : 10,
     lineHeight: 20,
   },
   header: {
@@ -696,7 +745,7 @@ const styles = StyleSheet.create({
     borderColor: colors.inputBoxLightBorder,
     borderRadius: 12,
     padding: 10,
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 1,

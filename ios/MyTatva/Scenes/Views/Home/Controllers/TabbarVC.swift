@@ -125,7 +125,7 @@ class TabbarVC: BFPaperTabBarController {
         
 #if DEBUG
         let rootView = RCTRootView(
-            bundleURL: URL(string: "http://192.168.1.2:8081/index.bundle?platform=ios")!,
+            bundleURL: URL(string: "http://192.168.1.29:8081/index.bundle?platform=ios")!,
 //            bundleURL: URL(string: "http://localhost:8081/index.bundle?platform=ios")!,
             //           bundleURL: URL(string: "http://192.168.1.5:8081/index.bundle?platform=ios")!,
             //            bundleURL: URL(string: "http://192.168.1.36:8081/index.bundle?platform=ios")!,
@@ -138,7 +138,7 @@ class TabbarVC: BFPaperTabBarController {
         )
         
         let chatView = RCTRootView(
-            bundleURL: URL(string: "http://192.168.1.2:8081/index.bundle?platform=ios")!,
+            bundleURL: URL(string: "http://192.168.1.29:8081/index.bundle?platform=ios")!,
 //            bundleURL: URL(string: "http://localhost:8081/index.bundle?platform=ios")!,
             //           bundleURL: URL(string: "http://192.168.1.5:8081/index.bundle?platform=ios")!,
             //            bundleURL: URL(string: "http://192.168.1.36:8081/index.bundle?platform=ios")!,
