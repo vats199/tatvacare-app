@@ -38,11 +38,11 @@
     <!-- =================================================== -->
 
     <!-- APXOR SDK STAGING/UAT-->
-<!--    <string name="apxor_key_value">fe260ab5-f0db-4e21-8d36-f7d5ea698255</string>-->
+    <string name="apxor_key_value">fe260ab5-f0db-4e21-8d36-f7d5ea698255</string>
     <!-- APXOR SDK -->
 
     <!-- APXOR SDK PRODUCTION-->
-    <string name="apxor_key_value">37765d29-ed97-4ecd-aed4-06d231986ff6</string>
+    <!--<string name="apxor_key_value">37765d29-ed97-4ecd-aed4-06d231986ff6</string>-->
     <!-- APXOR SDK -->
 
     <!-- FACEBOOK SDK-->
@@ -1337,7 +1337,7 @@
     <string name="choose_condition_label_terms_conditions">By signing up, you agree to our Terms &amp; Conditions and Privacy Policy</string>
     <!--SetUp Profile V2  end-->
 
- <!--Coupon Code List starts-->
+    <!--Coupon Code List starts-->
     <string name="coupon_code_list_label_setup_profile">Coupons For You</string>
     <string name="coupon_code_list_label_hide_details">Hide Details</string>
     <string name="coupon_code_list_label_view_details">View Details</string>
@@ -1386,7 +1386,7 @@
     <string name="txt_program">Program</string>
     <string name="txt_bmi">BMI</string>
 
-      <!-- Spirometer All Reading -->
+    <!-- Spirometer All Reading -->
     <string name="spirometer_tab_label_health_insights">Health Insights</string>
     <string name="spirometer_tab_label_exercise_insights">Exercise Insights</string>
     <!-- Spirometer All Reading -->
@@ -1407,6 +1407,8 @@
     <string name="bcp_purchase_details_label_expire_date">Expire on %s</string>
     <string name="bcp_purchase_details_label_remaining_days">%s days remaining</string>
     <string name="bcp_purchase_details_label_plan_expire">Plan Expired</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <!-- BCP Purchase Details -->
 
 
