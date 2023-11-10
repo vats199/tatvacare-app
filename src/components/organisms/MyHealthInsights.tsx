@@ -9,11 +9,11 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, { useEffect } from 'react';
-import { colors } from '../../constants/colors';
-import { Icons } from '../../constants/icons';
-import { getEncryptedText } from '../../api/base';
-import { trackEvent } from '../../helpers/TrackEvent';
+import React, {useEffect} from 'react';
+import {colors} from '../../constants/colors';
+import {Icons} from '../../constants/icons';
+import {getEncryptedText} from '../../api/base';
+import {trackEvent} from '../../helpers/TrackEvent';
 
 type MyHealthInsightsProps = {
   data: any;
@@ -49,14 +49,14 @@ const MyHealthInsights: React.FC<MyHealthInsightsProps> = ({
   ) => {
     switch (keys) {
       case 'bloodpressure':
-        return JSON.stringify(reading_value_data)
+        return JSON.stringify(reading_value_data);
 
       case 'fibro_scan':
-        return JSON.stringify(reading_value_data)
+        return JSON.stringify(reading_value_data);
       case 'blood_glucose':
-        return JSON.stringify(reading_value_data)
+        return JSON.stringify(reading_value_data);
       default:
-        return reading_value
+        return reading_value;
     }
   };
 
@@ -113,28 +113,30 @@ const MyHealthInsights: React.FC<MyHealthInsightsProps> = ({
     }
   };
 
-  const renderReadings = ({ item, index }: { item: any; index: number }) => {
+  const renderReadings = ({item, index}: {item: any; index: number}) => {
     return (
       <TouchableOpacity
         key={index.toString()}
         style={styles.hiItemContainerBottom}
         onPress={() => {
-          if (Platform.OS == "ios") {
-            trackEvent("CLICKED_HEALTH_INSIGHTS", {
-              health_marker_name: item?.reading_name ?? "",
-              health_marker_colour: item?.in_range?.icon_color ?? "",
-              health_marker_value: getTrackEvnetValue(item.keys,
+          if (Platform.OS == 'ios') {
+            trackEvent('CLICKED_HEALTH_INSIGHTS', {
+              health_marker_name: item?.reading_name ?? '',
+              health_marker_colour: item?.in_range?.icon_color ?? '',
+              health_marker_value: getTrackEvnetValue(
+                item.keys,
                 item.reading_value,
-                item.reading_value_data,)
-            })
+                item.reading_value_data,
+              ),
+            });
           }
-          onPressReading(data?.readings, item.keys, index)
+          onPressReading(data?.readings, item.keys, index);
         }}>
         <View style={[styles.row, styles.flex]}>
           <Image
             resizeMode="contain"
             style={styles.imageStyle}
-            source={{ uri: item?.image_url || '' }}
+            source={{uri: item?.image_url || ''}}
             tintColor={item?.in_range?.icon_color}
           />
           <Text style={styles.hiItemTitle}>{item?.reading_name || '-'}</Text>
@@ -151,27 +153,26 @@ const MyHealthInsights: React.FC<MyHealthInsightsProps> = ({
     );
   };
 
-  const renderGoals = ({ item, index }: { item: any; index: number }) => {
+  const renderGoals = ({item, index}: {item: any; index: number}) => {
     return (
       <TouchableOpacity
         key={index.toString()}
         style={styles.hiItemContainerTop}
         onPress={() => {
-          if (Platform.OS == "ios") {
-            trackEvent("CLICKED_HEALTH_INSIGHTS", {
-              health_marker_name: item?.goal_name ?? "",
-              health_marker_colour: item?.icon_color ?? "",
-              health_marker_value: item?.todays_achieved_value
-            })
+          if (Platform.OS == 'ios') {
+            trackEvent('CLICKED_HEALTH_INSIGHTS', {
+              health_marker_name: item?.goal_name ?? '',
+              health_marker_colour: item?.icon_color ?? '',
+              health_marker_value: item?.todays_achieved_value,
+            });
           }
-          onPressGoal(data?.goals, item.keys, index)
-        }
-        }>
+          onPressGoal(data?.goals, item.keys, index);
+        }}>
         <View style={[styles.row, styles.flex]}>
           <Image
             resizeMode="contain"
             style={styles.imageStyle}
-            source={{ uri: item?.image_url || '' }}
+            source={{uri: item?.image_url || ''}}
             tintColor={item?.icon_color}
           />
           <Text style={styles.hiItemTitle}>{item?.goal_name || '-'}</Text>
@@ -191,28 +192,26 @@ const MyHealthInsights: React.FC<MyHealthInsightsProps> = ({
   return (
     <View style={styles.container}>
       <Text style={styles.title}>My Health Insights</Text>
-      <View style={styles.scrollContainer}>
-        <FlatList
-          data={readings}
-          keyExtractor={(_item, index) => index.toString()}
-          renderItem={renderReadings}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          nestedScrollEnabled={false}
-          contentContainerStyle={styles.scrollContainer}
-        />
-        <FlatList
-          data={goals?.filter(
-            goal => !myHealthDiaryItems.includes(goal.goal_name),
-          )}
-          keyExtractor={(_item, index) => index.toString()}
-          renderItem={renderGoals}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          nestedScrollEnabled={false}
-          contentContainerStyle={styles.scrollContainer}
-        />
-      </View>
+      <FlatList
+        data={readings}
+        keyExtractor={(_item, index) => index.toString()}
+        renderItem={renderReadings}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        nestedScrollEnabled={false}
+        contentContainerStyle={styles.scrollContainer}
+      />
+      <FlatList
+        data={goals?.filter(
+          goal => !myHealthDiaryItems.includes(goal.goal_name),
+        )}
+        keyExtractor={(_item, index) => index.toString()}
+        renderItem={renderGoals}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        nestedScrollEnabled={false}
+        contentContainerStyle={styles.scrollContainer}
+      />
     </View>
   );
 };
@@ -221,7 +220,7 @@ export default MyHealthInsights;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 10,
+    marginTop: 8,
   },
   flex: {
     flex: 1,
@@ -231,11 +230,11 @@ const styles = StyleSheet.create({
     fontFamily: 'SFProDisplay-Bold',
     fontSize: 16,
     paddingTop: 7,
-    // borderWidth: 1
+    marginLeft: 16,
   },
   scrollContainer: {
     paddingVertical: 5,
-
+    paddingLeft: 16,
   },
   hiItemContainerTop: {
     marginBottom: 5,
@@ -246,12 +245,12 @@ const styles = StyleSheet.create({
     width: Dimensions.get('screen').width * 0.39,
     minHeight: 86,
     marginRight: 10,
-    shadowColor: '#2121210D',
+    shadowColor: '#212121',
     shadowOffset: {
       width: 0,
       height: 0.5,
     },
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.2,
     shadowRadius: 1.41,
   },
   hiItemContainerBottom: {
@@ -264,12 +263,12 @@ const styles = StyleSheet.create({
     width: Dimensions.get('screen').width * 0.39,
     marginRight: 10,
     minHeight: 86,
-    shadowColor: '#2121210D',
+    shadowColor: '#212121',
     shadowOffset: {
       width: 0,
       height: 0.5,
     },
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.2,
     shadowRadius: 1.41,
   },
   columnContainer: {

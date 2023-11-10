@@ -34,6 +34,21 @@ const App = () => {
     }
   }, [])
 
+  // useEffect(() => {
+  //   if (Platform.OS == "android") {
+  //     const subscribe = DeviceEventEmitter.addListener(
+  //       'TestEvent',
+  //       (data: any) => {
+  //         console.log("Test Event Called");
+  //       },
+  //     );
+
+  //     return () => {
+  //       subscribe.remove();
+  //     };
+  //   }
+  // }, []);
+
   useEffect(() => {
     if (Platform.OS == "android") {
       const subscribe = DeviceEventEmitter.addListener(
@@ -49,7 +64,6 @@ const App = () => {
         subscribe.remove();
       };
     }
-
   }, []);
 
   const { height, width } = useWindowDimensions();

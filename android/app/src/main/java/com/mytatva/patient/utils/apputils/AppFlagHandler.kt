@@ -159,4 +159,8 @@ object AppFlagHandler {
     fun getIsHomeFromReactNative(firebaseConfigUtil: FirebaseConfigUtil): Boolean {
         return firebaseConfigUtil.getIsHomeFromReactNative()
     }
+
+    fun getIsHideGenAIChatBot(firebaseConfigUtil: FirebaseConfigUtil): Boolean {
+        return firebaseConfigUtil.getIsHideGenAIChatBot()
+    }
 }

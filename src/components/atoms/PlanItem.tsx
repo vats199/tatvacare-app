@@ -1,6 +1,13 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  Dimensions,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React from 'react';
-import { colors } from '../../constants/colors';
+import {colors} from '../../constants/colors';
 
 type PlanItemProps = {
   plan: any;
@@ -9,7 +16,7 @@ type PlanItemProps = {
 
 const PlanItem: React.FC<PlanItemProps> = ({
   plan,
-  onPressKnowMore = () => { },
+  onPressKnowMore = () => {},
 }) => {
   return (
     <TouchableOpacity
@@ -17,9 +24,9 @@ const PlanItem: React.FC<PlanItemProps> = ({
       activeOpacity={0.6}
       style={styles.planItemContainer}>
       <Image
-        source={{ uri: plan.image_url }}
+        source={{uri: plan.image_url}}
         style={styles.image}
-        resizeMode={'cover'}
+        resizeMode={'stretch'}
       />
     </TouchableOpacity>
   );
@@ -29,8 +36,9 @@ export default PlanItem;
 
 const styles = StyleSheet.create({
   planItemContainer: {
-    height: 80,
-    width: 240,
+    // height: 80,
+    aspectRatio: 2.45,
+    width: Dimensions.get('screen').width * 0.78,
     borderWidth: 1,
     borderColor: colors.lightGrey,
     borderRadius: 12,
@@ -38,7 +46,7 @@ const styles = StyleSheet.create({
     // padding: 10,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   image: {
     height: '100%',

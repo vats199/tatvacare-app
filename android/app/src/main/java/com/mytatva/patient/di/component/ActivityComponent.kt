@@ -1,9 +1,11 @@
 package com.mytatva.patient.di.component
 
 
+import com.mytatva.patient.databinding.ActivityGenAiactivityBinding
 import com.mytatva.patient.di.PerActivity
 import com.mytatva.patient.di.module.ActivityModule
 import com.mytatva.patient.di.module.FragmentModule
+import com.mytatva.patient.ui.GenAIActivity
 import com.mytatva.patient.ui.activity.*
 import com.mytatva.patient.ui.base.BaseActivity
 import com.mytatva.patient.ui.home.HomeActivity
@@ -34,6 +36,7 @@ interface ActivityComponent {
     fun inject(videoPlayerActivity: VideoPlayerActivity)
     fun inject(videoActivity: VideoActivity)
     fun inject(rNHomeActivity: RNHomeActivity)
+    fun inject(genAIActivity: GenAIActivity)
 
     @Component.Builder
     interface Builder {

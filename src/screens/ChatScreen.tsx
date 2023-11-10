@@ -3,9 +3,11 @@ import {
   FlatList,
   Keyboard,
   KeyboardAvoidingView,
+  NativeModules,
   Platform,
   SafeAreaView,
   ScrollView,
+  StatusBar,
   StyleSheet,
   Text,
   TextInput,
@@ -13,7 +15,7 @@ import {
   View,
   useWindowDimensions,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {goBackFromChat} from '../routes/Router';
 import {useApp} from '../context/app.context';
 import {Screen} from '../components/styled/Views';
@@ -28,6 +30,8 @@ import moment from 'moment';
 import {colors} from '../constants/colors';
 import {Icons} from '../constants/icons';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {useHeaderHeight} from '@react-navigation/elements';
+import {trackEvent} from '../helpers/TrackEvent';
 
 type ChatScreenProps = StackScreenProps<AppStackParamList, 'ChatScreen'>;
 
@@ -41,8 +45,15 @@ const ChatScreen: React.FC<ChatScreenProps> = ({navigation, route}) => {
     userData: {patient_id},
   } = useApp();
 
+  const headerHeight = useHeaderHeight();
+  const [keyboardStatus, setKeyboardStatus] = useState<boolean>(false);
+
   const onPressGoBack = () => {
-    goBackFromChat();
+    if (Platform.OS == 'ios') {
+      goBackFromChat();
+    } else {
+      NativeModules.AndroidBridge.onBackPressed();
+    }
   };
 
   const scrollRef = React.useRef<ScrollView>(null);
@@ -59,6 +70,7 @@ const ChatScreen: React.FC<ChatScreenProps> = ({navigation, route}) => {
   };
 
   const onPressSend = async () => {
+    trackEvent('USER_TAP_ENTER', {});
     const userMsg: Message = {
       message: msg.trim(),
       sender: 'user',
@@ -72,7 +84,7 @@ const ChatScreen: React.FC<ChatScreenProps> = ({navigation, route}) => {
     };
     const body = {
       query: msg.trim(),
-      id: 0,
+      id: patient_id,
       bot_chat: true,
       welcome_message: true,
       welcome_message_validation: true,
@@ -115,11 +127,22 @@ const ChatScreen: React.FC<ChatScreenProps> = ({navigation, route}) => {
   React.useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
       'keyboardDidShow',
-      () => scrollRef.current?.scrollToEnd({animated: true}),
+      () => {
+        setKeyboardStatus(true),
+          scrollRef.current?.scrollToEnd({animated: true});
+      },
+    );
+
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => {
+        setKeyboardStatus(false);
+      },
     );
 
     return () => {
       keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
     };
   }, []);
 
@@ -135,7 +158,11 @@ const ChatScreen: React.FC<ChatScreenProps> = ({navigation, route}) => {
   return (
     <>
       <Screen>
-        <KeyboardAvoidingView behavior={'padding'} style={{flex: 1}}>
+        <KeyboardAvoidingView
+          {...(Platform.OS == 'ios'
+            ? {behavior: 'padding'}
+            : {behavior: 'height'})}
+          style={{flex: 1}}>
           <ChatScreenHeader onPressBack={onPressGoBack} />
           <ChatDisclaimer />
           <ScrollView
@@ -153,7 +180,18 @@ const ChatScreen: React.FC<ChatScreenProps> = ({navigation, route}) => {
             {loading && <ChatbotMessageLoader loading={loading} />}
           </ScrollView>
           {!loading && (
-            <View style={styles.inputContainer}>
+            <View
+              style={[
+                styles.inputContainer,
+                {
+                  marginBottom:
+                    Platform.OS == 'android'
+                      ? keyboardStatus
+                        ? StatusBar.currentHeight
+                        : 0
+                      : 0,
+                },
+              ]}>
               <View style={styles.textInputContainer}>
                 <TextInput
                   placeholder={'Type a message...'}
@@ -161,13 +199,15 @@ const ChatScreen: React.FC<ChatScreenProps> = ({navigation, route}) => {
                   value={msg}
                   onChangeText={e => setMsg(e)}
                   keyboardType={
-                    Platform.OS === 'ios' ? 'ascii-capable' : 'visible-password'
+                    Platform.OS == 'ios' ? 'ascii-capable' : 'visible-password'
                   }
+                  // returnKeyType='next'
                   multiline
                   numberOfLines={3}
                   style={{
                     maxHeight: 68,
                     paddingTop: 0,
+                    ...(Platform.OS == 'android' && {paddingBottom: 0}),
                   }}
                 />
               </View>
@@ -198,7 +238,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
   container: {
-    // flex: 1,
     paddingHorizontal: 16,
     paddingBottom: 16,
   },
@@ -227,7 +266,7 @@ const styles = StyleSheet.create({
     flex: 1,
     borderWidth: 0.5,
     borderRadius: 24,
-    paddingVertical: 12,
+    paddingVertical: Platform.OS == 'ios' ? 12 : 0,
     paddingHorizontal: 16,
     borderColor: colors.darkGray,
   },

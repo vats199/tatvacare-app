@@ -6,9 +6,9 @@ import {
   View,
 } from 'react-native';
 import React from 'react';
-import { colors } from '../../constants/colors';
-import { Icons } from '../../constants/icons';
-import { useApp } from '../../context/app.context';
+import {colors} from '../../constants/colors';
+import {Icons} from '../../constants/icons';
+import {useApp} from '../../context/app.context';
 type AdditionalServicesProps = {
   onPressConsultNutritionist: () => void;
   onPressConsultPhysio: (type: 'HC' | 'D') => void;
@@ -18,11 +18,11 @@ type AdditionalServicesProps = {
 
 type AdditionalServicesItem = {
   title:
-  | 'Consult\nNutritionist'
-  | 'Consult\nPhysio'
-  | 'Book\nDiagnostic'
-  | 'Book\nDevices'
-  | 'Doctor\nAppointment';
+    | 'Consult\nNutritionist'
+    | 'Consult\nPhysio'
+    | 'Book\nDiagnostic'
+    | 'Book\nDevices'
+    | 'Doctor\nAppointment';
   onPress: () => void;
 };
 
@@ -32,7 +32,7 @@ const AdditionalCareServices: React.FC<AdditionalServicesProps> = ({
   onPressBookDiagnostic,
   onPressBookDevices,
 }) => {
-  const { userData } = useApp();
+  const {userData} = useApp();
 
   const showDoctorButton: boolean = !!userData?.patient_guid ?? false;
 
@@ -86,7 +86,7 @@ const AdditionalCareServices: React.FC<AdditionalServicesProps> = ({
   };
 
   const renderServiceItem = (item: AdditionalServicesItem, index: number) => {
-    const { title, onPress } = item;
+    const {title, onPress} = item;
     return (
       <TouchableOpacity
         key={index.toString()}
@@ -105,6 +105,7 @@ const AdditionalCareServices: React.FC<AdditionalServicesProps> = ({
       <ScrollView
         horizontal
         style={styles.itemsContainer}
+        contentContainerStyle={{paddingLeft: 16}}
         showsHorizontalScrollIndicator={false}>
         {options.map(renderServiceItem)}
       </ScrollView>
@@ -116,15 +117,16 @@ export default AdditionalCareServices;
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 10,
+    marginTop: 24,
   },
   title: {
     fontSize: 16,
     fontFamily: 'SFProDisplay-Bold',
     color: colors.black,
+    marginLeft: 16,
   },
   itemsContainer: {
-    paddingVertical: 10,
+    paddingVertical: 16,
   },
   serviceItemContainer: {
     // flex: 1,
@@ -132,12 +134,12 @@ const styles = StyleSheet.create({
     marginRight: 10,
     height: 110,
     width: 75,
-    shadowColor: '#2121210D',
+    shadowColor: '#212121',
     shadowOffset: {
       width: 0,
       height: 0.5,
     },
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.2,
     shadowRadius: 1.41,
   },
   iconContainer: {
@@ -150,7 +152,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 12,
-    fontFamily: 'SFProDisplay-Bold',
+    fontFamily: 'SFProDisplay-Regular',
     color: colors.inputValueDarkGray,
     lineHeight: 16.71,
     textAlign: 'center',

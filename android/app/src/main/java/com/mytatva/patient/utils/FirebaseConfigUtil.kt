@@ -170,6 +170,10 @@ class FirebaseConfigUtil private constructor(val activity: BaseActivity) {
         return remoteConfig.getBoolean(home_from_react_native)
     }
 
+    fun getIsHideGenAIChatBot(): Boolean {
+        return remoteConfig.getBoolean(hide_genai_chatbot)
+    }
+
     companion object {
 
         val TAG = FirebaseConfigUtil::class.java.simpleName.toString()
@@ -227,6 +231,7 @@ class FirebaseConfigUtil private constructor(val activity: BaseActivity) {
 
         /* New Added Firebase Flags - For Toggle UJ 4 Home - if true, redirection will be done by RN team, else native home for false */
         const val home_from_react_native = "home_from_react_native"
+        const val hide_genai_chatbot = "hide_genai_chatbot"
 
         var instance: FirebaseConfigUtil? = null
         fun getInstance(activity: BaseActivity): FirebaseConfigUtil {

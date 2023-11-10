@@ -1,9 +1,9 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
-import { Icons } from '../../constants/icons';
-import { colors } from '../../constants/colors';
-import { useApp } from '../../context/app.context';
-import { useIsFocused } from '@react-navigation/native';
+import {Icons} from '../../constants/icons';
+import {colors} from '../../constants/colors';
+import {useApp} from '../../context/app.context';
+import {useIsFocused} from '@react-navigation/native';
 
 type Location = {
   city?: string;
@@ -25,7 +25,7 @@ const HomeHeader: React.FC<HomeHeaderProps> = ({
   onPressProfile,
   userLocation,
 }) => {
-  const { location, userData } = useApp();
+  const {location, userData} = useApp();
 
   const [userLoc, setUserLocation] = React.useState<Location>(userLocation);
 
@@ -43,10 +43,10 @@ const HomeHeader: React.FC<HomeHeaderProps> = ({
             {userLoc?.city && userLoc?.state
               ? `${userLoc?.city}, ${userLoc?.state}`
               : userLoc?.state
-                ? `${userLoc?.state}`
-                : location?.city && location?.state
-                  ? `${location?.city}, ${location?.state}`
-                  : `Select Location`}
+              ? `${userLoc?.state}`
+              : location?.city && location?.state
+              ? `${location?.city}, ${location?.state}`
+              : `Select Location`}
           </Text>
           <Icons.Dropdown />
         </TouchableOpacity>
@@ -73,7 +73,7 @@ const HomeHeader: React.FC<HomeHeaderProps> = ({
             <Icons.NoUserImage height={28} width={28} />
           ) : (
             <Image
-              source={{ uri: userData.profile_pic }}
+              source={{uri: userData.profile_pic}}
               style={styles.image}
               resizeMode={'contain'}
             />
@@ -135,6 +135,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    paddingHorizontal: 16,
   },
   bellContainer: {
     marginRight: 10,

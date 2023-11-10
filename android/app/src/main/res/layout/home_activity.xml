@@ -300,13 +300,13 @@
 
                     <androidx.appcompat.widget.AppCompatImageView
                         style="@style/bottom_nav_imageview"
-                        app:srcCompat="@drawable/ic_more" />
+                        app:srcCompat="@drawable/ic_gen_ai" />
 
                 </FrameLayout>
 
                 <androidx.appcompat.widget.AppCompatTextView
                     style="@style/bottom_nav_item_text"
-                    android:text="Gen AI" />
+                    android:text="@string/bottom_nav_label_ask" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 

@@ -290,7 +290,8 @@ export default MyHealthDiary;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 10,
+    marginTop: 24,
+    marginHorizontal: 16,
   },
   title: {
     fontSize: 16,
@@ -299,19 +300,19 @@ const styles = StyleSheet.create({
     marginBottom: 9,
   },
   healthDiaryItemContainer: {
-    marginVertical: 5,
+    marginVertical: 6,
     padding: 10,
     backgroundColor: colors.white,
     borderRadius: 12,
     flexDirection: 'row',
     alignItems: 'center',
     minHeight: 70,
-    shadowColor: '#2121210D',
+    shadowColor: '#212121',
     shadowOffset: {
       width: 0,
       height: 0.5,
     },
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.2,
     shadowRadius: 1.41,
   },
   textContainer: {

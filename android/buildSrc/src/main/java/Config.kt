@@ -27,8 +27,8 @@ object Config {
      * This block used for sdk version control
      */
     object SdkVersions {
-        val compile = 33
-        val target = 33
+        val compile = 34
+        val target = 34
         val min = 24
     }
 

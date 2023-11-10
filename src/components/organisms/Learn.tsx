@@ -7,8 +7,8 @@ import {
   View,
 } from 'react-native';
 import React from 'react';
-import { colors } from '../../constants/colors';
-import { Icons } from '../../constants/icons';
+import {colors} from '../../constants/colors';
+import {Icons} from '../../constants/icons';
 import moment from 'moment';
 import LearnItem from '../atoms/LearnItem';
 
@@ -29,7 +29,10 @@ const Learn: React.FC<LearnProps> = ({
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <Text style={styles.title}>Learn</Text>
-        <TouchableOpacity activeOpacity={0.6} onPress={onPressViewAll}>
+        <TouchableOpacity
+          style={styles.vaContainer}
+          activeOpacity={0.6}
+          onPress={onPressViewAll}>
           <Text style={styles.linkText}>View All</Text>
         </TouchableOpacity>
       </View>
@@ -57,7 +60,7 @@ export default Learn;
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 10,
+    marginTop: 24,
   },
   headerContainer: {
     display: 'flex',
@@ -68,6 +71,10 @@ const styles = StyleSheet.create({
     color: colors.black,
     fontFamily: 'SFProDisplay-Bold',
     fontSize: 16,
+    marginLeft: 16,
+  },
+  vaContainer: {
+    marginRight: 16,
   },
   linkText: {
     color: colors.themePurple,
@@ -77,5 +84,6 @@ const styles = StyleSheet.create({
   },
   scrollContainer: {
     paddingVertical: 10,
+    paddingLeft: 16,
   },
 });

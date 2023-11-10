@@ -105,6 +105,21 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   };
 
   useEffect(() => {
+    if (Platform.OS == 'android') {
+      const subscribe = DeviceEventEmitter.addListener(
+        'UserToken',
+        async (data: any) => {
+          await AsyncStorage.setItem('accessToken', data.Token);
+        },
+      );
+
+      return () => {
+        subscribe.remove();
+      };
+    }
+  }, []);
+
+  useEffect(() => {
     getCurrentLocation();
     getHomeCarePlan();
     getLearnMoreData();
@@ -470,6 +485,8 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   };
 
   const onPressBookDevices = () => {
+    console.log('Device data===', JSON.stringify(hcDevicePlans));
+
     if (Object.values(hcDevicePlans.devices).length > 0) {
       if (Platform.OS == 'ios') {
         trackEvent('CLICKED_BOOK_DEVICES', {});
@@ -621,9 +638,6 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
               // onPressRenew={onPressRenew}
               allPlans={allPlans}
             />
-            {carePlanData?.doctor_says?.description && (
-              <HealthTip tip={carePlanData?.doctor_says} />
-            )}
             <MyHealthInsights
               data={healthInsights}
               onPressReading={onPressReading}
@@ -651,6 +665,9 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
                 onPressItem={onPressLearnItem}
                 onPressViewAll={onPressViewAllLearn}
               />
+            )}
+            {carePlanData?.doctor_says?.description && (
+              <HealthTip tip={carePlanData?.doctor_says} />
             )}
           </Animated.ScrollView>
           {topEdge && (
@@ -706,6 +723,7 @@ const styles = StyleSheet.create({
     fontFamily: 'SFProDisplay-Bold',
     marginVertical: Platform.OS == 'ios' ? 15 : 10,
     lineHeight: 20,
+    marginLeft: 16,
   },
   header: {
     height: 90,
@@ -715,6 +733,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingHorizontal: 16,
   },
   searchContainer: {
     alignSelf: 'center',

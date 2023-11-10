@@ -7,14 +7,12 @@ import {
   View,
   TouchableOpacity,
   FlatList,
-  TouchableHighlight,
-  TouchableNativeFeedback,
   Platform,
   NativeModules,
 } from 'react-native';
 import React from 'react';
-import { colors } from '../../constants/colors';
-import { Icons } from '../../constants/icons';
+import {colors} from '../../constants/colors';
+import {Icons} from '../../constants/icons';
 import ProgressBar from '../atoms/ProgressBar';
 import moment from 'moment';
 import PlanItem from '../atoms/PlanItem';
@@ -56,10 +54,11 @@ const CarePlanView: React.FC<CarePlanViewProps> = ({
 
   const onPressKnowMore = (plan: any) => {
     if (Platform.OS == 'ios') {
-      onPressRenewPlan([{ planDetails: plan }]);
+      onPressRenewPlan([{planDetails: plan}]);
     } else {
-      console.log("Plan Press= ", plan)
-      NativeModules.AndroidBridge.openFreePlanDetailScreen(JSON.stringify(plan))
+      NativeModules.AndroidBridge.openFreePlanDetailScreen(
+        JSON.stringify(plan),
+      );
     }
   };
 
@@ -71,10 +70,8 @@ const CarePlanView: React.FC<CarePlanViewProps> = ({
     }
   };
 
-  const renderPlanItem = ({ item, index }: { item: any; index: number }) => {
-    console.log("Plan Det==", item)
+  const renderPlanItem = ({item, index}: {item: any; index: number}) => {
     return (
-
       <PlanItem plan={item} onPressKnowMore={() => onPressKnowMore(item)} />
     );
   };
@@ -112,43 +109,44 @@ const CarePlanView: React.FC<CarePlanViewProps> = ({
   return (
     <>
       {data?.patient_plans?.length <= 0 || isFreePlan ? (
-        <TouchableNativeFeedback onPress={() => onCarePlanNeedCotainer()}>
-          <View style={styles.compcontainer}>
-            <View style={styles.rowBetween}>
-              <View>
-                <Text style={styles.cp}>Care Plans for all your needs</Text>
-                <Text style={styles.subTitle}>
-                  Bundled with diagnostic tests and more.
-                </Text>
-              </View>
-              <Image
-                source={require('../../assets/images/carePlan.png')}
-                style={styles.cpimage}
-                resizeMode={'contain'}
-              />
+        <View style={styles.compcontainer}>
+          <View style={[styles.rowBetween, {alignItems: 'center'}]}>
+            <View>
+              <Text style={styles.cp}>Best Value Care Program</Text>
+              <Text style={styles.subTitle}>
+                With diagnostic tests and monitoring devices.
+              </Text>
             </View>
-            <FlatList
-              data={allPlans}
-              keyExtractor={(_item, index) => index.toString()}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              renderItem={renderPlanItem}
-              ItemSeparatorComponent={() => <View style={styles.itemSep} />}
-            />
+            <TouchableOpacity
+              style={styles.arrowContainer}
+              onPress={onCarePlanNeedCotainer}>
+              <Icons.RightArrow />
+            </TouchableOpacity>
           </View>
-        </TouchableNativeFeedback>
+          <FlatList
+            data={allPlans}
+            keyExtractor={(_item, index) => index.toString()}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            renderItem={renderPlanItem}
+            contentContainerStyle={{paddingVertical: 10, paddingLeft: 16}}
+            ItemSeparatorComponent={() => <View style={styles.itemSep} />}
+          />
+        </View>
       ) : (
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.scrollContainer}
           bounces={false}>
           {data?.patient_plans?.map((plan: any, planIdx: number) => {
             return (
               <TouchableOpacity
                 key={planIdx}
                 onPress={() => onPressCarePlan(plan)}
-                style={styles.container}>
-                <View style={{ flex: 1 }}>
+                style={styles.container}
+                activeOpacity={0.6}>
+                <View style={{flex: 1}}>
                   <View style={styles.details}>
                     <Text style={styles.title}>{plan?.plan_name || '-'}</Text>
                     <Text style={styles.subTitle}>
@@ -160,22 +158,13 @@ const CarePlanView: React.FC<CarePlanViewProps> = ({
                       color={getColor(plan)}
                     />
                     <View style={styles.rowBetween}>
-                      <Text style={[styles.expiry, { color: getColor(plan) }]}>
+                      <Text style={[styles.expiry, {color: getColor(plan)}]}>
                         {getText(plan)}
                       </Text>
-                      {/* {showRenewButton(plan) && (
-                        <TouchableOpacity onPress={() => { }}>
-                          <Text style={styles.renew}>Renew</Text>
-                        </TouchableOpacity>
-                      )} */}
                     </View>
                   </View>
                 </View>
-                <Image
-                  source={require('../../assets/images/carePlan.png')}
-                  style={styles.cpimage}
-                  resizeMode={'contain'}
-                />
+                <Icons.CarePlan />
               </TouchableOpacity>
             );
           })}
@@ -189,23 +178,25 @@ export default CarePlanView;
 
 const styles = StyleSheet.create({
   compcontainer: {
-    marginTop: 10,
-    backgroundColor: colors.white,
-    borderRadius: 12,
-    padding: 10,
-    width: '100%',
-    shadowColor: '#2121210D',
+    marginTop: 12,
+    paddingVertical: 10,
+    shadowColor: '#212121',
     shadowOffset: {
       width: 0,
       height: 0.5,
     },
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.2,
     shadowRadius: 1.41,
+  },
+  scrollContainer: {
+    paddingLeft: 16,
+    paddingVertical: 8,
   },
   rowBetween: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     justifyContent: 'space-between',
+    paddingHorizontal: 16,
   },
   renew: {
     fontSize: 12,
@@ -227,12 +218,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     width: Dimensions.get('screen').width - 45,
-    shadowColor: '#2121210D',
+    shadowColor: '#212121',
     shadowOffset: {
       width: 0,
       height: 0.5,
     },
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.2,
     shadowRadius: 1.41,
   },
   cpimage: {
@@ -240,10 +231,14 @@ const styles = StyleSheet.create({
     width: 80,
   },
   cp: {
-    color: colors.labelDarkGray,
+    // color: colors.labelDarkGray,
+    // fontFamily: 'SFProDisplay-Bold',
+    // fontSize: 14,
+    // marginBottom: 5,
+    color: colors.black,
     fontFamily: 'SFProDisplay-Bold',
-    fontSize: 14,
-    marginBottom: 5,
+    fontSize: 16,
+    marginBottom: 6,
   },
   details: {
     marginRight: 5,
@@ -257,8 +252,8 @@ const styles = StyleSheet.create({
   },
   subTitle: {
     color: colors.subTitleLightGray,
-    fontFamily: 'SFProDisplay-Semibold',
-    fontSize: 10,
+    fontFamily: 'SFProDisplay-Regular',
+    fontSize: 13,
   },
   expiry: {
     fontSize: 12,
@@ -267,5 +262,21 @@ const styles = StyleSheet.create({
   image: {
     width: 80,
     height: 60,
+  },
+  dotContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 10,
+  },
+  dot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: '#ccc',
+    margin: 5,
+  },
+  activeDot: {
+    backgroundColor: 'blue', // Color for active dot
   },
 });

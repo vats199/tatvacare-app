@@ -21,6 +21,7 @@ import com.mytatva.patient.ui.common.fragment.BlankFragment
 import com.mytatva.patient.ui.goal.adapter.ViewPagerAdapter
 import com.mytatva.patient.ui.profile.fragment.MyDeviceDetailsFragment
 import com.mytatva.patient.utils.firebaseanalytics.AnalyticsClient
+import com.mytatva.patient.utils.firebaseanalytics.AnalyticsScreenNames
 import com.mytatva.patient.utils.googlefit.GoogleFit
 import com.mytatva.patient.utils.imagepicker.loadUrlIcon
 import com.mytatva.patient.utils.parseAsColor
@@ -337,6 +338,8 @@ class UpdateReadingsMainFragment : BaseFragment<ReadingFragmentUpdateReadingMain
                 )
             }
         )
+
+        analytics.setScreenName(AnalyticsScreenNames.LogReading.plus(readingsList[currentPosition].keys))
     }
 
     private fun addFragmentsAsPerReadingsList() {
@@ -611,4 +614,5 @@ class UpdateReadingsMainFragment : BaseFragment<ReadingFragmentUpdateReadingMain
     private fun observeLiveData() {
 
     }
+
 }

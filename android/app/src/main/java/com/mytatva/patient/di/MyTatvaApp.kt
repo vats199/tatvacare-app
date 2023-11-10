@@ -71,7 +71,7 @@ class MyTatvaApp : Application(), ReactApplication, LifecycleObserver {
         const val FILE_PROVIDER_AUTHORITY = BuildConfig.APPLICATION_ID + ".provider"
         var mContext: Context? = null
 
-        const val IS_SPIRO_PROD = true
+        const val IS_SPIRO_PROD = false
 
         fun getProcessName(): String? {
             return if (Build.VERSION.SDK_INT >= 28) Application.getProcessName() else try {

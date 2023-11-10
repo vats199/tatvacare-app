@@ -933,7 +933,6 @@ class HomeFragment : BaseFragment<HomeFragmentHomeNewBinding>() {
                     }
                 }
             })*/
-
         }
 
         if (AppFlagHandler.isToHideIncidentSurvey(firebaseConfigUtil)) {

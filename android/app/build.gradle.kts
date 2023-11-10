@@ -204,6 +204,9 @@ dependencies {
     implementation(project(mapOf("path" to ":barcode-reader")))
     implementation(project(mapOf("path" to ":showcaseviewlib")))
     implementation(project(mapOf("path" to ":horizontalcalendar")))
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("com.google.android.material:material:1.10.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
     //androidTestImplementation("android.arch.core:core-testing:1.1.1")
 
