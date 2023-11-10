@@ -109,7 +109,7 @@ const ChatScreen: React.FC<ChatScreenProps> = ({navigation, route}) => {
   };
 
   const sendMessage = async () => {
-    // trackEvent("USER_TAP_ENTER",{})
+    trackEvent('USER_TAP_ENTER', {});
     setLoading(true);
     setMessages([...messages, {sender: 'user', message: msg}]);
     const payload = {
