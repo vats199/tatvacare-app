@@ -267,7 +267,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener, DefaultHardwareBackBt
 
             handleToShowHideEngageTab()
 
-            binding.layoutGenAI.isVisible = AppFlagHandler.getIsHideGenAIChatBot(firebaseConfigUtil)
+            binding.layoutGenAI.isVisible = !AppFlagHandler.getIsHideGenAIChatBot(firebaseConfigUtil)
 
             if (homeHandler == null) {
                 homeHandler = HomeHandler(navigationFactory.fragmentHandler, firebaseConfigUtil)
@@ -1019,6 +1019,9 @@ class HomeActivity : BaseActivity(), View.OnClickListener, DefaultHardwareBackBt
                     setBottomSelection(v.id)
                     homeHandler?.showGenAIFragment()
                 }*/
+                analytics.logEvent(analytics.USER_TAPS_ON_BOTTOM_NAV, Bundle().apply {
+                    putString(analytics.PARAM_MODULE, "Chatbot")
+                }, screenName = AnalyticsScreenNames.Home)
                 startActivity(Intent(this@HomeActivity, GenAIActivity::class.java))
             }
 

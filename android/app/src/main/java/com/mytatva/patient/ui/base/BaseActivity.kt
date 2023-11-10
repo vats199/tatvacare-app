@@ -195,11 +195,9 @@ BaseActivity : AppCompatActivity(), HasComponent<ActivityComponent>, HasToolbar,
         eventName: String,
         params: Any
     ) {
-        if(!reactContext.hasActiveCatalystInstance()) {
+        if (!reactContext.hasActiveCatalystInstance()) {
             return;
         }
-        Log.d("sendEventToRN: ", eventName)
-
         reactContext
             .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
             .emit(eventName, params)
@@ -217,7 +215,6 @@ BaseActivity : AppCompatActivity(), HasComponent<ActivityComponent>, HasToolbar,
         googleFit.activity = this
         locationManager.activity = this
         coachMarksUtil.activity = this
-
         downloadHelper.activity = this
         downloadHelper.registerReceiver()
     }
@@ -487,7 +484,7 @@ BaseActivity : AppCompatActivity(), HasComponent<ActivityComponent>, HasToolbar,
                 }
 
                 locationUpdateBottomSheetDialog.grantPermission = {
-                    analytics.logEvent(AnalyticsClient.CLICKED_GRANT_LOCATION,Bundle().apply {
+                    analytics.logEvent(AnalyticsClient.CLICKED_GRANT_LOCATION, Bundle().apply {
                         putString(
                             analytics.PARAM_BOTTOM_SHEET_NAME,
                             analytics.PARAM_GRANT_LOCATION_PERMISSION
@@ -1753,7 +1750,7 @@ BaseActivity : AppCompatActivity(), HasComponent<ActivityComponent>, HasToolbar,
 
             Log.d("FINAL", "GOAL")
 
-            googleFit.readReadings(cal,calForCaloriesConsumed) { readingsList ->
+            googleFit.readReadings(cal, calForCaloriesConsumed) { readingsList ->
 
                 analytics.logEvent(analytics.READING_CAPTURED_GOOGLE_FIT)
 

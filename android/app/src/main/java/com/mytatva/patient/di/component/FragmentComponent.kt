@@ -3,7 +3,6 @@ package com.mytatva.patient.di.component
 
 import com.mytatva.patient.di.PerFragment
 import com.mytatva.patient.di.module.FragmentModule
-import com.mytatva.patient.ui.GenAIFragment
 import com.mytatva.patient.ui.address.fragment.AddressConfirmLocationFragment
 import com.mytatva.patient.ui.appointment.fragment.AllAppointmentsFragment
 import com.mytatva.patient.ui.appointment.fragment.BookAppointmentsFragment
@@ -276,7 +275,6 @@ interface FragmentComponent {
     fun inject(devicesFragment: DevicesFragment)
     fun inject(aboutUsFragment: AboutUsFragment)
     fun inject(reactUseInFragment: RNHomeFragment)
-    fun inject(genAIFragment: GenAIFragment)
 
     /* **********************************************
      * exercise plan new changes fragments - start

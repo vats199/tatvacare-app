@@ -190,7 +190,7 @@ class AndroidBridgeModule(var reactContext: ReactApplicationContext) : ReactCont
             Bundle().apply {
                 putString(
                     (currentActivity as BaseActivity?)!!.analytics.PARAM_DIARY_ITEM,
-                    "Devices"
+                    (currentActivity as BaseActivity?)!!.analytics.PARAM_DEVICES
                 )
             }
         )
@@ -366,7 +366,7 @@ class AndroidBridgeModule(var reactContext: ReactApplicationContext) : ReactCont
             Bundle().apply {
                 putString(
                     (currentActivity as BaseActivity?)!!.analytics.PARAM_DIARY_ITEM,
-                    "Diet"
+                    (currentActivity as BaseActivity?)!!.analytics.PARAM_DIET
                 )
                 putInt(
                     (currentActivity as BaseActivity?)!!.analytics.PARAM_DIARY_ITEM_COMPLETION,
@@ -392,7 +392,7 @@ class AndroidBridgeModule(var reactContext: ReactApplicationContext) : ReactCont
             Bundle().apply {
                 putString(
                     (currentActivity as BaseActivity?)!!.analytics.PARAM_DIARY_ITEM,
-                    "My Incidents"
+                    (currentActivity as BaseActivity?)!!.analytics.PARAM_MY_INCIDENTS
                 )
             }
         )
@@ -447,7 +447,7 @@ class AndroidBridgeModule(var reactContext: ReactApplicationContext) : ReactCont
             Bundle().apply {
                 putString(
                     (currentActivity as BaseActivity?)!!.analytics.PARAM_DIARY_ITEM,
-                    "Exercises"
+                    (currentActivity as BaseActivity?)!!.analytics.PARAM_EXERCISES
                 )
                 putInt(
                     (currentActivity as BaseActivity?)!!.analytics.PARAM_DIARY_ITEM_COMPLETION,
@@ -489,7 +489,7 @@ class AndroidBridgeModule(var reactContext: ReactApplicationContext) : ReactCont
             Bundle().apply {
                 putString(
                     (currentActivity as BaseActivity?)!!.analytics.PARAM_DIARY_ITEM,
-                    "Medicine"
+                    (currentActivity as BaseActivity?)!!.analytics.PARAM_MEDICINE
                 )
                 putInt(
                     (currentActivity as BaseActivity?)!!.analytics.PARAM_DIARY_ITEM_COMPLETION,
@@ -730,6 +730,11 @@ class AndroidBridgeModule(var reactContext: ReactApplicationContext) : ReactCont
     @ReactMethod
     fun onBackPressed() {
         if (currentActivity is GenAIActivity) {
+            (currentActivity as BaseActivity?)!!.analytics.logEvent(
+                AnalyticsClient.BACK_BUTTON_CLICK,
+                Bundle(), (currentActivity as BaseActivity?)!!.analytics.PARAM_CHATBOT_SCREEN
+            )
+
             (currentActivity as GenAIActivity).finish()
         }
     }

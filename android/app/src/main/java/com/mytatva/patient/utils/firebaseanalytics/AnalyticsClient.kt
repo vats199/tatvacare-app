@@ -100,12 +100,9 @@ class AnalyticsClient @Inject constructor(
     //
 
     //HealthCoach Specialization
-
     val PARAM_LINKED_DEVICES = "linked_devices"
-
     val PARAM_LANGUAGE_SELECTED = "language_selected"
     val PARAM_DATE_OF_INSIGHT = "date_of_insight"
-
     val PARAM_MENU = "menu"
     val PARAM_CARDS = "cards"
     val PARAM_DIET_START_DATE = "diet_start_date"
@@ -113,7 +110,6 @@ class AnalyticsClient @Inject constructor(
     val PARAM_HEALTH_MARKER_NAME = "health_marker_name"
     val PARAM_HEALTH_MARKER_COLOUR = "health_marker_colour"
     val PARAM_HEALTH_MARKER_VALUE = "health_marker_value"
-
     val PARAM_PLAN_ID = "plan_id"
     val PARAM_PLAN_TYPE = "plan_type"
     val PARAM_PLAN_EXPIRY_DATE = "plan_expiry_date"
@@ -121,17 +117,14 @@ class AnalyticsClient @Inject constructor(
     val PARAM_PLAN_VALUE = "plan_value"
     val PARAM_FEATURE_STATUS = "feature_status" //active/inactive
     val PARAM_ACTION = "action" //active/inactive
-
     val PARAM_MEDICAL_DEVICE = "medical_device"
     val PARAM_DEVICE_AVAILABILITY = "device_availability"
     val PARAM_TOGGLE = "toggle"
     val PARAM_ATTEMPT = "attempt"
     val PARAM_MODULE = "module"
     val PARAM_DATE_RANGE_VALUE = "date_range_value"
-
     val PARAM_CAROUSEL_NUMBER = "carousel_number"
     val PARAM_AUTO_FLAG = "auto_flag"
-
     val PARAM_CHANGED_FROM = "changed_from"
     val PARAM_CHANGES_TO = "changes_to"
     val PARAM_BOTTOM_SHEET_NAME = "bottom_sheet_name"
@@ -151,7 +144,11 @@ class AnalyticsClient @Inject constructor(
     val PARAM_SHARE_APP = "Share App"
     val PARAM_RATE_APP = "Rate App"
     val PARAM_CONTACT_US = "Contact Us"
-
+    val PARAM_DEVICES = "Devices"
+    val PARAM_DIET = "Diet"
+    val PARAM_MY_INCIDENTS = "My Incidents"
+    val PARAM_EXERCISES = "Exercises"
+    val PARAM_MEDICINE = "Medicine"
     val PARAM_CARD_NUMBER = "card_number"
     val PARAM_ADDRESS_NUMBER = "address_number"
     val PARAM_ADDRESS_TYPE = "address_type"
@@ -176,6 +173,7 @@ class AnalyticsClient @Inject constructor(
     val PARAM_DOMAIN_MAP_DATA = "domain_map_data"
     val PARAM_DIARY_ITEM = "diary_item"
     val PARAM_DIARY_ITEM_COMPLETION = "diary_item_completion"
+    val PARAM_CHATBOT_SCREEN = "chatbot screen"
 
     /*patientGender
     patientIndication
@@ -861,5 +859,6 @@ class AnalyticsClient @Inject constructor(
         val CLICKED_CONTENT_VIEW_ALL = "CLICKED_CONTENT_VIEW_ALL"
         val CLICK_APPLY = "CLICK_APPLY"
         val CLICKED_CONSULT_PHYSIO = "CLICKED_CONSULT_PHYSIO"
+        val BACK_BUTTON_CLICK = "BACK_BUTTON_CLICK"
     }
 }

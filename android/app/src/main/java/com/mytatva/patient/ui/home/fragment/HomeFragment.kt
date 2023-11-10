@@ -1422,7 +1422,7 @@ class HomeFragment : BaseFragment<HomeFragmentHomeNewBinding>() {
             }
 
             R.id.clBookDevice -> {
-                if (hcDevicePlan?.devices?.isActive.isNullOrEmpty()) {
+                if (session.user?.devices_name?.device_names.isNullOrEmpty()) {
                     navigator.loadActivity(
                         IsolatedFullActivity::class.java, PaymentCarePlanListingFragment::class.java
                     ).addBundle(Bundle().apply {

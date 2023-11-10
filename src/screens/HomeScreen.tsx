@@ -11,15 +11,15 @@ import {
   DeviceEventEmitter,
   Alert,
 } from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
-import {CompositeScreenProps} from '@react-navigation/native';
+import React, { useEffect, useRef, useState } from 'react';
+import { CompositeScreenProps } from '@react-navigation/native';
 import {
   AppStackParamList,
   DrawerParamList,
 } from '../interface/Navigation.interface';
-import {Container, Screen} from '../components/styled/Views';
-import {Icons} from '../constants/icons';
-import {colors} from '../constants/colors';
+import { Container, Screen } from '../components/styled/Views';
+import { Icons } from '../constants/icons';
+import { colors } from '../constants/colors';
 import CarePlanView from '../components/organisms/CarePlanView';
 import HealthTip from '../components/organisms/HealthTip';
 import MyHealthInsights from '../components/organisms/MyHealthInsights';
@@ -27,7 +27,7 @@ import MyHealthDiary from '../components/organisms/MyHealthDiary';
 import HomeHeader from '../components/molecules/HomeHeader';
 import AdditionalCareServices from '../components/organisms/AdditionalCareServices';
 import Learn from '../components/organisms/Learn';
-import {DrawerScreenProps} from '@react-navigation/drawer';
+import { DrawerScreenProps } from '@react-navigation/drawer';
 import {
   navigateTo,
   navigateToEngagement,
@@ -46,20 +46,20 @@ import {
 } from '../routes/Router';
 import Home from '../api/home';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {StackScreenProps} from '@react-navigation/stack';
-import {useApp} from '../context/app.context';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import { StackScreenProps } from '@react-navigation/stack';
+import { useApp } from '../context/app.context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import TatvaLoader from '../components/atoms/TatvaLoader';
 // food diary 31st Oct
 import InputField, {
   AnimatedInputFieldRef,
 } from '../components/atoms/AnimatedInputField';
 import SearchModal from '../components/molecules/SearchModal';
-import {trackEvent} from '../helpers/TrackEvent';
-import {Constants} from '../constants';
+import { trackEvent } from '../helpers/TrackEvent';
+import { Constants } from '../constants';
 import moment from 'moment';
 
-const {RNEventEmitter} = NativeModules;
+const { RNEventEmitter } = NativeModules;
 const eventEmitter = new NativeEventEmitter(RNEventEmitter);
 
 type HomeScreenProps = CompositeScreenProps<
@@ -67,8 +67,8 @@ type HomeScreenProps = CompositeScreenProps<
   StackScreenProps<AppStackParamList, 'DrawerScreen'>
 >;
 
-const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
-  const {setUserData, setUserLocation, userData} = useApp();
+const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
+  const { setUserData, setUserLocation, userData } = useApp();
 
   const [loading, setLoading] = React.useState<boolean>(true);
 
@@ -156,6 +156,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
           getMyHealthInsights();
           getHCDevicePlans();
           getMyHealthDiaries();
+          getIncidentDetails();
         },
       );
 
@@ -225,8 +226,8 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
     const subscribe = eventEmitter.addListener(
       'locationUpdatedSuccessfully',
       (location: any) => {
-        const {city, state, country} = location;
-        setUserLocation({city, state, country});
+        const { city, state, country } = location;
+        setUserLocation({ city, state, country });
       },
     );
 
@@ -272,9 +273,9 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   const getHomeCarePlan = async () => {
     setLoading(true);
     const homeCarePlan = await Home.getPatientCarePlan({});
-    const {city, state, country} = homeCarePlan?.data;
+    const { city, state, country } = homeCarePlan?.data;
     if (city && state && country) {
-      setUserLocation({city, state, country});
+      setUserLocation({ city, state, country });
     }
     setCarePlanData(homeCarePlan?.data);
     setUserData(homeCarePlan?.data);
@@ -288,7 +289,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
 
   const getPlans = async () => {
     setLoading(true);
-    const allPlans = await Home.getHomePagePlans({}, {page: 0});
+    const allPlans = await Home.getHomePagePlans({}, { page: 0 });
     setAllPlans(allPlans?.data ?? []);
     setLoading(false);
   };
@@ -388,8 +389,8 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
     // ]);
     if (Platform.OS == 'ios') {
       openMedicineExerciseDiet([
-        {filteredData: filteredData},
-        {firstRow: 'exercise'},
+        { filteredData: filteredData },
+        { firstRow: 'exercise' },
       ]);
     } else {
       let achievedVal = filteredData.find(
@@ -410,8 +411,8 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   const onPressMedicine = (filteredData: any) => {
     if (Platform.OS == 'ios') {
       openMedicineExerciseDiet([
-        {filteredData: filteredData},
-        {firstRow: 'medication'},
+        { filteredData: filteredData },
+        { firstRow: 'medication' },
       ]);
     } else {
       let achievedVal = filteredData.find(
@@ -432,7 +433,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   };
   const onPressMyIncidents = () => {
     if (Platform.OS == 'ios') {
-      navigateToIncident([{surveyDetails: incidentDetails}]);
+      navigateToIncident([{ surveyDetails: incidentDetails }]);
     } else {
       console.log('Incident Value---', JSON.stringify(incidentDetails));
       if (incidentDetails) {
@@ -516,7 +517,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
           'days',
         ),
       });
-      openPlanDetails([{planDetails: plan}]);
+      openPlanDetails([{ planDetails: plan }]);
     } else {
       console.log('Plan Details===', plan);
       NativeModules.AndroidBridge.openPurchasedPlanDetailScreen(
@@ -527,7 +528,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
 
   const onPressReading = (filteredData: any, firstRow: any, index: any) => {
     if (Platform.OS == 'ios') {
-      openUpdateReading([{filteredData: filteredData}, {firstRow: firstRow}]);
+      openUpdateReading([{ filteredData: filteredData }, { firstRow: firstRow }]);
     } else {
       NativeModules.AndroidBridge.openReadingsItemDetailScreen(
         JSON.stringify(filteredData),
@@ -539,7 +540,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
 
   const onPressGoal = (filteredData: any, firstRow: any, index: any) => {
     if (Platform.OS == 'ios') {
-      openUpdateGoal([{filteredData: filteredData}, {firstRow: firstRow}]);
+      openUpdateGoal([{ filteredData: filteredData }, { firstRow: firstRow }]);
     } else {
       NativeModules.AndroidBridge.openGoalItemDetailScreen(
         JSON.stringify(filteredData),
@@ -587,10 +588,9 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
       content_card_number: data?.content_id ?? '',
     };
     trackEvent(
-      `${
-        data?.bookmarked === 'Y'
-          ? 'USER_UN_BOOKMARK_CONTENT'
-          : 'USER_BOOKMARKED_CONTENT'
+      `${data?.bookmarked === 'Y'
+        ? 'USER_UN_BOOKMARK_CONTENT'
+        : 'USER_BOOKMARKED_CONTENT'
       }`,
       trackEventPayload,
     );
@@ -617,8 +617,8 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
           <Animated.ScrollView
             showsVerticalScrollIndicator={false}
             onScroll={Animated.event(
-              [{nativeEvent: {contentOffset: {y: scrollY}}}],
-              {useNativeDriver: true},
+              [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+              { useNativeDriver: true },
             )}>
             <View
               style={styles.header}
@@ -633,7 +633,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
                 {getGreetings()} {carePlanData?.name}!
               </Text>
             </View>
-            <View style={[styles.searchBar, {backgroundColor: 'red'}]} />
+            <View style={[styles.searchBar, { backgroundColor: 'red' }]} />
             <CarePlanView
               data={carePlanData}
               onPressCarePlan={onPressCarePlan}
