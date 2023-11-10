@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
-import {StyleSheet, Text, View, Dimensions, Platform} from 'react-native';
-import {colors} from '../../constants/colors';
-import {Icons} from '../../constants/icons';
-import {TouchableOpacity} from 'react-native';
-import {Fonts, Matrics} from '../../constants';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, Dimensions, Platform } from 'react-native';
+import { colors } from '../../constants/colors';
+import { Icons } from '../../constants/icons';
+import { TouchableOpacity } from 'react-native';
+import { Fonts, Matrics } from '../../constants';
 import CommonCalendar from './CommonCalendar';
-import {globalStyles} from '../../constants/globalStyles';
+import { globalStyles } from '../../constants/globalStyles';
 
 type DietHeaderProps = {
   onPressBack: () => void;
@@ -24,6 +24,7 @@ const DietHeader: React.FC<DietHeaderProps> = ({
   onChangeDate,
 }) => {
   const onPressDay = (date: Date) => {
+    onChangeDate(date);
     onPressOfNextAndPerviousDate(date);
   };
 
@@ -39,8 +40,7 @@ const DietHeader: React.FC<DietHeaderProps> = ({
         <CommonCalendar
           onPressDay={onPressDay}
           selectedDate={selectedDate}
-          // newMonth={newMonth}
-          onChangeDate={onChangeDate}
+        // newMonth={newMonth}
         />
       </View>
     </View>

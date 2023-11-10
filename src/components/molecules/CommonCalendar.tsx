@@ -46,8 +46,6 @@ type CommonCalendarProps = {
   headerTxtContainer?: ViewStyle;
   titleStyle?: TextStyle;
   iconContainerStyle?: ViewStyle;
-  // newMonth: string | Date;
-  onChangeDate: (date: string | Date) => void;
 };
 
 const { width } = Dimensions.get('window');
@@ -62,8 +60,6 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
   headerTxtContainer,
   titleStyle,
   iconContainerStyle,
-  // newMonth,
-  onChangeDate,
 }) => {
   const focus = useIsFocused();
   const [seletedDay, setSeletedDay] = useState<string>(
@@ -215,6 +211,7 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
 
   const onChangeMonth = (date: DateData) => {
     let tempDate = new Date(date?.dateString);
+    setCalendarDates(moment(tempDate).format('YYYY-MM-DD'));
     _selectedDateRef.current = moment(tempDate).format('YYYY-MM-DD');
     setNewMonth(tempDate);
   };
@@ -381,7 +378,7 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
 
   return (
     <ExpandableCalendar
-      initialDate={moment(calendarDates).format('YYYY-MM-DD')}
+      current={moment(calendarDates).format('YYYY-MM-DD')}
       horizontal
       firstDay={1}
       initialPosition={calendarHeight}

@@ -13,7 +13,7 @@ export default {
     LOW: 'low',
   },
   IS_CHECK_API_CODE: true,
-  IS_NATIVE_UI: true,
+  IS_NATIVE_UI: false,
   DATE_FORMAT: 'YYYY-MM-DD',
   EVENT_NAME: {
     FOOD_DIARY: {
