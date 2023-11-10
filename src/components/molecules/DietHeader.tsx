@@ -1,17 +1,9 @@
 import React, { useState } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Dimensions,
-  LayoutAnimation,
-  Platform,
-} from 'react-native';
+import { StyleSheet, Text, View, Dimensions, Platform } from 'react-native';
 import { colors } from '../../constants/colors';
 import { Icons } from '../../constants/icons';
 import { TouchableOpacity } from 'react-native';
 import { Fonts, Matrics } from '../../constants';
-import { useIsFocused } from '@react-navigation/native';
 import CommonCalendar from './CommonCalendar';
 import { globalStyles } from '../../constants/globalStyles';
 
@@ -19,20 +11,19 @@ type DietHeaderProps = {
   onPressBack: () => void;
   onPressOfNextAndPerviousDate: (data: any) => void;
   title: string;
-  currentSelectedDate?: Date | null;
+  selectedDate: Date | string;
+  newMonth: string | Date;
+  onChangeDate: (date: string | Date) => void;
 };
 const DietHeader: React.FC<DietHeaderProps> = ({
   onPressBack,
   onPressOfNextAndPerviousDate,
   title,
-  currentSelectedDate,
+  selectedDate,
+  newMonth,
+  onChangeDate,
 }) => {
-  const [selectedDate, setSelectedDate] = useState(
-    currentSelectedDate ?? new Date(),
-  );
-
   const onPressDay = (date: Date) => {
-    setSelectedDate(date);
     onPressOfNextAndPerviousDate(date);
   };
 
@@ -46,9 +37,10 @@ const DietHeader: React.FC<DietHeaderProps> = ({
           <Text style={styles.customHeaderText}> {title}</Text>
         </View>
         <CommonCalendar
-          selectedDate={selectedDate}
           onPressDay={onPressDay}
-        // setSelectedDate={setSelectedDate}
+          selectedDate={selectedDate}
+          newMonth={newMonth}
+          onChangeDate={onChangeDate}
         />
       </View>
     </View>
@@ -72,7 +64,6 @@ const styles = StyleSheet.create({
   customHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 20,
     paddingHorizontal: Matrics.s(12),
   },
   customHeaderText: {

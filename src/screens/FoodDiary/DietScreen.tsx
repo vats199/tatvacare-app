@@ -1,7 +1,14 @@
-import React, { useState, useEffect, useRef, createContext } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  createContext,
+  useCallback,
+} from 'react';
 import { useFocusEffect, useIsFocused } from '@react-navigation/native';
 import {
   FlatList,
+  LayoutAnimation,
   Platform,
   ScrollView,
   StyleSheet,
@@ -35,6 +42,7 @@ import { trackEvent } from '../../helpers/TrackEvent';
 import mealTypes from '../../constants/data';
 import MealCard from '../../components/molecules/MealCard';
 import { useDiet } from '../../context/diet.context';
+import { CalendarProvider, DateData } from 'react-native-calendars';
 import MyStatusbar from '../../components/atoms/MyStatusBar';
 
 type DietScreenProps = StackScreenProps<DietStackParamList, 'DietScreen'>;
@@ -61,7 +69,6 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   } = useDiet();
   const toast = useToast();
   const [loader, setLoader] = useState<boolean>(false);
-  const [selectedDate, setSelectedDate] = useState<string | Date>(null);
   const [dietPlane, setDiePlane] = useState<any>([]);
   const { userData } = useApp();
   const [deletpayload, setDeletpayload] = useState<string | null>(null);
@@ -75,8 +82,16 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
     mealId: string;
   } | null>();
   const focus = useIsFocused();
-  const _selectedDateRef = useRef<Date | null>(null);
+  const _selectedDateRef = useRef<Date | null>(new Date());
   const options = route?.params?.option;
+
+  // const [selectedDate, setSelectedDate] = useState<string | Date>(new Date());
+  const [tempSelectedDate, setTempSelectedDate] = useState<string | Date>(
+    new Date(),
+  );
+  const [newMonth, setNewMonth] = useState<string | Date>(
+    moment(tempSelectedDate).format('YYYY-MM-DD'),
+  );
 
   useEffect(() => {
     console.log('focus:', focus);
@@ -91,9 +106,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
 
   const getData = async (optionId?: string, dietPlanId?: string) => {
     setLoader(true);
-    const date = moment(_selectedDateRef.current ?? new Date()).format(
-      'YYYY-MM-DD',
-    );
+    const date = moment(_selectedDateRef?.current ?? new Date()).format('YYYY-MM-DD');
     const diet = await Diet.getDietPlan({ date: date }, {}, { token: userData.token },);
     if (Constants.IS_CHECK_API_CODE) {
       if (diet.code == '1') {
@@ -128,7 +141,8 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
 
   const handleDate = (date: any) => {
     navigation.setParams({ option: undefined });
-    setSelectedDate(date);
+    // setSelectedDate(date);
+    setTempSelectedDate(date);
     _selectedDateRef.current = date;
     getData();
   };
@@ -198,8 +212,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
         diet_plan_food_item_id: deletpayload,
       },
       {},
-      { token: userData.token }
-    );
+      { token: userData.token });
     if (Constants.IS_CHECK_API_CODE) {
       if (deleteFoodItem?.code === '1') {
         getData();
@@ -239,7 +252,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
     optionId: string,
     dietPlanId: string,
   ) => {
-    const UpadteFoodItem = await Diet.updateFoodConsumption(item, {}, { token: userData.token },);
+    const UpadteFoodItem = await Diet.updateFoodConsumption(item, {}, { token: userData.token });
     getData(optionId, dietPlanId);
     if (UpadteFoodItem) {
     }
@@ -270,7 +283,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
     });
 
     trackEvent(Constants.EVENT_NAME.FOOD_DIARY.USER_CLICKS_ON_INSIGHT, {
-      date_of_insight: moment(selectedDate).format(Constants.DATE_FORMAT),
+      date_of_insight: moment(_selectedDateRef.current).format(Constants.DATE_FORMAT),
       goal_value: totalCalories,
       actual_value: totalConsumedCalories,
       percentage_completion: vale,
@@ -280,7 +293,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
     navigation.navigate('ProgressBarInsightsScreen', {
       calories: tempCaloriesArray,
       currentSelectedDate:
-        selectedDate != null ? new Date(selectedDate) : new Date(),
+        _selectedDateRef.current != null ? new Date(_selectedDateRef.current) : new Date(),
       option: tempOption,
     });
   };
@@ -288,7 +301,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   const handlePressOfNoPlanePlusIcon = (mealData: mealTYpe) => {
     const today = new Date();
     if (
-      moment(new Date(selectedDate)).format('YYYY-MM-DD') >=
+      moment(new Date(_selectedDateRef.current)).format('YYYY-MM-DD') >=
       moment(today).format('YYYY-MM-DD')
     ) {
       const tempOption = [...selectedOptionsId.current];
@@ -296,7 +309,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
         healthCoachId: dietPlane?.health_coach_id,
         mealName: mealData?.label,
         mealData: mealData,
-        selectedDate: selectedDate,
+        selectedDate: _selectedDateRef.current,
         patient_id: dietPlane?.patient_id,
         option: tempOption,
       });
@@ -320,6 +333,17 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
     }
   };
 
+  const onChangeMonth = (date: DateData) => {
+    let tempDate = new Date(date?.dateString);
+    setNewMonth(tempDate);
+  };
+
+  const onDateChanged = useCallback((date: any, updateSource: any) => {
+    let tempDate = new Date(date);
+    setNewMonth(tempDate);
+    console.log('tempDate', tempDate);
+  }, []);
+
   return (
     <SafeAreaView
       edges={['top']}
@@ -329,50 +353,64 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
           paddingTop:
             Platform.OS == 'android' ? Matrics.vs(10) : 0,
           paddingBottom: insets.bottom
+
         },
       ]}>
       <MyStatusbar backgroundColor={colors.lightGreyishBlue} />
-      <DietHeader
-        onPressBack={onPressBack}
-        onPressOfNextAndPerviousDate={handleDate}
-        title="Diet"
-      />
-      <View style={styles.belowContainer}>
-        <TouchableOpacity
-          activeOpacity={0.5}
-          style={[styles.caloriesContainer, globalStyles.shadowContainer]}
-          onPress={handelOnpressOfprogressBar}>
-          <CalorieConsumer />
-        </TouchableOpacity>
-        {Object.keys(dietPlane).length > 0 ? (
-          <DietTime
-            onPressPlus={handlePulsIconPress}
-            dietPlane={JSON.parse(JSON.stringify(dietPlane?.meals))}
-            onpressOfEdit={handaleEdit}
-            onPressOfDelete={handaleDelete}
-            onPressOfcomplete={handalecompletion}
-            options={options}
-          />
-        ) : loader ? null : (
-          <FlatList
-            style={[styles.innercontainer]}
-            contentContainerStyle={{
-              paddingBottom: insets.bottom + Matrics.vs(10),
-            }}
-            showsVerticalScrollIndicator={false}
-            data={mealTypes}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item, index }: { item: mealTYpe; index: number }) => {
-              return (
-                <MealCard
-                  cardData={item}
-                  onPressPlus={handlePressOfNoPlanePlusIcon}
-                />
-              );
-            }}
-          />
-        )}
-      </View>
+
+      <CalendarProvider
+        date={moment(tempSelectedDate).format('YYYY-MM-DD')}
+        disabledOpacity={0.6}
+        onMonthChange={onChangeMonth}
+        onDateChanged={onDateChanged}>
+        <DietHeader
+          onPressBack={onPressBack}
+          onPressOfNextAndPerviousDate={handleDate}
+          title="Diet"
+          selectedDate={tempSelectedDate}
+          newMonth={newMonth}
+          onChangeDate={date => {
+            setTempSelectedDate(date);
+            setNewMonth(date);
+          }}
+        />
+        <View style={styles.belowContainer}>
+          <TouchableOpacity
+            activeOpacity={0.5}
+            style={[styles.caloriesContainer, globalStyles.shadowContainer]}
+            onPress={handelOnpressOfprogressBar}>
+            <CalorieConsumer />
+          </TouchableOpacity>
+          {Object.keys(dietPlane).length > 0 ? (
+            <DietTime
+              onPressPlus={handlePulsIconPress}
+              dietPlane={JSON.parse(JSON.stringify(dietPlane?.meals))}
+              onpressOfEdit={handaleEdit}
+              onPressOfDelete={handaleDelete}
+              onPressOfcomplete={handalecompletion}
+              options={options}
+            />
+          ) : loader ? null : (
+            <FlatList
+              style={[styles.innercontainer]}
+              contentContainerStyle={{
+                paddingBottom: insets.bottom + Matrics.vs(10),
+              }}
+              showsVerticalScrollIndicator={false}
+              data={mealTypes}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={({ item, index }: { item: mealTYpe; index: number }) => {
+                return (
+                  <MealCard
+                    cardData={item}
+                    onPressPlus={handlePressOfNoPlanePlusIcon}
+                  />
+                );
+              }}
+            />
+          )}
+        </View>
+      </CalendarProvider>
       <CommonBottomSheetModal snapPoints={['35%']} ref={bottomSheetModalRef}>
         <AlertBottomSheet
           onPressAccept={deleteFoodItem}
@@ -386,7 +424,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
         />
       </CommonBottomSheetModal>
       <Loader visible={loader} />
-    </SafeAreaView >
+    </SafeAreaView>
   );
 };
 

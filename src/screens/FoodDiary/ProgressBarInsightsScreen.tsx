@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, ScrollView, Platform } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { DietStackParamList } from '../../interface/Navigation.interface';
 import { StackScreenProps } from '@react-navigation/stack';
 import DietHeader from '../../components/molecules/DietHeader';
@@ -11,6 +11,9 @@ import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 // import MyStatusbar from '../../components/atoms/MyStatusBar';
 import { Fonts } from '../../constants';
 import { globalStyles } from '../../constants/globalStyles';
+import { CalendarProvider, DateData } from 'react-native-calendars';
+import moment from 'moment';
+import MyStatusbar from '../../components/atoms/MyStatusBar';
 
 type ProgressBarInsightsScreenProps = StackScreenProps<
   DietStackParamList,
@@ -26,6 +29,12 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
   const { calories, currentSelectedDate, option } = route.params;
   const [dailyCalories, setDailyCalories] = useState([]);
   const [macroNuitrientes, setMacroNuitrientes] = useState([]);
+  const [tempSelectedDate, setTempSelectedDate] = useState<string | Date>(
+    new Date(),
+  );
+  const [newMonth, setNewMonth] = useState<string | Date>(
+    moment(tempSelectedDate).format('YYYY-MM-DD'),
+  );
 
   const onPressBack = () => {
     if (Array.isArray(option) && option.length !== 0) {
@@ -208,6 +217,17 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
     );
   };
 
+  const onChangeMonth = (date: DateData) => {
+    let tempDate = new Date(date?.dateString);
+    setNewMonth(tempDate);
+  };
+
+  const onDateChanged = useCallback((date: any, updateSource: any) => {
+    let tempDate = new Date(date);
+    setNewMonth(tempDate);
+    console.log('tempDate', tempDate);
+  }, []);
+
   return (
     <SafeAreaView
       edges={['top']}
@@ -217,46 +237,56 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
         // paddingBottom: insets.bottom !== 0 ? insets.bottom : Matrics.vs(15),
         paddingTop: Platform.OS == 'android' ? Matrics.vs(20) : 0,
       }}>
-      {/* <MyStatusbar backgroundColor={colors.lightGreyishBlue} /> */}
-      <DietHeader
-        onPressBack={onPressBack}
-        onPressOfNextAndPerviousDate={handleDate}
-        title={'Insights'}
-        // getCurrentSeletedDate={handleDate}
-        currentSelectedDate={currentSelectedDate}
-      />
-      <ScrollView style={{ paddingBottom: 14 }}>
-        <Text style={style.title}>Daily Macronutrients Analysis</Text>
-        <View
-          style={[
-            globalStyles.shadowContainer,
-            style.boxContainer,
-            {
-              marginBottom: Matrics.vs(10),
-            },
-          ]}>
-          {macroNuitrientes?.map((item, index) => {
-            return renderItem(item, index, 'g');
-          })}
-        </View>
-        {dailyCalories.length > 0 ? (
-          <View style={{ flex: 1 }}>
-            <Text style={style.title}>Meal Energy Distribution</Text>
-            <View
-              style={[
-                globalStyles.shadowContainer,
-                style.boxContainer,
-                {
-                  marginBottom: Matrics.vs(20),
-                },
-              ]}>
-              {dailyCalories?.map((item, index) => {
-                return renderItem(item, index, 'cal');
-              })}
-            </View>
+      <MyStatusbar backgroundColor={colors.lightGreyishBlue} />
+      <CalendarProvider
+        date={moment(tempSelectedDate).format('YYYY-MM-DD')}
+        disabledOpacity={0.6}
+        onMonthChange={onChangeMonth}
+        onDateChanged={onDateChanged}>
+        <DietHeader
+          onPressBack={onPressBack}
+          onPressOfNextAndPerviousDate={handleDate}
+          title="Insights"
+          selectedDate={tempSelectedDate}
+          newMonth={newMonth}
+          onChangeDate={date => {
+            setTempSelectedDate(date);
+            setNewMonth(date);
+          }}
+        />
+        <ScrollView style={{ paddingBottom: 14 }}>
+          <Text style={style.title}>Daily Macronutrients Analysis</Text>
+          <View
+            style={[
+              globalStyles.shadowContainer,
+              style.boxContainer,
+              {
+                marginBottom: Matrics.vs(10),
+              },
+            ]}>
+            {macroNuitrientes?.map((item, index) => {
+              return renderItem(item, index, 'g');
+            })}
           </View>
-        ) : null}
-      </ScrollView>
+          {dailyCalories.length > 0 ? (
+            <View style={{ flex: 1 }}>
+              <Text style={style.title}>Meal Energy Distribution</Text>
+              <View
+                style={[
+                  globalStyles.shadowContainer,
+                  style.boxContainer,
+                  {
+                    marginBottom: Matrics.vs(20),
+                  },
+                ]}>
+                {dailyCalories?.map((item, index) => {
+                  return renderItem(item, index, 'cal');
+                })}
+              </View>
+            </View>
+          ) : null}
+        </ScrollView>
+      </CalendarProvider>
     </SafeAreaView>
   );
 };
