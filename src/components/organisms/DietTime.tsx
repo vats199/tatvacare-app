@@ -149,7 +149,7 @@ const DietTime: React.FC<DietTimeProps> = ({
         onPressPlus={handlePulsIconPress}
         cardData={item}
         onpressOfEdit={handaleEdit}
-        optionId={item.options[0].diet_meal_options_id}
+        optionId={item?.options[0]?.diet_meal_options_id}
         onPressOfDelete={(
           deleteFoodItemId,
           is_food_item_added_by_patient,

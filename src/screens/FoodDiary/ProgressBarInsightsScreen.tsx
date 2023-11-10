@@ -225,7 +225,6 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
   const onDateChanged = useCallback((date: any, updateSource: any) => {
     let tempDate = new Date(date);
     setNewMonth(tempDate);
-    console.log('tempDate', tempDate);
   }, []);
 
   return (
@@ -234,7 +233,7 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
       style={{
         flex: 1,
         backgroundColor: colors.lightGreyishBlue,
-        // paddingBottom: insets.bottom !== 0 ? insets.bottom : Matrics.vs(15),
+        paddingBottom: insets.bottom !== 0 ? insets.bottom : Matrics.vs(15),
         paddingTop: Platform.OS == 'android' ? Matrics.vs(20) : 0,
       }}>
       <MyStatusbar backgroundColor={colors.lightGreyishBlue} />

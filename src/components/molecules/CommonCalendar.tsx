@@ -198,22 +198,23 @@ const CommonCalendar: React.FC<CommonCalendarProps> = ({
     }
   };
 
+
   const getMonthText = (date: Date) => {
     return moment(date).format('MMMM  YYYY');
   };
 
-  const getMondayOfWeek = (dateString: any) => {
-    const date = new Date(dateString);
-    const dayOfWeek = date.getDay();
-    let diff = dayOfWeek - 1;
-    if (dayOfWeek === 0) {
-      diff = 6;
-    }
-    const mondayOfWeek = new Date(date);
-    mondayOfWeek.setDate(date.getDate() - diff);
+  // const getMondayOfWeek = (dateString: any) => {
+  //   const date = new Date(dateString);
+  //   const dayOfWeek = date.getDay();
+  //   let diff = dayOfWeek - 1;
+  //   if (dayOfWeek === 0) {
+  //     diff = 6;
+  //   }
+  //   const mondayOfWeek = new Date(date);
+  //   mondayOfWeek.setDate(date.getDate() - diff);
 
-    return mondayOfWeek;
-  };
+  //   return mondayOfWeek;
+  // };
 
   const onExpandCalendar = (isOpen: boolean) => {
     if (isOpen) {

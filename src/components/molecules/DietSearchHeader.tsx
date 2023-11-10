@@ -35,7 +35,7 @@ const DietSearchHeader: React.FC<DietSearchHeaderProps> = ({
         onChangeText={text => {
           handleSerache(text)
         }}
-        keyboardType='ascii-capable'
+        keyboardType="visible-password"
       />
     </View>
   );
@@ -62,6 +62,6 @@ const styles = StyleSheet.create({
     fontSize: Matrics.mvs(12),
     color: 'gray',
     shadowOpacity: 0.1,
-    shadowRadius: 5
+    shadowRadius: 5,
   },
 });

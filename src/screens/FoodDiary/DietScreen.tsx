@@ -104,10 +104,13 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
     }
   }, [focus]);
 
-  const getData = async (optionId?: string, dietPlanId?: string) => {
+  const getData = async () => {
     setLoader(true);
     const date = moment(_selectedDateRef?.current ?? new Date()).format('YYYY-MM-DD');
     const diet = await Diet.getDietPlan({ date: date }, {}, { token: userData.token },);
+
+    console.log("diet", diet);
+
     if (Constants.IS_CHECK_API_CODE) {
       if (diet.code == '1') {
         setTimeout(() => {
@@ -341,7 +344,6 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   const onDateChanged = useCallback((date: any, updateSource: any) => {
     let tempDate = new Date(date);
     setNewMonth(tempDate);
-    console.log('tempDate', tempDate);
   }, []);
 
   return (
@@ -352,8 +354,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
         {
           paddingTop:
             Platform.OS == 'android' ? Matrics.vs(10) : 0,
-          paddingBottom: insets.bottom
-
+          // paddingBottom: insets.bottom
         },
       ]}>
       <MyStatusbar backgroundColor={colors.lightGreyishBlue} />

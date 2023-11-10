@@ -56,16 +56,13 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
   const [recentSerach, setRecentSerach] = React.useState([]);
   const [searchResult, setSearchResult] = React.useState([]);
   const [message, setMessage] = React.useState('');
-  const [result, setResult] = React.useState([]);
   const [title, setTitle] = React.useState<string>('');
-  const [searchQuery, setSearchQuery] = React.useState('');
   const [timeoutId, setTimeoutId] = React.useState<number | undefined>(
     undefined,
   );
   const debouncingDelay = 500;
 
-  console.log(route.params, 'route.paramsroute.params');
-  useEffect(() => {
+  useFocusEffect(React.useCallback(() => {
     const getRecentSerache = async () => {
       const recentSearchResults = await AsyncStorage.getItem(
         'recentSearchResults',
@@ -88,7 +85,8 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
       }
     };
     getRecentSerache();
-  }, []);
+  }, []))
+
 
   useFocusEffect(
     React.useCallback(() => {
@@ -190,7 +188,7 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
   };
 
   const handleSearch = (text: string) => {
-    setSearchQuery(text);
+    // setSearchQuery(text);
 
     if (timeoutId) {
       clearTimeout(timeoutId);
@@ -204,9 +202,9 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
           food_item_name: text,
         });
         const result = await Diet.searchFoodItem({ food_name: text }, {}, { token: userData.token });
-        setResult(result);
+        // setResult(result);
         setSearchResult(result?.data);
-        console.log("result", result);
+        // console.log("result", result);
 
         if (Constants.IS_CHECK_API_CODE) {
           if (result?.code === '1') {

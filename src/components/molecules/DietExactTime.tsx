@@ -135,12 +135,12 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
       const tempOption = cardData.options.find(item =>
         options?.find(
           q =>
-            q.mealId == item.diet_meal_type_rel_id &&
-            q.optionId == item.diet_meal_options_id,
+            q.mealId == item?.diet_meal_type_rel_id &&
+            q.optionId == item?.diet_meal_options_id,
         ),
       );
       if (tempOption?.diet_meal_options_id) {
-        _selectedOptionId.current = tempOption.diet_meal_options_id;
+        _selectedOptionId.current = tempOption?.diet_meal_options_id;
       }
     } else {
       const mealFound = selectedOptionsId?.current?.find(
@@ -160,7 +160,7 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
 
   useEffect(() => {
     const param = {
-      mealId: cardData.diet_meal_type_rel_id,
+      mealId: cardData?.diet_meal_type_rel_id,
       optionId: _selectedOptionId.current,
     };
     updateOptionsId(param);
@@ -168,14 +168,14 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
 
   useEffect(() => {
     const tempArray = selectedOptionsId?.current?.length > 0 ? [...selectedOptionsId?.current] : [];
-    if (tempArray.length !== 0) {
+    if (tempArray?.length !== 0) {
       dietPlanData?.meals?.map((item: any) =>
-        tempArray.map(q => {
+        tempArray?.map(q => {
           if (q?.mealId == item?.diet_meal_type_rel_id) {
             const optionData = item?.options.filter(
               (op: any) => op?.diet_meal_options_id == _selectedOptionId?.current,
             );
-            if (optionData.length !== 0) {
+            if (optionData?.length !== 0) {
               setFoodItemData(optionData[0]);
             }
           }
@@ -206,7 +206,7 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
       (item: Options, index: number) =>
         _selectedOptionId.current == item?.diet_meal_options_id,
     );
-    trackEvent(Constants.EVENT_NAME.FOOD_DIARY.USER_CLICKED_ON_EDIT_MEAL, {
+    trackEvent(Constants?.EVENT_NAME?.FOOD_DIARY?.USER_CLICKED_ON_EDIT_MEAL, {
       meal_types: cardData?.meal_name ?? '',
       option_number: `Option ${index + 1}`,
       manual_tag: is_food_item_added_by_patient == 'N' ? 'no' : 'yes',
@@ -214,7 +214,7 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
     onPressOfDelete(
       Id,
       is_food_item_added_by_patient,
-      _selectedOptionId.current,
+      _selectedOptionId?.current,
       data,
     );
   };
@@ -222,21 +222,21 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
   const handlePulsIconPress = () => {
     trackEvent(Constants.EVENT_NAME.FOOD_DIARY.USER_CLICKED_ADD_FOOD_DISH, {
       meal_types: cardData?.meal_name,
-      date: moment().format(Constants.DATE_FORMAT),
+      date: moment().format(Constants?.DATE_FORMAT),
     });
 
     if (_selectedOptionId.current !== null) {
-      let data = cardData.options.filter(
-        item => item.diet_meal_options_id == _selectedOptionId.current,
+      let data = cardData?.options.filter(
+        item => item?.diet_meal_options_id == _selectedOptionId?.current,
       )[0];
       onPressPlus(data, cardData.meal_name);
     } else {
-      let data = cardData.options[0];
+      let data = cardData?.options[0];
       onPressPlus(data, cardData.meal_name);
     }
   };
   const handalecompletion = (item: Consumption) => {
-    onPressOfcomplete(item, _selectedOptionId.current);
+    onPressOfcomplete(item, _selectedOptionId?.current);
   };
 
   const mealMessage = (name: string) => {
@@ -269,11 +269,11 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
       meal_types: cardData?.meal_name ?? '',
       option_number: index + 1,
     });
-    _selectedOptionId.current = item.diet_meal_options_id;
+    _selectedOptionId.current = item?.diet_meal_options_id;
 
     const tempOption = {
-      mealId: item.diet_meal_type_rel_id,
-      optionId: item.diet_meal_options_id,
+      mealId: item?.diet_meal_type_rel_id,
+      optionId: item?.diet_meal_options_id,
     };
 
     updateOptionsId(tempOption);
@@ -283,7 +283,7 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
     <View style={[styles.container, globalStyles.shadowContainer]}>
       <View style={styles.topRow}>
         <View style={styles.leftContent}>
-          <View style={styles.circle}>{mealIcons(cardData.meal_name)}</View>
+          <View style={styles.circle}>{mealIcons(cardData?.meal_name)}</View>
           <View style={styles.textContainer}>
             <Text style={styles.title}>{cardData?.meal_name}</Text>
             <Text style={styles.textBelowTitle}>
@@ -293,7 +293,7 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
                 moment(cardData?.end_time, 'HH:mm:ss').format('h:mm A') +
                 ' | '
                 : 'Ideal Time' + ' | '}
-              <Text style={styles.caloriesTxt}>
+              <Text style={styles?.caloriesTxt}>
                 {(isNaN(Math.round(Number(foodItmeData?.consumed_calories)))
                   ? 0
                   : Number(foodItmeData?.consumed_calories)
@@ -361,11 +361,11 @@ const DietExactTime: React.FC<ExactTimeProps> = ({
             <DietOption
               foodItmeData={
                 _selectedOptionId.current !== null
-                  ? cardData.options.filter(
+                  ? cardData?.options.filter(
                     item =>
                       item.diet_meal_options_id == _selectedOptionId.current,
                   )[0]
-                  : cardData.options[0]
+                  : cardData?.options[0]
               }
               patient_permission={cardData.patient_permission}
               onpressOfEdit={handaleEdit}
