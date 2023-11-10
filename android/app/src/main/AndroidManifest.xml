@@ -127,7 +127,9 @@
 
                 <category android:name="${applicationId}" />
             </intent-filter>
-        </receiver> <!-- Services -->
+        </receiver>
+
+        <!-- Services -->
         <service
             android:name=".fcm.MyFirebaseMessagingService"
             android:exported="false">

@@ -36,8 +36,8 @@ object Config {
      * This block used for apk version control
      */
     object ApkVersion {
-        val versionCode = 95
-        val versionName = "2.0.6"
+        val versionCode = 96
+        val versionName = "2.0.7"
     }
 
 }

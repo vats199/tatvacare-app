@@ -9,11 +9,11 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useEffect} from 'react';
-import {colors} from '../../constants/colors';
-import {Icons} from '../../constants/icons';
-import {getEncryptedText} from '../../api/base';
-import {trackEvent} from '../../helpers/TrackEvent';
+import React, { useEffect } from 'react';
+import { colors } from '../../constants/colors';
+import { Icons } from '../../constants/icons';
+import { getEncryptedText } from '../../api/base';
+import { trackEvent } from '../../helpers/TrackEvent';
 
 type MyHealthInsightsProps = {
   data: any;
@@ -113,7 +113,7 @@ const MyHealthInsights: React.FC<MyHealthInsightsProps> = ({
     }
   };
 
-  const renderReadings = ({item, index}: {item: any; index: number}) => {
+  const renderReadings = ({ item, index }: { item: any; index: number }) => {
     return (
       <TouchableOpacity
         key={index.toString()}
@@ -136,7 +136,7 @@ const MyHealthInsights: React.FC<MyHealthInsightsProps> = ({
           <Image
             resizeMode="contain"
             style={styles.imageStyle}
-            source={{uri: item?.image_url || ''}}
+            source={{ uri: item?.image_url || '' }}
             tintColor={item?.in_range?.icon_color}
           />
           <Text style={styles.hiItemTitle}>{item?.reading_name || '-'}</Text>
@@ -153,7 +153,7 @@ const MyHealthInsights: React.FC<MyHealthInsightsProps> = ({
     );
   };
 
-  const renderGoals = ({item, index}: {item: any; index: number}) => {
+  const renderGoals = ({ item, index }: { item: any; index: number }) => {
     return (
       <TouchableOpacity
         key={index.toString()}
@@ -172,7 +172,7 @@ const MyHealthInsights: React.FC<MyHealthInsightsProps> = ({
           <Image
             resizeMode="contain"
             style={styles.imageStyle}
-            source={{uri: item?.image_url || ''}}
+            source={{ uri: item?.image_url || '' }}
             tintColor={item?.icon_color}
           />
           <Text style={styles.hiItemTitle}>{item?.goal_name || '-'}</Text>
@@ -252,6 +252,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.2,
     shadowRadius: 1.41,
+    elevation: 2
   },
   hiItemContainerBottom: {
     marginTop: 5,
@@ -270,6 +271,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.2,
     shadowRadius: 1.41,
+    elevation: 2
   },
   columnContainer: {
     marginRight: 10,

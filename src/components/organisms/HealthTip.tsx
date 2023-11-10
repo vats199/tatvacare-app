@@ -1,14 +1,14 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
-import {colors} from '../../constants/colors';
-import {Icons} from '../../constants/icons';
-import {trackEvent} from '../../helpers/TrackEvent';
+import { colors } from '../../constants/colors';
+import { Icons } from '../../constants/icons';
+import { trackEvent } from '../../helpers/TrackEvent';
 
 type HealthTipProps = {
   tip: any;
 };
 
-const HealthTip: React.FC<HealthTipProps> = ({tip}) => {
+const HealthTip: React.FC<HealthTipProps> = ({ tip }) => {
   return (
     <TouchableOpacity
       style={styles.container}
@@ -27,7 +27,7 @@ export default HealthTip;
 const styles = StyleSheet.create({
   container: {
     marginTop: 24,
-    marginBottom: 10,
+    marginBottom: 24,
     marginHorizontal: 16,
     borderTopColor: colors.secondaryLabel,
     borderBottomColor: colors.secondaryLabel,

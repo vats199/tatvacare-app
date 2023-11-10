@@ -26,11 +26,18 @@ class GenAIActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
         GlobalScope.launch(Dispatchers.Main) {
+
             SoLoader.init(this@GenAIActivity, false)
             reactRootView = ReactRootView(this@GenAIActivity)
             reactInstanceManager = ReactInstanceManagerSingleton.getInstance(this@GenAIActivity)
-            reactRootView.startReactApplication(reactInstanceManager, mainComponentName, mBundle)
+            reactRootView.startReactApplication(
+                reactInstanceManager,
+                mainComponentName,
+                mBundle
+            )
             setContentView(reactRootView)
 
             delay(1000)

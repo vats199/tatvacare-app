@@ -8,12 +8,12 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useEffect} from 'react';
-import {colors} from '../../constants/colors';
-import {Icons} from '../../constants/icons';
-import {CircularProgress} from 'react-native-circular-progress';
+import React, { useEffect } from 'react';
+import { colors } from '../../constants/colors';
+import { Icons } from '../../constants/icons';
+import { CircularProgress } from 'react-native-circular-progress';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {trackEvent} from '../../helpers/TrackEvent';
+import { trackEvent } from '../../helpers/TrackEvent';
 
 type MyHealthDiaryProps = {
   onPressMedicine: (data: any) => void;
@@ -87,8 +87,8 @@ const MyHealthDiary: React.FC<MyHealthDiaryProps> = ({
       description:
         exeObj?.goal_value > 0
           ? `${parseInt(exeObj?.todays_achieved_value)}/${parseInt(
-              exeObj?.goal_value,
-            )} minutes`
+            exeObj?.goal_value,
+          )} minutes`
           : 'Log your exercise details!',
       onPress: () => {
         if (Platform.OS == 'ios') {
@@ -110,8 +110,8 @@ const MyHealthDiary: React.FC<MyHealthDiaryProps> = ({
       description:
         dietObj?.goal_value > 0
           ? `${parseInt(dietObj?.todays_achieved_value)}/${parseInt(
-              dietObj?.goal_value,
-            )} cal`
+            dietObj?.goal_value,
+          )} cal`
           : 'Log and track your calories!',
       onPress: () => {
         if (Platform.OS == 'ios') {
@@ -133,8 +133,8 @@ const MyHealthDiary: React.FC<MyHealthDiaryProps> = ({
       description:
         medicineObj?.goal_value > 0
           ? `${parseInt(medicineObj?.todays_achieved_value)}/${parseInt(
-              medicineObj?.goal_value,
-            )} doses`
+            medicineObj?.goal_value,
+          )} doses`
           : 'Log and track your medicines!',
       onPress: () => {
         if (Platform.OS == 'ios') {
@@ -169,7 +169,7 @@ const MyHealthDiary: React.FC<MyHealthDiaryProps> = ({
             backgroundWidth={1}
             tintColor={colors.green}
             backgroundColor={colors.greenLineBg}
-            childrenContainerStyle={{backgroundColor: colors.greenBg}}>
+            childrenContainerStyle={{ backgroundColor: colors.greenBg }}>
             {() => <Icons.MedicineGreen />}
           </CircularProgress>
         ) : medicineObj?.todays_achieved_value &&
@@ -186,7 +186,7 @@ const MyHealthDiary: React.FC<MyHealthDiaryProps> = ({
             backgroundWidth={1}
             tintColor={colors.orange}
             backgroundColor={colors.orangeLineBg}
-            childrenContainerStyle={{backgroundColor: colors.orangeBg}}>
+            childrenContainerStyle={{ backgroundColor: colors.orangeBg }}>
             {() => <Icons.MedicineOmbre />}
           </CircularProgress>
         ) : (
@@ -203,7 +203,7 @@ const MyHealthDiary: React.FC<MyHealthDiaryProps> = ({
             backgroundWidth={1}
             tintColor={colors.green}
             backgroundColor={colors.greenLineBg}
-            childrenContainerStyle={{backgroundColor: colors.greenBg}}>
+            childrenContainerStyle={{ backgroundColor: colors.greenBg }}>
             {() => <Icons.DietGreen />}
           </CircularProgress>
         ) : dietObj?.todays_achieved_value &&
@@ -217,7 +217,7 @@ const MyHealthDiary: React.FC<MyHealthDiaryProps> = ({
             backgroundWidth={1}
             tintColor={colors.orange}
             backgroundColor={colors.orangeLineBg}
-            childrenContainerStyle={{backgroundColor: colors.orangeBg}}>
+            childrenContainerStyle={{ backgroundColor: colors.orangeBg }}>
             {() => <Icons.DietOmbre />}
           </CircularProgress>
         ) : (
@@ -233,7 +233,7 @@ const MyHealthDiary: React.FC<MyHealthDiaryProps> = ({
             backgroundWidth={1}
             tintColor={colors.green}
             backgroundColor={colors.greenLineBg}
-            childrenContainerStyle={{backgroundColor: colors.greenBg}}>
+            childrenContainerStyle={{ backgroundColor: colors.greenBg }}>
             {() => <Icons.ExerciseGreen />}
           </CircularProgress>
         ) : exeObj?.todays_achieved_value &&
@@ -247,7 +247,7 @@ const MyHealthDiary: React.FC<MyHealthDiaryProps> = ({
             backgroundWidth={1}
             tintColor={colors.orange}
             backgroundColor={colors.orangeLineBg}
-            childrenContainerStyle={{backgroundColor: colors.orangeBg}}>
+            childrenContainerStyle={{ backgroundColor: colors.orangeBg }}>
             {() => <Icons.ExerciseOmbre />}
           </CircularProgress>
         ) : (
@@ -261,7 +261,7 @@ const MyHealthDiary: React.FC<MyHealthDiaryProps> = ({
   };
 
   const renderHealthDiaryItem = (item: HealthDiaryItem, index: number) => {
-    const {title, description, onPress} = item;
+    const { title, description, onPress } = item;
     return (
       <TouchableOpacity
         key={index.toString()}
@@ -314,6 +314,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.2,
     shadowRadius: 1.41,
+    elevation: 2
   },
   textContainer: {
     marginLeft: 10,

@@ -56,7 +56,7 @@ class MyTatvaApp : Application(), ReactApplication, LifecycleObserver {
     companion object {
         const val TAG = "MyTatvaApp"
 
-        val IS_RAZORPAY_LIVE = URLFactory.ENVIRONMENT == URLFactory.Env.UAT
+        val IS_RAZORPAY_LIVE = URLFactory.ENVIRONMENT == URLFactory.Env.PRODUCTION
         val IS_TO_USE_FIREBASE_FLAGS = true
 
         val YOUR_WEBENGAGE_LICENSE_CODE =
@@ -71,7 +71,7 @@ class MyTatvaApp : Application(), ReactApplication, LifecycleObserver {
         const val FILE_PROVIDER_AUTHORITY = BuildConfig.APPLICATION_ID + ".provider"
         var mContext: Context? = null
 
-        const val IS_SPIRO_PROD = false
+        const val IS_SPIRO_PROD = true
 
         fun getProcessName(): String? {
             return if (Build.VERSION.SDK_INT >= 28) Application.getProcessName() else try {

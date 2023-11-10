@@ -1,5 +1,6 @@
 package com.mytatva.patient.utils.rnbridge
 
+import android.net.Uri
 import android.os.Bundle
 import androidx.core.os.bundleOf
 import com.facebook.react.bridge.Arguments
@@ -44,6 +45,8 @@ import com.mytatva.patient.ui.profile.fragment.NotificationsFragment
 import com.mytatva.patient.ui.reading.fragment.UpdateReadingsMainFragment
 import com.mytatva.patient.utils.apputils.AppFlagHandler
 import com.mytatva.patient.utils.firebaseanalytics.AnalyticsClient
+import com.mytatva.patient.utils.firebaseanalytics.AnalyticsScreenNames
+import com.mytatva.patient.utils.firebaselink.FirebaseLink
 import com.mytatva.patient.utils.openAppInStore
 import com.mytatva.patient.utils.shareApp
 import kotlinx.coroutines.Dispatchers
@@ -705,24 +708,36 @@ class AndroidBridgeModule(var reactContext: ReactApplicationContext) : ReactCont
 
     @ReactMethod
     fun triggerUserToken() {
-        val map = Arguments.createMap()
-        map.putString("Token", (currentActivity as BaseActivity?)!!.session.user?.token.toString())
-        map.putBoolean(
-            "IsHideIncident",
-            AppFlagHandler.isToHideIncidentSurvey((currentActivity as BaseActivity?)!!.firebaseConfigUtil)
-        )
-
-        ContextHolder.reactContext?.let {
-            (currentActivity as BaseActivity?)!!.sendEventToRN(
-                it,
-                "UserToken",
-                map
+        if ((currentActivity as BaseActivity?)!!.session != null && (currentActivity as BaseActivity?)!!.session.user != null) {
+            val map = Arguments.createMap()
+            map.putString(
+                "Token",
+                (currentActivity as BaseActivity?)!!.session.user?.token.toString()
             )
+            map.putBoolean(
+                "IsHideIncident",
+                AppFlagHandler.isToHideIncidentSurvey((currentActivity as BaseActivity?)!!.firebaseConfigUtil)
+            )
+
+            ContextHolder.reactContext?.let {
+                (currentActivity as BaseActivity?)!!.sendEventToRN(
+                    it,
+                    "UserToken",
+                    map
+                )
+            }
         }
 
         GlobalScope.launch(Dispatchers.Main) {
             if (currentActivity is HomeActivity) {
                 (currentActivity as HomeActivity).initLocation()
+
+                /*val deepLink = Uri.parse((currentActivity as HomeActivity).deepLink)
+                val screenName = deepLink.getQueryParameter(FirebaseLink.Params.SCREEN_NAME)
+                if (screenName == AnalyticsScreenNames.GenAI) {
+                    (currentActivity as HomeActivity).loadActivity(GenAIActivity::class.java)
+                        .start()
+                }*/
             }
         }
     }

@@ -113,7 +113,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener, DefaultHardwareBackBt
         intent?.extras?.getParcelable(Common.BundleKey.NOTIFICATION)
     }
 
-    private val deepLink: String by lazy {
+     val deepLink: String by lazy {
         intent?.extras?.getString(Common.BundleKey.DEEP_LINK) ?: ""
     }
 
@@ -219,7 +219,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener, DefaultHardwareBackBt
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        super.onCreate(null)
         /*if (!Settings.canDrawOverlays(this)) {
             val intent = Intent(
                 Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
@@ -372,7 +372,9 @@ class HomeActivity : BaseActivity(), View.OnClickListener, DefaultHardwareBackBt
                 init()
             }
         }
-        homeReactInstanceManager.onActivityResult(this, requestCode, resultCode, data);
+        if (this::homeReactInstanceManager.isInitialized && homeReactInstanceManager != null) {
+            homeReactInstanceManager.onActivityResult(this, requestCode, resultCode, data)
+        }
     }
 
     private fun startLocationUpdate() {

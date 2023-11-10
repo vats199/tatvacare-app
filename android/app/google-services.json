@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "784229987778-kd619kbld3e5or1d9gef8258sqhpj5k7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mytatva.patient",
+            "certificate_hash": "59f045cf42ca10ac34fcc6d8902b43d03dc31f61"
+          }
+        },
+        {
           "client_id": "784229987778-mhp99fmnc96349ikmv4u69otr19ree4p.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

@@ -11,8 +11,8 @@ import {
   NativeModules,
 } from 'react-native';
 import React from 'react';
-import {colors} from '../../constants/colors';
-import {Icons} from '../../constants/icons';
+import { colors } from '../../constants/colors';
+import { Icons } from '../../constants/icons';
 import ProgressBar from '../atoms/ProgressBar';
 import moment from 'moment';
 import PlanItem from '../atoms/PlanItem';
@@ -54,7 +54,7 @@ const CarePlanView: React.FC<CarePlanViewProps> = ({
 
   const onPressKnowMore = (plan: any) => {
     if (Platform.OS == 'ios') {
-      onPressRenewPlan([{planDetails: plan}]);
+      onPressRenewPlan([{ planDetails: plan }]);
     } else {
       NativeModules.AndroidBridge.openFreePlanDetailScreen(
         JSON.stringify(plan),
@@ -70,7 +70,7 @@ const CarePlanView: React.FC<CarePlanViewProps> = ({
     }
   };
 
-  const renderPlanItem = ({item, index}: {item: any; index: number}) => {
+  const renderPlanItem = ({ item, index }: { item: any; index: number }) => {
     return (
       <PlanItem plan={item} onPressKnowMore={() => onPressKnowMore(item)} />
     );
@@ -110,7 +110,7 @@ const CarePlanView: React.FC<CarePlanViewProps> = ({
     <>
       {data?.patient_plans?.length <= 0 || isFreePlan ? (
         <View style={styles.compcontainer}>
-          <View style={[styles.rowBetween, {alignItems: 'center'}]}>
+          <View style={[styles.rowBetween, { alignItems: 'center' }]}>
             <View>
               <Text style={styles.cp}>Best Value Care Program</Text>
               <Text style={styles.subTitle}>
@@ -127,7 +127,7 @@ const CarePlanView: React.FC<CarePlanViewProps> = ({
             horizontal
             showsHorizontalScrollIndicator={false}
             renderItem={renderPlanItem}
-            contentContainerStyle={{paddingVertical: 10, paddingLeft: 16}}
+            contentContainerStyle={{ paddingVertical: 10, paddingLeft: 16 }}
             ItemSeparatorComponent={() => <View style={styles.itemSep} />}
           />
         </View>
@@ -144,7 +144,7 @@ const CarePlanView: React.FC<CarePlanViewProps> = ({
                 onPress={() => onPressCarePlan(plan)}
                 style={styles.container}
                 activeOpacity={0.6}>
-                <View style={{flex: 1}}>
+                <View style={{ flex: 1 }}>
                   <View style={styles.details}>
                     <Text style={styles.title}>{plan?.plan_name || '-'}</Text>
                     <Text style={styles.subTitle}>
@@ -156,7 +156,7 @@ const CarePlanView: React.FC<CarePlanViewProps> = ({
                       color={getColor(plan)}
                     />
                     <View style={styles.rowBetween}>
-                      <Text style={[styles.expiry, {color: getColor(plan)}]}>
+                      <Text style={[styles.expiry, { color: getColor(plan) }]}>
                         {getText(plan)}
                       </Text>
                     </View>
@@ -185,6 +185,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.2,
     shadowRadius: 1.41,
+    elevation: 2
   },
   scrollContainer: {
     paddingLeft: 16,
@@ -223,6 +224,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.2,
     shadowRadius: 1.41,
+    elevation: 2
   },
   cpimage: {
     height: 80,
