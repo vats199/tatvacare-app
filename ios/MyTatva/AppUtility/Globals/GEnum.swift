@@ -332,6 +332,7 @@ enum UserSettingFlag: String {
     case hide_discount_on_labtest //For hidding discount for labtest
     case hide_discount_on_plan //For hiding discount for plans
     case home_from_react_native
+    case hide_genai_chatbot //Bottom Tab disable for chatbot
 }
 
 //There will be 5 types of content: Article/blog, Photo gallery, KOL videos, Normal videos, webinar and panel discussion.

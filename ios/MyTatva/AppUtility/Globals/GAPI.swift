@@ -664,6 +664,7 @@ class GlobalAPI : NSObject {
                           gender: String? = "",
                           profile_pic: String? = "",
                           address: String? = "",
+                          studyID: String? = "",
                           completion: ((Bool) -> Void)?){
         
         //LocationManager.shared.getLocation()
@@ -682,6 +683,7 @@ class GlobalAPI : NSObject {
         params["gender"]            = gender!.trim()
         params["profile_pic"]       = profile_pic!.trim()
         params["address"]           = address!.trim()
+        params["study_id"] = studyID!.trim()
         
         params = params.filter({ (obj) -> Bool in
             if obj.value as? String != "" {
@@ -2420,7 +2422,7 @@ class GlobalAPI : NSObject {
                                                 sampleIdentifier: [
                                                     .stepCount,
                                                     .dietaryWater,
-                                                                  //.activeEnergyBurned,
+                                                    //.activeEnergyBurned,
                                                     .appleExerciseTime,
                                                     .oxygenSaturation,
                                                     .forcedExpiratoryVolume1,

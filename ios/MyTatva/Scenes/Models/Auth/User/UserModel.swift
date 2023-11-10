@@ -86,6 +86,8 @@ class UserModel: NSObject, NSCoding {
     var devices : [DeviceDetailsModel]!
     private var arrDevice = [DeviceDetailsModel]()
     
+    var studyID: String!
+    
     static var shared : UserModel = UserModel()
     
     override init(){}
@@ -233,7 +235,7 @@ class UserModel: NSObject, NSCoding {
         step = json["step"].intValue
         subRelation = json["sub_relation"].stringValue
         tempPatientSignupId = json["temp_patient_signup_id"].stringValue
-        
+        studyID = json["study_id"].stringValue
     }
     
     /**
@@ -2444,6 +2446,11 @@ class Settings : NSObject, NSCoding{
         case .home_from_react_native:
             RemoteConfigManager.shared.setNewValues {  _ in
                 completion(is_home_from_react_native)
+            }
+            break
+        case .hide_genai_chatbot:
+            RemoteConfigManager.shared.setNewValues {  _ in
+                completion(hide_genai_chatbot)
             }
             break
             

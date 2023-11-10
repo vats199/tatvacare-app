@@ -20,9 +20,9 @@ class ProfileIndicationCell : UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-
+        
         DispatchQueue.main.async {
-           
+            
         }
     }
 }
@@ -73,7 +73,7 @@ class ProfileConsultingDocCell : UITableViewCell {
 class ProfileVC: ClearNavigationFontBlackBaseVC {
     
     //MARK: ------------------------- Outlet -------------------------
-
+    
     //Top
     @IBOutlet weak var vwProfile                    : UIView!
     @IBOutlet weak var imgUser                      : UIImageView!
@@ -110,6 +110,12 @@ class ProfileVC: ClearNavigationFontBlackBaseVC {
     @IBOutlet weak var lblHC                        : UILabel!
     @IBOutlet weak var tblHC                        : UITableView!
     @IBOutlet weak var tblHCHeight                  : NSLayoutConstraint!
+    @IBOutlet weak var vwStudyID                    : UIView!
+    @IBOutlet weak var lblStudyID                   : UILabel!
+    @IBOutlet weak var btnEditStudyID               : UIButton!
+    @IBOutlet weak var vwTxtStudyID                 : UIView!
+    @IBOutlet weak var txtStudyID                   : UITextField!
+    @IBOutlet weak var constTxtLeft                 : NSLayoutConstraint!
     
     //MARK:- Class Variable
     let refreshControl                      = UIRefreshControl()
@@ -120,41 +126,41 @@ class ProfileVC: ClearNavigationFontBlackBaseVC {
     ///set up DiffableDataSource of list table
     typealias tblDataSource = UITableViewDiffableDataSource<Int, HealthCoachListModel>
     lazy var dataSource: tblDataSource = {
-      let datasource = tblDataSource(tableView: self.tblHC,
-                                         cellProvider: { (tableView, indexPath, object) -> UITableViewCell? in
-          let cell : ChatHistoryListCell = tableView.dequeueReusableCell(withClass: ChatHistoryListCell.self, for: indexPath)
-
-          let object = self.chatHistoryListVM.getObject(index: indexPath.row)
-          cell.imgView.setCustomImage(with: object.profilePic)
-          cell.lblTitle.text      = object.firstName + " " + object.lastName
-          cell.lblDesc.text       = object.role
-          cell.lblDesc2.text      = ""
-          cell.lblTime.text       = ""
-          
-          cell.imgView.addTapGestureRecognizer {
-              GlobalAPI.shared.getHealthCoachDetailsAPI(health_coach_id: object.healthCoachId) { [weak self] isDone, obj in
-                  
-                  guard let self = self else {return}
-                  
-                  if isDone {
-                      
-                      let vc1 = HealthCoachDetailsVC.instantiate(fromAppStoryboard: .setting)
-                      vc1.object = obj
-                      vc1.modalPresentationStyle = .overCurrentContext
-                      vc1.modalTransitionStyle = .crossDissolve
-                      vc1.hidesBottomBarWhenPushed = true
-                      let nav = UINavigationController(rootViewController: vc1)
-                      self.present(nav, animated: true, completion: nil)
-                      
-                  }
-              }
-              
-          }
-          
-          return cell
-          
-      })
-      return datasource
+        let datasource = tblDataSource(tableView: self.tblHC,
+                                       cellProvider: { (tableView, indexPath, object) -> UITableViewCell? in
+            let cell : ChatHistoryListCell = tableView.dequeueReusableCell(withClass: ChatHistoryListCell.self, for: indexPath)
+            
+            let object = self.chatHistoryListVM.getObject(index: indexPath.row)
+            cell.imgView.setCustomImage(with: object.profilePic)
+            cell.lblTitle.text      = object.firstName + " " + object.lastName
+            cell.lblDesc.text       = object.role
+            cell.lblDesc2.text      = ""
+            cell.lblTime.text       = ""
+            
+            cell.imgView.addTapGestureRecognizer {
+                GlobalAPI.shared.getHealthCoachDetailsAPI(health_coach_id: object.healthCoachId) { [weak self] isDone, obj in
+                    
+                    guard let self = self else {return}
+                    
+                    if isDone {
+                        
+                        let vc1 = HealthCoachDetailsVC.instantiate(fromAppStoryboard: .setting)
+                        vc1.object = obj
+                        vc1.modalPresentationStyle = .overCurrentContext
+                        vc1.modalTransitionStyle = .crossDissolve
+                        vc1.hidesBottomBarWhenPushed = true
+                        let nav = UINavigationController(rootViewController: vc1)
+                        self.present(nav, animated: true, completion: nil)
+                        
+                    }
+                }
+                
+            }
+            
+            return cell
+            
+        })
+        return datasource
     }()
     
     var arrIndication : [JSON] = [
@@ -163,8 +169,8 @@ class ProfileVC: ClearNavigationFontBlackBaseVC {
             "title" : "COPD Gold 4",
             "is_select" : 0
         ]
-      ]
-  
+    ]
+    
     var arrConsultingDoctor : [JSON] = [
         [
             "img" : "defaultUser",
@@ -173,7 +179,7 @@ class ProfileVC: ClearNavigationFontBlackBaseVC {
             "address" : "Breach Candy, Cumballa Hill, Mumbai, 60 A, Bhulabhai Desai Marg",
             "is_select" : 0
         ]
-      ]
+    ]
     
     //MARK: ------------------------- Memory Management Method -------------------------
     override func didReceiveMemoryWarning() {
@@ -197,12 +203,14 @@ class ProfileVC: ClearNavigationFontBlackBaseVC {
         self.btnEditAddress.setTitle(AppMessages.edit, for: .normal)
         self.btnEditAddress.setTitle(AppMessages.save, for: .selected)
         
+        self.btnEditStudyID.setTitle(AppMessages.edit, for: .normal)
+        self.btnEditStudyID.setTitle(AppMessages.save, for: .selected)
         
-//        UserModel.shared.getUserDetailAPI { (isDone) in
-//            if isDone {
-//                self.setData()
-//            }
-//        }
+        //        UserModel.shared.getUserDetailAPI { (isDone) in
+        //            if isDone {
+        //                self.setData()
+        //            }
+        //        }
         self.setData()
         GlobalAPI.shared.getPatientDetailsAPI { [weak self] (isDone) in
             
@@ -268,6 +276,16 @@ class ProfileVC: ClearNavigationFontBlackBaseVC {
         self.lblHC
             .font(name: .semibold, size: 16)
             .textColor(color: UIColor.themeBlack)
+        self.lblStudyID
+            .font(name: .semibold, size: 16)
+            .textColor(color: UIColor.themeBlack).text = "Study Id"
+        self.txtStudyID
+            .font(name: .regular, size: 14)
+            .textColor(color: UIColor.themeBlack.withAlphaComponent(0.8))
+            .delegate = self
+        self.btnEditStudyID
+            .font(name: .medium, size: 10)
+            .textColor(color: UIColor.themePurple)
         
         DispatchQueue.main.async {
             self.tvAddress.layoutIfNeeded()
@@ -284,6 +302,8 @@ class ProfileVC: ClearNavigationFontBlackBaseVC {
             self.btnAddNewDoctor.layoutIfNeeded()
             
             self.imgUser.cornerRadius(cornerRadius: self.imgUser.frame.height / 2)
+            self.btnEditStudyID.layoutIfNeeded()
+            self.btnEditStudyID.isSelected = false
             
             self.btnLanguage.cornerRadius(cornerRadius: 3)
             self.btnLanguage.borderColor(color: UIColor.themeLightGray, borderWidth: 1)
@@ -296,6 +316,8 @@ class ProfileVC: ClearNavigationFontBlackBaseVC {
             
             self.btnAddNewDoctor.cornerRadius(cornerRadius: 4)
             self.btnAddNewDoctor.borderColor(color: UIColor.themePurple, borderWidth: 1)
+            self.btnEditStudyID.cornerRadius(cornerRadius: 4)
+            self.btnEditStudyID.borderColor(color: UIColor.themePurple, borderWidth: 1)
             
             self.vwProfile.cornerRadius(cornerRadius: 6)
             self.vwProfile.themeShadow()
@@ -314,11 +336,13 @@ class ProfileVC: ClearNavigationFontBlackBaseVC {
             
             self.vwHC.cornerRadius(cornerRadius: 6)
             self.vwHC.themeShadow()
+            self.vwStudyID.cornerRadius(cornerRadius: 6)
+            self.vwStudyID.themeShadow()
         }
         
         self.setup(tblView: self.tblIndication)
         self.setup(tblView: self.tblConsultingDoctor)
-//        self.setup(tblView: self.tblHC)
+        //        self.setup(tblView: self.tblHC)
         self.tblHC.delegate = self
     }
     
@@ -374,6 +398,48 @@ class ProfileVC: ClearNavigationFontBlackBaseVC {
         }
     }
     
+    func manageStudyIDEdit(withApi: Bool, isAlert: Bool){
+        
+        guard (self.txtStudyID.text?.trim().count == 11) else {
+            if isAlert {
+                Alert.shared.showSnackBar(AppError.validation(type: self.txtStudyID.text?.trim() == "" ? .enterStudyID : .enterValidStudyID ).errorDescription ?? "")
+                return
+            }
+            return
+        }
+        
+        if !self.btnEditStudyID.isSelected {
+            self.btnEditStudyID.isSelected              = true
+            self.txtStudyID.isUserInteractionEnabled    = true
+            
+            self.constTxtLeft.constant = 8
+            self.vwTxtStudyID.borderColor(color: UIColor.themeLightGray, borderWidth: 1)
+            self.txtStudyID.becomeFirstResponder()
+        }
+        else {
+            self.btnEditStudyID.isSelected              = false
+            self.txtStudyID.isUserInteractionEnabled                   = false
+            self.constTxtLeft.constant = 0
+            self.vwTxtStudyID.borderColor(color: UIColor.themeLightGray, borderWidth: 0)
+            self.txtStudyID.resignFirstResponder()
+            if self.txtStudyID.text?.trim() != "" && self.txtStudyID.text?.trim().count == 11 {
+                if withApi {
+                    GlobalAPI.shared.updateProfileAPI(studyID: self.txtStudyID.text!.trim()) { [weak self] (isDone) in
+                        guard let self = self else {return}
+                        //                        self.btnEditStudyID.isSelected = false
+                        //                        self.manageStudyIDEdit(withApi: false, isAlert: false)
+                        self.setData()
+                    }
+                }
+            }
+            else {
+                if isAlert {
+                    Alert.shared.showSnackBar(AppError.validation(type: self.txtStudyID.text?.trim() == "" ? .enterStudyID : .enterValidStudyID ).errorDescription ?? "")
+                }
+            }
+        }
+    }
+    
     @objc func updateAPIData(withLoader: Bool){
         self.strErrorMessage = ""
         
@@ -383,9 +449,9 @@ class ProfileVC: ClearNavigationFontBlackBaseVC {
             if isAllow{
                 self.applySnapshot()
                 self.chatHistoryListVM.apiCallFromStart(list_type: "A",
-                                                refreshControl: self.refreshControl,
-                                                tblView: self.tblHC,
-                                                withLoader: withLoader)
+                                                        refreshControl: self.refreshControl,
+                                                        tblView: self.tblHC,
+                                                        withLoader: withLoader)
             }
         })
     }
@@ -435,7 +501,7 @@ class ProfileVC: ClearNavigationFontBlackBaseVC {
             }
             self.navigationController?.pushViewController(vc, animated: true)
         }
-       
+        
         self.btnEditAddress.isSelected = true
         self.manageAddressEdit(withApi: false, isAlert: false)
         self.btnEditAddress.addTapGestureRecognizer {
@@ -449,6 +515,13 @@ class ProfileVC: ClearNavigationFontBlackBaseVC {
         }
         
         self.btnAddNewDoctor.addTapGestureRecognizer {
+        }
+        
+        self.btnEditStudyID.isSelected = true
+        self.manageStudyIDEdit(withApi: false, isAlert: false)
+        self.btnEditStudyID.addTapGestureRecognizer { [weak self] in
+            guard let self = self else { return }
+            self.manageStudyIDEdit(withApi: true, isAlert: true)
         }
     }
     
@@ -511,7 +584,7 @@ extension ProfileVC : UITableViewDataSource, UITableViewDelegate {
         default: return 0
         }
     }
-  
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         switch tableView {
@@ -574,17 +647,17 @@ extension ProfileVC : UITableViewDataSource, UITableViewDelegate {
                 
             }
             
-//            let object              = self.arrConsultingDoctor[indexPath.row]
-//            cell.imgView.image      = UIImage(named: object["img"].stringValue)
-//            cell.lblTitle.text      = object["title"].stringValue
-//            cell.lblDesc.text       = object["desc"].stringValue
-//            cell.lblAddress.text    = object["address"].stringValue
+            //            let object              = self.arrConsultingDoctor[indexPath.row]
+            //            cell.imgView.image      = UIImage(named: object["img"].stringValue)
+            //            cell.lblTitle.text      = object["title"].stringValue
+            //            cell.lblDesc.text       = object["desc"].stringValue
+            //            cell.lblAddress.text    = object["address"].stringValue
             
             return cell
-        
+            
         case self.tblHC:
             let cell : ChatHistoryListCell = tableView.dequeueReusableCell(withClass: ChatHistoryListCell.self, for: indexPath)
-
+            
             let object = self.chatHistoryListVM.getObject(index: indexPath.row)
             cell.imgView.setCustomImage(with: object.profilePic)
             cell.lblTitle.text      = object.firstName + " " + object.lastName
@@ -617,32 +690,32 @@ extension ProfileVC : UITableViewDataSource, UITableViewDelegate {
         default: return UITableViewCell()
         }
     }
-   
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch tableView {
         case self.tblIndication:
             break
             
         case self.tblConsultingDoctor:
-//            let vc = DoctorProfileVC.instantiate(fromAppStoryboard: .setting)
-//            self.navigationController?.pushViewController(vc, animated: true)
+            //            let vc = DoctorProfileVC.instantiate(fromAppStoryboard: .setting)
+            //            self.navigationController?.pushViewController(vc, animated: true)
             break
             
         case self.tblHC:
             
-//            let object = self.chatHistoryListVM.getObject(index: indexPath.row)
-//            PlanManager.shared.isAllowedByPlan(type: .chat_healthcoach,
-//                                               sub_features_id: "",
-//                                               completion: { isAllow in
-//                if isAllow{
-//                    FreshDeskManager.shared.health_coach_id = object.healthCoachId
-//                    FreshDeskManager.shared.showConversations(tags: [object.tagName],
-//                                                              screen: .MyProfile)
-//                }
-//                else {
-//                    PlanManager.shared.alertNoSubscription()
-//                }
-//            })
+            //            let object = self.chatHistoryListVM.getObject(index: indexPath.row)
+            //            PlanManager.shared.isAllowedByPlan(type: .chat_healthcoach,
+            //                                               sub_features_id: "",
+            //                                               completion: { isAllow in
+            //                if isAllow{
+            //                    FreshDeskManager.shared.health_coach_id = object.healthCoachId
+            //                    FreshDeskManager.shared.showConversations(tags: [object.tagName],
+            //                                                              screen: .MyProfile)
+            //                }
+            //                else {
+            //                    PlanManager.shared.alertNoSubscription()
+            //                }
+            //            })
             break
             
         default:
@@ -652,7 +725,7 @@ extension ProfileVC : UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         //self.viewModel.managePagenation(tblView: self.tblView,
-//                                        index: indexPath.row)
+        //                                        index: indexPath.row)
     }
 }
 
@@ -683,11 +756,11 @@ extension ProfileVC {
         if let obj = object as? UITableView, obj == self.tblConsultingDoctor, (keyPath == "contentSize"), let newvalue = change?[.newKey] as? CGSize {
             self.tblConsultingDoctorHeight.constant = newvalue.height
         }
-       
+        
         if let obj = object as? UITableView, obj == self.tblHC, (keyPath == "contentSize"), let newvalue = change?[.newKey] as? CGSize {
             self.tblHCHeight.constant = newvalue.height
         }
-       
+        
     }
     
     func addObserverOnHeightTbl() {
@@ -732,9 +805,9 @@ extension ProfileVC {
                 self.selectedLanguageListModel.languagesId = object.languagesId
             }
         }
-       
+        
         self.imgUser.setCustomImage(with: object.profilePic ?? "",
-                                     placeholder: UIImage(named: "defaultUser")) { img, err, cache, url in
+                                    placeholder: UIImage(named: "defaultUser")) { img, err, cache, url in
             if img != nil {
                 self.imgUser.tapToZoom(with: img)
             }
@@ -747,7 +820,10 @@ extension ProfileVC {
         self.tvAddress.text             = object.address//"B-607 Fairdeal House, Swastik Char Rasta, Navrangpura Apt, Ahmedabad, Gujarat, 399802"
         
         self.lblLocationVal.text = UserModel.shared.city + ", " + UserModel.shared.state
-    
+        
+        self.txtStudyID.text = object.studyID
+        self.txtStudyID.isUserInteractionEnabled = false
+        
         self.vwConsultingDoctor.isHidden = true
         if let doc = UserModel.shared.patientLinkDoctorDetails, doc.count > 0 {
             self.vwConsultingDoctor.isHidden = false
@@ -767,7 +843,7 @@ extension ProfileVC {
             case .success(_):
                 // Redirect to next screen
                 //self.strErrorMessage = self.viewModel.strErrorMessage
-            
+                
                 self.applySnapshot(arr: self.chatHistoryListVM.arrList)
                 break
                 
@@ -778,4 +854,38 @@ extension ProfileVC {
             }
         })
     }
+}
+
+//------------------------------------------------------
+//MARK: - UITextFieldDelegate
+extension ProfileVC: UITextFieldDelegate {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if string.isBackspace() {
+            switch textField.text?.count {
+            case 5,9:
+                var str = self.txtStudyID.text ?? ""
+                str = String(str.dropLast())
+                str = String(str.dropLast())
+                self.txtStudyID.text = str
+                return false
+            default :
+                return true
+            }
+        }
+        
+        guard string.isValid(.alphabet) || string.isValid(.number) else {
+            return false
+        }
+        
+        switch textField.text?.count{
+        case 3,7:
+            self.txtStudyID.text = self.txtStudyID.text! + "-" + string
+            return false
+        default:
+            return self.txtStudyID.text!.count < 11
+        }
+    }
+    
 }

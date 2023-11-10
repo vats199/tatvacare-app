@@ -39,6 +39,8 @@ extension AppError.Enums {
         case selectPatient
         case selectAddress
         case enterAddress
+        case enterStudyID
+        case enterValidStudyID
         case addCal
         case addValidCal
         case enterMedicineName
@@ -567,6 +569,10 @@ extension AppError.Enums.ValidationError: LocalizedError {
             return "Please select physical activity start date & time"
         case .selectPhysicalActivity:
             return "Please select physical activity"
+        case .enterStudyID:
+            return "Please enter study id"
+        case .enterValidStudyID:
+            return "Please enter valid study id"
         }
     }
 }

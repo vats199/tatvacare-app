@@ -487,9 +487,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
   };
 
   const onPressBookDevices = () => {
-    console.log('Device data===', JSON.stringify(hcDevicePlans));
-
-    if (Object.values(hcDevicePlans.devices).length > 0) {
+    if (Object.values(userData.devices_name).length > 0) {
       if (Platform.OS == 'ios') {
         trackEvent('CLICKED_BOOK_DEVICES', {});
         navigateTo('MyDevices');

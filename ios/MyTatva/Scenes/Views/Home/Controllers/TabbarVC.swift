@@ -14,6 +14,7 @@ class TabbarVC: BFPaperTabBarController {
     //MARK: -------------------------- Class Variable --------------------------
     private var showEngageVC = true
     private var isFromRN = true
+    private var hideChatbot = false
     private var currentIndex = 0
     var prevTabBarIndex = 0
     private var tempVariable = false
@@ -38,12 +39,15 @@ class TabbarVC: BFPaperTabBarController {
             if isHidden {
                 self.showEngageVC = false
             }
-            Settings().isHidden(setting: .home_from_react_native) { isFromRN in
-                self.isFromRN = isFromRN
-                self.setTabbarViewControllers()
-                self.setTabbar()
-                self.setTabTheme()
-                self.selectedIndex = self.currentIndex
+            Settings().isHidden(setting: .hide_genai_chatbot) { hideChatbot in
+                self.hideChatbot = hideChatbot
+                Settings().isHidden(setting: .home_from_react_native) { isFromRN in
+                    self.isFromRN = isFromRN
+                    self.setTabbarViewControllers()
+                    self.setTabbar()
+                    self.setTabTheme()
+                    self.selectedIndex = self.currentIndex
+                }
             }
         }
     }
@@ -112,7 +116,7 @@ class TabbarVC: BFPaperTabBarController {
             tab5.selectedImage  = UIImage(named: "more_selected")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
             tab5.title          = "More"
             tab5.imageInsets    = UIEdgeInsets(top: paddingTop, left: 0, bottom: paddingBottom, right: 0)
-        } else {
+        } else if !self.hideChatbot {
             let tab6           = self.tabBar.items![index]
             tab6.image          = UIImage(named: "chat_unselected")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
             tab6.selectedImage  = UIImage(named: "chat_unselected")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
@@ -205,7 +209,7 @@ class TabbarVC: BFPaperTabBarController {
         
         if !self.isFromRN {
             arrVC.append(moreVC)
-        } else {
+        } else if !self.hideChatbot {
             //            Chat Module
             arrVC.append(chatVC!)
         }
@@ -217,10 +221,10 @@ class TabbarVC: BFPaperTabBarController {
         
         if self.isFromRN {
             self.viewControllers?[0] = homeVC
-            self.viewControllers?[arrVC.count - 1] = chatVC
+            if !self.hideChatbot{
+                self.viewControllers?[arrVC.count - 1] = chatVC
+            }
         }
-        
-        
     }
     
     fileprivate func setTabTheme(){
@@ -350,7 +354,7 @@ extension TabbarVC: TransitionableTab {
         
         if self.isFromRN {
             RNEventEmitter.emitter.sendEvent(withName: "bottomTabNavigationInitiated", body: [:])
-            if(tabBarController.selectedIndex == 4){
+            if(tabBarController.selectedIndex == 4 && self.isFromRN && !self.hideChatbot){
                 IQKeyboardManager.shared.enable = false
                 IQKeyboardManager.shared.enableAutoToolbar = false
                 var params: [String: Any] = [:]

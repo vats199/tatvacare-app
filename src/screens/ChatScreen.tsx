@@ -13,7 +13,6 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-  useWindowDimensions,
 } from 'react-native';
 import React, {useState} from 'react';
 import {goBackFromChat} from '../routes/Router';
@@ -29,8 +28,6 @@ import ChatbotMessageLoader from '../components/atoms/ChatbotMessageLoader';
 import moment from 'moment';
 import {colors} from '../constants/colors';
 import {Icons} from '../constants/icons';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {useHeaderHeight} from '@react-navigation/elements';
 import {trackEvent} from '../helpers/TrackEvent';
 
 type ChatScreenProps = StackScreenProps<AppStackParamList, 'ChatScreen'>;
@@ -41,11 +38,12 @@ type Message = {
 };
 
 const ChatScreen: React.FC<ChatScreenProps> = ({navigation, route}) => {
-  const {
-    userData: {patient_id},
-  } = useApp();
+  // const {
+  //   userData: {patient_id},
+  // } = useApp();
 
-  const headerHeight = useHeaderHeight();
+  let patient_id: string = 'adsdasaAADS1234das';
+
   const [keyboardStatus, setKeyboardStatus] = useState<boolean>(false);
 
   const onPressGoBack = () => {
@@ -59,37 +57,73 @@ const ChatScreen: React.FC<ChatScreenProps> = ({navigation, route}) => {
   const scrollRef = React.useRef<ScrollView>(null);
 
   const [initialTime, setInitialTime] = React.useState<string>('');
-  const [messages, setMessages] = React.useState<Message[]>([]);
   const [loading, setLoading] = React.useState<boolean>(false);
   const [msg, setMsg] = React.useState<string>('');
+  const [lastBotReply, setLastBotReply] = React.useState<string>('');
+  const [bot_chat, setBotChat] = React.useState<boolean>(false);
+  const [welcome_message, setWelcomeMessage] = React.useState<boolean>(false);
+  const [welcome_message_validation, setWelcomeMessageValidation] =
+    React.useState<boolean>(false);
+  const [conversation, setConversation] = React.useState<any[]>([]);
+  const [messages, setMessages] = React.useState<Message[]>([]);
 
-  const initialMessage: Message = {
-    sender: 'bot',
-    message:
-      "Hello, \nI'm your health assistant, you can ask or share any health related problem with me",
-  };
-
-  const onPressSend = async () => {
-    trackEvent('USER_TAP_ENTER', {});
-    const userMsg: Message = {
-      message: msg.trim(),
-      sender: 'user',
-    };
-    setMessages([...messages, userMsg]);
+  const welcomeUser = async () => {
     setLoading(true);
-
+    const payload = {
+      id: patient_id,
+      bot_chat: false,
+      welcome: true,
+      welcome_message_validation: false,
+    };
     const headers = {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     };
-    const body = {
+    const url = 'https://mytatva.azurewebsites.net/welcome';
+
+    try {
+      const res = await fetch(url, {
+        method: 'post',
+        headers,
+        body: JSON.stringify(payload),
+      });
+      const response = await res.json();
+      const {
+        bot_response,
+        conversation,
+        bot_chat,
+        welcome_message,
+        welcome_message_validation,
+      } = response;
+      setLastBotReply(bot_response);
+      setMessages([{message: bot_response, sender: 'bot'}]);
+      setConversation(conversation);
+      setWelcomeMessage(welcome_message);
+      setWelcomeMessageValidation(welcome_message_validation);
+      setBotChat(bot_chat);
+    } catch (error) {
+      console.log(error);
+    }
+    setMsg('');
+    setLoading(false);
+  };
+
+  const sendMessage = async () => {
+    trackEvent('USER_TAP_ENTER', {});
+    setLoading(true);
+    setMessages([...messages, {sender: 'user', message: msg}]);
+    const payload = {
       query: msg.trim(),
       id: patient_id,
-      bot_chat: true,
-      welcome_message: true,
-      welcome_message_validation: true,
-      conversation: [{}],
-      bot_response: 'string',
+      bot_chat,
+      welcome_message,
+      welcome_message_validation,
+      conversation,
+      bot_response: lastBotReply,
+    };
+    const headers = {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
     };
     const url = 'https://mytatva.azurewebsites.net/bot';
 
@@ -97,23 +131,37 @@ const ChatScreen: React.FC<ChatScreenProps> = ({navigation, route}) => {
       const res = await fetch(url, {
         method: 'post',
         headers,
-        body: JSON.stringify(body),
+        body: JSON.stringify(payload),
       });
       const response = await res.json();
-      const {bot_response} = response;
-      const botReply: Message = {
-        message: bot_response,
-        sender: 'bot',
-      };
-      setMessages([...messages, userMsg, botReply]);
+      const {
+        bot_chat,
+        bot_response,
+        conversation,
+        welcome_message,
+        welcome_message_validation,
+      } = response;
+      setBotChat(bot_chat);
+      setLastBotReply(bot_response);
+      setWelcomeMessage(welcome_message);
+      setWelcomeMessageValidation(welcome_message_validation);
+      setConversation(conversation);
+      if (!bot_chat && !welcome_message && !welcome_message_validation) {
+        setMessages([
+          ...messages,
+          {sender: 'user', message: msg},
+          {sender: 'bot', message: bot_response},
+          {sender: 'bot', message: 'Thank You'},
+        ]);
+      } else {
+        setMessages([
+          ...messages,
+          {sender: 'user', message: msg},
+          {sender: 'bot', message: bot_response},
+        ]);
+      }
     } catch (error) {
       console.log(error);
-      const botReply: Message = {
-        message:
-          'There seems to be an issue with our servers. Please try again later.',
-        sender: 'bot',
-      };
-      setMessages([...messages, userMsg, botReply]);
     }
     setMsg('');
     setLoading(false);
@@ -121,7 +169,7 @@ const ChatScreen: React.FC<ChatScreenProps> = ({navigation, route}) => {
 
   React.useEffect(() => {
     setInitialTime(new Date().toISOString());
-    setMessages([initialMessage]);
+    welcomeUser();
   }, []);
 
   React.useEffect(() => {
@@ -212,7 +260,7 @@ const ChatScreen: React.FC<ChatScreenProps> = ({navigation, route}) => {
                 />
               </View>
               <TouchableOpacity
-                onPress={onPressSend}
+                onPress={sendMessage}
                 disabled={msg.trim().length <= 0}
                 activeOpacity={0.6}>
                 {msg.trim().length > 0 ? (
