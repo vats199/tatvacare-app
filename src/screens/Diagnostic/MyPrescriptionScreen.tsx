@@ -7,7 +7,7 @@ import { StackScreenProps } from '@react-navigation/stack';
 import Header from '../../components/atoms/Header';
 import { Icons } from '../../constants/icons';
 import { colors } from '../../constants/colors';
-import { Fonts } from '../../constants';
+import { Fonts, Matrics } from '../../constants';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Button from '../../components/atoms/Button';
 
@@ -32,18 +32,12 @@ const MyPrescriptionScreen: React.FC<MyPerscriptionScreenProps> = ({ route, navi
             setSelectedId(selectedId.filter((item) => item !== id))
         } else { setSelectedId([...selectedId, id]); }
     }
-
-    console.log("data>>>>>", data);
-
     const onPressBack = () => {
         navigation.goBack();
     }
-
-
-
     const renderPerscription = (item: perscription, index: number) => {
         return (
-            <View style={{ marginTop: 10, marginBottom: 5 }} key={index}>
+            <View style={{ marginTop: Matrics.s(10), marginBottom: Matrics.s(5) }} key={index}>
                 <Text style={styles.addedONDate}>{item.date}</Text>
                 <Pressable style={{ position: 'relative', width: 90, height: 108, backgroundColor: "white", borderColor: 'red' }} onPress={() => handleSelectedId(item?.id)}  >
                     <Image source={{ uri: item.uri }} style={{ width: '100%', height: '100%' }} />
@@ -59,8 +53,6 @@ const MyPrescriptionScreen: React.FC<MyPerscriptionScreenProps> = ({ route, navi
     }
     return (
         <SafeAreaView edges={['top']} style={styles.screen}>
-
-
             <View style={{ borderBottomWidth: 2, elevation: 2, borderBottomColor: '#F9F9FF' }}>
                 <Header
                     title="My Prescription"
@@ -70,13 +62,12 @@ const MyPrescriptionScreen: React.FC<MyPerscriptionScreenProps> = ({ route, navi
                     onBackPress={onPressBack}
                 />
             </View>
-            <ScrollView style={{ paddingLeft: 20, flex: 1 }} showsVerticalScrollIndicator={false}>
+            <ScrollView style={{ paddingLeft: Matrics.s(20), flex: 1 }} showsVerticalScrollIndicator={false}>
                 {data?.map(renderPerscription)}
-
             </ScrollView>
             {
                 (selectedId) && (
-                    <View style={{ backgroundColor: "white", padding: 10 }}>
+                    <View style={{ backgroundColor: "white", padding: Matrics.s(10) }}>
                         <Button
                             title="Add"
                             buttonStyle={styles.outlinedButton}
@@ -89,37 +80,37 @@ const MyPrescriptionScreen: React.FC<MyPerscriptionScreenProps> = ({ route, navi
     )
 }
 
-export default MyPrescriptionScreen
+export default MyPrescriptionScreen;
 
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
         backgroundColor: colors.lightGreyishBlue,
         justifyContent: "space-between",
-        marginBottom: 20
+        marginBottom: Matrics.s(20)
     },
     upperHeader: {
-        marginHorizontal: 20,
-        marginTop: 30,
-        marginBottom: 20
+        marginHorizontal: Matrics.s(20),
+        marginTop: Matrics.s(30),
+        marginBottom: Matrics.s(20)
     },
     titleStyle: {
-        fontSize: 16,
+        fontSize: Matrics.mvs(16),
         fontWeight: '600',
         fontFamily: Fonts.BOLD,
         color: colors.dimGray,
-        marginLeft: 20,
+        marginLeft: Matrics.s(20),
     },
     addedONDate: {
-        fontSize: 14,
+        fontSize: Matrics.mvs(14),
         fontWeight: '600',
         fontFamily: Fonts.BOLD,
         color: colors.subTitleLightGray,
-        marginVertical: 10
+        marginVertical: Matrics.s(10)
     },
     outlinedButton: {
-        padding: 10,
-        borderRadius: 16,
+        padding: Matrics.s(10),
+        borderRadius: Matrics.s(16),
         backgroundColor: colors.themePurple,
         marginHorizontal: 0
     },

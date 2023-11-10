@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react';
+import React from 'react';
 import { colors } from '../../constants/colors';
 import { Icons } from '../../constants/icons';
 import { Matrics } from '../../constants';
@@ -80,14 +80,14 @@ const styles = StyleSheet.create({
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.themePurple,
-        marginRight: 10
+        marginRight: Matrics.s(10)
     },
     selectAddressTitle: {
         fontSize: Matrics.mvs(20),
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray,
-        marginLeft: 10
+        marginLeft: Matrics.s(10)
     },
     border: {
         borderBottomWidth: 1,
@@ -95,17 +95,17 @@ const styles = StyleSheet.create({
     },
     belowContainer: {
         flex: 1,
-        paddingVertical: 10,
-        paddingHorizontal: 15,
+        paddingVertical: Matrics.s(10),
+        paddingHorizontal: Matrics.s(15),
         backgroundColor: "#f9f9f9"
     },
     addressItemContainer: {
         flexDirection: "row",
         justifyContent: "space-between",
-        padding: 10,
+        padding: Matrics.s(10),
         backgroundColor: colors.white,
-        borderRadius: 10,
-        marginVertical: 10,
+        borderRadius: Matrics.s(10),
+        marginVertical: Matrics.s(10),
         elevation: 0.1
     },
     addressTitleText: {

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet } from 'react-native'
 import React, { useRef, useState } from 'react';
 import { LabTestRefundStackParamList } from '../../interface/Navigation.interface';
 import { StackScreenProps } from '@react-navigation/stack';
@@ -6,7 +6,6 @@ import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import { colors } from '../../constants/colors';
 import { Fonts, Matrics } from '../../constants';
 import MyStatusbar from '../../components/atoms/MyStatusBar';
-import { Icons } from '../../constants/icons';
 import Header from '../../components/atoms/Header';
 import ScheduleLabTest from '../../components/organisms/ScheduleLabTest';
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
@@ -32,7 +31,7 @@ export type labTest = {
 const LabTestScreen: React.FC<LabTestScreenProps> = ({ route, navigation }) => {
     const bottomSheetModalRef = useRef<BottomSheetModal>(null);
     const [selectedItem, setSelectedItem] = useState<number>(0);
-
+    const insets = useSafeAreaInsets();
     const [labTestOptions, setLabTestOptions] = useState<labTest[]>([
         {
             id: 1,
@@ -72,7 +71,6 @@ const LabTestScreen: React.FC<LabTestScreenProps> = ({ route, navigation }) => {
     }
 
     const onCancel = (id: number) => {
-
         bottomSheetModalRef.current?.close();
         setLabTestOptions((prevLabTestOptions) => {
             return prevLabTestOptions.map((item) => {
@@ -84,11 +82,8 @@ const LabTestScreen: React.FC<LabTestScreenProps> = ({ route, navigation }) => {
         });
     }
 
-
-    console.log(labTestOptions);
-    console.log("selecteditem", selectedItem);
     return (
-        <SafeAreaView edges={['top']} style={styles.screen}>
+        <SafeAreaView edges={['top']} style={[styles.screen, { paddingBottom: insets.bottom == 0 ? Matrics.vs(20) : insets.bottom }]}>
             <MyStatusbar />
             <Header
                 title='Lab Test'
@@ -102,7 +97,7 @@ const LabTestScreen: React.FC<LabTestScreenProps> = ({ route, navigation }) => {
                 onPressItem={onPressLabTest}
                 onPressReschedule={onPressReschedule}
             />
-            <CommonBottomSheetModal snapPoints={['42%']} ref={bottomSheetModalRef}>
+            <CommonBottomSheetModal snapPoints={['47%']} ref={bottomSheetModalRef}>
                 <CancelLabTestBottomSheet id={selectedItem} onCancel={onCancel} />
             </CommonBottomSheetModal>
         </SafeAreaView>

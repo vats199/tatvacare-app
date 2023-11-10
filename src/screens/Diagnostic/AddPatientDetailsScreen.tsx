@@ -8,9 +8,11 @@ import { colors } from '../../constants/colors';
 import { Fonts } from '../../constants';
 import { Icons } from '../../constants/icons';
 import AnimatedInputField from '../../components/atoms/AnimatedInputField';
-import DropdownComponent from '../../components/atoms/Dropdown';
 import Button from '../../components/atoms/Button';
 import { Matrics } from '../../constants';
+import DropdownField from '../../components/atoms/DropdownField';
+import MyStatusbar from '../../components/atoms/MyStatusBar';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 
 type AddPatientDetailsScreenProps = StackScreenProps<
@@ -32,11 +34,9 @@ const AddPatientDetailsScreen: React.FC<AddPatientDetailsScreenProps> = ({ route
     const [enteredEmail, setEnteredEmail] = useState<string>();
     const [isMale, setIsMale] = useState<boolean>(false);
     const [isFemale, setIsFemale] = useState<boolean>(false);
-    console.log(enteredName);
+    const insets = useSafeAreaInsets();
 
     const color = (selectedAge && selectedRelation && enteredEmail && enteredName && (isMale || isFemale)) ? colors.themePurple : colors.darkGray;
-
-
 
     const handleSelectedAge = (item: string) => {
         setSelectedAge(item);
@@ -68,81 +68,100 @@ const AddPatientDetailsScreen: React.FC<AddPatientDetailsScreenProps> = ({ route
         navigation.navigate("LabTestCart");
     }
     return (
-        <ScrollView style={{ flex: 1, backgroundColor: '#F9F9FF', padding: 15 }} showsVerticalScrollIndicator={false}>
-            <View style={styles.upperHeader}>
-                <Icons.backArrow height={24} width={24} onPress={onPressBack} />
-                <Text style={styles.headerText}>Add Patients Details</Text>
-            </View>
-            <View style={{ marginVertical: 8 }}>
-                <DropdownComponent
+        <SafeAreaView edges={['top']} style={[styles.screen, { paddingBottom: insets.bottom == 0 ? Matrics.vs(20) : insets.bottom }]}>
+            <ScrollView style={{ flex: 1, backgroundColor: '#F9F9FF', padding: 15 }} showsVerticalScrollIndicator={false}>
+                <MyStatusbar />
+                <View style={styles.upperHeader}>
+                    <Icons.backArrow height={24} width={24} onPress={onPressBack} />
+                    <Text style={styles.headerText}>Add Patients Details</Text>
+                </View>
+                <View style={{ marginVertical: 8 }}>
+                    {/* <DropdownComponent
                     data={data}
                     placeholder='relation'
                     placeholderStyle={styles.placeholderText} dropdownStyle={{ marginRight: 0 }}
                     selectedItem={handleSelectedRelation}
-                />
-                <Text style={styles.messageText}>Select the relation with name of the account </Text>
-            </View>
-            <View style={{ marginVertical: 8 }}>
-                <AnimatedInputField
-                    placeholder='Name'
-                    style={styles.inputStyle} textStyle={styles.placeholderText}
-                    placeholderTextColor={colors.inactiveGray}
-                    onChangeText={handleEnteredName}
-                />
-            </View>
-            <View style={{ marginVertical: 8 }}>
-                <AnimatedInputField
-                    placeholder='Email'
-                    style={styles.inputStyle}
-                    textStyle={styles.placeholderText} placeholderTextColor={colors.inactiveGray}
-                    onChangeText={handleEnteredEmail}
-                />
-                <Text style={styles.messageText}>User will receive updates of order status and soft copy of reports on this email address </Text>
-            </View>
-            <View style={{ marginVertical: 8 }}>
-                <DropdownComponent
-                    data={data}
-                    placeholder='Age'
-                    placeholderStyle={styles.placeholderText} dropdownStyle={{ marginRight: 0 }}
-                    selectedItem={handleSelectedAge}
-                />
+                /> */}
+                    <DropdownField
+                        onPress={() => { }}
+                        title="relation"
+                        value={""}
+                        containerStyle={{
 
-            </View>
-            <View style={{ marginTop: 8 }}>
-                <Text style={styles.genderText}> Gender</Text>
-                <View style={styles.genderBoxes}>
-                    <TouchableOpacity
-                        style={[styles.genderBox, { marginRight: 10 }, isMale && { backgroundColor: "#3B0859" }]}
-                        onPress={handleMaleSelection}
-                    >
-                        <Icons.MaleIcon height={24} width={24} />
-                        <Text style={styles.maleFemaleText}>Male</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={[styles.genderBox, isFemale && { backgroundColor: "#3B0859" }]}
-                        onPress={handleFemaleSelection}
-                    >
-                        <Icons.FemaleIcon height={24} width={24} />
-                        <Text style={styles.maleFemaleText}>Female</Text>
-                    </TouchableOpacity>
+                            elevation: 0.5
+                        }}
+                    />
+                    <Text style={styles.messageText}>Select the relation with name of the account </Text>
                 </View>
-            </View>
+                <View style={{ marginVertical: 8 }}>
+                    <AnimatedInputField
+                        placeholder='Name'
+                        style={styles.inputStyle} textStyle={styles.placeholderText}
+                        placeholderTextColor={colors.inactiveGray}
+                        onChangeText={handleEnteredName}
+                    />
+                </View>
+                <View style={{ marginVertical: 8 }}>
+                    <AnimatedInputField
+                        placeholder='Email'
+                        style={styles.inputStyle}
+                        textStyle={styles.placeholderText} placeholderTextColor={colors.inactiveGray}
+                        onChangeText={handleEnteredEmail}
+                    />
+                    <Text style={styles.messageText}>User will receive updates of order status and soft copy of reports on this email address </Text>
+                </View>
+                <View style={{ marginVertical: 8 }}>
 
-            <View style={{ marginTop: 50 }}>
-                <Button
-                    title="Save"
-                    titleStyle={styles.outlinedButtonText}
-                    buttonStyle={{ ...styles.outlinedButton, backgroundColor: color }}
-                    onPress={onPressSave}
-                />
-            </View>
-        </ScrollView>
+                    <DropdownField
+                        onPress={() => { }}
+                        title="Age"
+                        value={""}
+                        containerStyle={{
+                            elevation: 0.5
+                        }}
+                    />
+
+                </View>
+                <View style={{ marginTop: 8 }}>
+                    <Text style={styles.genderText}> Gender</Text>
+                    <View style={styles.genderBoxes}>
+                        <TouchableOpacity
+                            style={[styles.genderBox, { marginRight: 10 }, isMale && { backgroundColor: colors.boxLightPurple, borderColor: colors.darkBorder }]}
+                            onPress={handleMaleSelection}
+                        >
+                            <Icons.MaleIcon height={24} width={24} />
+                            <Text style={styles.maleFemaleText}>Male</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={[styles.genderBox, isFemale && { backgroundColor: colors.boxLightPurple, borderColor: colors.darkBorder }]}
+                            onPress={handleFemaleSelection}
+                        >
+                            <Icons.FemaleIcon height={24} width={24} />
+                            <Text style={styles.maleFemaleText}>Female</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+
+                <View style={{ marginTop: 50 }}>
+                    <Button
+                        title="Save"
+                        titleStyle={styles.outlinedButtonText}
+                        buttonStyle={{ ...styles.outlinedButton, backgroundColor: color, borderRadius: 12 }}
+                        onPress={onPressSave}
+                    />
+                </View>
+            </ScrollView>
+        </SafeAreaView>
     )
 }
 
 export default AddPatientDetailsScreen;
 
 const styles = StyleSheet.create({
+    screen: {
+        flex: 1,
+        backgroundColor: colors.lightGreyishBlue,
+    },
     upperHeader: {
         flexDirection: "row",
         alignItems: 'center',

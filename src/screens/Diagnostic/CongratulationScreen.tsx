@@ -16,7 +16,7 @@ type CongratulationScreenProps = StackScreenProps<
     'CongratulationScreen'
 >;
 
-const windowHeight = Dimensions.get('window').height;
+
 const CongratulationScreen: React.FC<CongratulationScreenProps> = ({ route, navigation }) => {
 
     const onPressContinue = () => {
@@ -40,7 +40,7 @@ const CongratulationScreen: React.FC<CongratulationScreenProps> = ({ route, navi
                     <Text style={styles.congratulationText}>Congratulations</Text>
                 </View>
                 <View style={{ paddingHorizontal: 13 }}>
-                    <Text style={styles.descriptiontext}>Your payment is successful, and the phlebotomist will be  assigned to you before your sample pickup slot.</Text>
+                    <Text style={styles.descriptiontext} numberOfLines={2} >Your payment is successful, and the phlebotomist will be  assigned to you before your sample pickup slot.</Text>
                     <Button
                         title="Continue"
                         buttonStyle={{ marginHorizontal: 0 }}
@@ -49,9 +49,6 @@ const CongratulationScreen: React.FC<CongratulationScreenProps> = ({ route, navi
                 </View>
                 <View style={{ flex: 1 }} />
             </View>
-
-
-
         </SafeAreaView>
     )
 }

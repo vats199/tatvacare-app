@@ -107,8 +107,6 @@ const LabTestSummaryScreen: React.FC<LabTestSummaryScreenProps> = ({ route, navi
 
     const formattedDate = dateObj.toLocaleDateString(undefined, dateOptions);
 
-    console.log("Formatted Date:", formattedDate);
-
     useEffect(() => {
 
         const fetchData = async () => {
@@ -128,7 +126,7 @@ const LabTestSummaryScreen: React.FC<LabTestSummaryScreenProps> = ({ route, navi
 
     return (
         <SafeAreaView edges={['top']} style={styles.screen} >
-            <ScrollView style={{ padding: 20 }}>
+            <ScrollView style={{ padding: 20 }} showsVerticalScrollIndicator={false}>
                 <Header
                     title='Lab Test Summary'
                     isIcon={false}

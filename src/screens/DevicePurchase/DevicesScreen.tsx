@@ -25,20 +25,21 @@ const DevicesScreen: React.FC<DevicesScreenProps> = ({ route, navigation }) => {
     const onPressBack = () => {
         navigation.goBack();
     }
+    const labels = ["Yet To Assign", "Assigned", "Device dispatched", "Device on it's way", 'Device received', 'Done'];
     return (
         <SafeAreaView
             edges={['top']}
-            style={[styles.screen, { paddingBottom: insets.bottom == 0 ? Matrics.vs(20) : insets.bottom }]}
+            style={[styles.screen, { paddingBottom: insets.bottom == 0 ? Matrics.vs(25) : insets.bottom }]}
         >
             <MyStatusbar />
-            <ScrollView style={{ flex: 1, padding: 15 }} showsVerticalScrollIndicator={false} >
+            <ScrollView style={{ padding: 15 }} showsVerticalScrollIndicator={false} >
                 <Header
                     title='Devices'
                     containerStyle={styles.upperHeader}
                     titleStyle={styles.headerTitle}
                     onBackPress={onPressBack}
                 />
-                <TestSummary showMore={true} />
+                <TestSummary showMore={true} labels={labels} stepCount={labels.length} />
 
                 <View style={[styles.bottomContainer, { marginTop: Matrics.ms(20) }]}>
                     <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -73,7 +74,7 @@ const styles = StyleSheet.create({
     },
     headerTitle: {
         fontSize: Matrics.mvs(16),
-        fontWeight: '600',
+        fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray,
         lineHeight: Matrics.vs(22),

@@ -1,10 +1,9 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { FlatList } from 'react-native-gesture-handler';
 import { Icons } from '../../constants/icons';
 import { colors } from '../../constants/colors';
 import { Fonts, Matrics } from '../../constants';
-import Button from '../atoms/Button';
+
 
 type TestItem = {
     id: number;

@@ -41,7 +41,7 @@ const DeviceDetailsScreen: React.FC<DeviceDetailScreenProps> = ({ route, navigat
     return (
 
 
-        <SafeAreaView edges={['top']} style={[styles.screen, { paddingBottom: insets.bottom == 0 ? Matrics.vs(25) : insets.bottom }]}  >
+        <SafeAreaView edges={['top']} style={[styles.screen, { paddingBottom: insets.bottom == 0 ? Matrics.vs(20) : insets.bottom }]}  >
             <MyStatusbar />
             <ScrollView
                 showsVerticalScrollIndicator={false}

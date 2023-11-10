@@ -1,20 +1,20 @@
-import { StyleSheet, Text, View, ScrollView } from 'react-native'
+import { StyleSheet, View, ScrollView } from 'react-native'
 import React, { useState, useEffect } from 'react';
 import {
     DiagnosticStackParamList
 } from '../../interface/Navigation.interface';
 import { StackScreenProps } from '@react-navigation/stack';
 import { colors } from '../../constants/colors';
-import { Fonts } from '../../constants';
-import { Icons } from '../../constants/icons';
+import { Fonts, Matrics } from '../../constants';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Button from '../../components/atoms/Button';
 import Header from '../../components/atoms/Header';
 import TestSummary from '../../components/molecules/TestSummary';
 import TestDetails from '../../components/organisms/TestDetails';
 import Billing from '../../components/organisms/Billing';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import MyStatusbar from '../../components/atoms/MyStatusBar';
+
+
 type OrderDetailsScreenProps = StackScreenProps<
     DiagnosticStackParamList,
     'OrderDetails'
@@ -41,6 +41,7 @@ export type billingData = {
 const OrderDetailsScreen: React.FC<OrderDetailsScreenProps> = ({ route, navigation }) => {
 
     const [cartItems, setCartItems] = useState<TestItem[]>([]);
+    const labels = ["Test Booked", "  Phlebo Assigned", "Sample Picked", "Report Generated"];
 
     const onBackPress = () => {
         navigation.goBack();
@@ -103,7 +104,7 @@ const OrderDetailsScreen: React.FC<OrderDetailsScreenProps> = ({ route, navigati
     return (
         <SafeAreaView edges={['top']} style={styles.screen} >
             <MyStatusbar />
-            <ScrollView style={{ padding: 20 }}>
+            <ScrollView style={{ padding: Matrics.s(16) }} showsVerticalScrollIndicator={false}>
                 <Header
                     title='Order Details'
                     isIcon={false}
@@ -112,10 +113,10 @@ const OrderDetailsScreen: React.FC<OrderDetailsScreenProps> = ({ route, navigati
                     onBackPress={onBackPress}
 
                 />
-                <TestSummary showMore={true} />
+                <TestSummary showMore={true} labels={labels} stepCount={labels.length} AppointmentOn='VL 39670' Time="09:30-10:30" />
 
                 <TestDetails data={cartItems} title="Test" />
-                <View style={{ marginBottom: 50 }}>
+                <View style={{ marginBottom: Matrics.s(50) }}>
                     <Billing data={billingOptions} />
                 </View>
             </ScrollView>
@@ -131,13 +132,13 @@ const styles = StyleSheet.create({
         backgroundColor: colors.lightGreyishBlue
     },
     upperHeader: {
-        marginVertical: 10
+        marginVertical: Matrics.s(10)
     },
     titleStyle: {
-        fontSize: 16,
+        fontSize: Matrics.mvs(16),
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray,
-        marginLeft: 20
+        marginLeft: Matrics.s(20)
     },
 })

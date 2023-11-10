@@ -176,6 +176,7 @@ const styles = StyleSheet.create({
     screen: {
         flex: 1,
         backgroundColor: colors.lightGreyishBlue,
+        marginBottom: 40
     },
     upperHeader: {
         margin: Matrics.s(20)

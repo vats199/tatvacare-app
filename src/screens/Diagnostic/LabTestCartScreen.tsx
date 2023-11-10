@@ -224,7 +224,7 @@ const LabTestCartScreen: React.FC<LabTestCartScreenProps> = ({ route, navigation
                     buttonColor={backColor}
                 />
             </ScrollView>
-            <Modal transparent={true} animationType='slide' visible={isClicked} backdropOpacity={0.7} >
+            <Modal transparent={true} animationType='slide' visible={isClicked}  >
                 <CoupanModal
                     coupanTitle={selecetedCoupan}
                     handleModal={handleModal}

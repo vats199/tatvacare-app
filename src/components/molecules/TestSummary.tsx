@@ -5,37 +5,39 @@ import { colors } from '../../constants/colors';
 import { Fonts, Matrics } from '../../constants';
 import StepIndicator from 'react-native-step-indicator';
 
-const labels = ["Test Booked", "Phlebo Assigned", "Sample Picked", "Report Generated"];
-
 const customStyles = {
-    stepIndicatorSize: 20,
-    currentStepIndicatorSize: 20,
+    stepIndicatorSize: 10,
+    currentStepIndicatorSize: 10,
+    separatorStrokeWidth: 3,
+    currentStepStrokeWidth: 3,
     stepStrokeCurrentColor: 'green',
-    stepStrokeWidth: 0.3
-    ,
+    stepStrokeWidth: 0.3,
     stepStrokeFinishedColor: "green",
-    stepStrokeUnFinishedColor: "#808080",
+    stepStrokeUnFinishedColor: "#E0E0E0",
     separatorFinishedColor: "green",
-    separatorUnFinishedColor: "#808080",
+    separatorUnFinishedColor: "#E0E0E0",
     stepIndicatorFinishedColor: "green",
-    stepIndicatorUnFinishedColor: "#808080",
+    stepIndicatorUnFinishedColor: "#ffffff",
     stepIndicatorCurrentColor: "green",
     stepIndicatorLabelFontSize: 0,
-    currentStepIndicatorLabelFontSize: 5,
-    stepIndicatorLabelCurrentColor: "green",
-    stepIndicatorLabelFinishedColor: "green",
-    stepIndicatorLabelUnFinishedColor: "#808080",
+    currentStepIndicatorLabelFontSize: 0,
+    stepIndicatorLabelCurrentColor: colors.darkGray,
+    stepIndicatorLabelFinishedColor: colors.darkGray,
+    stepIndicatorLabelUnFinishedColor: colors.darkGray,
     labelSize: 11,
-    currentStepLabelColor: "green",
-};
+    currentStepLabelColor: colors.black,
 
+};
 
 type TestSummaryProps = {
     showMore?: boolean;
-
+    labels?: string[];
+    stepCount?: number;
+    AppointmentOn?: string;
+    Time?: string
 }
 
-const TestSummary: React.FC<TestSummaryProps> = ({ showMore }) => {
+const TestSummary: React.FC<TestSummaryProps> = ({ showMore, labels, stepCount, AppointmentOn, Time }) => {
 
     const [showDetail, setShowDetail] = useState<boolean>(false);
     return (
@@ -45,7 +47,7 @@ const TestSummary: React.FC<TestSummaryProps> = ({ showMore }) => {
             }]}>Summary</Text>
             <View style={[styles.summaryBox, styles.containerShadow]}>
                 <View style={{ padding: 15 }}>
-                    <Text style={[styles.summaryText, { fontSize: Matrics.s(14) }, { marginVertical: 8 }]}>User Name</Text>
+                    <Text style={[styles.summaryText, { fontSize: Matrics.s(14) }, { marginBottom: Matrics.s(8) }]}>User Name</Text>
                     <View style={styles.row}>
                         <Icons.Person height={20} width={20} />
                         <Text style={[{ marginLeft: 10 }, styles.textStyle]}> Address</Text>
@@ -68,14 +70,20 @@ const TestSummary: React.FC<TestSummaryProps> = ({ showMore }) => {
                                     <Text style={styles.textStyle}>Order ID:</Text>
                                     <Text style={styles.valueStyle}>VL 39670</Text>
                                 </View>
-                                <View style={styles.row}>
-                                    <Text style={styles.textStyle}>Appointment On:</Text>
-                                    <Text style={styles.valueStyle}>VL 39670</Text>
-                                </View>
-                                <View style={styles.row}>
-                                    <Text style={styles.textStyle}>Time:</Text>
-                                    <Text style={styles.valueStyle}>09:30-10:30</Text>
-                                </View>
+                                {
+                                    (AppointmentOn && Time) && (
+                                        <View>
+                                            <View style={styles.row}>
+                                                <Text style={styles.textStyle}>Appointment On:</Text>
+                                                <Text style={styles.valueStyle}>{AppointmentOn}</Text>
+                                            </View>
+                                            <View style={styles.row}>
+                                                <Text style={styles.textStyle}>Time:</Text>
+                                                <Text style={styles.valueStyle}>{Time} </Text>
+                                            </View>
+                                        </View>
+                                    )
+                                }
                                 <View style={styles.separator} />
                                 <View style={{ flexDirection: 'row', justifyContent: "space-between" }}>
                                     <View style={styles.row}>
@@ -92,12 +100,12 @@ const TestSummary: React.FC<TestSummaryProps> = ({ showMore }) => {
                             </View>
                             {
                                 showDetail && (
-                                    <View style={{ minHeight: 170, padding: 10 }}>
+                                    <View style={{ minHeight: Matrics.s(216), padding: Matrics.s(10) }}>
                                         <StepIndicator
                                             customStyles={customStyles}
                                             currentPosition={1}
                                             labels={labels}
-                                            stepCount={4}
+                                            stepCount={stepCount}
                                             direction='vertical'
                                         />
                                     </View>

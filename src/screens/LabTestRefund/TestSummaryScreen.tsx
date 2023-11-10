@@ -106,8 +106,6 @@ const TestSummaryScreen: React.FC<TestSummaryScreenProps> = ({ route, navigation
 
     const formattedDate = dateObj.toLocaleDateString(undefined, dateOptions);
 
-    console.log("Formatted Date:", formattedDate);
-
     useEffect(() => {
 
         const fetchData = async () => {
@@ -127,7 +125,7 @@ const TestSummaryScreen: React.FC<TestSummaryScreenProps> = ({ route, navigation
     return (
         <SafeAreaView edges={['top']} style={styles.screen} >
             <MyStatusbar />
-            <ScrollView style={{ padding: 20 }}>
+            <ScrollView style={{ padding: 20 }} showsVerticalScrollIndicator={false}>
                 <Header
                     title='Lab Test Summary'
                     isIcon={false}
@@ -147,7 +145,7 @@ const TestSummaryScreen: React.FC<TestSummaryScreenProps> = ({ route, navigation
                     title="Reschedule"
                     titleStyle={styles.buttonTextStyle}
                     onPress={onPressReschedule}
-                    buttonStyle={{ marginHorizontal: 10 }}
+                    buttonStyle={{ marginHorizontal: Matrics.s(10) }}
                 />
             </View>
 
@@ -161,11 +159,9 @@ const styles = StyleSheet.create({
     screen: {
         flex: 1,
         backgroundColor: colors.lightGreyishBlue,
-        marginBottom: Matrics.s(20),
-        justifyContent: 'space-between'
     },
     upperHeader: {
-        marginVertical: Matrics.s(10)
+        marginVertical: Matrics.s(5)
     },
     titleStyle: {
         fontSize: Matrics.mvs(16),
@@ -178,7 +174,7 @@ const styles = StyleSheet.create({
         backgroundColor: colors.white,
         paddingHorizontal: Matrics.s(10),
         paddingVertical: Matrics.vs(15),
-        elevation: 4,
+        elevation: Matrics.s(4),
         borderRadius: Matrics.s(12),
         marginBottom: Matrics.s(20)
     },

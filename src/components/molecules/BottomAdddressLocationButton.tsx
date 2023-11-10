@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
         elevation: 2,
         shadowColor: colors.inputValueDarkGray,
         shadowOffset: { width: 0, height: 1 },
+
     },
     textAddButton: {
         fontSize: Matrics.mvs(12),

@@ -36,7 +36,7 @@ const ScheduleLabTest: React.FC<ScheduleLabTestProps> = ({ data, onPressCancel, 
                 <TouchableOpacity onPress={onPressItem}>
                     <View style={{ flexDirection: "row" }}>
                         <Icons.LabTestIcon height={36} width={36} />
-                        <View style={{ marginLeft: 10 }}>
+                        <View style={{ marginLeft: Matrics.s(10) }}>
                             <Text style={styles.title}>{item.title}</Text>
                             <View style={{ width: "75%", flexDirection: "row", justifyContent: "space-between" }}>
                                 <Text style={styles.amountPaid}>Amount Paid</Text>
@@ -49,28 +49,27 @@ const ScheduleLabTest: React.FC<ScheduleLabTestProps> = ({ data, onPressCancel, 
                         <Text style={styles.keyStyle}>Order ID:</Text>
                         <Text style={styles.valueStyle}>{item.orderId} </Text>
                     </View>
-                    <View style={{ flexDirection: "row", marginVertical: 5 }}>
+                    <View style={{ flexDirection: "row", marginTop: Matrics.s(5) }}>
                         <Text style={styles.keyStyle}>Appointment On:</Text>
                         <Text style={styles.valueStyle}>{item.appointmentOn} </Text>
                     </View>
-                    <View style={{ flexDirection: "row", marginVertical: 5 }}>
+                    <View style={{ flexDirection: "row", marginTop: Matrics.s(5) }}>
                         <Text style={styles.keyStyle}>Time:</Text>
                         <Text style={styles.valueStyle}>{item.time} </Text>
                     </View>
                 </TouchableOpacity>
                 {
                     (item.status === "unfinished") && (
-                        <View style={{ flexDirection: "row", marginVertical: 5 }}>
+                        <View style={{ flexDirection: "row", marginTop: Matrics.s(15) }}>
                             <Button
                                 title="Cancel"
-                                buttonStyle={{ width: "50%", marginHorizontal: 0, backgroundColor: colors.white, borderWidth: 1, borderColor: colors.themePurple }}
-
+                                buttonStyle={styles.cancelButtonStyle}
                                 titleStyle={{ ...styles.buttontitle, color: colors.themePurple }}
                                 onPress={() => onCancel(item.id)}
                             />
                             <Button
                                 title="Reschedule"
-                                buttonStyle={{ width: "50%", marginHorizontal: 10 }}
+                                buttonStyle={styles.rescheduleButtonStyle}
                                 titleStyle={styles.buttontitle}
                                 onPress={onPressReschedule}
                             />
@@ -80,10 +79,10 @@ const ScheduleLabTest: React.FC<ScheduleLabTestProps> = ({ data, onPressCancel, 
                 {
                     (item.status === "finished") &&
                     (
-                        <View style={{ marginVertical: 5 }}>
+                        <View style={{ marginTop: Matrics.s(15) }}>
                             <Button
                                 title="Download Report "
-                                buttonStyle={{ marginHorizontal: 0 }}
+                                buttonStyle={styles.downloadReportStyle}
                                 titleStyle={styles.buttontitle}
                             />
                         </View>
@@ -103,21 +102,21 @@ const ScheduleLabTest: React.FC<ScheduleLabTestProps> = ({ data, onPressCancel, 
         );
     }
     return (
-        <View style={{ padding: 10 }}>
+        <View style={{ padding: Matrics.s(10) }}>
             {data?.map(renderLabTestItem)}
         </View>
     )
 }
 
-export default ScheduleLabTest
+export default ScheduleLabTest;
 
 const styles = StyleSheet.create({
     container: {
         minHeight: Matrics.vs(216),
         backgroundColor: 'white',
         borderRadius: Matrics.s(12),
-        padding: 15,
-        marginVertical: 10,
+        padding: Matrics.s(15),
+        marginVertical: Matrics.s(10),
         elevation: 0.7,
         shadowColor: colors.inputValueDarkGray,
         shadowOffset: { width: 0, height: 1 },
@@ -155,6 +154,26 @@ const styles = StyleSheet.create({
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray,
         lineHeight: Matrics.s(18),
+    },
+    cancelButtonStyle: {
+        width: "50%",
+        marginHorizontal: 0,
+        backgroundColor: colors.white,
+        borderWidth: 1,
+        borderColor: colors.themePurple,
+        height: Matrics.vs(36),
+        borderRadius: Matrics.s(12)
+    },
+    rescheduleButtonStyle: {
+        width: "50%",
+        marginHorizontal: Matrics.s(10),
+        height: Matrics.s(36),
+        borderRadius: Matrics.s(12)
+    },
+    downloadReportStyle: {
+        marginHorizontal: Matrics.s(0),
+        height: Matrics.s(36),
+        borderRadius: Matrics.s(12)
     },
     buttontitle: {
         fontSize: Matrics.mvs(14),

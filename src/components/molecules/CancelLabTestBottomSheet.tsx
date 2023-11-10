@@ -28,31 +28,31 @@ const CancelLabTestBottomSheet: React.FC<CancelLabTestBottomSheetProps> = ({ onC
         <View>
             <Text style={styles.title}>Cancel Lab Test Reason</Text>
             <View style={styles.separator} />
-            <View style={{ paddingHorizontal: 10 }}>
-                <View style={{ flexDirection: 'row', justifyContent: "space-between" }}>
+            <View style={{ paddingHorizontal: Matrics.s(10) }}>
+                <View style={styles.rowStyle}>
                     <Text style={styles.reasonTitle}>Found better deal elsewhere</Text>
                     {
                         (selectedReason === 1) ?
-                            <Icons.RadioCheck style={{ marginRight: 10 }} height={20} width={20} onPress={() => setSelectedReason(0)} /> :
-                            <Icons.RadioUncheck style={{ marginRight: 10 }} height={20} width={20} onPress={() => setSelectedReason(1)} />
+                            <Icons.RadioCheck style={{ marginRight: Matrics.s(10) }} height={20} width={20} onPress={() => setSelectedReason(0)} /> :
+                            <Icons.RadioUncheck style={{ marginRight: Matrics.s(10) }} height={20} width={20} onPress={() => setSelectedReason(1)} />
                     }
                 </View>
                 <View style={styles.separator} />
-                <View style={{ flexDirection: 'row', justifyContent: "space-between" }}>
+                <View style={styles.rowStyle}>
                     <Text style={styles.reasonTitle}>Test not required</Text>
                     {
                         (selectedReason === 2) ?
-                            <Icons.RadioCheck style={{ marginRight: 10 }} height={20} width={20} onPress={() => setSelectedReason(0)} /> :
-                            <Icons.RadioUncheck style={{ marginRight: 10 }} height={20} width={20} onPress={() => setSelectedReason(2)} />
+                            <Icons.RadioCheck style={{ marginRight: Matrics.s(10) }} height={20} width={20} onPress={() => setSelectedReason(0)} /> :
+                            <Icons.RadioUncheck style={{ marginRight: Matrics.s(10) }} height={20} width={20} onPress={() => setSelectedReason(2)} />
                     }
                 </View>
                 <View style={styles.separator} />
-                <View style={{ flexDirection: 'row', justifyContent: "space-between" }}>
+                <View style={styles.rowStyle}>
                     <Text style={styles.reasonTitle}>Order placed by mistake</Text>
                     {
                         (selectedReason === 3) ?
-                            <Icons.RadioCheck style={{ marginRight: 10 }} height={20} width={20} onPress={() => setSelectedReason(0)} /> :
-                            <Icons.RadioUncheck style={{ marginRight: 10 }} height={20} width={20} onPress={() => setSelectedReason(3)} />
+                            <Icons.RadioCheck style={{ marginRight: Matrics.s(10) }} height={20} width={20} onPress={() => setSelectedReason(0)} /> :
+                            <Icons.RadioUncheck style={{ marginRight: Matrics.s(10) }} height={20} width={20} onPress={() => setSelectedReason(3)} />
                     }
                 </View>
             </View>
@@ -80,8 +80,13 @@ const styles = StyleSheet.create({
     },
     separator: {
         borderBottomWidth: 0.5,
-        borderBottomColor: "#999999",
+        borderBottomColor: colors.secondaryLabel,
         marginVertical: Matrics.s(10)
+    },
+    rowStyle: {
+        flexDirection: 'row',
+        justifyContent: "space-between",
+        marginVertical: Matrics.s(5)
     },
     reasonTitle: {
         fontSize: Matrics.mvs(14),
@@ -91,9 +96,9 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         backgroundColor: colors.white,
-        padding: 12,
-        elevation: 8,
-        marginTop: 10
+        padding: Matrics.s(12),
+        elevation: Matrics.s(8),
+        marginTop: Matrics.s(10)
     },
     buttontitle: {
         fontSize: Matrics.mvs(16),

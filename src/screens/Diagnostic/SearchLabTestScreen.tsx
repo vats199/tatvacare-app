@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
         borderColor: colors.inputBoxLightBorder,
         borderRadius: Matrics.s(12),
         paddingHorizontal: Matrics.mvs(10),
-        height: Matrics.vs(44),
+        heighteight: Matrics.vs(44),
         marginLeft: Matrics.s(10)
     },
     searchContainer: {

@@ -37,13 +37,14 @@ type OrderDetailsScreenProps = StackScreenProps<
 
 const DetailsOrderScreen: React.FC<OrderDetailsScreenProps> = ({ route, navigation }) => {
     const [cartItems, setCartItems] = useState<TestItem[]>([]);
+    const labels = ["Test Booked", "  Phlebo Assigned", "Sample Picked", "Report Generated"];
+    const insets = useSafeAreaInsets();
 
     const onBackPress = () => {
         navigation.goBack();
     }
 
     useEffect(() => {
-
         const fetchData = async () => {
             try {
                 const storedData = await AsyncStorage.getItem('cartItems');
@@ -98,14 +99,14 @@ const DetailsOrderScreen: React.FC<OrderDetailsScreenProps> = ({ route, navigati
     ]
 
     return (
-        <SafeAreaView edges={['top']} style={styles.screen} >
+        <SafeAreaView edges={['top']} style={[styles.screen, { paddingBottom: insets.bottom == 0 ? Matrics.vs(20) : insets.bottom }]} >
             <MyStatusbar />
-            <ScrollView style={{ padding: 20 }}>
+            <ScrollView style={{ padding: 20 }} showsVerticalScrollIndicator={false}>
                 <View style={styles.header}>
                     <Icons.Close height={24} width={24} onPress={onBackPress} />
                     <Text style={styles.titleStyle}>Order Details</Text>
                 </View>
-                <TestSummary showMore={true} />
+                <TestSummary showMore={true} labels={labels} stepCount={labels.length} />
 
                 <TestDetails data={cartItems} title="Test" />
                 <View style={{ marginBottom: 50 }}>

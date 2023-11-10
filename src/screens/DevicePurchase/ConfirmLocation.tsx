@@ -1,5 +1,5 @@
 import React, { useRef, useCallback, useEffect, useState } from 'react';
-import { StyleSheet, Text, View, KeyboardAvoidingView, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import { DevicePurchaseStackParamList } from '../../interface/Navigation.interface';
 import { StackScreenProps } from '@react-navigation/stack';
 import MapView, { Marker } from 'react-native-maps';
@@ -8,8 +8,12 @@ import { Fonts } from '../../constants';
 import { Icons } from '../../constants/icons';
 import { Matrics } from '../../constants';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import CommonBottomSheetModal from '../../components/molecules/CommonBottomSheetModal';
-import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import {
+    BottomSheetBackdrop,
+    BottomSheetBackdropProps,
+    BottomSheetModal,
+    BottomSheetModalProvider,
+} from '@gorhom/bottom-sheet';
 import BottomSheetLocation from '../../components/molecules/BottomSheetLocation';
 import EnterAddressBottomSheet from '../../components/organisms/EnterAddressBottomSheet';
 
@@ -76,6 +80,20 @@ const ConfirmLocation: React.FC<ConfirmLocationScreenProps> = ({ route, navigati
     }
     const snapPoints = (selectedBottomsheet === "Location") ? ["40%"] : ['80%'];
 
+    const renderBackdrop = React.useCallback(
+        (props: BottomSheetBackdropProps) => (
+            <BottomSheetBackdrop
+                {...props}
+                opacity={1}
+                appearsOnIndex={0}
+                disappearsOnIndex={-1}
+                style={(selectedBottomsheet === 'Location') ? styles.overlay : styles.overlayBlur}
+                pressBehavior={(selectedBottomsheet === 'Location') ? "none" : "close"}
+            />
+        ),
+        [selectedBottomsheet],
+    );
+
     return (
         <View style={{ flex: 1 }}>
             <View style={styles.headerContainer}>
@@ -95,12 +113,9 @@ const ConfirmLocation: React.FC<ConfirmLocationScreenProps> = ({ route, navigati
                         latitudeDelta: 0.0922,
                         longitudeDelta: 0.0421,
                     }}
-
-
                     onPress={locationPicker}
                 >
                     {
-
                         selectedLocation && (
                             <Marker title="Picked Location" coordinate={{ latitude: selectedLocation.lat, longitude: selectedLocation.lng }} />
                         )
@@ -134,28 +149,39 @@ const ConfirmLocation: React.FC<ConfirmLocationScreenProps> = ({ route, navigati
                     </View>
                 </View>
             </View >
+
             <BottomSheetModalProvider>
-                <CommonBottomSheetModal snapPoints={snapPoints} ref={bottomSheetModalRef}>
-                    {
-                        (selectedBottomsheet === 'Location') && (
-                            <BottomSheetLocation
-                                onPressAddCompleteAddress={() => setSelectedBottomsheet('Enter Address')}
-                            />
-                        )
-                    }
-                    {
-                        (selectedBottomsheet === 'Enter Address') && (
-                            <EnterAddressBottomSheet
-                                buttonTitle="Save & Proceed"
-                                onPressSaveAddress={() => {
-                                    bottomSheetModalRef.current?.close();
-                                    navigation.navigate("OrderSummary")
-                                }
-                                }
-                            />
-                        )
-                    }
-                </CommonBottomSheetModal>
+                <BottomSheetModal
+                    ref={bottomSheetModalRef}
+                    backdropComponent={renderBackdrop}
+                    index={0}
+                    snapPoints={snapPoints}
+                    handleIndicatorStyle={styles.handleIndicator}
+                    backgroundStyle={styles.sheetBackGround}
+                    onDismiss={() => setSelectedBottomsheet("Location")}
+                >
+                    <View style={{ flex: 1 }}>
+                        {
+                            (selectedBottomsheet === 'Location') && (
+                                <BottomSheetLocation
+                                    onPressAddCompleteAddress={() => setSelectedBottomsheet('Enter Address')}
+                                />
+                            )
+                        }
+                        {
+                            (selectedBottomsheet === 'Enter Address') && (
+                                <EnterAddressBottomSheet
+                                    buttonTitle="Save & Proceed"
+                                    onPressSaveAddress={() => {
+                                        bottomSheetModalRef.current?.close();
+                                        navigation.navigate("OrderSummary")
+                                    }
+                                    }
+                                />
+                            )
+                        }
+                    </View>
+                </BottomSheetModal>
             </BottomSheetModalProvider>
         </View >
     )
@@ -214,6 +240,23 @@ const styles = StyleSheet.create({
         fontFamily: Fonts.BOLD,
         color: colors.themePurple,
         marginLeft: 8
+    },
+    sheetBackGround: {
+        backgroundColor: colors.white,
+        borderRadius: Matrics.s(16)
+    },
+    handleIndicator: {
+        backgroundColor: colors.lightGrey,
+        width: Matrics.s(40),
+        height: Matrics.vs(3.5),
+    },
+    overlay: {
+        backgroundColor: 'transparent',
+        ...StyleSheet.absoluteFillObject,
+    },
+    overlayBlur: {
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        ...StyleSheet.absoluteFillObject,
     },
 
 })

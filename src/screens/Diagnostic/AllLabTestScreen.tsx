@@ -32,6 +32,7 @@ import CommonBottomSheetModal from '../../components/molecules/CommonBottomSheet
 import FreeTestBottomSheet from '../../components/molecules/FreeTestBottomSheet';
 import { Matrics } from '../../constants';
 import MyStatusbar from '../../components/atoms/MyStatusBar';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 type AllLabTestProps = StackScreenProps<
@@ -60,18 +61,25 @@ const AllLabTestScreen: React.FC<AllLabTestProps> = ({ route, navigation }) => {
     const bottomSheetModalRef = useRef<BottomSheetModal>(null);
     const [selectedBottomsheet, setSelectedBottomsheet] = useState<string>("");
     const [selectedImage, setSelectedImage] = useState<string>();
+    const [location, setLocation] = React.useState<any>({});
     const [result, setResult] = React.useState<
         Array<DocumentPickerResponse> | DirectoryPickerResponse | undefined | null
     >();
     const [uploadedPerscription, setUploadedPerscription] = useState<perscription[]>([]);
     const insets = useSafeAreaInsets();
-    const { location } = useApp();
+
     const addedItem = addedCartItem.length;
     const snapPoints = (selectedBottomsheet === "FreeTest") ? ["31%"] : ['63%'];
 
     useEffect(() => {
-        console.log(JSON.stringify(result, null, 2))
-    }, [result])
+        getCurrentLocation();
+    }, []);
+
+    const getCurrentLocation = async () => {
+        const currentLocation = await AsyncStorage.getItem('location');
+
+        await setLocation(currentLocation ? JSON.parse(currentLocation) : {});
+    };
 
     const handleError = (err: unknown) => {
         if (isCancel(err)) {
@@ -167,7 +175,7 @@ const AllLabTestScreen: React.FC<AllLabTestProps> = ({ route, navigation }) => {
     const onPressSearchTab = () => {
         navigation.navigate('SearchLabTest');
     }
-
+    console.log(location);
 
     return (
         <SafeAreaView edges={['top']} style={[styles.screen, { paddingBottom: insets.bottom == 0 ? Matrics.vs(20) : insets.bottom }]} >
@@ -184,7 +192,7 @@ const AllLabTestScreen: React.FC<AllLabTestProps> = ({ route, navigation }) => {
                 />
                 <View style={styles.location}>
                     <Icons.Location height={16} width={16} />
-                    <Text style={styles.locationText}>{location.city} {location.pincode} </Text>
+                    <Text style={styles.locationText}>{location.city} ({location.pincode}) </Text>
                     <Icons.dropArrow height={16} width={16} />
                 </View>
 
@@ -282,7 +290,8 @@ const styles = StyleSheet.create({
         fontWeight: "400",
         fontFamily: Fonts.BOLD,
         color: colors.subTitleLightGray,
-        lineHeight: Matrics.s(16)
+        lineHeight: Matrics.s(16),
+        marginLeft: Matrics.s(10)
     },
     searchContainer: {
         flexDirection: 'row',

@@ -141,6 +141,7 @@ import NoAddress from '../assets/icons/noAdddress.svg';
 import Science from '../assets/icons/science.svg';
 import Close from '../assets/icons/closeIcon.svg';
 import LabTestIcon from '../assets/icons/icon_labtest.svg';
+import Marker from "../assets/icons/marker.svg";
 
 export const Icons = {
   HomeActive,
@@ -278,5 +279,6 @@ export const Icons = {
   NoAddress,
   Science,
   Close,
-  LabTestIcon
+  LabTestIcon,
+  Marker
 };
