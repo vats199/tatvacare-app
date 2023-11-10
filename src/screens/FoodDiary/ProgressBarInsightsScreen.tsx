@@ -235,7 +235,14 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
             setNewMonth(date);
           }}
         />
-        <ScrollView style={{paddingBottom: 14}}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{
+            paddingBottom:
+              Platform.OS == 'ios'
+                ? insets.bottom
+                : insets.bottom + Matrics.s(16),
+          }}>
           <Text style={style.title}>Daily Macronutrients Analysis</Text>
           <View
             style={[
@@ -252,14 +259,7 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
           {dailyCalories.length > 0 ? (
             <View style={{flex: 1}}>
               <Text style={style.title}>Meal Energy Distribution</Text>
-              <View
-                style={[
-                  globalStyles.shadowContainer,
-                  style.boxContainer,
-                  {
-                    marginBottom: Matrics.vs(20),
-                  },
-                ]}>
+              <View style={[globalStyles.shadowContainer, style.boxContainer]}>
                 {dailyCalories?.map((item, index) => {
                   return renderItem(item, index, 'cal');
                 })}

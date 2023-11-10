@@ -194,7 +194,6 @@ export default DietTime;
 const styles = StyleSheet.create({
   innercontainer: {
     flex: 1,
-    marginHorizontal: Matrics.s(15),
     marginTop: Matrics.vs(5),
   },
   noDataFound: {

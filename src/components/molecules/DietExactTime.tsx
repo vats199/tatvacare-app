@@ -390,6 +390,7 @@ const styles = StyleSheet.create({
     marginVertical: Matrics.vs(8),
     backgroundColor: colors.white,
     paddingVertical: Matrics.vs(12),
+    marginHorizontal: Matrics.s(15),
   },
   innerContainer: {
     backgroundColor: 'white',
