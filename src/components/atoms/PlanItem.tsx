@@ -39,7 +39,6 @@ export default PlanItem;
 
 const styles = StyleSheet.create({
   planItemContainer: {
-    backgroundColor: 'green',
     aspectRatio: 2.45,
     width: Matrics.screenWidth - 64,
     borderWidth: 1,
