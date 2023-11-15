@@ -5,7 +5,7 @@ import React, {
   createContext,
   useCallback,
 } from 'react';
-import { useFocusEffect, useIsFocused } from '@react-navigation/native';
+import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 import {
   FlatList,
   LayoutAnimation,
@@ -22,27 +22,27 @@ import DietTime, {
   FoodItems,
   MealsData,
 } from '../../components/organisms/DietTime';
-import { colors } from '../../constants/colors';
-import { DietStackParamList } from '../../interface/Navigation.interface';
-import { StackScreenProps } from '@react-navigation/stack';
+import {colors} from '../../constants/colors';
+import {DietStackParamList} from '../../interface/Navigation.interface';
+import {StackScreenProps} from '@react-navigation/stack';
 import Diet from '../../api/diet';
-import { useApp } from '../../context/app.context';
+import {useApp} from '../../context/app.context';
 import moment from 'moment';
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Constants, Matrics, Fonts } from '../../constants';
+import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+import {Constants, Matrics, Fonts} from '../../constants';
 import Loader from '../../components/atoms/Loader';
 import BasicModal from '../../components/atoms/BasicModal';
 // import MyStatusbar from '../../components/atoms/MyStatusBar';
-import { useToast } from 'react-native-toast-notifications';
-import { globalStyles } from '../../constants/globalStyles';
+import {useToast} from 'react-native-toast-notifications';
+import {globalStyles} from '../../constants/globalStyles';
 import CommonBottomSheetModal from '../../components/molecules/CommonBottomSheetModal';
 import AlertBottomSheet from '../../components/organisms/AlertBottomSheet';
-import { BottomSheetModal } from '@gorhom/bottom-sheet';
-import { trackEvent } from '../../helpers/TrackEvent';
+import {BottomSheetModal} from '@gorhom/bottom-sheet';
+import {trackEvent} from '../../helpers/TrackEvent';
 import mealTypes from '../../constants/data';
 import MealCard from '../../components/molecules/MealCard';
-import { useDiet } from '../../context/diet.context';
-import { CalendarProvider, DateData } from 'react-native-calendars';
+import {useDiet} from '../../context/diet.context';
+import {CalendarProvider, DateData} from 'react-native-calendars';
 import MyStatusbar from '../../components/atoms/MyStatusBar';
 
 type DietScreenProps = StackScreenProps<DietStackParamList, 'DietScreen'>;
@@ -57,7 +57,7 @@ type mealTYpe = {
   order_no: number;
 };
 
-const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
+const DietScreen: React.FC<DietScreenProps> = ({navigation, route}) => {
   const insets = useSafeAreaInsets();
   const {
     resetData,
@@ -70,7 +70,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   const toast = useToast();
   const [loader, setLoader] = useState<boolean>(false);
   const [dietPlane, setDiePlane] = useState<any>([]);
-  const { userData } = useApp();
+  const {userData} = useApp();
   const [deletpayload, setDeletpayload] = useState<string | null>(null);
   const [modalVisible, setModalVisible] = React.useState<boolean>(false);
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
@@ -110,9 +110,9 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
       'YYYY-MM-DD',
     );
     const diet = await Diet.getDietPlan(
-      { date: date },
+      {date: date},
       {},
-      { token: userData.token },
+      {token: userData.token},
     );
     if (Constants.IS_CHECK_API_CODE) {
       if (diet.code == '1') {
@@ -146,7 +146,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   };
 
   const handleDate = (date: any) => {
-    navigation.setParams({ option: undefined });
+    navigation.setParams({option: undefined});
     // setSelectedDate(date);
     setTempSelectedDate(date);
     _selectedDateRef.current = date;
@@ -186,24 +186,9 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
       // setModalVisible(!modalVisible);
       bottomSheetModalRef.current?.present();
     } else {
+      toast.hideAll();
       toast.show(
         'Unfortunately, you can not delete this food item since it was recommended by your nutritionist.',
-        {
-          type: 'normal',
-          placement: 'bottom',
-          duration: 2500,
-          animationType: 'slide-in',
-          style: {
-            borderRadius: Matrics.mvs(12),
-            width: Matrics.screenWidth - 20,
-          },
-          textStyle: {
-            fontSize: Matrics.mvs(13),
-            fontFamily: Fonts.REGULAR,
-            color: colors.white,
-            lineHeight: 18,
-          },
-        },
       );
     }
   };
@@ -219,7 +204,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
         diet_plan_food_item_id: deletpayload,
       },
       {},
-      { token: userData.token },
+      {token: userData.token},
     );
     if (Constants.IS_CHECK_API_CODE) {
       if (deleteFoodItem?.code === '1') {
@@ -263,7 +248,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
     const UpadteFoodItem = await Diet.updateFoodConsumption(
       item,
       {},
-      { token: userData.token },
+      {token: userData.token},
     );
     getData(optionId, dietPlanId);
     if (UpadteFoodItem) {
@@ -331,22 +316,8 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
         option: tempOption,
       });
     } else {
-      toast.show("Food item can't be added in past date meals", {
-        type: 'normal',
-        placement: 'bottom',
-        duration: 2000,
-        animationType: 'slide-in',
-        style: {
-          borderRadius: Matrics.mvs(12),
-          width: Matrics.screenWidth - 20,
-        },
-        textStyle: {
-          fontSize: Matrics.mvs(13),
-          fontFamily: Fonts.REGULAR,
-          color: colors.white,
-          lineHeight: 18,
-        },
-      });
+      toast.hideAll();
+      toast.show("Food item can't be added in past date meals");
     }
   };
 
@@ -374,8 +345,8 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
       <CalendarProvider
         date={moment(tempSelectedDate).format('YYYY-MM-DD')}
         disabledOpacity={0.6}
-      // onMonthChange={onChangeMonth}
-      // onDateChanged={onDateChanged}
+        // onMonthChange={onChangeMonth}
+        // onDateChanged={onDateChanged}
       >
         <DietHeader
           onPressBack={onPressBack}
@@ -413,7 +384,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
               showsVerticalScrollIndicator={false}
               data={mealTypes}
               keyExtractor={(item, index) => index.toString()}
-              renderItem={({ item, index }: { item: mealTYpe; index: number }) => {
+              renderItem={({item, index}: {item: mealTYpe; index: number}) => {
                 return (
                   <MealCard
                     cardData={item}
@@ -443,7 +414,7 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
 };
 
 const styles = StyleSheet.create({
-  mainContienr: { flex: 1, backgroundColor: colors.lightGreyishBlue },
+  mainContienr: {flex: 1, backgroundColor: colors.lightGreyishBlue},
   belowContainer: {
     flex: 1,
     backgroundColor: colors.lightGreyishBlue,
