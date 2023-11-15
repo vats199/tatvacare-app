@@ -1,14 +1,22 @@
-import { FlatList, Image, StyleSheet, Text, View, Modal, KeyboardAvoidingView } from 'react-native';
+import {
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  Modal,
+  KeyboardAvoidingView,
+} from 'react-native';
 import React from 'react';
 import { CompositeScreenProps } from '@react-navigation/native';
 import {
   AppStackParamList,
-  AuthStackParamList
+  AuthStackParamList,
 } from '../../interface/Navigation.interface';
 import { useSafeAreaInsets, SafeAreaView } from 'react-native-safe-area-context';
 import { StackScreenProps } from '@react-navigation/stack';
 import { OtpStyle as styles } from './styles';
-import OTPInputView from '@twotalltotems/react-native-otp-input'
+import OTPInputView from '@twotalltotems/react-native-otp-input';
 import { Matrics } from '../../constants';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import AuthHeader from '../../components/molecules/AuthHeader';
@@ -16,7 +24,8 @@ import Auth from '../../api/auth';
 import { useApp } from '../../context/app.context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Loader from '../../components/atoms/Loader';
-
+import { useDispatch } from 'react-redux';
+import * as actions from '../../redux/slices';
 
 type OTPScreenProps = CompositeScreenProps<
   StackScreenProps<AuthStackParamList, 'OTPScreen'>,
@@ -24,66 +33,76 @@ type OTPScreenProps = CompositeScreenProps<
 >;
 
 const OTPScreen: React.FC<OTPScreenProps> = ({ navigation, route }) => {
-  const insets = useSafeAreaInsets()
+  const dispatch = useDispatch();
+  const insets = useSafeAreaInsets();
 
   const intervalRef = React.useRef<null | NodeJS.Timeout>(null);
   const { setUserData } = useApp();
-  const [otp, setOtp] = React.useState<string>('')
-  const [timer, setTimer] = React.useState<number>(30)
-  const [isLoading, setIsLoading] = React.useState<boolean>(false)
+  const [otp, setOtp] = React.useState<string>('');
+  const [timer, setTimer] = React.useState<number>(30);
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   React.useEffect(() => {
-    //Implementing the setInterval method 
+    //Implementing the setInterval method
     intervalRef.current = setInterval(() => {
-      if (timer > 0)
-        setTimer(timer - 1);
+      if (timer > 0) setTimer(timer - 1);
     }, 1000);
 
-    //Clearing the interval 
+    //Clearing the interval
     return () => clearInterval(intervalRef.current as NodeJS.Timeout);
-  }, [timer])
+  }, [timer]);
 
   const onPressResendCode = () => {
     setTimer(30);
-  }
+  };
 
   const onCodeFilled = async (code: string) => {
-    let data
-    setIsLoading(true)
-    if (route?.params?.isLoginOTP) {
-      data = await Auth.verifyOTPLogin({
-        contact_no: route?.params?.contact_no.trim(),
-        otp: code
+    let payload = {
+      contact_no: route?.params?.contact_no.trim(),
+      otp: code,
+    };
+
+    new Promise((resolve, reject) => {
+      if (route?.params?.isLoginOTP) {
+        dispatch(
+          actions.verifyLoginOtpRequest({
+            payload,
+            resolve,
+            reject,
+          }),
+        );
+      } else {
+        dispatch(
+          actions.verifySignUpOtpRequest({
+            payload,
+            resolve,
+            reject,
+          }),
+        );
+      }
+    })
+      .then(res => {
+        //TODO: set token for user on global
+        //   await AsyncStorage.setItem('accessToken', userData?.token);
+        console.log(res, 'resssssss');
+        navigation.navigate('DrawerScreen'); // TODO: manange setup profile according to response
       })
-    } else {
-      data = await Auth.verifyOTPSignUp({
-        contact_no: route?.params?.contact_no.trim(),
-        otp: code
-      })
-    }
-
-    if (data?.code == 1) {
-      // success data
-      let userData = data?.data;
-      await AsyncStorage.setItem('accessToken', userData?.token);
-      await AsyncStorage.setItem('userData', JSON.stringify(userData));
-      await AsyncStorage.setItem('isUserLoggedIn', "true");
-      setIsLoading(false)
-      setUserData(userData)
-      navigation.navigate('DrawerScreen')
-    }
-
-  }
-
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
   return (
     <SafeAreaView edges={['bottom', 'top']} style={styles.container}>
       <AuthHeader
-        onPressBack={() => { navigation.goBack() }}
+        onPressBack={() => {
+          navigation.goBack();
+        }}
       />
       <View>
         <Text style={styles.title}>{`OTP Verification`}</Text>
-        <Text style={styles.description}>{`Please enter the OTP, we have sent to your phone number `}
+        <Text style={styles.description}>
+          {`Please enter the OTP, we have sent to your phone number `}
           <Text style={styles.nestedBoldText}>
             {`+91-${route?.params?.contact_no}`}
           </Text>
@@ -97,25 +116,25 @@ const OTPScreen: React.FC<OTPScreenProps> = ({ navigation, route }) => {
           autoFocusOnLoad={true}
           codeInputFieldStyle={styles.underlineStyleBase}
           codeInputHighlightStyle={styles.underlineStyleHighLighted}
-          onCodeFilled={(code) => {
-            onCodeFilled(code)
+          onCodeFilled={code => {
+            onCodeFilled(code);
             // setTimer(30.)
             // clearInterval(intervalRef.current as NodeJS.Timeout)
-            console.log(`Code is ${code}, you are good to go!`)
+            console.log(`Code is ${code}, you are good to go!`);
           }}
         />
 
         <View style={styles.resendCont}>
-          <Text style={styles.resendDesc}>
-            {`Didn’t receive OTP? `}
-          </Text>
-          <TouchableOpacity activeOpacity={0.7} onPress={() => onPressResendCode()}>
-            <Text style={timer != 0 ? styles.resendNestedTest : styles.resendCode}>
+          <Text style={styles.resendDesc}>{`Didn’t receive OTP? `}</Text>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={() => onPressResendCode()}>
+            <Text
+              style={timer != 0 ? styles.resendNestedTest : styles.resendCode}>
               {timer != 0 ? `Resend code in ${timer}sec` : `Resend Code`}
             </Text>
           </TouchableOpacity>
         </View>
-
       </View>
       <Loader visible={isLoading} />
     </SafeAreaView>
@@ -123,4 +142,3 @@ const OTPScreen: React.FC<OTPScreenProps> = ({ navigation, route }) => {
 };
 
 export default OTPScreen;
-

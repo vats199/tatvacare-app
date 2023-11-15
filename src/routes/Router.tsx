@@ -68,6 +68,7 @@ import LabTestSummaryScreen from '../screens/Diagnostic/LabTestSummaryScreen';
 import CongratulationScreen from '../screens/Diagnostic/CongratulationScreen';
 import OrderDetailsScreen from '../screens/Diagnostic/OrderDetailsScreen';
 import { Matrics } from '../constants';
+import GoalsScreen from '../screens/Drawer/GoalsScreen';
 
 const Drawer = createDrawerNavigator<DrawerParamList>();
 const DrawerScreen = () => {
@@ -82,6 +83,7 @@ const DrawerScreen = () => {
         headerShown: false,
       }}>
       <Drawer.Screen name={'Home'} component={BottomTabScreen} />
+      <Drawer.Screen name={'GoalScreen'} component={GoalsScreen} />
     </Drawer.Navigator>
   );
 };
@@ -136,12 +138,12 @@ const BottomTabScreen = () => {
       <BottomTab.Screen
         name={'CarePlanScreen'}
         component={CarePlanScreen}
-        options={{ tabBarLabel: 'Programs' }}
+        options={{ tabBarLabel: 'Care Plan' }}
       />
       <BottomTab.Screen
         name={'EngageScreen'}
         component={EngageStackScreen}
-        options={{ tabBarLabel: 'Learn' }}
+        options={{ tabBarLabel: 'Engage' }}
       />
       <BottomTab.Screen
         name={'Exercies'}

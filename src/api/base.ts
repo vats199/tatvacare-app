@@ -3,6 +3,8 @@ import {Alert, NativeModules} from 'react-native';
 import config from './config';
 import Config from 'react-native-config';
 import CRYPTO from 'crypto-js';
+import {useSelector} from 'react-redux';
+import {RootState, Store} from '../redux/Store';
 
 const POST = 'post';
 const GET = 'get';
@@ -68,11 +70,14 @@ export const getToken = async () => {
   }
 };
 
-const handleResponse = async (response: any) => {
+const handleResponse = async (response: any, isEncrypted: boolean) => {
   const contentType = response.headers.get('Content-Type');
 
   if (contentType && contentType.indexOf('application/json') !== -1) {
     const jsonRes = await response.json();
+    if (!isEncrypted) {
+      return jsonRes;
+    }
     const parsedResponse = await JSON.parse(getDecryptedData(jsonRes));
     if (parsedResponse?.code == 1) {
       return parsedResponse;
@@ -95,6 +100,7 @@ const request: any = async (
     headers = {} as any,
     json = true,
     priv = true,
+    isEncrypted = true,
   },
 ) => {
   let init = {
@@ -102,7 +108,6 @@ const request: any = async (
     headers: {
       ...headers,
       'api-key': 'lChjFRJce3bxmoS3TSQk5w==',
-      // token: NativeModules.RNShare.token,
     },
     body: '',
   };
@@ -115,7 +120,7 @@ const request: any = async (
       body: getEncryptedText(payload),
     };
   }
-  
+
   // if (formData) {
   //   init = {
   //     ...init,
@@ -126,14 +131,13 @@ const request: any = async (
   //     body: formData,
   //   };
   // }
-  // if (priv) {
-  //   let token = await getToken();
-  //   init.headers = {
-  //     ...init.headers,
-  //     Authorization: `Bearer ${token}`,
-  //   };
-  // }
- 
+  if (priv && Store.getState().Auth.user.data?.token) {
+    init.headers = {
+      ...init.headers,
+      token: Store.getState().Auth.user.data?.token,
+    };
+  }
+
   return fetch(`${baseURL}${route}`, init)
     .then(async res => {
       if (!json) {
@@ -141,7 +145,7 @@ const request: any = async (
       } else {
       }
 
-      res = await handleResponse(res);
+      res = await handleResponse(res, isEncrypted);
       // if (res?.status === 'new token') {
       //   return request(route, {
       //     method,

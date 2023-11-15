@@ -82,11 +82,13 @@ export type AppStackParamList = {
   DeviceConnectionScreen: undefined;
   SetupProfileScreen: SetupProfileStackParamList;
   DiagnosticStackScreen: DiagnosticStackParamList;
+  AddGoalScreen: undefined;
 };
 
 export type DrawerParamList = {
   Home: BottomTabParamList;
   AboutUsScreen: undefined;
+  GoalScreen: undefined;
   // ExerciseDetailScreen: {Data: any};
   // ExplorScreen: undefined;
 };

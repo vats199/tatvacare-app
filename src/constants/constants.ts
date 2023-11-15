@@ -12,4 +12,11 @@ export default {
     MEDIUM: 'medium',
     LOW: 'low',
   },
+  ERROR_MSG: {
+    SOMETHING_WENT_WRONG: 'Something went wrong!',
+    INVALID_REQUEST: 'Invalid Request',
+  },
+  SHEETS: {
+    NO_PERMISSION: 'no-permission-sheet',
+  },
 };
