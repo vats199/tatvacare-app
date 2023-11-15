@@ -1,9 +1,10 @@
-import {StyleSheet, Text, View} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import {Icons} from '../../constants/icons';
-import {colors} from '../../constants/colors';
-import {Fonts} from '../../constants';
+import { Icons } from '../../constants/icons';
+import { colors } from '../../constants/colors';
+import { Fonts } from '../../constants';
 import Matrics from '../../constants/Matrics';
+import { globalStyles } from '../../constants/globalStyles';
 
 type MicronutrientsInformationProps = {
   foodItemDetails: FoodItems;
@@ -77,7 +78,7 @@ const MicronutrientsInformation: React.FC<MicronutrientsInformationProps> = ({
           <Text style={styles.name}>{item.name}</Text>
         </View>
         <Text style={styles.value}>
-          {item.value.replace('g', '').replace('m', '')}
+          {item.value.replace('g', '').replace('m', '') + " g"}
         </Text>
       </View>
     );
@@ -86,22 +87,26 @@ const MicronutrientsInformation: React.FC<MicronutrientsInformationProps> = ({
   return (
     <View style={styles.outerContainer}>
       <Text style={styles.title}>Macronutrients Information</Text>
-      <View style={styles.container}>
-        <View style={styles.innerContainer}>
-          <View style={styles.topRow}>
-            <View>
-              <Text style={styles.calorieValue}>
-                {Math.round(Number(foodItemDetails?.calories))}
-              </Text>
-              <Text>Calories</Text>
-            </View>
-            <View style={styles.circle}>
-              <Icons.Flame />
-            </View>
+      <View style={[globalStyles.shadowContainer, styles.container]}>
+        <View style={styles.topRow}>
+          <View>
+            <Text style={styles.calorieValue}>
+              {Math.round(Number(foodItemDetails?.calories))}
+            </Text>
+            <Text style={{
+              fontFamily: Fonts.REGULAR,
+              fontSize: Matrics.mvs(11),
+              color: colors.subTitleLightGray,
+              lineHeight: 16,
+              marginTop: Matrics.vs(2)
+            }}>Calories</Text>
           </View>
-          <View style={styles.borderline} />
-          <View>{options.map(renderNutritionDataItem)}</View>
+          <View style={styles.circle}>
+            <Icons.Flame />
+          </View>
         </View>
+        <View style={styles.borderline} />
+        <View>{options.map(renderNutritionDataItem)}</View>
       </View>
     </View>
   );
@@ -111,25 +116,20 @@ export default MicronutrientsInformation;
 
 const styles = StyleSheet.create({
   outerContainer: {
-    marginHorizontal: 10,
+    marginHorizontal: Matrics.s(15),
   },
   title: {
-    fontSize: 16,
-    fontWeight: '700',
+    fontSize: Matrics.mvs(16),
     color: colors.labelDarkGray,
     fontFamily: Fonts.BOLD,
-    marginVertical: 8,
-    marginLeft: 2,
+    marginVertical: Matrics.vs(5),
+    marginBottom: Matrics.vs(10)
   },
   container: {
-    borderWidth: 0.1,
-    borderColor: '#808080',
-    overflow: 'hidden',
-    borderRadius: 12,
-  },
-  innerContainer: {
-    backgroundColor: 'white',
-    padding: 14,
+    borderRadius: Matrics.mvs(12),
+    backgroundColor: colors.white,
+    padding: Matrics.mvs(14),
+    shadowOpacity: 0.1
   },
   topRow: {
     flexDirection: 'row',
@@ -137,14 +137,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   calorieValue: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: colors.black,
+    fontSize: Matrics.mvs(19),
+    fontFamily: Fonts.BOLD,
+    color: colors.labelDarkGray,
+    lineHeight: 26
   },
   borderline: {
-    borderBottomWidth: 0.2,
-    borederColor: colors.lightGrey,
-    marginVertical: 10,
+    height: Matrics.s(1),
+    backgroundColor: colors.seprator,
+    marginVertical: Matrics.vs(12),
   },
   belowRow: {
     flexDirection: 'row',
@@ -153,28 +154,30 @@ const styles = StyleSheet.create({
     marginVertical: 6,
   },
   square: {
-    width: 25,
-    height: 25,
-    backgroundColor: '#F3F3F3',
-    marginRight: 10,
+    width: Matrics.mvs(25),
+    height: Matrics.mvs(25),
+    marginRight: Matrics.s(10),
     justifyContent: 'center',
     alignItems: 'center',
   },
   name: {
-    fontSize: 14,
+    fontSize: Matrics.mvs(13),
+    fontFamily: Fonts.REGULAR,
+    lineHeight: 18,
     color: colors.subTitleLightGray,
   },
   value: {
-    fontSize: 14,
+    fontSize: Matrics.mvs(13),
+    fontFamily: Fonts.REGULAR,
+    lineHeight: 18,
     color: colors.subTitleLightGray,
   },
   circle: {
-    width: Matrics.s(36),
-    height: Matrics.vs(36),
+    width: Matrics.mvs(36),
+    height: Matrics.mvs(36),
     backgroundColor: '#F3F3F3',
-    marginRight: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 18,
+    borderRadius: Matrics.mvs(36),
   },
 });

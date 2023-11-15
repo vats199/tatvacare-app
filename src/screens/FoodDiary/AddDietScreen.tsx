@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Platform } from 'react-native';
 import React, { useEffect } from 'react';
 import { DietStackParamList } from '../../interface/Navigation.interface';
 import RecentSearchDiet from '../../components/organisms/RecentSearchFood';
@@ -8,9 +8,15 @@ import { StackScreenProps } from '@react-navigation/stack';
 import Diet from '../../api/diet';
 import { useApp } from '../../context/app.context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Container, Screen } from '../../components/styled/Views';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Matrics } from '../../constants';
-import { log } from 'console';
+import Matrics from '../../constants/Matrics';
+import { useFocusEffect } from '@react-navigation/native';
+import { trackEvent } from '../../helpers/TrackEvent';
+import { Constants } from '../../constants';
+import moment = require('moment');
+import MyStatusbar from '../../components/atoms/MyStatusBar';
+// import MyStatusbar from '../../components/atoms/MyStatusBar';
 
 type AddDietScreenProps = StackScreenProps<DietStackParamList, 'AddDiet'>;
 type SearcheFood = {
@@ -38,13 +44,25 @@ type SearcheFood = {
 const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
   const insets = useSafeAreaInsets();
   const { userData } = useApp();
-  const { optionId, healthCoachId, mealName } = route.params;
+  const {
+    optionFoodItems,
+    healthCoachId,
+    patient_id,
+    mealName,
+    mealData,
+    selectedDate,
+    option,
+  } = route.params;
   const [recentSerach, setRecentSerach] = React.useState([]);
   const [searchResult, setSearchResult] = React.useState([]);
-  const [result, setResult] = React.useState([]);
+  const [message, setMessage] = React.useState('');
   const [title, setTitle] = React.useState<string>('');
+  const [timeoutId, setTimeoutId] = React.useState<number | undefined>(
+    undefined,
+  );
+  const debouncingDelay = 500;
 
-  useEffect(() => {
+  useFocusEffect(React.useCallback(() => {
     const getRecentSerache = async () => {
       const recentSearchResults = await AsyncStorage.getItem(
         'recentSearchResults',
@@ -67,47 +85,117 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
       }
     };
     getRecentSerache();
-  }, []);
+  }, []))
+
+
+  useFocusEffect(
+    React.useCallback(() => {
+      if (recentSerach.length > 0) {
+        setTitle('Recent Search');
+      }
+    }, [recentSerach]),
+  );
+
+  useEffect(() => {
+    navigation.addListener('beforeRemove', e => {
+      if (e.data.action.type === 'NAVIGATE') {
+        return;
+      }
+      e.preventDefault();
+      navigation.navigate('DietScreen', {
+        option: option,
+      });
+    });
+  }, [navigation]);
 
   const onPressBack = () => {
-    navigation.goBack();
+    if (Array.isArray(option) && option.length !== 0) {
+      navigation.navigate('DietScreen', { option: option });
+    } else {
+      navigation.goBack();
+    }
   };
   const handlePressPlus = async (data: SearcheFood) => {
-    const FoodItems = {
-      diet_plan_food_item_id: 'null',
-      diet_meal_options_id: optionId,
-      food_item_id: data?.food_item_id,
-      food_item_name: data?.food_name,
-      quantity: null,
-      measure_id: null,
-      measure_name: data?.unit_name,
-      protein: data?.protein,
-      carbs: data?.carbs,
-      fats: data?.fat,
-      fibers: data?.fiber,
-      calories: data?.CALORIES_CALCULATED_FOR,
-      sodium: data?.sodium,
-      potassium: data?.potassium,
-      sugar: data?.sugar,
-      saturated_fatty_acids: data?.total_saturated_fatty_acids,
-      monounsaturated_fatty_acids: data?.total_monounsaturated_fatty_acids,
-      polyunsaturated_fatty_acids: data?.total_polyunsaturated_fatty_acids,
-      fatty_acids: data?.total_saturated_fatty_acids,
-      is_active: null,
-      is_deleted: null,
-      updated_by: null,
-      created_at: null,
-      updated_at: null,
-      consumption: null,
-      is_consumed: null,
-      consumed_calories: null,
-      healthCoachId: healthCoachId,
-    };
-    navigation.navigate('DietDetail', {
-      foodItem: FoodItems,
-      buttonText: 'Add',
-      mealName: mealName,
+    const isFoodItemInList = optionFoodItems?.food_items.find(
+      item => item.food_item_id === data?.food_item_id,
+    );
+
+    trackEvent(Constants.EVENT_NAME.FOOD_DIARY.USER_SEARCHED_FOOD_DISH, {
+      meal_types: route?.params?.mealName,
+      date: moment().format(Constants.DATE_FORMAT),
+      food_item_name: isFoodItemInList?.food_item_name ?? '',
     });
+    if (isFoodItemInList) {
+      navigation.navigate('DietDetail', {
+        foodItem: isFoodItemInList,
+        buttonText: 'Update',
+        healthCoachId: healthCoachId,
+        mealName: mealName,
+        patient_id: patient_id,
+        option: option,
+        toDietScreen: false,
+        optionFoodItems: optionFoodItems,
+      });
+    } else {
+      const FoodItems = {
+        diet_plan_food_item_id: 'null',
+        diet_meal_options_id: optionFoodItems?.diet_meal_options_id,
+        food_item_id: data?.food_item_id,
+        food_item_name: data?.food_name,
+        quantity: null,
+        measure_id: null,
+        measure_name: data?.unit_name,
+        protein: data?.protein,
+        carbs: data?.carbs,
+        fats: data?.fat,
+        fibers: data?.fiber,
+        calories: data?.CALORIES_CALCULATED_FOR,
+        sodium: data?.sodium,
+        potassium: data?.potassium,
+        sugar: data?.sugar,
+        saturated_fatty_acids: data?.total_saturated_fatty_acids,
+        monounsaturated_fatty_acids: data?.total_monounsaturated_fatty_acids,
+        polyunsaturated_fatty_acids: data?.total_polyunsaturated_fatty_acids,
+        fatty_acids: data?.total_saturated_fatty_acids,
+        is_active: null,
+        is_deleted: null,
+        updated_by: null,
+        created_at: null,
+        updated_at: null,
+        consumption: null,
+        is_consumed: null,
+        consumed_calories: null,
+        healthCoachId: healthCoachId,
+        is_food_item_added_by_patient: 'Y',
+      };
+
+      if (mealData) {
+        navigation.navigate('DietDetail', {
+          foodItem: FoodItems,
+          buttonText: 'Add',
+          healthCoachId: healthCoachId,
+          mealName: mealName,
+          mealData: mealData,
+          selectedDate: selectedDate,
+          option: option,
+          toDietScreen: false,
+          optionFoodItems: optionFoodItems,
+        });
+      } else {
+        navigation.navigate('DietDetail', {
+          foodItem: FoodItems,
+          buttonText: 'Add',
+          healthCoachId: healthCoachId,
+          mealName: mealName,
+          mealData: null,
+          patient_id: patient_id,
+          option: option,
+          toDietScreen: false,
+          optionFoodItems: optionFoodItems,
+        });
+      }
+    }
+
     const seletedItem = recentSerach;
     seletedItem.unshift(data);
     setRecentSerach(seletedItem);
@@ -117,24 +205,66 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
     );
   };
 
-  const handleSerach = async (text: string) => {
-    const result = await Diet.searchFoodItem(
-      { food_name: text },
-      {},
-      { token: userData?.token },
-    );
-    setResult(result)
-    setSearchResult(result?.data);
-    if (result.code === '0' || text.length === 0) {
-      setSearchResult(recentSerach);
-      setTitle('Recent Search');
-    } else if (result.code === '2') {
-      setTitle('Search Result');
-      setSearchResult([]);
-    } else {
-      setSearchResult(result?.data);
-      setTitle('Search Result');
+  const handleSearch = (text: string) => {
+    // setSearchQuery(text);
+
+    if (timeoutId) {
+      clearTimeout(timeoutId);
     }
+
+    const newTimeoutId = setTimeout(() => {
+      const performSearch = async () => {
+        trackEvent(Constants.EVENT_NAME.FOOD_DIARY.USER_SEARCHED_FOOD_DISH, {
+          meal_types: route?.params?.mealName,
+          date: moment().format(Constants.DATE_FORMAT),
+          food_item_name: text,
+        });
+        const result = await Diet.searchFoodItem({ food_name: text }, {}, { token: userData.token });
+        // setResult(result);
+        setSearchResult(result?.data);
+        // console.log("result", result);
+
+        if (Constants.IS_CHECK_API_CODE) {
+          if (result?.code === '1') {
+            if (result?.data?.length > 0) {
+              setSearchResult(result?.data);
+              setTitle('Search Result');
+              setMessage('');
+            }
+          } else {
+            if (text.length === 0) {
+              setSearchResult(recentSerach);
+              setTitle(recentSerach.length > 0 ? 'Recent Search' : '');
+              setMessage('');
+            } else {
+              setTitle('Search Result');
+              setSearchResult([]);
+              setMessage('Searched meal not found!');
+            }
+          }
+        } else {
+          if (result?.data?.length > 0) {
+            setSearchResult(result?.data);
+            setTitle('Search Result');
+            setMessage('');
+          } else {
+            if (text.length === 0) {
+              setSearchResult(recentSerach);
+              setTitle(recentSerach.length > 0 ? 'Recent Search' : '');
+              setMessage('');
+            } else {
+              setTitle('Search Result');
+              setSearchResult([]);
+              setMessage('Searched meal not found!');
+            }
+          }
+        }
+      };
+
+      performSearch();
+    }, debouncingDelay);
+
+    setTimeoutId(newTimeoutId);
   };
 
   return (
@@ -143,15 +273,17 @@ const AddDietScreen: React.FC<AddDietScreenProps> = ({ navigation, route }) => {
       style={[
         styles.container,
         {
-          paddingTop: insets.top !== 0 ? insets.top : Matrics.vs(15),
+          paddingTop: Platform.OS == 'android' ? Matrics.vs(10) : 0,
           paddingBottom: insets.bottom !== 0 ? insets.bottom : Matrics.vs(15),
         },
       ]}>
-      <DietSearchHeader onPressBack={onPressBack} onSearch={handleSerach} />
+      <MyStatusbar backgroundColor={colors.lightGreyishBlue} />
+      <DietSearchHeader onPressBack={onPressBack} onSearch={handleSearch} />
       <RecentSearchDiet
         onPressPlus={handlePressPlus}
-        searchData={result}
+        searchData={searchResult}
         title={title}
+        message={message}
       />
     </SafeAreaView>
   );

@@ -1,24 +1,38 @@
 import 'react-native-gesture-handler';
 import React, { useEffect, useRef, useState } from 'react';
-import { Platform, StyleSheet, useWindowDimensions, Text, TextInput, } from 'react-native';
+import {
+  Alert,
+  Dimensions,
+  PermissionsAndroid,
+  Permission,
+  Platform,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  useWindowDimensions,
+  TextInput,
+} from 'react-native';
 import Router from './src/routes/Router';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import LocationBottomSheet, {
   LocationBottomSheetRef,
 } from './src/components/molecules/LocationBottomSheet';
+
 import Geolocation from 'react-native-geolocation-service';
 import { request, check, PERMISSIONS, RESULTS } from 'react-native-permissions';
 import { Linking } from 'react-native';
 import Home from './src/api/home';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AppProvider } from './src/context/app.context';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import SplashScreen from 'react-native-splash-screen';
 import { MenuProvider } from 'react-native-popup-menu';
 import { Provider } from 'react-redux';
 import { Persistor, Store } from './src/redux/Store';
 import { PersistGate } from 'redux-persist/integration/react';
 import { SheetProvider } from 'react-native-actions-sheet';
+import { ToastProvider } from 'react-native-toast-notifications';
+import { colors } from './src/constants/colors';
+import { Fonts, Matrics } from './src/constants';
 import './src/helpers/Sheets';
 /**
  * Font scalling configuration,
@@ -33,9 +47,14 @@ if ((TextInput as any).defaultProps == null)
 
 const App = () => {
   const { height, width } = useWindowDimensions();
+  const [location, setLocation] = useState<object>({});
+  const BottomSheetRef = useRef<LocationBottomSheetRef>(null);
+  const [locationPermission, setLocationPermission] = useState<string>('');
   // const [location, setLocation] = useState<object>({});
   // const BottomSheetRef = useRef<LocationBottomSheetRef>(null);
   // const [locationPermission, setLocationPermission] = useState<string>('');
+
+
 
   // const requestLocationPermission = async (goToSettings: boolean) => {
   //   try {
@@ -43,30 +62,31 @@ const App = () => {
   //       const granted = await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
   //       setLocationPermission(granted);
   //       if (granted === 'granted') {
-  //         getLocation();
+  //         // getLocation();
   //       } else if (
   //         goToSettings &&
   //         ['blocked', 'never_ask_again'].includes(granted)
   //       ) {
   //         Linking.openSettings();
   //       } else {
-  //         BottomSheetRef.current?.show();
+  //         // BottomSheetRef.current?.show();
   //       }
   //     } else {
   //       const granted = await request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
   //       setLocationPermission(granted);
   //       if (granted == RESULTS.GRANTED) {
-  //         getLocation();
+  //         // getLocation();
   //       } else if (goToSettings) {
   //         Linking.openURL('app-settings:');
   //       } else {
-  //         BottomSheetRef.current?.show();
+  //         // BottomSheetRef.current?.show();
   //       }
   //     }
   //   } catch (err) {
-  //     BottomSheetRef.current?.show();
+  //     // BottomSheetRef.current?.show();
   //   }
   // };
+
 
   // const getLocation = () => {
   //   Geolocation.getCurrentPosition(
@@ -80,7 +100,10 @@ const App = () => {
   //       // Handle location error here
   //       requestLocationPermission(false);
   //     },
+
   //     {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
+
+  //     { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 },
   //   );
   // };
 
@@ -148,6 +171,7 @@ const App = () => {
 
   //     setLocationPermission(permissionResult);
 
+
   //     if (permissionResult === RESULTS.GRANTED) {
   //       getLocation();
   //     } else {
@@ -160,29 +184,40 @@ const App = () => {
   // };
 
   return (
-    <Provider store={Store}>
-      <PersistGate persistor={Persistor}>
-        <GestureHandlerRootView style={{ height, width }}>
-          <MenuProvider>
-            <SheetProvider>
-              <AppProvider>
-                <Router />
-                {/* <LocationBottomSheet
+    <ToastProvider
+      type={'normal'}
+      duration={2500}
+      animationType={'slide-in'}
+      style={{ borderRadius: Matrics.mvs(12), width: Matrics.screenWidth - 20 }}
+      textStyle={{
+        fontSize: Matrics.mvs(13),
+        fontFamily: Fonts.REGULAR,
+        color: colors.white,
+        lineHeight: 18,
+      }}>
+      <Provider store={Store}>
+        <PersistGate persistor={Persistor}>
+          <GestureHandlerRootView style={{ height, width }}>
+            <MenuProvider>
+              <SheetProvider>
+                <AppProvider>
+                  <Router />
+                  {/* <LocationBottomSheet
                 ref={BottomSheetRef}
                 setLocation={setLocation}
                 requestLocationPermission={requestLocationPermission}
                 setLocationPermission={setLocationPermission}
                 locationPermission={locationPermission}
               /> */}
-              </AppProvider>
-            </SheetProvider>
-          </MenuProvider>
-        </GestureHandlerRootView>
-      </PersistGate>
-    </Provider>
+                </AppProvider>
+              </SheetProvider>
+            </MenuProvider>
+          </GestureHandlerRootView>
+        </PersistGate>
+      </Provider>
+    </ToastProvider>
+
   );
 };
 
 export default App;
-
-const styles = StyleSheet.create({});

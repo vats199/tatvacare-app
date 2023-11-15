@@ -11,6 +11,7 @@ import { StackScreenProps } from '@react-navigation/stack';
 import RoutineHeader from '../../components/molecules/RoutineHeader';
 import RoutineExercises from '../../components/organisms/RoutineExercises';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Matrics } from '../../constants';
 
 type ExerciseScreenProps = CompositeScreenProps<
   MaterialTopTabScreenProps<TabParamList, 'RoutineScreen'>,
@@ -100,7 +101,7 @@ const styles = StyleSheet.create({
   exerciesContainer: {
     backgroundColor: colors.lightGray,
     flex: 0.8,
-    borderTopLeftRadius: 30, borderTopRightRadius: 30,
+    borderTopLeftRadius: Matrics.mvs(28), borderTopRightRadius: Matrics.mvs(28),
     paddingBottom: '10%'
   },
 });

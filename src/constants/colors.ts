@@ -70,4 +70,11 @@ export const colors = {
   OVERLAY_DARK_50: 'rgba(0,0,0,0.5)',
   OVERLAY_DARK_60: 'rgba(0,0,0,0.6)',
   OVERLAY_DARK_70: 'rgba(0,0,0,0.7)',
+  shadow: 'rgba(33, 33, 33, 0.5)',
+  seprator: '#e0e0e0',
+
+  orangeBg: '#FAB0001A',
+  orangeLineBg: '#F0CE7C',
+  greenBg: '#1BB3331A',
+  greenLineBg: '#9EDBA7',
 };

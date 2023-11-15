@@ -4,7 +4,6 @@ import {useIsFocused} from '@react-navigation/native';
 import {colors} from '../../constants/colors';
 
 // --------------- ASSETS ---------------
-
 // --------------- COMPONENT DECLARATION ---------------
 type MyStatusBarProps = {
   barStyle?: StatusBarStyle;

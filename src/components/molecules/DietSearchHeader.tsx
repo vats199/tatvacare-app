@@ -1,34 +1,41 @@
-import { StyleSheet, View, TextInput } from 'react-native';
+import { StyleSheet, View, TextInput, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 import { Icons } from '../../constants/icons';
 import { Matrics } from '../../constants';
-
+import { colors } from '../../constants/colors';
+import { globalStyles } from '../../constants/globalStyles';
 
 type DietSearchHeaderProps = {
   onPressBack: () => void;
   onSearch: (text: string) => void;
 };
 
-const DietSearchHeader: React.FC<DietSearchHeaderProps> = ({ onPressBack, onSearch }) => {
+const DietSearchHeader: React.FC<DietSearchHeaderProps> = ({
+  onPressBack,
+  onSearch,
+}) => {
   const [searchText, setSearchText] = useState<string>('');
 
   const handleSerache = (text: string) => {
-    const cleanedText = text.replace(/[^a-zA-Z\s]/g, '');
+    const spaceFree = text.trimStart()
+    const cleanedText = spaceFree.replace(/[^a-zA-Z\s]/g, '');
     setSearchText(cleanedText);
-    onSearch(text)
-  }
+    onSearch(text);
+  };
   return (
     <View style={styles.container}>
-      <Icons.backArrow height={22} width={22} onPress={onPressBack} />
+      <TouchableOpacity hitSlop={8} onPress={onPressBack}>
+        <Icons.backArrow height={20} width={20} />
+      </TouchableOpacity>
       <TextInput
-        style={styles.input}
+        style={[globalStyles.shadowContainer, styles.input,]}
         placeholder="Search foods"
         placeholderTextColor="gray"
         value={searchText}
         onChangeText={text => {
-          setSearchText(text)
           handleSerache(text)
         }}
+        keyboardType="visible-password"
       />
     </View>
   );
@@ -44,15 +51,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   input: {
-    width: '90%',
-    height: Matrics.vs(42),
-    borderWidth: 0.3,
-    borderColor: 'black',
+    flex: 1,
+    height: Matrics.vs(38),
+    borderWidth: Matrics.s(1),
+    borderColor: colors.inputBoxLightBorder,
     backgroundColor: 'white',
-    borderRadius: 10,
-    marginHorizontal: Matrics.s(10),
-    paddingLeft: Matrics.s(15),
+    borderRadius: Matrics.s(12),
+    marginLeft: Matrics.s(16),
+    paddingHorizontal: Matrics.s(15),
     fontSize: Matrics.mvs(12),
     color: 'gray',
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
   },
 });

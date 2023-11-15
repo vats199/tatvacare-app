@@ -1,19 +1,20 @@
-import {View, Text, StyleSheet} from 'react-native';
-import {colors} from '../../constants/colors';
+import { View, Text, StyleSheet } from 'react-native';
+import { colors } from '../../constants/colors';
 import React from 'react';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-import {Icons} from '../../constants/icons';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Icons } from '../../constants/icons';
 import DatePicker from 'react-native-date-picker'
 import moment from 'moment';
+import { Matrics } from '../../constants';
 
 type RoutineHeaderProps = {
   date: String;
   Vadlidity: String;
 };
-const RoutineHeader: React.FC<RoutineHeaderProps> = ({date, Vadlidity}) => {
+const RoutineHeader: React.FC<RoutineHeaderProps> = ({ date, Vadlidity }) => {
   const [selectedDate, setSelectedDate] = React.useState(new Date());
   const [open, setOpen] = React.useState(false);
-   const TabArray = [
+  const TabArray = [
     {
       id: 1,
       title: 'Routine 1',
@@ -40,14 +41,14 @@ const RoutineHeader: React.FC<RoutineHeaderProps> = ({date, Vadlidity}) => {
 
     setTab(updatedTabArray);
   };
- 
+
   return (
     <View style={styles.haederContainer}>
       <View style={styles.headerTitleContainer}>
         <Text style={styles.headerTitle}> Exercise Plan Name</Text>
         <TouchableOpacity style={styles.dateBox} onPress={() => setOpen(true)}>
           <Icons.calendar />
-          <Text style={styles.dateText}>{ moment(selectedDate).format("DD MMM YY")}</Text>
+          <Text style={styles.dateText}>{moment(selectedDate).format("DD MMM YY")}</Text>
           <DatePicker
             modal
             open={open}
@@ -94,8 +95,8 @@ export default RoutineHeader;
 const styles = StyleSheet.create({
   haederContainer: {
     margin: 5,
-    marginHorizontal: 20,
-    marginTop: '7%',
+    marginHorizontal: Matrics.s(20),
+    marginTop: Matrics.vs(19),
     flex: 0.2,
   },
   headerTitleContainer: {
@@ -122,7 +123,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginLeft: 4,
   },
-  haederContent: {fontSize: 14, color: colors.darkBlue, marginTop: 12},
+  haederContent: { fontSize: 14, color: colors.darkBlue, marginTop: 12 },
   cardTitleContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',

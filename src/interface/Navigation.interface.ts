@@ -1,7 +1,6 @@
-import {AppointmentDetailsScreenProps} from '../screens/Appointment/AppointmentDetailsScreen';
-import carePlanScreen from '../screens/CarePlan/CarePlanScreen';
-import Diet from '../api/diet';
+import { AppointmentDetailsScreenProps } from '../screens/Appointment/AppointmentDetailsScreen';
 import { device } from '../screens/DevicePurchase/DeviceScreen';
+import { OptionType } from '../context/diet.context';
 type Options = {
   diet_meal_options_id: string;
   diet_meal_type_rel_id: string;
@@ -75,6 +74,16 @@ type Consumption = {
   diet_plan_food_consumption_id: null;
 };
 
+type mealTYpe = {
+  meal_types_id: string;
+  value: string;
+  meal_type: string;
+  label: string;
+  keys: string;
+  default_time: string;
+  order_no: number;
+};
+
 export type AppStackParamList = {
   DrawerScreen: DrawerParamList;
   AuthStackScreen: AuthStackParamList;
@@ -83,18 +92,18 @@ export type AppStackParamList = {
   DeviceConnectionScreen: undefined;
   SetupProfileScreen: SetupProfileStackParamList;
   DiagnosticStackScreen: DiagnosticStackParamList;
-  AnalyserScreen:{type:string}
-  DevicePurchaseStackScreen:DevicePurchaseStackParamList;
-  VitalDetailStackScreen:VitalDetailStackParamList;
-  LabTestRefundStackScreen:LabTestRefundStackParamList;
+  AnalyserScreen: { type: string }
+  DevicePurchaseStackScreen: DevicePurchaseStackParamList;
+  VitalDetailStackScreen: VitalDetailStackParamList;
+  LabTestRefundStackScreen: LabTestRefundStackParamList;
+  DietStackScreen: DietStackParamList;
 };
 
 export type DrawerParamList = {
-  Home: BottomTabParamList;
+  HomeScreen: undefined;
   AboutUsScreen: undefined;
   GoalScreen: undefined;
-  // ExerciseDetailScreen: {Data: any};
-  // ExplorScreen: undefined;
+  AllLearnItemsScreen: undefined;
 };
 export type TabParamList = {
   RoutineScreen: undefined;
@@ -109,55 +118,55 @@ export type LungTabParamList = {
 
 export type ExerciesStackParamList = {
   ExplorScreen: TabParamList;
-  ExerciseDetailScreen: {Data: any};
+  ExerciseDetailScreen: { Data: any };
 };
 export type EngageStackParamList = {
   EngageScreen: undefined;
-  EngageDetailScreen: {Data: any};
+  EngageDetailScreen: { Data: any };
 };
 
 export type AppointmentStackParamList = {
-  AppointmentScreen: {appointmentDetails?: AppointmentDetailsScreenProps};
-  AppointmentWithScreen: {type: string};
-  AppointmentDetailsScreen: {appointmentDetails: AppointmentDetailsScreenProps};
+  AppointmentScreen: { appointmentDetails?: AppointmentDetailsScreenProps };
+  AppointmentWithScreen: { type: string };
+  AppointmentDetailsScreen: { appointmentDetails: AppointmentDetailsScreenProps };
 };
-export type LabTestRefundStackParamList={
-  LabTestScreen:undefined;
-  OrderDetails:undefined;
-  SelectTestSlot:undefined;
-  TestSummaryScreen:{time:selectTime | undefined};
-  CongratulationsScreen:undefined;
+export type LabTestRefundStackParamList = {
+  LabTestScreen: undefined;
+  OrderDetails: undefined;
+  SelectTestSlot: undefined;
+  TestSummaryScreen: { time: selectTime | undefined };
+  CongratulationsScreen: undefined;
 }
 
 export type DiagnosticStackParamList = {
   AllLabTestScreen: undefined;
-  LabTestCart:undefined;
+  LabTestCart: { coupan: string };
   ApplyCoupan: undefined;
   ConfirmLocation: undefined;
   SearchLabTest: undefined;
   AddPatientDetails: undefined;
   ViewAllTest: undefined;
-  MyPerscription: {data: perscription[]};
-  TestDetail:undefined;
-  SelectTestSlot:undefined;
-  LabTestSummary:{time:selectTime};
-  CongratulationScreen:undefined;
-  OrderDetails:undefined;
+  MyPerscription: { data: perscription[] };
+  TestDetail: undefined;
+  SelectTestSlot: undefined;
+  LabTestSummary: { time: any };
+  CongratulationScreen: undefined;
+  OrderDetails: undefined;
 };
 
-export type DevicePurchaseStackParamList={
-  DeviceScreen:undefined;
-  DeviceDetail:{item:device | undefined};
-  CartScreen:undefined;
-  ConfirmLocationScreen:undefined;
-  OrderSummary:undefined;
-  PaymentDone:undefined;
-  DevicesScreen:undefined;
-  ApplyCoupan:undefined;
+export type DevicePurchaseStackParamList = {
+  DeviceScreen: undefined;
+  DeviceDetail: { item: device | undefined };
+  CartScreen: undefined;
+  ConfirmLocationScreen: undefined;
+  OrderSummary: undefined;
+  PaymentDone: undefined;
+  DevicesScreen: undefined;
+  ApplyCoupan: undefined;
 };
 
-export type VitalDetailStackParamList={
- StepsScreen:undefined;
+export type VitalDetailStackParamList = {
+  StepsScreen: undefined;
 };
 
 export type BottomTabParamList = {
@@ -165,29 +174,49 @@ export type BottomTabParamList = {
   Exercies: ExerciesStackParamList;
   EngageScreen: EngageStackParamList;
   CarePlanScreen: undefined;
-  // ProgramsScreen: undefined;
-  // LearnScreen: undefined;
-  // ExerciseScreen: undefined;
+  ProgramsScreen: undefined;
+  LearnScreen: undefined;
+  ExerciseScreen: undefined;
 };
 
 export type AuthStackParamList = {
   Splash: undefined;
   OnBoardingScreen: undefined;
   LoginScreen: undefined;
-  OTPScreen: {contact_no: string; isLoginOTP?: boolean | false};
+  OTPScreen: { contact_no: string; isLoginOTP?: boolean | false };
 };
 
 export type DietStackParamList = {
   HomeScreen: undefined;
-  DietScreen: undefined;
-  AddDiet: {optionId: string; healthCoachId: string; mealName: string};
+  DietScreen: {
+    option?: OptionType[];
+  };
+  AddDiet: {
+    optionFoodItems?: Options;
+    healthCoachId: string;
+    mealName: string;
+    patient_id?: string;
+    mealData?: mealTYpe | null;
+    selectedDate?: any | null;
+    option: OptionType[];
+  };
   DietDetail: {
     foodItem: FoodItems;
     buttonText: string;
     healthCoachId: string;
     mealName: string;
+    patient_id?: string;
+    mealData?: mealTYpe | null;
+    selectedDate?: any | null;
+    option: OptionType[];
+    toDietScreen: boolean
+    optionFoodItems?: Options
   };
-  ProgressBarInsightsScreen: {calories: Options[]};
+  ProgressBarInsightsScreen: {
+    calories: Options[];
+    currentSelectedDate: Date;
+    option: OptionType[];
+  };
 };
 
 export type SetupProfileStackParamList = {

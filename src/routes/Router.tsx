@@ -26,14 +26,13 @@ import {
   VitalDetailStackParamList,
   LabTestRefundStackParamList
 } from '../interface/Navigation.interface';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
 import {
   DrawerContentComponentProps,
   createDrawerNavigator,
 } from '@react-navigation/drawer';
 import CustomDrawer from '../components/organisms/CustomDrawer';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { colors } from '../constants/colors';
 import { Image } from 'react-native';
@@ -41,7 +40,6 @@ import AppointmentScreen from '../screens/Appointment/AppointmentScreen';
 import AppointmentWithScreen from '../screens/Appointment/AppointmentWithScreen';
 import AppointmentDetailsScreen from '../screens/Appointment/AppointmentDetailsScreen';
 import SpirometerScreen from '../screens/Spirometer/SpirometerScreen';
-import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import DeviceConnectionScreen from '../screens/Spirometer/DeviceConnectionScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Splash from '../screens/Auth/Splash';
@@ -49,10 +47,15 @@ import WelcomeScreen from '../screens/SetupProfile/WelcomeScreen';
 import QuestionOneScreen from '../screens/SetupProfile/QuestionOneScreen';
 import ScanCodeScreen from '../screens/SetupProfile/ScanCodeScreen';
 import QuestionListScreen from '../screens/SetupProfile/QuestionListScreen';
+import { NativeModules } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
 import DietScreen from '../screens/FoodDiary/DietScreen';
 import AddDietScreen from '../screens/FoodDiary/AddDietScreen';
 import DietDetailScreen from '../screens/FoodDiary/DietDetailScreen';
 import ProgressBarInsightsScreen from '../screens/FoodDiary/ProgressBarInsightsScreen';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import { useRef } from 'react';
+import { useApp } from '../context/app.context';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ProgressReportScreen from '../screens/SetupProfile/ProgressReportScreen';
@@ -86,6 +89,7 @@ import DetailsOrderScreen from '../screens/LabTestRefund/DetailsOrderScreen';
 import TestSlotScreen from '../screens/LabTestRefund/TestSlotScreen';
 import TestSummaryScreen from '../screens/LabTestRefund/TestSummaryScreen';
 import CongratulationsScreen from '../screens/LabTestRefund/CongratulationsScreen';
+import { DietProvider } from '../context/diet.context';
 
 const Drawer = createDrawerNavigator<DrawerParamList>();
 const DrawerScreen = () => {
@@ -184,7 +188,7 @@ const TabScreen = () => {
           tabBarInactiveTintColor: colors.tabTitleColor,
           tabBarLabelStyle: {
             textAlign: 'center',
-            fontSize: 18,
+            fontSize: Matrics.mvs(18),
             textTransform: 'none',
             fontWeight: '600',
           },
@@ -472,27 +476,55 @@ const HomeStackScreen = () => {
     </HomeStack.Navigator>
   );
 };
+
 const DietStack = createStackNavigator<DietStackParamList>();
 const DietStackScreen = () => {
   return (
-    <DietStack.Navigator
-      screenOptions={{ headerShown: false }}
-      initialRouteName="DietScreen">
-      <DietStack.Screen name="HomeScreen" component={HomeScreen} />
-      <DietStack.Screen name="DietScreen" component={DietScreen} />
-      <DietStack.Screen name="AddDiet" component={AddDietScreen} />
-      <DietStack.Screen name="DietDetail" component={DietDetailScreen} />
-      <DietStack.Screen
-        name="ProgressBarInsightsScreen"
-        component={ProgressBarInsightsScreen}
-      />
-    </DietStack.Navigator>
+    <DietProvider>
+      <DietStack.Navigator
+        screenOptions={{ headerShown: false }}
+        initialRouteName="DietScreen">
+        <DietStack.Screen name="HomeScreen" component={HomeScreen} />
+        <DietStack.Screen name="DietScreen" component={DietScreen} />
+        <DietStack.Screen name="AddDiet" component={AddDietScreen} />
+        <DietStack.Screen
+          name="DietDetail"
+          component={DietDetailScreen}
+          initialParams={{ option: undefined }}
+        />
+        <DietStack.Screen
+          name="ProgressBarInsightsScreen"
+          component={ProgressBarInsightsScreen}
+        />
+      </DietStack.Navigator>
+    </DietProvider>
   );
 };
+
 const AppStack = createStackNavigator<AppStackParamList>();
 const Router = () => {
+  const navigationRef = useNavigationContainerRef();
+  const routeNameRef = useRef<string | undefined>(undefined);
+  const { setCurrentScreenName } = useApp()
+
   return (
-    <NavigationContainer>
+    <NavigationContainer
+      ref={navigationRef}
+      onReady={() => {
+        routeNameRef.current = navigationRef.getCurrentRoute()?.name;
+      }}
+      onStateChange={async () => {
+        const previousRouteName = routeNameRef.current;
+        const currentRouteName = navigationRef.getCurrentRoute()?.name;
+        if (previousRouteName !== currentRouteName) {
+          // Save the current route name for later comparison
+          routeNameRef.current = currentRouteName;
+          setCurrentScreenName(routeNameRef.current)
+          // Replace the line below to add the tracker from a mobile analytics SDK
+
+        }
+      }}
+    >
       <BottomSheetModalProvider>
         <AppStack.Navigator
           initialRouteName="AuthStackScreen"

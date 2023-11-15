@@ -1,9 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import { useFocusEffect } from '@react-navigation/native';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  createContext,
+  useCallback,
+} from 'react';
+import { useFocusEffect, useIsFocused } from '@react-navigation/native';
+import {
+  FlatList,
+  LayoutAnimation,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import CalorieConsumer from '../../components/molecules/CalorieConsumer';
 import DietHeader from '../../components/molecules/DietHeader';
-import DietTime from '../../components/organisms/DietTime';
+import DietTime, {
+  FoodItems,
+  MealsData,
+} from '../../components/organisms/DietTime';
 import { colors } from '../../constants/colors';
 import { DietStackParamList } from '../../interface/Navigation.interface';
 import { StackScreenProps } from '@react-navigation/stack';
@@ -11,80 +29,115 @@ import Diet from '../../api/diet';
 import { useApp } from '../../context/app.context';
 import moment from 'moment';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Matrics } from '../../constants';
+import { Constants, Matrics, Fonts } from '../../constants';
 import Loader from '../../components/atoms/Loader';
 import BasicModal from '../../components/atoms/BasicModal';
+// import MyStatusbar from '../../components/atoms/MyStatusBar';
+import { useToast } from 'react-native-toast-notifications';
+import { globalStyles } from '../../constants/globalStyles';
+import CommonBottomSheetModal from '../../components/molecules/CommonBottomSheetModal';
+import AlertBottomSheet from '../../components/organisms/AlertBottomSheet';
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
+import { trackEvent } from '../../helpers/TrackEvent';
+import mealTypes from '../../constants/data';
+import MealCard from '../../components/molecules/MealCard';
+import { useDiet } from '../../context/diet.context';
+import { CalendarProvider, DateData } from 'react-native-calendars';
 import MyStatusbar from '../../components/atoms/MyStatusBar';
 
 type DietScreenProps = StackScreenProps<DietStackParamList, 'DietScreen'>;
 
+type mealTYpe = {
+  meal_types_id: string;
+  value: string;
+  meal_type: string;
+  label: string;
+  keys: string;
+  default_time: string;
+  order_no: number;
+};
+
 const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   const insets = useSafeAreaInsets();
-  const title = route.params?.dietData;
-  const [dietOption, setDietOption] = useState<boolean>(false);
+  const {
+    resetData,
+    selectedOptionsId,
+    dietPlanDataAssign,
+    resetCalories,
+    totalCalories,
+    totalConsumedCalories,
+  } = useDiet();
+  const toast = useToast();
   const [loader, setLoader] = useState<boolean>(false);
-  const [selectedDate, setSelectedDate] = useState(new Date());
   const [dietPlane, setDiePlane] = useState<any>([]);
   const { userData } = useApp();
   const [deletpayload, setDeletpayload] = useState<string | null>(null);
   const [modalVisible, setModalVisible] = React.useState<boolean>(false);
-  const [stateOfAPIcall, setStateOfAPIcall] = React.useState<boolean>(false);
-  const [caloriesArray, setCaloriesArray] = React.useState<any[]>([]);
-  const [totalcalorie, setTotalcalories] = useState<number | null>(null);
-  const [totalConsumedcalorie, setTotalConsumedcalories] = useState<
-    number | null
-  >(null);
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const deleteItemRef = useRef<{
+    deleteFoodItemId: string;
+    is_food_item_added_by_patient: string;
+    optionId: string;
+    data: FoodItems;
+    mealId: string;
+  } | null>();
+  const focus = useIsFocused();
+  const _selectedDateRef = useRef<Date | null>(new Date());
+  const options = route?.params?.option;
 
-  useEffect(() => {
-    getData();
-    return () => setDiePlane([]);
-  }, [selectedDate, stateOfAPIcall]);
-
-  useEffect(() => {
-    if (title) {
-      setDietOption(true);
-    } else {
-      setDietOption(false);
-    }
-  }, [title]);
-
-  useEffect(() => {
-    const totalcalories = caloriesArray.reduce((accumulator, currentValue) => {
-      return accumulator + Number(currentValue?.total_calories);
-    }, 0);
-    setTotalcalories(totalcalories);
-    const totalConsumedcalories = caloriesArray.reduce(
-      (accumulator, currentValue) => {
-        return accumulator + Number(currentValue?.consumed_calories);
-      },
-      0,
-    );
-    setTotalConsumedcalories(totalConsumedcalories);
-  }, [caloriesArray]);
-
-  useFocusEffect(
-    React.useCallback(() => {
-      getData();
-      return () => setDiePlane([]);
-    }, []),
+  // const [selectedDate, setSelectedDate] = useState<string | Date>(new Date());
+  const [tempSelectedDate, setTempSelectedDate] = useState<string | Date>(
+    new Date(),
   );
+  // const [newMonth, setNewMonth] = useState<string | Date>(
+  //   moment(tempSelectedDate).format('YYYY-MM-DD'),
+  // );
+
+  useEffect(() => {
+    // console.log('focus:', focus);
+    if (focus) {
+      getData();
+    } else {
+      // selectedOptionsId.current = [];
+      deleteItemRef.current = null;
+      // setDiePlane([]);
+    }
+  }, [focus]);
 
   const getData = async () => {
     setLoader(true);
-    const date = moment(selectedDate).format('YYYY/MM/DD');
+    const date = moment(_selectedDateRef?.current ?? new Date()).format(
+      'YYYY-MM-DD',
+    );
     const diet = await Diet.getDietPlan(
       { date: date },
       {},
-      { token: userData?.token },
+      { token: userData.token },
     );
-    console.log('diet', diet);
-
-    if (diet?.code === '1') {
-      setLoader(false);
-      setDiePlane(diet?.data[0]);
+    if (Constants.IS_CHECK_API_CODE) {
+      if (diet.code == '1') {
+        setTimeout(() => {
+          setLoader(false);
+        }, 500);
+        setDiePlane(diet?.data?.[0]);
+        dietPlanDataAssign(diet?.data?.[0]);
+      } else {
+        setDiePlane([]);
+        setLoader(false);
+        resetCalories();
+      }
     } else {
-      setDiePlane([]);
-      setLoader(false);
+      if (Object.keys(diet).length > 0) {
+        setTimeout(() => {
+          setLoader(false);
+        }, 500);
+        setDiePlane(diet?.data?.[0]);
+        dietPlanDataAssign(diet?.data?.[0]);
+      } else {
+        setDiePlane([]);
+        setLoader(false);
+        resetCalories();
+      }
     }
   };
 
@@ -93,25 +146,56 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
   };
 
   const handleDate = (date: any) => {
-    setSelectedDate(date);
+    navigation.setParams({ option: undefined });
+    // setSelectedDate(date);
+    setTempSelectedDate(date);
+    _selectedDateRef.current = date;
+    getData();
   };
 
   const handaleEdit = (data: any, mealName: string) => {
+    const tempOption = [...selectedOptionsId.current];
     navigation.navigate('DietDetail', {
       foodItem: data,
       buttonText: 'Update',
       healthCoachId: dietPlane?.health_coach_id,
       mealName: mealName,
+      patient_id: dietPlane?.patient_id,
+      option: tempOption,
+      toDietScreen: true,
     });
   };
 
-  const handaleDelete = (id: string) => {
-    setDeletpayload(id);
-    setModalVisible(!modalVisible);
+  const handaleDelete = (
+    id: string,
+    is_food_item_added_by_patient: string,
+    optionId: string,
+    data: FoodItems,
+    mealId: string,
+  ) => {
+    if (is_food_item_added_by_patient === 'Y') {
+      setDeletpayload(id);
+      const param = {
+        deleteFoodItemId: id,
+        is_food_item_added_by_patient: is_food_item_added_by_patient,
+        optionId: optionId,
+        data: data,
+        mealId: mealId,
+      };
+      deleteItemRef.current = param;
+      // setModalVisible(!modalVisible);
+      bottomSheetModalRef.current?.present();
+    } else {
+      toast.hideAll();
+      toast.show(
+        'Unfortunately, you can not delete this food item since it was recommended by your nutritionist.',
+      );
+    }
   };
 
   const deleteFoodItem = async () => {
-    setStateOfAPIcall(true);
+    // setModalVisible(false);
+    bottomSheetModalRef.current?.close();
     const deleteFoodItem = await Diet.deleteFoodItem(
       {
         patient_id: dietPlane?.patient_id,
@@ -119,101 +203,210 @@ const DietScreen: React.FC<DietScreenProps> = ({ navigation, route }) => {
         diet_plan_food_item_id: deletpayload,
       },
       {},
-      { token: userData?.token },
+      { token: userData.token },
     );
-    getData();
-    if (deleteFoodItem?.code === '1') {
-      setStateOfAPIcall(false);
-      navigation.replace('DietScreen');
-      setTimeout(() => {
-        setModalVisible(false);
-      }, 1000);
+    if (Constants.IS_CHECK_API_CODE) {
+      if (deleteFoodItem?.code === '1') {
+        getData();
+        deleteItemRef.current = null;
+        setTimeout(() => {
+          bottomSheetModalRef.current?.close();
+        }, 1000);
+      }
+    } else {
+      if (deleteFoodItem?.data) {
+        getData();
+        deleteItemRef.current = null;
+        setTimeout(() => {
+          bottomSheetModalRef.current?.close();
+        }, 1000);
+      }
     }
   };
-  const handlePulsIconPress = async (optionId: string, mealName: string) => {
+
+  const handlePulsIconPress = async (
+    optionFoodItems: any,
+    mealName: string,
+  ) => {
+    const tempOption = [...selectedOptionsId.current];
     navigation.navigate('AddDiet', {
-      optionId: optionId,
+      optionFoodItems: optionFoodItems,
       healthCoachId: dietPlane?.health_coach_id,
       mealName: mealName,
+      patient_id: dietPlane?.patient_id,
+      mealData: null,
+      option: tempOption,
     });
   };
 
-  const handalecompletion = async (item: any) => {
+  const handalecompletion = async (
+    item: any,
+    optionId: string,
+    dietPlanId: string,
+  ) => {
     const UpadteFoodItem = await Diet.updateFoodConsumption(
       item,
       {},
-      { token: userData?.token },
+      { token: userData.token },
     );
-    setDiePlane([]);
-    getData();
-    if (UpadteFoodItem?.code === '1') {
+    getData(optionId, dietPlanId);
+    if (UpadteFoodItem) {
     }
   };
 
-  const handalTotalCalories = async (caloriesValue: any) => {
-    setCaloriesArray(prevCalories => {
-      const indexToUpdate = prevCalories.findIndex(
-        item =>
-          item.diet_meal_type_rel_id === caloriesValue.diet_meal_type_rel_id,
-      );
-      if (indexToUpdate !== -1) {
-        const updatedCaloriesArray = [...prevCalories];
-        updatedCaloriesArray[indexToUpdate] = caloriesValue;
-        return updatedCaloriesArray;
-      } else {
-        return [...prevCalories, caloriesValue];
-      }
+  const handelOnpressOfprogressBar = () => {
+    let vale = Math.round((totalConsumedCalories / totalCalories) * 100);
+    if (isNaN(vale)) {
+      vale = 0;
+    }
+    let tempCaloriesArray: any[] = [];
+    dietPlane?.meals?.map((meal, index) => {
+      meal.options.map(item => {
+        item?.food_items?.length !== 0 &&
+          selectedOptionsId.current.map(q => {
+            if (
+              q.mealId == item.diet_meal_type_rel_id &&
+              q.optionId == item.diet_meal_options_id
+            ) {
+              const tempItem = {
+                meal_name: meal?.meal_name,
+                ...item,
+              };
+              tempCaloriesArray.push(tempItem);
+            }
+          });
+      });
+    });
+
+    trackEvent(Constants.EVENT_NAME.FOOD_DIARY.USER_CLICKS_ON_INSIGHT, {
+      date_of_insight: moment(_selectedDateRef.current).format(
+        Constants.DATE_FORMAT,
+      ),
+      goal_value: totalCalories,
+      actual_value: totalConsumedCalories,
+      percentage_completion: vale,
+      goal_unit: 'cal',
+    });
+    const tempOption = [...selectedOptionsId.current];
+    navigation.navigate('ProgressBarInsightsScreen', {
+      calories: tempCaloriesArray,
+      currentSelectedDate:
+        _selectedDateRef.current != null
+          ? new Date(_selectedDateRef.current)
+          : new Date(),
+      option: tempOption,
     });
   };
-  const handelOnpressOfprogressBar = () => {
-    navigation.navigate("ProgressBarInsightsScreen", { calories: caloriesArray })
-  }
+
+  const handlePressOfNoPlanePlusIcon = (mealData: mealTYpe) => {
+    const today = new Date();
+    if (
+      moment(new Date(_selectedDateRef.current ?? new Date())).format(
+        'YYYY-MM-DD',
+      ) >= moment(today).format('YYYY-MM-DD')
+    ) {
+      const tempOption = [...selectedOptionsId.current];
+      navigation.navigate('AddDiet', {
+        healthCoachId: dietPlane?.health_coach_id,
+        mealName: mealData?.label,
+        mealData: mealData,
+        selectedDate: _selectedDateRef.current,
+        patient_id: dietPlane?.patient_id,
+        option: tempOption,
+      });
+    } else {
+      toast.hideAll();
+      toast.show("Food item can't be added in past date meals");
+    }
+  };
+
+  // const onChangeMonth = (date: DateData) => {
+  //   let tempDate = new Date(date?.dateString);
+  //   setNewMonth(tempDate);
+  // };
+
+  // const onDateChanged = useCallback((date: any, updateSource: any) => {
+  //   let tempDate = new Date(date);
+  //   setNewMonth(tempDate);
+  //   console.log('tempDate', tempDate);
+  // }, []);
 
   return (
-    <SafeAreaView edges={['top',]} style={[styles.mainContienr, { paddingTop: Matrics.vs(15) }]}>
-      <DietHeader
-        onPressBack={onPressBack}
-        onPressOfNextAndPerviousDate={handleDate}
-        title="Diet"
-      />
-      <View style={styles.belowContainer}>
-        <TouchableOpacity onPress={handelOnpressOfprogressBar}>
-          <CalorieConsumer
-            totalConsumedcalories={totalConsumedcalorie}
-            totalcalories={totalcalorie}
-          />
-        </TouchableOpacity>
-        {Object.keys(dietPlane).length > 0 ? (
-          <DietTime
-            onPressPlus={handlePulsIconPress}
-            dietOption={dietOption}
-            dietPlane={dietPlane?.meals}
-            onpressOfEdit={handaleEdit}
-            onPressOfDelete={handaleDelete}
-            onPressOfcomplete={handalecompletion}
-            getCalories={handalTotalCalories}
-          />
-        ) : (
-          <View style={styles.messageContainer}>
-            <Text style={{ fontSize: 15 }}>{'No diet plan available'}</Text>
-          </View>
-        )}
-      </View>
-      <View
-        style={{
-          backgroundColor: colors.veryLightGreyishBlue,
-          height: insets.bottom === 0 ? Matrics.vs(20) : insets.bottom,
-        }}></View>
-      <BasicModal
-        modalVisible={modalVisible}
-        messgae={
-          'Are you sure you want to delete this food item from your meal'
-        }
-        NegativeButtonsText="Cancle"
-        positiveButtonText="Ok"
-        onPressOK={deleteFoodItem}
-        onPressCancle={() => setModalVisible(!modalVisible)}
-      />
+    <SafeAreaView
+      edges={['top']}
+      style={[
+        styles.mainContienr,
+        {
+          paddingTop: Platform.OS == 'android' ? Matrics.vs(10) : 0,
+        },
+      ]}>
+      <MyStatusbar backgroundColor={colors.lightGreyishBlue} />
+      <CalendarProvider
+        date={moment(tempSelectedDate).format('YYYY-MM-DD')}
+        disabledOpacity={0.6}
+      // onMonthChange={onChangeMonth}
+      // onDateChanged={onDateChanged}
+      >
+        <DietHeader
+          onPressBack={onPressBack}
+          onPressOfNextAndPerviousDate={handleDate}
+          title="Diet"
+          selectedDate={tempSelectedDate}
+          // newMonth={newMonth}
+          onChangeDate={date => {
+            setTempSelectedDate(date);
+            // setNewMonth(date);
+          }}
+        />
+        <View style={styles.belowContainer}>
+          <TouchableOpacity
+            activeOpacity={0.5}
+            style={[styles.caloriesContainer, globalStyles.shadowContainer]}
+            onPress={handelOnpressOfprogressBar}>
+            <CalorieConsumer />
+          </TouchableOpacity>
+          {Object?.keys(dietPlane)?.length > 0 ? (
+            <DietTime
+              onPressPlus={handlePulsIconPress}
+              dietPlane={JSON.parse(JSON.stringify(dietPlane?.meals))}
+              onpressOfEdit={handaleEdit}
+              onPressOfDelete={handaleDelete}
+              onPressOfcomplete={handalecompletion}
+              options={options}
+            />
+          ) : loader ? null : (
+            <FlatList
+              style={[styles.innercontainer]}
+              contentContainerStyle={{
+                paddingBottom: insets.bottom + Matrics.vs(10),
+              }}
+              showsVerticalScrollIndicator={false}
+              data={mealTypes}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={({ item, index }: { item: mealTYpe; index: number }) => {
+                return (
+                  <MealCard
+                    cardData={item}
+                    onPressPlus={handlePressOfNoPlanePlusIcon}
+                  />
+                );
+              }}
+            />
+          )}
+        </View>
+      </CalendarProvider>
+      <CommonBottomSheetModal snapPoints={['35%']} ref={bottomSheetModalRef}>
+        <AlertBottomSheet
+          onPressAccept={deleteFoodItem}
+          onPressCancel={() => {
+            bottomSheetModalRef.current?.dismiss();
+          }}
+          insets={insets}
+          title={
+            'Are you sure you want to delete this food item from your meal?'
+          }
+        />
+      </CommonBottomSheetModal>
       <Loader visible={loader} />
     </SafeAreaView>
   );
@@ -223,7 +416,6 @@ const styles = StyleSheet.create({
   mainContienr: { flex: 1, backgroundColor: colors.lightGreyishBlue },
   belowContainer: {
     flex: 1,
-    paddingHorizontal: Matrics.s(15),
     backgroundColor: colors.lightGreyishBlue,
   },
   messageContainer: {
@@ -246,6 +438,17 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: Matrics.s(-7),
     top: Matrics.vs(-7),
+  },
+  caloriesContainer: {
+    borderRadius: Matrics.mvs(12),
+    marginTop: Matrics.vs(5),
+    marginBottom: Matrics.vs(5),
+    marginHorizontal: Matrics.s(15),
+  },
+  innercontainer: {
+    flex: 1,
+    paddingHorizontal: Matrics.s(15),
+    marginTop: Matrics.vs(5),
   },
 });
 

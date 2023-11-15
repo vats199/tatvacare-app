@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { View, StyleSheet, Text, ViewStyle, TextStyle } from 'react-native';
 import { Dropdown as ElementDropdown } from 'react-native-element-dropdown';
 import { Icons } from '../../constants/icons';
+import { Fonts, Matrics } from '../../constants';
+import { colors } from '../../constants/colors';
 
 interface DropdownProps {
   data: Array<{ label: string; value: string }>;
@@ -15,8 +17,7 @@ interface DropdownProps {
   selectedItem: (data: string) => void;
   isDisable?: boolean;
   containerStyle?: TextStyle;
-  defaultValues?: string
-
+  defaultValues?: string;
 }
 
 const DropdownComponent: React.FC<DropdownProps> = ({
@@ -30,7 +31,8 @@ const DropdownComponent: React.FC<DropdownProps> = ({
   placeholder,
   selectedItem,
   isDisable,
-  containerStyle, defaultValues
+  containerStyle,
+  defaultValues,
 }) => {
   const [value, setValue] = useState<string | null>(defaultValues || null);
   const [isFocus, setIsFocus] = useState(false);
@@ -38,55 +40,53 @@ const DropdownComponent: React.FC<DropdownProps> = ({
     selectedItem(item);
   };
   return (
-    <View style={[styles.container, dropdownStyle]}>
-      <ElementDropdown
-        style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
-        placeholderStyle={[styles.placeholderStyle, placeholderStyle]}
-        selectedTextStyle={[styles.selectedTextStyle, selectedTextStyle]}
-        inputSearchStyle={[styles.inputSearchStyle, inputSearchStyle]}
-        iconStyle={[styles.iconStyle]}
-        iconColor="black"
-        data={data}
-        // search
-        containerStyle={containerStyle}
-        dropdownPosition={'top'}
-        maxHeight={300}
-        labelField="label"
-        valueField="value"
-        placeholder={!isFocus ? placeholder : 'select'}
-        searchPlaceholder="Search..."
-        value={value}
-        disable={isDisable}
-        onFocus={() => setIsFocus(true)}
-        onBlur={() => setIsFocus(false)}
-        onChange={item => {
-          handeSelectItem(item.value);
-          setValue(item.value);
-          setIsFocus(false);
-        }}
-      />
-    </View>
+    <ElementDropdown
+      style={[
+        styles.dropdown,
+        isFocus && { borderColor: colors.darkGray },
+        dropdownStyle,
+      ]}
+      placeholderStyle={[styles.placeholderStyle, placeholderStyle]}
+      selectedTextStyle={[styles.selectedTextStyle, selectedTextStyle]}
+      inputSearchStyle={[styles.inputSearchStyle, inputSearchStyle]}
+      iconStyle={[styles.iconStyle]}
+      iconColor="black"
+      data={data}
+      // search
+      containerStyle={containerStyle}
+      dropdownPosition={'top'}
+      maxHeight={300}
+      labelField="label"
+      valueField="value"
+      itemTextStyle={{ color: colors.subTitleLightGray }}
+      placeholder={!isFocus ? placeholder : 'select'}
+      searchPlaceholder="Search..."
+      value={value}
+      disable={isDisable}
+      onFocus={() => setIsFocus(true)}
+      onBlur={() => setIsFocus(false)}
+      onChange={item => {
+        handeSelectItem(item.value);
+        setValue(item.value);
+        setIsFocus(false);
+      }}
+      renderRightIcon={() => {
+        return <Icons.DropdownIcon />;
+      }}
+    />
   );
 };
 
 export default DropdownComponent;
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: 'white',
-    marginRight: 10,
-  },
   dropdown: {
-    height: 44,
-    borderColor: '#E0E0E0',
-    borderWidth: 1.3,
-    borderRadius: 14,
-    paddingHorizontal: 8,
-
-    // elevation: 0.2,
-  },
-  icon: {
-    marginRight: 5,
+    height: Matrics.vs(44),
+    borderColor: colors.inputBoxLightBorder,
+    borderWidth: Matrics.s(1),
+    borderRadius: Matrics.mvs(12),
+    paddingHorizontal: Matrics.s(12),
+    backgroundColor: colors.white,
   },
   label: {
     position: 'absolute',
@@ -95,18 +95,22 @@ const styles = StyleSheet.create({
     top: 8,
     zIndex: 999,
     paddingHorizontal: 8,
-    fontSize: 14,
+    fontSize: 20,
   },
   placeholderStyle: {
-    fontSize: 16,
+    fontFamily: Fonts.REGULAR,
+    fontSize: Matrics.mvs(13),
+    color: colors.subTitleLightGray,
   },
   selectedTextStyle: {
-    fontSize: 16,
+    fontFamily: Fonts.REGULAR,
+    fontSize: Matrics.mvs(13),
+    color: colors.subTitleLightGray,
   },
   iconStyle: {
-    width: 20,
-    height: 20,
-    // tintColor: '#919191',
+    width: Matrics.mvs(20),
+    height: Matrics.mvs(20),
+    tintColor: '#919191',
   },
   inputSearchStyle: {
     height: 40,

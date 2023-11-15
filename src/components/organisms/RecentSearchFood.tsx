@@ -4,18 +4,19 @@ import { colors } from '../../constants/colors';
 import RecentDietItem from '../molecules/RecentFoodItem';
 import { Icons } from '../../constants/icons';
 import { TouchableOpacity } from 'react-native';
-import { Matrics } from '../../constants';
+import { Fonts, Matrics } from '../../constants';
 import { log } from 'console';
 
 type RecentSerachDietProps = {
   onPressPlus: (data: SearcheFood) => void;
-  searchData: data;
+  searchData: SearcheFood[];
   title: string;
+  message: string;
 };
-type data = {
-  code: string,
-  data: SearcheFood[];
-}
+// type data = {
+//   code: string,
+//   data: SearcheFood[];
+// }
 type SearcheFood = {
   FOOD_ID: number;
   ALIAS_NAME: string;
@@ -37,48 +38,65 @@ type SearcheFood = {
   total_saturated_fatty_acids: string;
   total_monounsaturated_fatty_acids: string;
   total_polyunsaturated_fatty_acids: string;
+  total_macronutrients: number;
+  total_micronutrients: number;
 };
 const RecentSearchDiet: React.FC<RecentSerachDietProps> = ({
   onPressPlus,
   searchData,
   title,
+  message,
 }) => {
   const renderRecentSearchItem = (item: SearcheFood, index: number) => {
-
-
     return (
       <TouchableOpacity
         style={styles.container}
         onPress={() => onPressPlus(item)}>
-        <View style={{ flex: 0.78 }}>
+        <View
+          style={{
+            flex: 1,
+          }}>
           <Text style={styles.titleText}>{item?.food_name}</Text>
-          <Text style={styles.messageText}>{' Quantity| Micronutrients'}</Text>
-        </View>
-        <View style={styles.leftContainer}>
-          <View style={{ flex: 0.7 }}>
-            <Text style={styles.calorieText}>
-              {item?.CALORIES_CALCULATED_FOR}cal
+          {/* <Text style={styles.messageText}>
+            {'  ' +
+              (Math.round(Number(item.total_micronutrients))
+                ? Math.round(Number(item.total_micronutrients))
+                : 0) +
+              ' g'}
+          </Text> */}
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Text style={[styles.messageText, { textTransform: 'capitalize' }]}>
+              {'1' + ' ' + item.unit_name + '  | '}
+            </Text>
+            <Text style={[styles.messageText, { textTransform: 'lowercase' }]}>
+              {Math.round(Number(item.total_micronutrients)) + ' g'}
             </Text>
           </View>
-          <View style={{ flex: 0.3, }}>
-            <Icons.AddCircle height={25} width={25} />
-          </View>
+        </View>
+        <View style={styles.leftContainer}>
+          <Text style={styles.calorieText}>
+            {item?.CALORIES_CALCULATED_FOR}cal
+          </Text>
+          <Icons.AddCircle height={24} width={24} />
         </View>
       </TouchableOpacity>
     );
   };
-  console.log("searchData?.code === ", searchData?.code);
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <Text style={styles.text}>{title}</Text>
-      {searchData?.code !== "2" ? (
-        searchData?.data?.map(renderRecentSearchItem)
+      {searchData?.length ? (
+        searchData?.map(renderRecentSearchItem)
       ) : (
         <View>
-          <Text style={{ textTransform: 'capitalize' }}>
-            sorry but no such food item found in our database please try with
-            some other keyword
+          <Text
+            style={{
+              fontFamily: Fonts.REGULAR,
+              color: colors.subTitleLightGray,
+              marginHorizontal: Matrics.s(5),
+            }}>
+            {message}
           </Text>
         </View>
       )}
@@ -91,36 +109,40 @@ export default RecentSearchDiet;
 const styles = StyleSheet.create({
   text: {
     fontSize: Matrics.mvs(14),
-    fontWeight: 'bold',
-    color: colors.black,
+    color: colors.labelDarkGray,
+    fontFamily: Fonts.BOLD,
     marginBottom: 5,
+    marginHorizontal: Matrics.s(5),
   },
   container: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginVertical: 6,
-    marginHorizontal: 2,
+    marginVertical: Matrics.vs(5),
+    marginHorizontal: Matrics.s(5),
   },
   titleText: {
-    fontSize: 17,
-    // fontWeight: 'bold',
+    fontSize: Matrics.mvs(13),
     color: colors.labelDarkGray,
-    padding: 5,
     textTransform: 'capitalize',
+    fontFamily: Fonts.REGULAR,
+    lineHeight: 18,
   },
   messageText: {
-    fontSize: 13,
+    fontSize: Matrics.mvs(12),
+    color: colors.subTitleLightGray,
+    fontFamily: Fonts.REGULAR,
+    lineHeight: 16,
   },
   calorieText: {
-    fontSize: 15,
-    color: colors.labelDarkGray,
-    marginRight: 10,
+    fontSize: Matrics.mvs(14),
+    color: colors.subTitleLightGray,
+    marginRight: Matrics.s(10),
+    fontFamily: Fonts.REGULAR,
   },
   leftContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    flex: 0.22,
-
+    alignItems: 'center',
   },
 });
