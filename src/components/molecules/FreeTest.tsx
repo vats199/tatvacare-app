@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { colors } from '../../constants/colors';
-import { Fonts } from '../../constants';
+import { Fonts, Matrics } from '../../constants';
 
 type FreeTestProps = {
     onPressAdd: () => void;
@@ -43,36 +43,36 @@ export default FreeTest
 const styles = StyleSheet.create({
     freeTestBox: {
         marginVertical: 5,
-        padding: 14,
+        padding: 12,
         backgroundColor: colors.white,
         borderRadius: 12,
-        minHeight: 110,
+        minHeight: 100,
         width: '100%',
-        elevation: 0.2,
+        elevation: 0.5,
         shadowColor: colors.inputValueDarkGray,
         shadowOffset: { width: 0, height: 1 },
     },
     freeTestText: {
-        fontSize: 14,
+        fontSize: Matrics.mvs(14),
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray,
     },
     freeText: {
         color: colors.darkGray,
-        fontSize: 12,
+        fontSize: Matrics.mvs(12),
         fontWeight: '300',
         fontFamily: Fonts.BOLD,
     },
     textAddButton: {
-        fontSize: 12,
+        fontSize: Matrics.mvs(12),
         fontWeight: '700',
         color: colors.themePurple,
         fontFamily: Fonts.BOLD,
         marginLeft: 18,
     },
     textViewButton: {
-        fontSize: 12,
+        fontSize: Matrics.mvs(12),
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.themePurple,

@@ -9,6 +9,11 @@ import Header from '../../components/atoms/Header';
 import { colors } from '../../constants/colors';
 import { Fonts } from '../../constants';
 import CoupansForYou from '../../components/organisms/CoupansForYou';
+import { Matrics } from '../../constants';
+import { useApp } from '../../context/app.context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import MyStatusbar from '../../components/atoms/MyStatusBar';
+
 
 type ApplyCoupanScreenProps = StackScreenProps<
     DiagnosticStackParamList,
@@ -18,62 +23,54 @@ type ApplyCoupanScreenProps = StackScreenProps<
 const ApplyCoupanScreen: React.FC<ApplyCoupanScreenProps> = ({ route, navigation }) => {
 
     const [isFocused, setIsFocused] = useState<boolean>(false);
-    const [selectedCoupan, setSelectedCoupan] = useState<string>('');
-
-    useEffect(() => {
-        if (selectedCoupan.length > 0) {
-            navigation.navigate("LabTestCart", { coupan: selectedCoupan });
-        }
-    }, [selectedCoupan]);
-
+    const { setCoupan } = useApp();
+    const insets = useSafeAreaInsets();
     const handleSelectedCoupan = (title: string) => {
-        setSelectedCoupan(title);
-
+        setCoupan(title);
+        navigation.goBack();
     }
-    console.log(selectedCoupan);
-    const onPressApply = () => {
-        navigation.navigate("LabTestCart", { coupan: selectedCoupan });
-    }
+    const onPressApply = () => { };
 
     return (
-        <>
-            <Screen>
-                <ScrollView style={{ flex: 1 }}>
-                    <Header
-                        title="Apply Coupan"
-                        containerStyle={styles.upperHeader}
-                        titleStyle={styles.titleStyle}
-                    />
-                    <Container>
-                        <View style={[styles.inputContainer, { borderColor: isFocused ? "black" : colors.inputBoxLightBorder }]}>
-                            <TextInput placeholder='Enter the coupan code' onFocus={() => setIsFocused(true)} onBlur={() => setIsFocused(false)} />
-                            <TouchableOpacity onPress={onPressApply}>
-                                <Text style={styles.applyText}>Apply</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <CoupansForYou onApply={handleSelectedCoupan} />
-                    </Container>
-                </ScrollView>
-            </Screen >
-        </>
+        <SafeAreaView edges={['top']} style={[styles.screen, { paddingBottom: insets.bottom == 0 ? Matrics.vs(10) : insets.bottom }]}>
+            <MyStatusbar />
+            <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+                <Header
+                    title="Apply Coupan"
+                    containerStyle={styles.upperHeader}
+                    titleStyle={styles.titleStyle}
+                />
+                <Container>
+                    <View style={[styles.inputContainer, { borderColor: isFocused ? "black" : colors.inputBoxLightBorder }]}>
+                        <TextInput placeholder='Enter the coupan code' onFocus={() => setIsFocused(true)} onBlur={() => setIsFocused(false)} />
+                        <TouchableOpacity onPress={onPressApply}>
+                            <Text style={styles.applyText}>Apply</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <CoupansForYou onApply={handleSelectedCoupan} />
+                </Container>
+            </ScrollView>
+        </SafeAreaView>
     )
 }
 
 export default ApplyCoupanScreen
 
 const styles = StyleSheet.create({
+    screen: {
+        flex: 1,
+        backgroundColor: colors.lightGreyishBlue,
+    },
     upperHeader: {
-        marginHorizontal: 10,
-        // marginTop:20,
-        paddingVertical: 15,
-        // marginBottom:5
+        marginHorizontal: Matrics.s(10),
+        paddingVertical: Matrics.vs(15),
     },
     titleStyle: {
-        fontSize: 16,
+        fontSize: Matrics.mvs(16),
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray,
-        marginLeft: 20
+        marginLeft: Matrics.s(20)
     },
     inputContainer: {
         flexDirection: 'row',
@@ -82,12 +79,12 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: colors.inputBoxLightBorder,
         backgroundColor: colors.white,
-        borderRadius: 12,
-        paddingHorizontal: 10,
-        minHeight: 44
+        borderRadius: Matrics.s(12),
+        paddingHorizontal: Matrics.s(10),
+        height: Matrics.vs(44)
     },
     applyText: {
-        fontSize: 14,
+        fontSize: Matrics.mvs(14),
         fontWeight: '600',
         fontFamily: Fonts.BOLD,
         color: colors.disableButton,

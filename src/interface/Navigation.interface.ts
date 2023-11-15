@@ -1,6 +1,7 @@
 import {AppointmentDetailsScreenProps} from '../screens/Appointment/AppointmentDetailsScreen';
 import carePlanScreen from '../screens/CarePlan/CarePlanScreen';
 import Diet from '../api/diet';
+import { device } from '../screens/DevicePurchase/DeviceScreen';
 type Options = {
   diet_meal_options_id: string;
   diet_meal_type_rel_id: string;
@@ -83,6 +84,9 @@ export type AppStackParamList = {
   SetupProfileScreen: SetupProfileStackParamList;
   DiagnosticStackScreen: DiagnosticStackParamList;
   AnalyserScreen:{type:string}
+  DevicePurchaseStackScreen:DevicePurchaseStackParamList;
+  VitalDetailStackScreen:VitalDetailStackParamList;
+  LabTestRefundStackScreen:LabTestRefundStackParamList;
 };
 
 export type DrawerParamList = {
@@ -117,10 +121,17 @@ export type AppointmentStackParamList = {
   AppointmentWithScreen: {type: string};
   AppointmentDetailsScreen: {appointmentDetails: AppointmentDetailsScreenProps};
 };
+export type LabTestRefundStackParamList={
+  LabTestScreen:undefined;
+  OrderDetails:undefined;
+  SelectTestSlot:undefined;
+  TestSummaryScreen:{time:selectTime | undefined};
+  CongratulationsScreen:undefined;
+}
 
 export type DiagnosticStackParamList = {
   AllLabTestScreen: undefined;
-  LabTestCart: {coupan: string };
+  LabTestCart:undefined;
   ApplyCoupan: undefined;
   ConfirmLocation: undefined;
   SearchLabTest: undefined;
@@ -129,9 +140,24 @@ export type DiagnosticStackParamList = {
   MyPerscription: {data: perscription[]};
   TestDetail:undefined;
   SelectTestSlot:undefined;
-  LabTestSummary:{time:any};
+  LabTestSummary:{time:selectTime};
   CongratulationScreen:undefined;
   OrderDetails:undefined;
+};
+
+export type DevicePurchaseStackParamList={
+  DeviceScreen:undefined;
+  DeviceDetail:{item:device | undefined};
+  CartScreen:undefined;
+  ConfirmLocationScreen:undefined;
+  OrderSummary:undefined;
+  PaymentDone:undefined;
+  DevicesScreen:undefined;
+  ApplyCoupan:undefined;
+};
+
+export type VitalDetailStackParamList={
+ StepsScreen:undefined;
 };
 
 export type BottomTabParamList = {
@@ -196,4 +222,10 @@ type perscription = {
   id: number;
   date?: any;
   uri?: string;
+};
+type selectTime = {
+  id?: number;
+  date?: any;
+  slot?: string;
+  timeZone?: string
 };

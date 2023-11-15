@@ -1,4 +1,4 @@
-import {StyleSheet, View} from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import React from 'react';
 import {
   BottomSheetBackdrop,
@@ -6,8 +6,8 @@ import {
   BottomSheetModal,
   BottomSheetModalProps,
 } from '@gorhom/bottom-sheet';
-import {colors} from '../../constants/colors';
-import {Matrics} from '../../constants';
+import { colors } from '../../constants/colors';
+import { Matrics } from '../../constants';
 
 const CommonBottomSheetModal = React.forwardRef<
   BottomSheetModal,

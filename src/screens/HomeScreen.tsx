@@ -180,13 +180,14 @@ const HomeScreen: React.FC<HomeScreenProps> = ({route, navigation}) => {
   };
   const onPressConsultPhysio = () => {
     // navigateTo('AppointmentsHistoryVC');
+
   };
   const onPressBookDiagnostic = () => {
     // navigateTo('LabTestListVC');
     navigation.navigate('DiagnosticStackScreen');
   };
   const onPressBookDevices = () => {
-    // navigateTo('MyDevices');
+    navigation.navigate('DevicePurchaseStackScreen');
   };
   const onPressCarePlan = () => {
     // navigateToPlan('navigateToPlan');

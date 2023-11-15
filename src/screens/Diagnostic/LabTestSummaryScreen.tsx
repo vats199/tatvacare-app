@@ -29,13 +29,25 @@ type TestItem = {
     discount: number;
     isAdded: boolean;
 };
+type selectTime = {
+    id?: number;
+    date?: any;
+    slot?: string;
+    timeZone?: string
+};
+export type billingData = {
+    id?: number;
+    value?: {
+        name?: string;
+        price?: string;
+    }
+}
 
 
 const LabTestSummaryScreen: React.FC<LabTestSummaryScreenProps> = ({ route, navigation }) => {
 
-
     const [cartItems, setCartItems] = useState<TestItem[]>([]);
-    const time: any = route.params?.time;
+    const time: selectTime = route.params?.time;
     console.log(time);
     const onPressBack = () => {
         navigation.goBack();
@@ -44,6 +56,56 @@ const LabTestSummaryScreen: React.FC<LabTestSummaryScreenProps> = ({ route, navi
         navigation.navigate("CongratulationScreen");
     }
 
+
+    const dateObj = new Date(time.date);
+
+    const dateOptions: Intl.DateTimeFormatOptions = {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+    };
+
+
+    const billingOptions: billingData[] = [
+        {
+            id: 1,
+            value: {
+                name: "Item total",
+                price: "200"
+            }
+        },
+        {
+            id: 2,
+            value: {
+                name: "Home Collection Charges",
+                price: "50"
+            }
+        },
+        {
+            id: 3,
+            value: {
+                name: "Service Charge",
+                price: "10"
+            }
+        },
+        {
+            id: 4,
+            value: {
+                name: "Discount on  Item(s)",
+                price: "25"
+            }
+        },
+        {
+            id: 5,
+            value: {
+                name: "Applied Coupan(FIRST25)",
+                price: "25"
+            }
+        },
+    ]
+
+    const formattedDate = dateObj.toLocaleDateString(undefined, dateOptions);
 
     useEffect(() => {
 
@@ -64,7 +126,7 @@ const LabTestSummaryScreen: React.FC<LabTestSummaryScreenProps> = ({ route, navi
 
     return (
         <SafeAreaView edges={['top']} style={styles.screen} >
-            <ScrollView style={{ padding: 20 }}>
+            <ScrollView style={{ padding: 20 }} showsVerticalScrollIndicator={false}>
                 <Header
                     title='Lab Test Summary'
                     isIcon={false}
@@ -73,10 +135,10 @@ const LabTestSummaryScreen: React.FC<LabTestSummaryScreenProps> = ({ route, navi
                     onBackPress={onPressBack}
                 />
                 <TestSummary />
-                <SampleCollection />
+                <SampleCollection slot={time.slot} timeZone={time.timeZone} dayAndDate={formattedDate} />
                 <TestDetails data={cartItems} title="Test" />
                 <View style={{ marginBottom: 50 }}>
-                    <Billing />
+                    <Billing data={billingOptions} />
                 </View>
             </ScrollView>
             <View style={styles.bottomContainer}>
@@ -84,6 +146,7 @@ const LabTestSummaryScreen: React.FC<LabTestSummaryScreenProps> = ({ route, navi
                     title="Proceed To Payment"
                     titleStyle={styles.buttonTextStyle}
                     onPress={onPressProceedPay}
+                    buttonStyle={{ marginHorizontal: 10 }}
                 />
             </View>
 

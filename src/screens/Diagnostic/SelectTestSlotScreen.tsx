@@ -11,7 +11,6 @@ import { Fonts, Matrics } from '../../constants';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import SlotButton from '../../components/atoms/SlotButton';
 import Button from '../../components/atoms/Button';
-import DietHeader from '../../components/molecules/DietHeader';
 import Calender from '../../components/atoms/Calender';
 
 type SelectTestSlotScreenProps = StackScreenProps<
@@ -20,6 +19,7 @@ type SelectTestSlotScreenProps = StackScreenProps<
 >;
 type selectTime = {
     id?: number;
+    date?: any;
     slot?: string;
     timeZone?: string
 };
@@ -28,15 +28,7 @@ type SlotDetailsType = {
     timeZone: string;
     slots: string[];
 };
-type TestItem = {
-    id: number;
-    title: string;
-    description: string;
-    newPrice: number;
-    oldPrice: number;
-    discount: number;
-    isAdded: boolean;
-};
+
 
 const SelectTestSlotScreen: React.FC<SelectTestSlotScreenProps> = ({ route, navigation }) => {
     const [selectedTime, setSelectedTime] = useState<selectTime>({});
@@ -88,7 +80,7 @@ const SelectTestSlotScreen: React.FC<SelectTestSlotScreenProps> = ({ route, navi
     ]
 
     const onPressTimeSlot = (id: number, slot: string, timeZone: string) => {
-        setSelectedTime({ id: id, slot: slot, timeZone: timeZone });
+        setSelectedTime({ id: id, date: selectedDate, slot: slot, timeZone: timeZone });
     }
 
     const renderSlots = (timeZone: string, id: number, slot: string, index: number) => {
@@ -150,7 +142,7 @@ const SelectTestSlotScreen: React.FC<SelectTestSlotScreenProps> = ({ route, navi
                 onBackPress={onPressBack}
             />
             <Calender onPressOfNextAndPerviousDate={handleDate} />
-            <ScrollView style={{}}>
+            <ScrollView style={{}} showsVerticalScrollIndicator={false}>
                 <View>
                     <Text style={styles.sampleText}>Sample Collection Time</Text>
                     {slots.map(renderSlot)}
@@ -178,14 +170,14 @@ const styles = StyleSheet.create({
         backgroundColor: colors.lightGreyishBlue,
     },
     upperHeader: {
-        margin: 20
+        margin: Matrics.s(20)
     },
     titleStyle: {
-        fontSize: 16,
+        fontSize: Matrics.mvs(10),
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray,
-        marginLeft: 20
+        marginLeft: Matrics.s(20)
     },
     sampleText: {
         fontSize: Matrics.s(16),
@@ -209,7 +201,7 @@ const styles = StyleSheet.create({
         shadowColor: colors.black,
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.08,
-        shadowRadius: 8,
+        shadowRadius: Matrics.s(8),
         elevation: 0.5,
     },
     timeZoneTxt: {
@@ -251,16 +243,16 @@ const styles = StyleSheet.create({
         shadowColor: colors.black,
         shadowOffset: { width: 0, height: 0 },
         shadowOpacity: 0.04,
-        shadowRadius: 3,
+        shadowRadius: Matrics.s(3),
         elevation: 1,
     },
     bottomContainer: {
         backgroundColor: colors.white,
-        paddingHorizontal: 10,
-        paddingVertical: 15,
+        paddingHorizontal: Matrics.s(10),
+        paddingVertical: Matrics.s(15),
         elevation: 4,
-        borderRadius: 12,
-        marginBottom: 40
+        borderRadius: Matrics.s(12),
+
     },
     buttonTextStyle: {
         fontSize: Matrics.s(16),

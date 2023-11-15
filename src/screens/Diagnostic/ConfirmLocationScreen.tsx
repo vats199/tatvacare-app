@@ -1,32 +1,41 @@
-import { StyleSheet, Text, View, KeyboardAvoidingView, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import React, { useRef, useCallback, useEffect, useState } from 'react';
 import MapView, { Marker } from 'react-native-maps';
 import {
     DiagnosticStackParamList
 } from '../../interface/Navigation.interface';
-import AnimatedInputField from '../../components/atoms/AnimatedInputField';
 import { StackScreenProps } from '@react-navigation/stack';
 import { colors } from '../../constants/colors';
-import { Fonts } from '../../constants';
+import { Fonts, Matrics } from '../../constants';
 import { Icons } from '../../constants/icons';
-import Button from '../../components/atoms/Button';
-import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import {
+    BottomSheetBackdrop,
+    BottomSheetBackdropProps,
+    BottomSheetModal,
+    BottomSheetModalProvider,
+} from '@gorhom/bottom-sheet';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import BottomSheetLocation from '../../components/molecules/BottomSheetLocation';
+import EnterAddressBottomSheet from '../../components/organisms/EnterAddressBottomSheet';
+import BottomSheetSelectAddress from '../../components/molecules/BottomSheetSelectAddress';
+import MyStatusbar from '../../components/atoms/MyStatusBar';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type ConfirmLocationScreenProps = StackScreenProps<
     DiagnosticStackParamList,
     'ConfirmLocation'
 >;
-type addressItem = {
+export type addressItem = {
     id?: number;
     title?: string;
     description?: string;
 }
-type location = {
+export type location = {
     lat?: any;
     lng?: any;
 }
-type address = {
+export type address = {
     streetName?: string;
     cityName?: string;
 }
@@ -38,33 +47,39 @@ const API_KEY = "AIzaSyD8zxk4kvKlAMGaOQrABy8xqdRKIWGBJlo";
 const ConfirmLocationScreen: React.FC<ConfirmLocationScreenProps> = ({ route, navigation }) => {
 
     const bottomSheetModalRef = useRef<BottomSheetModal>(null);
-    const [selectedButton, setSelectedButton] = useState<string | undefined>('');
     const [selectedBottomsheet, setSelectedBottomsheet] = useState<string>("Location");
     const [selectedLocation, setSelectedLocation] = useState<location>({ lat: 37.78825, lng: -122.4324 });
     const [selectedAddress, setSelectedAddress] = useState<address>({});
+    const snapPoints = (selectedBottomsheet === "Location") ? ["30%"] : (selectedBottomsheet === "Enter Address") ? ['75%'] : ['65%'];
+    const insets = useSafeAreaInsets();
 
     useEffect(() => {
 
         if (selectedLocation) {
             getAddress(selectedLocation.lat, selectedLocation.lng);
         }
-    }, [selectedLocation])
+    }, [selectedLocation]);
+
+    useEffect(() => {
+        handlePresentModalPress();
+    }, [selectedAddress, selectedLocation, selectedBottomsheet]);
+
+    const handlePresentModalPress = useCallback(() => {
+        bottomSheetModalRef.current?.present();
+    }, []);
 
     const getAddress = async (lat: any, lng: any) => {
-
         const uri = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${API_KEY}&enable_address_descriptor=true`;
         const response = await fetch(uri);
         if (!response.ok) {
             throw new Error("failed to fetch");
         }
-
         const data = await response.json();
+        console.log("data", data.results[0]);
         const street = data.results[0].address_components[1].long_name;
-        console.log("new", street);
         const city = data.results[0].address_components[0].long_name;
         setSelectedAddress({ streetName: street, cityName: city });
     }
-
 
     const options: addressItem[] = [
         {
@@ -84,18 +99,13 @@ const ConfirmLocationScreen: React.FC<ConfirmLocationScreenProps> = ({ route, na
         }
     ]
 
-
-    const snapPoints = (selectedBottomsheet === "Location") ? ["20%", "40%"] : ["20%", '80%'];
-
-    useEffect(() => {
-        handlePresentModalPress();
-    }, [])
-    const handlePresentModalPress = useCallback(() => {
-        bottomSheetModalRef.current?.present();
-    }, []);
-    const handleSheetChanges = useCallback((index: number) => {
-        // console.log('handleSheetChanges', index);
-    }, []);
+    const onPressCurrentLocation = async () => {
+        const currentLocation = await AsyncStorage.getItem('location');
+        if (currentLocation) {
+            const location = JSON.parse(currentLocation);
+            setSelectedAddress({ streetName: location.city, cityName: location.country })
+        }
+    }
 
     const onPressBack = () => {
         navigation.goBack();
@@ -106,31 +116,24 @@ const ConfirmLocationScreen: React.FC<ConfirmLocationScreenProps> = ({ route, na
         console.log(lat, lng);
         setSelectedLocation({ lat: lat, lng: lng })
     }
+    const renderBackdrop = React.useCallback(
+        (props: BottomSheetBackdropProps) => (
+            <BottomSheetBackdrop
+                {...props}
+                opacity={1}
+                appearsOnIndex={0}
+                disappearsOnIndex={-1}
+                style={(selectedBottomsheet === 'Location') ? styles.overlay : styles.overlayBlur}
+            // pressBehavior={(selectedBottomsheet === 'Location') ? "none" : "close"}
+            />
+        ),
+        [selectedBottomsheet],
+    );
 
-    const renderAddressItem = (item: addressItem, idex: number) => {
-        return (
-            <View style={styles.addressItemContainer}>
-                <View style={{ flexDirection: "row", width: "70%" }}>
-                    <View style={{ marginRight: 5 }}>
-                        {
-                            (item.title === "Home") ? (
-                                <Icons.Home width={28} height={28} />
-                            ) : <Icons.Person width={28} height={28} />
-                        }
-                    </View>
-                    <View >
-                        <Text style={styles.addressTitleText}>{item.title}</Text>
-                        <Text style={styles.addressDescription}>{item.description}</Text>
-                    </View>
-                </View>
-                <View style={{ alignItems: "flex-end" }}>
-                    <Icons.ThreeDot width={16} height={16} />
-                </View>
-            </View>
-        );
-    }
+
     return (
-        <View style={{ flex: 1 }}>
+        <SafeAreaView edges={['top']} style={[styles.screen, { paddingBottom: insets.bottom == 0 ? Matrics.vs(16) : insets.bottom }]}>
+            <MyStatusbar />
             <View style={styles.headerContainer}>
                 <View style={styles.headerRow}>
                     <Icons.backArrow height={20} width={20} onPress={onPressBack} />
@@ -148,28 +151,25 @@ const ConfirmLocationScreen: React.FC<ConfirmLocationScreenProps> = ({ route, na
                         latitudeDelta: 0.0922,
                         longitudeDelta: 0.0421,
                     }}
-
-
                     onPress={locationPicker}
                 >
                     {
-
                         selectedLocation && (
-                            <Marker title="Picked Location" coordinate={{ latitude: selectedLocation.lat, longitude: selectedLocation.lng }} />
+                            <Marker title="Picked Location" coordinate={{ latitude: selectedLocation.lat, longitude: selectedLocation.lng }}>
+                                <Icons.Marker width={48} height={51} />
+                            </Marker>
                         )
                     }
                 </MapView >
-                <View style={{ width: "90%", position: 'absolute', top: 20, left: 20, right: 20 }}>
+                <View style={{ width: "90%", position: 'absolute', top: Matrics.s(20), left: Matrics.s(20), right: Matrics.s(20) }}>
                     <TouchableOpacity
                         style={styles.searchContainer}
                         activeOpacity={1}
                     >
-                        <Icons.Search />
+                        <Icons.Search width={20} height={20} />
                         <GooglePlacesAutocomplete
-                            //ref={ref}
                             placeholder='Search for area,stree name...'
                             onPress={(data, details = null) => {
-                                // 'details' is provided when fetchDetails = true
                                 setSelectedLocation({ lat: details?.geometry?.location.lat, lng: details?.geometry?.location.lng })
                             }}
                             fetchDetails
@@ -180,148 +180,80 @@ const ConfirmLocationScreen: React.FC<ConfirmLocationScreenProps> = ({ route, na
                         />
                     </TouchableOpacity>
                 </View>
-                <View style={{ width: "50%", position: "absolute", left: 80, bottom: 200 }}>
-                    <View style={styles.useCurrentLocationContainer}>
+                <View style={{ width: "50%", position: "absolute", left: Matrics.s(80), bottom: Matrics.s(200) }}>
+                    <TouchableOpacity style={styles.useCurrentLocationContainer} onPress={onPressCurrentLocation}>
                         <Icons.LocationColoredSymbol width={16} height={16} />
                         <Text style={styles.useCurrentlocationtext}>use current Location</Text>
-                    </View>
+                    </TouchableOpacity>
                 </View>
             </View >
-
 
             <BottomSheetModalProvider>
                 <BottomSheetModal
                     ref={bottomSheetModalRef}
-                    index={1}
+                    backdropComponent={renderBackdrop}
+                    index={0}
                     snapPoints={snapPoints}
-                    onChange={handleSheetChanges}
-                    keyboardBehavior="interactive"
-                    overDragResistanceFactor={3.8}
-                // enableDynamicSizing={true}
-
+                    handleIndicatorStyle={styles.handleIndicator}
+                    backgroundStyle={styles.sheetBackGround}
+                    onDismiss={() => setSelectedBottomsheet("Location")}
                 >
-                    {
-                        (selectedBottomsheet === 'Add Address') && (
-                            <View style={styles.contentContainer}>
-                                <Text style={styles.enterAddressTitle}>Enter Address </Text>
-                                <View style={styles.border} />
-                                <View style={{ padding: 20 }}>
-                                    <View style={styles.disclaimerBox}>
-                                        <Text style={styles.disclaimerText}>Disclaimer: We need this information to deliver your product & for
-                                            collecting test samples</Text>
-
-                                    </View>
-                                    <View style={{ marginVertical: 5 }}>
-                                        <AnimatedInputField placeholder='Enter Pincode' style={styles.inputStyle} textStyle={styles.placeholderText} placeholderTextColor={colors.inactiveGray} showAnimatedLabel={true} />
-                                    </View>
-                                    <View style={{ marginVertical: 5 }}>
-                                        <AnimatedInputField placeholder='House number and Building *' style={styles.inputStyle} textStyle={styles.placeholderText} placeholderTextColor={colors.inactiveGray} showAnimatedLabel={true} />
-                                    </View>
-                                    <View style={{ marginVertical: 5 }}>
-                                        <AnimatedInputField placeholder='Street name *' style={styles.inputStyle} textStyle={styles.placeholderText} placeholderTextColor={colors.inactiveGray} showAnimatedLabel={true} />
-                                    </View>
-                                    <View>
-                                        <Text style={styles.addessTypeText}>Address Type</Text>
-
-                                        <View style={{ flexDirection: "row", alignItems: "center" }}>
-                                            <View style={{ flexDirection: "row", alignItems: "center", marginRight: 20 }}>
-                                                <TouchableOpacity onPress={() => setSelectedButton("Home")} >
-                                                    {
-                                                        (selectedButton === 'Home') ?
-                                                            <Icons.RadioCheck style={{ marginRight: 10 }} height={20} width={20} /> :
-                                                            <Icons.RadioUncheck style={{ marginRight: 10 }} height={20} width={20} />
-                                                    }
-                                                </TouchableOpacity>
-                                                <Text>Home</Text>
-                                            </View>
-                                            <View style={{ flexDirection: "row", alignItems: "center", marginRight: 20 }}>
-                                                <TouchableOpacity onPress={() => setSelectedButton("Office")}>
-                                                    {
-                                                        (selectedButton === 'Office') ?
-                                                            <Icons.RadioCheck style={{ marginRight: 10 }} height={20} width={20} /> :
-                                                            <Icons.RadioUncheck style={{ marginRight: 10 }} height={20} width={20} />
-                                                    }
-                                                </TouchableOpacity>
-                                                <Text>Office</Text>
-                                            </View>
-                                            <View style={{ flexDirection: "row", alignItems: "center", marginRight: 20 }}>
-                                                <TouchableOpacity onPress={() => setSelectedButton("Other")}>
-                                                    {
-                                                        (selectedButton === 'Other') ?
-                                                            <Icons.RadioCheck style={{ marginRight: 10 }} height={20} width={20} /> :
-                                                            <Icons.RadioUncheck style={{ marginRight: 10 }} height={20} width={20} />
-                                                    }
-                                                </TouchableOpacity>
-                                                <Text>Other</Text>
-                                            </View>
-                                        </View>
-                                    </View>
-                                    <View style={{ marginTop: 20 }}>
-                                        <Button
-                                            title="Save Adddress"
-                                            titleStyle={styles.outlinedButtonText}
-                                            buttonStyle={styles.saveAddressButton}
-                                        />
-                                    </View>
-                                </View>
-                            </View>
-                        )
-                    }
-                    {
-                        (selectedBottomsheet === 'Location') && (
-                            <View style={{ flex: 1, padding: 15 }}>
-                                <View style={{ flexDirection: "row", justifyContent: "flex-start" }}>
-                                    <Icons.LocationActive height={24} width={24} style={{ marginTop: 5 }} />
-                                    <View style={{ marginLeft: 15 }}>
-                                        <Text style={styles.locationTitle}>{selectedAddress.streetName}</Text>
-                                        <Text style={styles.locationDescription}>{selectedAddress.cityName}</Text>
-                                    </View>
-                                </View>
-                                <View style={{ marginTop: 20 }}>
-                                    <Button
-                                        title="Add Complete Adddress"
-                                        titleStyle={styles.outlinedButtonText}
-                                        buttonStyle={styles.outlinedButton}
-                                        onPress={() => setSelectedBottomsheet("Select Address")}
-                                    />
-                                </View>
-                            </View>
-                        )
-                    }
-                    {
-                        (selectedBottomsheet === 'Select Address') && (
-                            <KeyboardAvoidingView style={styles.contentContainer} behavior="padding">
-                                <View >
-                                    <View style={styles.upperRow}>
-                                        <Text style={styles.selectAddressTitle}> Select Address</Text>
-                                        <TouchableOpacity style={styles.upperSubRow} onPress={() => setSelectedBottomsheet("Add Address")} >
-                                            <Icons.AddCircle height={13} width={13} />
-                                            <Text style={styles.addNewText}> Add New</Text>
-                                        </TouchableOpacity>
-                                    </View>
-                                    <View style={styles.border} />
-                                </View>
-                                <View style={styles.belowContainer}>
-                                    {options.map(renderAddressItem)}
-                                </View>
-                            </KeyboardAvoidingView>
-                        )
-                    }
+                    <View style={{ flex: 1 }}>
+                        {
+                            (selectedBottomsheet === 'Location') && (
+                                <BottomSheetLocation
+                                    locationTitle={selectedAddress.cityName}
+                                    locationDescription={selectedAddress.streetName}
+                                    onPressAddCompleteAddress={() => setSelectedBottomsheet('Select Address')}
+                                />
+                            )
+                        }
+                        {
+                            (selectedBottomsheet === 'Enter Address') && (
+                                <EnterAddressBottomSheet
+                                    buttonTitle="Add Address"
+                                    onPressSaveAddress={() => {
+                                        bottomSheetModalRef.current?.close();
+                                        navigation.goBack();
+                                    }}
+                                />
+                            )
+                        }
+                        {
+                            (selectedBottomsheet === 'Select Address') && (
+                                <BottomSheetSelectAddress
+                                    data={options}
+                                    onPressAddNew={() => setSelectedBottomsheet('Enter Address')}
+                                    onPressAdddressItem={() => navigation.goBack()}
+                                />
+                            )
+                        }
+                    </View>
                 </BottomSheetModal>
-
             </BottomSheetModalProvider>
-        </View >
+        </SafeAreaView >
 
     )
 }
 
-export default ConfirmLocationScreen
+export default ConfirmLocationScreen;
 
 const styles = StyleSheet.create({
+    screen: {
+        flex: 1,
+    },
+    overlay: {
+        backgroundColor: 'transparent',
+        ...StyleSheet.absoluteFillObject,
+    },
+    overlayBlur: {
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        ...StyleSheet.absoluteFillObject,
+    },
     headerContainer: {
-        paddingTop: 30,
-        paddingBottom: 20,
-        paddingLeft: 20,
+        paddingTop: Matrics.s(30),
+        paddingBottom: Matrics.s(20),
+        paddingLeft: Matrics.s(20),
         backgroundColor: "white",
     },
     headerRow: {
@@ -329,77 +261,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     titleStyle: {
-        fontSize: 16,
+        fontSize: Matrics.mvs(16),
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray,
-        marginLeft: 20
-    },
-    container: {
-        flex: 1,
-        padding: 24,
-        justifyContent: 'center',
-        backgroundColor: 'grey',
-    },
-    contentContainer: {
-        flex: 1,
-    },
-    enterAddressTitle: {
-        fontSize: 20,
-        fontWeight: '700',
-        fontFamily: Fonts.BOLD,
-        color: colors.labelDarkGray,
-        marginLeft: 20,
-        marginBottom: 10
-    },
-    border: {
-        borderBottomWidth: 1,
-        borderBottomColor: "#E9E9E9",
-    },
-    disclaimerBox: {
-        padding: 10,
-        borderWidth: 1,
-        borderColor: "#F0F0F0",
-        borderRadius: 12
-    },
-    disclaimerText: {
-        fontSize: 10,
-        fontWeight: '400',
-        fontFamily: Fonts.BOLD,
-        color: colors.darkGray,
-    },
-    locationTitle: {
-        fontSize: 20,
-        fontWeight: '700',
-        fontFamily: Fonts.BOLD,
-        color: colors.labelDarkGray,
-    },
-    locationDescription: {
-        fontSize: 12,
-        fontWeight: '400',
-        fontFamily: Fonts.BOLD,
-        color: colors.subTitleLightGray,
-        marginTop: 5
-    },
-    outlinedButtonText: {
-        fontSize: 16,
-        fontWeight: '700',
-        fontFamily: Fonts.BOLD,
-        color: colors.white,
-    },
-    outlinedButton: {
-        padding: 10,
-        height: 40,
-        borderRadius: 16,
-        backgroundColor: colors.themePurple,
-        marginHorizontal: 0
-    },
-    saveAddressButton: {
-        padding: 10,
-        height: 40,
-        borderRadius: 16,
-        backgroundColor: colors.inactiveGray,
-        marginHorizontal: 0
+        marginLeft: Matrics.s(20)
     },
     searchContainer: {
         flexDirection: 'row',
@@ -408,9 +274,9 @@ const styles = StyleSheet.create({
         backgroundColor: colors.white,
         borderWidth: 1,
         borderColor: colors.inputBoxLightBorder,
-        borderRadius: 12,
-        paddingHorizontal: 10,
-        minHeight: 44
+        borderRadius: Matrics.s(12),
+        paddingHorizontal: Matrics.s(10),
+        minHeight: Matrics.vs(44)
     },
     useCurrentLocationContainer: {
         flexDirection: "row",
@@ -418,89 +284,25 @@ const styles = StyleSheet.create({
         alignItems: "center",
         borderWidth: 1,
         borderColor: colors.themePurple,
-        borderRadius: 12,
-        padding: 8,
+        borderRadius: Matrics.s(12),
+        padding: Matrics.s(8),
         backgroundColor: colors.white
     },
     useCurrentlocationtext: {
-        fontSize: 12,
+        fontSize: Matrics.mvs(12),
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.themePurple,
-        marginLeft: 8
+        marginLeft: Matrics.s(8)
     },
-    inputStyle: {
-        backgroundColor: 'white',
-        height: 44,
-        borderColor: '#E0E0E0',
-        borderWidth: 1.3,
-        borderRadius: 14,
-        paddingHorizontal: 8,
-
-    },
-    placeholderText: {
-        fontSize: 14,
-        fontWeight: '400',
-        fontFamily: Fonts.BOLD,
-        color: colors.inactiveGray,
-    },
-    addessTypeText: {
-        fontSize: 14,
-        fontWeight: '700',
-        fontFamily: Fonts.BOLD,
-        color: colors.labelDarkGray,
-        marginVertical: 10
-    },
-    selectAddressTitle: {
-        fontSize: 20,
-        fontWeight: '700',
-        fontFamily: Fonts.BOLD,
-        color: colors.labelDarkGray,
-        marginLeft: 10
-    },
-    belowContainer: {
-        flex: 1,
-        paddingVertical: 10,
-        paddingHorizontal: 15,
-        backgroundColor: "#f9f9f9"
-    },
-    upperRow: {
-        flexDirection: 'row',
-        justifyContent: "space-between",
-        alignItems: "center",
-        marginBottom: 20,
-    },
-    upperSubRow: {
-        flexDirection: 'row',
-        justifyContent: "space-between",
-        alignItems: "center",
-    },
-    addNewText: {
-        fontSize: 12,
-        fontWeight: '700',
-        fontFamily: Fonts.BOLD,
-        color: colors.themePurple,
-        marginRight: 10
-    },
-    addressItemContainer: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        padding: 10,
+    sheetBackGround: {
         backgroundColor: colors.white,
-        borderRadius: 10,
-        marginVertical: 10,
-        elevation: 0.1
+        borderRadius: Matrics.s(16)
     },
-    addressTitleText: {
-        fontSize: 14,
-        fontWeight: '400',
-        fontFamily: Fonts.BOLD,
-        color: colors.labelDarkGray,
+    handleIndicator: {
+        backgroundColor: colors.lightGrey,
+        width: Matrics.s(40),
+        height: Matrics.vs(3.5),
     },
-    addressDescription: {
-        fontSize: 12,
-        fontWeight: '400',
-        fontFamily: Fonts.BOLD,
-        color: colors.subTitleLightGray,
-    }
+
 })

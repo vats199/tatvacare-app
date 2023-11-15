@@ -1,17 +1,20 @@
-import React, {SetStateAction} from 'react';
+import React, { SetStateAction } from 'react';
 
 type AppContextData = {
   location: any;
   setUserLocation: (data: any) => void;
   userData: any;
   setUserData: (data: any) => void;
+  coupan: string;
+  setCoupan: (data: string) => void;
 };
 
 const AppContext = React.createContext<AppContextData>({} as AppContextData);
 
-const AppProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
+const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [location, setLocation] = React.useState<any>({});
   const [userData, setData] = React.useState<any>({});
+  const [coupan, setSelectedCoupan] = React.useState<string>("");
 
   const setUserLocation = (data: any) => {
     setLocation(data);
@@ -21,6 +24,9 @@ const AppProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
     console.log(data, 'userData');
     setData(data);
   };
+  const setCoupan = (data: string) => {
+    setSelectedCoupan(data);
+  }
 
   return (
     //This component will be used to encapsulate the whole App,
@@ -31,6 +37,8 @@ const AppProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
         setUserLocation,
         setUserData,
         userData,
+        coupan,
+        setCoupan
       }}>
       {children}
     </AppContext.Provider>
@@ -45,4 +53,4 @@ function useApp(): AppContextData {
   return context;
 }
 
-export {AppContext, AppProvider, useApp};
+export { AppContext, AppProvider, useApp };

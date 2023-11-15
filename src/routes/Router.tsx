@@ -22,6 +22,9 @@ import {
   DietStackParamList,
   EngageStackParamList,
   DiagnosticStackParamList,
+  DevicePurchaseStackParamList,
+  VitalDetailStackParamList,
+  LabTestRefundStackParamList
 } from '../interface/Navigation.interface';
 import { NavigationContainer } from '@react-navigation/native';
 import {
@@ -70,6 +73,19 @@ import OrderDetailsScreen from '../screens/Diagnostic/OrderDetailsScreen';
 import { Matrics } from '../constants';
 import GoalsScreen from '../screens/Drawer/GoalsScreen';
 import AnalyserScreen from '../screens/Spirometer/AnalyserScreen';
+import DeviceScreen from '../screens/DevicePurchase/DeviceScreen';
+import DeviceDetailsScreen from '../screens/DevicePurchase/DeviceDetailsScreen';
+import CartScreen from '../screens/DevicePurchase/CartScreen';
+import ConfirmLocation from '../screens/DevicePurchase/ConfirmLocation';
+import OrderSummaryScreen from '../screens/DevicePurchase/OrderSummaryScreen';
+import PaymentDoneScreen from '../screens/DevicePurchase/PaymentDoneScreen';
+import DevicesScreen from '../screens/DevicePurchase/DevicesScreen';
+import StepsScreen from '../screens/VitalDetail/StepsScreen';
+import LabTestScreen from '../screens/LabTestRefund/LabTestScreen';
+import DetailsOrderScreen from '../screens/LabTestRefund/DetailsOrderScreen';
+import TestSlotScreen from '../screens/LabTestRefund/TestSlotScreen';
+import TestSummaryScreen from '../screens/LabTestRefund/TestSummaryScreen';
+import CongratulationsScreen from '../screens/LabTestRefund/CongratulationsScreen';
 
 const Drawer = createDrawerNavigator<DrawerParamList>();
 const DrawerScreen = () => {
@@ -244,6 +260,93 @@ const AppointmentStackScreen = () => {
   );
 };
 
+const DevicePurchaseStack = createStackNavigator<DevicePurchaseStackParamList>();
+const DevicePurchaseStackScreen = () => {
+  return (
+    <DevicePurchaseStack.Navigator
+      initialRouteName="DeviceScreen"
+      screenOptions={{ headerShown: false }}>
+      <DevicePurchaseStack.Screen
+        name="DeviceScreen"
+        component={DeviceScreen}
+      />
+      <DevicePurchaseStack.Screen
+        name="DeviceDetail"
+        component={DeviceDetailsScreen}
+      />
+      <DevicePurchaseStack.Screen
+        name="CartScreen"
+        component={CartScreen}
+      />
+      <DevicePurchaseStack.Screen
+        name="ConfirmLocationScreen"
+        component={ConfirmLocation}
+      />
+      <DevicePurchaseStack.Screen
+        name="OrderSummary"
+        component={OrderSummaryScreen}
+      />
+      <DevicePurchaseStack.Screen
+        name="PaymentDone"
+        component={PaymentDoneScreen}
+      />
+      <DevicePurchaseStack.Screen
+        name="DevicesScreen"
+        component={DevicesScreen}
+      />
+      <DevicePurchaseStack.Screen
+        name="ApplyCoupan"
+        component={ApplyCoupanScreen}
+      />
+
+    </DevicePurchaseStack.Navigator>
+  );
+};
+
+// const VitaldetailStack = createStackNavigator<VitalDetailStackParamList>();
+// const VitalDetailStackScreen = () => {
+//   return (
+//     <VitaldetailStack.Navigator
+//       initialRouteName="StepsScreen"
+//       screenOptions={{ headerShown: false }}>
+//       <VitaldetailStack.Screen
+//         name="LabTestScreen"
+//         component={LabTestScreen}
+//       />
+//     </VitaldetailStack.Navigator>
+//   );
+// }
+
+const LabTestRefundStack = createStackNavigator<LabTestRefundStackParamList>();
+const LabTestRefundStackScreen = () => {
+  return (
+    <LabTestRefundStack.Navigator
+      initialRouteName="LabTestScreen"
+      screenOptions={{ headerShown: false }}>
+      <LabTestRefundStack.Screen
+        name="LabTestScreen"
+        component={LabTestScreen}
+      />
+      <LabTestRefundStack.Screen
+        name="OrderDetails"
+        component={DetailsOrderScreen}
+      />
+      <LabTestRefundStack.Screen
+        name="SelectTestSlot"
+        component={TestSlotScreen}
+      />
+      <LabTestRefundStack.Screen
+        name="TestSummaryScreen"
+        component={TestSummaryScreen}
+      />
+      <LabTestRefundStack.Screen
+        name="CongratulationsScreen"
+        component={CongratulationsScreen}
+      />
+    </LabTestRefundStack.Navigator>
+  );
+}
+
 const DiagnosticStack = createStackNavigator<DiagnosticStackParamList>();
 const DiagnosticStackScreen = () => {
   return (
@@ -415,6 +518,15 @@ const Router = () => {
             component={DiagnosticStackScreen}
           />
           <AppStack.Screen
+            name={'DevicePurchaseStackScreen'}
+            component={DevicePurchaseStackScreen}
+          />
+          <AppStack.Screen
+            name={'LabTestRefundStackScreen'}
+            component={LabTestRefundStackScreen}
+          />
+
+          <AppStack.Screen
             name={'DeviceConnectionScreen'}
             component={DeviceConnectionScreen}
           />
@@ -423,9 +535,13 @@ const Router = () => {
             name={'DietStackScreen'}
             component={DietStackScreen}
           />
-        </AppStack.Navigator>
-      </BottomSheetModalProvider>
-    </NavigationContainer>
+          <AppStack.Screen
+            name={'SpirometerScreen'}
+            component={SpirometerScreen}
+          />
+        </AppStack.Navigator >
+      </BottomSheetModalProvider >
+    </NavigationContainer >
   );
 };
 

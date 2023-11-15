@@ -3,11 +3,13 @@ import React, { useState } from 'react';
 import {
     DiagnosticStackParamList
 } from '../../interface/Navigation.interface';
-import { Container, Screen } from '../../components/styled/Views';
 import { StackScreenProps } from '@react-navigation/stack';
 import { colors } from '../../constants/colors';
-import { Fonts } from '../../constants';
+import { Fonts, Matrics } from '../../constants';
 import { Icons } from '../../constants/icons';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import MyStatusbar from '../../components/atoms/MyStatusBar';
+
 type SearchLabTestScreenProps = StackScreenProps<
     DiagnosticStackParamList,
     'SearchLabTest'
@@ -22,6 +24,7 @@ type RecentSearchItem = {
 const SearchLabTestScreen: React.FC<SearchLabTestScreenProps> = ({ route, navigation }) => {
     const [isFocused, setIsFocused] = useState<boolean>(false);
     const [searchItem, setSearchItem] = useState<string>();
+    const insets = useSafeAreaInsets();
 
     const onPressBack = () => {
         navigation.goBack();
@@ -66,77 +69,82 @@ const SearchLabTestScreen: React.FC<SearchLabTestScreenProps> = ({ route, naviga
         );
     }
     return (
-        <>
-            <Screen>
-                <View style={styles.header}>
-                    <Icons.backArrow height={24} width={24} onPressBack={onPressBack} />
-                    <View style={[styles.inputContainer, { borderColor: isFocused ? "black" : colors.inputBoxLightBorder }]}>
-                        <TextInput placeholder='Search for lab test' onFocus={() => setIsFocused(true)} onBlur={() => setIsFocused(false)}
-                            onChangeText={text => setSearchItem(text)}
-                            value={searchItem} />
-                    </View>
+        <SafeAreaView edges={['top']} style={[styles.screen, { paddingBottom: insets.bottom == 0 ? Matrics.vs(20) : insets.bottom }]}>
+            <MyStatusbar />
+            <View style={styles.header}>
+                <Icons.backArrow height={24} width={24} onPress={onPressBack} />
+                <View style={[styles.inputContainer, { borderColor: isFocused ? "black" : colors.inputBoxLightBorder }]}>
+                    <TextInput placeholder='Search for lab test' onFocus={() => setIsFocused(true)} onBlur={() => setIsFocused(false)}
+                        onChangeText={text => setSearchItem(text)}
+                        value={searchItem} />
                 </View>
-                <View style={styles.searchContainer}>
-                    <Text style={styles.titletext}> Recent Search</Text>
-                    {options.map(renderRecentSearch)}
-                </View>
-            </Screen>
-        </>
+            </View>
+            <View style={styles.searchContainer}>
+                <Text style={styles.titletext}> Recent Search</Text>
+                {options.map(renderRecentSearch)}
+            </View>
+        </SafeAreaView>
+
     )
 }
 
 export default SearchLabTestScreen
 
 const styles = StyleSheet.create({
+    screen: {
+        flex: 1,
+        backgroundColor: colors.lightGreyishBlue,
+    },
     header: {
-
-        paddingTop: 30,
-        paddingHorizontal: 20,
+        width: "100%",
+        paddingTop: Matrics.s(20),
+        paddingHorizontal: Matrics.s(20),
         flexDirection: 'row',
         alignItems: 'center'
     },
     inputContainer: {
         width: "90%",
         borderWidth: 1,
+        backgroundColor: colors.white,
         borderColor: colors.inputBoxLightBorder,
-        borderRadius: 12,
-        paddingHorizontal: 10,
-        minHeight: 40,
-        marginLeft: 10
+        borderRadius: Matrics.s(12),
+        paddingHorizontal: Matrics.mvs(10),
+        heighteight: Matrics.vs(44),
+        marginLeft: Matrics.s(10)
     },
     searchContainer: {
-        marginTop: 30,
-        marginHorizontal: 10,
+        marginTop: Matrics.s(30),
+        marginHorizontal: Matrics.s(10),
 
     },
     titletext: {
-        fontSize: 14,
+        fontSize: Matrics.mvs(14),
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray,
-        marginBottom: 10
+        marginBottom: Matrics.s(10)
     },
 
     searchItem: {
         flexDirection: "row",
         alignItems: 'center',
-        margin: 10
+        margin: Matrics.s(10)
     },
     circle: {
-        width: 35,
-        height: 35,
-        borderRadius: 17,
+        width: Matrics.s(35),
+        height: Matrics.vs(35),
+        borderRadius: Matrics.s(17),
         backgroundColor: colors.white,
-        marginRight: 10
+        marginRight: Matrics.s(10)
     },
     recentSearchText: {
-        fontSize: 14,
+        fontSize: Matrics.mvs(14),
         fontWeight: '400',
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray,
     },
     descriptionText: {
-        fontSize: 12,
+        fontSize: Matrics.mvs(12),
         fontWeight: '400',
         fontFamily: Fonts.BOLD,
         color: colors.subTitleLightGray,

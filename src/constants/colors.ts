@@ -36,6 +36,7 @@ export const colors = {
   veryLightPurple: '#d4b1ef',
   darkLightPurple: '#F7D7FB',
   progressBarGray: '#e9e9ee',
+  lightSilver:"#E9E9E9",
   borderColor: '#F0F0F0',
   genderActiveButton: '#f0f0f5',
   genderActiveButtonBorder: '#b6b6b8',

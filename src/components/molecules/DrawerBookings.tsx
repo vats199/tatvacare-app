@@ -1,41 +1,33 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
-import {colors} from '../../constants/colors';
-import {Icons} from '../../constants/icons';
+import { colors } from '../../constants/colors';
+import { Icons } from '../../constants/icons';
 // import {navigateTo} from '../../routes/Router';
-import {Fonts, Matrics} from '../../constants';
+import { Fonts, Matrics } from '../../constants';
 
-type DrawerBookingsProps = {};
+type DrawerBookingsProps = {
+  onPressLabTest: () => void;
+}
 
-const DrawerBookings: React.FC<DrawerBookingsProps> = ({}) => {
+const DrawerBookings: React.FC<DrawerBookingsProps> = ({ onPressLabTest }) => {
+
+
   const onPressConsultations = () => {
-    // navigateTo('AppointmentsHistoryVC');
-  };
-  const onPressLabTests = () => {
-    // navigateTo('LabTestListVC');
-  };
+    // navigateTo('AppointmentsHistoryVC')
+  }
+
 
   return (
     <View style={styles.container}>
       <Text style={styles.headerText}>Drawer Bookings</Text>
-      <TouchableOpacity
-        style={styles.itemContainer}
-        activeOpacity={0.7}
-        onPress={onPressConsultations}>
-        <View style={styles.icon}>
-          <Icons.DrawerConsultations />
-        </View>
+      <TouchableOpacity style={styles.itemContainer} activeOpacity={0.7} onPress={onPressConsultations}>
+        <View style={styles.icon}><Icons.DrawerConsultations /></View>
         <View style={styles.mhdItemTextContainer}>
           <Text style={styles.mhdItemText}>Consultations</Text>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.itemContainer}
-        activeOpacity={0.7}
-        onPress={onPressLabTests}>
-        <View style={styles.icon}>
-          <Icons.DrawerLabTests />
-        </View>
+      <TouchableOpacity style={styles.itemContainer} activeOpacity={0.7} onPress={onPressLabTest}>
+        <View style={styles.icon}><Icons.DrawerLabTests /></View>
         <View style={styles.mhdItemTextContainer}>
           <Text style={styles.mhdItemText}>Lab Tests</Text>
         </View>

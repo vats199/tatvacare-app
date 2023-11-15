@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { FlatList } from 'react-native-gesture-handler';
 import { Icons } from '../../constants/icons';
 import { colors } from '../../constants/colors';
-import { Fonts } from '../../constants';
+import { Fonts, Matrics } from '../../constants';
+
 
 type TestItem = {
     id: number;
@@ -17,12 +17,16 @@ type TestItem = {
 
 type TestDetailsProps = {
     data?: TestItem[];
-    title?: string
+    title?: string;
+    onPressDelete?: (id: number) => void;
 }
+const TestDetails: React.FC<TestDetailsProps> = ({ data, title, onPressDelete }) => {
 
-
-
-const TestDetails: React.FC<TestDetailsProps> = ({ data, title }) => {
+    const deleteHandler = (id: number) => {
+        if (onPressDelete) {
+            onPressDelete(id);
+        }
+    }
 
     const rupee = '\u20B9';
 
@@ -42,8 +46,8 @@ const TestDetails: React.FC<TestDetailsProps> = ({ data, title }) => {
         }
     }
     const renderCartItem = (item: TestItem, index: number) => {
-        return (
 
+        return (
             <View style={styles.renderItemContainer}>
                 <View style={{ width: "15%", marginLeft: 5 }}>
                     {renderIcon(item.title)}
@@ -58,42 +62,35 @@ const TestDetails: React.FC<TestDetailsProps> = ({ data, title }) => {
                             <Text>{rupee}{item.newPrice}</Text>
                             {
                                 (title === 'Test Details') && (
-                                    <Icons.Delete height={15} width={15} style={{ marginLeft: 10 }} />
+                                    <Icons.Delete height={15} width={15} style={{ marginLeft: 10 }} onPress={() => deleteHandler(item.id)} />
                                 )
                             }
                         </View>
                     </View>
                     {
-                        (item.id < data?.length) && (
+                        (data && data.length > 0 && index < data.length - 1) && (
                             <View style={styles.border} />
                         )
                     }
                 </View>
             </View>
-
-
         );
     }
     return (
         <View >
             <Text style={styles.title}>{title}</Text>
-
             <View style={styles.container}>
                 {data && data.map(renderCartItem)}
                 {
                     (title === "Test Details") && (
                         <TouchableOpacity
                             style={styles.addCartButton}
-
                         >
-                            <Text style={styles.addCartText}> Add more test</Text>
-
+                            <Text style={styles.addCartText}> Add More Test</Text>
                         </TouchableOpacity>
                     )
                 }
             </View>
-
-
         </View>
     )
 }
@@ -102,18 +99,18 @@ export default TestDetails
 
 const styles = StyleSheet.create({
     title: {
-        fontSize: 16,
+        fontSize: Matrics.mvs(16),
         fontWeight: "700",
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray,
-        marginTop: 20,
-        marginBottom: 10
+        marginTop: Matrics.s(20),
+        marginBottom: Matrics.s(10)
     },
     container: {
         backgroundColor: 'white',
-        borderRadius: 12,
-        padding: 10,
-        marginVertical: 10,
+        borderRadius: Matrics.s(12),
+        padding: Matrics.vs(10),
+        marginVertical: Matrics.vs(10),
         elevation: 0.2,
         shadowColor: colors.inputValueDarkGray,
         shadowOffset: { width: 0, height: 1 },
@@ -121,7 +118,7 @@ const styles = StyleSheet.create({
     renderItemContainer: {
         width: '100%',
         flexDirection: 'row',
-        marginVertical: 10
+        marginVertical: Matrics.vs(10)
     },
     rightContainer: {
 
@@ -130,36 +127,37 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     border: {
-        borderBottomWidth: 1,
-        borderBottomColor: "#D3D3D3",
-        marginTop: 10
+        borderBottomWidth: 0.5,
+        borderBottomColor: colors.secondaryLabel,
+        marginTop: Matrics.s(10)
     },
     addCartButton: {
-        marginVertical: 10,
+        marginVertical: Matrics.vs(10),
         width: "100%",
         borderWidth: 1,
         borderColor: colors.themePurple,
-        paddingHorizontal: 6,
-        paddingVertical: 8,
-        borderRadius: 12,
+        paddingHorizontal: Matrics.s(6),
+        paddingVertical: Matrics.vs(8),
+        borderRadius: Matrics.s(12),
         justifyContent: 'center',
         alignItems: 'center'
     },
     addCartText: {
-        fontSize: 14,
+        fontSize: Matrics.mvs(14),
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
-        color: colors.themePurple
+        color: colors.themePurple,
+        lineHeight: Matrics.s(18)
     },
     titleStyle: {
-        fontSize: 14,
+        fontSize: Matrics.mvs(14),
         fontWeight: '700',
         fontFamily: Fonts.BOLD,
         color: colors.labelDarkGray,
         marginBottom: 5
     },
     reportText: {
-        fontSize: 12,
+        fontSize: Matrics.mvs(12),
         fontWeight: '400',
         fontFamily: Fonts.BOLD,
         color: colors.purple
