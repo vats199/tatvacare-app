@@ -26,13 +26,13 @@ const ProgressBarInsightsScreen: React.FC<ProgressBarInsightsScreenProps> = ({
   route,
 }) => {
   const insets = useSafeAreaInsets();
-  const [selectedDate, setSelectedDate] = React.useState(new Date());
   const { calories, currentSelectedDate, option } = route.params;
   const [dailyCalories, setDailyCalories] = useState([]);
   const [macroNuitrientes, setMacroNuitrientes] = useState([]);
   const [tempSelectedDate, setTempSelectedDate] = useState<string | Date>(
-    new Date(),
+    currentSelectedDate ?? new Date()
   );
+  const [selectedDate, setSelectedDate] = React.useState(currentSelectedDate ?? new Date());
   // const [newMonth, setNewMonth] = useState<string | Date>(
   //   moment(tempSelectedDate).format('YYYY-MM-DD'),
   // );

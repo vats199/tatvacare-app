@@ -1,27 +1,27 @@
-import {Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React, {useEffect} from 'react';
-import {DietStackParamList} from '../../interface/Navigation.interface';
-import {Icons} from '../../constants/icons';
-import {colors} from '../../constants/colors';
+import { Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useEffect } from 'react';
+import { DietStackParamList } from '../../interface/Navigation.interface';
+import { Icons } from '../../constants/icons';
+import { colors } from '../../constants/colors';
 import MicronutrientsInformation from '../../components/organisms/MicronutrientsInformation';
 import AddDiet from '../../components/organisms/AddDiet';
-import {StackScreenProps} from '@react-navigation/stack';
+import { StackScreenProps } from '@react-navigation/stack';
 import Deit from '../../api/diet';
-import {useApp} from '../../context/app.context';
-import {Constants, Fonts, Matrics} from '../../constants';
-import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
-import {trackEvent} from '../../helpers/TrackEvent';
+import { useApp } from '../../context/app.context';
+import { Constants, Fonts, Matrics } from '../../constants';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { trackEvent } from '../../helpers/TrackEvent';
 import mealTypes from '../../constants/data';
 import moment from 'moment';
-import {number} from 'yup';
+import { number } from 'yup';
 import Diet from '../../api/diet';
-import {useDiet} from '../../context/diet.context';
+import { useDiet } from '../../context/diet.context';
 import MyStatusbar from '../../components/atoms/MyStatusBar';
 // import MyStatusbar from '../../components/atoms/MyStatusBar';
 
 type DietDetailProps = StackScreenProps<DietStackParamList, 'DietDetail'>;
 
-const DietDetailScreen: React.FC<DietDetailProps> = ({navigation, route}) => {
+const DietDetailScreen: React.FC<DietDetailProps> = ({ navigation, route }) => {
   const insets = useSafeAreaInsets();
   const {
     foodItem,
@@ -37,7 +37,7 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({navigation, route}) => {
   } = route.params;
   let quantity = Math.round(Number(foodItem?.quantity)).toString();
   const [qty, setQty] = React.useState<string>(quantity);
-  const {userData} = useApp();
+  const { userData } = useApp();
 
   useEffect(() => {
     navigation.addListener('beforeRemove', e => {
@@ -50,7 +50,7 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({navigation, route}) => {
         param = {
           option: option,
         };
-        navigation.setParams({toDietScreen: false});
+        navigation.setParams({ toDietScreen: false });
         navigation.navigate('DietScreen', param);
       } else {
         param = {
@@ -62,7 +62,7 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({navigation, route}) => {
           patient_id: patient_id,
           selectedDate: selectedDate,
         };
-        navigation.setParams({toDietScreen: false});
+        navigation.setParams({ toDietScreen: false });
         navigation.navigate('AddDiet', param);
       }
     });
@@ -70,15 +70,15 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({navigation, route}) => {
 
   const onPressBack = () => {
     if (Array.isArray(option) && option.length !== 0) {
-      navigation.setParams({toDietScreen: false});
+      navigation.setParams({ toDietScreen: false });
       if (toDietScreen) {
-        navigation.setParams({toDietScreen: false});
+        navigation.setParams({ toDietScreen: false });
 
         navigation.navigate('DietScreen', {
           option: option,
         });
       } else {
-        navigation.setParams({toDietScreen: false});
+        navigation.setParams({ toDietScreen: false });
         navigation.navigate('AddDiet', {
           option: option,
           healthCoachId: healthCoachId,
@@ -215,7 +215,7 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({navigation, route}) => {
       const result = await Deit?.noDietPlanCreate(
         noPlanPayload,
         {},
-        {token: userData.token},
+        { token: userData.token },
       );
 
       if (Constants.IS_CHECK_API_CODE) {
@@ -284,7 +284,7 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({navigation, route}) => {
         const result = await Deit?.addFoodItem(
           addPayload,
           {},
-          {token: userData.token},
+          { token: userData.token },
         );
         if (Constants.IS_CHECK_API_CODE) {
           if (result?.code === '1') {
@@ -303,7 +303,7 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({navigation, route}) => {
         const result = await Deit?.updateFoodItem(
           updatePayload,
           {},
-          {token: userData.token},
+          { token: userData.token },
         );
         if (Constants.IS_CHECK_API_CODE) {
           if (result?.code === '1') {
@@ -322,7 +322,7 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({navigation, route}) => {
                 const UpadteFoodItem = await Diet?.updateFoodConsumption(
                   payload,
                   {},
-                  {token: userData.token},
+                  { token: userData.token },
                 );
                 if (Constants.IS_CHECK_API_CODE) {
                   if (UpadteFoodItem.code == '1') {
@@ -362,7 +362,7 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({navigation, route}) => {
               const UpadteFoodItem = await Diet?.updateFoodConsumption(
                 payload,
                 {},
-                {token: userData.token},
+                { token: userData.token },
               );
 
               if (Constants.IS_CHECK_API_CODE) {
@@ -420,7 +420,7 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({navigation, route}) => {
           mealName={mealName}
           isDisable={
             qty === '0' ||
-            Math.round(Number(foodItem?.quantity)).toString() === qty
+              Math.round(Number(foodItem?.quantity)).toString() === qty
               ? true
               : false
           }
