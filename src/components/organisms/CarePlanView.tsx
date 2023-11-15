@@ -9,6 +9,7 @@ import {
   FlatList,
   Platform,
   NativeModules,
+  Animated
 } from 'react-native';
 import React from 'react';
 import { colors } from '../../constants/colors';
@@ -21,7 +22,7 @@ import {
   onPressRenewPlan,
   openPlanDetails,
 } from '../../routes/Router';
-
+import { ExpandingDot } from "react-native-animated-pagination-dots";
 type CarePlanViewProps = {
   data?: any;
   allPlans: any[];
@@ -33,6 +34,7 @@ const CarePlanView: React.FC<CarePlanViewProps> = ({
   onPressCarePlan,
   allPlans = [],
 }) => {
+  const scrollX = React.useRef(new Animated.Value(0)).current;
   const isFreePlan: boolean =
     data?.patient_plans && data?.patient_plans[0]?.plan_type === 'Free';
 
@@ -72,7 +74,7 @@ const CarePlanView: React.FC<CarePlanViewProps> = ({
 
   const renderPlanItem = ({ item, index }: { item: any; index: number }) => {
     return (
-      <PlanItem plan={item} onPressKnowMore={() => onPressKnowMore(item)} />
+      <PlanItem plan={item} onPressKnowMore={() => onPressKnowMore(item)} index={index} />
     );
   };
 
@@ -122,14 +124,43 @@ const CarePlanView: React.FC<CarePlanViewProps> = ({
             </TouchableOpacity>
           </View>
           <FlatList
-            data={allPlans}
+            data={allPlans.slice(0, 2)}
             keyExtractor={(_item, index) => index.toString()}
             horizontal
             showsHorizontalScrollIndicator={false}
+            onScroll={Animated.event(
+              [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+              {
+                useNativeDriver: false,
+              }
+            )}
+            pagingEnabled
+            decelerationRate={'fast'}
+            scrollEventThrottle={10}
             renderItem={renderPlanItem}
-            contentContainerStyle={{ paddingVertical: 10, paddingLeft: 16 }}
+            contentContainerStyle={{ paddingVertical: 10 }}
             ItemSeparatorComponent={() => <View style={styles.itemSep} />}
           />
+
+          <ExpandingDot
+            data={allPlans.slice(0, 2)}
+            expandingDotWidth={45}
+            inActiveDotColor='#D9D9D9'
+            scrollX={scrollX}
+            inActiveDotOpacity={0.8}
+            dotStyle={{
+              width: 45,
+              height: 5,
+              backgroundColor: '#605AE0',
+              borderRadius: 5,
+              marginHorizontal: 5,
+            }}
+            containerStyle={{
+              bottom: -8,
+              paddingVertical: 10, paddingLeft: 16
+            }}
+          />
+
         </View>
       ) : (
         <ScrollView

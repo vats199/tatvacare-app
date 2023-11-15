@@ -7,24 +7,27 @@ import {
   View,
 } from 'react-native';
 import React from 'react';
-import {colors} from '../../constants/colors';
+import { colors } from '../../constants/colors';
+import { Matrics } from '../../constants';
 
 type PlanItemProps = {
   plan: any;
+  index: number;
   onPressKnowMore: () => void;
 };
 
 const PlanItem: React.FC<PlanItemProps> = ({
   plan,
-  onPressKnowMore = () => {},
+  index,
+  onPressKnowMore = () => { },
 }) => {
   return (
     <TouchableOpacity
       onPress={onPressKnowMore}
       activeOpacity={0.6}
-      style={styles.planItemContainer}>
+      style={[styles.planItemContainer, { marginLeft: index == 0 ? 16 : 0, marginRight: index == 0 ? 0 : 16 }]}>
       <Image
-        source={{uri: plan.image_url}}
+        source={{ uri: plan.image_url }}
         style={styles.image}
         resizeMode={'stretch'}
       />
@@ -36,21 +39,18 @@ export default PlanItem;
 
 const styles = StyleSheet.create({
   planItemContainer: {
-    // height: 80,
+    backgroundColor: 'green',
     aspectRatio: 2.45,
-    width: Dimensions.get('screen').width * 0.78,
+    width: Matrics.screenWidth - 64,
     borderWidth: 1,
     borderColor: colors.lightGrey,
     borderRadius: 12,
     overflow: 'hidden',
     // padding: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
   },
   image: {
     height: '100%',
-    width: '100%',
+    width: Matrics.screenWidth - 64,
     backgroundColor: colors.lightGrey,
     borderRadius: 12,
   },

@@ -152,10 +152,10 @@ const styles = StyleSheet.create({
     minHeight: 70,
   },
   text: {
-    fontSize: 12,
-    fontFamily: 'SFProDisplay-Regular',
+    fontSize: 13,
+    fontFamily: 'SFProDisplay-Medium',
     color: colors.inputValueDarkGray,
-    lineHeight: 16.71,
+    lineHeight: 17,
     textAlign: 'center',
   },
 });
