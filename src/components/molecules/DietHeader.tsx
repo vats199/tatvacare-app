@@ -1,12 +1,20 @@
 import React, {useState} from 'react';
 import CalendarStrip from 'react-native-calendar-strip';
-import {StyleSheet, Text, View, Dimensions} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  LayoutAnimation,
+  Animated,
+} from 'react-native';
 import {colors} from '../../constants/colors';
 import {Icons} from '../../constants/icons';
 import {TouchableOpacity} from 'react-native';
 import {LocaleConfig, CalendarList} from 'react-native-calendars';
 import {Fonts, Matrics} from '../../constants';
 import moment from 'moment';
+import {useIsFocused} from '@react-navigation/native';
 
 const {width} = Dimensions.get('window');
 type DietHeaderProps = {
@@ -123,6 +131,7 @@ const DietHeader: React.FC<DietHeaderProps> = ({
     onPressOfNextAndPerviousDate(nextMonth);
     setCalendarKey(calendarKey + 1);
   };
+  const focus = useIsFocused();
 
   return (
     <View style={styles.mainContainer}>
@@ -163,7 +172,7 @@ const DietHeader: React.FC<DietHeaderProps> = ({
             </View>
           </View>
           {!showMore ? (
-            <View style={{paddingHorizontal: Matrics.s(10)}}>
+            <Animated.View style={{paddingHorizontal: Matrics.s(10)}}>
               <CalendarStrip
                 selectedDate={selectedDate}
                 key={calendarKey}
@@ -193,13 +202,14 @@ const DietHeader: React.FC<DietHeaderProps> = ({
                 iconLeftStyle={{display: 'none'}}
                 iconRightStyle={{display: 'none'}}
               />
-            </View>
+            </Animated.View>
           ) : (
-            <View style={{height: Matrics.mvs(300)}}>
+            <Animated.View style={{height: Matrics.mvs(300)}}>
               <CalendarList
                 firstDay={1}
                 horizontal={true}
                 pagingEnabled={true}
+                initialDate={moment(selectedDate).format('YYYY-MM-DD')}
                 onDayPress={day => {
                   let date = new Date(day?.dateString);
                   onPressOfNextAndPerviousDate(date);
@@ -262,12 +272,19 @@ const DietHeader: React.FC<DietHeaderProps> = ({
                   },
                 }}
               />
-            </View>
+            </Animated.View>
           )}
         </View>
         <TouchableOpacity
           style={styles.dropDwonIcon}
-          onPress={() => setShowMore(!showMore)}>
+          onPress={() => {
+            focus
+              ? LayoutAnimation.configureNext(
+                  LayoutAnimation.Presets.easeInEaseOut,
+                )
+              : null;
+            setShowMore(!showMore);
+          }}>
           {showMore ? <Icons.ShowMore /> : <Icons.ShowLess />}
         </TouchableOpacity>
       </View>

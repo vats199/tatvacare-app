@@ -69,6 +69,7 @@ import CongratulationScreen from '../screens/Diagnostic/CongratulationScreen';
 import OrderDetailsScreen from '../screens/Diagnostic/OrderDetailsScreen';
 import { Matrics } from '../constants';
 import GoalsScreen from '../screens/Drawer/GoalsScreen';
+import AnalyserScreen from '../screens/Spirometer/AnalyserScreen';
 
 const Drawer = createDrawerNavigator<DrawerParamList>();
 const DrawerScreen = () => {
@@ -417,13 +418,10 @@ const Router = () => {
             name={'DeviceConnectionScreen'}
             component={DeviceConnectionScreen}
           />
+          <AppStack.Screen name={'AnalyserScreen'} component={AnalyserScreen} />
           <AppStack.Screen
             name={'DietStackScreen'}
             component={DietStackScreen}
-          />
-          <AppStack.Screen
-            name={'SpirometerScreen'}
-            component={SpirometerScreen}
           />
         </AppStack.Navigator>
       </BottomSheetModalProvider>

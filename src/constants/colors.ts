@@ -58,6 +58,7 @@ export const colors = {
   progressBarGreen: '#2ecc71',
   progressBarRed: '#FF3333',
   progressBarYellow: '#FAB000',
+  switchBackgroundColor:'#e9e9eb',
 
   transparent: 'transparent',
   lightGrayBackgroundColor: '#DBDBDB',

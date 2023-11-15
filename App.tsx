@@ -1,21 +1,6 @@
 import 'react-native-gesture-handler';
-import {
-  Alert,
-  Dimensions,
-  PermissionsAndroid,
-  Permission,
-  Platform,
-  StatusBar,
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-  useWindowDimensions,
-  TextInput,
-  TextInputProps,
-  TextProps,
-} from 'react-native';
 import React, { useEffect, useRef, useState } from 'react';
+import { Platform, StyleSheet, useWindowDimensions, Text, TextInput, } from 'react-native';
 import Router from './src/routes/Router';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import LocationBottomSheet, {

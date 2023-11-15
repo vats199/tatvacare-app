@@ -1,16 +1,16 @@
-import React, {useEffect, useMemo, useRef, useState} from 'react';
-import {Platform, StyleSheet, View, ViewStyle} from 'react-native';
-import {Picker, DatePicker} from 'react-native-wheel-pick';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { Platform, StyleSheet, View, ViewStyle } from 'react-native';
+import { Picker, DatePicker } from 'react-native-wheel-pick';
 
-import {Matrics} from '../../constants';
-import {colors} from '../../constants/colors';
+import { Matrics } from '../../constants';
+import { colors } from '../../constants/colors';
 
 const dummyData = [...new Array(200)].map((item, index) => {
-  return {label: `${String(index + 1)}`, value: index + 1};
+  return { label: `${String(index + 1)}`, value: index + 1 };
 });
 
 const additionalDataArr = [...new Array(12)].map((item, index) => {
-  return {label: `${String(index + 1)}`, value: index + 1};
+  return { label: `${String(index + 1)}`, value: index + 1 };
 });
 
 export type PickerDataTypeProps = {
@@ -40,7 +40,7 @@ export interface Props {
   onChangeValue: (value: onChangeTypeProps, type?: string) => void;
 }
 
-const WheelPickerIos: React.FC<Props> = ({
+const WheelPicker: React.FC<Props> = ({
   selectedValue,
   containerStyle,
   textSize = Matrics.mvs(30),
@@ -56,7 +56,7 @@ const WheelPickerIos: React.FC<Props> = ({
   rowContainerStyle,
   leftPickerContStyle,
   rightPickerContStyle,
-  onChangeValue = () => {},
+  onChangeValue = () => { },
 }) => {
   return (
     <>
@@ -72,8 +72,7 @@ const WheelPickerIos: React.FC<Props> = ({
             selectLineSize={0}
             pickerData={data}
             onValueChange={(value: number) => {
-              onChangeValue({value: value, type: 'left'});
-              console.log(value, 'valueeeeeee');
+              onChangeValue({ value: value, type: 'left' });
             }}
           />
           <View style={[styles.leftArrow, leftArrowStyle]}></View>
@@ -94,7 +93,7 @@ const WheelPickerIos: React.FC<Props> = ({
               selectLineSize={0}
               pickerData={data}
               onValueChange={(value: number) => {
-                onChangeValue({value: value, type: 'left'});
+                onChangeValue({ value: value, type: 'left' });
                 console.log(value, 'valueeeeeee');
               }}
             />
@@ -110,7 +109,7 @@ const WheelPickerIos: React.FC<Props> = ({
               selectLineSize={0}
               pickerData={additionalData}
               onValueChange={(value: number) => {
-                onChangeValue({value: value, type: 'right'});
+                onChangeValue({ value: value, type: 'right' });
                 console.log(value, 'valueeeeeee');
               }}
             />
@@ -123,10 +122,10 @@ const WheelPickerIos: React.FC<Props> = ({
   );
 };
 
-export default WheelPickerIos;
+export default WheelPicker;
 
 const styles = StyleSheet.create({
-  container: {justifyContent: 'center'},
+  container: { justifyContent: 'center' },
   pickerStyle: {
     backgroundColor: colors.white,
     width: Matrics.screenWidth,
@@ -137,7 +136,7 @@ const styles = StyleSheet.create({
     height: Matrics.mvs(30),
     width: Matrics.mvs(30),
     backgroundColor: colors.themePurple,
-    transform: [{rotate: '45deg'}],
+    transform: [{ rotate: '45deg' }],
     position: 'absolute',
     right: Matrics.mvs(-15),
   },
@@ -145,7 +144,7 @@ const styles = StyleSheet.create({
     height: Matrics.mvs(30),
     width: Matrics.mvs(30),
     backgroundColor: colors.themePurple,
-    transform: [{rotate: '45deg'}],
+    transform: [{ rotate: '45deg' }],
     position: 'absolute',
     left: Matrics.mvs(-15),
   },

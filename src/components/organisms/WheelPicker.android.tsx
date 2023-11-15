@@ -1,16 +1,16 @@
-import React, {useEffect, useMemo, useRef, useState} from 'react';
-import {StyleSheet, View, ViewStyle} from 'react-native';
-import {Picker, DatePicker} from 'react-native-wheel-pick';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { StyleSheet, View, ViewStyle } from 'react-native';
+import { Picker, DatePicker } from 'react-native-wheel-pick';
 
-import {Matrics} from '../../constants';
-import {colors} from '../../constants/colors';
+import { Matrics } from '../../constants';
+import { colors } from '../../constants/colors';
 
 const dummyData = [...new Array(200)].map((item, index) => {
-  return {label: `${String(index + 1)}`, value: index + 1};
+  return { label: `${String(index + 1)}`, value: index + 1 };
 });
 
 const additionalDataArr = [...new Array(12)].map((item, index) => {
-  return {label: `${String(index + 1)}`, value: index + 1};
+  return { label: `${String(index + 1)}`, value: index + 1 };
 });
 
 type PickerDataTypeProps = {
@@ -40,10 +40,10 @@ export interface Props {
   onChangeValue: (value: onChangeTypeProps) => void;
 }
 
-const WheelPickerAndroid: React.FC<Props> = ({
+const WheelPicker: React.FC<Props> = ({
   selectedValue,
   containerStyle,
-  textSize = Matrics.mvs(30),
+  textSize = Matrics.mvs(25),
   selectTextColor = colors.labelDarkGray,
   textColor = colors.subTitleLightGray,
   isShowSelectBackground = false,
@@ -56,7 +56,7 @@ const WheelPickerAndroid: React.FC<Props> = ({
   rowContainerStyle,
   leftPickerContStyle,
   rightPickerContStyle,
-  onChangeValue = () => {},
+  onChangeValue = () => { },
 }) => {
   return (
     <>
@@ -72,7 +72,7 @@ const WheelPickerAndroid: React.FC<Props> = ({
             selectLineSize={0}
             pickerData={data}
             onValueChange={(value: number) => {
-              onChangeValue({value: value, type: 'left'});
+              onChangeValue({ value: value, type: 'left' });
               console.log(value, 'valueeeeeee');
             }}
           />
@@ -94,7 +94,7 @@ const WheelPickerAndroid: React.FC<Props> = ({
               selectLineSize={0}
               pickerData={data}
               onValueChange={(value: number) => {
-                onChangeValue({value: value, type: 'left'});
+                onChangeValue({ value: value, type: 'left' });
                 console.log(value, 'valueeeeeee');
               }}
             />
@@ -110,7 +110,7 @@ const WheelPickerAndroid: React.FC<Props> = ({
               selectLineSize={0}
               pickerData={additionalData}
               onValueChange={(value: number) => {
-                onChangeValue({value: value, type: 'right'});
+                onChangeValue({ value: value, type: 'right' });
                 console.log(value, 'valueeeeeee');
               }}
             />
@@ -123,10 +123,10 @@ const WheelPickerAndroid: React.FC<Props> = ({
   );
 };
 
-export default WheelPickerAndroid;
+export default WheelPicker;
 
 const styles = StyleSheet.create({
-  container: {flex: 1, justifyContent: 'center'},
+  container: { flex: 1, justifyContent: 'center' },
   pickerStyle: {
     backgroundColor: colors.white,
     width: Matrics.screenWidth,
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     height: Matrics.mvs(32),
     width: Matrics.mvs(32),
     backgroundColor: colors.themePurple,
-    transform: [{rotate: '45deg'}],
+    transform: [{ rotate: '45deg' }],
     position: 'absolute',
     right: Matrics.s(-16),
   },
@@ -145,29 +145,34 @@ const styles = StyleSheet.create({
     height: Matrics.mvs(32),
     width: Matrics.mvs(32),
     backgroundColor: colors.themePurple,
-    transform: [{rotate: '45deg'}],
+    transform: [{ rotate: '45deg' }],
     position: 'absolute',
     left: Matrics.s(-16),
   },
-  rowContainer: {flex: 1, flexDirection: 'row', alignItems: 'center'},
+  rowContainer: { flex: 1, flexDirection: 'row', alignItems: 'center' },
   leftPickerCont: {
     width: Matrics.screenWidth / 2,
-    height: Matrics.vs(250),
+    // height: Matrics.vs(250),
+    flex: 1,
     alignItems: 'flex-end',
   },
   rightPickerCont: {
     width: Matrics.screenWidth / 2,
-    height: Matrics.vs(250),
+    // height: Matrics.vs(250),
+    flex: 1,
+
     alignItems: 'flex-start',
   },
   leftPicker: {
     backgroundColor: colors.white,
     width: Matrics.s(70),
-    height: Matrics.vs(250),
+    // height: Matrics.vs(250),
+    flex: 1,
   },
   rightPikcer: {
     backgroundColor: colors.white,
     width: Matrics.s(40),
-    height: Matrics.vs(250),
+    // height: Matrics.vs(250),
+    flex: 1,
   },
 });

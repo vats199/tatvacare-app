@@ -1,4 +1,4 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, Platform, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {colors} from '../../constants/colors';
 import {Fonts, Matrics} from '../../constants';
@@ -41,7 +41,12 @@ const DeviceBottomSheet: React.FC<DeviceBottomSheetProps> = ({
           styles.bottomSheetBtnContainer,
           styles.bottomSheetContainerShadow,
           {
-            paddingBottom: insets.bottom != 0 ? insets.bottom : Matrics.vs(16),
+            paddingBottom:
+              Platform.OS == 'android'
+                ? insets.bottom + Matrics.vs(10)
+                : insets.bottom == 0
+                ? Matrics.vs(16)
+                : insets.bottom,
           },
         ]}>
         <Button
@@ -64,8 +69,10 @@ const DeviceBottomSheet: React.FC<DeviceBottomSheetProps> = ({
 export default DeviceBottomSheet;
 
 const styles = StyleSheet.create({
-  bottomSheetContainer: {flex: 1, backgroundColor: colors.white},
-
+  bottomSheetContainer: {
+    flex: 1,
+    backgroundColor: colors.white,
+  },
   deviceDetailsContainer: {
     flex: 1,
     paddingHorizontal: Matrics.s(15),
@@ -108,7 +115,7 @@ const styles = StyleSheet.create({
     shadowOffset: {width: 0, height: 0},
     shadowOpacity: 0.1,
     shadowRadius: 10,
-    elevation: 3,
+    elevation: 10,
   },
   noPurchaseBtn: {
     paddingVertical: Matrics.vs(9),

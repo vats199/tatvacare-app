@@ -62,8 +62,8 @@ const LoginBottomSheet = forwardRef<LoginBottomSheetRef, LoginBottomSheetProps>(
           // enableContentPanningGesture={false}
           keyboardBehavior="interactive"
           backgroundStyle={styles.container}>
-          <View style={[styles.sheetContainer, styles.smallHeight]}>
-            <>
+          <View style={[styles.smallHeight, {width: '100%'}]}>
+            <View style={[styles.sheetContainer]}>
               <Text
                 style={
                   styles.loginTitle
@@ -90,13 +90,13 @@ const LoginBottomSheet = forwardRef<LoginBottomSheetRef, LoginBottomSheetProps>(
                   </View>
                 </View>
               </View>
-              <Button
-                title="Continue"
-                buttonStyle={{marginVertical: Matrics.vs(20)}}
-                disabled={mobileNumber.length < 10}
-                onPress={() => onPressContinue(mobileNumber)}
-              />
-            </>
+            </View>
+            <Button
+              title="Continue"
+              buttonStyle={{marginVertical: Matrics.vs(20)}}
+              disabled={mobileNumber.length < 10}
+              onPress={() => onPressContinue(mobileNumber)}
+            />
           </View>
         </BottomSheetModal>
       </BottomSheetModalProvider>

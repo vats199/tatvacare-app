@@ -136,6 +136,10 @@ import Schedule from '../assets/icons/schedule.svg';
 import Event from '../assets/icons/event.svg';
 import DrawerRightIcon from '../assets/icons/drawerRightIcon.svg';
 import InfoPurple from '../assets/icons/infoPurple.svg';
+import Download from '../assets/icons/download.svg';
+import Bluetooth from '../assets/icons/bluetooth.svg';
+
+
 
 export const Icons = {
   HomeActive,
@@ -269,4 +273,6 @@ export const Icons = {
   Event,
   DrawerRightIcon,
   InfoPurple,
+  Download,
+  Bluetooth
 };

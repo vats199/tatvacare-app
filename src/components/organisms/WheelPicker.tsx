@@ -1,8 +1,6 @@
-import {Platform} from 'react-native';
-import WheelPickerIos from './WheelPicker.Ios';
-import WheelPickerAndroid from './WheelPicker.android';
+import { lazy } from 'react';
+import { Platform } from 'react-native';
 
-export const WheelPicker = Platform.select({
-  ios: WheelPickerIos,
-  android: WheelPickerAndroid,
-});
+export const WheelPicker = lazy(() => Platform.OS === 'ios'
+  ? import('./WheelPicker.Ios')
+  : import('./WheelPicker.android'))
