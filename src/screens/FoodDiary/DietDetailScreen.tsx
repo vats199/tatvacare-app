@@ -418,7 +418,12 @@ const DietDetailScreen: React.FC<DietDetailProps> = ({navigation, route}) => {
           onSeleteQty={handleSeletedQty}
           Data={foodItem}
           mealName={mealName}
-          isDisable={qty === '0' ? true : false}
+          isDisable={
+            qty === '0' ||
+            Math.round(Number(foodItem?.quantity)).toString() === qty
+              ? true
+              : false
+          }
         />
       </View>
     </SafeAreaView>

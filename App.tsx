@@ -12,26 +12,27 @@ import {
   SafeAreaView,
   useWindowDimensions,
 } from 'react-native';
-import React, { useEffect, useRef, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import Router from './src/routes/Router';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import LocationBottomSheet, {
   LocationBottomSheetRef,
 } from './src/components/molecules/LocationBottomSheet';
 // import Geolocation from 'react-native-geolocation-service';
-import { request, check, PERMISSIONS, RESULTS } from 'react-native-permissions';
-import { Linking } from 'react-native';
+import {request, check, PERMISSIONS, RESULTS} from 'react-native-permissions';
+import {Linking} from 'react-native';
 // import Geolocation from 'react-native-geolocation-service';
 // import Geolocation from 'react-native-geolocation-service';
 import Home from './src/api/home';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { AppProvider } from './src/context/app.context';
-import { MenuProvider } from 'react-native-popup-menu';
-import { ToastProvider } from 'react-native-toast-notifications'
-import { colors } from './src/constants/colors';
+import {AppProvider} from './src/context/app.context';
+import {MenuProvider} from 'react-native-popup-menu';
+import {ToastProvider} from 'react-native-toast-notifications';
+import {colors} from './src/constants/colors';
+import {Fonts, Matrics} from './src/constants';
 
 const App = () => {
-  const { height, width } = useWindowDimensions();
+  const {height, width} = useWindowDimensions();
   const [location, setLocation] = useState<object>({});
   const BottomSheetRef = useRef<LocationBottomSheetRef>(null);
   const [locationPermission, setLocationPermission] = useState<string>('');
@@ -159,8 +160,18 @@ const App = () => {
   };
 
   return (
-    <ToastProvider textStyle={{ fontSize: 14, color: colors.white, fontWeight: '400' }}>
-      <GestureHandlerRootView style={{ height, width }}>
+    <ToastProvider
+      type={'normal'}
+      duration={2500}
+      animationType={'slide-in'}
+      style={{borderRadius: Matrics.mvs(12), width: Matrics.screenWidth - 20}}
+      textStyle={{
+        fontSize: Matrics.mvs(13),
+        fontFamily: Fonts.REGULAR,
+        color: colors.white,
+        lineHeight: 18,
+      }}>
+      <GestureHandlerRootView style={{height, width}}>
         <MenuProvider>
           <AppProvider>
             <Router />
