@@ -157,7 +157,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
   };
   const onPressDevices = () => {
     console.log("RN Called");
-
+    NativeModules.AndroidBridge.openTestScreen();
     //navigation.navigate('SpirometerScreen');
     // navigateTo('MyDevices');
   };

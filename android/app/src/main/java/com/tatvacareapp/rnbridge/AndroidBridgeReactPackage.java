@@ -15,6 +15,7 @@ public class AndroidBridgeReactPackage implements ReactPackage {
     @Override
     public List<NativeModule> createNativeModules(@NonNull ReactApplicationContext reactContext) {
         List<NativeModule> modules = new ArrayList<>();
+        modules.add(new AndroidBridgeModule(reactContext));
         return modules;
     }
 
