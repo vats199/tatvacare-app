@@ -1,7 +1,6 @@
-package com.tatvacareapp.rnbridge;
+package com.mytatva.patient.rnbridge;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;

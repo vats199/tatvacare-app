@@ -73,9 +73,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.tatvacareapp"
+    namespace "com.mytatva.patient"
     defaultConfig {
-        applicationId "com.tatvacareapp"
+        applicationId "com.mytatva.patient"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

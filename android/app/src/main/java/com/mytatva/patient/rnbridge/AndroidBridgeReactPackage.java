@@ -1,4 +1,4 @@
-package com.tatvacareapp.rnbridge;
+package com.mytatva.patient.rnbridge;
 
 import androidx.annotation.NonNull;
 

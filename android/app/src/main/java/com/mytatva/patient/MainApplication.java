@@ -1,4 +1,4 @@
-package com.tatvacareapp;
+package com.mytatva.patient;
 
 import android.app.Application;
 import com.facebook.react.PackageList;
@@ -8,7 +8,8 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
 import com.facebook.react.defaults.DefaultReactNativeHost;
 import com.facebook.soloader.SoLoader;
-import com.tatvacareapp.rnbridge.AndroidBridgeReactPackage;
+import com.mytatva.patient.rnbridge.AndroidBridgeReactPackage;
+import com.mytatva.patient.ReactNativeFlipper;
 
 import java.util.List;
 
