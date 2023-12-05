@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/layoutHeader"
+        layout="@layout/layout_common_toolbar_with_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutHeader"
+        app:srcCompat="@drawable/bg_rounded_top" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/recyclerViewGoals"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutHeader">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/screen_space"
+                android:layout_marginTop="@dimen/dp_30"
+                android:layout_marginEnd="@dimen/screen_space"
+                android:background="@drawable/bg_common_rounded_rect_5"
+                android:elevation="@dimen/dp_3"
+                android:paddingBottom="@dimen/dp_14">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageViewProfile"
+                    android:layout_width="@dimen/dp_82"
+                    android:layout_height="@dimen/dp_82"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_24"
+                    android:background="@drawable/bg_circle_white"
+                    android:transitionName="profileImage"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:backgroundTint="@color/orange"
+                    tools:srcCompat="@drawable/ic_dummy_profile_circle" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageViewEditProfile"
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="@dimen/dp_20"
+                    android:background="@drawable/bg_circle_white"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:padding="@dimen/dp_5"
+                    app:layout_constraintBottom_toBottomOf="@id/imageViewProfile"
+                    app:layout_constraintEnd_toEndOf="@id/imageViewProfile"
+                    app:srcCompat="@drawable/ic_edit_pencil"
+                    app:tint="@color/white" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewName"
+                    style="@style/TextView.SemiBold.sp_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_20"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:layout_marginEnd="@dimen/dp_5"
+                    android:ellipsize="end"
+                    android:textColor="@color/textBlack1"
+                    android:transitionName="userName"
+                    app:layout_constraintEnd_toStartOf="@id/textViewLanguage"
+                    app:layout_constraintStart_toEndOf="@id/imageViewProfile"
+                    app:layout_constraintTop_toTopOf="@id/imageViewProfile"
+                    tools:text="Rakesh Kapoor" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLanguage"
+                    style="@style/TextView.Regular.sp_8"
+                    android:layout_width="@dimen/dp_78"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dp_10"
+                    android:background="@drawable/bg_rounded_rect_gray_stroke_3"
+                    android:drawableEnd="@drawable/ic_dropdown_gray"
+                    android:gravity="center"
+                    android:padding="@dimen/dp_6"
+                    android:text="English"
+                    android:textAlignment="gravity"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@id/textViewName"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/textViewName"
+                    app:layout_constraintVertical_bias="0"
+                    tools:visibility="visible" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageViewIconPerson"
+                    android:layout_width="@dimen/dp_14"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerInside"
+                    app:layout_constraintStart_toStartOf="@id/textViewName"
+                    app:layout_constraintTop_toBottomOf="@id/textViewName"
+                    app:srcCompat="@drawable/ic_contact_number" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageViewIconCall"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerInside"
+                    app:layout_constraintEnd_toEndOf="@id/imageViewIconPerson"
+                    app:layout_constraintStart_toStartOf="@id/imageViewIconPerson"
+                    app:layout_constraintTop_toBottomOf="@id/imageViewIconPerson"
+                    app:srcCompat="@drawable/ic_call" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageViewIconMail"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerInside"
+                    app:layout_constraintEnd_toEndOf="@id/imageViewIconPerson"
+                    app:layout_constraintStart_toStartOf="@id/imageViewIconPerson"
+                    app:layout_constraintTop_toBottomOf="@id/imageViewIconCall"
+                    app:srcCompat="@drawable/ic_mail" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewPersonInfo"
+                    style="@style/TextView.Regular.sp_12"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_14"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/textBlack1"
+                    app:layout_constraintBottom_toBottomOf="@id/imageViewIconPerson"
+                    app:layout_constraintEnd_toEndOf="@id/textViewLanguage"
+                    app:layout_constraintStart_toEndOf="@id/imageViewIconPerson"
+                    app:layout_constraintTop_toTopOf="@id/imageViewIconPerson"
+                    tools:text="52 Years, Male" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewCall"
+                    style="@style/TextView.Regular.sp_12"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/textBlack1"
+                    app:layout_constraintBottom_toBottomOf="@id/imageViewIconCall"
+                    app:layout_constraintEnd_toEndOf="@id/textViewPersonInfo"
+                    app:layout_constraintStart_toStartOf="@id/textViewPersonInfo"
+                    app:layout_constraintTop_toTopOf="@id/imageViewIconCall"
+                    tools:text="+91 9876543210" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewEmail"
+                    style="@style/TextView.Regular.sp_12"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/textBlack1"
+                    android:transitionName="userEmail"
+                    app:layout_constraintBottom_toBottomOf="@id/imageViewIconMail"
+                    app:layout_constraintEnd_toEndOf="@id/textViewPersonInfo"
+                    app:layout_constraintStart_toStartOf="@id/textViewPersonInfo"
+                    app:layout_constraintTop_toTopOf="@id/imageViewIconMail"
+                    tools:text="rakesh.kapoor@gmail.com" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/screen_space"
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginEnd="@dimen/screen_space"
+                android:background="@drawable/bg_common_rounded_rect_5"
+                android:elevation="@dimen/dp_3"
+                android:padding="@dimen/dp_16">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelLocation"
+                    style="@style/TextView.SemiBold.sp_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/my_profile_label_location"
+                    android:textColor="@color/textBlack1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewEditLocation"
+                    style="@style/TextView.Medium.sp_9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_rounded_rect_purple_stroke_4"
+                    android:paddingStart="@dimen/dp_24"
+                    android:paddingTop="@dimen/dp_4"
+                    android:paddingEnd="@dimen/dp_24"
+                    android:paddingBottom="@dimen/dp_4"
+                    android:text="@string/my_profile_label_edit"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLocationCityState"
+                    style="@style/TextView.Regular.sp_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_14"
+                    android:textColor="@color/textBlack1"
+                    android:textSize="@dimen/sp_12"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/textViewLabelLocation"
+                    app:layout_constraintTop_toBottomOf="@id/textViewLabelLocation"
+                    tools:text="B-607 Fairdeal House, Swastik Char Rasta, Navrangpura Apt, Ahmedabad, Gujarat, 399802" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/screen_space"
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginEnd="@dimen/screen_space"
+                android:background="@drawable/bg_common_rounded_rect_5"
+                android:elevation="@dimen/dp_3"
+                android:padding="@dimen/dp_16">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelAddress"
+                    style="@style/TextView.SemiBold.sp_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/my_profile_label_address"
+                    android:textColor="@color/textBlack1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewSaveAddress"
+                    style="@style/TextView.Medium.sp_9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_rounded_rect_purple_stroke_4"
+                    android:paddingStart="@dimen/dp_24"
+                    android:paddingTop="@dimen/dp_4"
+                    android:paddingEnd="@dimen/dp_24"
+                    android:paddingBottom="@dimen/dp_4"
+                    android:text="@string/my_profile_label_edit"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewAddress"
+                    style="@style/TextView.Regular.sp_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_14"
+                    android:textColor="@color/textBlack1"
+                    android:textSize="@dimen/sp_12"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/textViewLabelAddress"
+                    app:layout_constraintTop_toBottomOf="@id/textViewLabelAddress"
+                    tools:text="B-607 Fairdeal House, Swastik Char Rasta, Navrangpura Apt, Ahmedabad, Gujarat, 399802" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/editTextAddress"
+                    style="@style/editTextStrokeSmall"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_14"
+                    android:imeOptions="actionDone"
+                    android:maxLines="5"
+                    android:textColor="@color/textBlack1"
+                    android:textSize="@dimen/sp_12"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/textViewLabelAddress"
+                    app:layout_constraintTop_toBottomOf="@id/textViewAddress"
+                    tools:text="B-607 Fairdeal House, Swastik Char Rasta, Navrangpura Apt, Ahmedabad, Gujarat, 399802" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/screen_space"
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginEnd="@dimen/screen_space"
+                android:background="@drawable/bg_common_rounded_rect_5"
+                android:elevation="@dimen/dp_3"
+                android:padding="@dimen/dp_16">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelIndication"
+                    style="@style/TextView.SemiBold.sp_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/my_profile_label_indication"
+                    android:textColor="@color/textBlack1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewEditIndication"
+                    style="@style/TextView.Medium.sp_9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_rounded_rect_purple_stroke_4"
+                    android:paddingStart="@dimen/dp_24"
+                    android:paddingTop="@dimen/dp_4"
+                    android:paddingEnd="@dimen/dp_24"
+                    android:paddingBottom="@dimen/dp_4"
+                    android:text="Edit"
+                    android:textColor="@color/colorPrimary"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewIndication"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/textViewLabelIndication"
+                    app:layout_constraintTop_toBottomOf="@id/textViewLabelIndication"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/profile_row_my_profile_indication" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/screen_space"
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginEnd="@dimen/screen_space"
+                android:background="@drawable/bg_common_rounded_rect_5"
+                android:elevation="@dimen/dp_3"
+                android:padding="@dimen/dp_16"
+                android:visibility="visible">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelConsultingDoctor"
+                    style="@style/TextView.SemiBold.sp_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/my_profile_label_consulting_doctor"
+                    android:textColor="@color/textBlack1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewAddNewDoctor"
+                    style="@style/TextView.Medium.sp_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_rounded_rect_purple_stroke_4"
+                    android:paddingStart="@dimen/dp_12"
+                    android:paddingTop="@dimen/dp_4"
+                    android:paddingEnd="@dimen/dp_12"
+                    android:paddingBottom="@dimen/dp_4"
+                    android:text="@string/my_profile_label_add_new_doctor"
+                    android:textColor="@color/colorPrimary"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/viewLine1"
+                    style="@style/viewLine"
+                    android:layerType="software"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textViewLabelConsultingDoctor" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewDoctor"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:nestedScrollingEnabled="false"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/textViewLabelConsultingDoctor"
+                    app:layout_constraintTop_toBottomOf="@id/viewLine1"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/profile_row_my_profile_doctor" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/screen_space"
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginEnd="@dimen/screen_space"
+                android:layout_marginBottom="@dimen/dp_16"
+                android:background="@drawable/bg_common_rounded_rect_5"
+                android:elevation="@dimen/dp_3"
+                android:visibility="visible">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelHealthCoach"
+                    style="@style/TextView.SemiBold.sp_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp_16"
+                    android:text="@string/my_profile_label_health_coach"
+                    android:textColor="@color/textBlack1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/viewLine2"
+                    style="@style/viewLine"
+                    android:layout_width="0dp"
+                    android:layerType="software"
+                    app:layout_constraintEnd_toEndOf="@id/textViewLabelHealthCoach"
+                    app:layout_constraintStart_toStartOf="@id/textViewLabelHealthCoach"
+                    app:layout_constraintTop_toBottomOf="@id/textViewLabelHealthCoach" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewHealthCoach"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginBottom="@dimen/dp_10"
+                    android:nestedScrollingEnabled="false"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/viewLine2"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/chat_row_chat_list" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/screen_space"
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginEnd="@dimen/screen_space"
+                android:layout_marginBottom="@dimen/dp_32"
+                android:background="@drawable/bg_common_rounded_rect_5"
+                android:elevation="@dimen/dp_3"
+                android:padding="@dimen/dp_16">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelStudyId"
+                    style="@style/TextView.SemiBold.sp_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/my_profile_label_study_id"
+                    android:textColor="@color/textBlack1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewSaveStudyId"
+                    style="@style/TextView.Medium.sp_9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_rounded_rect_purple_stroke_4"
+                    android:paddingStart="@dimen/dp_24"
+                    android:paddingTop="@dimen/dp_4"
+                    android:paddingEnd="@dimen/dp_24"
+                    android:paddingBottom="@dimen/dp_4"
+                    android:text="@string/my_profile_label_edit"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewStudyId"
+                    style="@style/TextView.Regular.sp_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_14"
+                    android:textColor="@color/textBlack1"
+                    android:textSize="@dimen/sp_12"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/textViewLabelStudyId"
+                    app:layout_constraintTop_toBottomOf="@id/textViewLabelStudyId"
+                    tools:text="ABCDEFGH" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/editTextStudyId"
+                    style="@style/editTextStrokeSmall"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_14"
+                    android:digits="@string/alpha_numeric_with_hyphen"
+                    android:imeOptions="actionDone"
+                    android:lines="1"
+                    android:maxLength="11"
+                    android:singleLine="true"
+                    android:textColor="@color/textBlack1"
+                    android:textSize="@dimen/sp_12"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/textViewLabelStudyId"
+                    app:layout_constraintTop_toBottomOf="@id/textViewStudyId"
+                    tools:text="B-607 Fairdeal House, Swastik Char Rasta, Navrangpura Apt, Ahmedabad, Gujarat, 399802" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

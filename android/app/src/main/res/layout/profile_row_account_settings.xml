@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:background="?selectableItemBackground"
+    android:paddingStart="@dimen/dp_32"
+    android:paddingEnd="@dimen/dp_32"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewIcon"
+        android:layout_width="@dimen/dp_25"
+        android:layout_height="0dp"
+        app:layout_constrainedHeight="true"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="@id/textViewItem"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/textViewItem"
+        app:srcCompat="@drawable/ic_setting_profile" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewItem"
+        style="@style/TextView.Regular.sp_16"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_22"
+        android:drawableEnd="@drawable/ic_next_arrow_gray"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:paddingTop="@dimen/dp_12"
+        android:paddingBottom="@dimen/dp_12"
+        android:text="Profile"
+        android:textColor="@color/gray3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imageViewIcon"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

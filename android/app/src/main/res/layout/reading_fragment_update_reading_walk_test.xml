@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/root"
+    android:layout_height="match_parent"
+    tools:background="@color/gray">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        tools:background="@color/gray">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewClose"
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_24"
+            android:layout_gravity="end"
+            android:background="@drawable/bg_circle_white"
+            android:backgroundTint="@color/gray"
+            android:elevation="@dimen/dp_4"
+            android:padding="@dimen/dp_6"
+            app:srcCompat="@drawable/ic_cross_small" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_7"
+            android:background="@drawable/bg_common_rounded_rect_10"
+            android:elevation="@dimen/dp_2">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/screen_space" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/screen_space" />
+
+            <include
+                android:id="@+id/layoutHeader"
+                layout="@layout/reading_common_layout_header" />
+
+            <View
+                android:id="@+id/viewLine1"
+                style="@style/viewLine"
+                android:layout_width="0dp"
+                android:layout_marginTop="0dp"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/layoutHeader" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelDate"
+                style="@style/TextView.Regular.sp_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_18"
+                android:layout_marginEnd="@dimen/dp_14"
+                android:text="Date"
+                android:textColor="@color/textDarkBlue"
+                app:layout_constraintEnd_toStartOf="@id/textViewLabelTime"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/viewLine1" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelTime"
+                style="@style/TextView.Regular.sp_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Time"
+                android:textColor="@color/textDarkBlue"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toEndOf="@id/textViewLabelDate"
+                app:layout_constraintTop_toTopOf="@id/textViewLabelDate" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/editTextDate"
+                style="@style/editTextStrokeSmall"
+                android:layout_width="0dp"
+                android:layout_marginTop="@dimen/dp_8"
+                android:cursorVisible="false"
+                android:drawableEnd="@drawable/ic_reading_date"
+                android:focusable="false"
+                android:hint="Select"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:lines="1"
+                android:inputType="text"
+                android:imeOptions="actionDone"
+                android:longClickable="false"
+                app:layout_constraintEnd_toEndOf="@id/textViewLabelDate"
+                app:layout_constraintStart_toStartOf="@id/textViewLabelDate"
+                app:layout_constraintTop_toBottomOf="@id/textViewLabelDate"
+                tools:text="09-Aug-2021" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/editTextTime"
+                style="@style/editTextStrokeSmall"
+                android:layout_width="0dp"
+                android:layout_marginTop="@dimen/dp_8"
+                android:cursorVisible="false"
+                android:drawableEnd="@drawable/ic_clock_time"
+                android:focusable="false"
+                android:hint="Select"
+                android:lines="1"
+                android:inputType="text"
+                android:imeOptions="actionDone"
+                android:longClickable="false"
+                android:maxLines="1"
+                android:ellipsize="end"
+                app:layout_constraintEnd_toEndOf="@id/textViewLabelTime"
+                app:layout_constraintStart_toStartOf="@id/textViewLabelTime"
+                app:layout_constraintTop_toBottomOf="@id/textViewLabelTime"
+                tools:text="05:00" />
+
+            <!--layoutStart-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutStart"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/editTextDate">
+
+                <include
+                    android:id="@+id/layoutSyncData"
+                    layout="@layout/reading_common_layout_sync_data"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constrainedWidth="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelInfo"
+                    style="@style/TextView.Regular.sp_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:layout_marginEnd="@dimen/dp_16"
+                    android:gravity="center"
+                    android:text="Since no device is connected, distance will have to be entered manually"
+                    android:textAlignment="gravity"
+                    android:textColor="@color/textBlack1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/layoutSyncData" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/buttonStart"
+                    style="@style/buttonSolidSmallRadius7"
+                    android:layout_width="@dimen/dp_94"
+                    android:layout_marginTop="@dimen/dp_24"
+                    android:layout_marginBottom="@dimen/dp_20"
+                    android:text="Start"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textViewLabelInfo" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!--layoutTimer-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutTimer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/layoutStart">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutProgress"
+                    android:layout_width="@dimen/dp_120"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="@dimen/dp_40"
+                    app:layout_constraintDimensionRatio="1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.github.guilhe.views.CircularProgressView
+                        android:id="@+id/progressIndicator"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        app:duplicateFirstColorInArray="true"
+                        app:max="60"
+                        app:progress="0"
+                        app:progressBarColor="@android:color/holo_purple"
+                        app:progressBarColorArray="@array/progressColors"
+                        app:progressBarRounded="true"
+                        app:progressBarThickness="@dimen/dp_10"
+                        app:shadow="false" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewTime"
+                        style="@style/TextView.Medium.sp_18"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:text="00:00"
+                        android:textAlignment="gravity"
+                        android:textColor="@color/textBlack1"
+                        app:layout_constraintBottom_toTopOf="@id/textViewLabelMin"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_chainStyle="packed"
+                        app:layout_constraintWidth_percent="0.55" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewLabelMin"
+                        style="@style/TextView.Regular.sp_10"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:alpha="0.8"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:text="min"
+                        android:textAlignment="gravity"
+                        android:textColor="@color/textBlack1"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@id/textViewTime"
+                        app:layout_constraintStart_toStartOf="@id/textViewTime"
+                        app:layout_constraintTop_toBottomOf="@id/textViewTime" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/buttonStop"
+                    style="@style/buttonSolidSmallRadius7"
+                    android:layout_width="@dimen/dp_94"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_marginBottom="@dimen/dp_20"
+                    android:text="Stop"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/layoutProgress" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!--layoutSubmit-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutSubmit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/layoutTimer">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelWalkTest"
+                    style="@style/TextView.Bold.sp_18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Summary 6 minute walk test"
+                    android:textColor="@color/textBlack1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelDiastolic"
+                    style="@style/TextView.Regular.sp_12"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:layout_marginEnd="@dimen/dp_14"
+                    android:text="Distance walked"
+                    android:textColor="@color/textDarkBlue"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textViewLabelWalkTest" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/editTextDistance"
+                    style="@style/editTextStrokeSmall"
+                    android:layout_width="0dp"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_14"
+                    android:hint="Enter"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:maxLength="4"
+                    app:layout_constraintEnd_toStartOf="@id/textViewUnit"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textViewLabelDiastolic"
+                    tools:text="20" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/textViewUnit"
+                    style="@style/TextView.Medium.sp_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:background="@drawable/bg_textview_solid_lightgray_stroke_gray"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:gravity="center"
+                    android:imeOptions="actionDone"
+                    android:inputType="numberDecimal"
+                    android:longClickable="false"
+                    android:minWidth="@dimen/dp_80"
+                    android:text="m"
+                    android:textAlignment="gravity"
+                    android:textColor="@color/textBlack1"
+                    app:layout_constraintBottom_toBottomOf="@id/editTextDistance"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/editTextDistance"
+                    app:layout_constraintTop_toTopOf="@id/editTextDistance" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewStandardValue"
+                    style="@style/textViewStandardValueLabel"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/editTextDistance" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/buttonSubmit"
+                    style="@style/buttonSolidSmallRadius7"
+                    android:layout_width="@dimen/dp_94"
+                    android:layout_marginTop="@dimen/dp_24"
+                    android:layout_marginBottom="@dimen/dp_20"
+                    android:text="Submit"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textViewStandardValue" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+
+</FrameLayout>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginVertical="@dimen/dp_4"
+    android:background="@drawable/bg_common_rounded_rect_10"
+    android:backgroundTint="@color/white"
+    android:padding="@dimen/dp_12">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewIcon"
+        android:layout_width="@dimen/dp_34"
+        android:layout_height="@dimen/dp_34"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@drawable/ic_labtest_heart" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewTitle"
+        style="@style/TextView.SemiBold.sp_16"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_18"
+        android:layout_marginTop="@dimen/dp_4"
+        android:ellipsize="end"
+        android:text="Complete Blood Count (CBC)"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintEnd_toStartOf="@id/imageViewRemove"
+        app:layout_constraintStart_toEndOf="@id/imageViewIcon"
+        app:layout_constraintTop_toTopOf="@id/imageViewIcon" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewRemove"
+        android:layout_width="@dimen/dp_24"
+        android:layout_height="@dimen/dp_24"
+        android:background="?selectableItemBackgroundBorderless"
+        android:scaleType="centerInside"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_remove" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewLabelReportIn"
+        style="@style/TextView.Regular.sp_13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_4"
+        android:alpha="0.8"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:visibility="gone"
+        android:text="Report in 18 hours"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toStartOf="@+id/textViewDiscount"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="@id/textViewTitle"
+        app:layout_constraintTop_toBottomOf="@id/imageViewIcon" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewDiscount"
+        style="@style/TextView.Medium.sp_11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_16"
+        android:background="@drawable/bg_common_rounded_rect_3"
+        android:backgroundTint="@color/colorPrimary"
+        android:paddingHorizontal="@dimen/dp_6"
+        android:paddingVertical="@dimen/dp_2"
+        android:layout_marginTop="@dimen/dp_10"
+        app:layout_constraintTop_toBottomOf="@id/textViewTitle"
+        android:text="50% OFF"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toStartOf="@+id/textViewOldPrice"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textViewLabelReportIn" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewOldPrice"
+        style="@style/TextView.Regular.sp_14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0.6"
+        android:foreground="@drawable/line_strike_through"
+        android:text="₹700"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintBaseline_toBaselineOf="@id/textViewDiscount"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewPriceNew"
+        style="@style/TextView.Regular.sp_18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_8"
+        android:text="₹349.0"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintEnd_toEndOf="@id/textViewOldPrice"
+        app:layout_constraintTop_toBottomOf="@id/textViewDiscount" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

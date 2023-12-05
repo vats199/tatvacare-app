@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defaultsMap>
+    <!--default keys-->
+    <entry>
+        <key>razorpay_key_id_test</key>
+        <value>razorpay_key_id_test</value>
+    </entry>
+    <entry>
+        <key>razorpay_secret_test</key>
+        <value>razorpay_secret_test</value>
+    </entry>
+    <entry>
+        <key>razorpay_key_id_live</key>
+        <value>razorpay_key_id_live</value>
+    </entry>
+    <entry>
+        <key>razorpay_secret_live</key>
+        <value>razorpay_secret_live</value>
+    </entry>
+    <entry>
+        <key>azure_access_key_live</key>
+        <value>azure_access_key_live</value>
+    </entry>
+    <entry>
+        <key>azure_account_name_live</key>
+        <value>azure_account_name_live</value>
+    </entry>
+    <entry>
+        <key>azure_access_key_dev</key>
+        <value>azure_access_key_dev</value>
+    </entry>
+    <entry>
+        <key>azure_account_name_dev</key>
+        <value>azure_account_name_dev</value>
+    </entry>
+    <entry>
+        <key>azure_access_key_prod</key>
+        <value>azure_access_key_prod</value>
+    </entry>
+    <entry>
+        <key>azure_account_name_prod</key>
+        <value>azure_account_name_prod</value>
+    </entry>
+
+    <!--default flags-->
+    <entry>
+        <key>hide_chatbot_android</key>
+        <value>false</value>
+    </entry>
+    <entry>
+        <key>hide_language_page_android</key>
+        <value>false</value>
+    </entry>
+    <entry>
+        <key>hide_engage_page_android</key>
+        <value>false</value>
+    </entry>
+    <entry>
+        <key>hide_leave_query</key>
+        <value>false</value>
+    </entry>
+    <entry>
+        <key>hide_email_at</key>
+        <value>false</value>
+    </entry>
+    <entry>
+        <key>hide_home_chat_bubble</key>
+        <value>false</value>
+    </entry>
+    <entry>
+        <key>hide_home_chat_bubble_hc</key>
+        <value>false</value>
+    </entry>
+</defaultsMap>

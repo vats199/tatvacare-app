@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/viewLine"
+        android:layout_width="@dimen/dp_3"
+        android:layout_height="0dp"
+        android:background="@color/clr_selector_track_order_step_green_gray"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/imageViewTrack"
+        app:layout_constraintStart_toStartOf="@+id/imageViewTrack"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewTrack" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewTrack"
+        android:layout_width="@dimen/dp_16"
+        android:layout_height="@dimen/dp_16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="@dimen/dp_14"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@drawable/bg_circle_white_gray" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/viewLine2"
+        android:layout_width="@dimen/dp_3"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/clr_selector_track_order_step_green_gray"
+        android:layerType="software"
+        app:layout_constraintStart_toStartOf="@+id/imageViewTrack"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewTrack"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewTrack"/>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_15"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="@dimen/dp_20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imageViewTrack"
+        app:layout_constraintTop_toTopOf="@id/imageViewTrack">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewTitle"
+            style="@style/TextView.B3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:alpha="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Order Placed"
+            android:textColor="@color/textGray7" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewDate"
+            style="@style/TextView.B4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_2"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:visibility="gone"
+            android:text="Fri, 08 Jan 03:02 Pm"
+            android:textColor="@color/textGray7" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

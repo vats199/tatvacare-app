@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideLineStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/screen_space" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideLineEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/screen_space" />
+
+        <include
+            android:id="@+id/layoutHeader"
+            layout="@layout/layout_common_header_app_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+            app:layout_constraintStart_toStartOf="@id/guideLineStart"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/dp_8"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutHeader"
+            app:srcCompat="@drawable/bg_rounded_top" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/screen_space"
+            android:background="?selectableItemBackgroundBorderless"
+            android:padding="@dimen/dp_4"
+            app:layout_constraintBottom_toBottomOf="@id/textViewLabelAddYourPrescription"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textViewLabelAddYourPrescription"
+            app:srcCompat="@drawable/ic_back"
+            app:tint="@color/textBlack1" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewLabelAddYourPrescription"
+            style="@style/TextView.Bold.sp_18"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_30"
+            android:text="@string/setup_drugs_title"
+            android:textColor="@color/textBlack1"
+            app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+            app:layout_constraintStart_toEndOf="@id/imageViewBack"
+            app:layout_constraintTop_toBottomOf="@id/layoutHeader" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewLabelDrugName"
+            style="@style/TextView.Medium.sp_14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_20"
+            android:text="@string/setup_drugs_label_medicine_name"
+            android:textColor="@color/textBlack1"
+            app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+            app:layout_constraintStart_toStartOf="@id/guideLineStart"
+            app:layout_constraintTop_toBottomOf="@id/textViewLabelAddYourPrescription" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/editTextDrugName"
+            style="@style/editTextStroke"
+            android:layout_width="0dp"
+            android:layout_marginTop="@dimen/dp_12"
+            android:cursorVisible="false"
+            android:drawableEnd="@drawable/ic_search"
+            android:focusable="false"
+            android:hint="@string/setup_drugs_hint_medicine_name"
+            android:imeOptions="actionNext"
+            android:longClickable="false"
+            app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+            app:layout_constraintStart_toStartOf="@id/guideLineStart"
+            app:layout_constraintTop_toBottomOf="@id/textViewLabelDrugName" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewLabelSuggestedDosage"
+            style="@style/TextView.Medium.sp_14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_20"
+            android:text="@string/setup_drugs_label_dosage_prescribed_by_your_dr"
+            android:textColor="@color/textBlack1"
+            app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+            app:layout_constraintStart_toStartOf="@id/guideLineStart"
+            app:layout_constraintTop_toBottomOf="@id/editTextDrugName" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/editTextSuggestedDosage"
+            style="@style/editTextStroke"
+            android:layout_width="0dp"
+            android:layout_marginTop="@dimen/dp_12"
+            android:cursorVisible="false"
+            android:drawableEnd="@drawable/ic_dropdown_gray"
+            android:focusable="false"
+            android:hint="@string/setup_drugs_hint_select_dosage"
+            android:inputType="text"
+            android:lines="1"
+            android:longClickable="false"
+            android:maxLines="1"
+            app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+            app:layout_constraintStart_toStartOf="@id/guideLineStart"
+            app:layout_constraintTop_toBottomOf="@id/textViewLabelSuggestedDosage" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewDosageTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_12"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/screen_space"
+            android:paddingEnd="@dimen/screen_space"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/editTextSuggestedDosage"
+            tools:itemCount="3"
+            tools:listitem="@layout/auth_row_dosage_time" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewLabelStartDate"
+            style="@style/TextView.Medium.sp_14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_18"
+            android:layout_marginEnd="@dimen/dp_14"
+            android:text="@string/setup_drugs_label_start_date"
+            android:textColor="@color/textBlack1"
+            app:layout_constraintEnd_toStartOf="@id/textViewLabelEndDate"
+            app:layout_constraintStart_toStartOf="@id/guideLineStart"
+            app:layout_constraintTop_toBottomOf="@id/recyclerViewDosageTime" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewLabelEndDate"
+            style="@style/TextView.Medium.sp_14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/setup_drugs_label_end_date"
+            android:textColor="@color/textBlack1"
+            app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+            app:layout_constraintStart_toEndOf="@id/textViewLabelStartDate"
+            app:layout_constraintTop_toTopOf="@id/textViewLabelStartDate" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/editTextStartDate"
+            style="@style/editTextStroke"
+            android:layout_width="0dp"
+            android:layout_marginTop="@dimen/dp_8"
+            android:cursorVisible="false"
+            android:drawableEnd="@drawable/ic_calendar_date"
+            android:focusable="false"
+            android:hint="@string/setup_drugs_hint_dd_mm_yyyy"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:lines="1"
+            android:longClickable="false"
+            android:maxLines="1"
+            app:layout_constraintEnd_toEndOf="@id/textViewLabelStartDate"
+            app:layout_constraintStart_toStartOf="@id/textViewLabelStartDate"
+            app:layout_constraintTop_toBottomOf="@id/textViewLabelStartDate" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/editTextEndDate"
+            style="@style/editTextStroke"
+            android:layout_width="0dp"
+            android:layout_marginTop="@dimen/dp_8"
+            android:cursorVisible="false"
+            android:drawableEnd="@drawable/ic_calendar_date"
+            android:focusable="false"
+            android:hint="@string/setup_drugs_hint_dd_mm_yyyy"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:lines="1"
+            android:longClickable="false"
+            android:maxLines="1"
+            app:layout_constraintEnd_toEndOf="@id/textViewLabelEndDate"
+            app:layout_constraintStart_toStartOf="@id/textViewLabelEndDate"
+            app:layout_constraintTop_toBottomOf="@id/textViewLabelEndDate" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewLabelDaysSelection"
+            style="@style/TextView.Medium.sp_14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_20"
+            android:text="@string/setup_drugs_label_days_selection"
+            android:textColor="@color/textBlack1"
+            app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+            app:layout_constraintStart_toStartOf="@id/guideLineStart"
+            app:layout_constraintTop_toBottomOf="@id/editTextStartDate" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/editTextDaysSelection"
+            style="@style/editTextStroke"
+            android:layout_width="0dp"
+            android:layout_marginTop="@dimen/dp_12"
+            android:cursorVisible="false"
+            android:drawableEnd="@drawable/ic_dropdown_gray"
+            android:focusable="false"
+            android:hint="@string/setup_drugs_hint_select_days"
+            android:inputType="text"
+            android:lines="1"
+            android:longClickable="false"
+            android:maxLines="1"
+            app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+            app:layout_constraintStart_toStartOf="@id/guideLineStart"
+            app:layout_constraintTop_toBottomOf="@id/textViewLabelDaysSelection" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewAddAnotherMedication"
+            style="@style/TextView.Medium.sp_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_20"
+            android:background="@drawable/bg_button_theme_stroke"
+            android:drawableEnd="@drawable/ic_add"
+            android:drawablePadding="@dimen/dp_5"
+            android:paddingStart="@dimen/dp_12"
+            android:paddingTop="@dimen/dp_8"
+            android:paddingEnd="@dimen/dp_12"
+            android:paddingBottom="@dimen/dp_8"
+            android:text="@string/setup_drugs_label_add_medication"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintStart_toStartOf="@id/guideLineStart"
+            app:layout_constraintTop_toBottomOf="@id/editTextDaysSelection" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewMedications"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_14"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/screen_space"
+            android:paddingEnd="@dimen/screen_space"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewAddAnotherMedication"
+            tools:itemCount="4"
+            tools:listitem="@layout/auth_row_added_medication" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewLabelAddPrescription"
+            style="@style/TextView.Medium.sp_14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_20"
+            android:text="@string/setup_drugs_label_add_prescription"
+            android:textColor="@color/textBlack1"
+            app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+            app:layout_constraintStart_toStartOf="@id/guideLineStart"
+            app:layout_constraintTop_toBottomOf="@id/recyclerViewMedications" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/editTextUploadPhoto"
+            style="@style/editTextStroke"
+            android:layout_width="0dp"
+            android:layout_marginTop="@dimen/dp_12"
+            android:background="@drawable/bg_edittext_gray_stroke_dashed"
+            android:cursorVisible="false"
+            android:drawableEnd="@drawable/ic_upload"
+            android:focusable="false"
+            android:hint="@string/setup_drugs_label_upload_photo_of_prescription_here"
+            android:imeOptions="actionNext"
+            android:longClickable="false"
+            app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+            app:layout_constraintStart_toStartOf="@id/guideLineStart"
+            app:layout_constraintTop_toBottomOf="@id/textViewLabelAddPrescription" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewLabelYourPrescription"
+            style="@style/TextView.Medium.sp_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_20"
+            android:text="@string/setup_drugs_label_your_prescription"
+            android:textColor="@color/textBlack1"
+            app:layout_constraintStart_toStartOf="@id/guideLineStart"
+            app:layout_constraintTop_toBottomOf="@id/editTextUploadPhoto" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewAddMorePrescription"
+            style="@style/TextView.Medium.sp_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_20"
+            android:text="@string/setup_drugs_label_add"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+            app:layout_constraintTop_toBottomOf="@id/editTextUploadPhoto" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewPrescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_14"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/screen_space"
+            android:paddingEnd="@dimen/screen_space"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewLabelYourPrescription"
+            tools:itemCount="0"
+            tools:listitem="@layout/auth_row_added_prescription" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonNext"
+            style="@style/buttonSolid"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_40"
+            android:layout_marginBottom="@dimen/dp_24"
+            android:text="@string/setup_drugs_button_next"
+            app:layout_constraintBottom_toTopOf="@id/textViewSkipForNow"
+            app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+            app:layout_constraintStart_toStartOf="@id/guideLineStart"
+            app:layout_constraintTop_toBottomOf="@id/recyclerViewPrescription"
+            app:layout_constraintVertical_bias="1" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewSkipForNow"
+            style="@style/TextView.Medium.sp_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_30"
+            android:layout_marginBottom="@dimen/dp_30"
+            android:padding="@dimen/dp_4"
+            android:text="@string/setup_drugs_label_skip_for_now"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+            app:layout_constraintStart_toStartOf="@id/guideLineStart" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/groupBeforeAddPrescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:constraint_referenced_ids="textViewLabelAddPrescription,editTextUploadPhoto" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/groupAfterAddedPrescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:constraint_referenced_ids="textViewLabelYourPrescription,textViewAddMorePrescription,recyclerViewPrescription" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/groupToShowAfterSelectMedicine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:constraint_referenced_ids="textViewLabelSuggestedDosage,editTextSuggestedDosage,recyclerViewDosageTime,textViewLabelStartDate,textViewLabelEndDate,editTextStartDate,editTextEndDate,textViewLabelDaysSelection,editTextDaysSelection,textViewAddAnotherMedication" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

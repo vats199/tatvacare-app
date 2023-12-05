@@ -1,0 +1,556 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nestedScrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideLineStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/screen_space" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideLineEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/screen_space" />
+
+        <include
+            android:id="@+id/layoutHeader"
+            layout="@layout/auth_common_header"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--<androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewLogo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_24"
+            android:adjustViewBounds="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.75"
+            app:srcCompat="@drawable/ic_login_logo" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewTextLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageViewLogo"
+            app:srcCompat="@drawable/ic_app_text_logo_new" />-->
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/dp_8"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutHeader"
+            app:srcCompat="@drawable/bg_rounded_top" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/layoutAddDetails"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+            app:layout_constraintStart_toStartOf="@id/guideLineStart"
+            app:layout_constraintTop_toBottomOf="@id/layoutHeader">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_40"
+                android:layout_marginBottom="@dimen/dp_16"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageViewBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:padding="@dimen/dp_4"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/imageViewLogo"
+                    app:srcCompat="@drawable/ic_back" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelSignUp"
+                    style="@style/TextView.Bold.sp_20"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:text="@string/add_account_label_add_account_details"
+                    android:textColor="@color/colorPrimary" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layoutLinkDoctor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewLabelLinkDoctor"
+                        style="@style/TextView.SemiBold.sp_16"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/add_account_label_link_your_doctor"
+                        android:textColor="@color/textBlack1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewLabelNeedHelp"
+                        style="@style/TextView.Medium.sp_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/add_account_label_need_help"
+                        android:textColor="@color/colorPrimary"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="@id/textViewLabelLinkDoctor"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/textViewLabelLinkDoctor" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewLabelAccessCode"
+                        style="@style/TextView.Medium.sp_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_14"
+                        android:text="@string/add_account_label_access_code"
+                        android:textColor="@color/textBlack1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textViewLabelLinkDoctor" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/editTextAccessCode"
+                        style="@style/editTextStroke"
+                        android:layout_width="0dp"
+                        android:layout_marginTop="@dimen/dp_8"
+                        android:layout_marginEnd="@dimen/dp_14"
+                        android:hint="@string/add_account_hint_xxxxxx"
+                        android:inputType="textPassword"
+                        app:layout_constraintEnd_toStartOf="@id/buttonVerify"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textViewLabelAccessCode" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/buttonVerify"
+                        style="@style/buttonSolidSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_marginTop="@dimen/dp_50"
+                        android:layout_marginEnd="@dimen/dp_8"
+                        android:layout_marginBottom="@dimen/dp_30"
+                        android:paddingStart="@dimen/dp_24"
+                        android:paddingEnd="@dimen/dp_24"
+                        android:text="@string/add_account_button_verify"
+                        app:layout_constraintBaseline_toBaselineOf="@id/editTextAccessCode"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/editTextAccessCode" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewLabelOr"
+                        style="@style/TextView.Medium.sp_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_14"
+                        android:text="@string/add_account_label_or"
+                        android:textColor="@color/textBlack1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/editTextAccessCode" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewLabelScanQRCode"
+                        style="@style/TextView.Medium.sp_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_12"
+                        android:background="?selectableItemBackground"
+                        android:drawableStart="@drawable/ic_scan_qr"
+                        android:drawablePadding="@dimen/dp_14"
+                        android:padding="@dimen/dp_4"
+                        android:text="@string/add_account_label_scan_qr_code"
+                        android:textColor="@color/colorPrimary"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textViewLabelOr" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:alpha="0.8"
+                        android:background="@color/gray"
+                        android:clickable="true"
+                        android:elevation="@dimen/dp_2"
+                        android:focusable="true"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View style="@style/viewLine" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelVerifiedMobileNumber"
+                style="@style/TextView.Medium.sp_14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                android:drawableEnd="@drawable/ic_green_tick"
+                android:text="@string/add_account_label_verified_mobile_number"
+                android:textColor="@color/textBlack1" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="@dimen/dp_8"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewMobileNumber"
+                    style="@style/TextView.SemiBold.sp_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/textBlack1"
+                    tools:text="+91 9876543210" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageViewEditMobile"
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="@dimen/dp_20"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:background="@drawable/bg_circle_white"
+                    android:backgroundTint="@color/purpleLight"
+                    android:padding="@dimen/dp_5"
+                    app:srcCompat="@drawable/ic_edit_pencil"
+                    app:tint="@color/white" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/editTextFirstName"
+                    style="@style/editTextStroke"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:digits="@string/AZ_az_dot_single_coat"
+                    android:hint="@string/add_account_hint_first_name"
+                    android:imeOptions="actionNext"
+                    android:layout_marginEnd="@dimen/dp_16"
+                    android:inputType="textPersonName"
+                    android:maxLength="50"
+                    android:maxLines="1" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/editTextLastName"
+                    style="@style/editTextStroke"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:digits="@string/AZ_az_dot_single_coat"
+                    android:hint="@string/add_account_hint_last_name"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPersonName"
+                    android:maxLength="50"
+                    android:maxLines="1" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/editTextEmail"
+                style="@style/editTextStroke"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/dp_20"
+                android:hint="@string/add_account_hint_enter_your_email_id"
+                android:imeOptions="actionNext"
+                android:inputType="textEmailAddress" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputLayoutPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/dp_24"
+                app:hintEnabled="false"
+                app:layout_constraintEnd_toEndOf="@id/textViewLabelCreatePassword"
+                app:layout_constraintStart_toStartOf="@id/imageViewBack"
+                app:layout_constraintTop_toBottomOf="@id/imageViewBack"
+                app:passwordToggleDrawable="@drawable/selector_password_toggle"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/colorPrimary">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/editTextPassword"
+                    style="@style/editTextStroke"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:hint="@string/add_account_hint_set_your_password"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPassword"
+                    android:maxLength="30" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelValidation"
+                style="@style/TextView.Regular.sp_12"
+                android:layout_width="match_parent"
+                android:visibility="gone"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_6"
+                android:text="@string/add_account_label_password_note"
+                android:textColor="@color/textBlack1" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputLayoutConfirmPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_24"
+                android:visibility="gone"
+                app:hintEnabled="false"
+                app:layout_constraintEnd_toEndOf="@id/inputLayoutPassword"
+                app:layout_constraintStart_toStartOf="@id/inputLayoutPassword"
+                app:layout_constraintTop_toBottomOf="@id/inputLayoutPassword"
+                app:passwordToggleDrawable="@drawable/selector_password_toggle"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/colorPrimary">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/editTextConfirmPassword"
+                    style="@style/editTextStroke"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/dp_24"
+                    android:hint="@string/add_account_hint_confirm_password"
+                    android:imeOptions="actionDone"
+                    android:inputType="textPassword"
+                    app:layout_constraintEnd_toEndOf="@id/inputLayoutPassword"
+                    app:layout_constraintStart_toStartOf="@id/inputLayoutPassword"
+                    app:layout_constraintTop_toBottomOf="@id/inputLayoutPassword" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelGender"
+                style="@style/TextView.Medium.sp_14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:text="@string/add_account_label_gender"
+                android:textColor="@color/textBlack1" />
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8"
+                android:background="@drawable/bg_edittext_gray_stroke"
+                android:orientation="horizontal"
+                android:padding="@dimen/dp_3">
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/radioMale"
+                    style="@style/radioButton"
+                    android:checked="true"
+                    android:text="@string/add_account_radio_male" />
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/radioFemale"
+                    style="@style/radioButton"
+                    android:text="@string/add_account_radio_female" />
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/radioPreferNotToSay"
+                    style="@style/radioButton"
+                    android:text="@string/add_account_radio_prefer_not_to_say" />
+
+            </RadioGroup>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelDOB"
+                style="@style/TextView.Medium.sp_14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:text="@string/add_account_label_date_of_birth"
+                android:textColor="@color/textBlack1" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/editTextDOB"
+                style="@style/editTextStroke"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/dp_8"
+                android:cursorVisible="false"
+                android:drawableEnd="@drawable/ic_calendar_date"
+                android:focusable="false"
+                android:hint="@string/add_account_hint_dd_mm_yyyy"
+                android:imeOptions="actionDone"
+                android:longClickable="false" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelAccountRole"
+                style="@style/TextView.Medium.sp_14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:visibility="gone"
+                android:text="@string/add_account_label_i_am_a"
+                android:textColor="@color/textBlack1" />
+
+            <RadioGroup
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8"
+                android:background="@drawable/bg_edittext_gray_stroke"
+                android:orientation="horizontal"
+                android:padding="@dimen/dp_3">
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/radioPatient"
+                    style="@style/radioButton"
+                    android:checked="true"
+                    android:text="@string/add_account_radio_patient" />
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/radioCaregiver"
+                    style="@style/radioButton"
+                    android:text="@string/add_account_radio_caregiver"
+                    android:visibility="gone" />
+
+            </RadioGroup>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageViewAgreeTerms"
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="@dimen/dp_20"
+                    android:padding="@dimen/dp_2"
+                    android:background="?selectableItemBackgroundBorderless"
+                    app:srcCompat="@drawable/selector_ic_checkbox"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/checkBoxAgreeTerms"
+                    style="@style/checkBox"
+                    android:button="@null"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:paddingStart="@dimen/dp_4"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_width="match_parent"
+                    android:text="@string/add_account_label_i_agree_to_the_terms_and_conditions_and_privacy_policy"
+                    tools:ignore="RtlSymmetry" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+            <View style="@style/viewLine" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/TextView.SemiBold.sp_16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8"
+                android:text="@string/add_account_label_select_your_medical_condition"
+                android:textColor="@color/textBlack1" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/editTextMedicalCondition"
+                style="@style/editTextStroke"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/dp_12"
+                android:cursorVisible="false"
+                android:drawableEnd="@drawable/ic_dropdown_gray"
+                android:focusable="false"
+                android:hint="@string/add_account_hint_select_medical_condition"
+                android:imeOptions="actionDone"
+                android:longClickable="false" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewAddOtherMedicalCondition"
+                style="@style/TextView.Medium.sp_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:drawableEnd="@drawable/ic_add"
+                android:drawablePadding="@dimen/dp_5"
+                android:paddingTop="@dimen/dp_4"
+                android:paddingBottom="@dimen/dp_4"
+                android:text="Add More"
+                android:textColor="@color/colorPrimary"
+                android:visibility="gone" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewMedicalCondition"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/sp_12"
+            android:paddingEnd="@dimen/sp_12"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutAddDetails"
+            tools:listitem="@layout/auth_row_added_medical_condition" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonNext"
+            style="@style/buttonSolid"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_50"
+            android:layout_marginBottom="@dimen/dp_30"
+            android:enabled="true"
+            android:text="@string/add_account_button_next"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+            app:layout_constraintStart_toStartOf="@id/guideLineStart"
+            app:layout_constraintTop_toBottomOf="@id/recyclerViewMedicalCondition" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/screen_space" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/screen_space" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineContentStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/dp_24" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineContentEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/dp_24" />
+
+            <include
+                android:id="@+id/layoutHeader"
+                layout="@layout/layout_common_header_app_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/dp_8"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutHeader"
+                app:srcCompat="@drawable/bg_rounded_top" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_30"
+                android:background="?selectableItemBackgroundBorderless"
+                android:padding="@dimen/dp_4"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/layoutHeader"
+                app:srcCompat="@drawable/ic_back"
+                app:tint="@color/textBlack1" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelLetSetYourGoals"
+                style="@style/TextView.Bold.sp_18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_12"
+                android:text="@string/setup_goal_reading_label_set_your_goals"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintBottom_toBottomOf="@id/imageViewBack"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toEndOf="@id/imageViewBack"
+                app:layout_constraintTop_toTopOf="@id/imageViewBack" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewInfo"
+                android:layout_width="@dimen/dp_18"
+                android:layout_height="@dimen/dp_18"
+                android:layout_marginStart="@dimen/dp_8"
+                android:background="@drawable/bg_circle_white"
+                android:elevation="@dimen/dp_2"
+                app:layout_constraintBottom_toBottomOf="@id/textViewLabelLetSetYourGoals"
+                app:layout_constraintStart_toEndOf="@id/textViewLabelLetSetYourGoals"
+                app:layout_constraintTop_toTopOf="@id/textViewLabelLetSetYourGoals"
+                app:srcCompat="@drawable/ic_reading_info"
+                app:tint="@color/colorPrimary" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelSubTitleGoal"
+                style="@style/TextView.Medium.sp_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                android:text="@string/setup_goal_reading_label_we_have_set_goals_for_you_you_can_customize_them_below"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintEnd_toEndOf="@id/guideLineContentEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineContentStart"
+                app:layout_constraintTop_toBottomOf="@id/imageViewBack" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewGoals"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:orientation="vertical"
+                android:overScrollMode="never"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/textViewLabelSubTitleGoal"
+                tools:itemCount="2"
+                tools:listitem="@layout/auth_row_set_goals" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewAddMoreGoal"
+                style="@style/TextView.Medium.sp_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:background="@drawable/bg_button_theme_stroke"
+                android:drawableEnd="@drawable/ic_add"
+                android:drawablePadding="@dimen/dp_5"
+                android:paddingStart="@dimen/dp_12"
+                android:paddingTop="@dimen/dp_8"
+                android:paddingEnd="@dimen/dp_12"
+                android:paddingBottom="@dimen/dp_8"
+                android:text="@string/setup_goal_reading_label_add_more_goal"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintStart_toStartOf="@id/guideLineContentStart"
+                app:layout_constraintTop_toBottomOf="@id/recyclerViewGoals" />
+
+            <View
+                android:id="@+id/viewLine1"
+                style="@style/viewLine"
+                android:layout_width="0dp"
+                android:layout_marginTop="@dimen/dp_24"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/textViewAddMoreGoal" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelUpdateYourReadings"
+                style="@style/TextView.Bold.sp_18"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_24"
+                android:text="@string/setup_goal_reading_label_record_your_readings"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintEnd_toEndOf="@id/guideLineContentEnd"
+                app:layout_constraintStart_toEndOf="@id/guideLineContentStart"
+                app:layout_constraintTop_toBottomOf="@id/viewLine1" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelSubTitleReadings"
+                style="@style/TextView.Medium.sp_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                android:text="@string/setup_goal_reading_label_let_us_track_these_important_vitals_for_your_condition_you_can_choose_more_vitals_to_track"
+                android:textColor="@color/textBlack1"
+                app:layout_constraintEnd_toEndOf="@id/guideLineContentEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineContentStart"
+                app:layout_constraintTop_toBottomOf="@id/textViewLabelUpdateYourReadings" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewReadings"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:overScrollMode="never"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/textViewLabelSubTitleReadings"
+                tools:itemCount="2"
+                tools:listitem="@layout/auth_row_set_readings" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewAddMoreReadings"
+                style="@style/TextView.Medium.sp_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:background="@drawable/bg_button_theme_stroke"
+                android:drawableEnd="@drawable/ic_add"
+                android:drawablePadding="@dimen/dp_5"
+                android:paddingStart="@dimen/dp_12"
+                android:paddingTop="@dimen/dp_8"
+                android:paddingEnd="@dimen/dp_12"
+                android:paddingBottom="@dimen/dp_8"
+                android:text="@string/setup_goal_reading_label_add_more_record"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintStart_toStartOf="@id/guideLineContentStart"
+                app:layout_constraintTop_toBottomOf="@id/recyclerViewReadings" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonCompleteSetUp"
+                style="@style/buttonSolid"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_30"
+                android:layout_marginBottom="@dimen/dp_30"
+                android:text="@string/setup_goal_reading_button_complete_setup"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/textViewAddMoreReadings"
+                app:layout_constraintVertical_bias="1" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>

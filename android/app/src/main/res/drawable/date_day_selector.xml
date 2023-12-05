@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_checked="true" android:drawable="@android:color/transparent">
+        <!--<shape
+            android:innerRadius="0dp"
+            android:innerRadiusRatio="700"
+            android:shape="ring"
+            android:thickness="@dimen/dp_16"
+            android:useLevel="false">
+            <solid android:color="@color/colorPrimary" />
+        </shape>-->
+    </item>
+
+    <item android:state_pressed="true" android:drawable="@android:color/transparent">
+
+        <!--<shape
+            android:innerRadius="0dp"
+            android:innerRadiusRatio="700"
+            android:shape="ring"
+            android:thickness="@dimen/dp_16"
+            android:useLevel="false">
+            <solid android:color="@color/colorPrimary" />
+        </shape>-->
+
+    </item>
+
+    <item android:drawable="@android:color/transparent">
+
+        <!--<shape android:innerRadius="0dp" android:innerRadiusRatio="700" android:shape="ring" android:thickness="@dimen/dp_17" android:useLevel="false">
+            <stroke android:width="@dimen/dp_1" android:color="@color/green" />
+        </shape>-->
+
+    </item>
+
+</selector>

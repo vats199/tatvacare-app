@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_screen_color"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/layoutHeader"
+        layout="@layout/layout_common_toolbar_with_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutHeader">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bg_screen_color"
+            android:paddingBottom="@dimen/dp_20">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/screen_space" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLineEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/screen_space" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutLabTest"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                android:background="@drawable/bg_common_rounded_rect_12"
+                android:elevation="@dimen/dp_2"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0"
+                android:layout_marginBottom="@dimen/dp_16"
+                >
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideLineLabTestStart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="@dimen/screen_space" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideLineLabTestEnd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_end="@dimen/screen_space" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabTestTitle"
+                    style="@style/TextView.H4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/screen_space"
+                    android:layout_marginTop="@dimen/dp_16"
+                    tools:text="Fitgen"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:textColor="@color/textBlack9"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabTestDescription"
+                    style="@style/TextView.B4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:lineSpacingExtra="@dimen/dp_5"
+                    tools:text="@string/labtest_included_label_test_description"
+                    android:textColor="@color/gray9"
+                    app:layout_constraintEnd_toEndOf="@id/textViewLabTestTitle"
+                    app:layout_constraintStart_toStartOf="@id/textViewLabTestTitle"
+                    app:layout_constraintTop_toBottomOf="@id/textViewLabTestTitle" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelSampleRequired"
+                    style="@style/TextView.B4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_14"
+                    android:text="@string/labtest_included_label_sample_required"
+                    android:textColor="@color/textGray6"
+                    app:layout_constraintEnd_toStartOf="@id/textViewValueSampleRequired"
+                    app:layout_constraintStart_toStartOf="@id/textViewLabTestTitle"
+                    app:layout_constraintTop_toBottomOf="@id/textViewLabTestDescription" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewValueSampleRequired"
+                    style="@style/TextView.B4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    tools:text="Text Will Go Here"
+                    app:layout_constraintBaseline_toBaselineOf="@id/textViewLabelSampleRequired"
+                    android:layout_marginStart="@dimen/dp_2"
+                    android:textColor="@color/textBlack9"
+                    app:layout_constraintEnd_toEndOf="@id/textViewLabTestTitle"
+                    app:layout_constraintStart_toEndOf="@id/textViewLabelSampleRequired"
+                    app:layout_constraintTop_toTopOf="@id/textViewLabelSampleRequired" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewLabelPreparations"
+                    style="@style/TextView.B4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:text="@string/labtest_included_label_preparations"
+                    android:visibility="gone"
+                    android:textColor="@color/textGray6"
+                    app:layout_constraintEnd_toStartOf="@id/textViewValuePreparations"
+                    app:layout_constraintStart_toStartOf="@id/textViewLabTestTitle"
+                    app:layout_constraintTop_toBottomOf="@id/textViewLabelSampleRequired" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewValuePreparations"
+                    style="@style/TextView.B4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    tools:text="Text Will Go Here"
+                    android:layout_marginStart="@dimen/dp_2"
+                    android:visibility="gone"
+                    android:textColor="@color/textBlack9"
+                    app:layout_constraintBottom_toBottomOf="@id/textViewLabelPreparations"
+                    app:layout_constraintEnd_toEndOf="@id/textViewLabTestTitle"
+                    app:layout_constraintStart_toEndOf="@id/textViewLabelPreparations"
+                    app:layout_constraintTop_toTopOf="@id/textViewLabelPreparations" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewTotalPriceNew"
+                    style="@style/TextView.H4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_18"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    tools:text="₹1078"
+                    android:textColor="@color/textBlack9"
+                    app:layout_constraintEnd_toStartOf="@id/textViewPriceOld"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="@id/textViewLabTestTitle"
+                    app:layout_constraintTop_toBottomOf="@id/textViewValueSampleRequired" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewPriceOld"
+                    style="@style/TextView.B4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:ellipsize="end"
+                    android:foreground="@drawable/line_strike_through_with_padding"
+                    android:maxLines="1"
+                    tools:text="₹2695"
+                    android:textColor="@color/textGray6"
+                    app:layout_constraintBottom_toBottomOf="@id/textViewTotalPriceNew"
+                    app:layout_constraintEnd_toStartOf="@id/textViewItemDiscount"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toEndOf="@id/textViewTotalPriceNew"
+                    app:layout_constraintTop_toTopOf="@id/textViewTotalPriceNew" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewItemDiscount"
+                    style="@style/TextView.H5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    tools:text="40% off"
+                    android:textColor="@color/darkGreen1"
+                    app:layout_constraintBottom_toBottomOf="@id/textViewTotalPriceNew"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toEndOf="@id/textViewPriceOld"
+                    app:layout_constraintTop_toTopOf="@id/textViewTotalPriceNew" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/buttonAdd"
+                    style="@style/buttonStrokeButton2"
+                    android:layout_width="0dp"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:layout_marginBottom="@dimen/dp_18"
+                    android:text="@string/labtest_included_button_add"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/textViewLabTestTitle"
+                    app:layout_constraintStart_toStartOf="@id/textViewLabTestTitle"
+                    app:layout_constraintTop_toBottomOf="@id/textViewTotalPriceNew" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/buttonAdded"
+                    style="@style/buttonStrokeButton2Black"
+                    android:layout_width="0dp"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:layout_marginBottom="@dimen/dp_18"
+                    android:text="Added"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/textViewLabTestTitle"
+                    app:layout_constraintStart_toStartOf="@id/textViewLabTestTitle"
+                    app:layout_constraintTop_toBottomOf="@id/textViewTotalPriceNew" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLabelTestIncluded"
+                style="@style/TextView.H4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_24"
+                android:text="@string/labtest_included_label_test_included"
+                android:textColor="@color/textBlack9"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/layoutLabTest" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewTestDetailsIncludedTest"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_12"
+                android:layout_marginBottom="@dimen/dp_8"
+                android:background="@drawable/bg_common_rounded_rect_12"
+                android:clipToPadding="false"
+                android:elevation="@dimen/dp_2"
+                app:layout_constrainedHeight="true"
+                android:nestedScrollingEnabled="false"
+                android:paddingHorizontal="@dimen/dp_10"
+                android:paddingVertical="@dimen/dp_12"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+                app:layout_constraintStart_toStartOf="@id/guideLineStart"
+                app:layout_constraintTop_toBottomOf="@id/textViewLabelTestIncluded"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0"
+                tools:itemCount="20"
+                tools:listitem="@layout/labtest_row_test_details_included_test" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

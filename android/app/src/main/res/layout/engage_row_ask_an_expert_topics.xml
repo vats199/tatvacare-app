@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutTopic"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/dp_8"
+    android:layout_marginEnd="@dimen/dp_8"
+    android:background="@drawable/bg_common_rounded_rect_7"
+    android:backgroundTint="@color/yellow"
+    android:gravity="center"
+    android:paddingHorizontal="@dimen/dp_6"
+    android:paddingVertical="@dimen/dp_4"
+    app:layout_constrainedWidth="true"
+    app:layout_constraintEnd_toStartOf="@id/layoutQuestionOptions"
+    app:layout_constraintHorizontal_bias="0"
+    app:layout_constraintStart_toStartOf="@id/textViewQuestion"
+    app:layout_constraintTop_toBottomOf="@id/textViewQuestion">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewTopic"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_14"
+        android:adjustViewBounds="true"
+        tools:srcCompat="@drawable/ic_lungs" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewTopic"
+        style="@style/TextView.Regular.sp_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_6"
+        android:singleLine="true"
+        android:text="Lifestyle"
+        android:textColor="@color/white" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_46"
+        android:layout_marginStart="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_40"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_app_text_logo_new" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewCloseMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_12"
+        android:background="?selectableItemBackgroundBorderless"
+        android:padding="@dimen/dp_4"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/imageViewIcon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/imageViewIcon"
+        app:srcCompat="@drawable/ic_close_menu" />
+
+    <View
+        android:id="@+id/viewLine1"
+        style="@style/viewLine"
+        android:layout_width="0dp"
+        android:layout_marginTop="@dimen/dp_20"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageViewIcon" />
+
+    <!--android:layout_marginEnd="@dimen/dp_50"-->
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewProfile"
+        android:layout_width="@dimen/dp_60"
+        android:layout_height="@dimen/dp_80"
+        android:layout_marginTop="@dimen/dp_30"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="@id/viewLine1"
+        app:layout_constraintTop_toBottomOf="@id/viewLine1"
+        tools:srcCompat="@drawable/ic_dummy_1" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewPatientName"
+        style="@style/TextView.SemiBold.sp_20"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_11"
+        android:ellipsize="end"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintEnd_toEndOf="@id/viewLine1"
+        app:layout_constraintStart_toEndOf="@id/imageViewProfile"
+        app:layout_constraintTop_toTopOf="@id/imageViewProfile"
+        tools:text="Rakesh Kapoor" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewPlan"
+        style="@style/TextView.Regular.sp_14"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_2"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/textBlack1"
+        app:constraint_referenced_ids="textViewPatientName"
+        app:layout_constraintEnd_toEndOf="@id/viewLine1"
+        app:layout_constraintStart_toStartOf="@id/textViewPatientName"
+        app:layout_constraintTop_toBottomOf="@id/textViewPatientName"
+        tools:text="Coach Premium Plan" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewDrName"
+        style="@style/TextView.Regular.sp_14"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_14"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="Dr. Sameer Sharma"
+        android:textColor="@color/textBlack1"
+        android:visibility="gone"
+        app:constraint_referenced_ids="textViewPatientName"
+        app:layout_constraintEnd_toEndOf="@id/viewLine1"
+        app:layout_constraintStart_toStartOf="@id/textViewPatientName"
+        app:layout_constraintTop_toBottomOf="@id/textViewPlan" />
+
+    <!--android:drawableEnd="@drawable/ic_next_arrow_purple"-->
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewAccountSettings"
+        style="@style/TextView.Regular.sp_14"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="Account settings"
+        android:textColor="@color/colorPrimary"
+        app:constraint_referenced_ids="textViewPatientName"
+        app:layout_constraintEnd_toEndOf="@id/viewLine1"
+        app:layout_constraintStart_toStartOf="@id/textViewPatientName"
+        app:layout_constraintTop_toBottomOf="@id/textViewDrName" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewPatientMode"
+        android:layout_width="@dimen/dp_40"
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginTop="@dimen/dp_22"
+        android:scaleType="centerCrop"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@id/imageViewProfile"
+        app:layout_constraintStart_toStartOf="@id/imageViewProfile"
+        app:layout_constraintTop_toBottomOf="@id/textViewAccountSettings"
+        app:srcCompat="@drawable/ic_patient_mode_on" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewLabelPatientModeOn"
+        style="@style/TextView.Regular.sp_14"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_2"
+        android:text="Patient Mode is on"
+        android:textColor="@color/colorPrimary"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@id/textViewPatientName"
+        app:layout_constraintStart_toStartOf="@id/textViewPatientName"
+        app:layout_constraintTop_toTopOf="@id/imageViewPatientMode" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewSwitchToCaregiver"
+        style="@style/TextView.Regular.sp_12"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_3"
+        android:text="Switch to caregiver mode"
+        android:textColor="@color/colorPrimary"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@id/textViewPatientName"
+        app:layout_constraintStart_toStartOf="@id/textViewPatientName"
+        app:layout_constraintTop_toBottomOf="@id/textViewLabelPatientModeOn" />
+
+    <View
+        android:id="@+id/viewLine2"
+        style="@style/viewLine"
+        android:layout_width="0dp"
+        android:layout_marginTop="@dimen/dp_14"
+        android:layout_marginBottom="@dimen/dp_4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/viewLine1"
+        app:layout_constraintStart_toStartOf="@id/viewLine1"
+        app:layout_constraintTop_toBottomOf="@id/imageViewPatientMode" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

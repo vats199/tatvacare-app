@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutBcpTest"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="@dimen/dp_5"
+    android:elevation="@dimen/dp_2">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewTestDelete"
+        android:layout_width="@dimen/dp_20"
+        android:layout_height="@dimen/dp_20"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/screen_space"
+        app:layout_constraintTop_toTopOf="@id/textViewLabelTestDetails"
+        app:layout_constraintBottom_toBottomOf="@id/textViewLabelTestDetails"
+        app:srcCompat="@drawable/ic_delete_theme_color"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewLabelTestDetails"
+        style="@style/TextView.Bold.sp_16"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/labtest_order_review_label_included_plan"
+        android:textColor="@color/textBlack9"
+        android:layout_marginStart="@dimen/screen_space"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:ellipsize="end"
+        android:maxLines="1"
+        app:layout_constraintEnd_toStartOf="@id/imageViewTestDelete"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewBcpTest"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/dp_12"
+        android:layout_marginHorizontal="@dimen/screen_space"
+        android:clipToPadding="false"
+        android:elevation="@dimen/dp_2"
+        android:nestedScrollingEnabled="false"
+        android:background="@drawable/bg_common_rounded_rect_10"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewLabelTestDetails"
+        tools:itemCount="2"
+        tools:listitem="@layout/labtest_row_cart_test_v1" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

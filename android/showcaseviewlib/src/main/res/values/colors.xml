@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Basic theme colors -->
+    <color name="colorPrimary">#760FB2</color>
+    <color name="colorPrimaryDark">#760FB2</color>
+    <color name="colorAccent">#760FB2</color>
+
+    <color name="freshchat_notification_accent_color">@color/colorPrimary</color>
+
+    <!-- Other colors -->
+    <color name="purpleTransparent">#75760FB2</color>
+    <color name="purpleTransparent25">#40760FB2</color>
+    <color name="purpleTransparent20">#20760FB2</color>
+    <color name="purpleTransparent06">#06760FB2</color>
+    <color name="purpleTransparent15">#15760FB2</color>
+    <color name="purpleLight">#7B3AA1</color>
+    <color name="purpleLight1">#C57FFA</color>
+    <color name="purpleLight2">#E4BFFF</color>
+    <color name="purpleLight3">#F8EEFF</color>
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
+    <color name="whiteTransparent">#1Affffff</color>
+    <color name="gray">#D1D1D1</color>
+    <color name="gray1">#F1F1F1</color>
+    <color name="gray2">#666666</color>
+    <color name="gray3">#A39AB0</color>
+    <color name="gray4">#898E95</color>
+    <color name="gray7">#F3F3F3</color>
+    <color name="gray8">#999999</color>
+    <color name="lightGray">#D2D4D7</color>
+    <color name="gray5">#E9E9E9</color>
+    <color name="gray5Transparent">#40E9E9E9</color>
+    <color name="gray6">#B9B5CF</color>
+    <color name="lightGrayTransparent">#80151522</color>
+    <color name="grayDivider">#52707070</color>
+    <color name="textBlack1">#1B053C</color>
+    <color name="textBlack1Transparent">#CC1B053C</color>
+    <color name="textBlack1Transparent40">#401B053C</color>
+    <color name="textBlack2">#151522</color>
+    <color name="textDarkBlue">#1F2738</color>
+    <color name="orange">#FD5725</color>
+    <color name="redLight">#F44C5C</color>
+    <color name="overlayGradient1">#7A1C1C1C</color>
+    <color name="overlayGradient2">#000D0D0D</color>
+    <color name="grayTransparent">#268E8E8E</color>
+    <color name="pink1">#FF647C</color>
+    <color name="lightRedTransparent">#20F94E4E</color>
+    <color name="lightRed">#F94E4E</color>
+    <color name="purpleWhitish">#9F8EAA</color>
+    <color name="chartPink">#F061DC</color>
+
+    <color name="yellow">#FFC680</color>
+    <color name="pink">#FF808C</color>
+    <color name="skyBlue">#6AB6FF</color>
+    <color name="lightGreen">#77DD77</color>
+    <color name="yellow1">#FFBF00</color>
+    <color name="lightRed1">#FFDBDE</color>
+    <color name="lightGreen1">#EAFFE8</color>
+
+    <color name="lessCalorie">#FFBD6D</color>
+    <color name="limitCalorie">#77DD77</color>
+    <color name="excessCalorie">#FF6464</color>
+
+    <array name="progressColors">
+        <item>#C57FFA</item>
+        <item>#760FB2</item>
+    </array>
+</resources>

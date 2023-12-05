@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/layoutHeader"
+        layout="@layout/layout_common_toolbar_with_back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewTitle"
+        style="@style/TextView.SemiBold.sp_24"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginHorizontal="@dimen/screen_space"
+        android:text="OTP Verification"
+        android:textAlignment="viewStart"
+        android:textColor="@color/textBlack1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutHeader"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewMessage"
+        style="@style/TextView.Regular.sp_15"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/screen_space"
+        android:layout_marginTop="@dimen/dp_10"
+        android:text="Please enter the OTP, we have sent to your phone number +91-9999999999"
+        android:textAlignment="viewStart"
+        android:textColor="@color/textBlack4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewTitle" />
+
+    <include
+        android:id="@+id/layoutOTP"
+        layout="@layout/common_v2_layout_otp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/screen_space"
+        android:layout_marginTop="@dimen/dp_28"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewMessage" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewLabelDidntReceive"
+        style="@style/TextView.Medium.sp_14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_7"
+        android:layout_marginTop="@dimen/dp_18"
+        android:layout_marginBottom="@dimen/dp_100"
+        android:text="@string/forgot_password_label_didn_t_receive_otp"
+        android:textColor="@color/textBlack4"
+        app:layout_constraintEnd_toStartOf="@id/textViewResend"
+        app:layout_constraintStart_toStartOf="@id/layoutOTP"
+        app:layout_constraintTop_toBottomOf="@id/layoutOTP" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewResend"
+        style="@style/TextView.SemiBold.sp_14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_3"
+        android:text="@string/forgot_password_label_resend_code"
+        android:textColor="@color/clr_selector_purple_gray"
+        app:layout_constraintStart_toEndOf="@id/textViewLabelDidntReceive"
+        app:layout_constraintTop_toTopOf="@id/textViewLabelDidntReceive" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewTimer"
+        style="@style/TextView.SemiBold.sp_14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_18"
+        android:layout_marginStart="@dimen/dp_5"
+        android:textColor="@color/textGray7"
+        app:layout_constraintStart_toEndOf="@id/textViewResend"
+        app:layout_constraintTop_toBottomOf="@id/layoutOTP"
+        tools:text="1 : 40s" />
+
+    <!--<androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonVerify"
+        style="@style/buttonSolid"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/screen_space"
+        android:layout_marginTop="@dimen/dp_20"
+        android:text="Validate OTP"
+        app:layout_constraintTop_toBottomOf="@id/textViewResend"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />-->
+</androidx.constraintlayout.widget.ConstraintLayout>

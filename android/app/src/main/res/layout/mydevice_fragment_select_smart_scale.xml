@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <include
+        android:id="@+id/layoutHeader"
+        layout="@layout/layout_common_toolbar_with_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--layoutSearchingDevice-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutSearchingDevice"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="visible"
+        android:background="@color/gray1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutHeader">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewSearchDevice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintBottom_toTopOf="@id/textViewSearchingDevice"
+            app:srcCompat="@drawable/ic_searching_device" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewSearchingDevice"
+            style="@style/TextView.Medium.sp_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select_smart_scale_label_searching"
+            android:textColor="@color/textBlack1"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/dp_15"
+            app:layout_constraintVertical_chainStyle="packed"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageViewSearchDevice"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--layoutScaleNotFound-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutScaleNotFound"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/gray1"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutHeader">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewScaleNotFound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintVertical_bias="0.7"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintBottom_toTopOf="@id/textViewScaleNotFound"
+            app:srcCompat="@drawable/ic_scale_not_found_black" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewScaleNotFound"
+            style="@style/TextView.Medium.sp_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select_smart_scale_label_scale_not_found"
+            android:textColor="@color/textBlack1"
+            android:gravity="center"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@id/buttonSearchAgain"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewNote"
+            style="@style/TextView.Regular.sp_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select_smart_scale_label_note"
+            android:textColor="@color/darkRed"
+            android:gravity="center"
+            android:textAlignment="center"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintVertical_bias="0.2"
+            app:layout_constraintTop_toBottomOf="@id/textViewScaleNotFound"
+            app:layout_constraintBottom_toTopOf="@id/buttonSearchAgain"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <LinearLayout
+            android:id="@+id/buttonSearchAgain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/screen_space"
+            android:layout_marginBottom="@dimen/dp_18"
+            android:layout_marginEnd="@dimen/screen_space"
+            android:background="@drawable/bg_button_theme_solid"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:gravity="center"
+            android:paddingVertical="@dimen/dp_13">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:fontFamily="@font/sf_medium"
+                android:textSize="@dimen/sp_18"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:drawableStart="@drawable/ic_search_white"
+                android:drawablePadding="@dimen/dp_10"
+                android:gravity="center"
+                android:text="@string/select_smart_scale_button_search_again" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--layoutDevices-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutDevices"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        android:background="@color/gray1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutHeader">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewAllDevices"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:paddingTop="@dimen/dp_5"
+            android:clipToPadding="false"
+            android:paddingStart="@dimen/dp_12"
+            android:paddingBottom="@dimen/dp_15"
+            android:paddingEnd="@dimen/dp_12"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:itemCount="15"
+            tools:listitem="@layout/mydevice_row_select_smart_scale" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

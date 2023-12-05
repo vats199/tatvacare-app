@@ -1,0 +1,79 @@
+{
+  "project_info": {
+    "project_number": "784229987778",
+    "project_id": "mytatva-patient",
+    "storage_bucket": "mytatva-patient.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:784229987778:android:fb6f1d1dd2a5b3d36bd25b",
+        "android_client_info": {
+          "package_name": "com.mytatva.patient"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "784229987778-37teifsb34aa50joi3ctuiubdu7r29qj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mytatva.patient",
+            "certificate_hash": "a966d1d120a982703b4c02fe335a3f189c100aa3"
+          }
+        },
+        {
+          "client_id": "784229987778-kd619kbld3e5or1d9gef8258sqhpj5k7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mytatva.patient",
+            "certificate_hash": "59f045cf42ca10ac34fcc6d8902b43d03dc31f61"
+          }
+        },
+        {
+          "client_id": "784229987778-mhp99fmnc96349ikmv4u69otr19ree4p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mytatva.patient",
+            "certificate_hash": "48bae3f9e3207507829d676e670de96fd9013e5f"
+          }
+        },
+        {
+          "client_id": "784229987778-qhgg5h6p7m9ru0oigblafs5h6eq7gutg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mytatva.patient",
+            "certificate_hash": "b0fc49c29f1ba875d717b0c206217a827b71e1db"
+          }
+        },
+        {
+          "client_id": "784229987778-35lc6qssd7nranlddbfd7ffhlbbe4c0f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQ_s9O2HqsTeapbIXbF8G014genfBrCNQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "784229987778-35lc6qssd7nranlddbfd7ffhlbbe4c0f.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "784229987778-8c8jpeeen3d26dk9gs5b2att6p343i1c.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mytatva.patient",
+                "app_store_id": "1590299281"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

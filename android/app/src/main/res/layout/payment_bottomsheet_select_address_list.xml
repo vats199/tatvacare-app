@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_rounded_top_bottomsheet">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/viewBottomSheetHandle"
+        style="@style/bottomSheetHandleView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewTitle"
+        style="@style/TextView.Bold.sp_20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/screen_space"
+        android:layout_marginTop="@dimen/dp_36"
+        android:text="@string/payment_bottomsheet_header"
+        android:textColor="@color/textBlack7"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewAddNew"
+        style="@style/TextView.Medium.sp_14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/screen_space"
+        android:padding="@dimen/dp_5"
+        android:text="@string/payment_label_add_new"
+        android:textColor="@color/colorPrimary"
+        android:drawableStart="@drawable/ic_add_round_blue"
+        android:drawablePadding="@dimen/dp_4"
+        android:gravity="center_vertical"
+        app:layout_constraintBottom_toBottomOf="@id/textViewTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/textViewTitle" />
+
+    <View
+        android:id="@+id/viewLine1"
+        style="@style/viewLine"
+        android:layout_width="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewTitle"
+        app:layout_constraintVertical_bias="0"
+        />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/linearLayoutNoAddressaaListing"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewLine1"
+        app:layout_constraintBottom_toTopOf="@id/buttonAddSaveAddress"
+        android:layout_marginHorizontal="@dimen/dp_16"
+        android:layout_marginVertical="@dimen/dp_24"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:visibility="gone"
+        >
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewIconLocation"
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_30"
+            android:src="@drawable/ic_no_address"
+            />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewNoDataText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/payment_label_no_data_messge"
+            android:textAlignment="center"
+            android:layout_marginTop="@dimen/dp_10"
+            style="@style/TextView.Regular.sp_14"
+            android:textColor="@color/gray9"
+            />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewLine1"
+        app:layout_constraintBottom_toTopOf="@id/buttonAddSaveAddress"
+        android:fillViewport="false"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintVertical_bias="0"
+        >
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/layoutList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewAddressList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:itemCount="2"
+                android:paddingVertical="@dimen/dp_8"
+                tools:listitem="@layout/payment_row_bottomsheet_select_address"
+                android:clipToPadding="false"
+                android:overScrollMode="never"
+                android:background="@color/background_default"
+                />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonAddSaveAddress"
+        style="@style/buttonSolidWithCorner16"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/screen_space"
+        android:layout_marginTop="@dimen/dp_16"
+        android:layout_marginEnd="@dimen/screen_space"
+        android:layout_marginBottom="@dimen/dp_24"
+        android:text="@string/payment_header_label_add_address"
+        tools:visibility="visible"
+        android:visibility="gone"
+        android:backgroundTint="@color/clr_selector_purpal_light_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="1" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

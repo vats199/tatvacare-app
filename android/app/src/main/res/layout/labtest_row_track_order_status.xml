@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.AppCompatCheckedTextView
+        android:id="@+id/textViewSrNo"
+        style="@style/TextView.Medium.sp_13"
+        android:layout_width="@dimen/dp_36"
+        android:layout_height="@dimen/dp_36"
+        android:background="@drawable/bg_circle_white"
+        android:backgroundTint="@color/clr_selector_track_order_step"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="1"
+        android:textAlignment="gravity"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_14"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@id/textViewSrNo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/textViewSrNo"
+        app:layout_constraintTop_toTopOf="@id/textViewSrNo">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewTitle"
+            style="@style/TextView.Medium.sp_12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:alpha="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Order Placed"
+            android:textColor="@color/textBlack1" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewDate"
+            style="@style/TextView.Light.sp_11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_2"
+            android:alpha="0.8"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="2022-02-23"
+            android:textColor="@color/textBlack1" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/viewLine"
+        android:layout_width="@dimen/dp_1"
+        android:layout_height="@dimen/dp_24"
+        android:background="@color/white"
+        android:backgroundTint="@color/clr_selector_track_order_step"
+        android:layerType="software"
+        app:layout_constraintEnd_toEndOf="@id/textViewSrNo"
+        app:layout_constraintStart_toStartOf="@id/textViewSrNo"
+        app:layout_constraintTop_toBottomOf="@id/textViewSrNo" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

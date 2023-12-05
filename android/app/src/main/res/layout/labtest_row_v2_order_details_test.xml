@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/layoutMyDevice"
+    android:focusable="true">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewLabTest"
+        android:layout_width="@dimen/dp_40"
+        android:layout_height="@dimen/dp_40"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/dp_15"
+        android:layout_marginStart="@dimen/dp_16"
+        android:layout_marginBottom="@dimen/dp_12"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:srcCompat="@drawable/ic_all_lab_test" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewLabTestTitle"
+        style="@style/TextView.H5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_13"
+        android:layout_marginTop="@dimen/dp_3"
+        android:layout_marginEnd="@dimen/dp_12"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="Fitgen"
+        android:textColor="@color/textBlack9"
+        app:layout_constraintBottom_toTopOf="@id/textViewLabTestDescription"
+        app:layout_constraintEnd_toStartOf="@id/textViewTotalPrice"
+        app:layout_constraintStart_toEndOf="@id/imageViewLabTest"
+        app:layout_constraintTop_toTopOf="@id/imageViewLabTest" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewLabTestDescription"
+        style="@style/TextView.B4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_4"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:visibility="gone"
+        android:text="Report By Date"
+        android:textColor="@color/purpleLight5"
+        app:layout_constraintBottom_toBottomOf="@id/imageViewLabTest"
+        app:layout_constraintEnd_toEndOf="@id/textViewLabTestTitle"
+        app:layout_constraintStart_toStartOf="@id/textViewLabTestTitle"
+        app:layout_constraintTop_toBottomOf="@id/textViewLabTestTitle" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewTotalPrice"
+        style="@style/TextView.B3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:layout_marginEnd="@dimen/dp_16"
+        android:text="₹1078"
+        android:textColor="@color/textGray6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/imageViewLabTest"
+        app:layout_constraintBottom_toBottomOf="@id/imageViewLabTest"/>
+
+    <View
+        android:id="@+id/viewLine"
+        style="@style/viewLineWidth0"
+        android:layout_width="0dp"
+        android:visibility="visible"
+        android:layout_marginTop="@dimen/dp_12"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/textViewLabTestTitle"
+        app:layout_constraintTop_toBottomOf="@id/imageViewLabTest" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

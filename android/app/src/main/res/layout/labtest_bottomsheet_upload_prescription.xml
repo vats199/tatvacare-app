@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:background="@drawable/bg_rounded_top_bottomsheet">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/viewBottomSheetHandle"
+        style="@style/bottomSheetHandleView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewLabelUploadPrescription"
+        style="@style/TextView.H3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/screen_space"
+        android:layout_marginTop="@dimen/dp_20"
+        android:text="@string/bottomsheet_label_upload_prescription"
+        android:textColor="@color/textBlack9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewBottomSheetHandle" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/layoutClickPhoto"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/screen_space"
+        android:layout_marginTop="@dimen/dp_16"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewLabelUploadPrescription">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewClickPhoto"
+            android:layout_width="@dimen/dp_21"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/ic_click_photo" />
+
+        <androidx.appcompat.widget.AppCompatCheckedTextView
+            android:id="@+id/textViewClickPhoto"
+            style="@style/TextView.B3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_12"
+            android:text="@string/bottomsheet_upload_prescription_label_click_photo"
+            android:textColor="@color/textBlack9" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/layoutChooseGallery"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/screen_space"
+        android:layout_marginTop="@dimen/dp_6"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutClickPhoto">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewChooseFromGallery"
+            android:layout_width="@dimen/dp_21"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:padding="@dimen/dp_1"
+            android:adjustViewBounds="true"
+            app:srcCompat="@drawable/ic_choose_gallery" />
+
+        <androidx.appcompat.widget.AppCompatCheckedTextView
+            android:id="@+id/textViewChooseFromGallery"
+            style="@style/TextView.B3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_12"
+            android:text="@string/bottomsheet_upload_prescription_label_choose_gallery"
+            android:textColor="@color/textBlack9" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/layoutUploadFile"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/screen_space"
+        android:layout_marginTop="@dimen/dp_6"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutChooseGallery">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewUploadFile"
+            android:layout_width="@dimen/dp_21"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:padding="@dimen/dp_1"
+            android:adjustViewBounds="true"
+            app:srcCompat="@drawable/ic_upload_file" />
+
+        <androidx.appcompat.widget.AppCompatCheckedTextView
+            android:id="@+id/textViewUploadFile"
+            style="@style/TextView.B3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_12"
+            android:text="@string/bottomsheet_upload_prescription_label_upload_file"
+            android:textColor="@color/textBlack9" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/layoutMyPrescriptions"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/screen_space"
+        android:layout_marginTop="@dimen/dp_6"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutUploadFile">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewPrescriptions"
+            android:layout_width="@dimen/dp_21"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:padding="@dimen/dp_1"
+            android:adjustViewBounds="true"
+            app:srcCompat="@drawable/ic_prescriptions_bottomsheet" />
+
+        <androidx.appcompat.widget.AppCompatCheckedTextView
+            android:id="@+id/textViewMyPrescriptions"
+            style="@style/TextView.B3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_12"
+            android:text="@string/bottomsheet_upload_prescription_label_my_prescription"
+            android:textColor="@color/textBlack9" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewLabelGuideForPrescriptions"
+        style="@style/TextView.H5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/screen_space"
+        android:layout_marginTop="@dimen/dp_28"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="@string/bottomsheet_upload_prescription_label_guide"
+        android:textColor="@color/textBlack9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutMyPrescriptions" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewLabelGuideInfo"
+        style="@style/TextView.B4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/screen_space"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/screen_space"
+        android:layout_marginBottom="@dimen/dp_18"
+        android:text="@string/bottomsheet_upload_prescription_label_guide_info"
+        android:textColor="@color/textGray7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewLabelGuideForPrescriptions" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

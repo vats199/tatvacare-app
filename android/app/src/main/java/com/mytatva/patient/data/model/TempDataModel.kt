@@ -1,0 +1,25 @@
+package com.mytatva.patient.data.model
+
+data class TempDataModel(
+    val id: Int = 0,
+    val name: String = "",
+    val key: String = "",
+    val medicineName: String = "",
+    val title: String = "",
+    val desc: String = "",
+    val buttonText: String = "",
+    val image: Int = 0,
+    var imagePath: String = "",
+    var isPdfDocFile: Boolean = false,
+    var isSelected: Boolean = false,
+    var isConnected: Boolean = false,
+    val colorRes: Int = 0,
+    val max: Int = 0,
+    val progress: Int = 0,
+    val subList: List<TempDataModel>? = null,
+    val contentType: String = ContentTypes.ARTICLE_BLOG.contentKey,
+    var isAlreadyUploaded: Boolean = false,
+    var prescription_document_rel_id: String? = null,
+    var document_name: String? = null,
+    var isVisible: Boolean = false,
+)
